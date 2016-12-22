@@ -36,7 +36,6 @@ local NomadShieldChanges = function(SuperClass)
 
 
 Shield = NomadShieldChanges(Shield)
-UnitShield = NomadShieldChanges(UnitShield)
 AntiArtilleryShield = NomadShieldChanges(AntiArtilleryShield)
 
 
