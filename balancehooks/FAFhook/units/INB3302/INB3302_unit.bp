@@ -1,0 +1,7 @@
+UnitBlueprint {
+    Merge = true,
+    BlueprintId = "inb3302", # T3 sonar
+    Economy = {
+        BuildTime = 750,
+    },
+}

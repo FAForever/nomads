@@ -1,0 +1,50 @@
+ProjectileBlueprint {
+    Audio = {
+        Impact = Sound {
+            Bank = 'Impacts',
+            Cue = 'UEF_Expl_Med_Impact',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+        ImpactTerrain = Sound {
+            Bank = 'Impacts',
+            Cue = 'Impact_Land_Gen_UEF',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+        ImpactWater = Sound {
+            Bank = 'Impacts',
+            Cue = 'Impact_Water_Splash_UEF',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+    },
+    Categories = {
+        'NOMAD',
+        'PROJECTILE',
+        'DIRECTFIRE',
+    },
+    Display = {
+        ImpactEffects = {
+            Scale = 0.5,
+            Type = 'Small02',
+        },
+        StrategicIconSize = 1,
+    },
+    General = {
+        Category = 'Direct Fire',
+        EntityCategory = {
+            'NOMAD',
+            'PROJECTILE',
+            'DIRECTFIRE',
+        },
+        Faction = 'NOMAD',
+        Weapon = 'Ion Blaster',
+    },
+    Interface = {
+        HelpText = 0,
+    },
+    Physics = {
+        DestroyOnWater = false,
+        InitialSpeed = 35,
+        VelocityAlign = true,
+        UseGravity = false, # should make unit not get stuck shooting AA
+    },
+}

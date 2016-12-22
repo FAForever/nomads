@@ -1,0 +1,13 @@
+MeshBlueprint {
+    IconFadeInZoom = 130,
+    LODs = {
+        {
+            AlbedoName = '/effects/Entities/CybranPhalanxSphere01/CybranPhalanxSphere02_Albedo.dds',
+            LODCutoff = 300,
+            MeshName = '/effects/Entities/Sphere01/Sphere01_lod0.scm',
+            NormalsName = '/effects/Entities/CybranPhalanxSphere01/CybranPhalanxSphere01_Normals.dds',
+            ShaderName = 'PhalanxEffect',
+            SpecularName = '/effects/Entities/Sphere01/Sphere01_SpecTeam.dds',
+        },
+    },
+}

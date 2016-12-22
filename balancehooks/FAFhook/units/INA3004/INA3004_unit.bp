@@ -1,0 +1,13 @@
+UnitBlueprint {
+    Merge = true,
+    BlueprintId = "ina3004", # T3 bomber
+    Wreckage = {
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = true,
+            Sub = true,
+            Water = true,
+        },
+    },
+}

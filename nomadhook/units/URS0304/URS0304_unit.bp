@@ -1,0 +1,28 @@
+UnitBlueprint {
+    Merge = true,
+    BlueprintId = "urs0304", # Cybran T3 submarine
+    SpecialAbilities = {
+        LaunchNuke = {
+            AreaOfEffect = 40,
+            MaxRadius = -1,
+        },
+    },
+    Weapon = {
+        {
+        },
+        {
+        },
+        {
+            Buffs = {
+                {
+                    Add = {
+                        ImpactTypeDisallow = {
+                            'Shield',
+                        },
+                    },
+                    TargetDisallow = 'UNSTUNABLE,TECH3,EXPERIMENTAL,COMMAND',
+                },
+            },
+        },
+    },
+}

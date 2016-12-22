@@ -1,0 +1,13 @@
+UnitBlueprint {
+    Merge = true,
+    BlueprintId = "ina1004", # T1 gunship
+    Wreckage = {
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = true,
+            Sub = true,
+            Water = true,
+        },
+    },
+}

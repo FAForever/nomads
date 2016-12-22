@@ -1,0 +1,30 @@
+UnitBlueprint {
+    Merge = true,
+    BlueprintId = "inu0001", #ACU
+    Enhancements = {
+        AdvancedEngineering = {
+            NewBuildRate = 42,
+        },
+        T3Engineering = {
+            BuildTime = 8400,
+            NewBuildRate = 126,
+        },
+    },
+    Veteran = {
+        Level1 = 20,
+        Level2 = 40,
+        Level3 = 60,
+        Level4 = 90,
+        Level5 = 120,
+    },
+    Weapon = {
+        {
+        },
+        {
+        },
+        {
+            NukeInnerRingDamage = 2000, #from 45000
+            NukeOuterRingDamage = 500, #from 5000
+        },
+    },
+}

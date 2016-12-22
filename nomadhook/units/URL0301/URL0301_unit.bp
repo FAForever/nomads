@@ -1,0 +1,22 @@
+UnitBlueprint {
+    Merge = true,
+    BlueprintId = "url0301", # Cybran support commander
+    Weapon = {
+        {
+            Buffs = {
+                {
+                    Add = {
+                        ImpactTypeDisallow = {
+                            'Shield',
+                        },
+                    },
+                    TargetDisallow = 'UNSTUNABLE,EXPERIMENTAL,COMMAND',
+                },
+            },
+        },
+        {
+        },
+        {
+        },
+    },
+}

@@ -1,0 +1,19 @@
+ProjectileBlueprint
+{
+    Merge = true,
+    Source = "/projectiles/CAANanoDart03/CAANanoDart03_proj.bp",   # Cybran cruiser AA missile
+    Categories = {
+        'CYBRAN',
+        'PROJECTILE',
+        'MISSILE', # added this to allow AA missile flares on Nomad gunships
+        'ANTIAIR',
+    },
+    General = {
+        EntityCategory = {
+            'CYBRAN',
+            'PROJECTILE',
+            'MISSILE', # added
+            'ANTIAIR',
+        },
+    },
+}

@@ -1,0 +1,41 @@
+# simple black-ish projectile
+ProjectileBlueprint {
+    Audio = {
+        Impact = Sound {
+            Bank = 'NomadsProjectiles',
+            Cue = 'ParticleBlaster_MediumImpact',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+    },
+    Categories = {
+        'NOMAD',
+        'PROJECTILE',
+        'DIRECTFIRE',
+    },
+    Display = {
+        ImpactEffects = {
+            Scale = 0.5,
+            Type = 'Small02',
+        },
+        StrategicIconSize = 1,
+    },
+    General = {
+        Category = 'Direct Fire',
+        EntityCategory = {
+            'NOMAD',
+            'PROJECTILE',
+            'DIRECTFIRE',
+        },
+        Faction = 'NOMAD',
+        Weapon = 'Particle Blaster',
+    },
+    Interface = {
+        HelpText = 0,
+    },
+    Physics = {
+        DestroyOnWater = false,
+        InitialSpeed = 35,
+        VelocityAlign = true,
+        UseGravity = false, # should make unit not get stuck shooting AA
+    },
+}

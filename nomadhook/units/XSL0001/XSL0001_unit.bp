@@ -1,0 +1,10 @@
+UnitBlueprint {
+    Merge = true,
+    BlueprintId = "xsl0001", # Seraphim ACU
+    SpecialAbilities = {
+        LaunchTacMissile = {
+            MaxRadius = 256,
+            MinRadius = 5,
+        },
+    },
+}

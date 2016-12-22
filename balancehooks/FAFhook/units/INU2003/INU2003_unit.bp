@@ -1,0 +1,11 @@
+UnitBlueprint {
+    Merge = true,
+    BlueprintId = "inu2003", # MML
+    Wreckage = {
+        WreckageLayers = {
+            Seabed = true,
+            Sub = true,
+            Water = true,
+	},
+    },
+}

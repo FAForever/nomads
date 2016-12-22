@@ -1,0 +1,12 @@
+TrailEmitterBlueprint {
+    BlueprintId = 'EMP_gun_polytrail_03_emit',
+    Lifetime = -1.00,
+    TrailLength = 5,
+    Size = 0.015,
+    SortOrder = 0,
+    BlendMode = 3.0,
+    TextureRepeatRate = 0.15,
+    LODCutoff = 160,
+    RepeatTexture = [[/textures/particles/plasma_alpha_04.dds]],
+    RampTexture = [[/textures/particles/ramp_green_01.dds]],
+}

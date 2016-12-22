@@ -1,0 +1,16 @@
+MeshBlueprint {
+    LODs = {
+        {
+            MeshName = '/effects/Entities/Sphere05/Sphere05_lod0.scm',
+            AlbedoName = '/effects/Entities/Shield05/Shield05_Albedo.dds',
+            SpecularName = '/effects/Entities/Shield05/Shield05_Specular.dds',
+            SecondaryName = '/effects/Entities/Shield05/Shield05_Secondary.dds',
+            ShaderName = 'ShieldNomad',
+#            ShaderName = 'ShieldUEF',
+            LODCutoff = 1000,
+        },
+    },
+    IconFadeInZoom = 4,
+    SortOrder = 1000,
+    StraddleWater = true,
+}

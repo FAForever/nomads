@@ -1,0 +1,51 @@
+ProjectileBlueprint {
+    Audio = {
+        ExistLoop = Sound {
+            Bank = 'NomadsMisc',
+            Cue = 'MeteorFlightLoop',
+            LodCutoff = 'DefaultLodCutoff',
+        },
+        Impact = Sound {
+            Bank = 'NomadsMisc',
+            Cue = 'MeteorImpactTerrain',
+            LodCutoff = 'DefaultLodCutoff',
+        },
+        ImpactTerrain = Sound {
+            Bank = 'NomadsMisc',
+            Cue = 'MeteorImpactTerrain',
+            LodCutoff = 'DefaultLodCutoff',
+        },
+        ImpactUnderWater = Sound {
+            Bank = 'NomadsMisc',
+            Cue = 'MeteorImpactUnderWater',
+            LodCutoff = 'DefaultLodCutoff',
+        },
+        ImpactWater = Sound {
+            Bank = 'Impacts',
+            Cue = 'Impact_Water_Splash_AEON',
+            LodCutoff = 'DefaultLodCutoff',
+        },
+#        ImpactWater = Sound {
+#            Bank = 'NomadsMisc',
+#            Cue = 'MeteorImpactWaterSurface',
+#            LodCutoff = 'DefaultLodCutoff',
+#        },
+    },
+    Display = {
+        ImpactEffects = {
+            Type = 'Large01',
+        },
+        StrategicIconSize = 3,
+    },
+    Physics = {
+        CollideEntity = false,
+        CollideSurface = true,
+        DestroyOnWater = false,
+        InitialSpeed = 0,
+        RotationalVelocity = 0,
+        RotationalVelocityRange = 0,
+        StayUpright = true,
+        UseGravity = false,
+        VelocityAlign = true,
+    },
+}

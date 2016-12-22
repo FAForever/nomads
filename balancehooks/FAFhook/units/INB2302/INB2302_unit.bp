@@ -1,0 +1,8 @@
+UnitBlueprint {
+    Merge = true,
+    BlueprintId = "inb2302", # T3 Artillery Installation
+    Economy = {
+        BuildCostEnergy = 900000,
+        BuildCostMass = 90000,
+    },
+}

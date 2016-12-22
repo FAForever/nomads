@@ -1,0 +1,13 @@
+TrailEmitterBlueprint {
+    BlueprintId = 'ionblast_polytrail_01',
+    Lifetime = -1.00,
+    TrailLength = 0.7,
+    Size = 0.3,
+    SortOrder = 0,
+    BlendMode = 3,
+    TextureRepeatRate = 1,
+    LODCutoff = 160,
+    RepeatTexture = [[/textures/particles/railgun_trail_01.dds]],
+    RampTexture = [[/textures/particles/ramp_red_13.dds]],
+}
+

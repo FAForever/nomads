@@ -1,0 +1,18 @@
+UnitBlueprint {
+    Merge = true,
+    BlueprintId = "inu4002", # exp Bullfrog
+    Veteran = {
+        Level1 = 80,
+        Level2 = 160,
+        Level3 = 240,
+        Level4 = 320,
+        Level5 = 400,
+    },
+    Wreckage = {
+        WreckageLayers = {
+            Seabed = true,
+            Sub = true,
+            Water = true,
+        },
+    },
+}

@@ -1,0 +1,7 @@
+UnitBlueprint {
+    Merge = true,
+    BlueprintId = "inb2207", # T2 railgun defense
+    Economy = {
+        BuildTime = 1467,
+    },
+}

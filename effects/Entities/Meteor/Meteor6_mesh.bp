@@ -1,0 +1,11 @@
+MeshBlueprint {
+    IconFadeInZoom = 130,
+    LODs = {
+        {
+            AlbedoName = '/env/RedRocks/Props/Boulder06_albedo.dds',
+            LODCutoff = 300,
+            MeshName = '/env/RedRocks/Props/Boulder06_lod0.scm',
+            ShaderName = 'VertexNormal',
+        },
+    },
+}

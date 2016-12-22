@@ -1,0 +1,14 @@
+UnitBlueprint {
+    Merge = true,
+    BlueprintId = "urs0201", # Cybran T2 destroyer
+    AI = {
+        TargetBones = {
+            'URS0202',
+            'Back_Wake',
+            'FrontTargetBone',
+        },
+    },
+    Physics = {
+        LandSpeedMultiplier = 0.25, # bug in SetSpeedMult fixed, adjusting value to keep same speed
+    },
+}

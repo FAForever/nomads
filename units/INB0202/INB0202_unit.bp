@@ -1,0 +1,373 @@
+UnitBlueprint {
+    AI = {
+        TargetBones = {
+            'Target01',
+            'Target02',
+            'Target03',
+            'INB0202',
+        },
+    },
+    Audio = {
+        Construct = Sound {
+            Bank = 'NomadsBuildings',
+            Cue = 'FactoryStartUnitProduction',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        ConstructLoop = Sound {
+            Bank = 'NomadsBuildings',
+            Cue = 'FactoryLoopUnitProduction',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        DeathExplosion = Sound {
+            Bank = 'NomadsDestroy',
+            Cue = 'Destroy_Lrg_PreDestroy',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Destroyed = Sound {
+            Bank = 'NomadsDestroy',
+            Cue = 'Destroy_Lrg_Structure',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        DoneBeingBuilt = Sound {
+            Bank = 'NomadsBuildings',
+            Cue = 'AirFactoryActivate',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'NomadsInterface',
+            Cue = 'Nomads_Select_Factory',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+    BuildIconSortPriority = 60,
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER1FACTORY',
+        'NOMAD',
+        'STRUCTURE',
+        'AIR',
+        'TECH2',
+        'CONSTRUCTION',
+        'FACTORY',
+        'RALLYPOINT',
+        'DRAGBUILD',
+        'CONSTRUCTIONSORTDOWN',
+        'SIZE16',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'SHOWQUEUE',
+        'SORTCONSTRUCTION',
+    },
+    Defense = {
+        AirThreatLevel = 0,
+        ArmorType = 'Structure',
+        EconomyThreatLevel = 16,
+        Health = 8000,
+        MaxHealth = 8000,
+        RegenRate = 0,
+        SubThreatLevel = 0,
+        SurfaceThreatLevel = 0,
+    },
+    Description = '<LOC inb0202_desc>Air Factory',
+    Display = {
+        Abilities = {
+            '<LOC ability_upgradable>Upgradeable',
+        },
+        AnimationFinishBuildLand = '/units/inb0202/inb0202_alift.sca',
+        AnimationUpgrade = '/units/inb0202/inb0202_aupgrade.sca',
+        #BlinkingLights = {
+        #    {
+        #        BLBone = 'Tower04',
+        #        BLOffsetX = 0.25,
+        #        BLOffsetY = 0.07,
+        #        BLOffsetZ = 0.6,
+        #        BLScale = 2,
+        #    },
+        #},
+        #BlinkingLightsFx = {
+        #    Green = '/effects/emitters/light_green_03_emit.bp',
+        #    Red = '/effects/emitters/light_red_03_emit.bp',
+        #    Yellow = '/effects/emitters/light_yellow_02_emit.bp',
+        #},
+        BuildAttachBone = 'Attachpoint',
+        BuildEffect = {
+            Factory = {
+#                BuildFieldCorrection = 0.2,
+#                BuildFieldReversed = true,
+            },
+        },
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 500,
+                    ShaderName = 'NomadUnit',
+                },
+            },
+        },
+        SpawnRandomRotation = true,
+        Tarmacs = {
+            {
+                Albedo = 'Tarmacs/Tar12x_nomad_01_albedo',
+                DeathLifetime = 300,
+                FadeOut = 150,
+                Length = 12.8,
+                Normal = 'Tarmacs/Tar12x_nomad_01_normals',
+                Orientations = {
+                    0,
+                },
+                RemoveWhenDead = false,
+                Width = 12.8,
+            },
+        },
+        UniformScale = 0.42,
+    },
+    Economy = {
+        BuildCostEnergy = 11700,
+        BuildCostMass = 630,
+        BuildRate = 40,
+        BuildTime = 1800,
+        BuildableCategory = {
+            'BUILTBYTIER2FACTORY NOMAD MOBILE CONSTRUCTION',
+            'BUILTBYTIER2FACTORY NOMAD STRUCTURE AIR',
+            'BUILTBYTIER2FACTORY NOMAD MOBILE AIR',
+            'TRANSPORTBUILTBYTIER2FACTORY NOMAD MOBILE AIR',
+        },
+        StorageEnergy = 0,
+        StorageMass = 0,
+    },
+    Footprint = {
+        SizeX = 5,
+        SizeZ = 5,
+    },
+    General = {
+        BuildEffectScaleX = 0.01,
+        BuildEffectScaleY = 0.5,
+        BuildEffectScaleZ = 0.3,
+        BuildBones = {
+            BuildEffectBones = {
+                'muzzle.001',
+                'muzzle.002',
+                'muzzle.003',
+                'muzzle.004',
+            },
+        },
+        Category = 'Factory',
+        Classification = 'RULEUC_Factory',
+        CommandCaps = {
+            RULEUCC_Attack = false,
+            RULEUCC_CallTransport = false,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Pause = true,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        ConstructionBar = true,
+        FactionName = 'Nomads',
+        Icon = 'air',
+        SelectionPriority = 5,
+        TechLevel = 'RULEUTL_Advanced',
+        UnitWeight = 1,
+        UpgradesFrom = 'inb0102',
+        UpgradesTo = 'inb0302',
+    },
+    Intel = {
+        VisionRadius = 20,
+    },
+    Interface = {
+        HelpText = '<LOC inb0202_help>Air Factory',
+    },
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 1.65,
+    LifeBarSize = 4.5,
+    Physics = {
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = true,
+            LAYER_Orbit = false,
+            LAYER_Seabed = false,
+            LAYER_Sub = false,
+            LAYER_Water = false,
+        },
+        DragCoefficient = 0.2,
+        FlattenSkirt = true,
+        MaxSteerForce = 0,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_None',
+        RaisedPlatforms = {
+
+            # Platform 1
+            # TopLeft Offset From Center
+            -2.1, #-1.6,
+
+            # x
+            -2.625, #-2,
+
+            # z
+            0.23625, #0.18,
+
+            # height
+            # TopRight Offset From Center
+            2,
+
+            # x
+            -2.625, #-2,
+
+            # z
+            0.23625, #0.18,
+
+            # height
+            # BottomLeft Offset From Center
+            -2.1, #-1.6,
+
+            # x
+            2.1, #1.6,
+
+            # z
+            0.23625, #0.18,
+
+            # height
+            # BottomRight Offset From Center
+            2.625, #2,
+
+            # x
+            2.1, #1.6,
+
+            # z
+            0.23625, #0.18,
+
+            # height
+            # Platform 2
+            # TopLeft Offset From Center
+            2.296875, #-1.75,
+
+            # x
+            -2.625, #-2,
+
+            # z
+            0,
+
+            # height
+            # TopRight Offset From Center
+            -2.1, #-1.6,
+
+            # x
+            -2.625, #-2,
+
+            # z
+            0.23625, #0.18,
+
+            # height
+            # BottomLeft Offset From Center
+            -2.296875, #-1.75,
+
+            # x
+            2.1, #1.6,
+
+            # z
+            0,
+
+            # height
+            # BottomRight Offset From Center
+            -2.1, #-1.6,
+
+            # x
+            2.1, #1.6,
+
+            # z
+            0.23625, #0.18,
+
+            # height
+            # Platform 3
+            # TopLeft Offset From Center
+            -2.625, #-2,
+
+            # x
+            2.1, #1.6,
+
+            # z
+            0.23625, #0.18,
+
+            # height
+            # TopRight Offset From Center
+            2.625, #2,
+
+            # x
+            2.1, #1.6,
+
+            # z
+            0.23625, #0.18,
+
+            # height
+            # BottomLeft Offset From Center
+            -2.625, #-2,
+
+            # x
+            2.296875, #1.75,
+
+            # z
+            0,
+
+            # height
+            # BottomRight Offset From Center
+            2.625, #2,
+
+            # x
+            2.296875, #1.75,
+
+            # z
+            0,
+        },
+        RollOffPoints = {
+            {
+                UnitSpin = 0,
+                X = 0,
+                Y = 0,
+                Z = 3,
+            },
+            {
+                UnitSpin = -90,
+                X = -3,
+                Y = 0,
+                Z = 0,
+            },
+        },
+        SkirtOffsetX = -1.5,
+        SkirtOffsetZ = -1.5,
+        SkirtSizeX = 8,
+        SkirtSizeZ = 8,
+        TurnRate = 0,
+    },
+    SelectionSizeX = 4.2,
+    SelectionSizeZ = 4.07,
+    SelectionThickness = 0.3,
+
+    # height
+    SizeX = 5.25,
+    SizeY = 1.84,
+    SizeZ = 5.25,
+    StrategicIconName = 'icon_factory2_air',
+    StrategicIconSortPriority = 215,
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = false,
+            Sub = false,
+            Water = false,
+        },
+    },
+}

@@ -1,0 +1,20 @@
+UnitBlueprint {
+    Merge = true,
+    BlueprintId = "ura0104", # cybran T1 transport
+    Weapon = {
+        {
+            Buffs = {
+                {
+                    Add = {
+                        ImpactTypeDisallow = {
+                            'Shield',
+                        },
+                    },
+                    TargetDisallow = 'UNSTUNABLE,TECH3,EXPERIMENTAL,COMMAND',
+                },
+            },
+        },
+        {
+        },
+    },
+}

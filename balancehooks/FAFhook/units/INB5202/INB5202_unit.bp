@@ -1,0 +1,7 @@
+UnitBlueprint {
+    Merge = true,
+    BlueprintId = "inb5202", # Air staging facility
+    Economy = {
+        BuildTime = 453,
+    },
+}

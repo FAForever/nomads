@@ -1,0 +1,85 @@
+ProjectileBlueprint {
+    Audio = {
+        Impact = Sound {
+            Bank = 'Impacts',
+            Cue = 'CYB_Expl_Med_Impact',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+        ImpactTerrain = Sound {
+            Bank = 'Impacts',
+            Cue = 'Impact_Land_Gen_CYBRAN',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+        ImpactWater = Sound {
+            Bank = 'Impacts',
+            Cue = 'Impact_Water_Splash_CYBRAN',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+    },
+    Categories = {
+        'NOMAD',
+        'PROJECTILE',
+        'INDIRECTFIRE',
+        'TACTICAL',
+        'MISSILE',
+        'NOSPLASHDAMAGE',
+        'BUOY',
+        'PROBE',
+    },
+    Defense = {
+        Health = 2,
+        MaxHealth = 2,
+    },
+    Display = {
+        ImpactEffects = {
+            Scale = 0.5,
+            Type = 'Medium03',
+        },
+        Mesh = {
+            LODs = {
+                {
+                    AlbedoName = '/projectiles/CIFGrenade01/CIFGrenade01_Albedo.dds',
+                    LODCutoff = 150,
+                    MeshName = '/projectiles/CIFGrenade01/CIFGrenade01_lod0.scm',
+                    SpecularName = '/projectiles/CIFGrenade01/CIFGrenade01_SpecTeam.dds',
+                    ShaderName = 'TMeshNoLighting',
+                },
+            },
+        },
+        StrategicIconSize = 3,
+        UniformScale = 0.15,
+    },
+    General = {
+        Category = 'Direct Fire',
+        EntityCategory = {
+            'NOMAD',
+            'PROJECTILE',
+            'INDIRECTFIRE',
+            'TACTICAL',
+            'MISSILE',
+            'NOSPLASHDAMAGE',
+            'BUOY',
+            'PROBE',
+        },
+        Faction = 'Nomad',
+        Weapon = 'IntelProbe',
+    },
+    Interface = {
+        HelpText = 0,
+    },
+    Physics = {
+        Acceleration = 3,
+        DestroyOnWater = false,
+        InitialSpeed = 3,
+        Lifetime = 99999,
+        MaxSpeed = 25,
+        TrackTarget = false,  # will be enabled by scripting, causes a problems otherwise
+        TrackTargetGround = true,
+        TurnRate = 30,
+        UseGravity = true,
+        VelocityAlign = true,
+        MaxZigZag = 10,
+        ZigZagFrequency = 0.1,
+    },
+    StrategicIconName = '/textures/ui/common/game/strategicicons/icon_intelprobe1.dds',
+}

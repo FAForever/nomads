@@ -1,0 +1,68 @@
+ProjectileBlueprint {
+    Audio = {
+        Impact = Sound {
+            Bank = 'Impacts',
+            Cue = 'CYB_Expl_Med_Impact',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+        ImpactTerrain = Sound {
+            Bank = 'Impacts',
+            Cue = 'Impact_Land_Gen_CYBRAN',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+        ImpactWater = Sound {
+            Bank = 'Impacts',
+            Cue = 'Impact_Water_Splash_CYBRAN',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+    },
+    Categories = {
+        'NOMAD',
+        'PROJECTILE',
+        'NOSPLASHDAMAGE',
+        'ANTIMISSILE',
+    },
+    Display = {
+        Mesh = {
+            LODs = {
+                {
+                    AlbedoName = '/projectiles/CDFRocketIridium01/CDFRocketIridium01_albedo.dds',
+                    LODCutoff = 150,
+                    MeshName = '/projectiles/CDFRocketIridium01/CDFRocketIridium01_lod0.scm',
+                    ShaderName = 'TMeshAlpha',
+                },
+            },
+        },
+        StrategicIconSize = 1,
+        UniformScale = 0.5,
+    },
+    Economy = {
+        BuildCostEnergy = 360000,
+        BuildCostMass = 3600,
+        BuildTime = 259200,
+    },
+    General = {
+        Category = 'Defense',
+        EntityCategory = {
+            'NOMAD',
+            'PROJECTILE',
+            'MISSILE',
+        },
+        Faction = 'Nomad',
+    },
+    Interface = {
+        HelpText = 0,
+    },
+    Physics = {
+        Acceleration = 30,
+        DestroyOnWater = false,
+        HitAssignedTarget = true,
+        LeadTarget = true,
+        MaxSpeed = 90,
+        TrackTarget = true,
+        TurnRate = 180,
+        UseGravity = false,
+        VelocityAlign = true,
+    },
+    StrategicIconName = '/textures/ui/common/game/strategicicons/icon_strategic_antinuke.dds',
+}

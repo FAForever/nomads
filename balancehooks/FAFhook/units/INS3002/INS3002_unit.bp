@@ -1,0 +1,26 @@
+UnitBlueprint {
+    Merge = true,
+    BlueprintId = "ins3002", # Tactical Sub
+    RemoveAnimationDeath = true,
+    Veteran = {
+        Level1 = 16,
+        Level2 = 32,
+        Level3 = 48,
+        Level4 = 64,
+        Level5 = 80,
+    },
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = false,
+            Seabed = true,
+            Sub = true,
+            Water = true,
+        },
+    },
+}

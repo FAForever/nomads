@@ -1,0 +1,13 @@
+UnitBlueprint {
+    Merge = true,
+    BlueprintId = "ina3001", # T3 scout
+    Wreckage = {
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = true,
+            Sub = true,
+            Water = true,
+        },
+    },
+}

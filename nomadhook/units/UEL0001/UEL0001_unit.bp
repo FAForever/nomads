@@ -1,0 +1,10 @@
+UnitBlueprint {
+    Merge = true,
+    BlueprintId = "uel0001", # UEF ACU
+    SpecialAbilities = {
+        LaunchTacMissile = {
+            MaxRadius = 256,
+            MinRadius = 5,
+        },
+    },
+}

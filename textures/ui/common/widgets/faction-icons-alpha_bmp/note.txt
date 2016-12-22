@@ -1,0 +1,3 @@
+Problem:
+
+Either in the faction select menu the nomad symbol will be pure black, but ingame the nomads symbol works as for every other faction - or the faction select will look proper, but ingame you will have a logo all in the same yellow color, surrounded by the teamcolor. Yet I don't know how to exactly step around that problem.

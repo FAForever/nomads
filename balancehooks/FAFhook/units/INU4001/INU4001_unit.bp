@@ -1,0 +1,18 @@
+UnitBlueprint {
+    Merge = true,
+    BlueprintId = "inu4001", # exp Crawler
+    Veteran = {
+        Level1 = 40,
+        Level2 = 80,
+        Level3 = 120,
+        Level4 = 160,
+        Level5 = 200,
+    },
+    Wreckage = {
+        WreckageLayers = {
+            Seabed = true,
+            Sub = true,
+            Water = true,
+        },
+    },
+}

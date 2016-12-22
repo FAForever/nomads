@@ -1,0 +1,115 @@
+ProjectileBlueprint {
+    Audio = {
+        Impact = Sound {
+            Bank = 'Impacts',
+            Cue = 'CYB_Expl_Med_Impact',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+        ImpactTerrain = Sound {
+            Bank = 'Impacts',
+            Cue = 'Impact_Land_Gen_CYBRAN',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+        ImpactWater = Sound {
+            Bank = 'Impacts',
+            Cue = 'Impact_Water_Splash_CYBRAN',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+    },
+    Categories = {
+        'NOMAD',
+        'PROJECTILE',
+        'TACTICAL',
+        'MISSILE',
+	'DIRECTFIRE',
+        'NOSPLASHDAMAGE',
+    },
+    Defense = {
+        Health = 1,
+        MaxHealth = 1,
+    },
+    Display = {
+        ImpactEffects = {
+            Type = 'Medium03',
+        },
+        Mesh = {
+            LODs = {
+                {
+                    AlbedoName = '/projectiles/CDFRocketIridium01/CDFRocketIridium01_albedo.dds',
+                    LODCutoff = 150,
+                    MeshName = '/projectiles/CDFRocketIridium01/CDFRocketIridium01_lod0.scm',
+                    ShaderName = 'TMeshAlpha',
+                },
+            },
+        },
+        StrategicIconSize = 2,
+        Trail = {
+            # A trail that is added to the projectile when it supposedly enters the planets (denser) atmosphere
+            AtmosphereHeight = 65,
+            Effect = 'OrbitalStrikeMissile_AtmosphereTrail',
+        },
+        UniformScale = 0.8,
+    },
+    General = {
+        Category = 'Direct Fire',
+        EntityCategory = {
+            'NOMAD',
+            'PROJECTILE',
+            'DIRECTFIRE',
+        },
+        Faction = 'NOMAD',
+        Weapon = 'NomadOrbitalStrikeMissile01',
+    },
+    Interface = {
+        HelpText = 0,
+    },
+    Physics = {
+
+        Acceleration = 5,
+        DestroyOnWater = true,
+        MaxSpeed = 65,
+        MaxZigZag = 0.5,
+        RotationalVelocity = 0,
+        RotationalVelocityRange = 0,
+        TurnRate = 400,
+        TrackTarget = true,
+        TrackTargetGround = true,
+        UseGravity = false,
+        VelocityAlign = true,
+        ZigZagFrequency = 1,
+
+        # stage 1: horizontal movement high in the air
+        MaxSpeedS1 = 65,
+        MaxZigZagS1 = 10,
+        TurnRateS1 = 400,
+        ZigZagFrequencyS1 = 1,
+
+        # stage 2: aim downwards towards target
+        Stage2Distance = 250,  # stage 2 activates when this far from being on top of the target
+        MaxSpeedS2 = 42,
+        MaxZigZagS2 = 8,
+        TurnRateS2 = 300,
+        ZigZagFrequencyS2 = 0.2,
+
+        # stage 3: during descent
+        Stage3Distance = 150,
+        MaxSpeedS3 = 32,
+        MaxZigZagS3 = 6,
+        TurnRateS3 = 60,
+        ZigZagFrequencyS3 = 0.6,
+
+        # stage 4: approaching target
+        Stage4Distance = 60,
+        MaxSpeedS4 = 18,
+        MaxZigZagS4 = 2,
+        TurnRateS4 = 60,
+        ZigZagFrequencyS4 = 1,
+
+        # stage 5: just before impact
+        Stage5Distance = 5,
+        MaxSpeedS5 = 18,
+        MaxZigZagS5 = 0,
+        TurnRateS5 = 60,
+        ZigZagFrequencyS5 = 0,
+    },
+}

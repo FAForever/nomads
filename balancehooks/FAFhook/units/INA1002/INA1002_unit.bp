@@ -1,0 +1,13 @@
+UnitBlueprint {
+    Merge = true,
+    BlueprintId = "ina1002", # interceptor
+    Wreckage = {
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = true,
+            Sub = true,
+            Water = true,
+        },
+    },
+}

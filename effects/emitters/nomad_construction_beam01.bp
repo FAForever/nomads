@@ -1,0 +1,13 @@
+BeamBlueprint {
+    Lifetime = -1,
+    TextureName = '/textures/particles/nomadbuildbeam.dds', #'/textures/particles/nomad_heatray.dds',
+    Thickness = 0.04,
+    StartColor = {x=1,y=1,z=1,w=0.01}, # R,G,B,A
+    EndColor = {x=0,y=0,z=0,w=0.01}, # R,G,B,A
+    Blendmode = 3.0,
+    RepeatRate = 0.04,
+    Length = 2000,
+    UShift = 0.0,
+    VShift = -0.013,
+    LODCutoff = 3500,
+}

@@ -1,0 +1,28 @@
+UnitBlueprint {
+    Merge = true,
+    BlueprintId = "inu3001", # SCU
+    Economy = {
+        BuildCostEnergy = 8000,
+        BuildCostMass = 500,
+        BuildRate = 15,
+        BuildTime = 7200,
+        ProductionPerSecondEnergy = 0,
+        ProductionPerSecondMass = 0,
+    },
+    Veteran = {
+        Level1 = 24,
+        Level2 = 48,
+        Level3 = 72,
+        Level4 = 96,
+        Level5 = 120,
+    },
+    Wreckage = {
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = true,
+            Sub = true,
+            Water = true,
+        },
+    },
+}

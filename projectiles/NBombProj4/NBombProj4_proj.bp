@@ -1,0 +1,46 @@
+ProjectileBlueprint {
+    Audio = {
+        Impact = Sound {
+            Bank = 'NomadsProjectiles',
+            Cue = 'EnergyBomb_Impact',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+        ImpactWater = Sound {
+            Bank = 'Impacts',
+            Cue = 'Impact_Water_Splash_UEF',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+    },
+    Categories = {
+        'NOMAD',
+        'PROJECTILE',
+        'INDIRECTFIRE',
+    },
+    Display = {
+        CameraFollowTimeout = 2,
+        CameraFollowsProjectile = true,
+        ImpactEffects = {
+            Type = 'Medium03',
+        },
+        StrategicIconSize = 3,
+    },
+    General = {
+        Category = 'Bomb',
+        EntityCategory = {
+            'NOMAD',
+            'PROJECTILE',
+            'INDIRECTFIRE',
+        },
+        Faction = 'NOMAD',
+    },
+    Interface = {
+        HelpText = 0,
+    },
+    Physics = {
+        DestroyOnWater = true,
+        MaxSpeed = 40,
+        RealisticOrdinance = true,
+        TrackTarget = false,
+        VelocityAlign = true,
+    },
+}

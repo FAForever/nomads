@@ -1,0 +1,17 @@
+name = "Nomads Test - Slugger beam weapons"
+uid = "58192ca6-9f27-4e77-aafc-1fb8f6a5ab1e"
+version = 1
+copyright = ""
+description = "Puts beam weapons on the Slugger T3 siege tank"
+author = "Nomads Team"
+icon = "/textures/mods/nomadslogo_testmod.dds"
+url = ""
+selectable = true
+enabled = true
+exclusive = false
+ui_only = false
+requires = { }
+requiresNames = { }
+conflicts = {}
+before = { }
+after = { }

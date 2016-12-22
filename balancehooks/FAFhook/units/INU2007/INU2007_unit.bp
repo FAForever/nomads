@@ -1,0 +1,18 @@
+UnitBlueprint {
+    Merge = true,
+    BlueprintId = "inu2007", # exp beamer
+    Veteran = {
+        Level1 = 30,
+        Level2 = 60,
+        Level3 = 90,
+        Level4 = 120,
+        Level5 = 150,
+    },
+    Wreckage = {
+        WreckageLayers = {
+            Seabed = true,
+            Sub = true,
+            Water = true,
+        },
+    },
+}

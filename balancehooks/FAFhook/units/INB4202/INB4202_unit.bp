@@ -1,0 +1,12 @@
+UnitBlueprint {
+    Merge = true,
+    BlueprintId = "inb4202", # T2 shield
+    Defense = {
+        Shield = {
+            ShieldRegenStartTime = 3,
+        },
+    },
+    Economy = {
+        BuildTime = 700,
+    },
+}

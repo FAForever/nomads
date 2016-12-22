@@ -1,0 +1,14 @@
+MeshBlueprint {
+    IconFadeInZoom = 130,
+    LODs = {
+        {
+            MeshName = '/units/INO2302/INO2302_lod0.scm',
+            AlbedoName = '/units/INO2302/INO2302_albedo.dds',
+            NormalsName = '/units/INO2302/INO2302_normalsTS.dds',
+            SpecularName = '/units/INO2302/INO2302_specteam.dds',
+            LookupName = '/textures/effects/NomadBuildNoiseLookup.dds',
+            ShaderName = 'NomadBuild',
+            LODCutoff = 300,
+        },
+    },
+}

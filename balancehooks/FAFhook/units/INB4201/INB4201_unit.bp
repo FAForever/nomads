@@ -1,0 +1,24 @@
+UnitBlueprint {
+    Merge = true,
+    BlueprintId = "inb4201", # T3 SAM
+    Defense = {
+        Health = 7000,
+        MaxHealth = 7000,
+    },
+    Economy = {
+        BuildTime = 1195,
+    },
+    Veteran = {
+        Level1 = 24,
+        Level2 = 48,
+        Level3 = 72,
+        Level4 = 96,
+        Level5 = 120,
+    },
+    Weapon = {
+        {
+            DamageRadius = 1.5,
+            MuzzleVelocity = 45,
+        },
+    },
+}

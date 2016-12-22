@@ -1,0 +1,21 @@
+UnitBlueprint {
+    Merge = true,
+    BlueprintId = "inu2001", #T3 Engineer
+    Defense = {
+        Health = 520,
+        MaxHealth = 520,
+    },
+    Economy = {
+        BuildCostEnergy = 2200,
+        BuildCostMass = 440,
+        BuildRate = 40,
+        BuildTime = 2200,
+    },
+    Wreckage = {
+        WreckageLayers = {
+            Seabed = true,
+            Sub = true,
+            Water = true,
+	},
+    },
+}

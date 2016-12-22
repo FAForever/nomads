@@ -1,0 +1,10 @@
+MeshBlueprint {
+    LODs = {
+        {
+            ShaderName = 'NomadFactoryBuildRect',
+            LookupName = '/textures/effects/NomadBuildNoiseLookup.dds',
+            LODCutoff = 1000,
+        },
+    },
+    SortOrder = 1000,
+}

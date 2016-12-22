@@ -1,0 +1,50 @@
+ProjectileBlueprint {
+    Audio = {
+        Impact = Sound {
+            Bank = 'NomadsProjectiles',
+            Cue = 'EnergyCannon_Impact',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+        ImpactWater = Sound {
+            Bank = 'Impacts',
+            Cue = 'Impact_Water_Splash_UEF',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+    },
+    Categories = {
+        'NOMAD',
+        'PROJECTILE',
+        'ARTILLERY',
+        'DIRECTFIRE',
+    },
+    Display = {
+        ImpactEffects = {
+            Type = 'Medium03',
+        },
+        StrategicIconSize = 2,
+    },
+    DoNotCollideList = {
+        'TORPEDO',
+    },
+    General = {
+        Category = 'Direct Fire',
+        EntityCategory = {
+            'NOMAD',
+            'PROJECTILE',
+            'INDIRECTFIRE',
+            'ARTILLERY',
+        },
+        Faction = 'NOMAD',
+        Weapon = 'Heavy Plasma Cannon',
+    },
+    Interface = {
+        HelpText = 0,
+    },
+    Physics = {
+        DestroyOnWater = true,
+        InitialSpeed = 12,
+        LeadTarget = false,
+        Lifetime = 10,
+        UseGravity = true,
+    },
+}

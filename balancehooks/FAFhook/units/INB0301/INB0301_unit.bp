@@ -1,0 +1,23 @@
+UnitBlueprint {
+    Merge = true,
+    BlueprintId = "inb0301", # T3 Land Factory
+    AddCategories = {
+	'RESEARCH',
+    },
+    Description = '<LOC inb0301faf_desc>Land Factory (HQ)',
+    Economy = {
+        BuildCostEnergy = 39900,
+        BuildCostMass = 4440,
+        BuildRate = 90,
+        BuildTime = 9400,
+	DifferentialUpgradeCostCalculation = true,
+    },
+    General = {
+        UpgradesFrom = 'inb0201',
+        UpgradesFromBase = 'inb0101',
+    },
+    Interface = {
+        HelpText = '<LOC inb0301faf_help>Land Factory (HQ)',
+    },
+    StrategicIconName = 'icon_factoryhq3_land',
+}

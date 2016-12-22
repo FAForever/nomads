@@ -1,0 +1,27 @@
+UnitBlueprint {
+    Merge = true,
+    BlueprintId = "ina1001", # T1 air scout
+    AddCategories = {
+        'OVERLAYRADAR',
+        'OVERLAYSONAR',
+    },
+    Economy = {
+        BuildCostEnergy = 420,
+        BuildTime = 145,
+    },
+    Intel = {
+        RadarRadius = 65,
+        SonarRadius = 35,
+    },
+    Wreckage = {
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = true,
+            Sub = true,
+            Water = true,
+        },
+    },
+}
+
+

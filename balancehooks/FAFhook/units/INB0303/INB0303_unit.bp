@@ -1,0 +1,29 @@
+UnitBlueprint {
+    Merge = true,
+    BlueprintId = "inb0303", # T3 Naval Factory
+    AddCategories = {
+	'RESEARCH',
+    },
+    Description = '<LOC inb0303faf_desc>Naval Factory (HQ)',
+    Economy = {
+        BuildCostEnergy = 32572,
+        BuildCostMass = 7120,
+        BuildRate = 120,
+        BuildTime = 9200,
+        BuildableCategory = {
+            'BUILTBYTIER3FACTORY NOMAD MOBILE CONSTRUCTION',
+            'BUILTBYTIER3FACTORY NOMAD STRUCTURE NAVAL',
+            'BUILTBYTIER3FACTORY NOMAD MOBILE NAVAL',
+            'FIELDENGINEER NOMAD MOBILE LAND',
+        },
+	DifferentialUpgradeCostCalculation = true,
+    },
+    General = {
+        UpgradesFrom = 'inb0203',
+        UpgradesFromBase = 'inb0103',
+    },
+    Interface = {
+        HelpText = '<LOC inb0303faf_help>Naval Factory (HQ)',
+    },
+    StrategicIconName = 'icon_factoryhq3_naval',
+}

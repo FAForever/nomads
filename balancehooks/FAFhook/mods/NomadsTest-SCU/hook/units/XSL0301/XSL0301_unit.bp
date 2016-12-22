@@ -1,0 +1,4 @@
+UnitBlueprint {
+    BlueprintId = 'xsl0301',
+    Merge = true,
+}

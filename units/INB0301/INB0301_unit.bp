@@ -1,0 +1,327 @@
+UnitBlueprint {
+    AI = {
+        TargetBones = {
+            'INB0201',
+        },
+    },
+    Audio = {
+        Construct = Sound {
+            Bank = 'NomadsBuildings',
+            Cue = 'FactoryStartUnitProduction',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        ConstructLoop = Sound {
+            Bank = 'NomadsBuildings',
+            Cue = 'FactoryLoopUnitProduction',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        DeathExplosion = Sound {
+            Bank = 'NomadsDestroy',
+            Cue = 'Destroy_Lrg_PreDestroy',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Destroyed = Sound {
+            Bank = 'NomadsDestroy',
+            Cue = 'Destroy_Lrg_Structure',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        DoneBeingBuilt = Sound {
+            Bank = 'NomadsBuildings',
+            Cue = 'LandFactoryActivate',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'NomadsInterface',
+            Cue = 'Nomads_Select_Factory',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+    BuildIconSortPriority = 70,
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER2FACTORY',
+        'NOMAD',
+        'STRUCTURE',
+        'LAND',
+        'TECH3',
+        'CONSTRUCTION',
+        'FACTORY',
+        'RALLYPOINT',
+        'DRAGBUILD',
+        'CONSTRUCTIONSORTDOWN',
+        'SIZE16',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'SHOWQUEUE',
+        'SORTCONSTRUCTION',
+    },
+    CollisionOffsetZ = 0.2,
+    Defense = {
+        AirThreatLevel = 0,
+        ArmorType = 'Structure',
+        EconomyThreatLevel = 11,
+        Health = 19500,
+        MaxHealth = 19500,
+        RegenRate = 0,
+        SubThreatLevel = 0,
+        SurfaceThreatLevel = 0,
+    },
+    Description = '<LOC inb0301_desc>Land Factory',
+    Display = {
+	SequenceAnimation = '/units/INB0301/NB0301_Asequence.sca',
+        BlinkingLights = {
+            {
+                BLBone = 0,
+                BLOffsetX = -1.28,
+                BLOffsetY = 0.9,
+                BLOffsetZ = 1.4,
+                BLScale = 1.5,
+            },
+            {
+                BLBone = 0,
+                BLOffsetX = 1.28,
+                BLOffsetY = 0.9,
+                BLOffsetZ = 1.4,
+                BLScale = 1.5,
+            },
+        },
+        BlinkingLightsFx = {
+            Green = '/effects/emitters/light_green_03_emit.bp',
+            Red = '/effects/emitters/light_red_03_emit.bp',
+            Yellow = '/effects/emitters/light_yellow_02_emit.bp',
+        },
+        BuildAttachBone = 'Attachpoint',
+        BuildEffect = {
+            Factory = {
+                BuildFieldOffset = 0,
+                BuildFieldReversed = true,
+            },
+        },
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 500,
+                    ShaderName = 'NomadUnit',
+                },
+            },
+        },
+        PlaceholderMeshName = 'UXB0006',
+        SpawnRandomRotation = false,
+        Tarmacs = {
+            {
+                Albedo = 'Tarmacs/Tar12x_nomad_01_albedo',
+                DeathLifetime = 300,
+                FadeOut = 150,
+                Length = 12.8,
+                Normal = 'Tarmacs/Tar12x_nomad_01_normals',
+                Orientations = {
+                    0,
+                },
+                RemoveWhenDead = false,
+                Width = 12.8,
+            },
+        },
+        UniformScale = 0.45,
+    },
+    Economy = {
+        BuildCostEnergy = 28350,
+        BuildCostMass = 3150,
+        BuildTime = 8400,
+        BuildRate = 60,
+        BuildableCategory = {
+            'BUILTBYTIER3FACTORY NOMAD MOBILE CONSTRUCTION',
+            'BUILTBYTIER3FACTORY NOMAD STRUCTURE LAND',
+            'BUILTBYTIER3FACTORY NOMAD MOBILE LAND',
+            'FIELDENGINEER NOMAD MOBILE LAND',
+        },
+        StorageEnergy = 0,
+        StorageMass = 0,
+    },
+    Footprint = {
+        SizeX = 5,
+        SizeZ = 5,
+    },
+    General = {
+        BuildEffectScaleX = 0.01,
+        BuildEffectScaleY = 0.5,
+        BuildEffectScaleZ = 0.4,
+        BuildBones = {
+            BuildEffectBones = {
+               'muzzle.001',
+               'muzzle.002',
+            },
+        },
+        Category = 'Factory',
+        Classification = 'RULEUC_Factory',
+        CommandCaps = {
+            RULEUCC_Attack = false,
+            RULEUCC_CallTransport = false,
+            RULEUCC_Capture = false,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Pause = true,
+            RULEUCC_Reclaim = false,
+            RULEUCC_Repair = false,
+            RULEUCC_RetaliateToggle = true,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        ConstructionBar = true,
+        FactionName = 'Nomads',
+        Icon = 'land',
+        SelectionPriority = 5,
+        TechLevel = 'RULEUTL_Secret',
+        UnitWeight = 1,
+        UpgradesFrom = 'inb0201',
+    },
+    Intel = {
+        VisionRadius = 20,
+    },
+    Interface = {
+        HelpText = '<LOC inb0301_help>Land Factory',
+    },
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 2.5,
+    LifeBarSize = 4.5,
+    Physics = {
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = true,
+            LAYER_Orbit = false,
+            LAYER_Seabed = false,
+            LAYER_Sub = false,
+            LAYER_Water = false,
+        },
+        DragCoefficient = 0.2,
+        FlattenSkirt = true,
+        MaxSteerForce = 0,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_None',
+        RaisedPlatforms = {
+
+            # Platform 1
+            # TopLeft Offset From Center
+            -1.875, #-1.5,
+
+            # x
+            -2.5, #-2,
+
+            # z
+            0.8125, #0.65,
+
+            # height
+            # TopRight Offset From Center
+            1.875, #1.5,
+
+            # x
+            -2.5, #-2,
+
+            # z
+            0.8125, #0.65,
+
+            # height
+            # BottomLeft Offset From Center
+            -1.875, #-1.5,
+
+            # x
+            2.5, #2,
+
+            # z
+            0.8125, #0.65,
+
+            # height
+            # BottomRight Offset From Center
+            1.875, #1.5,
+
+            # x
+            2.5, #2,
+
+            # z
+            0.8125, #0.65,
+
+            # height
+            # Platform 2
+            # TopLeft Offset From Center
+            -1.875, #-1.5,
+
+            # x
+            2.5, #2,
+
+            # z
+            0.8125, #0.65,
+
+            # height
+            # TopRight Offset From Center
+            1.875, #1.5,
+
+            # x
+            2.5, #2,
+
+            # z
+            0.8125, #0.65,
+
+            # height
+            # BottomLeft Offset From Center
+            -1.875, #-1.5,
+
+            # x
+            4.75, #3.8,
+
+            # z
+            0,
+
+            # height
+            # BottomRight Offset From Center
+            1.875, #1.5,
+
+            # x
+            4.75, #3.8,
+
+            # z
+            0,
+
+            # height
+            
+        },
+        RollOffPoints = {
+            {
+                UnitSpin = 0,
+                X = 0,
+                Y = 0,
+                Z = 3,
+            },
+        },
+        # height
+        SkirtOffsetX = -1.5,
+        SkirtOffsetZ = -1.5,
+        SkirtSizeX = 8,
+        SkirtSizeZ = 8,
+        TurnRate = 0,
+    },
+    SelectionSizeX = 4,
+    SelectionSizeZ = 4.15,
+    SelectionThickness = 0.3,
+    SizeX = 5.25,
+    SizeY = 1.75,
+    SizeZ = 6,
+    StrategicIconName = 'icon_factory3_land',
+    StrategicIconSortPriority = 215,
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = false,
+            Sub = false,
+            Water = false,
+        },
+    },
+}

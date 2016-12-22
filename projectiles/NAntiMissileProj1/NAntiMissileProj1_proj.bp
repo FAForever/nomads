@@ -1,0 +1,46 @@
+ProjectileBlueprint {
+    Audio = {
+        Impact = Sound {
+            Bank = 'Impacts',
+            Cue = 'CYB_Expl_Med_Impact',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+        ImpactTerrain = Sound {
+            Bank = 'Impacts',
+            Cue = 'Impact_Land_Gen_CYBRAN',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+        ImpactWater = Sound {
+            Bank = 'Impacts',
+            Cue = 'Impact_Water_Splash_CYBRAN',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+    },
+    Categories = {
+        'NOMAD',
+        'PROJECTILE',
+        'ANTIMISSILE',
+    },
+    Display = {
+        Mesh = {
+            LODs = {
+                {
+                    AlbedoName = '/projectiles/CDFRocketIridium01/CDFRocketIridium01_albedo.dds',
+                    LODCutoff = 150,
+                    MeshName = '/projectiles/CDFRocketIridium01/CDFRocketIridium01_lod0.scm',
+                    ShaderName = 'TMeshAlpha',
+                },
+            },
+        },
+        StrategicIconSize = 1,
+        UniformScale = 0.3,
+    },
+    Physics = {
+        DestroyOnWater = true,
+        InitialSpeed = 100,
+        LeadTarget = true,
+        TrackTarget = true,
+        TurnRate = 1000,
+        VelocityAlign = true,
+    },
+}

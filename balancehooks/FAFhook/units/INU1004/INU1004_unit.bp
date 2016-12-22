@@ -1,0 +1,11 @@
+UnitBlueprint {
+    Merge = true,
+    BlueprintId = "inu1004", # Medium tank
+    Wreckage = {
+        WreckageLayers = {
+            Seabed = true,
+            Sub = true,
+            Water = true,
+	},
+    },
+}
