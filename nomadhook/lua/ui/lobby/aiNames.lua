@@ -1,5 +1,3 @@
-do
-
 ainames = table.merged( ainames, {
     nomads = {    # Nomad AI player names
         'Admiral Vantoga',
@@ -59,5 +57,3 @@ ainames = table.merged( ainames, {
         'FightFear',
     },
 } )
-
-end

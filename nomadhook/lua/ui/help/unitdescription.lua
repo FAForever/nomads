@@ -78,6 +78,14 @@ Description = table.merged( Description, {
     ['inb0302'] = "<LOC inb0302_help>Constructs Tech 3 air units. Highest tech level available.",
     ['inb0303'] = "<LOC inb0303_help>Constructs Tech 3 naval units. Highest tech level available.",
     ['inb0304'] = "<LOC inb0304_help>Constructs Support command units.",
+    
+    # NOMAD SUPPORT FACTORIES (FAF SPECIFIC)
+    ['inb0211'] = "<LOC inb0211_help>Constructs Tech 2 land units. Upgradeable.",
+    ['inb0212'] = "<LOC inb0212_help>Constructs Tech 2 air units. Upgradeable.",
+    ['inb0213'] = "<LOC inb0213_help>Constructs Tech 2 naval units. Upgradeable.",
+    ['inb0311'] = "<LOC inb0311_help>Constructs Tech 3 land units. Highest tech level available.",
+    ['inb0312'] = "<LOC inb0312_help>Constructs Tech 3 air units. Highest tech level available.",
+    ['inb0313'] = "<LOC inb0313_help>Constructs Tech 3 naval units. Highest tech level available.",
 
 
     # WEAPON STRUCTURES
