@@ -1,8 +1,6 @@
-do
+-- TODO: REMOVE THIS WHEN GOING TO FINAL VERSION AND NO MORE PROBLEMS FOUND
 
-# TODO: REMOVE THIS WHEN GOING TO FINAL VERSION AND NO MORE PROBLEMS FOUND
-
-# Fixing a problem in FAF that happens when the first returned value is nil. Making sure that doesn't happen.
+-- Fixing a problem in FAF that happens when the first returned value is nil. Making sure that doesn't happen.
 local oldGetConstructEconomyModel = GetConstructEconomyModel
 
 function GetConstructEconomyModel(builder, targetData, upgradeBaseData)  # MIND THE ADDITIONAL ARGUMENT!!
@@ -35,8 +33,4 @@ function GetConstructEconomyModel(builder, targetData, upgradeBaseData)  # MIND 
         WARN('*NOMADS DEBUG: assisting a construct that lacks GetConstructEconomyModel data. Log data: '..repr(logdata))
     end
     return oldGetConstructEconomyModel(builder, targetData, upgradeBaseData)
-end
-
-
-
 end

@@ -1212,82 +1212,11 @@ end
 # ================================================================================================================
 # ENHANCEMENT PRESET
 # ================================================================================================================
-
+--Proper enhancement preset code was integrated in FAF with version 3629, so removing it here.
 function AddEnhancementPresetHandling(SuperClass)
-    return Class(SuperClass) {
-
-        OnCreate = function(self)
-            SuperClass.OnCreate(self)
-            self:ShowPresetEnhancementBones()
-        end,
-
-        OnStopBeingBuilt = function(self, builder, layer)
-            SuperClass.OnStopBeingBuilt(self, builder, layer)
-
-            local bp = self:GetBlueprint()
-            if bp.EnhancementPresetAssigned then
-                self:ForkThread(self.CreatePresetEnhancementsThread)
-            end
-        end,
-
-        ShowPresetEnhancementBones = function(self)
-            # hide bones not involved in the preset enhancements.
-            # Useful during the build process to show the contours of the unit being built. Only visual.
-
-            local bp = self:GetBlueprint()
-
-            if bp.Enhancements and ( table.find(bp.Categories, 'USEBUILDPRESETS') or table.find(bp.Categories, 'ISPREENHANCEDUNIT') ) then
-
-                # create a blank slate: hide all enhancement bones as specified in the unit BP
-                for k, enh in bp.Enhancements do
-                    if enh.HideBones then
-                        for _, bone in enh.HideBones do
-                            self:HideBone(bone, true)
-                        end
-                    end
-                end
-
-                # For the barebone version we're done here. For the presets versions: show the bones of the enhancements we'll create later on
-                if bp.EnhancementPresetAssigned then
-                    for k, v in bp.EnhancementPresetAssigned.Enhancements do
-
-                        # first show all relevant bones
-                        if bp.Enhancements[v] and bp.Enhancements[v].ShowBones then
-                            for _, bone in bp.Enhancements[v].ShowBones do
-                                self:ShowBone(bone, true)
-                            end
-                        end
-
-                        # now hide child bones of previously revealed bones, that should remain hidden
-                        if bp.Enhancements[v] and bp.Enhancements[v].HideBones then
-                            for _, bone in bp.Enhancements[v].HideBones do
-                                self:HideBone(bone, true)
-                            end
-                        end
-                    end
-                end
-            end
-        end,
-
-        CreatePresetEnhancements = function(self)
-            local bp = self:GetBlueprint()
-            if bp.EnhancementPresetAssigned then
-                for k, v in bp.EnhancementPresetAssigned.Enhancements do
-                    self:CreateEnhancement(v)
-                end
-            end
-        end,
-
-        CreatePresetEnhancementsThread = function(self)
-            # Creating the preset enhancements on SCUs after they've been constructed. Delaying this by 1 tick to fix a problem where cloak and
-            # stealth enhancements work incorrectly.
-            WaitTicks(1)
-            if self and not self:IsDead() then
-                self:CreatePresetEnhancements()
-            end
-        end,
-    }
+    return Class(SuperClass) {}
 end
+-- todo - remove this completely
 
 # ================================================================================================================
 # AKIMBO
