@@ -1,8 +1,105 @@
+local Factions = import('/lua/factions.lua').Factions
+local FactionInUnitBpToKey = import('/lua/factions.lua').FactionInUnitBpToKey
+
+
+--this has like one change from faf, not sure what it does though, all at the end of this function.
+function OnRolloverHandler(button, state)
+    local item = button.Data
+
+    if options.gui_draggable_queue ~= 0 and item.type == 'queuestack' and prevSelection and EntityCategoryContains(categories.FACTORY, prevSelection[1]) then
+        if state == 'enter' then
+            button.oldHandleEvent = button.HandleEvent
+            --if we have entered the button and are dragging something then we want to replace it with what we are dragging
+            if dragging == true then
+                --move item from old location (index) to new location (this button's index)
+                MoveItemInQueue(currentCommandQueue, index, item.position)
+                --since the currently selected button has now moved, update the index
+                index = item.position
+
+                button.dragMarker = Bitmap(button, '/textures/ui/queuedragger.dds')
+                LayoutHelpers.FillParent(button.dragMarker, button)
+                button.dragMarker:DisableHitTest()
+                Effect.Pulse(button.dragMarker, 1.5, 0.6, 0.8)
+            end
+            button.HandleEvent = function(self, event)
+                if event.Type == 'ButtonPress' or event.Type == 'ButtonDClick' then
+                    local count = 1
+                    if event.Modifiers.Ctrl == true or event.Modifiers.Shift == true then
+                        count = 5
+                    end
+
+                    if event.Modifiers.Left then
+                        if not dragLock then
+                            --left button pressed so start dragging procedure
+                            dragging = true
+                            index = item.position
+                            originalIndex = index
+
+                            self.dragMarker = Bitmap(self, '/textures/ui/queuedragger.dds')
+                            LayoutHelpers.FillParent(self.dragMarker, self)
+                            self.dragMarker:DisableHitTest()
+                            Effect.Pulse(self.dragMarker, 1.5, 0.6, 0.8)
+
+                            --copy un modified queue so that current build order is recorded (for deleting it)
+                            oldQueue = table.copy(currentCommandQueue)
+                        end
+                    else
+                        PlaySound(Sound({ Cue = "UI_MFD_Click", Bank = "Interface" }))
+                        DecreaseBuildCountInQueue(item.position, count)
+                    end
+                elseif event.Type == 'ButtonRelease' then
+                    if dragging then
+                        --if queue has changed then update queue, else increase build count (like default)
+                        if modified then
+                            ButtonReleaseCallback()
+                        else
+                            PlaySound(Sound({ Cue = "UI_MFD_Click", Bank = "Interface" }))
+                            dragging = false
+                            local count = 1
+                            if event.Modifiers.Ctrl == true or event.Modifiers.Shift == true then
+                                count = 5
+                            end
+                            IncreaseBuildCountInQueue(item.position, count)
+                        end
+                        if self.dragMarker then
+                            self.dragMarker:Destroy()
+                            self.dragMarker = false
+                        end
+                    end
+                else
+                    button.oldHandleEvent(self, event)
+                end
+            end
+        else
+            if button.oldHandleEvent then
+                button.HandleEvent = button.oldHandleEvent
+            else
+                WARN('OLD HANDLE EVENT MISSING HOW DID THIS HAPPEN?!')
+            end
+            if button.dragMarker then
+                button.dragMarker:Destroy()
+                button.dragMarker = false
+            end
+            UnitViewDetail.Hide() --added in nomads, and thats it bscly
+        end
+    else
+        if state == 'enter' then
+            if item.type == 'item' or item.type == 'queuestack' or item.type == 'unitstack' or item.type == 'attachedunit' then
+                UnitViewDetail.Show(__blueprints[item.id], sortedOptions.selection[1], item.id)
+            elseif item.type == 'enhancement' then
+                UnitViewDetail.ShowEnhancement(item.enhTable, item.unitID, item.icon, GetEnhancementPrefix(item.unitID, item.icon), sortedOptions.selection[1])
+            end
+        else
+            UnitViewDetail.Hide()
+        end
+    end
+end
 
 --hooking to fix templates being propagated through factions
 local oldOnSelection = OnSelection
 
 function OnSelection(buildableCategories, selection, isOldSelection)
+
     if options.gui_templates_factory ~= 0 then
         if table.empty(selection) then
             allFactories = false
@@ -17,13 +114,6 @@ function OnSelection(buildableCategories, selection, isOldSelection)
         end
     end
 
-    if table.getn(selection) == 1 then
-        currentCommandQueue = SetCurrentFactoryForQueueDisplay(selection[1])
-    else
-        currentCommandQueue = {}
-        ClearCurrentFactoryForQueueDisplay()
-    end
-
     if table.getsize(selection) > 0 then
         capturingKeys = false
         -- Sorting down units
@@ -36,26 +126,6 @@ function OnSelection(buildableCategories, selection, isOldSelection)
         end
         sortedOptions = {}
         UnitViewDetail.Hide()
-
-        if not selection[1]:IsInCategory('FACTORY') then
-            local inQueue = {}
-            for _, v in currentCommandQueue or {} do
-                inQueue[v.id] = true
-            end
-
-
-            local bpid = __blueprints[selection[1]:GetBlueprint().BlueprintId].General.UpgradesTo
-            if bpid then
-                while bpid and bpid ~= '' do -- UpgradesTo is sometimes ''??
-                    if not inQueue[bpid] then
-                        table.insert(buildableUnits, bpid)
-                    end
-                    bpid = __blueprints[bpid].General.UpgradesTo
-                end
-
-                buildableUnits = table.unique(buildableUnits)
-            end
-        end
 
         -- Engymod addition by Rienzilla
         -- Only honour CONSTRUCTIONSORTDOWN if we selected a factory
@@ -82,13 +152,11 @@ function OnSelection(buildableCategories, selection, isOldSelection)
                     table.insert(sortedOptions.t1, unit)
                 end
             end
-        elseif EntityCategoryContains(categories.ENGINEER + categories.FACTORY, selection[1]) then
+        else
             sortedOptions.t1 = EntityCategoryFilterDown(categories.TECH1, buildableUnits)
             sortedOptions.t2 = EntityCategoryFilterDown(categories.TECH2, buildableUnits)
             sortedOptions.t3 = EntityCategoryFilterDown(categories.TECH3, buildableUnits)
             sortedOptions.t4 = EntityCategoryFilterDown(categories.EXPERIMENTAL, buildableUnits)
-        else
-            sortedOptions.t1 = buildableUnits
         end
 
         if table.getn(buildableUnits) > 0 then
@@ -144,6 +212,13 @@ function OnSelection(buildableCategories, selection, isOldSelection)
                     table.insert(sortedOptions.templates, template)
                 end
             end
+        end
+
+        if table.getn(selection) == 1 then
+            currentCommandQueue = SetCurrentFactoryForQueueDisplay(selection[1])
+        else
+            currentCommandQueue = {}
+            ClearCurrentFactoryForQueueDisplay()
         end
 
         if not isOldSelection then
@@ -206,21 +281,20 @@ function OnSelection(buildableCategories, selection, isOldSelection)
             local templates = Templates.GetTemplates()
             local buildableUnits = EntityCategoryGetUnitList(buildableCategories)
             if allMobile and templates and table.getsize(templates) > 0 then
-                local currentFaction = selection[1]:GetBlueprint().General.FactionName
+
+                local unitFactionName = selection[1]:GetBlueprint().General.FactionName
+                local currentFaction = Factions[ FactionInUnitBpToKey[unitFactionName] ]
+
                 if currentFaction then
                     sortedOptions.templates = {}
                     local function ConvertID(BPID)
-                        local FirstLetterArray = { "%1", "x", "u", "b", "i" }
-                        local SecondLetterArray = { ["Aeon"] = "a", ["UEF"] = "e", ["Cybran"] = "r", ["Seraphim"] = "s", ["Nomads"] = "n"}
-                        local SecondLetter = SecondLetterArray[currentFaction]
-                        for _, FirstLetter in FirstLetterArray do
-                            local NewBPID = string.gsub(BPID, "(%a)(%a)(%a)(%d+)",FirstLetter..SecondLetter.. "%3%4")
-                        -- =local xsb1012 = string.gsub(ueb1012, "(u)(e)(b)(1012)",x..s.. "b1012")
-                            if table.find(buildableUnits, NewBPID) then
-                                return NewBPID
+                        local prefixes = currentFaction.GAZ_UI_Info.BuildingIdPrefixes or {}
+                        for k, prefix in prefixes do
+                            if table.find(buildableUnits, string.gsub(BPID, "(%a+)(%d+)", prefix .. "%2")) then
+                                return string.gsub(BPID, "(%a+)(%d+)", prefix .. "%2")
                             end
                         end
-                        return BPID
+                        return false
                     end
 
                     for templateIndex, template in templates do
@@ -240,7 +314,9 @@ function OnSelection(buildableCategories, selection, isOldSelection)
                             end
                         end
                         if valid then
-                            template.icon = ConvertID(template.icon)
+                            if converted then
+                                template.icon = ConvertID(template.icon)
+                            end
                             template.templateID = templateIndex
                             table.insert(sortedOptions.templates, template)
                         end
@@ -307,6 +383,8 @@ function OnSelection(buildableCategories, selection, isOldSelection)
         end
     end
 end
+
+
 
 --hooking to fix enhancement prefixes not accounting for nomads
 local oldGetEnhancementPrefix = GetEnhancementPrefix
