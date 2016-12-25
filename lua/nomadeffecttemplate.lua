@@ -2684,6 +2684,14 @@ ACUMeteorCoverExplode = {
     EmtBpPath .. 'destruction_explosion_debris_06_emit.bp',
     EmtBpPath .. 'destruction_explosion_sparks_02_emit.bp',
     EmtBpPath .. 'destruction_unit_hit_shrapnel_01_emit.bp',
+    EmtBpPath .. 'dust_cloud_02_emit.bp',
+    EmtBpPath .. 'dust_cloud_04_emit.bp',
+    EmtBpPath .. 'destruction_explosion_debris_04_emit.bp',
+    EmtBpPath .. 'destruction_explosion_debris_05_emit.bp',
+    EmtBpPath .. 'destruction_explosion_debris_04_emit.bp',
+    EmtBpPath .. 'destruction_explosion_debris_05_emit.bp',
+    EmtBpPath .. 'destruction_explosion_debris_04_emit.bp',
+    EmtBpPath .. 'destruction_explosion_debris_05_emit.bp',
 }
 
 ACUMeteorCoverExplodeLand = TableCat( ACUMeteorCoverExplode, {

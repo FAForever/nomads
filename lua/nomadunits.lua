@@ -5,6 +5,7 @@ local DefaultUnitsFile = import('defaultunits.lua')
 local AirFactoryUnit = DefaultUnitsFile.AirFactoryUnit
 local AirStagingPlatformUnit = DefaultUnitsFile.AirStagingPlatformUnit
 local AirUnit = DefaultUnitsFile.AirUnit
+local AirTransport = DefaultUnitsFile.AirTransport
 local ConcreteStructureUnit = DefaultUnitsFile.ConcreteStructureUnit
 local ConstructionUnit = DefaultUnitsFile.ConstructionUnit
 local EnergyCreationUnit = DefaultUnitsFile.EnergyCreationUnit
@@ -220,7 +221,7 @@ NAirUnit = Class(AirUnit) {
     BeamExhaustIdle = NomadEffectTemplate.AirThrusterIdlingBeam,
 }
 
-NAirTransportUnit = Class(NAirUnit) {
+NAirTransportUnit = Class(AirTransport) {
     BeamExhaustCruise = NomadEffectTemplate.AirThrusterCruisingBeam,
     BeamExhaustIdle = NomadEffectTemplate.AirThrusterIdlingBeam,
 }
