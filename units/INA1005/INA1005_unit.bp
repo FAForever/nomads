@@ -19,7 +19,7 @@ UnitBlueprint {
         KTurn = 1,
         KTurnDamping = 1,
         LiftFactor = 10,
-        MaxAirspeed = 12,
+        MaxAirspeed = 13,
         StartTurnDistance = 10,
         TransportHoverHeight = 3,
     },
@@ -184,9 +184,9 @@ UnitBlueprint {
         UniformScale = 1.8,
     },
     Economy = {
-        BuildCostEnergy = 1600,
-        BuildCostMass = 50,
-        BuildTime = 400,
+        BuildCostEnergy = 4800,
+        BuildCostMass = 120,
+        BuildTime = 800,
     },
     Footprint = {
         MaxSlope = 0.25,
@@ -197,7 +197,7 @@ UnitBlueprint {
         Category = 'Transport',
         Classification = 'RULEUC_MilitaryAircraft',
         CommandCaps = {
-            RULEUCC_Attack = false, #true,
+            RULEUCC_Attack = false,
             RULEUCC_CallTransport = true,
             RULEUCC_Capture = false,
             RULEUCC_Ferry = true,
@@ -219,7 +219,7 @@ UnitBlueprint {
         UnitWeight = 1,
     },
     Intel = {
-        VisionRadius = 15,
+        VisionRadius = 32,
     },
     Interface = {
         HelpText = '<LOC ina1005_help>Light Air Transport',
@@ -286,9 +286,9 @@ UnitBlueprint {
         WreckageLayers = {
             Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
+            Seabed = true,
+            Sub = true,
+            Water = true,
         },
     },
 }

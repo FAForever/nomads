@@ -84,6 +84,8 @@ UnitBlueprint {
         'SCOUT',
         'VISIBLETORECON',
         'RECLAIMABLE',
+        'OVERLAYRADAR',
+		'OVERLAYSONAR',
     },
     Defense = {
         AirThreatLevel = 0.1,
@@ -158,9 +160,9 @@ UnitBlueprint {
         UniformScale = 0.07,
     },
     Economy = {
-        BuildCostEnergy = 1600,
+        BuildCostEnergy = 420,
         BuildCostMass = 40,
-        BuildTime = 400,
+        BuildTime = 145,
     },
     Footprint = {
         MaxSlope = 0.25,
@@ -193,6 +195,8 @@ UnitBlueprint {
     },
     Intel = {
         VisionRadius = 42,
+        RadarRadius = 65,
+        SonarRadius = 30,
     },
     Interface = {
         HelpText = '<LOC ina1001_help>Air Scout',
@@ -261,9 +265,9 @@ UnitBlueprint {
         WreckageLayers = {
             Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
+            Seabed = true,
+            Sub = true,
+            Water = true,
         },
     },
 }

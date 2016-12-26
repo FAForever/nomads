@@ -1,0 +1,30 @@
+NOMADS 
+
+- interceptor
+-- 275hp (250)
+-- muzzle velocity 120 (130)
+
+- t1 Bomber
+-- AIR section copypast from faf bombers
+--- speed 10 (11)
+-- 105m 2450e 700bt
+--radar removed
+-- add DamageFriendly = true,
+-- dmg 75(70) = 300dmg
+-- rof 0.2 (0.1427)
+-- add AboveWaterTargetsOnly = true,  
+
+- T1 Gunship
+-- speed 10 (12)
+-- 300hp (400)
+-- 100m 2000e 500bt (150m 4050e 800bt)
+-- Rename back to "Golem" (from "Titmouse")
+-- vision 32 (26)
+-- dmg 5(8) = 25dps
+
+- T1 transport
+-- speed 13 (12)
+-- 120m 4800e 800bt 
+-- VisionRadius 32 (15)
+
+
