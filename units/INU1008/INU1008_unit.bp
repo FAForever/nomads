@@ -151,7 +151,7 @@ UnitBlueprint {
         UnitWeight = 1,
     },
     Intel = {
-        VisionRadius = 18,
+        VisionRadius = 20,
     },
     Interface = {
         HelpText = '<LOC inu1008_help>Mobile Tank Destroyer',
@@ -290,9 +290,9 @@ UnitBlueprint {
         WreckageLayers = {
             Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
+            Seabed = true,
+            Sub = true,
+            Water = true,
         },
     },
 }

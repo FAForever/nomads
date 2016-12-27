@@ -76,3 +76,28 @@ NOMADS
 
 - T4 transport
 -- remove flares
+
+LAND
+____
+
+T1 lab
+- 120bt (140)
+
+T1 AA/Arty
+- 280hp (140)
+- 55m 275e 220bt (34m)
+- speed 3,6 (2,8)
+- AA dmg 28 (14)=35dps
+- GF 50dmg (30)
+-- GF 30r (32)
+-- GF rof 0,15 (0,145) = 6,6s =>30dps
+
+T1 Tank destroyer
+- 20intel (18)
+
+T2 enginer
+- 375h (650)
+- bp 12,5 (10)
+- 130m 650e 650bt
+- speed 1,7 (1,9)
+
