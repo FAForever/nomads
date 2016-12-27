@@ -250,7 +250,7 @@ UnitBlueprint {
             MinRadius = 0,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 22,
+            MuzzleVelocity = 24,
             MuzzleVelocityReduceDistance = 85,
             ProjectileId = '/projectiles/NParticleBlastArtilleryShell1/NParticleBlastArtilleryShell1_proj.bp',
             ProjectileLifetime = 20,
@@ -314,9 +314,9 @@ UnitBlueprint {
         WreckageLayers = {
             Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
+            Seabed = true,
+            Sub = true,
+            Water = true,
         },
     },
 }

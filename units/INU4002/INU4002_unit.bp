@@ -100,7 +100,7 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 450,
     },
-    Description = '<LOC inu4002_desc>Experimental Ultra-heavy Tank',
+    Description = '<LOC inu4002_desc>Experimental Heavy Tank',
     Display = {
 	Abilities = {
             '<LOC ability_aa>Anti-Air',
@@ -365,11 +365,11 @@ UnitBlueprint {
     StrategicIconName = 'icon_experimental_generic',
     StrategicIconSortPriority = 125,
     Veteran = {
-        Level1 = 50,
-        Level2 = 100,
-        Level3 = 150,
-        Level4 = 200,
-        Level5 = 250,
+        Level1 = 80,
+        Level2 = 160,
+        Level3 = 240,
+        Level4 = 320,
+        Level5 = 400,
     },
     Weapon = {
         {
@@ -900,9 +900,9 @@ UnitBlueprint {
         WreckageLayers = {
             Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
+            Seabed = true,
+            Sub = true,
+            Water = true,
         },
     },
 }

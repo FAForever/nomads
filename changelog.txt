@@ -101,3 +101,54 @@ T2 enginer
 - 130m 650e 650bt
 - speed 1,7 (1,9)
 
+T2 hover tank
+- 450hp (950)
+- 100m 750e 500bt (200m 1500e 1000bt)
+- vision 15 (20)
+- speed 4,5 (5)
+- veterancy 3 (5)
+- range 23 (18)
+-- damage 8(7) = 40dps
+-- velocity 45 (40)
+
+T2 flak
+- speed 3,1 (2,8)
+
+T2 tank (Brute)
+- 1200hp (1750)
+- 198m 990e 880bt (252m 1260e 1120bt)
+- speed 3,1 (2,8)
+- veterancy 6 (7)
+- 60dmg (35) = 120dps
+-- velocity 30 (28)
+-- range 20 (26)
+-- rof 0,5 (0,667) = 2s =>75dps
+
+
+T3 engiener
+- 640hp 
+- 312m (420)
+
+T3 hover tank
+- veterancy 10 (9)
+
+T2 EMP tank
+- 2750hp (2000)
+- 360m 1800e 1600bt (297m 1500e 1320bt)
+
+T3 mobile artilery
+- muzzle velocity 24 (22)
+
+T3 tank
+- 5000hp (7000)
+- 480m 5400e 2400bt (1060m)
+- 3speed (2,3)
+- 26r (32)
+-- rof 0,5 (0,47) =2s
+-- damage 200 (850) => 100dps
+
+T4 Bullfrog
+- rename to Experimental Heavy tank ( Experimental ultra-heavy tank)
+
+
+

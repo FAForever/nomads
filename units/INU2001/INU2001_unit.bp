@@ -105,8 +105,8 @@ UnitBlueprint {
         AirThreatLevel = 0,
         ArmorType = 'Normal',
         EconomyThreatLevel = 0,
-        Health = 1300,
-        MaxHealth = 1300,
+        Health = 640,
+        MaxHealth = 640,
         RegenRate = 0,
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
@@ -211,10 +211,10 @@ UnitBlueprint {
         UniformScale = 0.35,
     },
     Economy = {
-        BuildCostEnergy = 3150,
-        BuildCostMass = 490,
-        BuildRate = 20,
-        BuildTime = 2100,
+        BuildCostEnergy = 1560,
+        BuildCostMass = 312,
+        BuildRate = 30,
+        BuildTime = 1560,
         BuildableCategory = {
             'BUILTBYTIER3ENGINEER NOMAD',
         },
@@ -320,9 +320,9 @@ UnitBlueprint {
         WreckageLayers = {
             Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
+            Seabed = true,
+            Sub = true,
+            Water = true,
         },
     },
 }

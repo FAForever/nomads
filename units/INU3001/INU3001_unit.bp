@@ -464,10 +464,10 @@ UnitBlueprint {
         UniformScale = 0.078,
     },
     Economy = {
-        BuildCostEnergy = 16000,
-        BuildCostMass = 1000,
-        BuildRate = 10,
-        BuildTime = 10800,
+        BuildCostEnergy = 8000,
+        BuildCostMass = 500,
+        BuildRate = 15,
+        BuildTime = 7200,
         BuildableCategory = {
             'BUILTBYTIER3ENGINEER NOMAD',
         },
@@ -1349,11 +1349,11 @@ UnitBlueprint {
         TransportClass = 3,
     },
     Veteran = {
-        Level1 = 15,
-        Level2 = 30,
-        Level3 = 45,
-        Level4 = 60,
-        Level5 = 75,
+        Level1 = 24,
+        Level2 = 48,
+        Level3 = 72,
+        Level4 = 96,
+        Level5 = 120,
     },
     Weapon = {
         {
@@ -1840,9 +1840,9 @@ UnitBlueprint {
         WreckageLayers = {
             Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
+            Seabed = true,
+            Sub = true,
+            Water = true,
         },
     },
 }
