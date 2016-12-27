@@ -2,7 +2,6 @@
 
 local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
 local SupportingArtilleryAbility = import('/lua/nomadutils.lua').SupportingArtilleryAbility
-local AddFlares = import('/lua/nomadutils.lua').AddFlares
 local NAirUnit = import('/lua/nomadunits.lua').NAirUnit
 local StingrayCannon1 = import('/lua/nomadweapons.lua').StingrayCannon1
 local AnnihilatorCannon1 = import('/lua/nomadweapons.lua').AnnihilatorCannon1
@@ -10,7 +9,6 @@ local RocketWeapon1 = import('/lua/nomadweapons.lua').RocketWeapon1
 
 # add supporting artillery ability and aa missile flares
 NAirUnit = SupportingArtilleryAbility( NAirUnit )
-NAirUnit = AddFlares( NAirUnit )
 
 INA3006 = Class(NAirUnit) {
 
@@ -24,7 +22,6 @@ INA3006 = Class(NAirUnit) {
     ArtillerySupportFxBone = 'Arty_Pinger',
     BeamHoverExhaustCruise = NomadEffectTemplate.AirThrusterLargeCruisingBeam,
     BeamHoverExhaustIdle = NomadEffectTemplate.AirThrusterLargeIdlingBeam,
-    FlaresEnabled = false,
 
     OnCreate = function(self)
         NAirUnit.OnCreate(self)
@@ -53,12 +50,10 @@ INA3006 = Class(NAirUnit) {
         if new == 'Top' then
             # unit reaching target altitude, coming from surface
             self:EnableArtillerySupport(true)
-            self:SetFlaresEnabled(true)
 
         elseif new == 'Down' then
             # unit starts landing
             self:EnableArtillerySupport(false)
-            self:SetFlaresEnabled(false)
 
         end
     end,

@@ -131,14 +131,6 @@ UnitBlueprint {
     CollisionOffsetZ = 0,
     Defense = {
         AirThreatLevel = 100,
-        AntiMissileFlares = {
-            BeSmart = false,
-            Bones = { 'Flare1', 'Flare2', 'Flare3', 'Flare4', 'Flare5', 'Flare6', },
-            ProjectileBlueprint = '/projectiles/NAAMissileFlare1/NAAMissileFlare1_proj.bp',
-            Radius = 20,
-            RateOfFire = 0.2,
-            Speed = 10,
-        },
         ArmorType = 'Light',
         EconomyThreatLevel = 50,
         Health = 38000,
@@ -152,7 +144,6 @@ UnitBlueprint {
         Abilities = {
             '<LOC ability_aa>Anti-Air',
             '<LOC ability_torpedo>Torpedoes',
-            '<LOC ability_flares>Flares',
             '<LOC ability_unstunable>Immune to EMP',
             '<LOC ability_artillerysupport>Artillery Support',
             '<LOC ability_transport>Transport',
@@ -544,9 +535,9 @@ UnitBlueprint {
         WreckageLayers = {
             Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
+            Seabed = true,
+            Sub = true,
+            Water = true,
         },
     },
 }

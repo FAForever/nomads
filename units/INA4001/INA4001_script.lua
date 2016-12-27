@@ -3,13 +3,11 @@
 local Explosion = import('/lua/defaultexplosions.lua')
 local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
 local SupportingArtilleryAbility = import('/lua/nomadutils.lua').SupportingArtilleryAbility
-local AddFlares = import('/lua/nomadutils.lua').AddFlares
 local NAirTransportUnit = import('/lua/nomadunits.lua').NAirTransportUnit
 local RocketWeapon1 = import('/lua/nomadweapons.lua').RocketWeapon1
 local DroppedTorpedoWeapon1  = import('/lua/nomadweapons.lua').DroppedTorpedoWeapon1
 
 NAirTransportUnit = SupportingArtilleryAbility( NAirTransportUnit )
-NAirTransportUnit = AddFlares( NAirTransportUnit )
 
 INA4001 = Class(NAirTransportUnit) {
 
@@ -19,7 +17,6 @@ INA4001 = Class(NAirTransportUnit) {
     },
 
     DestroyNoFallRandomChance = 1.1,  # don't blow up in air when killed
-    FlaresEnabled = false,
     ThrusterBurnBones = { 'ThrustMain1', 'ThrustMain2', 'ThrustMain3', 'ThrustMain4', 'ThrustMain5', 'ThrustMain6', },
 
     OnCreate = function(self)
@@ -66,13 +63,11 @@ INA4001 = Class(NAirTransportUnit) {
         # special abilities only available when on cruising height
         if new == 'Top' then
             # unit reaching target altitude, coming from surface
-            self:SetFlaresEnabled(true)
             self:DestroyThrusterBurnEffects()
             self:PlayThrusterEffects()
 
         elseif new == 'Down' then
             # unit starts landing
-            self:SetFlaresEnabled(false)
             self:DestroyThrusterEffects()
             self:DestroyThrusterBurnEffects()
             self:PlayThrusterBurnEffects()

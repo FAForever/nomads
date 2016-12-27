@@ -1,4 +1,6 @@
 NOMADS 
+- Air scout
+-- 40m 420e 145bt
 
 - interceptor
 -- 275hp (250)
@@ -27,4 +29,50 @@ NOMADS
 -- 120m 4800e 800bt 
 -- VisionRadius 32 (15)
 
+- T2 transport
+-- speed 16 (15)
+-- 300m 12000e 2400bt 
+-- aoe (Thuster burn) 3 (1,5)
 
+- T2 bomber
+-- buildIconSortPriority 15 (18)
+-- remove deepCharges
+-- remove sonar
+-- FuelRechargeRate 10(19)
+-- TransportClass 1 (2)
+-- remove dept charges from script
+
+-T2 gunship
+-- TransportClass 1 (2)
+
+-T3 spy plane
+--TurnSpeed 0,8 (1)
+-- add sonar
+--TransportClass 1(3)
+
+-T3 asf
+--1700hp (2300)
+--350m (400)
+--veteran 12 (6)
+--TransportClass 1 (3)
+
+-T3 strat bomber
+-- 2100m 144000e 9600bt (1680m 72000e 7200bt) 
+-- 3600hp (3200)
+--SurfaceThreatLevel 18 (16)
+--Elevation 20 (21)
+-- 1500dmg over 2s
+--initial dmg 1000 (1200)
+--90r (100)
+
+-T3 gunship
+-- speed 12 (8)
+--500hp (5100)
+-- remove flares (super unfair for cybran)
+--1260m 42000e 6300bt
+--TransportClass 2 (3)
+--damage radius 0 (0,3) -> small projectile
+-- damage 25 (20) -> small projectile
+
+- T4 transport
+-- remove flares
