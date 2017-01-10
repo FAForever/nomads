@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "inb4201", # T3 SAM
+    BlueprintId = "inb4201", -- T3 SAM
     Defense = {
         Health = 7000,
         MaxHealth = 7000,

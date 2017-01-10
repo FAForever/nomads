@@ -62,7 +62,7 @@ Meteor = Class(NullShell) {
     end,
 
     SetAudio = function(self)
-        # using a seperate entity for the sound fx cause the functionality seems to not work on projectiles
+        -- using a seperate entity for the sound fx cause the functionality seems to not work on projectiles
         local bp = self:GetBlueprint()
         local snd = bp.Audio.ExistLoop
         if snd then
@@ -123,12 +123,12 @@ Meteor = Class(NullShell) {
     end,
 
     MonitorDescent = function(self, ImpactPos)
-        # the OnImpact event is not fired when the meteor enters water so check the flight and fire the event manually
+        -- the OnImpact event is not fired when the meteor enters water so check the flight and fire the event manually
         local fn = function(self, waterY)
             local x,y,z
             while self do
                 x,y,z = unpack(self:GetPosition())
-                if (y - waterY) <= 2.5 then  # trying to trigger this before hitting seabed. On shallow water the Onimpact events for water and seabed play at some tick.
+                if (y - waterY) <= 2.5 then  -- trying to trigger this before hitting seabed. On shallow water the Onimpact events for water and seabed play at some tick.
                     self:OnImpact('Water', nil)
                     return true
                 end
@@ -138,12 +138,12 @@ Meteor = Class(NullShell) {
         end
 
         local x,y,z = unpack(ImpactPos)
-        if GetTerrainHeight(x, z) < GetSurfaceHeight(x, z) then  # check that there's water at impact pos
+        if GetTerrainHeight(x, z) < GetSurfaceHeight(x, z) then  -- check that there's water at impact pos
             self.MonitorDescentThreadHandle = self:ForkThread(fn, GetSurfaceHeight(x, z) )
         end
     end,
 
-    # -------------------------------------------------------------------------------------------------------------------
+    -- -------------------------------------------------------------------------------------------------------------------
 
     OnImpact = function(self, targetType, targetEntity)
         if targetType == 'Water' then
@@ -194,7 +194,7 @@ Meteor = Class(NullShell) {
             self:PlaySound(bpAud.Impact)
         end
 
-        # Knockdown force rings
+        -- Knockdown force rings
         DamageRing(self, position, 0.1, (12 * scale), 1, 'Force', true)
         DamageRing(self, position, 0.1, (12 * scale), 1, 'Force', true)
 
@@ -207,13 +207,13 @@ Meteor = Class(NullShell) {
         local emitters = {}
         local emit
 
-        # Create ground decals
+        -- Create ground decals
         local orientation = RandomFloat( 0, 2 * math.pi )
         CreateDecal(position, orientation, 'Crater01_albedo', '', 'Albedo', (30 * scale), (30 * scale), self.DecalLifetime, 0, army)
         CreateDecal(position, orientation, 'Crater01_normals', '', 'Normals', (30 * scale), (30 * scale), self.DecalLifetime, 0, army)
         CreateDecal(position, orientation, 'nuke_scorch_003_albedo', '', 'Albedo', (30 * scale), (30 * scale), self.DecalLifetime, 0, army)
 
-        # Impact effects
+        -- Impact effects
         CreateLightParticleIntel(self, -1, army, (20 * scale), 10, 'glow_03', 'ramp_yellow_02')
 
         self.SndEntDescent:Destroy()
@@ -233,12 +233,12 @@ Meteor = Class(NullShell) {
                 emit:ScaleEmitter(scale)
             end
 
-            # Knockdown force rings
+            -- Knockdown force rings
             DamageRing(self, position, 0.1, (19 * scale), 1, 'Fire', true)
             DamageRing(self, position, 0.1, (15 * scale), 1, 'Force', true)
             DamageRing(self, position, 0.1, (15 * scale), 1, 'Force', true)
 
-            # Additional effects
+            -- Additional effects
             self:CreateOuterRingWaveSmokeRing(scale)
             self:ResidualSmokeEffects(self:GetPosition(), scale)
 

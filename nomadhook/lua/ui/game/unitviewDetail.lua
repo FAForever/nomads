@@ -1,7 +1,7 @@
 
 function DisplayResources(bp, time, energy, mass)
 
-    # Cost Group
+    -- Cost Group
     if time > 0 then
         local consumeEnergy = -energy / time
         local consumeMass = -mass / time
@@ -12,9 +12,9 @@ function DisplayResources(bp, time, energy, mass)
         View.BuildCostGroup.MassValue:SetColor( "FFF05050" )
     end
 
-    # Upkeep Group
+    -- Upkeep Group
 
-    # check for UI unitview overrides
+    -- check for UI unitview overrides
     local plusEnergyRate = bp.Display.UIUnitViewOverrides.ProductionPerSecondEnergy or              bp.Economy.ProductionPerSecondEnergy or bp.ProductionPerSecondEnergy
     local negEnergyRate = bp.Display.UIUnitViewOverrides.MaintenanceConsumptionPerSecondEnergy or   bp.Economy.MaintenanceConsumptionPerSecondEnergy or bp.MaintenanceConsumptionPerSecondEnergy
     local plusMassRate = bp.Display.UIUnitViewOverrides.ProductionPerSecondMass or                  bp.Economy.ProductionPerSecondMass or bp.ProductionPerSecondMass
@@ -23,7 +23,7 @@ function DisplayResources(bp, time, energy, mass)
     local upkeepEnergy = GetYield(negEnergyRate, plusEnergyRate)
     local upkeepMass = GetYield(negMassRate, plusMassRate)
     local showUpkeep = false
-    if upkeepEnergy != 0 or upkeepMass != 0 then
+    if upkeepEnergy ~= 0 or upkeepMass ~= 0 then
         View.UpkeepGroup.Label:SetText(LOC("<LOC uvd_0002>Yield"))
         View.UpkeepGroup.EnergyValue:SetText( string.format("%d",upkeepEnergy) )
         View.UpkeepGroup.MassValue:SetText( string.format("%d",upkeepMass) )
@@ -39,7 +39,7 @@ function DisplayResources(bp, time, energy, mass)
             View.UpkeepGroup.MassValue:SetColor( "FFF05050" )
         end
         showUpkeep = true
-    elseif bp.Economy and (bp.Economy.StorageEnergy != 0 or bp.Economy.StorageMass != 0) then
+    elseif bp.Economy and (bp.Economy.StorageEnergy ~= 0 or bp.Economy.StorageMass ~= 0) then
         View.UpkeepGroup.Label:SetText(LOC("<LOC uvd_0006>Storage"))
         local upkeepEnergy = bp.Economy.StorageEnergy or 0
         local upkeepMass = bp.Economy.StorageMass or 0
@@ -93,7 +93,7 @@ function ShowEnhancement(bp, bpID, iconID, iconPrefix, userUnit)
     local slotName = enhancementSlotNames[string.lower(bp.Slot)]
     slotName = slotName or bp.Slot -- ok
 
-    if bp.Name != nil then
+    if bp.Name ~= nil then
         View.UnitShortDesc:SetText(LOCF("%s: %s", bp.Name, slotName))
     else
         View.UnitShortDesc:SetText(LOC(slotName))

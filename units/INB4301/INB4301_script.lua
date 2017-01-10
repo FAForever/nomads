@@ -1,4 +1,4 @@
-# T3 shield generator
+-- T3 shield generator
 
 local NShieldStructureUnit = import('/lua/nomadunits.lua').NShieldStructureUnit
 
@@ -14,7 +14,7 @@ INB4301 = Class(NShieldStructureUnit) {
     end,
 
     UpgradingState = State(NShieldStructureUnit.UpgradingState) {
-        # having 2 animations manipulating the arms is no good. Disabling the above anim if we're upgrading to stealth.
+        -- having 2 animations manipulating the arms is no good. Disabling the above anim if we're upgrading to stealth.
 
         Main = function(self)
             local bp = self:GetBlueprint().Display

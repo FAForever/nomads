@@ -2,7 +2,7 @@ BuilderGroup {
     BuilderGroupName = 'SorianSCUUpgrades',
     BuildersType = 'EngineerBuilder',
 
-    # Nomads
+    -- Nomads
     Builder {
         BuilderName = 'Sorian Nomads CDR Upgrade 1',
         PlatoonTemplate = 'CommanderEnhanceSorian',

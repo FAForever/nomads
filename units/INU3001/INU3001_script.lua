@@ -1,4 +1,4 @@
-# T3 support commander
+-- T3 support commander
 
 local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
 local NomadEffectUtil = import('/lua/nomadeffectutilities.lua')
@@ -39,12 +39,12 @@ INU3001 = Class(NWalkingLandUnit) {
             end,
 
             SetMuzzleOverride = function(self, ForceOneBarrel)
-                if ForceOneBarrel != nil then
+                if ForceOneBarrel ~= nil then
                     self.MuzzleOverride_1B = (ForceOneBarrel == true)
                 end
             end,
 
-            # 2 functions below: a quick way (hack) to fire from the correct weapons/bones, but not the best way...
+            -- 2 functions below: a quick way (hack) to fire from the correct weapons/bones, but not the best way...
             CreateProjectileAtMuzzle = function(self, muzzle)
                 if self.MuzzleOverride_1B then
                     muzzle = 'MGun_Recoil'
@@ -69,16 +69,16 @@ INU3001 = Class(NWalkingLandUnit) {
             end,
 
             SetEnabled = function(self, enable)
-                # disabling the main gun also disables the gattling, this works better
+                -- disabling the main gun also disables the gattling, this works better
                 self._IsEnabled = (enable == true)
                 self:AimManipulatorSetEnabled(self._IsEnabled)
                 self:UpdateMaxRadius()
             end,
 
             UpdateMaxRadius = function(self)
-                # the max radius when disabled should be that of the longest range weapon. Otherwise the unit
-                # will walk up to the target and not attack from range, exposing it unnecessarily. This is an
-                # issue with rocket and railgun enhancements
+                -- the max radius when disabled should be that of the longest range weapon. Otherwise the unit
+                -- will walk up to the target and not attack from range, exposing it unnecessarily. This is an
+                -- issue with rocket and railgun enhancements
                 if self:IsEnabled() then
                     self:ChangeMaxRadius(self:GetMaxRadius(), true)
                 else
@@ -87,8 +87,8 @@ INU3001 = Class(NWalkingLandUnit) {
             end,
 
             ChangeMaxRadius = function(self, val, ignore)
-                # added ignore flag to not update the internally used MaxRadius value, we'll need this when
-                # changing range while disabled (see above).
+                -- added ignore flag to not update the internally used MaxRadius value, we'll need this when
+                -- changing range while disabled (see above).
                 if ignore then
                     local before = self._MaxRadius
                     APCannon1.ChangeMaxRadius(self, val)
@@ -123,12 +123,12 @@ INU3001 = Class(NWalkingLandUnit) {
 
         local bp = self:GetBlueprint()
 
-        self.HeadRotationEnabled = false # initially disable head rotation to prevent initial wrong rotation
+        self.HeadRotationEnabled = false -- initially disable head rotation to prevent initial wrong rotation
 
         self:SetCapturable(false)
         self:SetupBuildBones()
 
-        # enhancement related
+        -- enhancement related
         self:RemoveToggleCap('RULEUTC_SpecialToggle')
         self:UpdateBuildRestrictions()
         self:SetWeaponEnabledByLabel( 'RocketRight', false )
@@ -170,13 +170,13 @@ INU3001 = Class(NWalkingLandUnit) {
 
     SetWeaponEnabledByLabel = function(self, label, bool)
         NWalkingLandUnit.SetWeaponEnabledByLabel(self, label, bool)
-        if label != 'GunLeft' then
-            self:GetWeaponByLabel('GunLeft'):UpdateMaxRadius()  # keep primary weapon range correct
+        if label ~= 'GunLeft' then
+            self:GetWeaponByLabel('GunLeft'):UpdateMaxRadius()  -- keep primary weapon range correct
         end
     end,
 
     GetAllWeaponMaxRadius = function(self)
-        # returns the biggest max radius of any weapon that's currently enabled
+        -- returns the biggest max radius of any weapon that's currently enabled
         local wep, rad
         local maxRad = 1
         local n = self:GetWeaponCount()
@@ -192,8 +192,8 @@ INU3001 = Class(NWalkingLandUnit) {
         return maxRad
     end,
 
-    # =====================================================================================================================
-    # UNIT DEATH
+    -- =====================================================================================================================
+    -- UNIT DEATH
 
     OnKilled = function(self, instigator, type, overkillRatio)
         local brain = self:GetAIBrain()
@@ -220,7 +220,7 @@ INU3001 = Class(NWalkingLandUnit) {
     end,
 
     CreateWreckage = function(self, overkillRatio)
-        # only create wreckage if death weapon allows it
+        -- only create wreckage if death weapon allows it
         local DeathWep = self:GetDeathWeaponBP()
         if not DeathWep.NoWreckage then
             NWalkingLandUnit.CreateWreckage(self, overkillRatio)
@@ -228,7 +228,7 @@ INU3001 = Class(NWalkingLandUnit) {
     end,
 
     GetDeathWeaponBP = function(self)
-        # different death weapon depending on enhancements
+        -- different death weapon depending on enhancements
         local WantLabel = 'DeathWeapon'
         local bp = self:GetBlueprint()
 
@@ -243,7 +243,7 @@ INU3001 = Class(NWalkingLandUnit) {
         end
     end,
 
-# =================================================================================================================
+-- =================================================================================================================
 
     OnPrepareArmToBuild = function(self)
         NWalkingLandUnit.OnPrepareArmToBuild(self)
@@ -304,8 +304,8 @@ INU3001 = Class(NWalkingLandUnit) {
     CreateBuildEffects = function( self, unitBeingBuilt, order )
         local UpgradesFrom = unitBeingBuilt:GetBlueprint().General.UpgradesFrom
         local bones = self:GetBuildBones() or {0}
-        # If we are assisting an upgrading unit, or repairing a unit, play seperate effects
-        if (order == 'Repair' and not unitBeingBuilt:IsBeingBuilt()) or (UpgradesFrom and UpgradesFrom != 'none' and self:IsUnitState('Guarding'))then
+        -- If we are assisting an upgrading unit, or repairing a unit, play seperate effects
+        if (order == 'Repair' and not unitBeingBuilt:IsBeingBuilt()) or (UpgradesFrom and UpgradesFrom ~= 'none' and self:IsUnitState('Guarding'))then
             NomadEffectUtil.CreateRepairBuildBeams( self, unitBeingBuilt, bones, self.BuildEffectsBag )
         else
             NomadEffectUtil.CreateNomadBuildSliceBeams( self, unitBeingBuilt, bones, self.BuildEffectsBag )        
@@ -344,8 +344,8 @@ INU3001 = Class(NWalkingLandUnit) {
     end,
 
     GetBuildBones = function(self)
-        # a known engine limitation or bug where a single variable is used for all units of the same type is causing problems with the build bones.
-        # to remedy this I'm dynamically determining what bones to use by checking what enhancements are available.
+        -- a known engine limitation or bug where a single variable is used for all units of the same type is causing problems with the build bones.
+        -- to remedy this I'm dynamically determining what bones to use by checking what enhancements are available.
         local bones = table.deepcopy( self:GetBlueprint().General.BuildBones.BuildEffectBones )
         if self:HasEnhancement('EngineeringRight') then 
             table.insert( bones, 'Engi_R_Muzzle')
@@ -360,16 +360,16 @@ INU3001 = Class(NWalkingLandUnit) {
         return bones
     end,
 
-# =================================================================================================================
+-- =================================================================================================================
 
     OnAttachedToTransport = function(self, transport, transportBone)
-        # disable head rotation. Coming of the transport, the head gets a weird rotation
+        -- disable head rotation. Coming of the transport, the head gets a weird rotation
         self.HeadRotationEnabled = false
         NWalkingLandUnit.OnAttachedToTransport(self, transport, transportBone)
     end,
 
     OnDetachedFromTransport = function(self, transport, transportBone)
-        # disable head rotation. Coming of the transport, the head gets a weird rotation
+        -- disable head rotation. Coming of the transport, the head gets a weird rotation
         self.HeadRotationEnabled = false
         NWalkingLandUnit.OnDetachedFromTransport(self, transport, transportBone)
     end,
@@ -379,7 +379,7 @@ INU3001 = Class(NWalkingLandUnit) {
         NWalkingLandUnit.UpdateMovementEffectsOnMotionEventChange( self, new, old )
     end,
 
-# =================================================================================================================
+-- =================================================================================================================
 
     CanBeStunned = function(self)
         if self:HasEnhancement('PowerArmor') then
@@ -388,7 +388,7 @@ INU3001 = Class(NWalkingLandUnit) {
         return NWalkingLandUnit.CanBeStunned(self)
     end,
 
-# =================================================================================================================
+-- =================================================================================================================
 
     UpdateBuildRestrictions = function(self)
         if self:HasEnhancement('EngineeringRight') or self:HasEnhancement('EngineeringLeft') then
@@ -403,12 +403,12 @@ INU3001 = Class(NWalkingLandUnit) {
         local bp = self:GetBlueprint().Enhancements[enh]
         if not bp then return end
 
-        # show or hide repair geometry on arms of model, depending on presence of certain enhancements
+        -- show or hide repair geometry on arms of model, depending on presence of certain enhancements
         if enh == 'RapidRepair' or enh == 'PowerArmor' or enh == 'AdditionalCapacitor' or enh == 'ResourceAllocation' or enh == 'LeftRocket' or enh == 'RightRocket'
              or bp.CreatesLeftArm or bp.CreatesRightArm or bp.RemovesLeftArm or bp.RemovesRightArm then
 
-            # need to check presence of enhancements and presence of arms, then either hide or show bones. It's more complex than you would
-            # think.
+            -- need to check presence of enhancements and presence of arms, then either hide or show bones. It's more complex than you would
+            -- think.
             local RR = (self:HasEnhancement('RapidRepair') or enh == 'RapidRepair')
             local PA = (self:HasEnhancement('PowerArmor') or enh == 'PowerArmor')
             local C = (self:HasEnhancement('AdditionalCapacitor') or enh == 'AdditionalCapacitor')
@@ -427,7 +427,7 @@ INU3001 = Class(NWalkingLandUnit) {
                 self.HasRightArm = false
             end
 
-            # left arm + rapid repair or left arm + power armor
+            -- left arm + rapid repair or left arm + power armor
             if RR and self.HasLeftArm then
                 self:ShowBone( 'Nano_LArm', true )
             else
@@ -441,7 +441,7 @@ INU3001 = Class(NWalkingLandUnit) {
             if self.HasLeftArm then
                 self:HideBone( 'SGun', true )
             end
-            # no left arm but missile launcher icw rapid repair and power armor
+            -- no left arm but missile launcher icw rapid repair and power armor
             if RR and MSLL then
                 self:ShowBone( 'Nano_MissileL', true )
             else
@@ -452,7 +452,7 @@ INU3001 = Class(NWalkingLandUnit) {
             else
                 self:HideBone( 'Nano_MissileL2', true )
             end
-            # right arm + rapid repair, or right arm + power armor
+            -- right arm + rapid repair, or right arm + power armor
             if RR and self.HasRightArm then
                 self:ShowBone( 'Nano_RArm', true )
             else
@@ -463,7 +463,7 @@ INU3001 = Class(NWalkingLandUnit) {
             else
                 self:HideBone( 'Nano_RPauld', true )
             end
-            # no right arm but capacitor icw rapid repair, power armor and RAS
+            -- no right arm but capacitor icw rapid repair, power armor and RAS
             if RR and C then
                 self:ShowBone( 'Capacitor_Nano2', true )
             else
@@ -479,7 +479,7 @@ INU3001 = Class(NWalkingLandUnit) {
             else
                 self:HideBone( 'CapacitorTube', true )
             end
-            # no right arm but missile launcher icw rapid repair and power armor
+            -- no right arm but missile launcher icw rapid repair and power armor
             if RR and MSLR then
                 self:ShowBone( 'Nano_MissileR', true )
             else
@@ -492,9 +492,9 @@ INU3001 = Class(NWalkingLandUnit) {
             end
         end
 
-        # ---------------------------------------------------------------------------------------
-        # LEFT ARM GUN
-        # ---------------------------------------------------------------------------------------
+        -- ---------------------------------------------------------------------------------------
+        -- LEFT ARM GUN
+        -- ---------------------------------------------------------------------------------------
 
         if enh == 'GunLeft' then
             self:GetWeaponByLabel('GunLeft'):SetMuzzleOverride(true)
@@ -514,9 +514,9 @@ INU3001 = Class(NWalkingLandUnit) {
                 end
             end
 
-        # ---------------------------------------------------------------------------------------
-        # LEFT ARM GUN UPGRADE
-        # ---------------------------------------------------------------------------------------
+        -- ---------------------------------------------------------------------------------------
+        -- LEFT ARM GUN UPGRADE
+        -- ---------------------------------------------------------------------------------------
 
         elseif enh =='GunLeftUpgrade' then
 
@@ -534,7 +534,7 @@ INU3001 = Class(NWalkingLandUnit) {
                         Duration = -1,
                         Affects = {
                             RateOfFireSpecifiedWeapons = {
-                                Mult = 1 / (bp.RateOfFireMulti or 1), # here a value of 0.5 is actually doubling ROF
+                                Mult = 1 / (bp.RateOfFireMulti or 1), -- here a value of 0.5 is actually doubling ROF
                             },
                         },
                     }
@@ -545,7 +545,7 @@ INU3001 = Class(NWalkingLandUnit) {
                 Buff.ApplyBuff(self, 'NOMADSCULeftArmGunUpgrade')
             end
 
-            # adjust main gun
+            -- adjust main gun
             wep:AddDamageMod( (bp.NewDamage or wbp.Damage) - wbp.Damage )
             wep:ChangeMaxRadius(bp.NewMaxRadius or wbp.MaxRadius)
             wep:SetMuzzleOverride(false)
@@ -555,7 +555,7 @@ INU3001 = Class(NWalkingLandUnit) {
 
             Buff.RemoveBuff(self, 'NOMADSCULeftArmGunUpgrade')
 
-            # adjust main gun
+            -- adjust main gun
             local wep = self:GetWeaponByLabel('GunLeft')
             local wbp = wep:GetBlueprint()
             wep:AddDamageMod( -((bp.NewDamage or wbp.Damage) - wbp.Damage) )
@@ -563,7 +563,7 @@ INU3001 = Class(NWalkingLandUnit) {
             wep:SetMuzzleOverride(true)
             wep.RackRecoilReturnSpeed = wbp.RackRecoilReturnSpeed or math.abs( wbp.RackRecoilDistance / (( 1 / wbp.RateOfFire ) - (wbp.MuzzleChargeDelay or 0))) * 1.25
 
-            # and disable it
+            -- and disable it
             local ubp = self:GetBlueprint()
             if ubp.Enhancements.GunLeft.EnableWeapon then
                 self:SetWeaponEnabledByLabel( ubp.Enhancements.GunLeft.EnableWeapon, false )
@@ -573,9 +573,9 @@ INU3001 = Class(NWalkingLandUnit) {
                 end
             end
 
-        # ---------------------------------------------------------------------------------------
-        # CONSTRUCTION ARM LEFT
-        # ---------------------------------------------------------------------------------------
+        -- ---------------------------------------------------------------------------------------
+        -- CONSTRUCTION ARM LEFT
+        -- ---------------------------------------------------------------------------------------
 
         elseif enh == 'EngineeringLeft' then
 
@@ -608,9 +608,9 @@ INU3001 = Class(NWalkingLandUnit) {
             end
             self:UpdateBuildRestrictions()
 
-        # ---------------------------------------------------------------------------------------
-        # LEFT ARM MISSILE LAUNCHER
-        # ---------------------------------------------------------------------------------------
+        -- ---------------------------------------------------------------------------------------
+        -- LEFT ARM MISSILE LAUNCHER
+        -- ---------------------------------------------------------------------------------------
 
         elseif enh == 'LeftRocket' then
             if bp.EnableWeapon then
@@ -629,9 +629,9 @@ INU3001 = Class(NWalkingLandUnit) {
                 end
             end
 
-        # ---------------------------------------------------------------------------------------
-        # LEFT ARM RAILGUN
-        # ---------------------------------------------------------------------------------------
+        -- ---------------------------------------------------------------------------------------
+        -- LEFT ARM RAILGUN
+        -- ---------------------------------------------------------------------------------------
 
         elseif enh == 'Railgun' then
             if bp.EnableWeapon then
@@ -650,9 +650,9 @@ INU3001 = Class(NWalkingLandUnit) {
                 end
             end
 
-        # ---------------------------------------------------------------------------------------
-        # ADDITIONAL CAPACITOR
-        # ---------------------------------------------------------------------------------------
+        -- ---------------------------------------------------------------------------------------
+        -- ADDITIONAL CAPACITOR
+        -- ---------------------------------------------------------------------------------------
 
         elseif enh == 'AdditionalCapacitor' then
             if bp.CapacitorNewEnergyDrainPerSecond then
@@ -678,9 +678,9 @@ INU3001 = Class(NWalkingLandUnit) {
                 self:CapSetChargeTime(orgBp.Abilities.Capacitor.ChargeTime)
             end
 
-        # ---------------------------------------------------------------------------------------
-        # MOVEMENT SPEED INCREASE
-        # ---------------------------------------------------------------------------------------
+        -- ---------------------------------------------------------------------------------------
+        -- MOVEMENT SPEED INCREASE
+        -- ---------------------------------------------------------------------------------------
 
         elseif enh == 'MovementSpeedIncrease' then
             if not Buffs['NomadSCUSpeedIncrease'] then
@@ -707,16 +707,16 @@ INU3001 = Class(NWalkingLandUnit) {
                 LOG('*DEBUG: SCU enhancement movement speed increase removed but buff wasnt')
             end
 
-        # ---------------------------------------------------------------------------------------
-        # RESOURCE ALLOCATION
-        # ---------------------------------------------------------------------------------------
+        -- ---------------------------------------------------------------------------------------
+        -- RESOURCE ALLOCATION
+        -- ---------------------------------------------------------------------------------------
 
         elseif enh =='ResourceAllocation' then
             local bpEcon = self:GetBlueprint().Economy
             self:SetProductionPerSecondEnergy(bp.ProductionPerSecondEnergy + bpEcon.ProductionPerSecondEnergy or 0)
             self:SetProductionPerSecondMass(bp.ProductionPerSecondMass + bpEcon.ProductionPerSecondMass or 0)
 
-            # capacitor upgrades
+            -- capacitor upgrades
             if bp.CapacitorNewEnergyDrainPerSecond then
                 self:CapSetEnergyDrainPerSecond(bp.CapacitorNewEnergyDrainPerSecond)
             end
@@ -727,14 +727,14 @@ INU3001 = Class(NWalkingLandUnit) {
                 self:CapSetChargeTime(bp.CapacitorNewChargeTime)
             end			
 			
-            # TODO: show effect on bones Backpack_Fx1 and 2
+            -- TODO: show effect on bones Backpack_Fx1 and 2
 
         elseif enh == 'ResourceAllocationRemove' then
             local bpEcon = self:GetBlueprint().Economy
             self:SetProductionPerSecondEnergy(bpEcon.ProductionPerSecondEnergy or 0)
             self:SetProductionPerSecondMass(bpEcon.ProductionPerSecondMass or 0)
 
-            # removing capacitor upgrades
+            -- removing capacitor upgrades
             local orgBp = self:GetBlueprint()
             local obp = orgBp.Enhancements.ResourceAllocation
             if obp.CapacitorNewEnergyDrainPerSecond then
@@ -747,13 +747,13 @@ INU3001 = Class(NWalkingLandUnit) {
                 self:CapSetChargeTime(orgBp.Capacitor.ChargeTime)
             end
 
-        # ---------------------------------------------------------------------------------------
-        # RAPID REPAIR
-        # ---------------------------------------------------------------------------------------
+        -- ---------------------------------------------------------------------------------------
+        -- RAPID REPAIR
+        -- ---------------------------------------------------------------------------------------
 
         elseif enh == 'RapidRepair' then
 
-            if not Buffs['NomadSCURapidRepair'] then  # make sure this buff exists though not used yet
+            if not Buffs['NomadSCURapidRepair'] then  -- make sure this buff exists though not used yet
                 BuffBlueprint {
                     Name = 'NomadSCURapidRepair',
                     DisplayName = 'NomadSCURapidRepair',
@@ -790,7 +790,7 @@ INU3001 = Class(NWalkingLandUnit) {
 
         elseif enh == 'RapidRepairRemove' then
 
-            # keep code below synced to same code in PowerArmorRemove
+            -- keep code below synced to same code in PowerArmorRemove
             self:EnableRapidRepair(false)
             if Buff.HasBuff( self, 'NomadSCURapidRepairPermanentHPboost' ) then
                 Buff.RemoveBuff( self, 'NomadSCURapidRepair' )
@@ -799,9 +799,9 @@ INU3001 = Class(NWalkingLandUnit) {
                 LOG('*DEBUG: SCU enhancement rapid repair removed but buff wasnt')
             end
 
-        # ---------------------------------------------------------------------------------------
-        # POWER ARMOR
-        # ---------------------------------------------------------------------------------------
+        -- ---------------------------------------------------------------------------------------
+        -- POWER ARMOR
+        -- ---------------------------------------------------------------------------------------
 
         elseif enh =='PowerArmor' then
             if not Buffs['NomadSCUPowerArmor'] then
@@ -840,16 +840,16 @@ INU3001 = Class(NWalkingLandUnit) {
                 Buff.RemoveBuff( self, 'NomadSCUPowerArmor' )
             end
 
-            # remove rapid repair - copy of above
+            -- remove rapid repair - copy of above
             self:EnableRapidRepair(false)
             if Buff.HasBuff( self, 'NomadSCURapidRepairPermanentHPboost' ) then
                 Buff.RemoveBuff( self, 'NomadSCURapidRepair' )
                 Buff.RemoveBuff( self, 'NomadSCURapidRepairPermanentHPboost' )
             end
 
-        # ---------------------------------------------------------------------------------------
-        # RIGHT ARM GUN
-        # ---------------------------------------------------------------------------------------
+        -- ---------------------------------------------------------------------------------------
+        -- RIGHT ARM GUN
+        -- ---------------------------------------------------------------------------------------
 
         elseif enh == 'GunRight' then
             if bp.EnableWeapon then
@@ -868,22 +868,22 @@ INU3001 = Class(NWalkingLandUnit) {
                 end
             end
 
-        # ---------------------------------------------------------------------------------------
-        # RIGHT ARM GUN UPGRADE
-        # ---------------------------------------------------------------------------------------
+        -- ---------------------------------------------------------------------------------------
+        -- RIGHT ARM GUN UPGRADE
+        -- ---------------------------------------------------------------------------------------
 
         elseif enh =='GunRightUpgrade' then
 
-            # adjust gattling
-#            local wep = self:GetWeaponByLabel('GunRight')
+            -- adjust gattling
+--            local wep = self:GetWeaponByLabel('GunRight')
 LOG('Todo: SCU right arm upgrade')
 
         elseif enh =='GunRightUpgradeRemove' then
 
-            # adjust gattling
-#            local wep = self:GetWeaponByLabel('GunRight')
+            -- adjust gattling
+--            local wep = self:GetWeaponByLabel('GunRight')
 
-            # and disable it
+            -- and disable it
             local ubp = self:GetBlueprint()
             if ubp.Enhancements.GunRight.EnableWeapon then
                 self:SetWeaponEnabledByLabel( ubp.Enhancements.GunRight.EnableWeapon, false )
@@ -893,9 +893,9 @@ LOG('Todo: SCU right arm upgrade')
                 end
             end
 
-        # ---------------------------------------------------------------------------------------
-        # CONSTRUCTION ARM RIGHT
-        # ---------------------------------------------------------------------------------------
+        -- ---------------------------------------------------------------------------------------
+        -- CONSTRUCTION ARM RIGHT
+        -- ---------------------------------------------------------------------------------------
 
         elseif enh == 'EngineeringRight' then
 
@@ -928,9 +928,9 @@ LOG('Todo: SCU right arm upgrade')
             end
             self:UpdateBuildRestrictions()
 
-        # ---------------------------------------------------------------------------------------
-        # RIGHT ARM MISSILE LAUNCHER
-        # ---------------------------------------------------------------------------------------
+        -- ---------------------------------------------------------------------------------------
+        -- RIGHT ARM MISSILE LAUNCHER
+        -- ---------------------------------------------------------------------------------------
 
         elseif enh == 'RightRocket' then
             if bp.EnableWeapon then
@@ -955,15 +955,15 @@ LOG('Todo: SCU right arm upgrade')
         end
     end,
 
-# =================================================================================================================
+-- =================================================================================================================
 
     CreateDestructionEffects = function( self, overKillRatio )
-        # explosions at these bones
+        -- explosions at these bones
         local bones = { 'Thigh_L', 'Thigh_R', 'Midleg_L', 'Midleg_R', 'Foreleg_L', 'Foreleg_R', }
-        # explosion at these bones and then hide them. As if the explosion destroys that part of the unit
+        -- explosion at these bones and then hide them. As if the explosion destroys that part of the unit
         local hideBones = { 'Engi_Basic', 'Head', 'Pauldron_L', 'Pauldron_R', }
 
-        # check all enhancements to find bones we can use for effects
+        -- check all enhancements to find bones we can use for effects
         local bp = self:GetBlueprint()
         for name, enh in bp.Enhancements do
             if self:HasEnhancement(name) and enh.ShowBones then
@@ -971,7 +971,7 @@ LOG('Todo: SCU right arm upgrade')
             end
         end
 
-        # determine effect templates to use
+        -- determine effect templates to use
         local layer = self:GetCurrentLayer()
         local TemplReg = NomadEffectTemplate.SCUDestructionRegularSurface
         local TemplSmall = NomadEffectTemplate.SCUDestructionSmallExplosionsSurface
@@ -980,7 +980,7 @@ LOG('Todo: SCU right arm upgrade')
             TemplSmall = NomadEffectTemplate.SCUDestructionSmallExplosionsUnderWater
         end
 
-        # base effect
+        -- base effect
         local army = self:GetArmy()
         local emitters = {}
         local emit, rs, k
@@ -989,26 +989,26 @@ LOG('Todo: SCU right arm upgrade')
             table.insert(emitters, emit)
         end
 
-        # small epxlosions
+        -- small epxlosions
         local sx, sy, sz = self:GetUnitSizes()
         local vol = sx * sy * sz
         local numHideBones = table.getn(hideBones)
         local numB = table.getn(bones)
         local total = numB + numHideBones
         local GetHideBone = RandomIter(hideBones)
-        local num = math.min(8, math.max(3, Random( math.min(numHideBones, numB), math.max(numHideBones, numB)))) # a random number between 3 and 8 based on number of fx bones
+        local num = math.min(8, math.max(3, Random( math.min(numHideBones, numB), math.max(numHideBones, numB)))) -- a random number between 3 and 8 based on number of fx bones
         for i=1, num do
 
             local rx, ry, rz = self:GetRandomOffset(0.1)
             rs = Random(vol/2, vol*2) / (vol*2)
 
             if Random(0, total) > numB then
-                # explosion at enhancement or bone that we want to hide
+                -- explosion at enhancement or bone that we want to hide
                 k, bone = GetHideBone()
                 self:HideBone(bone, true)
                 total = total - 1
             else
-                # explosion at bone
+                -- explosion at bone
                 bone = bones[ Random(1, numB) ]
             end
 

@@ -78,7 +78,7 @@ function SetLayout()
 		[3] = {Left = 190, Top = 60},
         [4] = {Left = 130, Top = 60},
         [6] = {Left = 190, Top = 80},
-        [8] = {Left = 190, Top = 80},  # position capacitor icon at shield position
+        [8] = {Left = 190, Top = 80},  -- position capacitor icon at shield position
     }
     local iconTextures = {
         UIUtil.UIFile('/game/unit_view_icons/mass.dds'),
@@ -129,7 +129,7 @@ function SetLayout()
     controls.abilityBG:Surround(controls.abilities, 3, 5)
     LayoutHelpers.DepthUnderParent(controls.abilityBG, controls.abilities)
 
-    if options.gui_detailed_unitview != 0 then
+    if options.gui_detailed_unitview ~= 0 then
         LayoutHelpers.AtLeftTopIn(controls.healthBar, controls.bg, 66, 25)
         LayoutHelpers.Below(controls.shieldBar, controls.healthBar)
         controls.shieldBar.Height:Set(14)

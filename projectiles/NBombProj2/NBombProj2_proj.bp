@@ -38,7 +38,7 @@ ProjectileBlueprint {
     },
     Physics = {
         DestroyOnWater = true,
-        DetonateBelowHeight = 7,  # used only when NumFragments has been defined in the launcher units blueprint. If not this is set to 0.
+        DetonateBelowHeight = 7,  -- used only when NumFragments has been defined in the launcher units blueprint. If not this is set to 0.
         MaxSpeed = 20,
         RealisticOrdinance = true,
         TrackTarget = false,

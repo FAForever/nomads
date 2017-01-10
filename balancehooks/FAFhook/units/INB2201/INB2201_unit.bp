@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "inb2201", # T2 point defense
+    BlueprintId = "inb2201", -- T2 point defense
     Economy = {
         BuildTime = 600,
     },

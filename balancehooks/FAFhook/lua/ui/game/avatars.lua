@@ -14,8 +14,8 @@ function AvatarUpdate()
     -- Find the faction key (1 - 4 valid. 5+ happen for Civilian, default to 4 to use Seraphim textures)
     -- armiesTable[GetFocusArmy()].faction returns 0 = UEF, 1 = Aeon, 2 = Cybran, 3 = Seraphim, 4 = Civilian Army, 5 = Civilian Neutral
     -- We want 1 - 4, with 4 max
-    #currentFaction = math.min(GetArmiesTable().armiesTable[GetFocusArmy()].faction + 1, 4)
-	# Brute51: no faction hardcoding pls!
+    --currentFaction = math.min(GetArmiesTable().armiesTable[GetFocusArmy()].faction + 1, 4)
+	-- Brute51: no faction hardcoding pls!
 	currentFaction = 0
 	local army = GetFocusArmy()
 	if army >= 0 then

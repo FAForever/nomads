@@ -22,7 +22,7 @@ NomadACUDropPodCover = Class(NullShell) {
     Launch = function(self)
         local fn = function(self)
 
-            # determine a random launch vector and set velocities
+            -- determine a random launch vector and set velocities
             local angle = RandomFloat(0, 2 * math.pi)
             local vx = math.sin(angle)
             local vy = 5
@@ -44,16 +44,16 @@ NomadACUDropPodCover = Class(NullShell) {
     end,
 
     OnImpact = function(self, targetType, targetEntity)
-        # need to use the correct impact type to play the right sound
+        -- need to use the correct impact type to play the right sound
         if targetType == 'Terrain' and self:IsUnderWater() then
             targetType = 'Underwater'
         end
 
         NullShell.OnImpact(self, targetType, targetEntity)  
 
-        # create some additional effects
+        -- create some additional effects
         local army = self:GetArmy()
-        local ok = (targetType != 'Water' and targetType != 'Shield' and targetType != 'Air' and targetType != 'UnitAir' and targetType != 'UnitUnderwater')
+        local ok = (targetType ~= 'Water' and targetType ~= 'Shield' and targetType ~= 'Air' and targetType ~= 'UnitAir' and targetType ~= 'UnitUnderwater')
         if ok then 
             local rotation = RandomFloat(0,2*math.pi)
             local size = RandomFloat(5, 6.5)

@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "ues0304", # UEF T3 sub
+    BlueprintId = "ues0304", -- UEF T3 sub
     SpecialAbilities = {
         LaunchNuke = {
             AreaOfEffect = 40,

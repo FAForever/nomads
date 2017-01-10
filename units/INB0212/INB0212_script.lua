@@ -1,4 +1,4 @@
-# T2 air factory (support, non HQ)
+-- T2 air factory (support, non HQ)
 
 local NAirFactoryUnit = import('/lua/nomadunits.lua').NAirFactoryUnit
 
@@ -7,7 +7,7 @@ INB0212 = Class(NAirFactoryUnit) {
     OnCreate = function(self)
         NAirFactoryUnit.OnCreate(self)
 
-        # Hide bones
+        -- Hide bones
     end,
 }
 

@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "ina2003", # T2 gunship
+    BlueprintId = "ina2003", -- T2 gunship
     Wreckage = {
         WreckageLayers = {
             Air = false,

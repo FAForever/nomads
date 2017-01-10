@@ -39,12 +39,12 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
-    BuildIconSortPriority = 51, #
+    BuildIconSortPriority = 51, --
     Categories = {
         'SELECTABLE',
-        'BUILTBYTIER2SUPPORTFACTORY', #
-        'BUILTBYTIER3ENGINEER', #
-        'BUILTBYTIER3COMMANDER', #
+        'BUILTBYTIER2SUPPORTFACTORY', --
+        'BUILTBYTIER3ENGINEER', --
+        'BUILTBYTIER3COMMANDER', --
         'NOMAD',
         'STRUCTURE',
         'AIR',
@@ -59,26 +59,26 @@ UnitBlueprint {
         'SHOWQUEUE',
         'SORTCONSTRUCTION',
         'CONSTRUCTIONSORTDOWN',
-	'SUPPORTFACTORY', #
+	'SUPPORTFACTORY', --
     },
     CollisionOffsetZ = -0.25,
     Defense = {
         AirThreatLevel = 0,
         ArmorType = 'Structure',
         EconomyThreatLevel = 34,
-        Health = 9750, #
-        MaxHealth = 9750, #
+        Health = 9750, --
+        MaxHealth = 9750, --
         RegenRate = 0,
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
     },
-    Description = '<LOC inb0312_desc>Air Factory', #
+    Description = '<LOC inb0312_desc>Air Factory', --
     Display = {
         BuildAttachBone = 'Attachpoint',
         BuildEffect = {
             Factory = {
-#                BuildFieldCorrection = 0.2,
-#                BuildFieldReversed = true,
+--                BuildFieldCorrection = 0.2,
+--                BuildFieldReversed = true,
             },
         },
         Mesh = {
@@ -112,10 +112,10 @@ UnitBlueprint {
         UniformScale = 0.42,
     },
     Economy = {
-        BuildCostEnergy = 34153, #
-        BuildCostMass = 1510, #
-        BuildRate = 120, #
-        BuildTime = 4000, #
+        BuildCostEnergy = 34153, --
+        BuildCostMass = 1510, --
+        BuildRate = 120, --
+        BuildTime = 4000, --
         BuildableCategory = {
             'BUILTBYTIER3FACTORY NOMAD MOBILE CONSTRUCTION',
             'BUILTBYTIER3FACTORY NOMAD STRUCTURE AIR',
@@ -123,7 +123,7 @@ UnitBlueprint {
             'TRANSPORTBUILTBYTIER3FACTORY NOMAD MOBILE AIR',
             'FIELDENGINEER NOMAD MOBILE LAND',
         },
-	DifferentialUpgradeCostCalculation = true, #
+	DifferentialUpgradeCostCalculation = true, --
         RebuildBonusIds = {
             'inb0312',
         },
@@ -177,7 +177,7 @@ UnitBlueprint {
         VisionRadius = 20,
     },
     Interface = {
-        HelpText = '<LOC inb0312_help>Air Factory', #
+        HelpText = '<LOC inb0312_help>Air Factory', --
     },
     LifeBarHeight = 0.075,
     LifeBarOffset = 2.15,
@@ -199,126 +199,126 @@ UnitBlueprint {
         MotionType = 'RULEUMT_None',
         RaisedPlatforms = {
 
-            # Platform 1
-            # TopLeft Offset From Center
-            -2.1, #-1.6,
+            -- Platform 1
+            -- TopLeft Offset From Center
+            -2.1, ---1.6,
 
-            # x
-            -2.625, #-2,
+            -- x
+            -2.625, ---2,
 
-            # z
-            0.23625, #0.18,
+            -- z
+            0.23625, --0.18,
 
-            # height
-            # TopRight Offset From Center
-            2.625, #2,
+            -- height
+            -- TopRight Offset From Center
+            2.625, --2,
 
-            # x
-            -2.625, #-2,
+            -- x
+            -2.625, ---2,
 
-            # z
-            0.23625, #0.18,
+            -- z
+            0.23625, --0.18,
 
-            # height
-            # BottomLeft Offset From Center
-            -2.1, #-1.6,
+            -- height
+            -- BottomLeft Offset From Center
+            -2.1, ---1.6,
 
-            # x
-            2.1, #1.6,
+            -- x
+            2.1, --1.6,
 
-            # z
-            0.23625, #0.18,
+            -- z
+            0.23625, --0.18,
 
-            # height
-            # BottomRight Offset From Center
-            2.625, #2,
+            -- height
+            -- BottomRight Offset From Center
+            2.625, --2,
 
-            # x
-            2.1, #1.6,
+            -- x
+            2.1, --1.6,
 
-            # z
-            0.23625, #0.18,
+            -- z
+            0.23625, --0.18,
 
-            # height
-            # Platform 2
-            # TopLeft Offset From Center
-            2.296875, #-1.75,
+            -- height
+            -- Platform 2
+            -- TopLeft Offset From Center
+            2.296875, ---1.75,
 
-            # x
-            2.625, #-2,
+            -- x
+            2.625, ---2,
 
-            # z
+            -- z
             0,
 
-            # height
-            # TopRight Offset From Center
-            -2.1, #-1.6,
+            -- height
+            -- TopRight Offset From Center
+            -2.1, ---1.6,
 
-            # x
-            2.625, #-2,
+            -- x
+            2.625, ---2,
 
-            # z
-            0.23625, #0.18,
+            -- z
+            0.23625, --0.18,
 
-            # height
-            # BottomLeft Offset From Center
-            -2.296875, #-1.75,
+            -- height
+            -- BottomLeft Offset From Center
+            -2.296875, ---1.75,
 
-            # x
-            2.1, #1.6,
+            -- x
+            2.1, --1.6,
 
-            # z
+            -- z
             0,
 
-            # height
-            # BottomRight Offset From Center
-            -2.1, #-1.6,
+            -- height
+            -- BottomRight Offset From Center
+            -2.1, ---1.6,
 
-            # x
-            2.1, #1.6,
+            -- x
+            2.1, --1.6,
 
-            # z
-            0.23625, #0.18,
+            -- z
+            0.23625, --0.18,
 
-            # height
-            # Platform 3
-            # TopLeft Offset From Center
-            -2.625, #-2,
+            -- height
+            -- Platform 3
+            -- TopLeft Offset From Center
+            -2.625, ---2,
 
-            # x
-            2.1, #1.6,
+            -- x
+            2.1, --1.6,
 
-            # z
-            0.23625, #0.18,
+            -- z
+            0.23625, --0.18,
 
-            # height
-            # TopRight Offset From Center
-            2.625, #2,
+            -- height
+            -- TopRight Offset From Center
+            2.625, --2,
 
-            # x
-            2.1, #1.6,
+            -- x
+            2.1, --1.6,
 
-            # z
-            0.23625, #0.18,
+            -- z
+            0.23625, --0.18,
 
-            # height
-            # BottomLeft Offset From Center
-            -2.625, #-2,
+            -- height
+            -- BottomLeft Offset From Center
+            -2.625, ---2,
 
-            # x
-            2.296875, #1.75,
+            -- x
+            2.296875, --1.75,
 
-            # z
+            -- z
             0,
 
-            # height
-            # BottomRight Offset From Center
-            2.625, #2,
+            -- height
+            -- BottomRight Offset From Center
+            2.625, --2,
 
-            # x
-            2.296875, #1.75,
+            -- x
+            2.296875, --1.75,
 
-            # z
+            -- z
             0,
         },
         RollOffPoints = {

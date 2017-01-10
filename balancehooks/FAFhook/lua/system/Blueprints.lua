@@ -13,7 +13,7 @@ function ModBlueprints(all_bps)
         end
         bp.RemoveAnimationDeath = nil
 
-        # Code below injects wreckage info for naval untis that don't have it. Surprisingly this seems to be all non-Nomads naval units
+        -- Code below injects wreckage info for naval untis that don't have it. Surprisingly this seems to be all non-Nomads naval units
         local code = string.lower(string.sub(bp.BlueprintId, 1, 3))
         if   code == 'ues' or code == 'uas' or code == 'urs' or code == 'xss' or code == 'ins' or
              code == 'xes' or code == 'xas' or code == 'xrs'
@@ -78,7 +78,7 @@ local oldGetNewUnitLocations = GetNewUnitLocations
 function GetNewUnitLocations()
     local t = oldGetNewUnitLocations()
     t = table.cat( t, {
-        # adding all Nomad support factories to the game
+        -- adding all Nomad support factories to the game
         '/units/INB0211',
         '/units/INB0212',
         '/units/INB0213',

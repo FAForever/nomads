@@ -4,12 +4,12 @@ local EffectUtilities = import('/lua/EffectUtilities.lua')
 local Util = import('/lua/utilities.lua')
 
 
-# Nomads continuous beam
+-- Nomads continuous beam
 NomadPhaseRay = Class(CollisionBeam) {
 
-    # The only beam in the Nomads mod!
-    # there was some crazy stuff in here that would allow healing of units. This never seemed to work and since I don't care
-    # for healing units (we're removing the fancy stuff remember!) it got deleted.
+    -- The only beam in the Nomads mod!
+    -- there was some crazy stuff in here that would allow healing of units. This never seemed to work and since I don't care
+    -- for healing units (we're removing the fancy stuff remember!) it got deleted.
 
     FxBeamStartPoint = NomadEffectTemplate.PhaseRayMuzzle,
     FxBeam = NomadEffectTemplate.PhaseRayBeam,
@@ -55,8 +55,8 @@ NomadPhaseRay = Class(CollisionBeam) {
         while true do
             if Util.GetDistanceBetweenTwoVectors( CurrentPosition, LastPosition ) > 0.25 or skipCount > 100 then
 
-                # only create splat if it makes sense to make one on the surface
-                if impactType != 'Air' and impactType != 'Nothing' then
+                -- only create splat if it makes sense to make one on the surface
+                if impactType ~= 'Air' and impactType ~= 'Nothing' then
                     CreateSplat( CurrentPosition, Util.GetRandomFloat(0,2*math.pi), self.SplatTexture, size, size, 100, 100, army )
                 end
 
@@ -73,7 +73,7 @@ NomadPhaseRay = Class(CollisionBeam) {
     end,
 }
 
-# Nomads beam cannon
+-- Nomads beam cannon
 NomadPhaseRayCannon = Class(NomadPhaseRay) {
     FxBeamStartPoint = NomadEffectTemplate.PhaseRayCannonMuzzle,
     FxBeam = NomadEffectTemplate.PhaseRayBeamCannon,

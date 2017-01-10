@@ -1,4 +1,4 @@
-# Tactical missile anti missile
+-- Tactical missile anti missile
 
 local Missile1 = import('/lua/nomadprojectiles.lua').Missile1
 

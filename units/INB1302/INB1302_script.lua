@@ -1,4 +1,4 @@
-# T3 mex
+-- T3 mex
 
 local NMassCollectionUnit = import('/lua/nomadunits.lua').NMassCollectionUnit
 local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
@@ -8,7 +8,7 @@ INB1302 = Class(NMassCollectionUnit) {
     OnCreate = function(self)
         NMassCollectionUnit.OnCreate(self)
 
-        # set up animation manip
+        -- set up animation manip
         self.AnimationManipulator = CreateAnimator(self):PlayAnim(self:GetBlueprint().Display.AnimationOpen, true)
         self.AnimationManipulator:SetRate(0)
         self.AnimationManipulator:SetAnimationFraction(0)
@@ -47,14 +47,14 @@ INB1302 = Class(NMassCollectionUnit) {
     PlayActiveEffects = function(self)
         local army, emit, beam = self:GetArmy()
 
-        # start emitters
+        -- start emitters
         for k, v in NomadEffectTemplate.T3MassExtractorActiveEffects do
             emit = CreateAttachedEmitter( self, -1, army, v )
             self.ActiveEffectsBag:Add( emit )
             self.Trash:Add( emit )
         end
 
-        # start beams
+        -- start beams
         for k, v in NomadEffectTemplate.T3MassExtractorActiveBeams do
             beam = CreateBeamEntityToEntity( self, 'muzzle', self, 0, army, v )
             self.ActiveEffectsBag:Add( beam )

@@ -1,4 +1,4 @@
-# T3 spy plane
+-- T3 spy plane
 
 local NAirUnit = import('/lua/nomadunits.lua').NAirUnit
 

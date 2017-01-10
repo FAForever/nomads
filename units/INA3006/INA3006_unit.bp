@@ -391,7 +391,7 @@ UnitBlueprint {
             FiringRandomness = 0.2,
             FiringTolerance = 2,
             Label = 'CannonLeft',
-#            MinRadius = 3,
+--            MinRadius = 3,
             MaxRadius = 25,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -432,7 +432,7 @@ UnitBlueprint {
             TurretBonePitch = 'Cannon_L_Pitch',
             TurretBoneYaw = 'Cannon_L_Yaw',
             TurretDualManipulators = false,
-            TurretPitch = -45,  # semi-overdone pitch (range) so that it can hit things directly under it
+            TurretPitch = -45,  -- semi-overdone pitch (range) so that it can hit things directly under it
             TurretPitchRange = 70,
             TurretPitchSpeed = 180,
             TurretYaw = 0,
@@ -464,7 +464,7 @@ UnitBlueprint {
             FiringRandomness = 0.2,
             FiringTolerance = 2,
             Label = 'CannonRight',
-#            MinRadius = 3,
+--            MinRadius = 3,
             MaxRadius = 25,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,

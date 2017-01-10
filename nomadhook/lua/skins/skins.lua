@@ -37,7 +37,7 @@ skins = table.merged( skins, {
 
 skins['default']['cursors'] = table.merged( skins['default']['cursors'], {
 
-    # cursor format is: texture name, hotspotx, hotspoty, [optional] num frames, [optional] fps
+    -- cursor format is: texture name, hotspotx, hotspoty, [optional] num frames, [optional] fps
     SPECABIL_Eye = {  '/textures/ui/common/game/cursors/eye-.dds', 15, 15, 11, 2},
     SPECABIL_Nuke = { '/textures/ui/common/game/cursors/nuke.dds', 15, 15 },
 })

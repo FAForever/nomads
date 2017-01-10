@@ -1,4 +1,4 @@
-# T2 shield generator + stealth field generator
+-- T2 shield generator + stealth field generator
 
 local NShieldStructureUnit = import('/lua/nomadunits.lua').NShieldStructureUnit
 

@@ -3,12 +3,12 @@ do
 local oldFlare = Flare
 Flare = Class(oldFlare) {
 
-    # modifying original script to skip diverting when a flag in the missile is set. Used on Nomads T3 rocket artillery.
-    # TODO: When Nomads is more or less final the check for turn rates on the missiles can be removed.
+    -- modifying original script to skip diverting when a flag in the missile is set. Used on Nomads T3 rocket artillery.
+    -- TODO: When Nomads is more or less final the check for turn rates on the missiles can be removed.
 
     OnCollisionCheck = function(self, other)
-        if EntityCategoryContains(ParseEntityCategory(self.RedirectCat), other) and (self:GetArmy() != other:GetArmy()) then
-            if IsProjectile( other ) and (not other.OnFlare_SetTrackTarget or other.OnFlare_SetTrackTarget != false) then
+        if EntityCategoryContains(ParseEntityCategory(self.RedirectCat), other) and (self:GetArmy() ~= other:GetArmy()) then
+            if IsProjectile( other ) and (not other.OnFlare_SetTrackTarget or other.OnFlare_SetTrackTarget ~= false) then
                 other.IsBeingDeflectedByFlares = true
                 other:TrackTarget(true)
                 other:SetNewTarget(self.Owner)
@@ -28,7 +28,7 @@ Flare = Class(oldFlare) {
 
 local oldMissileRedirect = MissileRedirect
 MissileRedirect = Class(MissileRedirect) {
-    # Adding a bit more functionality, mainly needed for disabling this ability when parent unit is EMPed.
+    -- Adding a bit more functionality, mainly needed for disabling this ability when parent unit is EMPed.
 
     OnCreate = function(self, spec)
         oldMissileRedirect.OnCreate(self, spec)
@@ -67,13 +67,13 @@ MissileRedirect = Class(MissileRedirect) {
 
             self:PlayRedirectFx()
 
-            if self.Enemy then   # Set collision to friends active so that when the missile reaches its source it can deal damage. 
+            if self.Enemy then   -- Set collision to friends active so that when the missile reaches its source it can deal damage. 
                 self.EnemyProj.DamageData.CollideFriendly = true         
                 self.EnemyProj.DamageData.DamageFriendly = true 
                 self.EnemyProj.DamageData.DamageSelf = true 
             end
 
-            if self.Enemy and not self.Enemy:BeenDestroyed() then  # if target lives then return to sender, destroy missile otherwise
+            if self.Enemy and not self.Enemy:BeenDestroyed() then  -- if target lives then return to sender, destroy missile otherwise
                 WaitSeconds(1/self.RedirectRateOfFire)
                 if not self.EnemyProj:BeenDestroyed() then
                     self.EnemyProj:TrackTarget(false)
@@ -97,7 +97,7 @@ MissileRedirect = Class(MissileRedirect) {
         end,
     },
 
-    RecoverState = State {  # A waiting time before being able to fire again
+    RecoverState = State {  -- A waiting time before being able to fire again
         Main = function(self)
             if self.RecoveryTime > 0 then
                 WaitSeconds( self.RecoveryTime )

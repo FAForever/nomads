@@ -1,4 +1,4 @@
-# T2 mass fab
+-- T2 mass fab
 
 local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
 local NMassFabricationUnit = import('/lua/nomadunits.lua').NMassFabricationUnit

@@ -5,7 +5,7 @@ URL0303 = Class(oldURL0303) {
     OnStopBeingBuilt = function(self, builder, layer)
         CWalkingLandUnit.OnStopBeingBuilt(self, builder, layer)
         local bp = self:GetBlueprint().Defense.AntiMissile
-        self.AntiMissile = MissileRedirect {  # unit global var so can disable it when stunned
+        self.AntiMissile = MissileRedirect {  -- unit global var so can disable it when stunned
             Owner = self,
             Radius = bp.Radius,
             AttachBone = bp.AttachBone,

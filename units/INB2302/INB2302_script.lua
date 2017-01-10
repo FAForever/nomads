@@ -1,8 +1,8 @@
-# T3 artillery
+-- T3 artillery
 
-# this is the ground statino for the T3 artillery unit. It gets an orbital 'slave' unit assigned which does the shooting.
-# the base station should tell the orbital unit what to fire on. I'm using a fake weapon to do the targetting. It's target
-# is relayed to the slave unit.
+-- this is the ground statino for the T3 artillery unit. It gets an orbital 'slave' unit assigned which does the shooting.
+-- the base station should tell the orbital unit what to fire on. I'm using a fake weapon to do the targetting. It's target
+-- is relayed to the slave unit.
 
 local NStructureUnit = import('/lua/nomadunits.lua').NStructureUnit
 local DefaultProjectileWeapon = import('/lua/sim/defaultweapons.lua').DefaultProjectileWeapon
@@ -74,13 +74,13 @@ INB2302 = Class(NStructureUnit) {
     OnStopBeingBuilt = function(self, builder, layer)
         NStructureUnit.OnStopBeingBuilt(self, builder, layer)
 
-        # in case we haven't asked for a slave unit, do it now
+        -- in case we haven't asked for a slave unit, do it now
         if not self.ArtilleryUnitRequested then
             self.ArtilleryUnitRequested = true
             self:GetAIBrain():RequestUnitAssignedToParent(self, 'ino2302', self.OnArtilleryUnitAssigned)
         end
 
-        # enable dummy weapon if there's a slave unit assigned to us, if not, wait for it
+        -- enable dummy weapon if there's a slave unit assigned to us, if not, wait for it
         if self.ArtilleryUnit then
             self:SetWeaponEnabledByLabel( 'DummyWeapon', true )
         else
@@ -92,7 +92,7 @@ INB2302 = Class(NStructureUnit) {
         local oldFireState = self.ArtilleryUnit:GetFireState()
         while true do
             local FireState = self:GetFireState()
-            if FireState != oldFireState then
+            if FireState ~= oldFireState then
                 self.ArtilleryUnit:SetFireState( FireState )
             end
             oldFireState = FireState
@@ -111,7 +111,7 @@ INB2302 = Class(NStructureUnit) {
     SetArtilleryUnitTarget = function(self, target, targetPos)
         if self.CanSetNewArtilleryUnitTarget then
             if self.ArtilleryUnit then
-                target = self:GetTargetEntity()   # this function is much more reliable than the weapon one
+                target = self:GetTargetEntity()   -- this function is much more reliable than the weapon one
                 self.ArtilleryUnit:SetTarget( target, targetPos )
             else
                 WARN( 'No artillery unit associated with T3 artillery unit! (2)' )
@@ -122,17 +122,17 @@ INB2302 = Class(NStructureUnit) {
     OnArtilleryUnitAssigned = function(self, gun)
         self.ArtilleryUnit = gun
 
-        # position artillery gun above us
+        -- position artillery gun above us
         local pos = self:GetPosition()
         local gunPos = gun:GetPosition()
         pos[2] = gunPos[2]
         IssueClearCommands( {gun} )
         IssueMove( {gun}, pos )
 
-        # tell the gun unit we're it's parent
+        -- tell the gun unit we're it's parent
         gun:OnSetParent(self, self.OnArtilleryUnitFired, self.OnArtilleryUnitKilledUnit )
 
-        # if we're constructed completely then enable the dummy weapon
+        -- if we're constructed completely then enable the dummy weapon
         if self:GetFractionComplete() >= 1 then
             self:SetWeaponEnabledByLabel( 'DummyWeapon', true )
         end
@@ -141,11 +141,11 @@ INB2302 = Class(NStructureUnit) {
     end,
 
     OnArtilleryUnitFired = function(self)
-        # called each time the gun fires a projectile
+        -- called each time the gun fires a projectile
     end,
 
     OnArtilleryUnitKilledUnit = function(self)
-        # called each time the gun kills a unit
+        -- called each time the gun kills a unit
         self:AddKills(1)
     end,
 }

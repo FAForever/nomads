@@ -359,13 +359,13 @@ UnitBlueprint {
         MaxSpeed = 1.7,
         MaxSpeedReverse = 1,
         MaxSteerForce = 3,
-        MeshExtentsX = 8, #0.75,
-        MeshExtentsY = 2, #0.45,
-        MeshExtentsZ = 10.5, #1.25,
+        MeshExtentsX = 8, --0.75,
+        MeshExtentsY = 2, --0.45,
+        MeshExtentsZ = 10.5, --1.25,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Hover',
-#        OnWaterBuff = 'OnWaterSpeed80',
-        RotateBodyWhileMoving = false,   # disabled because it is annoying
+--        OnWaterBuff = 'OnWaterSpeed80',
+        RotateBodyWhileMoving = false,   -- disabled because it is annoying
         SkirtOffsetX = -0.5,
         SkirtOffsetZ = -4,
         SkirtSizeX = 6,
@@ -382,7 +382,7 @@ UnitBlueprint {
     SelectionSizeX = 3.2,
     SelectionSizeZ = 7.2,
     SelectionThickness = 0.3,
-    SizeX = 5, # keep 5 or higher to make sure the unit can move through structures
+    SizeX = 5, -- keep 5 or higher to make sure the unit can move through structures
     SizeY = 1.8,
     SizeZ = 10,
     StrategicIconName = 'icon_experimental_generic',

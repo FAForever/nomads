@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "inu4002", # exp Bullfrog
+    BlueprintId = "inu4002", -- exp Bullfrog
     Veteran = {
         Level1 = 80,
         Level2 = 160,

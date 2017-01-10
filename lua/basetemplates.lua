@@ -1,6 +1,6 @@
 BaseTemplates = {
 
-# UEF BaseTemplates Building List
+-- UEF BaseTemplates Building List
     {
         {
             {
@@ -1929,7 +1929,7 @@ BaseTemplates = {
             { 29, 30, 0 },
         },
     },
-# Aeon BaseTemplates Building List
+-- Aeon BaseTemplates Building List
     {
         {
             {
@@ -3858,7 +3858,7 @@ BaseTemplates = {
             { 29, 30, 0 },
         },
     },
-# Cybran BaseTemplates Building List
+-- Cybran BaseTemplates Building List
     {
         {
             {
@@ -5787,7 +5787,7 @@ BaseTemplates = {
             { 29, 30, 0 },
         },
     },
-# Seraphim BaseTemplates Building List
+-- Seraphim BaseTemplates Building List
     {
         {
             {
@@ -7722,7 +7722,7 @@ BaseTemplates = {
 
 ExpansionBaseTemplates =
 {
-# UEF ExpansionBaseTemplates Building List
+-- UEF ExpansionBaseTemplates Building List
     {
         {
             {
@@ -8631,7 +8631,7 @@ ExpansionBaseTemplates =
             { 19, 20, 0 },
         },
     },
-# Aeon ExpansionBaseTemplates Building List
+-- Aeon ExpansionBaseTemplates Building List
     {
         {
             {
@@ -9540,7 +9540,7 @@ ExpansionBaseTemplates =
             { 19, 20, 0 },
         },
     },
-# Cybran ExpansionBaseTemplates Building List
+-- Cybran ExpansionBaseTemplates Building List
     {
         {
             {
@@ -10449,7 +10449,7 @@ ExpansionBaseTemplates =
             { 19, 20, 0 },
         },
     },
-# Seraphim ExpansionBaseTemplates Building List
+-- Seraphim ExpansionBaseTemplates Building List
     {
         {
             {
@@ -11364,7 +11364,7 @@ ExpansionBaseTemplates =
 
 Adjacency2x2 =
 {
-# UEF Adjacency Building List
+-- UEF Adjacency Building List
     {
         {
         'T1EnergyProduction', 
@@ -11424,7 +11424,7 @@ Adjacency2x2 =
         { 0,  2, 0 },
         { 0, -2, 0 },
     },
-# Aeon Adjacency Building List
+-- Aeon Adjacency Building List
     {
         {
         'T1EnergyProduction', 
@@ -11484,7 +11484,7 @@ Adjacency2x2 =
         { 0,  2, 0 },
         { 0, -2, 0 },
     },
-# Cybran Adjacency Building List
+-- Cybran Adjacency Building List
     {
         {
         'T1EnergyProduction', 
@@ -11544,7 +11544,7 @@ Adjacency2x2 =
         { 0,  2, 0 },
         { 0, -2, 0 },
     },
-# Seraphim Adjacency Building List
+-- Seraphim Adjacency Building List
     {
         {
         'T1EnergyProduction', 
@@ -11610,7 +11610,7 @@ Adjacency2x2 =
 
 MovedTemplates1 =
 {
-# UEF MovedTemplates Building List
+-- UEF MovedTemplates Building List
     {
         {
             {
@@ -12519,7 +12519,7 @@ MovedTemplates1 =
             { -31, -30, 0 },
         },
     },
-# Aeon MovedTemplates Building List
+-- Aeon MovedTemplates Building List
     {
         {
             {
@@ -13428,7 +13428,7 @@ MovedTemplates1 =
             { -31, -30, 0 },
         },
     },
-# Cybran MovedTemplates Building List
+-- Cybran MovedTemplates Building List
     {
         {
             {
@@ -14337,7 +14337,7 @@ MovedTemplates1 =
             { -31, -30, 0 },
         },
     },
-# Seraphim MovedTemplates Building List
+-- Seraphim MovedTemplates Building List
     {
         {
             {
@@ -15252,7 +15252,7 @@ MovedTemplates1 =
 
 MovedTemplates2 =
 {
-# UEF MovedTemplates Building List
+-- UEF MovedTemplates Building List
     {
         {
             {
@@ -16161,7 +16161,7 @@ MovedTemplates2 =
             { -31, 20, 0 },
         },
     },
-# Aeon MovedTemplates Building List
+-- Aeon MovedTemplates Building List
     {
         {
             {
@@ -17070,7 +17070,7 @@ MovedTemplates2 =
             { -31, 20, 0 },
         },
     },
-# Cybran MovedTemplates Building List
+-- Cybran MovedTemplates Building List
     {
         {
             {
@@ -17979,7 +17979,7 @@ MovedTemplates2 =
             { -31, 20, 0 },
         },
     },
-# Seraphim MovedTemplates Building List
+-- Seraphim MovedTemplates Building List
     {
         {
             {
@@ -18894,7 +18894,7 @@ MovedTemplates2 =
 
 MovedTemplates3 =
 {
-# UEF MovedTemplates Building List
+-- UEF MovedTemplates Building List
     {
         {
             {
@@ -19803,7 +19803,7 @@ MovedTemplates3 =
             { -31, 70, 0 },
         },
     },
-# Aeon MovedTemplates Building List
+-- Aeon MovedTemplates Building List
     {
         {
             {
@@ -20712,7 +20712,7 @@ MovedTemplates3 =
             { -31, 70, 0 },
         },
     },
-# Cybran MovedTemplates Building List
+-- Cybran MovedTemplates Building List
     {
         {
             {
@@ -21621,7 +21621,7 @@ MovedTemplates3 =
             { -31, 70, 0 },
         },
     },
-# Seraphim MovedTemplates Building List
+-- Seraphim MovedTemplates Building List
     {
         {
             {
@@ -22536,7 +22536,7 @@ MovedTemplates3 =
 
 MovedTemplates4 =
 {
-# UEF MovedTemplates Building List
+-- UEF MovedTemplates Building List
     {
         {
             {
@@ -23445,7 +23445,7 @@ MovedTemplates4 =
             { 19, -30, 0 },
         },
     },
-# Aeon MovedTemplates Building List
+-- Aeon MovedTemplates Building List
     {
         {
             {
@@ -24354,7 +24354,7 @@ MovedTemplates4 =
             { 19, -30, 0 },
         },
     },
-# Cybran MovedTemplates Building List
+-- Cybran MovedTemplates Building List
     {
         {
             {
@@ -25263,7 +25263,7 @@ MovedTemplates4 =
             { 19, -30, 0 },
         },
     },
-# Seraphim MovedTemplates Building List
+-- Seraphim MovedTemplates Building List
     {
         {
             {
@@ -26178,7 +26178,7 @@ MovedTemplates4 =
 
 MovedTemplates5 =
 {
-# UEF MovedTemplates Building List
+-- UEF MovedTemplates Building List
     {
         {
             {
@@ -27087,7 +27087,7 @@ MovedTemplates5 =
             { 19, 70, 0 },
         },
     },
-# Aeon MovedTemplates Building List
+-- Aeon MovedTemplates Building List
     {
         {
             {
@@ -27996,7 +27996,7 @@ MovedTemplates5 =
             { 19, 70, 0 },
         },
     },
-# Cybran MovedTemplates Building List
+-- Cybran MovedTemplates Building List
     {
         {
             {
@@ -28905,7 +28905,7 @@ MovedTemplates5 =
             { 19, 70, 0 },
         },
     },
-# Seraphim MovedTemplates Building List
+-- Seraphim MovedTemplates Building List
     {
         {
             {
@@ -29818,7 +29818,7 @@ MovedTemplates5 =
 
 MovedTemplates6 =
 {
-# UEF MovedTemplates Building List
+-- UEF MovedTemplates Building List
     {
         {
             {
@@ -30727,7 +30727,7 @@ MovedTemplates6 =
             { 69, -30, 0 },
         },
     },
-# Aeon MovedTemplates Building List
+-- Aeon MovedTemplates Building List
     {
         {
             {
@@ -31636,7 +31636,7 @@ MovedTemplates6 =
             { 69, -30, 0 },
         },
     },
-# Cybran MovedTemplates Building List
+-- Cybran MovedTemplates Building List
     {
         {
             {
@@ -32545,7 +32545,7 @@ MovedTemplates6 =
             { 69, -30, 0 },
         },
     },
-# Seraphim MovedTemplates Building List
+-- Seraphim MovedTemplates Building List
     {
         {
             {
@@ -33458,7 +33458,7 @@ MovedTemplates6 =
 
 MovedTemplates7 =
 {
-# UEF MovedTemplates Building List
+-- UEF MovedTemplates Building List
     {
         {
             {
@@ -34367,7 +34367,7 @@ MovedTemplates7 =
             { 69, 20, 0 },
         },
     },
-# Aeon MovedTemplates Building List
+-- Aeon MovedTemplates Building List
     {
         {
             {
@@ -35276,7 +35276,7 @@ MovedTemplates7 =
             { 69, 20, 0 },
         },
     },
-# Cybran MovedTemplates Building List
+-- Cybran MovedTemplates Building List
     {
         {
             {
@@ -36185,7 +36185,7 @@ MovedTemplates7 =
             { 69, 20, 0 },
         },
     },
-# Seraphim MovedTemplates Building List
+-- Seraphim MovedTemplates Building List
     {
         {
             {
@@ -37100,7 +37100,7 @@ MovedTemplates7 =
 
 MovedTemplates8 =
 {
-# UEF MovedTemplates Building List
+-- UEF MovedTemplates Building List
     {
         {
             {
@@ -38009,7 +38009,7 @@ MovedTemplates8 =
             { 69, 70, 0 },
         },
     },
-# Aeon MovedTemplates Building List
+-- Aeon MovedTemplates Building List
     {
         {
             {
@@ -38918,7 +38918,7 @@ MovedTemplates8 =
             { 69, 70, 0 },
         },
     },
-# Cybran MovedTemplates Building List
+-- Cybran MovedTemplates Building List
     {
         {
             {
@@ -39827,7 +39827,7 @@ MovedTemplates8 =
             { 69, 70, 0 },
         },
     },
-# Seraphim MovedTemplates Building List
+-- Seraphim MovedTemplates Building List
     {
         {
             {

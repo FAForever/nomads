@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "inb1302", # T3 mex
+    BlueprintId = "inb1302", -- T3 mex
     Economy = {
         BuildTime = 3944,
     },

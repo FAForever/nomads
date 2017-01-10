@@ -68,7 +68,7 @@ function SetLayout()
         [1] = {Left = 70, Top = 60},
         [3] = {Left = 140, Top = 60},
         [5] = {Left = 190, Top = 60},
-        [7] = {Left = 190, Top = 60},  # position capacitor icon at shield position
+        [7] = {Left = 190, Top = 60},  -- position capacitor icon at shield position
     }
     local iconTextures = {
         UIUtil.UIFile('/game/unit_view_icons/mass.dds'),

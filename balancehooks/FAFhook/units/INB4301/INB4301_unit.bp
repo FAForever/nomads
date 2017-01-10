@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "inb4301", # T3 shield
+    BlueprintId = "inb4301", -- T3 shield
     Defense = {
         Shield = {
             ShieldRegenStartTime = 3,

@@ -1,4 +1,4 @@
-# T2 missile launcher
+-- T2 missile launcher
 
 local Buff = import('/lua/sim/buff.lua')
 local AddAnchorAbilty = import('/lua/nomadutils.lua').AddAnchorAbilty
@@ -20,7 +20,7 @@ INU2003 = Class(NAmphibiousUnit) {
             CreateProjectileAtMuzzle = function(self, muzzle)
                 local proj = TacticalMissileWeapon1.CreateProjectileAtMuzzle(self, muzzle)
                 local layer = self.unit:GetCurrentLayer()
-                if layer == 'Sub' or layer == 'Seabed' then   # add under water effects
+                if layer == 'Sub' or layer == 'Seabed' then   -- add under water effects
                     EffectUtilities.CreateBoneEffects( self.unit, muzzle, self.unit:GetArmy(), NomadEffectTemplate.TacticalMissileMuzzleFxUnderWaterAddon )
                 end
                 return proj
@@ -29,7 +29,7 @@ INU2003 = Class(NAmphibiousUnit) {
     },
 
     OnCreate = function(self)
-        # create buff used to reduce range under water
+        -- create buff used to reduce range under water
         local wep = self:GetWeaponByLabel('MainGun')
         if wep then
             self.OnInWaterBuff = 'INU2003_OnWater'

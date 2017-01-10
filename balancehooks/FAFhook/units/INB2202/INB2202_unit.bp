@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "inb2202", # T2 Flak
+    BlueprintId = "inb2202", -- T2 Flak
     Economy = {
         BuildCostEnergy = 3920,
         BuildCostMass = 392,

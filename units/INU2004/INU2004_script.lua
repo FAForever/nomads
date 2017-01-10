@@ -1,4 +1,4 @@
-# mobile t2 anti air
+-- mobile t2 anti air
 
 local NLandUnit = import('/lua/nomadunits.lua').NLandUnit
 local RocketWeapon1 = import('/lua/nomadweapons.lua').RocketWeapon1

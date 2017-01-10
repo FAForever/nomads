@@ -3,7 +3,7 @@
 -- Fixing a problem in FAF that happens when the first returned value is nil. Making sure that doesn't happen.
 local oldGetConstructEconomyModel = GetConstructEconomyModel
 
-function GetConstructEconomyModel(builder, targetData, upgradeBaseData)  # MIND THE ADDITIONAL ARGUMENT!!
+function GetConstructEconomyModel(builder, targetData, upgradeBaseData)  -- MIND THE ADDITIONAL ARGUMENT!!
     if not targetData.BuildTime or not targetData.BuildCostMass or not targetData.BuildCostEnergy then
 
         local logdata = { BT = targetData.BuildTime, BCM = targetData.BuildCostMass, BCE = targetData.BuildCostEnergy, }

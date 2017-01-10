@@ -1,4 +1,4 @@
-# T2 air factory
+-- T2 air factory
 
 local NAirFactoryUnit = import('/lua/nomadunits.lua').NAirFactoryUnit
 

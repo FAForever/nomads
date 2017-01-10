@@ -1,4 +1,4 @@
-# T1 point defense
+-- T1 point defense
 
 local NStructureUnit = import('/lua/nomadunits.lua').NStructureUnit
 local GattlingWeapon1 = import('/lua/nomadweapons.lua').GattlingWeapon1

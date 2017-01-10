@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "inu3008", # Field engineer
+    BlueprintId = "inu3008", -- Field engineer
     Wreckage = {
         WreckageLayers = {
             Seabed = true,

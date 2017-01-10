@@ -1,4 +1,4 @@
-# T3 orbital artillery unit (the one that floats in space)
+-- T3 orbital artillery unit (the one that floats in space)
 
 local NOrbitUnit = import('/lua/nomadunits.lua').NOrbitUnit
 local OrbitalGun = import('/lua/nomadweapons.lua').OrbitalGun
@@ -37,16 +37,16 @@ INO2302 = Class(NOrbitUnit) {
     OnCreate = function(self)
         NOrbitUnit.OnCreate(self)
 
-# TODO: fix this. Gives weird behaviour right now
-#        # create the engine thrust manipulators and set up the thursting arcs for the engines
-#        self.EngineManipulators = {}
-#        local manip
-#        for k, v in self.EngineRotateBones do
-#            manip = CreateThrustController(self, 'Thruster', v)
-#            manip:SetThrustingParam( 0, 0, 0, 0, -0.1, 0.1, 1, 0.25 )  # XMAX, XMIN, YMAX, YMIN, ZMAX, ZMIN, TURNMULT, TURNSPEED
-#            self.Trash:Add(manip)
-#            table.insert(self.EngineManipulators, manip)
-#        end
+-- TODO: fix this. Gives weird behaviour right now
+--        -- create the engine thrust manipulators and set up the thursting arcs for the engines
+--        self.EngineManipulators = {}
+--        local manip
+--        for k, v in self.EngineRotateBones do
+--            manip = CreateThrustController(self, 'Thruster', v)
+--            manip:SetThrustingParam( 0, 0, 0, 0, -0.1, 0.1, 1, 0.25 )  -- XMAX, XMIN, YMAX, YMIN, ZMAX, ZMIN, TURNMULT, TURNSPEED
+--            self.Trash:Add(manip)
+--            table.insert(self.EngineManipulators, manip)
+--        end
 
         self:SetWeaponEnabledByLabel('MainGun', false)
 
@@ -61,7 +61,7 @@ INO2302 = Class(NOrbitUnit) {
         self.parentCallbacks[ 'OnWeaponFired' ] = cbWepFired or false
         self.parentCallbacks[ 'OnKilledUnit' ] = cbKilledUnit or false
 
-        # quick check of unit blueprints
+        -- quick check of unit blueprints
         local myBp, theirBp = self:GetBlueprint(), parent:GetBlueprint()
         if (theirBp.Buffs and not myBp.Buffs) or (not theirBp.Buffs and myBp.Buffs) or (theirBp.Buffs and myBp.Buffs and not table.equal( myBp.Buffs, theirBp.Buffs)) then
             WARN('INO2302: Buffs sections in parent and slave unit blueprints do not match')
@@ -70,8 +70,8 @@ INO2302 = Class(NOrbitUnit) {
             WARN('INO2302: Veteran sections in parent and slave unit blueprints do not match')
         end
 
-        # set my gun equal to what the parent has set in terms of range and damage, etc. This way we can balance the artillery
-        # by adjusting the base unit only.
+        -- set my gun equal to what the parent has set in terms of range and damage, etc. This way we can balance the artillery
+        -- by adjusting the base unit only.
         local TheirGun = parent:GetWeaponByLabel('TargetFinder')
         if TheirGun then
             local gbp = TheirGun:GetBlueprint()
@@ -106,14 +106,14 @@ INO2302 = Class(NOrbitUnit) {
         self.parentCallbacks[ 'OnWeaponFired' ] = false
         self.parentCallbacks[ 'OnKilledUnit' ] = false
 
-        # TODO: maybe some effects stop? lights, I dont know..
+        -- TODO: maybe some effects stop? lights, I dont know..
     end,
 
     SetTarget = function( self, target, targetPos )
         local MyGun = self:GetWeapon(1)
-        if target and target != nil then
+        if target and target ~= nil then
             MyGun:SetTargetEntity( target )
-        elseif targetPos and targetPos != nil then
+        elseif targetPos and targetPos ~= nil then
             MyGun:SetTargetGround( targetPos )
         else
             MyGun:OnLostTarget()

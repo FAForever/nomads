@@ -1,4 +1,4 @@
-# The surface support vehicle that's in orbit
+-- The surface support vehicle that's in orbit
 
 local NOrbitUnit = import('/lua/nomadunits.lua').NOrbitUnit
 local OrbitalMissileWeapon = import('/lua/nomadweapons.lua').OrbitalMissileWeapon
@@ -38,7 +38,7 @@ INO0001 = Class(NOrbitUnit) {
     end,
 
     CreateSpinners = function(self)
-        # spinner 1
+        -- spinner 1
         if not self.RotatorManipulator1 then
             self.RotatorManipulator1 = CreateRotator( self, 'Primary_Spinner', 'z' )
             self.RotatorManipulator1:SetAccel( 5 )
@@ -46,7 +46,7 @@ INO0001 = Class(NOrbitUnit) {
             self.Trash:Add( self.RotatorManipulator1 )
         end
 
-        # spinner 2
+        -- spinner 2
         if not self.RotatorManipulator2 then
             self.RotatorManipulator2 = CreateRotator( self, 'Secondary_Spinner', 'z' )
             self.RotatorManipulator2:SetAccel( -5 )
@@ -55,8 +55,8 @@ INO0001 = Class(NOrbitUnit) {
         end
     end,
 
-# =========================================================================================
-# Probes
+-- =========================================================================================
+-- Probes
 
     LaunchProbe = function(self, location, projBp, data)
         if not location or not projBp or not data then
@@ -78,8 +78,8 @@ INO0001 = Class(NOrbitUnit) {
         return proj
     end,
 
-# =========================================================================================
-# Orbital striking
+-- =========================================================================================
+-- Orbital striking
 
     OnGivenNewTarget = function(self, targetPosition)
         local wep
@@ -87,7 +87,7 @@ INO0001 = Class(NOrbitUnit) {
         for w=1, c do
             wep = self:GetWeapon(w)
             if wep:ReadyToFire() then
-                #LOG('Mothership weapon '..repr(w)..' is firing')
+                --LOG('Mothership weapon '..repr(w)..' is firing')
                 wep:AssignTarget( targetPosition )
                 return true
             end
@@ -96,23 +96,23 @@ INO0001 = Class(NOrbitUnit) {
         return false
     end,
 
-# =========================================================================================
-# Constructing
+-- =========================================================================================
+-- Constructing
 
-# scripted construction, so not via the engine and regular engineer methods. This is for animations really.
+-- scripted construction, so not via the engine and regular engineer methods. This is for animations really.
 
     BuildQueue = {
-    #   { unitType = 'xxx', cb = yyy, attachBone = zzz, },
+    --   { unitType = 'xxx', cb = yyy, attachBone = zzz, },
     },
     Constructing = false,
     ConstructingThreadHandle = nil,
 
     AddToConstructionQueue = function(self, unitType, cb, attachBone )
-        # puts on the build queue to create a unit of the given type. If a callback is passed it will be run when the unit is
-        # constructed.
+        -- puts on the build queue to create a unit of the given type. If a callback is passed it will be run when the unit is
+        -- constructed.
 
         if unitType and type(unitType) == 'string' then
-            if cb and type(cb) != 'function' then
+            if cb and type(cb) ~= 'function' then
                 WARN('INO0001: AddToConstructionQueue(): Passed callback is not a function! Ignoring it.')
                 cb = nil
             end
@@ -149,16 +149,16 @@ INO0001 = Class(NOrbitUnit) {
             WaitFor( self.ConstructionArmAnimManip )
         end
 
-# TODO: When the unit is ready and it has proper bones then uncomment these 2 lines and remove the createUnitHPR line with x + 5 in it
+-- TODO: When the unit is ready and it has proper bones then uncomment these 2 lines and remove the createUnitHPR line with x + 5 in it
         local x, y, z =  unpack(self:GetPosition( attachBone ))
-#        local unit = CreateUnitHPR( unitBp, self:GetArmy(), x, y, z, 0, 0, 0 )
+--        local unit = CreateUnitHPR( unitBp, self:GetArmy(), x, y, z, 0, 0, 0 )
         local unit = CreateUnitHPR( unitBp, self:GetArmy(), x + 5, y, z, 0, 0, 0 )
         self.UnitBeingBuilt = unit
         unit:SetIsValidTarget(false)
         unit:SetImmobile(true)
-#        unit:AttachBoneTo( self.BuildQueue[ queueKey ].attachBone or 0, self, attachBone )
+--        unit:AttachBoneTo( self.BuildQueue[ queueKey ].attachBone or 0, self, attachBone )
 
-        # build effects
+        -- build effects
         if unit:GetBlueprint().Display.BuildMeshBlueprint then
             unit:SetMesh(unit:GetBlueprint().Display.BuildMeshBlueprint, true)
         end
@@ -166,12 +166,12 @@ INO0001 = Class(NOrbitUnit) {
         unit:StartBeingBuiltEffects( self, layer)
         local effectThread = ForkThread( CreateNomadBuildSliceBeams, self, unit, self.BuildBones, self.BuildEffectsBag )
 
-        # build process
+        -- build process
         local Ticks = math.ceil( unit:GetBlueprint().Economy.BuildTime or 10000 ) / 100
         local tick = 0
         local progress = 0
 
-        # building the unit
+        -- building the unit
         while not self:IsDead() and progress < 1 do
             progress = tick / Ticks
             unit:SetHealth( nil, progress * unit:GetMaxHealth() )
@@ -180,36 +180,36 @@ INO0001 = Class(NOrbitUnit) {
             tick = tick + 1
         end
 
-        # construction done!
+        -- construction done!
         unit:DetachFrom()
         unit:SetIsValidTarget(true)
         unit:SetImmobile(false)
 
-        # remove building effects
+        -- remove building effects
         if unit:GetBlueprint().Display.BuildMeshBlueprint then
             unit:SetMesh(unit:GetBlueprint().Display.MeshBlueprint, true)
         end
         KillThread(effectThread)
         self:StopBuildingEffects()
 
-        # move the unit out of the way
+        -- move the unit out of the way
         self:RollOffUnit()
 
-        # say we're done construction a unit
+        -- say we're done construction a unit
         self:OnConstructionFinished( unit, queueKey)
 
-        # do callback if available
+        -- do callback if available
         local cb = self.BuildQueue[ queueKey ].cb
         if cb then
             cb( unit )
         end
 
-        # some last things
+        -- some last things
         self.UnitBeingBuilt = nil
         self.Constructing = false
         table.remove( self.BuildQueue, queueKey )
 
-        # wait a short while for the new unit to clear the construction area
+        -- wait a short while for the new unit to clear the construction area
         if self.ConstructionArmAnimManip then
             self.ConstructionArmAnimManip:SetRate(-1)
             WaitFor(self.ConstructionArmAnimManip)
@@ -217,7 +217,7 @@ INO0001 = Class(NOrbitUnit) {
             WaitSeconds(2)
         end
 
-        # see if there's more to build
+        -- see if there's more to build
         self:MaybeStartConstruction()
     end,
 

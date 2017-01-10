@@ -1,4 +1,4 @@
-# Modified to support custom factions field engineers
+-- Modified to support custom factions field engineers
 
 do
 
@@ -75,7 +75,7 @@ function CreateIdleEngineerList(parent, units)
         for index, units in engineers do
             local i = index
 
-            # ADDED SUPPORT FOR CUSTOM FACTIONS HAVING FIELD ENGINEERS
+            -- ADDED SUPPORT FOR CUSTOM FACTIONS HAVING FIELD ENGINEERS
             if i == 3 and (not Factions[currentFaction].IdleEngTextures or not Factions[currentFaction].IdleEngTextures.T2F) then
                 continue
             end

@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "urs0201", # Cybran T2 destroyer
+    BlueprintId = "urs0201", -- Cybran T2 destroyer
     AI = {
         TargetBones = {
             'URS0202',
@@ -9,6 +9,6 @@ UnitBlueprint {
         },
     },
     Physics = {
-        LandSpeedMultiplier = 0.25, # bug in SetSpeedMult fixed, adjusting value to keep same speed
+        LandSpeedMultiplier = 0.25, -- bug in SetSpeedMult fixed, adjusting value to keep same speed
     },
 }

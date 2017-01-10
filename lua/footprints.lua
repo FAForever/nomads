@@ -1,7 +1,7 @@
-# Modified to allow hover experimentals pass through structures aswell (WaterLand5x5)
+-- Modified to allow hover experimentals pass through structures aswell (WaterLand5x5)
 
 
-# Layer caps
+-- Layer caps
 LAND = 0x01
 SEABED = 0x02
 SUB = 0x04
@@ -9,7 +9,7 @@ WATER = 0x08
 AIR = 0x10
 ORBIT = 0x20
 
-# Flags
+-- Flags
 IgnoreStructures = 0x01
 
 SpecFootprints {

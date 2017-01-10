@@ -1,4 +1,4 @@
-# T2 pgen
+-- T2 pgen
 
 local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
 local NEnergyCreationUnit = import('/lua/nomadunits.lua').NEnergyCreationUnit
@@ -8,7 +8,7 @@ INB1201 = Class(NEnergyCreationUnit) {
     OnCreate = function(self)
         NEnergyCreationUnit.OnCreate(self)
 
-        # create spinners
+        -- create spinners
         self.Spinners = {
             CreateRotator(self, 'spinner.001', 'y', nil, 0, 10, 0),
             CreateRotator(self, 'spinner.002', 'y', nil, 0, 10, 0),
@@ -16,7 +16,7 @@ INB1201 = Class(NEnergyCreationUnit) {
         self.Trash:Add( self.Spinners[1] )
         self.Trash:Add( self.Spinners[2] )
 
-        # rotators
+        -- rotators
         self.Rotators = {
             CreateRotator(self, 'random_rotator', 'x', nil, 0, 10, 0),
             CreateRotator(self, 'random_rotator', 'y', nil, 0, 10, 0),
@@ -35,7 +35,7 @@ INB1201 = Class(NEnergyCreationUnit) {
     end,
 
     OnStopBeingBuilt = function(self, builder, layer)
-        # antennae lights
+        -- antennae lights
         local army, emit = self:GetArmy()
         for k, v in NomadEffectTemplate.AntennaeLights1 do
             self.Trash:Add( CreateAttachedEmitter(self, 'blinklight.001', army, v) )
@@ -108,10 +108,10 @@ INB1201 = Class(NEnergyCreationUnit) {
     end,
 
     RandomBoneToBoneDischarges = function(self)
-        # creates a discharge at a random interval between a set of 2 bones randomly chosen from the list below
+        -- creates a discharge at a random interval between a set of 2 bones randomly chosen from the list below
 
         local intervalMean = 10
-        local intervalDeviation = 0.25  # percentage of the mean, never make it >= 1
+        local intervalDeviation = 0.25  -- percentage of the mean, never make it >= 1
         local boneList = { { 'electric.001', 'electric.008', }, { 'electric.002', 'electric.009', }, { 'electric.003', 'electric.010', },
                            { 'electric.004', 'electric.011', }, { 'electric.005', 'electric.012', }, { 'electric.006', 'electric.007', }, }
 
@@ -121,24 +121,24 @@ INB1201 = Class(NEnergyCreationUnit) {
 
         while self do
 
-            # pick a random set of bones
+            -- pick a random set of bones
             i = Random( 1, table.getsize( boneList ))
             bone1 = boneList[i][1]
             bone2 = boneList[i][2]
 
-            # maybe reverse bone order
+            -- maybe reverse bone order
             if Random(1,2) == 1 then
                 i = bone1
                 bone1 = bone2
                 bone2 = i
             end
 
-            # create beam
+            -- create beam
             beam = CreateBeamEntityToEntity( self, bone1, self, bone2, army, NomadEffectTemplate.T2PGAmbientDischargeBeam )
             self.ActiveEffectsBag:Add( beam )
             self.Trash:Add( beam )
 
-            # wait before creating new beam
+            -- wait before creating new beam
             WaitTicks( Random( waitMin, waitMax ) )
         end
     end,

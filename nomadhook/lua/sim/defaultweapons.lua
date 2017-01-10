@@ -5,8 +5,8 @@ local oldDefaultProjectileWeapon = DefaultProjectileWeapon
 
 DefaultProjectileWeapon = Class(oldDefaultProjectileWeapon) {		
 
-# Another way to disable a weapon below, use SuspendWeaponFire(). This is less invasive and doesn't disable the aiming manip, etc.
-# Had to change the RackSalvoFireReadyState for this though
+-- Another way to disable a weapon below, use SuspendWeaponFire(). This is less invasive and doesn't disable the aiming manip, etc.
+-- Had to change the RackSalvoFireReadyState for this though
 
     SuspendWeaponFire = function(self, bool)
         self.WeaponSuspended = (bool == true)
@@ -33,7 +33,7 @@ DefaultProjectileWeapon = Class(oldDefaultProjectileWeapon) {
                 self.EconDrain = nil
                 self.WeaponCanFire = true
             end
-            if self.WeaponSuspended then  # allowing weapons to be suspended
+            if self.WeaponSuspended then  -- allowing weapons to be suspended
                 self.WeaponCanFire = false
                 while self.WeaponSuspended do
                     WaitTicks(1)
@@ -56,10 +56,10 @@ DefaultProjectileWeapon = Class(oldDefaultProjectileWeapon) {
         oldDefaultProjectileWeapon.OnWeaponFired(self)
     end,
 
-    # when changing the ROF the recoil return speed has to be adjusted accordingly. Added override via boolean argument
+    -- when changing the ROF the recoil return speed has to be adjusted accordingly. Added override via boolean argument
     ChangeRateOfFire = function(self, newROF, dontRecalcRecoilReturnSpeed)
         oldDefaultProjectileWeapon.ChangeRateOfFire(self, newROF)
-        if dontRecalcRecoilReturnSpeed != false then
+        if dontRecalcRecoilReturnSpeed ~= false then
             local bp = self:GetBlueprint()
             local dist = bp.RackRecoilDistance
             local rof = self:GetRateOfFire()
@@ -71,7 +71,7 @@ DefaultProjectileWeapon = Class(oldDefaultProjectileWeapon) {
         end
     end,
 
-    CapIsBeingUsed = function(self)  # this is here to make sure this function can always available, regardless rest of scripting is available
+    CapIsBeingUsed = function(self)  -- this is here to make sure this function can always available, regardless rest of scripting is available
         return false
     end,
 
@@ -83,14 +83,14 @@ DefaultProjectileWeapon = Class(oldDefaultProjectileWeapon) {
     end,
 
     CreateProjectileForWeapon = function(self, bone)
-        # when a nuke is launched the function NukeCreatedAtUnit is called. This happens in the RackSalvoFiringState. For tactical missile
-        # launchers this doesn't happen but it is necessary to properly handle ammo count on the UI. This function is called just before
-        # NukeCreatedAtUnit is called for nukes. In other words, it is the ideal place to inject a new function for the tactical missiles
-        # without having to do something destructure for that state code (which I really dont want to touch).
+        -- when a nuke is launched the function NukeCreatedAtUnit is called. This happens in the RackSalvoFiringState. For tactical missile
+        -- launchers this doesn't happen but it is necessary to properly handle ammo count on the UI. This function is called just before
+        -- NukeCreatedAtUnit is called for nukes. In other words, it is the ideal place to inject a new function for the tactical missiles
+        -- without having to do something destructure for that state code (which I really dont want to touch).
 
         local proj = oldDefaultProjectileWeapon.CreateProjectileForWeapon(self, bone)
 
-        # calling TacMissileCreatedAtUnit() when launching a tactical missile counted projectile
+        -- calling TacMissileCreatedAtUnit() when launching a tactical missile counted projectile
         local bp = self:GetBlueprint()
         if bp.CountedProjectile == true then
             if not bp.NukeWeapon then
@@ -113,7 +113,7 @@ DefaultBeamWeapon = Class(oldDefaultBeamWeapon) {
     end,
 
     GetNextRackSalvoNumber = function(self)
-        local next = (self.CurrentRackSalvoNumber or 1) + 1 # works differently from the parent class, here + 1 is correct
+        local next = (self.CurrentRackSalvoNumber or 1) + 1 -- works differently from the parent class, here + 1 is correct
         local bp = self:GetBlueprint()
         if next > table.getn(bp.RackBones) then
             next = 1

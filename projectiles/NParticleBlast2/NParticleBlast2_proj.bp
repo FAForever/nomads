@@ -1,4 +1,4 @@
-# simple black-ish projectile
+-- simple black-ish projectile
 ProjectileBlueprint {
     Audio = {
         Impact = Sound {

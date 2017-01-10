@@ -388,7 +388,7 @@ UnitBlueprint {
             MaxRadius = 26,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 35, #60,
+            MuzzleVelocity = 35, --60,
             NotExclusive = true,
             ProjectileId = '/projectiles/NAnnihilator1/NAnnihilator1_proj.bp',
             ProjectileLifetime = 0.55,

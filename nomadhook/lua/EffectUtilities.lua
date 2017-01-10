@@ -334,7 +334,7 @@ function CreateAdjacencyBeams( unit, adjacentUnit, AdjacencyBeamsBag )
             nodeList[i].entity:SetMesh(nodeMesh, false)
             --nodeList[i].entity:SetDrawScale(0.003)
             nodeList[i].mesh = true
-            if emitterNodeEffects[i] != nil and table.getn(emitterNodeEffects[i]) != 0 then
+            if emitterNodeEffects[i] ~= nil and table.getn(emitterNodeEffects[i]) ~= 0 then
                 for k, vEmit in emitterNodeEffects[i] do
                     emit = CreateAttachedEmitter( nodeList[i].entity, 0, army, vEmit )
                     info.Trash:Add(emit)
@@ -356,7 +356,7 @@ function CreateAdjacencyBeams( unit, adjacentUnit, AdjacencyBeamsBag )
 
         -- Attach beams to the adjacent unit
         for i = 1, numNodes + 1 do
-            if nodeList[i].mesh != nil then
+            if nodeList[i].mesh ~= nil then
                 local vec = util.GetDirectionVector(Vector(nodeList[i].pos[1], nodeList[i].pos[2], nodeList[i].pos[3]), Vector(nodeList[i+1].pos[1], nodeList[i+1].pos[2], nodeList[i+1].pos[3]))
                 nodeList[i].entity:SetOrientation( OrientFromDir( vec ),true)
             end
@@ -391,10 +391,10 @@ function PlayTeleportChargingEffects( unit, TeleportDestination, EffectsBag )
 --            local army = unit:GetArmy()
 --            local Yoffset = TeleportGetUnitYOffset(unit)
 --
---            if bp.Display.TeleportEffects.PlayChargeFxAtUnit != false then                            -- FX AT UNIT
+--            if bp.Display.TeleportEffects.PlayChargeFxAtUnit ~= false then                            -- FX AT UNIT
 --            end
 --
---            if bp.Display.TeleportEffects.PlayChargeFxAtDestination != false then                     -- FX AT DESTINATION
+--            if bp.Display.TeleportEffects.PlayChargeFxAtDestination ~= false then                     -- FX AT DESTINATION
 --            end
 --        end
 --
@@ -412,7 +412,7 @@ function TeleportChargingProgress(unit, fraction)
 --    local bp = unit:GetBlueprint()
 --    local faction = bp.General.FactionName
 --    if faction == 'Nomads' then
---        if bp.Display.TeleportEffects.PlayChargeFxAtDestination != false then
+--        if bp.Display.TeleportEffects.PlayChargeFxAtDestination ~= false then
 --        end
 --    else
         oldTeleportChargingProgress(unit, fraction)
@@ -432,7 +432,7 @@ function PlayTeleportOutEffects(unit, EffectsBag)
 --        local army = unit:GetArmy()
 --        local Yoffset = TeleportGetUnitYOffset(unit)
 --
---        if bp.Display.TeleportEffects.PlayTeleportOutFx != false then
+--        if bp.Display.TeleportEffects.PlayTeleportOutFx ~= false then
 --            unit:PlayUnitSound('TeleportOut')
 --        end
 --    else
@@ -467,7 +467,7 @@ function PlayTeleportInEffects(unit, EffectsBag)
 --
 --        DoTeleportInDamage(unit)
 --
---        if bp.Display.TeleportEffects.PlayTeleportInFx != false then
+--        if bp.Display.TeleportEffects.PlayTeleportInFx ~= false then
 --            unit:PlayUnitSound('TeleportIn')
 --        end
 --    else

@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "ina2002", # T2 f/b
+    BlueprintId = "ina2002", -- T2 f/b
     Wreckage = {
         WreckageLayers = {
             Air = false,

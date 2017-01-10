@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "inb2102", # T1 Anti-air
+    BlueprintId = "inb2102", -- T1 Anti-air
     Economy = {
         BuildCostEnergy = 1500,
         BuildCostMass = 150,

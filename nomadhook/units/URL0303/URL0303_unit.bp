@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "url0303", # Cybran T3 siege assault bot
+    BlueprintId = "url0303", -- Cybran T3 siege assault bot
     Buffs = {
         Stun = {
             TargetDisallow = 'UNSTUNABLE',

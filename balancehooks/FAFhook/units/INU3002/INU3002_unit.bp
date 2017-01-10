@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "inu3002", # heavy hover tank
+    BlueprintId = "inu3002", -- heavy hover tank
     Economy = {
         BuildCostEnergy = 8200,
     },

@@ -1,21 +1,21 @@
 local Factions = import('/lua/factions.lua').Factions
 
 
-# contains all kinds of code for stuff that happens on a nomad spaceship in orbit.
+-- contains all kinds of code for stuff that happens on a nomad spaceship in orbit.
 
 
-# =================================================================================================================
-# PUBLIC FUNCTIONS       (call these from anywhere)
-# =================================================================================================================
+-- =================================================================================================================
+-- PUBLIC FUNCTIONS       (call these from anywhere)
+-- =================================================================================================================
 
 function RequestStrikeToDestroyWreckage( brain, prop )
-    # Called to make a wreckage a target for the mothership
-    #LOG('NomadOrbitalUtils -> RequestStrikeToDestroyWreckage: called')
+    -- Called to make a wreckage a target for the mothership
+    --LOG('NomadOrbitalUtils -> RequestStrikeToDestroyWreckage: called')
 
     local IsNomad = CheckBrainIsNomadFaction( brain )
 
     if IsNomad and prop then
-        AddTarget( brain, prop ) # add wreck to target list with lowest prio
+        AddTarget( brain, prop ) -- add wreck to target list with lowest prio
 
     elseif not IsNomad then
         WARN('RequestStrikeToDestroyWreckage: brain is not NOMAD faction!')
@@ -23,10 +23,10 @@ function RequestStrikeToDestroyWreckage( brain, prop )
 end
 
 function OnBrainDefeated( brain )
-    # when a brain is defeated the mothership is not dead and should continue to bombard targets until none are left.
-    # the mothership should then leave (??)
+    -- when a brain is defeated the mothership is not dead and should continue to bombard targets until none are left.
+    -- the mothership should then leave (??)
 
-# TODO (also hooking this in the aibrain file)
+-- TODO (also hooking this in the aibrain file)
 end
 
 function CreateOrbitalUnit( brain )
@@ -34,43 +34,43 @@ function CreateOrbitalUnit( brain )
     local bp = 'INO0001'
     local army = brain:GetArmyIndex()
     local x, z = brain:GetArmyStartPos()
-    local y = 0 # TODO: use surface instead
+    local y = 0 -- TODO: use surface instead
     local unit = CreateUnitHPR( bp, army, x, y, z, 0, 0, 0)
     return unit
 end
 
-# =================================================================================================================
-# PRIVATE FUNCTIONS
-# =================================================================================================================
+-- =================================================================================================================
+-- PRIVATE FUNCTIONS
+-- =================================================================================================================
 
 local ArmyTargetList = {}
 local ArmyHandleTargetThreads = {}
 
 function CheckBrainIsNomadFaction( brain )
-    # Says true if we're Nomads, false otherwise
+    -- Says true if we're Nomads, false otherwise
     local factionIndex = brain:GetFactionIndex()
     return ( Factions[factionIndex].Category == 'NOMAD' )
 end
 
 function AddTarget( brain, targetEntity, prio, numAttacks )
-    # Do not directly call from somewhere else. All uses should go through public functions in this file (this one is private)
-    # Adds a target entity to the list of targets for the mothership. The prio is a number between 0 and 3 where 0 is lowest
-    # priority and 3 is highest. numAttacks indicates how many projectiles (most likely) to fire at the target. If nil or
-    # -1 the mothership will keep firing on it until it is destroyed (one way or the other).
+    -- Do not directly call from somewhere else. All uses should go through public functions in this file (this one is private)
+    -- Adds a target entity to the list of targets for the mothership. The prio is a number between 0 and 3 where 0 is lowest
+    -- priority and 3 is highest. numAttacks indicates how many projectiles (most likely) to fire at the target. If nil or
+    -- -1 the mothership will keep firing on it until it is destroyed (one way or the other).
 
-    # validate parameters
+    -- validate parameters
     if not prio then
-        prio = 0     # lowest prio
+        prio = 0     -- lowest prio
     end
     if not numAttacks then
         numAttacks = -1
     end
 
-    # prepare database entry
+    -- prepare database entry
     local army = brain:GetArmyIndex()
     local data = { entity = targetEntity, num = numAttacks, assigned = false, }
 
-    # add entry to targets database
+    -- add entry to targets database
     if not ArmyTargetList then
         ArmyTargetList = {}
     end
@@ -82,15 +82,15 @@ function AddTarget( brain, targetEntity, prio, numAttacks )
     end
     table.insert( ArmyTargetList[army][prio], data )
 
-    # start handling items on the target list
-#    FindTargetsForAllGuns( brain )
+    -- start handling items on the target list
+--    FindTargetsForAllGuns( brain )
 end
 
 function FindTargetsForAllGuns( brain )
 
-# TODO: this. kinda hard with to handle all targets, especially if we want 1 or more guns targetting the same target.
+-- TODO: this. kinda hard with to handle all targets, especially if we want 1 or more guns targetting the same target.
 
-    # finds the highest prio targets and attacks them until database runs dry
+    -- finds the highest prio targets and attacks them until database runs dry
     local army = brain:GetArmyIndex()
 
     local NumGuns = GetNumGuns()
@@ -104,7 +104,7 @@ function FindTargetsForAllGuns( brain )
 
             for k, TargetData in ArmyTargetList[army][prio] do
 
-                # check if the target was not previously assigned to a gun(s)
+                -- check if the target was not previously assigned to a gun(s)
                 if not TargetData.assigned then
 
 
@@ -116,12 +116,12 @@ function FindTargetsForAllGuns( brain )
 end
 
 function GetNumGuns()
-    # says how many targets the mothership can attack at any one time
+    -- says how many targets the mothership can attack at any one time
     return 10
 end
 
 function GetNumGunsForPrio( prio )
-    # given the priority of a target this says how many guns to aim at the target
+    -- given the priority of a target this says how many guns to aim at the target
     local max = GetNumGuns()
     if prio >= 3 then
         return max

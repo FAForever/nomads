@@ -5,8 +5,8 @@ local oldProjectile = Projectile
 
 Projectile = Class(oldProjectile) {
 
-    # TODO: remove this var after FAF integration.
-    CanDoInitialDamage = true,  # used to prevent doing initialdamage twice in FAF games. This is set to false in FAF balance path.
+    -- TODO: remove this var after FAF integration.
+    CanDoInitialDamage = true,  -- used to prevent doing initialdamage twice in FAF games. This is set to false in FAF balance path.
 
     OnCreate = function(self, inWater)
         oldProjectile.OnCreate(self, inWater)
@@ -20,9 +20,9 @@ Projectile = Class(oldProjectile) {
     end,
 
     OnImpact = function(self, targetType, targetEntity)
-        self.ImpactOnType = targetType   # adding this var so destructively hooking is not necessary
+        self.ImpactOnType = targetType   -- adding this var so destructively hooking is not necessary
 
-        if targetType == 'Terrain' then  # Terrain does not equal Land, it could also be the seabed...
+        if targetType == 'Terrain' then  -- Terrain does not equal Land, it could also be the seabed...
             local pos = self:GetPosition()
             local surface = GetSurfaceHeight(pos[1], pos[3]) + GetTerrainTypeOffset(pos[1], pos[3])
             if pos[2] < surface then
@@ -37,7 +37,7 @@ Projectile = Class(oldProjectile) {
     end,
 
     DoDamage = function(self, instigator, DamageData, targetEntity)
-        # handles 'initial damage'. Basically copy-pasted from the projectiles DoDamage function
+        -- handles 'initial damage'. Basically copy-pasted from the projectiles DoDamage function
         local damage = DamageData.InitialDamageAmount or 0
         if self.CanDoInitialDamage and damage > 0 then
             local radius = DamageData.DamageRadius or 0
@@ -48,7 +48,7 @@ Projectile = Class(oldProjectile) {
             end
         end
 
-        # handles the DoT damage
+        -- handles the DoT damage
         oldProjectile.DoDamage(self, instigator, DamageData, targetEntity)
     end,
 
@@ -62,34 +62,34 @@ Projectile = Class(oldProjectile) {
     end,
 
     DoUnitImpactBuffs = function(self, target)
-        # the original version of this function has the parent unit do the buffing when there's a radius specified. I also need the
-        # unit that was hit to fix a problem where that unit isn't stunned (see unit.lua for more info). Destructively overwriting this fn
-        # to fix the problem.
+        -- the original version of this function has the parent unit do the buffing when there's a radius specified. I also need the
+        -- unit that was hit to fix a problem where that unit isn't stunned (see unit.lua for more info). Destructively overwriting this fn
+        -- to fix the problem.
 
         local data = self.DamageData
         local ok = true
 
         if data.Buffs then
 
-            local orgTarget = target  # remember original unit
+            local orgTarget = target  -- remember original unit
             for k, v in data.Buffs do
 
                 if v.Add.OnImpact == true then
 
-                    if v.Add.ImpactTypeDisallow and self.ImpactOnType then   # check impact restrictions. In some cases we dont want buffs applied when hitting for example water or shields.
+                    if v.Add.ImpactTypeDisallow and self.ImpactOnType then   -- check impact restrictions. In some cases we dont want buffs applied when hitting for example water or shields.
                         if table.find(v.Add.ImpactTypeDisallow, self.ImpactOnType) then
-                            #LOG('*DEBUG: dont do impact buffs because surfacetype is disallowed: '..repr(self.ImpactOnType))
+                            --LOG('*DEBUG: dont do impact buffs because surfacetype is disallowed: '..repr(self.ImpactOnType))
                             continue
                         end
                     end
 
-                    if ( v.AppliedToTarget != true ) or ( v.Radius and (v.Radius > 0) ) then  # right side of the OR is the problem
+                    if ( v.AppliedToTarget ~= true ) or ( v.Radius and (v.Radius > 0) ) then  -- right side of the OR is the problem
                         target = self:GetLauncher()
                     end
 
                     if target and IsUnit(target) then
                         if ( v.Radius and (v.Radius > 0) ) then
-                            target:AddBuff(v, self:GetPosition(), orgTarget)  # added last argument
+                            target:AddBuff(v, self:GetPosition(), orgTarget)  -- added last argument
                         else
                             target:AddBuff(v)
                         end

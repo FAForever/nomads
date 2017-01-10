@@ -42,7 +42,7 @@ BuffBlueprint {
             Mult = 1,
         },
         BombardRateOfFire = {
-            Mult = 0.666,  # remember that values below 1 actually boost the rof!
+            Mult = 0.666,  -- remember that values below 1 actually boost the rof!
         },
     },
 }
@@ -95,14 +95,14 @@ BuffBlueprint {
             Add = 0,
             Mult = 1.5,
         },
-#        RadarRadius = {
-#            Add = 0,
-#            Mult = 1.25,
-#        },
-#        OmniRadius = {
-#            Add = 0,
-#            Mult = 1.25,
-#        },
+--        RadarRadius = {
+--            Add = 0,
+--            Mult = 1.25,
+--        },
+--        OmniRadius = {
+--            Add = 0,
+--            Mult = 1.25,
+--        },
     },
 }
 
@@ -130,7 +130,7 @@ BuffBlueprint {
     Affects = {
         RateOfFire = {
             Add = 0,
-            Mult = 1.2,  # remember that values below 1 actually boost the rof!
+            Mult = 1.2,  -- remember that values below 1 actually boost the rof!
         },
     },
 }
@@ -144,7 +144,7 @@ BuffBlueprint {
     Affects = {
         RateOfFireSpecifiedWeapons2 = {
             Add = 0,
-            Mult = 1.66666,  # remember that values below 1 actually boost the rof!
+            Mult = 1.66666,  -- remember that values below 1 actually boost the rof!
         },
     },
 }
@@ -158,7 +158,7 @@ BuffBlueprint {
     Affects = {
         RateOfFireSpecifiedWeapons3 = {
             Add = 0,
-            Mult = 0.5,  # remember that values below 1 actually boost the rof!
+            Mult = 0.5,  -- remember that values below 1 actually boost the rof!
         },
     },
 }

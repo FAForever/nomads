@@ -1,4 +1,4 @@
-# T1 naval factory
+-- T1 naval factory
 
 local NSeaFactoryUnit = import('/lua/nomadunits.lua').NSeaFactoryUnit
 

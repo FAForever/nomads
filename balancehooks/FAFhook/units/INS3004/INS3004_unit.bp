@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "ins3004", # T3 heavy destroyer
+    BlueprintId = "ins3004", -- T3 heavy destroyer
     Economy = {
         BuildCostEnergy = 63000,
         BuildCostMass = 8000,

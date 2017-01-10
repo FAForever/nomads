@@ -1,4 +1,4 @@
-# strategic missile defense missile
+-- strategic missile defense missile
 
 local Missile1 = import('/lua/nomadprojectiles.lua').Missile1
 

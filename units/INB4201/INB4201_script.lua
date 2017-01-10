@@ -1,4 +1,4 @@
-# SAM
+-- SAM
 
 local AddLights = import('/lua/nomadutils.lua').AddLights
 local NStructureUnit = import('/lua/nomadunits.lua').NStructureUnit

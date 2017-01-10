@@ -125,7 +125,7 @@ UnitBlueprint {
         InitialRallyX = 0,
         InitialRallyZ = 10,
         RebuildBonusIds = {
-# TODO: think about this. See T1 land factory for more info
+-- TODO: think about this. See T1 land factory for more info
             'INB0103',
             'INB0203',
             'INB0303',

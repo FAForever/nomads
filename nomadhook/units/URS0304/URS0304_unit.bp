@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "urs0304", # Cybran T3 submarine
+    BlueprintId = "urs0304", -- Cybran T3 submarine
     SpecialAbilities = {
         LaunchNuke = {
             AreaOfEffect = 40,

@@ -18,7 +18,7 @@ function PlaySelectionSound(newSelection)
     elseif OptionValue == 'full' then
         local prio, unit
 
-        # find unit with highest selection sound prio
+        -- find unit with highest selection sound prio
         for k, v in newSelection do
             local bp = v:GetBlueprint()
             if bp.Audio.UISelection or bp.Audio.UISelectionMultiple then
@@ -30,8 +30,8 @@ function PlaySelectionSound(newSelection)
             end
         end
 
-        # play selected unit sound. Units with multiple selection sounds get a key derived from their unit id. This way each time you
-        # select the unit you get the same voice.
+        -- play selected unit sound. Units with multiple selection sounds get a key derived from their unit id. This way each time you
+        -- select the unit you get the same voice.
         if unit then
             local bp = unit:GetBlueprint()
             if bp.Audio.UISelectionMultiple then

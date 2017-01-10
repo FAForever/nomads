@@ -20,17 +20,17 @@ UnitBlueprint {
             Cue = 'IntelOverchargeActiveLoop',
             LodCutoff = 'UnitMove_LodCutoff',
         },
-#        IntelOverchargeStopped = Sound {
-#        },
+--        IntelOverchargeStopped = Sound {
+--        },
         IntelOverchargeChargingLoop = Sound {
             Bank = 'NomadsMisc',
             Cue = 'IntelOverchargeChargingLoop',
             LodCutoff = 'UnitMove_LodCutoff',
         },
-#        IntelOverchargeChargingStart = Sound {
-#        },
-#        IntelOverchargeChargingStop = Sound {
-#        },
+--        IntelOverchargeChargingStart = Sound {
+--        },
+--        IntelOverchargeChargingStop = Sound {
+--        },
         UISelection = Sound {
             Bank = 'NomadsInterface',
             Cue = 'Nomads_Select_Radar',

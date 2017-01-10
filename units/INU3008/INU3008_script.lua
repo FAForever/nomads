@@ -1,4 +1,4 @@
-# T2 mobile TMD
+-- T2 mobile TMD
 
 local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
 local AddAnchorAbilty = import('/lua/nomadutils.lua').AddAnchorAbilty
@@ -70,12 +70,12 @@ INU3008 = Class(NConstructionUnit) {
     end,
 
     OnTargetAcquired = function(self)
-        #LOG('OnTargetAcquired')
+        --LOG('OnTargetAcquired')
         self:PlayTAEffects()
     end,
 
     OnTargetLost = function(self)
-        #LOG('OnTargetLost')
+        --LOG('OnTargetLost')
         self:DestroyTAEffects()
     end,
 

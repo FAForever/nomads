@@ -1,4 +1,4 @@
-# T3 sonar
+-- T3 sonar
 
 local NRadarUnit = import('/lua/nomadunits.lua').NRadarUnit
 local AddIntelOvercharge = import('/lua/nomadutils.lua').AddIntelOvercharge

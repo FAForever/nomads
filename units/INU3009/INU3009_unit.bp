@@ -231,7 +231,7 @@ UnitBlueprint {
                     },
                     RackBone = 'RecoilR',
                     TurretBoneDualManip = 'Left',
-#                    TurretBoneDualManipSwitchDelay = 0.1,
+--                    TurretBoneDualManipSwitchDelay = 0.1,
                 },
                 {
                     MuzzleBones = {
@@ -239,7 +239,7 @@ UnitBlueprint {
                     },
                     RackBone = 'RecoilL',
                     TurretBoneDualManip = 'Right',
-#                    TurretBoneDualManipSwitchDelay = 0.1,
+--                    TurretBoneDualManipSwitchDelay = 0.1,
                 },
             },
             RackFireTogether = false,

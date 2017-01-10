@@ -9,8 +9,8 @@ NCameraBuoy = Class(Buoy) {
 
     OnCreate = function(self, spec)
 
-# TODO: this, make buoys have a strategic icon
-# spec.StrategicIconName = '/textures/ui/common/game/strategicicons/icon_intelprobe1.dds'
+-- TODO: this, make buoys have a strategic icon
+-- spec.StrategicIconName = '/textures/ui/common/game/strategicicons/icon_intelprobe1.dds'
 
         self.Omni = spec.Omni or false
         self.Radar = spec.Radar or false
@@ -71,9 +71,9 @@ NOrbitalStrikeBuoy = Class(Buoy) {
     ActiveThread = function(self)
         local aiBrain = self:GetBrain()
         brain:OrbitalStrikeTarget( self.spec.Pos )
-# TODO:
-# FIXME: This doesn't respect cooldown of the ACU ability. The database for managing targets and priorities has been removed. What is the
-# benefit of having this buoy since it "cheats" (no cooldown)?
+-- TODO:
+-- FIXME: This doesn't respect cooldown of the ACU ability. The database for managing targets and priorities has been removed. What is the
+-- benefit of having this buoy since it "cheats" (no cooldown)?
     end,
 }
 
@@ -83,13 +83,13 @@ NIntelligenceBuoy = Class(NCameraBuoy) {
     DestroyedFx = nil,
     LightsFx = nil,
 
-    # TO make this buoy work a unit is used that contains the "SUPPORTARTILLERY" unit category. This is the only viable way to make
-    # supporting artillery work here.
+    -- TO make this buoy work a unit is used that contains the "SUPPORTARTILLERY" unit category. This is the only viable way to make
+    -- supporting artillery work here.
 
     OnCreate = function(self, spec)
         NCameraBuoy.OnCreate(self, spec)
 
-        # we die when the probe unit dies or lifetime runs out, not because of enemy actions
+        -- we die when the probe unit dies or lifetime runs out, not because of enemy actions
         self:SetCanTakeDamage(false)
         self:SetCanBeKilled(false)
 
@@ -146,6 +146,6 @@ NIntelligenceBuoy = Class(NCameraBuoy) {
     end,
 
     SetBuoyCollision = function(self, shape, centerx, centery, centerz, sizex, sizey, sizez, radius)
-        # don't need a collision box
+        -- don't need a collision box
     end,
 }

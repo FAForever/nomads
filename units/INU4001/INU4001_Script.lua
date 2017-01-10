@@ -1,4 +1,4 @@
-# experimental hover unit crawler
+-- experimental hover unit crawler
 
 local AddLights = import('/lua/nomadutils.lua').AddLights
 local AddBombardModeToUnit = import('/lua/nomadutils.lua').AddBombardModeToUnit
@@ -27,12 +27,12 @@ INU4001 = Class(NExperimentalHoverLandUnit) {
             RackSalvoFiringState = State( EMPMissileWeapon.RackSalvoFiringState ) {
                 Main = function(self)
 
-                    # get the targets of all weapons and add them to the pool
+                    -- get the targets of all weapons and add them to the pool
                     self.TargetPool = {}
                     local numWeapons = self.unit:GetWeaponCount()
                     for i=1, numWeapons do
                         local wep = self.unit:GetWeapon(i)
-                        if wep != self then
+                        if wep ~= self then
                             local target = wep:GetCurrentTarget()
                             if target then
                                 table.insert( self.TargetPool, target)
@@ -82,7 +82,7 @@ INU4001 = Class(NExperimentalHoverLandUnit) {
             end,
 
             HandleHatchThread = function(self)
-                # close hatch, then wait and open the hatch again just in time
+                -- close hatch, then wait and open the hatch again just in time
                 WaitTicks(4)
                 if self.unit and not self.unit:BeenDestroyed() and not self.unit:IsDead() then
                     local bp = self:GetBlueprint()
@@ -97,7 +97,7 @@ INU4001 = Class(NExperimentalHoverLandUnit) {
             end,
 
             ChangeRateOfFire = function(self, value)
-                # modified to store the rate of fire
+                -- modified to store the rate of fire
                 TacticalMissileWeapon1.ChangeRateOfFire(self, value)
                 self.CurrentROF = value
             end,
@@ -105,8 +105,8 @@ INU4001 = Class(NExperimentalHoverLandUnit) {
             SetWeaponEnabled = function(self, enable)
                 TacticalMissileWeapon1.SetWeaponEnabled(self, enable)
 
-                # open or close the hatch based on whether we disable the weapon and make sure it stays that way by killing the
-                # hatch thread.
+                -- open or close the hatch based on whether we disable the weapon and make sure it stays that way by killing the
+                -- hatch thread.
                 if self.HatchThreadHandle then
                     KillThread( self.HatchThreadHandle )
                 end
@@ -167,31 +167,31 @@ INU4001 = Class(NExperimentalHoverLandUnit) {
     OnDetachedToTransport = function(self, transport)
     end,
 
-# ANIMATIONS =====================
+-- ANIMATIONS =====================
 
     OpenTMLHatch = function(self)
-        # plays the opening hatch anim
-        if self.HatchAnimManip and self:GetFractionComplete() >= 1 then  # only play anim if we're built
+        -- plays the opening hatch anim
+        if self.HatchAnimManip and self:GetFractionComplete() >= 1 then  -- only play anim if we're built
             self.HatchAnimManip:SetRate(1)
             return self.HatchAnimManip:GetAnimationTime()
         end
     end,
 
     CloseTMLHatch = function(self)
-        # plays the opening hatch anim
+        -- plays the opening hatch anim
         if self.HatchAnimManip then
             self.HatchAnimManip:SetRate(-1)
             return self.HatchAnimManip:GetAnimationTime()
         end
     end,
 
-# EFFECTS =====================
+-- EFFECTS =====================
 
     OnMotionHorzEventChange = function( self, new, old )
         NExperimentalHoverLandUnit.OnMotionHorzEventChange( self, new, old )
 
-        # blow smoke from the vents
-        if new != old then
+        -- blow smoke from the vents
+        if new ~= old then
             self:DestroyMovementSmokeEffects()
             self:PlayMovementSmokeEffects(new)
         end
@@ -221,7 +221,7 @@ INU4001 = Class(NExperimentalHoverLandUnit) {
         self.SmokeEmitters:Destroy()
     end,
 
-# BOMBARDMENT =====================
+-- BOMBARDMENT =====================
 
     SetBombardmentMode = function(self, enable, changedByTransport)
         NExperimentalHoverLandUnit.SetBombardmentMode(self, enable, changedByTransport)
@@ -242,15 +242,15 @@ INU4001 = Class(NExperimentalHoverLandUnit) {
         end
     end,
 
-# DYING =====================
+-- DYING =====================
 
     CrushDuringDescent = function(self)
-        # This is a WOF event which is in here cause I like WOF! Sorry, I can't be crushed during sinking!
+        -- This is a WOF event which is in here cause I like WOF! Sorry, I can't be crushed during sinking!
         return false
     end,
 
     OnSeabedImpact = function( self)
-        # This is a WOF event which is in here cause I like WOF! Trigger unit death explosion
+        -- This is a WOF event which is in here cause I like WOF! Trigger unit death explosion
         if not self.WOF_OnSeabedImpact_Flag then
             self.WOF_OnSeabedImpact_Flag = true
             self:WOF_DoSurfaceImpactWeapon( 'Seabed', false )
@@ -259,31 +259,31 @@ INU4001 = Class(NExperimentalHoverLandUnit) {
     end,
 
     DeathThread = function( self, overkillRatio, instigator) 
-        # I'm concerned what happens if this unit dies while hover on the water surface. The unit should not leave a corpse.
-        # If WOF is available the unit cloud/should sink to the bottom under the WOF effect.
+        -- I'm concerned what happens if this unit dies while hover on the water surface. The unit should not leave a corpse.
+        -- If WOF is available the unit cloud/should sink to the bottom under the WOF effect.
 
-        if self:GetCurrentLayer() != 'Water' then
-            # We're not on water. Just explode a leave a wreck, no problemo
+        if self:GetCurrentLayer() ~= 'Water' then
+            -- We're not on water. Just explode a leave a wreck, no problemo
             self:DeathExplosionsThread( overkillRatio, instigator, true )
         else
-            local WOFavailble = ( self.WOF_DoSink != nil)
+            local WOFavailble = ( self.WOF_DoSink ~= nil)
             if WOFavailble then
-                # if WOF is available let it handle us sinking
+                -- if WOF is available let it handle us sinking
                 NExperimentalHoverLandUnit.DeathThread( self, overkillRatio, instigator) 
             else
-                # else, get killed on water and don't leave a corpse
+                -- else, get killed on water and don't leave a corpse
                 self:DeathExplosionsOnWaterThread( overkillRatio, instigator )
             end
         end
     end,
 
     DeathExplosionsThread = function( self, overkillRatio, instigator, leaveWreckage)
-        # slightly inspired by the monkeylords effect
+        -- slightly inspired by the monkeylords effect
 
         self:PlayUnitSound('Killed')
         local army = self:GetArmy()
 
-        # Create Initial explosion effects
+        -- Create Initial explosion effects
         explosion.CreateFlash( self, 'TML.003', 2, army )
         CreateAttachedEmitter(self, 'INU4001', army, '/effects/emitters/destruction_explosion_concussion_ring_03_emit.bp'):ScaleEmitter(0.5)
         CreateAttachedEmitter(self, 'INU4001', army, '/effects/emitters/explosion_fire_sparks_02_emit.bp')
@@ -293,19 +293,19 @@ INU4001 = Class(NExperimentalHoverLandUnit) {
         self:CreateExplosionDebris( 'INU4001', army )
         self:CreateExplosionDebris( 'INU4001', army )
 
-        # damage ring to push trees
+        -- damage ring to push trees
         local x, y, z = unpack(self:GetPosition())
         z = z + 3
         DamageRing(self, {x,y,z}, 0.1, 3, 1, 'Force', true)
 
-        # cancel unit hovering
+        -- cancel unit hovering
         self:SetElevation(0)
         self:DestroyMovementEffects()
         self:DestroyIdleEffects()
 
         WaitTicks( Random(3, 6) )
 
-        # some more explosions
+        -- some more explosions
         local numBones = self:GetBoneCount() - 1
         for i=Random(1,3), 8 do
             local bone = Random( 0, numBones )
@@ -314,7 +314,7 @@ INU4001 = Class(NExperimentalHoverLandUnit) {
             WaitTicks( 13 - i - Random(0, 3) )
         end
 
-        # final explosion
+        -- final explosion
         explosion.CreateFlash( self, 'INU4001', 3, army )
         self:ShakeCamera(3, 2, 0, 0.15)
         self:PlayUnitSound('Destroyed')
@@ -322,10 +322,10 @@ INU4001 = Class(NExperimentalHoverLandUnit) {
         self:CreateExplosionDebris( 'INU4001', army )
         self:CreateExplosionDebris( 'INU4001', army )
 
-        # Finish up force ring to push trees
+        -- Finish up force ring to push trees
         DamageRing(self, {x,y,z}, 0.1, 3, 1, 'Force', true)
 
-        # create wreckage
+        -- create wreckage
         if leaveWreckage then
             self:CreateWreckage( overkillRatio )
         end

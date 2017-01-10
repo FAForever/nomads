@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "inu3007", # T3 Mobile AA
+    BlueprintId = "inu3007", -- T3 Mobile AA
     Defense = {
         Health = 1800,
         MaxHealth = 1800,

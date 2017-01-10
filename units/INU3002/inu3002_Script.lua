@@ -1,4 +1,4 @@
-# T3 tank
+-- T3 tank
 
 local SupportingArtilleryAbility = import('/lua/nomadutils.lua').SupportingArtilleryAbility
 local NHoverLandUnit = import('/lua/nomadunits.lua').NHoverLandUnit
@@ -13,7 +13,7 @@ INU3002 = Class(NHoverLandUnit) {
         Rocket = Class(RocketWeapon1) {},
     },
 
-    ArtillerySupportFxBone = 'photon_turret', # TODO: this tank needs a model adjustment, put an artillery support ability pinger thing on it
+    ArtillerySupportFxBone = 'photon_turret', -- TODO: this tank needs a model adjustment, put an artillery support ability pinger thing on it
 }
 
 TypeClass = INU3002

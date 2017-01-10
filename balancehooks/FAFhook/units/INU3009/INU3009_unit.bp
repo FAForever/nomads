@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "inu3009", # T3 tracked tank
+    BlueprintId = "inu3009", -- T3 tracked tank
     Economy = {
         BuildCostEnergy = 12800,
         BuildTime = 4800,

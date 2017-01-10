@@ -174,8 +174,8 @@ UnitBlueprint {
             'BUILTBYTIER1FACTORY NOMAD MOBILE LAND',
         },
         RebuildBonusIds = {
-# TODO: think if this is right. in the CBFP mexes got their higher tiers removed from this list since it costs more mass than it
-# yields, with this bonus. If you reclaim the wreck you might get more mass than what it takes to get the factory at 50%.
+-- TODO: think if this is right. in the CBFP mexes got their higher tiers removed from this list since it costs more mass than it
+-- yields, with this bonus. If you reclaim the wreck you might get more mass than what it takes to get the factory at 50%.
             'inb0101',
             'inb0201',
             'inb0301',
@@ -250,88 +250,88 @@ UnitBlueprint {
         MotionType = 'RULEUMT_None',
         RaisedPlatforms = {
 
-            # Platform 1
-            # TopLeft Offset From Center
-            -1.875, #-1.5,
+            -- Platform 1
+            -- TopLeft Offset From Center
+            -1.875, ---1.5,
 
-            # x
-            -5, #-4,
+            -- x
+            -5, ---4,
 
-            # z
-            0.8125, #0.65,
+            -- z
+            0.8125, --0.65,
 
-            # height
-            # TopRight Offset From Center
-            1.875, #1.5,
+            -- height
+            -- TopRight Offset From Center
+            1.875, --1.5,
 
-            # x
-            5, #-4,
+            -- x
+            5, ---4,
 
-            # z
-            0.8125, #0.65,
+            -- z
+            0.8125, --0.65,
 
-            # height
-            # BottomLeft Offset From Center
-            -1.875, #-1.5,
+            -- height
+            -- BottomLeft Offset From Center
+            -1.875, ---1.5,
 
-            # x
-            1.625, #1.3,
+            -- x
+            1.625, --1.3,
 
-            # z
-            0.8125, #0.65,
+            -- z
+            0.8125, --0.65,
 
-            # height
-            # BottomRight Offset From Center
-            1.875, #1.5,
+            -- height
+            -- BottomRight Offset From Center
+            1.875, --1.5,
 
-            # x
-            1.625, #1.3,
+            -- x
+            1.625, --1.3,
 
-            # z
-            0.8125, #0.65,
+            -- z
+            0.8125, --0.65,
 
-            # height
-            # Platform 2
-            # TopLeft Offset From Center
-            -1.875, #-1.5,
+            -- height
+            -- Platform 2
+            -- TopLeft Offset From Center
+            -1.875, ---1.5,
 
-            # x
-            1.625, #1.3,
+            -- x
+            1.625, --1.3,
 
-            # z
-            0.8125, #0.65,
+            -- z
+            0.8125, --0.65,
 
-            # height
-            # TopRight Offset From Center
-            1.875, #1.5,
+            -- height
+            -- TopRight Offset From Center
+            1.875, --1.5,
 
-            # x
-            1.625, #1.3,
+            -- x
+            1.625, --1.3,
 
-            # z
-            0.8125, #0.65,
+            -- z
+            0.8125, --0.65,
 
-            # height
-            # BottomLeft Offset From Center
-            1.875, #-1.5,
+            -- height
+            -- BottomLeft Offset From Center
+            1.875, ---1.5,
 
-            # x
-            3.625, #2.9,
+            -- x
+            3.625, --2.9,
 
-            # z
+            -- z
             0,
 
-            # height
-            # BottomRight Offset From Center
-            1.875, #1.5,
+            -- height
+            -- BottomRight Offset From Center
+            1.875, --1.5,
 
-            # x
-            3.625, #2.9,
+            -- x
+            3.625, --2.9,
 
-            # z
+            -- z
             0,
 
-            # height
+            -- height
             
         },
         RollOffPoints = {
@@ -343,7 +343,7 @@ UnitBlueprint {
             },
         },
 
-        # height
+        -- height
         SkirtOffsetX = -1.5,
         SkirtOffsetZ = -1.5,
         SkirtSizeX = 8,

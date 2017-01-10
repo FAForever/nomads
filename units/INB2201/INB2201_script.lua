@@ -1,4 +1,4 @@
-# T2 PD
+-- T2 PD
 
 local NStructureUnit = import('/lua/nomadunits.lua').NStructureUnit
 local KineticCannon1 = import('/lua/nomadweapons.lua').KineticCannon1

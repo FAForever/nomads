@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "xsb2401", # Seraphim exp nuke launcher
+    BlueprintId = "xsb2401", -- Seraphim exp nuke launcher
     SpecialAbilities = {
         LaunchNuke = {
             AreaOfEffect = 60,

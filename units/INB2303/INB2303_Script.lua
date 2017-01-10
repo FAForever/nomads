@@ -1,4 +1,4 @@
-# T2 artillery
+-- T2 artillery
 
 local SupportedArtilleryWeapon = import('/lua/nomadutils.lua').SupportedArtilleryWeapon
 local NStructureUnit = import('/lua/nomadunits.lua').NStructureUnit

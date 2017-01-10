@@ -2,8 +2,8 @@ BeamBlueprint {
     Lifetime = -1,
 	TextureName = '/textures/particles/phase_beam_01_emit.dds',
     Thickness = 0.2,
-    StartColor = {x=1.2,y=0.8,z=0.9,w=0.00}, # R,G,B,A
-    EndColor = {x=1.2,y=0.8,z=0.9,w=0.00}, # R,G,B,A
+    StartColor = {x=1.2,y=0.8,z=0.9,w=0.00}, -- R,G,B,A
+    EndColor = {x=1.2,y=0.8,z=0.9,w=0.00}, -- R,G,B,A
     Blendmode = 3.0,
     RepeatRate = 0.05,
     Length = 2000,

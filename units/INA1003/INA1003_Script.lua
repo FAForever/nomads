@@ -1,4 +1,4 @@
-# T1 bomber
+-- T1 bomber
 
 local NAirUnit = import('/lua/nomadunits.lua').NAirUnit
 local RocketWeapon1 = import('/lua/nomadweapons.lua').RocketWeapon1

@@ -17,9 +17,9 @@ local Combo = import('/lua/ui/controls/combo.lua').Combo
 local Checkbox = import('/lua/maui/checkbox.lua').Checkbox
 
 local Campaigns = import('/lua/campaigns.lua')
-#local OpenUrlDialog = import('/lua/ui/dialogs/openurldialog.lua').OpenUrlDialog
+--local OpenUrlDialog = import('/lua/ui/dialogs/openurldialog.lua').OpenUrlDialog
 
-# get most up to date faction data
+-- get most up to date faction data
 dirty_module('/lua/factions.lua')
 local Factions = import('/lua/factions.lua').GetFactions()
 
@@ -30,9 +30,9 @@ function CreateUI(parent, exitBehavior)
     local selectedCmpgn = false
     local allCampaigns = {}
 
-    # -------------------------------------------------------------------------------------------
-    # SETUP
-    # -------------------------------------------------------------------------------------------
+    -- -------------------------------------------------------------------------------------------
+    -- SETUP
+    -- -------------------------------------------------------------------------------------------
 
     local panel = Bitmap(parent, UIUtil.SkinnableFile('/campaign/campaign-overview/bg.dds'))
     LayoutHelpers.AtCenterIn(panel, parent)
@@ -43,11 +43,11 @@ function CreateUI(parent, exitBehavior)
     LayoutHelpers.AtHorizontalCenterIn(title, panel)
     LayoutHelpers.AtTopIn(title, panel, 37)
 
-    # -------------------------------------------------------------------------------------------
-    # CHECKBOXES
-    # -------------------------------------------------------------------------------------------
+    -- -------------------------------------------------------------------------------------------
+    -- CHECKBOXES
+    -- -------------------------------------------------------------------------------------------
 
-    # default campaigns
+    -- default campaigns
     local ChkDefCmpgn = Checkbox(panel, 
         UIUtil.UIFile('/dialogs/check-box_btn/radio-d_btn_up.dds'), 
         UIUtil.UIFile('/dialogs/check-box_btn/radio-s_btn_up.dds'), 
@@ -61,7 +61,7 @@ function CreateUI(parent, exitBehavior)
     LayoutHelpers.RightOf(lblDefCmpgn, ChkDefCmpgn, 4)
     lblDefCmpgn.Top:Set(lblDefCmpgn.Top() + 4)
 
-    # downloaded campaigns
+    -- downloaded campaigns
     local ChkDwnldCmpgn = Checkbox(panel, 
         UIUtil.UIFile('/dialogs/check-box_btn/radio-d_btn_up.dds'), 
         UIUtil.UIFile('/dialogs/check-box_btn/radio-s_btn_up.dds'), 
@@ -75,7 +75,7 @@ function CreateUI(parent, exitBehavior)
     LayoutHelpers.RightOf(lblDwnldCmpgn, ChkDwnldCmpgn, 4)
     lblDwnldCmpgn.Top:Set(lblDwnldCmpgn.Top() + 4)
 
-    # tutorial campaigns
+    -- tutorial campaigns
     local ChkTutCmpgn = Checkbox(panel, 
         UIUtil.UIFile('/dialogs/check-box_btn/radio-d_btn_up.dds'), 
         UIUtil.UIFile('/dialogs/check-box_btn/radio-s_btn_up.dds'), 
@@ -89,7 +89,7 @@ function CreateUI(parent, exitBehavior)
     LayoutHelpers.RightOf(lblTutCmpgn, ChkTutCmpgn, 4)
     lblTutCmpgn.Top:Set(lblTutCmpgn.Top() + 4)
 
-    # sort
+    -- sort
     local ChkSort = Checkbox(panel, 
         UIUtil.UIFile('/dialogs/check-box_btn/radio-d_btn_up.dds'), 
         UIUtil.UIFile('/dialogs/check-box_btn/radio-s_btn_up.dds'), 
@@ -103,7 +103,7 @@ function CreateUI(parent, exitBehavior)
     LayoutHelpers.RightOf(lblSort, ChkSort, 4)
     lblSort.Top:Set(lblSort.Top() + 4)
 
-    # set check status
+    -- set check status
     if not GetPreference('campaign_overview.NotChkDefCmpgnChecked') then
         ChkDefCmpgn:SetCheck(true, true)
     end
@@ -117,7 +117,7 @@ function CreateUI(parent, exitBehavior)
         ChkSort:SetCheck(true, true)
     end
 
-    # init oncheck events
+    -- init oncheck events
     ChkDefCmpgn.OnCheck = function(self, checked) 
         SetPreference('campaign_overview.NotChkDefCmpgnChecked', not checked)
         ShowDefault(checked)
@@ -135,11 +135,11 @@ function CreateUI(parent, exitBehavior)
         SortCampaigns(checked)
     end
 
-    # -------------------------------------------------------------------------------------------
-    # BUTTONS
-    # -------------------------------------------------------------------------------------------
+    -- -------------------------------------------------------------------------------------------
+    -- BUTTONS
+    -- -------------------------------------------------------------------------------------------
 
-    # website button
+    -- website button
     local websiteBtn = UIUtil.CreateButtonStd(panel, '/scx_menu/small-btn/small', "<LOC _Website>Website", 16, 2)
     LayoutHelpers.AtHorizontalCenterIn(websiteBtn, panel)
     LayoutHelpers.AtTopIn(websiteBtn, panel, 665)
@@ -150,7 +150,7 @@ function CreateUI(parent, exitBehavior)
     end
     websiteBtn:Disable()
 
-    # back button
+    -- back button
     local backBtn = UIUtil.CreateButtonStd(panel, '/scx_menu/small-btn/small', "<LOC _Back>Back", 16, 2)
     LayoutHelpers.AtLeftIn(backBtn, panel, 96)
     LayoutHelpers.AtTopIn(backBtn, panel, 665)
@@ -162,7 +162,7 @@ function CreateUI(parent, exitBehavior)
     end
     import('/lua/ui/uimain.lua').SetEscapeHandler(function() backBtn.OnClick() end)
 
-    # start button
+    -- start button
     local startBtn = UIUtil.CreateButtonStd(panel, '/scx_menu/large-no-bracket-btn/large', "<LOC uicampaign_0006>Start campaign", 16, 2)
     LayoutHelpers.AtRightIn(startBtn, panel, 50)
     LayoutHelpers.AtTopIn(startBtn, panel, 665)
@@ -172,20 +172,20 @@ function CreateUI(parent, exitBehavior)
     end
     startBtn:Disable()
 
-    # -------------------------------------------------------------------------------------------
-    # SCROLL BARS
-    # -------------------------------------------------------------------------------------------
+    -- -------------------------------------------------------------------------------------------
+    -- SCROLL BARS
+    -- -------------------------------------------------------------------------------------------
 
     local numElementsPerPage = 3
 
-    # campaign scrollbars
+    -- campaign scrollbars
     local scrollGroup = Group(panel)
     scrollGroup.Width:Set(900)
     scrollGroup.Height:Set(532)
     LayoutHelpers.AtLeftTopIn(scrollGroup, panel, 50, 120)
 
     local scrollbar = UIUtil.CreateVertScrollbarFor(scrollGroup)
-    # Why not use a horizontal scrollbar? I would have if horizontal scrollbars in FA would actually work
+    -- Why not use a horizontal scrollbar? I would have if horizontal scrollbars in FA would actually work
     
     scrollGroup.controlList = {}
     scrollGroup.top = 1
@@ -221,10 +221,10 @@ function CreateUI(parent, exitBehavior)
                 control:Hide()
             else
                 control:Show()
-                control.Top:Set(self.Top()-2) # here
+                control.Top:Set(self.Top()-2) -- here
                 local lIndex = index
                 local lControl = control
-                control.Left:Set(function() return self.Left() + ((lIndex - top) * lControl.Width()) end) # here
+                control.Left:Set(function() return self.Left() + ((lIndex - top) * lControl.Width()) end) -- here
             end
         end
     end
@@ -236,9 +236,9 @@ function CreateUI(parent, exitBehavior)
         self.controlList = {}
     end
 
-    # -------------------------------------------------------------------------------------------
-    # CAMPAIGN LIST ELEMENT
-    # -------------------------------------------------------------------------------------------
+    -- -------------------------------------------------------------------------------------------
+    -- CAMPAIGN LIST ELEMENT
+    -- -------------------------------------------------------------------------------------------
 
     local function CreateListElement(parent, campaignInfo, onSelectBehaviour)
 
@@ -271,7 +271,7 @@ function CreateUI(parent, exitBehavior)
             if campaignInfo.xday > 0 then
                 xdayText = LOC('<LOC uicampaign_0008>X-day') .. ' + ' .. repr(campaignInfo.xday)
             elseif campaignInfo.xday < 0 then
-                xdayText = LOC('<LOC uicampaign_0008>X-day') .. ' - ' .. repr(campaignInfo.xday * -1)  # times -1 to get rid of the -
+                xdayText = LOC('<LOC uicampaign_0008>X-day') .. ' - ' .. repr(campaignInfo.xday * -1)  -- times -1 to get rid of the -
             else
                 xdayText = LOC('<LOC uicampaign_0008>X-day')
             end
@@ -279,9 +279,9 @@ function CreateUI(parent, exitBehavior)
         local xday = UIUtil.CreateText(bg, (LOC('<LOC uicampaign_0007>Begins at date: ') .. xdayText), 14, 'Arial Bold')
         LayoutHelpers.AtLeftTopIn(xday, bg, 12, 57)
 
-        # a little magic here to make the campaign overview thing compatible with custom factions, at least the faction icons
+        -- a little magic here to make the campaign overview thing compatible with custom factions, at least the faction icons
 
-        Factions = import('/lua/factions.lua').GetFactions() # get most recent faction data
+        Factions = import('/lua/factions.lua').GetFactions() -- get most recent faction data
 
         local factionIcons = {}
         local n = 0
@@ -324,7 +324,7 @@ function CreateUI(parent, exitBehavior)
                 LayoutHelpers.AtHorizontalCenterIn(icon, bg)
             end
         else
-            # there's no icon, why not make the textbox a little larger?
+            -- there's no icon, why not make the textbox a little larger?
             desc.Height:Set(377)
         end
 
@@ -353,11 +353,11 @@ function CreateUI(parent, exitBehavior)
         return bg
     end
 
-    # -------------------------------------------------------------------------------------------
-    # BEHAVIOUR
-    # -------------------------------------------------------------------------------------------
+    -- -------------------------------------------------------------------------------------------
+    -- BEHAVIOUR
+    -- -------------------------------------------------------------------------------------------
 
-    # campaign selected
+    -- campaign selected
     local function SelectCampaign(cmpgn)
         if selectedCmpgn then
             selectedCmpgn:Highlight(false)
@@ -373,22 +373,22 @@ function CreateUI(parent, exitBehavior)
         end
     end
 
-    # show or hide default campaigns
+    -- show or hide default campaigns
     function ShowDefault(show)
         PopulateList()
     end
 
-    # show or hide downloaded campaigns
+    -- show or hide downloaded campaigns
     function ShowDownloaded(show)
         PopulateList()
     end
 
-    # show or hide tutorials
+    -- show or hide tutorials
     function ShowTutorials(show)
         PopulateList()
     end
 
-    # sort campaigns
+    -- sort campaigns
     function SortCampaigns(chronologically)
         PopulateList(true)
     end
@@ -404,16 +404,16 @@ function CreateUI(parent, exitBehavior)
                 return
             end
         end
-        # if the campaign is setup OK then we never get here, that only happens when something is wrong
+        -- if the campaign is setup OK then we never get here, that only happens when something is wrong
         WARN('*Campaign: Could not launch campaign. Does initfile exist? Does it have an Initiate function?')
         if exitBehavior then
             exitBehavior()
         end
     end
 
-    # -------------------------------------------------------------------------------------------
-    # CREATE CAMPAIGN LIST ITEMS
-    # -------------------------------------------------------------------------------------------
+    -- -------------------------------------------------------------------------------------------
+    -- CREATE CAMPAIGN LIST ITEMS
+    -- -------------------------------------------------------------------------------------------
 
     function PopulateList(Refresh)
 
@@ -425,7 +425,7 @@ function CreateUI(parent, exitBehavior)
         local dwnld = ChkDwnldCmpgn:IsChecked()
         local tut = ChkTutCmpgn:IsChecked()
 
-        # clear old stuff
+        -- clear old stuff
         SelectCampaign(nil)
         scrollGroup:Clear()
 
@@ -436,7 +436,7 @@ function CreateUI(parent, exitBehavior)
 
             if (not campaign.downloaded and not def) or (campaign.downloaded and not dwnld) 
                     or (campaign.istutorial and not tut) or campaign.selectable == false then
-                # skip campaigns we don't want to see
+                -- skip campaigns we don't want to see
                 continue
             end
 
@@ -444,7 +444,7 @@ function CreateUI(parent, exitBehavior)
             table.insert(scrollGroup.controlList, c)
             if campaign.uid == lastPlayedCampaign then
                 SelectCampaign(c)
-                scrollGroup.top = math.max(math.min( t-1, (table.getn(scrollGroup.controlList) + 1 - numElementsPerPage)), 1)  # so the last played campaign is visible
+                scrollGroup.top = math.max(math.min( t-1, (table.getn(scrollGroup.controlList) + 1 - numElementsPerPage)), 1)  -- so the last played campaign is visible
             end
             t = t + 1
         end

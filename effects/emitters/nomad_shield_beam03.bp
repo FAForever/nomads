@@ -1,12 +1,12 @@
 BeamBlueprint {
     Lifetime = 5.0,
-    TextureName = '/textures/particles/beam_exhaust_stream_red_01.dds',  #beam_phason_01.dds beam_white_02.dds quantum_beam_01.dds
+    TextureName = '/textures/particles/beam_exhaust_stream_red_01.dds',  --beam_phason_01.dds beam_white_02.dds quantum_beam_01.dds
     Length = 1.5,
     Thickness = 0.4,
-#    StartColor = {x=0.8,y=0.8,z=1,w=0.0}, # R,G,B,A
-#    EndColor = {x=0.6,y=0.6,z=1,w=0.0}, # R,G,B,A
-    StartColor = {x=1,y=1,z=1,w=0}, # R,G,B,A
-    EndColor = {x=0,y=0,z=0,w=0}, # R,G,B,A
+--    StartColor = {x=0.8,y=0.8,z=1,w=0.0}, -- R,G,B,A
+--    EndColor = {x=0.6,y=0.6,z=1,w=0.0}, -- R,G,B,A
+    StartColor = {x=1,y=1,z=1,w=0}, -- R,G,B,A
+    EndColor = {x=0,y=0,z=0,w=0}, -- R,G,B,A
     UShift = 0.0,
     VShift = 0.5,
     RepeatRate= 0.1,

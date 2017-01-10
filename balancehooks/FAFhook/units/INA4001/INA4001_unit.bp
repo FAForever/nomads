@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "ina4001", # exp transport
+    BlueprintId = "ina4001", -- exp transport
     Veteran = {
         Level1 = 32,
         Level2 = 64,

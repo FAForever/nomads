@@ -14,7 +14,7 @@ RequireSelected = {
 }
 
 
-# TODO: This can probably be refactored a bit, make a new function out of the similar code below
+-- TODO: This can probably be refactored a bit, make a new function out of the similar code below
 
 function VOUIEvent(event)
     if event then
@@ -24,7 +24,7 @@ function VOUIEvent(event)
         local VOS = VoiceOverSounds[facStr][event]
 
         if VOS and VOS.Bank and VOS.Cue then
-            #LOG('*DEBUG: VOUIEvent Playing VO for event '..repr(event))
+            --LOG('*DEBUG: VOUIEvent Playing VO for event '..repr(event))
             local snd = Sound( {Bank = VOS.Bank, Cue = VOS.Cue} )
             local IsVoice = VOS.IsVoice or false
             if IsVoice then
@@ -41,7 +41,7 @@ function VOUIEvent(event)
 end
 
 function VOUnitEvent(unitId, event)
-    #LOG('*DEBUG VOUnitEvent event = '..repr(event)..' unit = '..repr(unitId))
+    --LOG('*DEBUG VOUnitEvent event = '..repr(event)..' unit = '..repr(unitId))
     if event and unitId then
         if RequireSelected[event] == false or UnitIsSelected(unitId) then
 
@@ -50,7 +50,7 @@ function VOUnitEvent(unitId, event)
             local VOS = VoiceOverSounds[facStr][event]
 
             if VOS and VOS.Bank and VOS.Cue then
-                #LOG('*DEBUG: VOUnitEvent Playing VO for event '..repr(event))
+                --LOG('*DEBUG: VOUnitEvent Playing VO for event '..repr(event))
                 local snd = Sound( {Bank = VOS.Bank, Cue = VOS.Cue} )
                 local IsVoice = VOS.IsVoice or false
                 if IsVoice then

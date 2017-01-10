@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "urb2305", # cybran nuke launcher
+    BlueprintId = "urb2305", -- cybran nuke launcher
     SpecialAbilities = {
         LaunchNuke = {
             AreaOfEffect = 40,

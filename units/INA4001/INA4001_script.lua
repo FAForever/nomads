@@ -1,4 +1,4 @@
-# Experimental transport
+-- Experimental transport
 
 local Explosion = import('/lua/defaultexplosions.lua')
 local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
@@ -16,7 +16,7 @@ INA4001 = Class(NAirTransportUnit) {
         Torpedo = Class(DroppedTorpedoWeapon1) {},
     },
 
-    DestroyNoFallRandomChance = 1.1,  # don't blow up in air when killed
+    DestroyNoFallRandomChance = 1.1,  -- don't blow up in air when killed
     ThrusterBurnBones = { 'ThrustMain1', 'ThrustMain2', 'ThrustMain3', 'ThrustMain4', 'ThrustMain5', 'ThrustMain6', },
 
     OnCreate = function(self)
@@ -34,7 +34,7 @@ INA4001 = Class(NAirTransportUnit) {
     OnStopBeingBuilt = function(self, builder, layer)
         NAirTransportUnit.OnStopBeingBuilt(self, builder, layer)
 
-        # find thruster burn weapon. It's a dummy so we can't use getweaponbylabel
+        -- find thruster burn weapon. It's a dummy so we can't use getweaponbylabel
         local wepBp, n = self:GetBlueprint().Weapon, -1
         self.ThrusterBurnBpNum = nil
         for k, v in wepBp do
@@ -44,13 +44,13 @@ INA4001 = Class(NAirTransportUnit) {
             end
         end
 
-        # effects
+        -- effects
         self:PlayThrusterEffects()
     end,
 
     OnKilled = function(self, instigator, type, overkillRatio)
-# TODO: investigate destroying parts of the model while falling to earth. Probably requires vertex groups used on model (not sure if that's the case) and
-# then hiding certain bones. The wreckage needs to have these bones hidden aswell (not sure if that goes automatically).
+-- TODO: investigate destroying parts of the model while falling to earth. Probably requires vertex groups used on model (not sure if that's the case) and
+-- then hiding certain bones. The wreckage needs to have these bones hidden aswell (not sure if that goes automatically).
         self:DestroyThrusterEffects()
         self:DestroyThrusterBurnEffects()
         self:ForkThread( self.CrashingThread )
@@ -60,34 +60,34 @@ INA4001 = Class(NAirTransportUnit) {
     OnMotionVertEventChange = function( self, new, old )
         NAirTransportUnit.OnMotionVertEventChange( self, new, old )
 
-        # special abilities only available when on cruising height
+        -- special abilities only available when on cruising height
         if new == 'Top' then
-            # unit reaching target altitude, coming from surface
+            -- unit reaching target altitude, coming from surface
             self:DestroyThrusterBurnEffects()
             self:PlayThrusterEffects()
 
         elseif new == 'Down' then
-            # unit starts landing
+            -- unit starts landing
             self:DestroyThrusterEffects()
             self:DestroyThrusterBurnEffects()
             self:PlayThrusterBurnEffects()
 
         elseif new == 'Hover' then
-            if old != 'Down' then
+            if old ~= 'Down' then
                 self:DestroyThrusterEffects()
                 self:DestroyThrusterBurnEffects()
                 self:PlayThrusterBurnEffects()
             end
 
         elseif new == 'Up' then
-            if old != 'Hover' then
+            if old ~= 'Hover' then
                 self:DestroyThrusterEffects()
                 self:DestroyThrusterBurnEffects()
                 self:PlayThrusterBurnEffects()
             end
 
-        elseif new == 'Bottom' then  # when the transport lands on the surface (happens when the unit it's loading is destroyed just before it can be attached)
-            if old != 'Hover' and old != 'Down' then
+        elseif new == 'Bottom' then  -- when the transport lands on the surface (happens when the unit it's loading is destroyed just before it can be attached)
+            if old ~= 'Hover' and old ~= 'Down' then
                 self:DestroyThrusterEffects()
                 self:DestroyThrusterBurnEffects()
                 self:PlayThrusterBurnEffects()
@@ -97,7 +97,7 @@ INA4001 = Class(NAirTransportUnit) {
     end,
 
     PlayThrusterEffects = function(self)
-        # normal thruster effects, probably on all the time
+        -- normal thruster effects, probably on all the time
 
         if self:GetFractionComplete() < 1 then return end
 
@@ -116,7 +116,7 @@ INA4001 = Class(NAirTransportUnit) {
     end,
 
     PlayThrusterBurnEffects = function(self)
-        # do a thruster burn, damaging the units below the transport
+        -- do a thruster burn, damaging the units below the transport
 
         if self:GetFractionComplete() < 1 then return end
 
@@ -134,10 +134,10 @@ INA4001 = Class(NAirTransportUnit) {
     end,
 
     ThrusterBurnDamageThread = function(self, maxDist)
-        # repeatedly damages the area below the transport. The maxDist determines how far below the transport the area is damaged. This should be close to the
-        # edge of the burn effects. Damage stats set by dummy weapon in unit BP.
+        -- repeatedly damages the area below the transport. The maxDist determines how far below the transport the area is damaged. This should be close to the
+        -- edge of the burn effects. Damage stats set by dummy weapon in unit BP.
 
-        # get weapon stats
+        -- get weapon stats
         local wepBp = false
         local dmgInt = 100
         if self.ThrusterBurnBpNum then
@@ -150,31 +150,31 @@ INA4001 = Class(NAirTransportUnit) {
 
         while self do
 
-            # check if we should do damage and do damage interval things
+            -- check if we should do damage and do damage interval things
             doDmg = (cntr <= 0)
             if doDmg then cntr = dmgInt end
             cntr = cntr - 1
 
-            # go through all bones and adjust surface effect offset
+            -- go through all bones and adjust surface effect offset
             for boneN, bone in self.ThrusterBurnBones do
 
-                # calculate the distance from the thruster bone to the surface. if it's low enough create the surface emitter and
-                # start to deal damage. The emitter is atatched to the thruster bone and given an offset so it's always moving along
-                # with the unit nicely but we'll have to update the offset of the effect continuously. IF not the emitter disappears
-                # below the surface if the unit is further descending.
+                -- calculate the distance from the thruster bone to the surface. if it's low enough create the surface emitter and
+                -- start to deal damage. The emitter is atatched to the thruster bone and given an offset so it's always moving along
+                -- with the unit nicely but we'll have to update the offset of the effect continuously. IF not the emitter disappears
+                -- below the surface if the unit is further descending.
 
-                # calculating surface height and emitter offset
+                -- calculating surface height and emitter offset
                 pos = self:GetPosition(bone)
-                surface = GetSurfaceHeight(pos[1], pos[3])    #GetTerrainHeight(pos[1], pos[3]) + GetTerrainTypeOffset(pos[1], pos[3])
+                surface = GetSurfaceHeight(pos[1], pos[3])    --GetTerrainHeight(pos[1], pos[3]) + GetTerrainTypeOffset(pos[1], pos[3])
                 onWater = GetTerrainHeight(pos[1], pos[3]) < GetSurfaceHeight(pos[1], pos[3])
                 offset = pos[2]
                 pos[2] = math.max( pos[2] - maxDist, surface )
                 offset = offset - pos[2]
 
-                # adjust emitter height if the calculated endpoint of the fire jet is at or below the surface. Also dealing damage.
+                -- adjust emitter height if the calculated endpoint of the fire jet is at or below the surface. Also dealing damage.
                 if pos[2] <= surface then
 
-                    # create emitters if not done yet
+                    -- create emitters if not done yet
                     if not emits[ boneN ] then emits[ boneN ] = {} end
                     if table.getsize( emits[boneN] ) <= 0 then
 
@@ -193,10 +193,10 @@ INA4001 = Class(NAirTransportUnit) {
                         end
                     end
 
-                    # changing offset so the emitter stays more or less on the surface. Since the offset stacks first the previous offset
-                    # is reverted, so we're back at the bone before setting the new offset. If not the effect moves away.
+                    -- changing offset so the emitter stays more or less on the surface. Since the offset stacks first the previous offset
+                    -- is reverted, so we're back at the bone before setting the new offset. If not the effect moves away.
                     if not prevOffset[ boneN ] then prevOffset[ boneN ] = 0 end
-                    if offset != prevOffset[ boneN ] then
+                    if offset ~= prevOffset[ boneN ] then
                         for k, emit in emits[ boneN ] do
                             emit:OffsetEmitter(0, 0, -prevOffset[ boneN ] )
                             emit:OffsetEmitter(0, 0, offset)
@@ -204,18 +204,18 @@ INA4001 = Class(NAirTransportUnit) {
                         prevOffset[ boneN ] = offset
                     end
 
-                    # deal damage at end of flame jet
-                    if doDmg and wepBp != false then
+                    -- deal damage at end of flame jet
+                    if doDmg and wepBp ~= false then
                         DamageRing( self, pos, 0.1, wepBp.DamageRadius, wepBp.Damage, wepBp.DamageType, wepBp.DamageFriendly, false)
                     end
 
-                    # burn trees
+                    -- burn trees
                     DamageRing( self, pos, 0.1, 2, 1, 'BigFire', false, false )
 
-                # if the flame endpoint is above the surface remove the emitters and don't deal damage
+                -- if the flame endpoint is above the surface remove the emitters and don't deal damage
                 else
 
-                    # remove surface emitters
+                    -- remove surface emitters
                     if table.getsize( emits[boneN] ) > 0 then
                         for k, emit in emits[ boneN ] do
                             emit:Destroy()
@@ -232,13 +232,13 @@ INA4001 = Class(NAirTransportUnit) {
     end,
 
     DestroyThrusterBurnEffects = function(self)
-        # stop thruster burn
+        -- stop thruster burn
         self.ThrusterBurnEffectsBag:Destroy()
     end,
 
     CrashingThread = function(self)
 
-        # create detector so we know when we hit the surface with what bone
+        -- create detector so we know when we hit the surface with what bone
         self.detector = CreateCollisionDetector(self)
         self.Trash:Add(self.detector)
         self.detector:WatchBone('Attachpoint01')
@@ -265,7 +265,7 @@ INA4001 = Class(NAirTransportUnit) {
         self.detector:EnableTerrainCheck(true)
         self.detector:Enable()
 
-        # set up all thruster emitters again, then keep checking over time which thruster bones are lowest and disable those thrusters
+        -- set up all thruster emitters again, then keep checking over time which thruster bones are lowest and disable those thrusters
         local army, emits, emit = self:GetArmy(), {}
         for i, bone in self.ThrusterBurnBones do
             emits[i] = {}
@@ -278,7 +278,7 @@ INA4001 = Class(NAirTransportUnit) {
 
         WaitTicks( 2 )
 
-        # check which thrusters are lowest and which are highest
+        -- check which thrusters are lowest and which are highest
         local avg, height, bAvgList, aAvgList, pos = 0, {}, {}, {}
         for i, bone in self.ThrusterBurnBones do
             pos = self:GetPosition(bone)
@@ -294,7 +294,7 @@ INA4001 = Class(NAirTransportUnit) {
             end
         end
 
-        # the bAvgList (belowAvererageList) contains the thruster numbers that should quickly be disabled
+        -- the bAvgList (belowAvererageList) contains the thruster numbers that should quickly be disabled
         for k, i in RandomIter( bAvgList ) do
             WaitTicks( Random(1, 3) )
             for k, emit in emits[i] do
@@ -304,7 +304,7 @@ INA4001 = Class(NAirTransportUnit) {
 
         WaitTicks( 5 )
 
-        # the aAvgList (aboveAvererageList) contains the thruster numbers that are still active. Over random periods disable these
+        -- the aAvgList (aboveAvererageList) contains the thruster numbers that are still active. Over random periods disable these
         for k, i in RandomIter( aAvgList ) do
             WaitTicks( Random(1, 7) )
             for k, emit in emits[i] do
@@ -314,14 +314,14 @@ INA4001 = Class(NAirTransportUnit) {
     end,
 
     OnAnimTerrainCollision = function(self, bone, x, y, z)
-        # happens when detector detects collision with surface
+        -- happens when detector detects collision with surface
         self:KilledAndBoneHitsSurface( bone, Vector(x, y, z) )
     end,
 
     KilledAndBoneHitsSurface = function(self, bone, pos )
         local bp = self:GetBlueprint()
 
-        # do damage
+        -- do damage
         for k, wep in bp.Weapon do
             if wep.Label == 'ImpactWithSurface' then
                 DamageArea( self, pos, wep.DamageRadius, wep.Damage, wep.DamageType, wep.DamageFriendly, false)
@@ -333,13 +333,13 @@ INA4001 = Class(NAirTransportUnit) {
     end,
 
     OnImpact = function(self, with, other)
-        # plays when the unit is killed. All effects should have a lifetime cause we won't remove them via scripting; this unit is dead in a moment.
+        -- plays when the unit is killed. All effects should have a lifetime cause we won't remove them via scripting; this unit is dead in a moment.
 
         local bp = self:GetBlueprint()
         local pos = self:GetPosition()
         local army, emit = self:GetArmy()
 
-        # find damage ring sizes
+        -- find damage ring sizes
         local damageRingSize = 10
         for k, wep in bp.Weapon do
             if wep.Label == 'DeathImpact' then
@@ -348,7 +348,7 @@ INA4001 = Class(NAirTransportUnit) {
             end
         end
 
-        # damage effects
+        -- damage effects
         for k, v in NomadEffectTemplate.ExpTransportDestruction do
             emit = CreateEmitterAtBone(self, 'INA4001', army, v)
         end

@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "ina1002", # interceptor
+    BlueprintId = "ina1002", -- interceptor
     Wreckage = {
         WreckageLayers = {
             Air = false,

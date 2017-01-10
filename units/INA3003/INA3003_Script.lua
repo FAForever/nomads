@@ -1,4 +1,4 @@
-# T3 ASF
+-- T3 ASF
 
 local NAirUnit = import('/lua/nomadunits.lua').NAirUnit
 local AirToAirGun1 = import('/lua/nomadweapons.lua').AirToAirGun1

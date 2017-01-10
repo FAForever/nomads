@@ -1,4 +1,4 @@
-# T1 mobile AntiAir / artillery Script
+-- T1 mobile AntiAir / artillery Script
 
 local NLandUnit = import('/lua/nomadunits.lua').NLandUnit
 local RocketWeapon1 = import('/lua/nomadweapons.lua').RocketWeapon1

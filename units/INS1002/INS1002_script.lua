@@ -1,4 +1,4 @@
-# T1 frigate
+-- T1 frigate
 
 local AddNavalLights = import('/lua/nomadutils.lua').AddNavalLights
 local NSeaUnit = import('/lua/nomadunits.lua').NSeaUnit

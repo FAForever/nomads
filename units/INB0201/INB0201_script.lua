@@ -1,4 +1,4 @@
-# T2 land factory
+-- T2 land factory
 
 local NLandFactoryUnit = import('/lua/nomadunits.lua').NLandFactoryUnit
 

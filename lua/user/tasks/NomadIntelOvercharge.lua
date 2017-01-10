@@ -3,12 +3,12 @@ local Tasks = import('/lua/user/tasks/Tasks.lua')
 
 function MapReticulesToUnitIdsScript( TaskName, ReticulePositions, Units, UnitIds )
 
-    # We'll want to use sonars first when the position is on water, radar if on land. If we can't do that then use the nearest.
+    -- We'll want to use sonars first when the position is on water, radar if on land. If we can't do that then use the nearest.
 
-    local RadarCapList = {}  # lists keys to the Units table. Can contain the same key more than once if that unit has the capacity to
-    local SonarCapList = {}  # handle more than one reticule at the same time.
+    local RadarCapList = {}  -- lists keys to the Units table. Can contain the same key more than once if that unit has the capacity to
+    local SonarCapList = {}  -- handle more than one reticule at the same time.
 
-    # compile CapList tables. Unit keys are added according to their capacity and type
+    -- compile CapList tables. Unit keys are added according to their capacity and type
     local bp, cap, isradar, issonar
     local MaxRanges = {}
     local MinRanges = {}
@@ -34,7 +34,7 @@ function MapReticulesToUnitIdsScript( TaskName, ReticulePositions, Units, UnitId
         end
     end
 
-    # for every reticule determine the best unassigned unit. If reticule is in water then use sonar first. On land use radar first
+    -- for every reticule determine the best unassigned unit. If reticule is in water then use sonar first. On land use radar first
     local ClosestUnitKeys = {}
     local ClosestUnitKey, sonar
     for RetKey, RetPos in ReticulePositions do
@@ -53,14 +53,14 @@ function MapReticulesToUnitIdsScript( TaskName, ReticulePositions, Units, UnitId
 
         if ClosestUnitKey then
             ClosestUnitKeys[RetKey] = ClosestUnitKey
-            table.removeByValue(RadarCapList, ClosestUnitKey)  # remove from both cap lists because it might be a unit that can do both
-            table.removeByValue(SonarCapList, ClosestUnitKey)  # radar and sonar, in that case it will be in both lists.
+            table.removeByValue(RadarCapList, ClosestUnitKey)  -- remove from both cap lists because it might be a unit that can do both
+            table.removeByValue(SonarCapList, ClosestUnitKey)  -- radar and sonar, in that case it will be in both lists.
         else
             WARN('*DEBUG: MapReticulesToUnitIdsScript: couldnt map a unit to reticule '..repr(RetKey)..' for task '..repr(TaskName))
         end
     end
 
-    # Find unit Ids. We need to return unit Ids, not keys of the Units table.
+    -- Find unit Ids. We need to return unit Ids, not keys of the Units table.
     local map = {}
     for RetKey, UnitKey in ClosestUnitKeys do
         map[RetKey] = Units[UnitKey]:GetEntityId()
@@ -85,12 +85,12 @@ function FindBestUnitKeyForReticulePosition(TaskName, UnitCapList, Units, RetPos
 end
 
 function PosIsInWater(pos)
-# TODO: make this work. Find a way to determine if a position is in water or not.
-#    if pos and pos[1] and pos[3] then
-#        local surface = GetSurfaceHeight(pos[1], pos[3]
-#        local terrain = GetTerrainHeight(pos[1], pos[3]
-#        return (surface > terrain)
-#    end
+-- TODO: make this work. Find a way to determine if a position is in water or not.
+--    if pos and pos[1] and pos[3] then
+--        local surface = GetSurfaceHeight(pos[1], pos[3]
+--        local terrain = GetTerrainHeight(pos[1], pos[3]
+--        return (surface > terrain)
+--    end
     return false
 end
 

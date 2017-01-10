@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "inu1005", # T2 engineer
+    BlueprintId = "inu1005", -- T2 engineer
     Defense = {
         Health = 260,
         MaxHealth = 260,

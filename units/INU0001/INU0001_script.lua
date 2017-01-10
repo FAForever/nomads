@@ -1,4 +1,4 @@
-# Nomads ACU
+-- Nomads ACU
 
 local Entity = import('/lua/sim/Entity.lua').Entity
 local Buff = import('/lua/sim/Buff.lua')
@@ -90,7 +90,7 @@ INU0001 = Class(NWalkingLandUnit) {
             PlayFxMuzzleSequence = function(self, muzzle)
                 APCannon1_Overcharge.PlayFxMuzzleSequence(self, muzzle)
 
-                # create extra effect
+                -- create extra effect
                 local bone = self:GetBlueprint().RackBones[1]['RackBone']
                 for k, v in EffectTemplate.TCommanderOverchargeFlash01 do
                     CreateAttachedEmitter(self.unit, bone, self.unit:GetArmy(), v):ScaleEmitter(self.FxMuzzleFlashScale)
@@ -145,8 +145,8 @@ INU0001 = Class(NWalkingLandUnit) {
         DeathWeapon = Class(DeathNuke) {},
     },
 
-    # =====================================================================================================================
-    # CREATION AND FIRST SECONDS OF GAMEPLAY
+    -- =====================================================================================================================
+    -- CREATION AND FIRST SECONDS OF GAMEPLAY
 
     CapFxBones = { 'torso_thingy_left', 'torso_thingy_right', },
 
@@ -155,16 +155,16 @@ INU0001 = Class(NWalkingLandUnit) {
 
         local bp = self:GetBlueprint()
 
-        # vars
+        -- vars
         self.DoubleBarrels = false
         self.DoubleBarrelOvercharge = false
         self.EnhancementBoneEffectsBag = {}
         self.BuildBones = bp.General.BuildBones.BuildEffectBones
-        self.HeadRotationEnabled = false # disable head rotation to prevent initial wrong rotation
+        self.HeadRotationEnabled = false -- disable head rotation to prevent initial wrong rotation
         self.AllowHeadRotation = false
         self.UseRunWalkAnim = false
 
-        # model
+        -- model
         self:HideBone('right_arm_upgrade_muzzle', true)
         self:HideBone('left_arm_upgrade_muzzle', true)
         self:HideBone('upgrade_back', true)
@@ -172,11 +172,11 @@ INU0001 = Class(NWalkingLandUnit) {
         self.HeadRotManip = CreateRotator(self, 'head', 'y', nil):SetCurrentAngle(0)
         self.Trash:Add(self.HeadRotManip)
 
-        # properties
+        -- properties
         self:SetCapturable(false)
         self:SetupBuildBones()
 
-        # enhancements
+        -- enhancements
         self:RemoveToggleCap('RULEUTC_SpecialToggle')
         self:AddBuildRestriction( categories.NOMAD * (categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER) )
         self:SetRapidRepairParams( 'NomadACURapidRepair', bp.Enhancements.RapidRepair.RepairDelay, bp.Enhancements.RapidRepair.InterruptRapidRepairByWeaponFired)
@@ -201,8 +201,8 @@ INU0001 = Class(NWalkingLandUnit) {
         self:GetAIBrain():GiveResource('Mass', self:GetBlueprint().Economy.StorageMass)
     end,
 
-    # =====================================================================================================================
-    # UNIT DEATH
+    -- =====================================================================================================================
+    -- UNIT DEATH
 
     OnKilled = function(self, instigator, type, overkillRatio)
         self:SetOrbitalBombardEnabled(false)
@@ -212,12 +212,12 @@ INU0001 = Class(NWalkingLandUnit) {
     end,
 
     DeathThread = function( self, overkillRatio, instigator)
-        # since we're spawning a black hole the ACU disappears right away
+        -- since we're spawning a black hole the ACU disappears right away
         self:Destroy()
     end,
 
-    # =====================================================================================================================
-    # GENERIC
+    -- =====================================================================================================================
+    -- GENERIC
 
     OnMotionHorzEventChange = function( self, new, old )
         if old == 'Stopped' and self.UseRunWalkAnim then
@@ -236,8 +236,8 @@ INU0001 = Class(NWalkingLandUnit) {
         end
     end,
 
-    # =====================================================================================================================
-    # BUILDING STUFF
+    -- =====================================================================================================================
+    -- BUILDING STUFF
 
     OnPrepareArmToBuild = function(self)
         NWalkingLandUnit.OnPrepareArmToBuild(self)
@@ -252,11 +252,11 @@ INU0001 = Class(NWalkingLandUnit) {
 
        local bp = self:GetBlueprint()
 
-       if order != 'Upgrade' or bp.Display.ShowBuildEffectsDuringUpgrade then
+       if order ~= 'Upgrade' or bp.Display.ShowBuildEffectsDuringUpgrade then
 
-            # If we are assisting an upgrading unit, or repairing a unit, play seperate effects
+            -- If we are assisting an upgrading unit, or repairing a unit, play seperate effects
             local UpgradesFrom = unitBeingBuilt:GetBlueprint().General.UpgradesFrom
-            if (order == 'Repair' and not unitBeingBuilt:IsBeingBuilt()) or (UpgradesFrom and UpgradesFrom != 'none' and self:IsUnitState('Guarding')) or (order == 'Repair'  and self:IsUnitState('Guarding') and not unitBeingBuilt:IsBeingBuilt()) then
+            if (order == 'Repair' and not unitBeingBuilt:IsBeingBuilt()) or (UpgradesFrom and UpgradesFrom ~= 'none' and self:IsUnitState('Guarding')) or (order == 'Repair'  and self:IsUnitState('Guarding') and not unitBeingBuilt:IsBeingBuilt()) then
                 self:ForkThread( NomadEffectUtil.CreateRepairBuildBeams, unitBeingBuilt, self.BuildBones, self.BuildEffectsBag )
             else
                 self:ForkThread( NomadEffectUtil.CreateNomadBuildSliceBeams, unitBeingBuilt, self.BuildBones, self.BuildEffectsBag )   
@@ -321,8 +321,8 @@ INU0001 = Class(NWalkingLandUnit) {
         NWalkingLandUnit.OnUnpaused(self)
     end,
 
-    # =====================================================================================================================
-    # CAPTURING STUFF
+    -- =====================================================================================================================
+    -- CAPTURING STUFF
 
     OnStopCapture = function(self, target)
         NWalkingLandUnit.OnStopCapture(self, target)
@@ -342,8 +342,8 @@ INU0001 = Class(NWalkingLandUnit) {
         self:GetWeaponManipulatorByLabel('MainGun'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
     end,
 
-    # =====================================================================================================================
-    # RECLAIMING STUFF
+    -- =====================================================================================================================
+    -- RECLAIMING STUFF
 
     OnStopReclaim = function(self, target)
         NWalkingLandUnit.OnStopReclaim(self, target)
@@ -354,12 +354,12 @@ INU0001 = Class(NWalkingLandUnit) {
         self:GetWeaponManipulatorByLabel('MainGun'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
     end,
 
-    # =====================================================================================================================
-    # EFFECTS AND ANIMATIONS
+    -- =====================================================================================================================
+    -- EFFECTS AND ANIMATIONS
 
-    #### INITIAL ANIM ####
+    -------- INITIAL ANIM --------
 
-    DoMeteorAnim = function(self)  # part of initial dropship animation
+    DoMeteorAnim = function(self)  -- part of initial dropship animation
 
         self.PlayCommanderWarpInEffectFlag = false
         self:HideBone(0, true)
@@ -371,7 +371,7 @@ INU0001 = Class(NWalkingLandUnit) {
         self.Trash:Add(meteor)
         meteor:Start(self:GetPosition(), 3)
 
-        WaitTicks(35) # time before meteor opens
+        WaitTicks(35) -- time before meteor opens
 
         self:ShowBone(0, true)
         self:HideBone('right_arm_upgrade_muzzle', true)
@@ -395,22 +395,22 @@ INU0001 = Class(NWalkingLandUnit) {
 
         WaitTicks(5)
 
-        # TODO: play some kind of animation here?
+        -- TODO: play some kind of animation here?
         self.AllowHeadRotation = true
         self.PlayCommanderWarpInEffectFlag = nil
 
-        WaitTicks(12)  # waiting till tick 50 to enable ACU. Same as other ACU's.
+        WaitTicks(12)  -- waiting till tick 50 to enable ACU. Same as other ACU's.
 
         self:SetWeaponEnabledByLabel('MainGun', true)
         self:SetUnSelectable(false)
         self:SetBusy(false)
         self:SetBlockCommandQueue(false)
 
-#self:CreateEnhancement('OrbitalBombardment')
-#self:CreateEnhancement('IntelProbe')
+--self:CreateEnhancement('OrbitalBombardment')
+--self:CreateEnhancement('IntelProbe')
     end,
 
-    PlayCommanderWarpInEffect = function(self)  # part of initial dropship animation
+    PlayCommanderWarpInEffect = function(self)  -- part of initial dropship animation
         self:SetUnSelectable(true)
         self:SetBusy(true)
         self:SetBlockCommandQueue(true)
@@ -418,7 +418,7 @@ INU0001 = Class(NWalkingLandUnit) {
     end,
 
     HeadRotationThread = function(self)
-        # keeps the head pointed at the current target (position)
+        -- keeps the head pointed at the current target (position)
 
         local nav = self:GetNavigator()
         local maxRot = self:GetBlueprint().Display.MovementEffects.HeadRotationMax or 10
@@ -428,12 +428,12 @@ INU0001 = Class(NWalkingLandUnit) {
 
         while not self:IsDead() do
 
-            # don't rotate if we're not allowed to
+            -- don't rotate if we're not allowed to
             while not self.HeadRotationEnabled do
                 WaitSeconds(0.2)
             end
 
-            # get a location of interest. This is the unit we're currently firing on or, alternatively, the position we're moving to
+            -- get a location of interest. This is the unit we're currently firing on or, alternatively, the position we're moving to
             target = wep:GetCurrentTarget()
             if target and target.GetPosition then
                 target = target:GetPosition()
@@ -441,7 +441,7 @@ INU0001 = Class(NWalkingLandUnit) {
                 target = wep:GetCurrentTargetPos() or nav:GetCurrentTargetPos()
             end
 
-            # calculate the angle for the head rotation. The rotation of the torso is taken into account
+            -- calculate the angle for the head rotation. The rotation of the torso is taken into account
             MyPos = self:GetPosition()
             target.y = 0
             target.x = target.x - MyPos.x
@@ -451,7 +451,7 @@ INU0001 = Class(NWalkingLandUnit) {
             torsoDir = Utilities.NormalizeVector( Vector( torsoX, 0, torsoZ) )
             GoalAngle = ( math.atan2( target.x, target.z ) - math.atan2( torsoDir.x, torsoDir.z ) ) * 180 / math.pi
 
-            # rotation limits, sometimes the angle is more than 180 degrees which causes a bad rotation.
+            -- rotation limits, sometimes the angle is more than 180 degrees which causes a bad rotation.
             if GoalAngle > 180 then
                 GoalAngle = GoalAngle - 360
             elseif GoalAngle < -180 then
@@ -467,12 +467,12 @@ INU0001 = Class(NWalkingLandUnit) {
 
     AddEnhancementEmitterToBone = function(self, add, bone)
 
-        # destroy effect, if any
+        -- destroy effect, if any
         if self.EnhancementBoneEffectsBag[ bone ] then
             self.EnhancementBoneEffectsBag[ bone ]:Destroy()
         end
 
-        # add the effect if desired
+        -- add the effect if desired
         if add then
             local emitBp = self:GetBlueprint().Display.EnhancementBoneEmitter
             local emit = CreateAttachedEmitter( self, bone, self:GetArmy(), emitBp )
@@ -486,8 +486,8 @@ INU0001 = Class(NWalkingLandUnit) {
         NWalkingLandUnit.UpdateMovementEffectsOnMotionEventChange( self, new, old )
     end,
 
-    # =====================================================================================================================
-    # ORBITAL ENHANCEMENTS
+    -- =====================================================================================================================
+    -- ORBITAL ENHANCEMENTS
 
     SetOrbitalBombardEnabled = function(self, enable)
         local brain = self:GetAIBrain()
@@ -510,8 +510,8 @@ INU0001 = Class(NWalkingLandUnit) {
         end
     end,
 
-    # =====================================================================================================================
-    # ENHANCEMENTS
+    -- =====================================================================================================================
+    -- ENHANCEMENTS
 
     CreateEnhancement = function(self, enh)
         NWalkingLandUnit.CreateEnhancement(self, enh)
@@ -519,9 +519,9 @@ INU0001 = Class(NWalkingLandUnit) {
         local bp = self:GetBlueprint().Enhancements[enh]
         if not bp then return end
 
-        # ---------------------------------------------------------------------------------------
-        # INTEL PROBE
-        # ---------------------------------------------------------------------------------------
+        -- ---------------------------------------------------------------------------------------
+        -- INTEL PROBE
+        -- ---------------------------------------------------------------------------------------
 
         if enh == 'IntelProbe' then
             self:AddEnhancementEmitterToBone( true, 'right_shoulder_pod' )
@@ -531,21 +531,21 @@ INU0001 = Class(NWalkingLandUnit) {
             self:AddEnhancementEmitterToBone( false, 'right_shoulder_pod' )
             self:SetIntelProbeEnabled( false, false )
 
-        # ---------------------------------------------------------------------------------------
-        # ADVANCED INTEL PROBE
-        # ---------------------------------------------------------------------------------------
+        -- ---------------------------------------------------------------------------------------
+        -- ADVANCED INTEL PROBE
+        -- ---------------------------------------------------------------------------------------
 
         elseif enh == 'IntelProbeAdv' then
-#            self:AddEnhancementEmitterToBone( true, 'right_shoulder_pod' )
+--            self:AddEnhancementEmitterToBone( true, 'right_shoulder_pod' )
             self:SetIntelProbeEnabled( true, true )
 
         elseif enh == 'IntelProbeAdvRemove' then
             self:AddEnhancementEmitterToBone( false, 'right_shoulder_pod' )
             self:SetIntelProbeEnabled( true, false )
 
-        # ---------------------------------------------------------------------------------------
-        # MAIN WEAPON UPGRADE
-        # ---------------------------------------------------------------------------------------
+        -- ---------------------------------------------------------------------------------------
+        -- MAIN WEAPON UPGRADE
+        -- ---------------------------------------------------------------------------------------
 
         elseif enh == 'GunUpgrade' then
 
@@ -562,7 +562,7 @@ INU0001 = Class(NWalkingLandUnit) {
                         Duration = -1,
                         Affects = {
                             RateOfFireSpecifiedWeapons = {
-                                Mult = 1 / (bp.RateOfFireMulti or 1), # here a value of 0.5 is actually doubling ROF
+                                Mult = 1 / (bp.RateOfFireMulti or 1), -- here a value of 0.5 is actually doubling ROF
                             },
                         },
                     }
@@ -573,33 +573,33 @@ INU0001 = Class(NWalkingLandUnit) {
                 Buff.ApplyBuff(self, 'NOMADACUGunUpgrade')
             end
 
-            # adjust main gun
+            -- adjust main gun
             wep:AddDamageMod( (bp.NewDamage or wbp.Damage) - wbp.Damage )
             wep:ChangeMaxRadius(bp.NewMaxRadius or wbp.MaxRadius)
 
-            # adjust overcharge gun
+            -- adjust overcharge gun
             local oc = self:GetWeaponByLabel('OverCharge')
             oc:ChangeMaxRadius( bp.NewMaxRadius or wbp.MaxRadius )
 
         elseif enh =='GunUpgradeRemove' then
             Buff.RemoveBuff( self, 'NOMADACUGunUpgrade' )
 
-            # adjust main gun
+            -- adjust main gun
             local wep = self:GetWeaponByLabel('MainGun')
             local wbp = wep:GetBlueprint()
             wep:AddDamageMod( -((bp.NewDamage or wbp.Damage) - wbp.Damage) )
             wep:ChangeMaxRadius(wbp.MaxRadius)
 
-            # adjust overcharge gun
+            -- adjust overcharge gun
             local oc = self:GetWeaponByLabel('OverCharge')
             oc:ChangeMaxRadius( wbp.MaxRadius )
 
-        # ---------------------------------------------------------------------------------------
-        # MAIN WEAPON UPGRADE 2
-        # ---------------------------------------------------------------------------------------
+        -- ---------------------------------------------------------------------------------------
+        -- MAIN WEAPON UPGRADE 2
+        -- ---------------------------------------------------------------------------------------
 
         elseif enh =='DoubleGuns' then
-            # this one should not change weapon damage, range, etc. The weapon script can't cope with that.
+            -- this one should not change weapon damage, range, etc. The weapon script can't cope with that.
             self.DoubleBarrels = true
             self.DoubleBarrelOvercharge = bp.OverchargeIncluded
 
@@ -609,20 +609,20 @@ INU0001 = Class(NWalkingLandUnit) {
 
             Buff.RemoveBuff( self, 'NOMADACUGunUpgrade' )
 
-            # adjust main gun
+            -- adjust main gun
             local ubp = self:GetBlueprint()
             local wep = self:GetWeaponByLabel('MainGun')
             local wbp = wep:GetBlueprint()
             wep:AddDamageMod( -((ubp.Enhancements['GunUpgrade'].NewDamage or wbp.Damage) - wbp.Damage) )
             wep:ChangeMaxRadius(wbp.MaxRadius)
 
-            # adjust overcharge gun
+            -- adjust overcharge gun
             local oc = self:GetWeaponByLabel('OverCharge')
             oc:ChangeMaxRadius( wbp.MaxRadius )
 
-        # ---------------------------------------------------------------------------------------
-        # LOCOMOTOR UPGRADE
-        # ---------------------------------------------------------------------------------------
+        -- ---------------------------------------------------------------------------------------
+        -- LOCOMOTOR UPGRADE
+        -- ---------------------------------------------------------------------------------------
 
         elseif enh == 'MovementSpeedIncrease' then
             self:SetSpeedMult( bp.SpeedMulti or 1.1 )
@@ -632,9 +632,9 @@ INU0001 = Class(NWalkingLandUnit) {
             self:SetSpeedMult( 1 )
             self.UseRunWalkAnim = false
 
-        # ---------------------------------------------------------------------------------------
-        # RESOURCE ALLOCATION
-        # ---------------------------------------------------------------------------------------
+        -- ---------------------------------------------------------------------------------------
+        -- RESOURCE ALLOCATION
+        -- ---------------------------------------------------------------------------------------
 
         elseif enh =='ResourceAllocation' then
 
@@ -642,7 +642,7 @@ INU0001 = Class(NWalkingLandUnit) {
             self:SetProductionPerSecondEnergy(bp.ProductionPerSecondEnergy + bpEcon.ProductionPerSecondEnergy or 0)
             self:SetProductionPerSecondMass(bp.ProductionPerSecondMass + bpEcon.ProductionPerSecondMass or 0)
 
-            # capacitor upgrades
+            -- capacitor upgrades
             if bp.CapacitorNewEnergyDrainPerSecond then
                 self:CapSetEnergyDrainPerSecond(bp.CapacitorNewEnergyDrainPerSecond)
             end
@@ -659,7 +659,7 @@ INU0001 = Class(NWalkingLandUnit) {
             self:SetProductionPerSecondEnergy(bpEcon.ProductionPerSecondEnergy or 0)
             self:SetProductionPerSecondMass(bpEcon.ProductionPerSecondMass or 0)
 
-            # removing capacitor upgrades
+            -- removing capacitor upgrades
             local orgBp = self:GetBlueprint()
             local obp = orgBp.Enhancements.ResourceAllocation
             if obp.CapacitorNewEnergyDrainPerSecond then
@@ -672,9 +672,9 @@ INU0001 = Class(NWalkingLandUnit) {
                 self:CapSetChargeTime(orgBp.Capacitor.ChargeTime)
             end
 
-        # ---------------------------------------------------------------------------------------
-        # RAPID REPAIR
-        # ---------------------------------------------------------------------------------------
+        -- ---------------------------------------------------------------------------------------
+        -- RAPID REPAIR
+        -- ---------------------------------------------------------------------------------------
 
         elseif enh == 'RapidRepair' then
 
@@ -715,16 +715,16 @@ INU0001 = Class(NWalkingLandUnit) {
 
         elseif enh == 'RapidRepairRemove' then
 
-            # keep in sync with same code in PowerArmorRemove
+            -- keep in sync with same code in PowerArmorRemove
             self:EnableRapidRepair(false)
             if Buff.HasBuff( self, 'NomadACURapidRepairPermanentHPboost' ) then
                 Buff.RemoveBuff( self, 'NomadACURapidRepair' )
                 Buff.RemoveBuff( self, 'NomadACURapidRepairPermanentHPboost' )
             end
 
-        # ---------------------------------------------------------------------------------------
-        # POWER ARMOR
-        # ---------------------------------------------------------------------------------------
+        -- ---------------------------------------------------------------------------------------
+        -- POWER ARMOR
+        -- ---------------------------------------------------------------------------------------
 
         elseif enh =='PowerArmor' then
 
@@ -766,27 +766,27 @@ INU0001 = Class(NWalkingLandUnit) {
                 Buff.RemoveBuff( self, 'NomadACUPowerArmor' )
             end
 
-            # keep in sync with same code above
+            -- keep in sync with same code above
             self:EnableRapidRepair(false)
             if Buff.HasBuff( self, 'NomadACURapidRepairPermanentHPboost' ) then
                 Buff.RemoveBuff( self, 'NomadACURapidRepair' )
                 Buff.RemoveBuff( self, 'NomadACURapidRepairPermanentHPboost' )
             end
 
-        # ---------------------------------------------------------------------------------------
-        # TECH 2 SUITE
-        # ---------------------------------------------------------------------------------------
+        -- ---------------------------------------------------------------------------------------
+        -- TECH 2 SUITE
+        -- ---------------------------------------------------------------------------------------
 
         elseif enh =='AdvancedEngineering' then
 
-            # new build FX bone available
+            -- new build FX bone available
             table.insert( self.BuildBones, 'left_arm_upgrade_muzzle' )
 
-            # make new structures available
+            -- make new structures available
             local cat = ParseEntityCategory(bp.BuildableCategoryAdds)
             self:RemoveBuildRestriction(cat)
 
-            # add buff
+            -- add buff
             if not Buffs['NOMADACUT2BuildRate'] then
                 BuffBlueprint {
                     Name = 'NOMADACUT2BuildRate',
@@ -814,29 +814,29 @@ INU0001 = Class(NWalkingLandUnit) {
 
         elseif enh =='AdvancedEngineeringRemove' then
 
-            # remove extra build bone
+            -- remove extra build bone
             table.removeByValue( self.BuildBones, 'left_arm_upgrade_muzzle' )
 
-            # buffs
+            -- buffs
             if Buff.HasBuff( self, 'NOMADACUT2BuildRate' ) then
                 Buff.RemoveBuff( self, 'NOMADACUT2BuildRate' )
             end
 
-            # restore build restrictions
+            -- restore build restrictions
             self:RestoreBuildRestrictions()
             self:AddBuildRestriction( categories.NOMAD * (categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER) )
 
-        # ---------------------------------------------------------------------------------------
-        # TECH 3 SUITE
-        # ---------------------------------------------------------------------------------------
+        -- ---------------------------------------------------------------------------------------
+        -- TECH 3 SUITE
+        -- ---------------------------------------------------------------------------------------
 
         elseif enh =='T3Engineering' then
 
-            # make new structures available
+            -- make new structures available
             local cat = ParseEntityCategory(bp.BuildableCategoryAdds)
             self:RemoveBuildRestriction(cat)
 
-            # add buff
+            -- add buff
             if not Buffs['NOMADACUT3BuildRate'] then
                 BuffBlueprint {
                     Name = 'NOMADACUT3BuildRate',
@@ -864,18 +864,18 @@ INU0001 = Class(NWalkingLandUnit) {
 
         elseif enh =='T3EngineeringRemove' then
 
-            # remove buff
+            -- remove buff
             if Buff.HasBuff( self, 'NOMADACUT3BuildRate' ) then
                 Buff.RemoveBuff( self, 'NOMADACUT3BuildRate' )
             end
 
-            # reset build restrictions
+            -- reset build restrictions
             self:RestoreBuildRestrictions()
             self:AddBuildRestriction( categories.NOMAD * ( categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER) )
 
-        # ---------------------------------------------------------------------------------------
-        # ORBITAL BOMBARDMENT
-        # ---------------------------------------------------------------------------------------
+        -- ---------------------------------------------------------------------------------------
+        -- ORBITAL BOMBARDMENT
+        -- ---------------------------------------------------------------------------------------
 
         elseif enh == 'OrbitalBombardment' then
             self:SetOrbitalBombardEnabled(true)

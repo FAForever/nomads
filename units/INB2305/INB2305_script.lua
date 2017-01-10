@@ -1,4 +1,4 @@
-# T3 nuke launcher
+-- T3 nuke launcher
 
 local NStructureUnit = import('/lua/nomadunits.lua').NStructureUnit
 local StrategicMissileWeapon = import('/lua/nomadweapons.lua').StrategicMissileWeapon

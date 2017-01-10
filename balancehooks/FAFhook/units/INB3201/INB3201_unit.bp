@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "inb3201", # T2 radar
+    BlueprintId = "inb3201", -- T2 radar
     Economy = {
         BuildTime = 845,
     },

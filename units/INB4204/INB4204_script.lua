@@ -1,4 +1,4 @@
-# TMD
+-- TMD
 
 local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
 local AddLights = import('/lua/nomadutils.lua').AddLights
@@ -57,12 +57,12 @@ INB4204 = Class(NStructureUnit) {
     end,
 
     OnTargetAcquired = function(self)
-        #LOG('OnTargetAcquired')
+        --LOG('OnTargetAcquired')
         self:PlayTAEffects()
     end,
 
     OnTargetLost = function(self)
-        #LOG('OnTargetLost')
+        --LOG('OnTargetLost')
         self:DestroyTAEffects()
     end,
 

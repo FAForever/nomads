@@ -1,6 +1,6 @@
 BuildingTemplates = {
 
-       # Power Structures
+       -- Power Structures
         {
             'T1EnergyProduction',
             'inb1101',
@@ -18,7 +18,7 @@ BuildingTemplates = {
             'inb1301',
         },
 
-        # Mass Structures
+        -- Mass Structures
         {
             'T1Resource',
             'inb1102',
@@ -44,7 +44,7 @@ BuildingTemplates = {
             'inb1302',
         },
 
-        # Land Factory Structures
+        -- Land Factory Structures
         {
             'T1LandFactory',
             'inb0101',
@@ -63,7 +63,7 @@ BuildingTemplates = {
         },
 
 
-        # Air Factory Structures
+        -- Air Factory Structures
         {
             'T1AirFactory',
             'inb0102',
@@ -77,7 +77,7 @@ BuildingTemplates = {
             'inb0302',
         },
 
-        # Sea Factory Structures
+        -- Sea Factory Structures
         {
             'T1SeaFactory',
             'inb0103',
@@ -91,7 +91,7 @@ BuildingTemplates = {
             'inb0303',
         },
 
-        # Storage Structures
+        -- Storage Structures
         {
             'MassStorage',
             'inb1108',
@@ -101,13 +101,13 @@ BuildingTemplates = {
             'inb1105',
         },
 
-        # Defense Structures
-        # -Wall
+        -- Defense Structures
+        -- -Wall
         {
             'Wall',
             'inb5101',
         },
-        # -Ground Defense
+        -- -Ground Defense
         {
             'T1GroundDefense',
             'inb2101',
@@ -117,7 +117,7 @@ BuildingTemplates = {
             'inb2201',
         },
 
-        # -Air Defense
+        -- -Air Defense
         {
             'T1AADefense',
             'inb2102',
@@ -130,7 +130,7 @@ BuildingTemplates = {
             'T3AADefense',
             'inb4201',
         },
-        # -Naval Defense
+        -- -Naval Defense
         {
             'T1NavalDefense',
             'inb2109',
@@ -139,7 +139,7 @@ BuildingTemplates = {
             'T2NavalDefense',
             'inb2207',
         },
-        # -Shield Defense
+        -- -Shield Defense
         {
             'T2ShieldDefense',
             'inb4202',
@@ -148,13 +148,13 @@ BuildingTemplates = {
             'T3ShieldDefense',
             'inb4301',
         },
-        # -Missile Defense
+        -- -Missile Defense
         {
             'T2MissileDefense',
             'inb4204',
         },
 
-        # Intelligence Strucutres
+        -- Intelligence Strucutres
         {
             'T1Radar',
             'inb3101',
@@ -169,7 +169,7 @@ BuildingTemplates = {
         },
         {
             'T2RadarJammer',
-            'inb4202',  # shield generator, no counter intel structure
+            'inb4202',  -- shield generator, no counter intel structure
         },
         {
             'T1Sonar',
@@ -184,7 +184,7 @@ BuildingTemplates = {
             'inb3302',
         },
 
-        # Artillery Structures
+        -- Artillery Structures
         {
             'T2Artillery',
             'inb2303',
@@ -194,7 +194,7 @@ BuildingTemplates = {
             'inb2302',
         },
 
-        # Strategic Missile Structures
+        -- Strategic Missile Structures
         {
             'T2StrategicMissile',
             'inb2208',
@@ -208,7 +208,7 @@ BuildingTemplates = {
             'inb4302',
         },
 
-        # Misc Structures
+        -- Misc Structures
         {
             '1x1Concrete',
             'ueb5204',
@@ -221,7 +221,7 @@ BuildingTemplates = {
             'T2AirStagingPlatform',
             'inb5202',
         },
-        #Experimental Structures
+        --Experimental Structures
         {
             'T4LandExperimental1',
             'inu2007',
@@ -239,7 +239,7 @@ BuildingTemplates = {
             'inu4001',
         },
 
-        # UEF FA Specific
+        -- UEF FA Specific
         {
             'T2EngineerSupport', 
             'inb1005',
@@ -252,16 +252,16 @@ BuildingTemplates = {
 
 RebuildStructuresTemplate = {
 
-        # factories
+        -- factories
         {'inb0201', 'inb0101',},
         {'inb0202', 'inb0102',},
         {'inb0203', 'inb0103',},
         {'inb0301', 'inb0101',},
         {'inb0302', 'inb0102',},
         {'inb0303', 'inb0103',},
-        # extractors
+        -- extractors
         {'inb1202', 'inb1102',},
-        # radar
-#        {'xsb3104', 'xsb3101',},
-#        {'xsb3201', 'xsb3101',},
+        -- radar
+--        {'xsb3104', 'xsb3101',},
+--        {'xsb3201', 'xsb3101',},
 }

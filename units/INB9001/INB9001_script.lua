@@ -1,4 +1,4 @@
-# civilian structure with gun
+-- civilian structure with gun
 
 local AddLights = import('/lua/nomadutils.lua').AddLights
 local NStructureUnit = import('/lua/nomadunits.lua').NStructureUnit

@@ -22,8 +22,8 @@ NFlamerProjectile = Class(Flamer) {
 
     DamageAreaThread = function(self)
         while self and not self:BeenDestroyed() do
-# use to better see the projectile traveling
-#    CreateLightParticle( self, -1, self:GetLauncher():GetArmy(), 6, 14, 'glow_03', 'ramp_flare_02' )
+-- use to better see the projectile traveling
+--    CreateLightParticle( self, -1, self:GetLauncher():GetArmy(), 6, 14, 'glow_03', 'ramp_flare_02' )
             DamageArea( self:GetLauncher() or self, self:GetPosition(), self.DamageData.DamageRadius, self.DamageData.DamageAmount, self.DamageData.DamageType, self.DamageData.DamageFriendly, false )
             WaitTicks(1)
         end

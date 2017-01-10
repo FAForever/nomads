@@ -38,7 +38,7 @@ WorldView = Class(oldWorldView) {
     end,
 
     OnUpdateCursor = function(self)
-        # Using this function to set and remove specific ability variables
+        -- Using this function to set and remove specific ability variables
         local mode = CM.GetCommandMode()
         if mode[1] == 'order' and mode[2].TaskName and AbilityDefinition[ mode[2].TaskName ] then
             local mousePos = GetMouseWorldPos()
@@ -55,7 +55,7 @@ WorldView = Class(oldWorldView) {
             end
             self:SetCursorImg(mousePos)
         else
-            if self.AbilityCommandMode != false then  # also run UnsetAbility when variable is nil (after game start)
+            if self.AbilityCommandMode ~= false then  -- also run UnsetAbility when variable is nil (after game start)
                 self:UnsetAbility()
             end
             oldWorldView.OnUpdateCursor(self)
@@ -66,10 +66,10 @@ WorldView = Class(oldWorldView) {
         local EventHandled = false
         if self.AllowDraging then
 
-            # keycode 3 == right mouse button. 1 is left but can't be used reliably because when draging with left button the engine doesn't send event ButtonRelease
+            -- keycode 3 == right mouse button. 1 is left but can't be used reliably because when draging with left button the engine doesn't send event ButtonRelease
             if event.Type == 'ButtonPress' and event.KeyCode == 2 then
 
-                # toggling drag mode on and off
+                -- toggling drag mode on and off
                 if not self.DragButtonIsPressed then
                     self.DragButtonIsPressed = true
                     self.DragStartPos = GetMouseWorldPos()
@@ -84,7 +84,7 @@ WorldView = Class(oldWorldView) {
                 EventHandled = true
 
             elseif (event.Type == 'ButtonPress' or event.Type == 'ButtonDClick') and event.KeyCode == 1 then
-                # number of reticules + 1
+                -- number of reticules + 1
                 if self.DragButtonIsPressed or self.IsDraggingMouse then
                     self.ReticuleCount = math.min(self.ReticuleCountMax, self.ReticuleCount + 1)
                     self:UpdateTargetReticules(self.DragStartPos, self.DragDelta, self.DragAngle)
@@ -93,9 +93,9 @@ WorldView = Class(oldWorldView) {
                 end
 
             elseif (event.Type == 'ButtonPress' or event.Type == 'ButtonDClick') and event.KeyCode == 3 then
-                # number of reticules - 1
+                -- number of reticules - 1
                 if self.DragButtonIsPressed or self.IsDraggingMouse then
-                    # if right clicking when we're already at minimum number then cancel command mode. else just subtract 1.
+                    -- if right clicking when we're already at minimum number then cancel command mode. else just subtract 1.
                     if self.ReticuleCount > self.ReticuleCountMin then
                         self.ReticuleCount = math.max(self.ReticuleCountMin, self.ReticuleCount - 1)
                         self:UpdateTargetReticules(self.DragStartPos, self.DragDelta, self.DragAngle)
@@ -106,7 +106,7 @@ WorldView = Class(oldWorldView) {
                 end
 
             elseif event.Type == 'MouseMotion' then
-                # moving mouse, update delta and angle
+                -- moving mouse, update delta and angle
                 if self.DragButtonIsPressed and not self.IsDraggingMouse then
                     self.IsDraggingMouse = true
                     if not self:GetTargetReticules() then
@@ -147,7 +147,7 @@ WorldView = Class(oldWorldView) {
                 end
 
             elseif event.Type == 'ButtonRelease' and (event.KeyCode == 1 or event.KeyCode == 3) then
-                # ignore the release event when we're dragging. The buttonpress event is used to increase or decrease number of reticules.
+                -- ignore the release event when we're dragging. The buttonpress event is used to increase or decrease number of reticules.
                 if self.DragButtonIsPressed or self.IsDraggingMouse then
                     EventHandled = true
                 end
@@ -178,18 +178,18 @@ WorldView = Class(oldWorldView) {
             local i = table.getsize(reticules)
 
             if self.ReticuleCount <= 0 then
-                # there's no unit remaining, end the command mode
+                -- there's no unit remaining, end the command mode
                 import('/lua/ui/game/commandmode.lua').EndCommandMode(true)
                 return
             elseif i < self.ReticuleCount then
-                # we have fewer reticules than we can have, make more!
+                -- we have fewer reticules than we can have, make more!
                 self:CreateTargetReticules(pos, self.DragDelta, self.DragAngle, true)
             elseif i > self.ReticuleCount then
-                # we have more reticules than we can have, remove some!
+                -- we have more reticules than we can have, remove some!
                 self:DestroyTargetReticules(true)
                 self:UpdateTargetReticules(pos, self.DragDelta, self.DragAngle)
             end
-            self.AllowDraging = ((self.Behavior.AllowDraging != false) and (self.ReticuleCountMax > 1))
+            self.AllowDraging = ((self.Behavior.AllowDraging ~= false) and (self.ReticuleCountMax > 1))
         end
     end,
 
@@ -203,13 +203,13 @@ WorldView = Class(oldWorldView) {
             self:InitializeVariables()
             self:CreateRangeDecals()
             self:CreateTargetReticules(GetMouseWorldPos(), 0, 0)
-            self.AllowDraging = ((self.Behavior.AllowDraging != false) and (self.ReticuleCountMax > 1))
+            self.AllowDraging = ((self.Behavior.AllowDraging ~= false) and (self.ReticuleCountMax > 1))
             self.AbilityCommandMode = true
         end
     end,
 
     UnsetAbility = function(self)
-        if self.AbilityCommandMode != false then  # also run when variable is nil (after game start)
+        if self.AbilityCommandMode ~= false then  -- also run when variable is nil (after game start)
             self:DestroyRangeDecals()
             self:DestroyTargetReticules()
             self.IsDraggingMouse = false
@@ -223,7 +223,7 @@ WorldView = Class(oldWorldView) {
     end,
 
     GetAbilityData = function(self, name)
-# TODO: Try to get rid of this function as much as possible
+-- TODO: Try to get rid of this function as much as possible
         if self.AbilityData then
             if not name then
                 return self.AbilityData
@@ -233,7 +233,7 @@ WorldView = Class(oldWorldView) {
                 else
                     return false
                 end
-            elseif self.AbilityData[name] != nil then
+            elseif self.AbilityData[name] ~= nil then
                 return self.AbilityData[name]
             end
         end
@@ -248,7 +248,7 @@ WorldView = Class(oldWorldView) {
             local cursor = self:GetAbilityData('cursor') or self:GetAbilityData('Name') or 'RULEUCC_Attack'
             self.Cursor = {UIUtil.GetCursor(cursor)}
         end
-        if self.Cursor == nil or cursorWas == nil or self.Cursor[1] != cursorWas[1] then
+        if self.Cursor == nil or cursorWas == nil or self.Cursor[1] ~= cursorWas[1] then
             self:ApplyCursor()
         end
     end,
@@ -265,7 +265,7 @@ WorldView = Class(oldWorldView) {
             for k=(i+1), self.ReticuleCountMax do
                 self:CreateTargetReticule(worldPos)
             end
-            # TODO: find out why its needed to update twice here. if not done twice when adding a reticule (left click) it is put in a weird position
+            -- TODO: find out why its needed to update twice here. if not done twice when adding a reticule (left click) it is put in a weird position
             self:UpdateTargetReticules(worldPos, offset, angle)
             self:UpdateTargetReticules(worldPos, offset, angle)
         end
@@ -296,7 +296,7 @@ WorldView = Class(oldWorldView) {
         local UseNumReticules = math.min(nr - math.max(0, nr - nu), self.ReticuleCount)
 
         if UseNumReticules < nr then
-            # hide the reticules not used or not in range
+            -- hide the reticules not used or not in range
             for i = (UseNumReticules+1), nr do
                 reticules[i].InRange = false
                 reticules[i].Position = {0,0,0}
@@ -308,11 +308,11 @@ WorldView = Class(oldWorldView) {
         if UseNumReticules > 0 then
 
             local ReticuleSize = self:GetTargetReticuleSize()
-            local ReticulePosOffset = ReticuleSize / 2   # used to make the game draw the reticules with its center on the mouse cursor
+            local ReticulePosOffset = ReticuleSize / 2   -- used to make the game draw the reticules with its center on the mouse cursor
             local pos = worldPos
             local wasInRange = true
 
-            if UseNumReticules >= 4 and self.UseMaxSpread then   # Max spread setting
+            if UseNumReticules >= 4 and self.UseMaxSpread then   -- Max spread setting
 
                 reticules[1].InRange = true
                 reticules[1].Position = pos
@@ -333,11 +333,11 @@ WorldView = Class(oldWorldView) {
                     reticules[i]:SetScale(Vector(ReticuleSize, 1, ReticuleSize))
                 end
 
-            elseif UseNumReticules > 1 and offset >= (ReticuleSize * .1) then  # normal dragging setting (max. colateral or max. pinpoint damage). checking for offset > 1 takes care of the snapping
+            elseif UseNumReticules > 1 and offset >= (ReticuleSize * .1) then  -- normal dragging setting (max. colateral or max. pinpoint damage). checking for offset > 1 takes care of the snapping
 
                 local r, x, z
                 local angleInc = (2*math.pi) / UseNumReticules
-                offset = math.min(offset, self:GetDragMaxDelta())  # hard-cap here, offset might be too big to accomodate max. spread but we're not doing that here.
+                offset = math.min(offset, self:GetDragMaxDelta())  -- hard-cap here, offset might be too big to accomodate max. spread but we're not doing that here.
 
                 for i = 1, UseNumReticules do
                     r = (angle + (angleInc * i))
@@ -350,7 +350,7 @@ WorldView = Class(oldWorldView) {
                     reticules[i]:SetScale(Vector(ReticuleSize, 1, ReticuleSize))
                 end
 
-            elseif reticules then  # single reticule or all at the same spot
+            elseif reticules then  -- single reticule or all at the same spot
 
                 for i = 1, UseNumReticules do
                     reticules[i].InRange = true
@@ -401,12 +401,12 @@ WorldView = Class(oldWorldView) {
         local MinRadius = -1
         local CanUseRangeExtenders = false
 
-        # get unit bp data
+        -- get unit bp data
         local bp = unit:GetBlueprint().SpecialAbilities
         if bp and bp[ Name ] then
             MaxRadius = bp[ Name ].MaxRadius or -1
             MinRadius = bp[ Name ].MinRadius or -1
-            if offset and offset > 0 then  # consider reticule offset from center
+            if offset and offset > 0 then  -- consider reticule offset from center
                 if MaxRadius > 0 then
                     MaxRadius = MaxRadius - offset
                 end
@@ -417,25 +417,25 @@ WorldView = Class(oldWorldView) {
             CanUseRangeExtenders = bp[ Name ].CanUseRangeExtenders or (MaxRadius == 0) or false
         end
 
-        # check position is within range of unit
+        -- check position is within range of unit
         local upos = unit:GetPosition()
         local dist = VDist2(pos[1], pos[3], upos[1], upos[3])
 
-        # check unit has range limitation
+        -- check unit has range limitation
         if MaxRadius < 0 or dist <= MaxRadius then
             if MinRadius <= 0 or dist >= MinRadius then
                 return true
             end
         end
 
-        # check unit can be aided by range extender. If yes, check if position is within range
+        -- check unit can be aided by range extender. If yes, check if position is within range
         if CanUseRangeExtenders then
             local decals = self:GetRangeDecals()
             for k, decal in decals do
                 MaxRadius = decal.MaxRadius
                 if MaxRadius <= 0 then
                     return true
-                elseif offset and offset > 0 then  # consider reticule offset from center
+                elseif offset and offset > 0 then  -- consider reticule offset from center
                     MaxRadius = MaxRadius - offset
                 end
                 upos = decal.UnitAttached:GetPosition()
@@ -523,7 +523,7 @@ WorldView = Class(oldWorldView) {
         if maxRadius and maxRadius > 0 then
             local decal = UserDecal {}
             decal:SetTexture('/textures/ui/common/game/AreaTargetDecal/AbilityRange.dds')
-            decal:SetScale(Vector(maxRadius * 2, 1, maxRadius * 2))  # the * 2 is to convert to radius
+            decal:SetScale(Vector(maxRadius * 2, 1, maxRadius * 2))  -- the * 2 is to convert to radius
             decal.UnitAttached = unit
             decal.MaxRadius = maxRadius
             table.insert(self.RangeDecals, decal)
@@ -593,14 +593,14 @@ WorldView = Class(oldWorldView) {
 
         self.DragAngle = 0
         self.DragDelta = math.max(0, math.min(1, self.Behavior.DragDelta or 0)) * self:GetDragMaxDelta()
-        if self.Behavior.DragDelta > 1 and self.Behavior.AllowMaxSpread != false then
+        if self.Behavior.DragDelta > 1 and self.Behavior.AllowMaxSpread ~= false then
             self.DragDelta = self:GetTargetReticuleSize()
             self.UseMaxSpread = true
         end
     end,
 
     DetermineTargetReticuleCountMinMax = function(self)
-        # initialize reticule count, basically go through units and see how many they can offer
+        -- initialize reticule count, basically go through units and see how many they can offer
         local units = self:GetAbilityUnits()
         if units then
             self.ReticuleCountMax = 0
@@ -626,7 +626,7 @@ WorldView = Class(oldWorldView) {
 
     DetermineTargetReticuleSize = function(self)
         if self.Behavior.ReticuleSizeOverride then
-            self.TargetReticuleSize = self.Behavior.ReticuleSizeOverride * 2  # correction radius diameter
+            self.TargetReticuleSize = self.Behavior.ReticuleSizeOverride * 2  -- correction radius diameter
         else
             self.TargetReticuleSize = 0
             local units = self:GetAbilityUnits()
@@ -646,14 +646,14 @@ WorldView = Class(oldWorldView) {
                 if self.TargetReticuleSize < 1 then
                     LOG('Attention: Worldview DetermineTargetReticuleSize(): reticule size is less than 1! Is AreaOfEffect properly specified in unit blueprints?')
                 else
-                    self.TargetReticuleSize = self.TargetReticuleSize * 2  # correction radius diameter
+                    self.TargetReticuleSize = self.TargetReticuleSize * 2  -- correction radius diameter
                 end
             end
         end
     end,
 
     GetTargetLocations = function(self)
-#        local reticules = self:GetActiveReticules()
+--        local reticules = self:GetActiveReticules()
         local reticules = self:GetTargetReticules()
         local positions = {}
         if reticules then

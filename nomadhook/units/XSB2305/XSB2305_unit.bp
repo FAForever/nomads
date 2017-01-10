@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "xsb2305", # Seraphim SML
+    BlueprintId = "xsb2305", -- Seraphim SML
     SpecialAbilities = {
         LaunchNuke = {
             AreaOfEffect = 40,

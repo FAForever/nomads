@@ -16,7 +16,7 @@ DEA0202 = Class(oldDEA0202) {
                 OnGotTarget = function(self)
                     self.unit:SetBreakOffTriggerMult(2.0)
                     self.unit:SetBreakOffDistanceMult(8.0)
-                    self.unit:SetSpeedMult( math.pow(0.67,2) ) # bug in SetSpeedMult fixed, adjusting value to keep same speed
+                    self.unit:SetSpeedMult( math.pow(0.67,2) ) -- bug in SetSpeedMult fixed, adjusting value to keep same speed
                     TIFCarpetBombWeapon.IdleState.OnGotTarget(self)
                 end,
                 OnFire = function(self)
@@ -33,7 +33,7 @@ DEA0202 = Class(oldDEA0202) {
             OnGotTarget = function(self)
                 self.unit:SetBreakOffTriggerMult(2.0)
                 self.unit:SetBreakOffDistanceMult(8.0)
-                self.unit:SetSpeedMult( math.pow(0.67,2) ) # bug in SetSpeedMult fixed, adjusting value to keep same speed
+                self.unit:SetSpeedMult( math.pow(0.67,2) ) -- bug in SetSpeedMult fixed, adjusting value to keep same speed
                 TIFCarpetBombWeapon.OnGotTarget(self)
             end,
         

@@ -3,7 +3,7 @@ UnitBlueprint {
 	    ArtillerySupport = {
             LockoutDuration = 1,
             MaxSimultaniousArtillerySupport = -1,
-            Range = 16,  # keeping range equal to weapons range so we have a nice ring overlay. Alternative: use a dummy weapon
+            Range = 16,  -- keeping range equal to weapons range so we have a nice ring overlay. Alternative: use a dummy weapon
             SupportGroundTargetting = true,
             TargetCategory = 'ALLUNITS',
         },

@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "inu2003", # MML
+    BlueprintId = "inu2003", -- MML
     Wreckage = {
         WreckageLayers = {
             Seabed = true,

@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "url0402", # Cybran monkeylord exp
+    BlueprintId = "url0402", -- Cybran monkeylord exp
     AddCategories = {
         'TRANSPORTABLEEXP',
     },

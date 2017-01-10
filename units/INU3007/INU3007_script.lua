@@ -1,4 +1,4 @@
-# t3 mobile anti air
+-- t3 mobile anti air
 
 local NLandUnit = import('/lua/nomadunits.lua').NLandUnit
 local RocketWeapon1 = import('/lua/nomadweapons.lua').RocketWeapon1
@@ -18,7 +18,7 @@ INU3007 = Class(NLandUnit) {
     OnStopBeingBuilt = function(self,builder,layer)
         NLandUnit.OnStopBeingBuilt(self,builder,layer)
 
-        # set up the revolver. the var 'pause' determines the time the revolver is still, between shots, in seconds
+        -- set up the revolver. the var 'pause' determines the time the revolver is still, between shots, in seconds
         local pause = 0.2
         local bp = self:GetWeaponByLabel('MainGun'):GetBlueprint()
         self.RevolverManipSpeed = 90 / ((1 /  bp.RateOfFire) - pause)
@@ -27,7 +27,7 @@ INU3007 = Class(NLandUnit) {
         end
         self.RevolverManip = CreateRotator(self, 'Revolver', 'z', 0)
 
-        # set up rotators for the wheels
+        -- set up rotators for the wheels
         self.TreadBlock01 = CreateRotator(self, 'Wheel_LF', 'y', nil):SetCurrentAngle(0)
         self.TreadBlock02 = CreateRotator(self, 'Wheel_RF', 'y', nil):SetCurrentAngle(0)
         self.TreadBlock03 = CreateRotator(self, 'Wheel_LB', 'y', nil):SetCurrentAngle(0)
@@ -59,15 +59,15 @@ INU3007 = Class(NLandUnit) {
             target = Utilities.NormalizeVector(target)
             GoalAngle = ( math.atan2( target.x, target.z ) - self:GetHeading() ) * 180 / math.pi
 
-            # sometimes the angle is more than 180 degrees which makes the wheels rotate in the wrong direction.
-            # subtracting or adding 360 works.
+            -- sometimes the angle is more than 180 degrees which makes the wheels rotate in the wrong direction.
+            -- subtracting or adding 360 works.
             if GoalAngle > 180 then
                 GoalAngle = GoalAngle - 360
             elseif GoalAngle < -180 then
                 GoalAngle = GoalAngle + 360
             end
 
-            # limit rotation to 50 degrees
+            -- limit rotation to 50 degrees
             GoalAngle = math.max( -maxRot, math.min( GoalAngle, maxRot ) )
 
             self.TreadBlock01:SetSpeed(100)

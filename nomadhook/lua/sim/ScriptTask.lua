@@ -1,31 +1,31 @@
 do
 
-# TaskTick = function(self)
-#     return TASKSTATUS.Done
-# end,
-# TASKSTATUS = {
-#     Done = -1,
-#     Suspend = -2,
-#     Abort = -3,
-#     Delay = -4,   # Do other tasks first
-#     Repeat = 0,
-#     Wait = 1,     # Waiting for more than 1 tick: TASKSTATUS.Wait + 3 (wait 4 ticks)
-# }
-# 
-# self:SetAIResult(AIRESULT.Fail)
-# AIRESULT = {
-#     Unknown=0,    # Command in progress; result has not been set yet
-#     Success=1,    # Successfully carried out the order.
-#     Fail=2,       # Failed to carry out the order.
-#     Ignored=3,    # The order made no sense for this type of unit, and was ignored.
-# }
+-- TaskTick = function(self)
+--     return TASKSTATUS.Done
+-- end,
+-- TASKSTATUS = {
+--     Done = -1,
+--     Suspend = -2,
+--     Abort = -3,
+--     Delay = -4,   -- Do other tasks first
+--     Repeat = 0,
+--     Wait = 1,     -- Waiting for more than 1 tick: TASKSTATUS.Wait + 3 (wait 4 ticks)
+-- }
+-- 
+-- self:SetAIResult(AIRESULT.Fail)
+-- AIRESULT = {
+--     Unknown=0,    -- Command in progress; result has not been set yet
+--     Success=1,    -- Successfully carried out the order.
+--     Fail=2,       -- Failed to carry out the order.
+--     Ignored=3,    -- The order made no sense for this type of unit, and was ignored.
+-- }
 
 local oldScriptTask = ScriptTask
 
 ScriptTask = Class(oldScriptTask) {
 
     OnCreate = function(self, commandData)
-        #LOG('*DEBUG: ScriptTask data = '..repr(commandData))
+        --LOG('*DEBUG: ScriptTask data = '..repr(commandData))
 
         if commandData.ExtraInfo.Targets then
             self.TargetLocations = {}
@@ -55,7 +55,7 @@ ScriptTask = Class(oldScriptTask) {
             }
         end
 
-        # we don't want scripttasks to use OnCreate (the scripts shouldn't use data from commandData but the functions below). Using StartTask instead.
+        -- we don't want scripttasks to use OnCreate (the scripts shouldn't use data from commandData but the functions below). Using StartTask instead.
         local ret = oldScriptTask.OnCreate(self, commandData)
         self:StartTask()
         return ret
@@ -85,8 +85,8 @@ ScriptTask = Class(oldScriptTask) {
 
     IsInRange = function(self, loc)
 
-        # this function is run by the engine when in command mode. not sure what it does or how useful it is without the loc argument
-        # (the engine doesn't specify it). Use an alternative in range check. Returning true here is just for the engine.
+        -- this function is run by the engine when in command mode. not sure what it does or how useful it is without the loc argument
+        -- (the engine doesn't specify it). Use an alternative in range check. Returning true here is just for the engine.
         if not loc then
             return true
         end
@@ -96,8 +96,8 @@ ScriptTask = Class(oldScriptTask) {
             return true
         end
 
-        # almost same script as in worldview.lua
-        # checking all rangecheckunits if given location is within range
+        -- almost same script as in worldview.lua
+        -- checking all rangecheckunits if given location is within range
         local TaskName = self.CommandData.TaskName
         local brain = self:GetAIBrain()
         local RangeCheckUnits = brain:GetSpecialAbilityRangeCheckUnits(TaskName)
@@ -107,13 +107,13 @@ ScriptTask = Class(oldScriptTask) {
             local unit, maxDist, minDist, posU, dist
             for k, unit in RangeCheckUnits do
                 maxDist = unit:GetBlueprint().SpecialAbilities[TaskName].MaxRadius
-                minDist = 0  # TODO: minimum radius distance check currently not implemented
-                if not maxDist or maxDist < 0 then   # unlimited range
+                minDist = 0  -- TODO: minimum radius distance check currently not implemented
+                if not maxDist or maxDist < 0 then   -- unlimited range
                     InRange = true
                     break
-                elseif maxDist == 0 then             # skip unit
+                elseif maxDist == 0 then             -- skip unit
                     continue
-                elseif maxDist > 0 then              # unit counts towards range check, do check
+                elseif maxDist > 0 then              -- unit counts towards range check, do check
                     posU = unit:GetPosition()
                     dist = VDist2( posU[1], posU[3], loc[1], loc[3] )
                     InRange = (dist >= minDist and dist <= maxDist)
@@ -128,10 +128,10 @@ ScriptTask = Class(oldScriptTask) {
     end,
 
     IfBrainAllowsRun = function(self, fn, arg1, arg2, arg3, arg4, arg5)
-        # checks if the brain allows running this taskscript. If yes, do it. If no, display warning of potential cheating.
+        -- checks if the brain allows running this taskscript. If yes, do it. If no, display warning of potential cheating.
         if self:IsEnabled() and not self:IsCoolingDown() then
 
-            # check range if specified and use it to allow or disallow this
+            -- check range if specified and use it to allow or disallow this
             local ok = true
             local locs = self:GetLocations()
             for _, loc in locs do
@@ -159,7 +159,7 @@ ScriptTask = Class(oldScriptTask) {
     StartCooldown = function(self)
         local params = self:GetParams()
         if params.CoolDownTime and params.CoolDownTime > 0 then
-            local tick = GetGameTick() + ( params.CoolDownTime * 10 )    # 10 because seconds -> ticks
+            local tick = GetGameTick() + ( params.CoolDownTime * 10 )    -- 10 because seconds -> ticks
             local brain = self:GetAIBrain()
             brain:SetSpecialAbilityParam( self.CommandData.TaskName, 'CooledDownTick', tick )
             StartAbilityCoolDown( brain:GetArmyIndex(), self.CommandData.TaskName )

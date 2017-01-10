@@ -20,7 +20,7 @@ PropBlueprint {
             SpecularName = '/effects/Entities/CybranShield01/CybranShield01_Specular.dds',
             ShaderName = 'ShieldCybran',
                     LODCutoff = 250,
-#                    ShaderName = 'VertexNormal',
+--                    ShaderName = 'VertexNormal',
                 },
             },
         },

@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "inb0202", # T2 Air Factory
+    BlueprintId = "inb0202", -- T2 Air Factory
     AddCategories = {
 	'RESEARCH',
     },

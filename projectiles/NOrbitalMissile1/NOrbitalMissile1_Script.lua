@@ -12,34 +12,34 @@ NOrbitalMissile1 = Class(TacticalMissile) {
     MovementThread = function(self)
         local bp = self:GetBlueprint().Physics
 
-        self:SetLifetime(300)  # live max 5 minutes. should be long enough even on 81 km maps, right?
+        self:SetLifetime(300)  -- live max 5 minutes. should be long enough even on 81 km maps, right?
         self:TrackTarget(true)
         self:SetStage(0)
 
         local TargetPos = self:GetCurrentTargetPosition()
         local MissilePos = self:GetPosition()
 
-        # 1: make missile fly horizontally: set target Z coordinate high in air
+        -- 1: make missile fly horizontally: set target Z coordinate high in air
         local CurTarPos = table.copy(TargetPos)
         CurTarPos[2] = MissilePos[2]
         self:SetNewTargetGround(CurTarPos)
         self:SetStage(1)
 
-        # 2: when close enough, retarget to the intended target at the surface
+        -- 2: when close enough, retarget to the intended target at the surface
         self:WaitTillDistanceToPosIsLessThan(CurTarPos, bp.Stage2Distance)
         CurTarPos = table.copy(TargetPos)
         self:SetNewTargetGround(CurTarPos)
         self:SetStage(2)
 
-        # 3: wait to be close enough for 3rd stage
+        -- 3: wait to be close enough for 3rd stage
         self:WaitTillDistanceToPosIsLessThan(CurTarPos, bp.Stage3Distance)
         self:SetStage(3)
 
-        # 4: wait to be close enough for last stage
+        -- 4: wait to be close enough for last stage
         self:WaitTillDistanceToPosIsLessThan(CurTarPos, bp.Stage4Distance)
         self:SetStage(4)
 
-        # 5: just before impact
+        -- 5: just before impact
         self:WaitTillDistanceToPosIsLessThan(CurTarPos, bp.Stage5Distance)
         self:SetStage(5)
     end,
@@ -95,7 +95,7 @@ NOrbitalMissile1 = Class(TacticalMissile) {
     end,
 
     TrailThread = function(self)
-        # add a trail when the projectile enters the atmosphere
+        -- add a trail when the projectile enters the atmosphere
 
         local bp = self:GetBlueprint().Display.Trail
         local pos = self:GetPosition()

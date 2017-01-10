@@ -1,7 +1,7 @@
 do
 
 
-# This whole table should be copied from the SCU's blueprint (see EnhancementPresets). Doing this hard coded for now, following FAF code.
+-- This whole table should be copied from the SCU's blueprint (see EnhancementPresets). Doing this hard coded for now, following FAF code.
 upgradeDefaultTable = table.merged( upgradeDefaultTable, {
 
 	NOMADS = {

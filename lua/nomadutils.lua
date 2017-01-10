@@ -7,9 +7,9 @@ local Utils = import('/lua/utilities.lua')
 local Entity = import('/lua/sim/Entity.lua').Entity
 
 
-# ================================================================================================================
-# Bombard mode stuff
-# ================================================================================================================
+-- ================================================================================================================
+-- Bombard mode stuff
+-- ================================================================================================================
 
 function AddBombardModeToUnit(SuperClass)
     return Class(SuperClass) {
@@ -21,7 +21,7 @@ function AddBombardModeToUnit(SuperClass)
 
             self.BombardmentMode = false
 
-            # disable weapons that shouldn't be disabled at this time.
+            -- disable weapons that shouldn't be disabled at this time.
             for i = 1, self:GetWeaponCount() do
                 local wep = self:GetWeapon(i)
                 local bp = wep:GetBlueprint()
@@ -47,20 +47,20 @@ function AddBombardModeToUnit(SuperClass)
 
         SetBombardmentMode = function(self, enable, changedByTransport)
 
-            enable = (enable == true)  # making sure enable is a boolean
+            enable = (enable == true)  -- making sure enable is a boolean
             local prevState = self.BombardmentMode
 
-            if enable != prevState then
+            if enable ~= prevState then
 
                 local unitBp = self:GetBlueprint()
                 local BuffName = unitBp.Abilities.BombardMode.Buff or 'BombardMode'
                 if enable then
-                    Buff.ApplyBuff(self, BuffName)    # bonuses for ROF, range, etc. are handled via a unit buff
+                    Buff.ApplyBuff(self, BuffName)    -- bonuses for ROF, range, etc. are handled via a unit buff
                 else
                     Buff.RemoveBuff(self, BuffName)
                 end
 
-                # go through all weapons and see if they need bombardment mode specific actions
+                -- go through all weapons and see if they need bombardment mode specific actions
                 for k, bp in unitBp.Weapon do
 
                     if bp.BombardDisable then
@@ -95,15 +95,15 @@ function AddBombardModeToUnit(SuperClass)
         end,
 
         StartRotatingWeaponTurret = function(self, label)
-            # start turret rotation
+            -- start turret rotation
 
-            # this is a local function that does the rotating of the turret
+            -- this is a local function that does the rotating of the turret
             local RotationThread = function(self, label)
 
                 local turret = self:GetWeaponByLabel( label )
                 local bp = turret:GetBlueprint()
 
-                # kill old rotator if any. Also create a warning since this should not be normal behaviour.
+                -- kill old rotator if any. Also create a warning since this should not be normal behaviour.
                 if self.TurretRotators and self.TurretRotators[ label ] then
                     WARN('Bombardment mode: This turret already has a rotator! Overriding it. Unit = '..repr(self:GetUnitId())..' turret = '..repr(label))
                     self.TurretRotators[ label ]:Destroy()
@@ -111,17 +111,17 @@ function AddBombardModeToUnit(SuperClass)
                     self.TurretRotators = {}
                 end
 
-                # set up new turret rotator
+                -- set up new turret rotator
                 local MaxYaw = bp.BombardTurretYawRange or math.ceil( bp.TurretYawRange * 0.08 )
                 local speed = bp.BombardTurretRotationSpeed or bp.RateOfFire * 8
                 local rotator = CreateRotator( self, bp.TurretBoneYaw, 'y' ):SetSpeed( speed ) :SetPrecedence( 25 )
                 self.Trash:Add( rotator )
                 self.TurretRotators[ label ] = rotator
 
-                # keep spinning the turret.
-                # bombardment mode is probably started on a group of units at once. To prevent all turrets rotating at the same
-                # time and hitting the same area we start with a random goal and direction so the turrets of all participating
-                # units spread their fire nicely.
+                -- keep spinning the turret.
+                -- bombardment mode is probably started on a group of units at once. To prevent all turrets rotating at the same
+                -- time and hitting the same area we start with a random goal and direction so the turrets of all participating
+                -- units spread their fire nicely.
                 local direction = ( Random(0,1) * 2 ) - 1
                 local goal = MaxYaw * direction * RandomFloat(0, 0.5)
                 while self and not self:BeenDestroyed() and not self:IsDead() and self.BombardmentMode do
@@ -133,7 +133,7 @@ function AddBombardModeToUnit(SuperClass)
                 end
             end
 
-            # store the handles for all threats in a table for easy access
+            -- store the handles for all threats in a table for easy access
             if not self.TurretRotationHandles then
                 self.TurretRotationHandles = {}
             end
@@ -141,7 +141,7 @@ function AddBombardModeToUnit(SuperClass)
         end,
 
         StopRotatingWeaponTurret = function(self, label)
-            # stop turret rotation
+            -- stop turret rotation
             if self.TurretRotators[ label ] then
                 KillThread( self.TurretRotationHandles[ label ] )
                 self.TurretRotators[ label ]:Destroy()
@@ -151,16 +151,16 @@ function AddBombardModeToUnit(SuperClass)
     }
 end
 
-# ================================================================================================================
-# RADAR OVERCHARGE
-# ================================================================================================================
+-- ================================================================================================================
+-- RADAR OVERCHARGE
+-- ================================================================================================================
 
 function AddIntelOvercharge(SuperClass)
     return Class(SuperClass) {
 
-        OverchargeFxBone = 0,  # bone used for overcharge and overcharge recovery effects. Also for charging effects if that bone isn't set (see next line)
-        OverchargeChargingFxBone = nil,  # if set this bone is used to play charging effects on
-        OverchargeExplosionFxBone = 0, # bone for the explosion effect played when the unit is destroyed while boosting radar
+        OverchargeFxBone = 0,  -- bone used for overcharge and overcharge recovery effects. Also for charging effects if that bone isn't set (see next line)
+        OverchargeChargingFxBone = nil,  -- if set this bone is used to play charging effects on
+        OverchargeExplosionFxBone = 0, -- bone for the explosion effect played when the unit is destroyed while boosting radar
 
         OverchargeFx = {},
         OverchargeRecoveryFx = {},
@@ -223,18 +223,18 @@ function AddIntelOvercharge(SuperClass)
                     end
                 end
                 if wbp then
-                    # play fx
+                    -- play fx
                     self:PlayIntelOverchargeExplosionEffects()
-                    # do regular damage
+                    -- do regular damage
                     DamageArea( self, self:GetPosition(), wbp.DamageRadius, wbp.Damage, wbp.DamageType, wbp.DamageFriendly, false )
-                    # Handling buffs (emp)
+                    -- Handling buffs (emp)
                     if wbp.Buffs then
                         for k, buffTable in wbp.Buffs do
                             self:AddBuff(buffTable)
                         end
                     end
 
-                    # Play weapon sound
+                    -- Play weapon sound
                     local snd = wbp.Audio['Fire']
                     if snd then
                         self:PlaySound(snd)
@@ -254,7 +254,7 @@ function AddIntelOvercharge(SuperClass)
         end,
 
         IntelOverchargeChargingCancelled = function(self)
-            # call to cancel intel overcharging. Only works if not in recovery time. Also removes an active energy constumption.
+            -- call to cancel intel overcharging. Only works if not in recovery time. Also removes an active energy constumption.
             if self.IntelOverchargeThreadHandle and not self.IntelOverchargeInRecoveryTime then
 
                 KillThread( self.IntelOverchargeThreadHandle )
@@ -289,7 +289,7 @@ function AddIntelOvercharge(SuperClass)
 
             self:SpecialAbilitySetAvailability(false)
 
-            if eCost > 0 then    # charging, only if there is an energy requirement specified
+            if eCost > 0 then    -- charging, only if there is an energy requirement specified
 
                 self.IsIntelOverchargeChargingUp = true
 
@@ -333,24 +333,24 @@ function AddIntelOvercharge(SuperClass)
             self:PlayUnitSound('IntelOverchargeActivated')
             self:PlayUnitAmbientSound('IntelOverchargeActiveLoop')
 
-            # start the overcharge
+            -- start the overcharge
             self.IsIntelOvercharging = true
             self:OnBeginIntelOvercharge()
 
-            # pre-activation delay
+            -- pre-activation delay
             if OverchargeEffectDelay > 0 then
                 WaitSeconds( OverchargeEffectDelay )
             end
 
-            # activate increased intel
+            -- activate increased intel
             Buff.ApplyBuff(self, BuffName)
 
-            # wait till we're out of juice
+            -- wait till we're out of juice
             self:OnIntelOverchargeActive( 0 )
             for i = 1, numEvents do
                 time = math.min( totalTime, timePerEvent )
                 totalTime = totalTime - time
-                WaitSeconds( time + 0.1 )  # + 0.1 to correct a 1 sec deviation (10 x 0.1)
+                WaitSeconds( time + 0.1 )  -- + 0.1 to correct a 1 sec deviation (10 x 0.1)
                 if i > 0 then
                     fraction = i / numEvents
                 else
@@ -364,11 +364,11 @@ function AddIntelOvercharge(SuperClass)
             self:StopUnitAmbientSound('IntelOverchargeActiveLoop')
             self:PlayUnitSound('IntelOverchargeStopped')
 
-            # revert to previous situation
+            -- revert to previous situation
             self.IsIntelOvercharging = false
             self:OnFinishedIntelOvercharge()
 
-            # recovery time if requested
+            -- recovery time if requested
             if recoverTime > 0 then
                 self.IntelOverchargeInRecoveryTime = true
                 self:DisableUnitIntel()
@@ -384,7 +384,7 @@ function AddIntelOvercharge(SuperClass)
         end,
 
         OnBeginIntelOvercharge = function(self)
-            self:DestroyIdleEffects()  # removed the radar effect, the lines coming from the antennae
+            self:DestroyIdleEffects()  -- removed the radar effect, the lines coming from the antennae
             self:PlayIntelOverchargeEffects()
         end,
 
@@ -401,7 +401,7 @@ function AddIntelOvercharge(SuperClass)
         end,
 
         OnIntelOverchargeCancelled = function(self)
-            # Fired when intel overcharging is cancelled after the initial charging is completed and the unit is already overcharging
+            -- Fired when intel overcharging is cancelled after the initial charging is completed and the unit is already overcharging
             self:DestroyIntelOverchargeEffects()
             local recoveryTime = self:GetBlueprint().Intel.OverchargeRecoverTime or 0
             if recoveryTime <= 0 then
@@ -433,7 +433,7 @@ function AddIntelOvercharge(SuperClass)
         end,
 
         OnIntelOverchargeChargingCancelled = function(self)
-            # Fired when intel overcharging is cancelled when still charging up
+            -- Fired when intel overcharging is cancelled when still charging up
             self:DestroyIntelOverchargeChargingEffects()
         end,
 
@@ -505,9 +505,9 @@ function AddIntelOvercharge(SuperClass)
     }
 end
 
-# ================================================================================================================
-# Flares
-# ================================================================================================================
+-- ================================================================================================================
+-- Flares
+-- ================================================================================================================
 
 function AddFlares(SuperClass)
     SuperClass = import('/lua/proximitydetector.lua').ProximityDetector(SuperClass)
@@ -527,7 +527,7 @@ function AddFlares(SuperClass)
             SuperClass.OnStopBeingBuilt(self, builder, layer)
 
             local bp = self:GetBlueprint().Defense.AntiMissileFlares
-            self.FlareTimeout = math.ceil( 10 / (bp.RateOfFire or 1) )  # 10 because we're using ticks here, not seconds
+            self.FlareTimeout = math.ceil( 10 / (bp.RateOfFire or 1) )  -- 10 because we're using ticks here, not seconds
             self.FlareBeSmart = bp.BeSmart or false
 
             local radius = bp.Radius or 10
@@ -537,7 +537,7 @@ function AddFlares(SuperClass)
         end,
 
         OnProximityAlert = function(self, other, radius, proxDetectorName)
-            # fires when an AA missile is close enough. Should fire flares.
+            -- fires when an AA missile is close enough. Should fire flares.
             if proxDetectorName == 'AAMdetect' then
                 if self:CheckShouldFire(other) then
                     self:FireFlares()
@@ -571,8 +571,8 @@ function AddFlares(SuperClass)
 
             if bp.Bones then
 
-                # if a list of bones to fire a flare from is specified, do that.
-                # NumFlares indicates how many per bone. SalvoDelay is the time between salvos.
+                -- if a list of bones to fire a flare from is specified, do that.
+                -- NumFlares indicates how many per bone. SalvoDelay is the time between salvos.
                 local delay = bp.SalvoDelay or 5
                 local numFlares = bp.NumFlares or 1
                 local randomness = bp.FiringRandomness or 0.1
@@ -600,7 +600,7 @@ function AddFlares(SuperClass)
 
             elseif bp.Bone then
 
-                # if just one bone is specified fire flares in all directions, away from the bone
+                -- if just one bone is specified fire flares in all directions, away from the bone
                 local numFlares = bp.NumFlares or 3
                 local bone = bp.Bone or 0
                 local angle = (2*math.pi) / numFlares
@@ -611,7 +611,7 @@ function AddFlares(SuperClass)
                     x = math.sin( angleInitial + ((i-1)*angle) + RandomFloat(-angleVariation, angleVariation) )
                     z = math.cos( angleInitial + ((i-1)*angle) + RandomFloat(-angleVariation, angleVariation) )
                     local proj = self:CreateProjectile( flareBp, 0, 0, 0, x, y, z)
-                    if bone != 0 then
+                    if bone ~= 0 then
                         proj:SetPosition( self:GetPosition( bone ), true )
                     end
                     proj:SetVelocity( speed )
@@ -626,7 +626,7 @@ function AddFlares(SuperClass)
         end,
 
         CanFireFlares = function(self)
-            # checks if we can fire the flares again. No if we just did it (flare launcher is reloading)
+            -- checks if we can fire the flares again. No if we just did it (flare launcher is reloading)
             if self.FlaresEnabled and not self:IsStunned() then
                 local tick = GetGameTick()
                 if tick >= (self.FlareFireTick + self.FlareTimeout) then
@@ -663,11 +663,11 @@ function AddFlares(SuperClass)
     }
 end
 
-# ================================================================================================================
-# Artillery Support
-# ================================================================================================================
+-- ================================================================================================================
+-- Artillery Support
+-- ================================================================================================================
 
-#** Derive the supporting unit from this class
+--** Derive the supporting unit from this class
 function SupportingArtilleryAbility(SuperClass)
     return Class(SuperClass) {
 
@@ -690,7 +690,7 @@ function SupportingArtilleryAbility(SuperClass)
         end,
 
         CheckCanSupportArtilleryForTarget = function(self, artillery, targetPos, target)
-            # return true or false to indicate whether we can help the artillery unit
+            -- return true or false to indicate whether we can help the artillery unit
             if not self.ArtillerySupportEnabled or self:IsStunned() then
                 return false
             end
@@ -701,12 +701,12 @@ function SupportingArtilleryAbility(SuperClass)
             local ArtCat = bp.ArtilleryCategory or categories.STRUCTURE
             local SupportGroundTargetting = (bp.SupportGroundTargetting == true)
 
-            # check num support restriction
+            -- check num support restriction
             if max >= 0 and self.SupportingNumArtilleryThisTick >= max then
                 return false
             end
 
-            # check target category restriction
+            -- check target category restriction
             if target then
                 if type(TarCat) == 'string' then
                     TarCat = ParseEntityCategory(TarCat)
@@ -730,7 +730,7 @@ function SupportingArtilleryAbility(SuperClass)
                 local lockout = math.max( bp.LockoutDuration or 1, 0)
                 if lockout > 0 then
                     self:IncSupportCounter()
-                    self:ForkThread(   # lower the support counter after the lockout duration in seconds
+                    self:ForkThread(   -- lower the support counter after the lockout duration in seconds
                         function(self, lockout)
                             WaitSeconds(lockout)
                             self:DecSupportCounter()
@@ -745,7 +745,7 @@ function SupportingArtilleryAbility(SuperClass)
         end,
 
         PlaySupportedArtilleryAbilityEffects = function(self, targetPos)
-            # create some effect for when supporting an artillery unit
+            -- create some effect for when supporting an artillery unit
             local army, emit = self:GetArmy()
             for k, v in NomadEffectTemplate.ArtillerySupportActive do
                 emit = CreateAttachedEmitter( self, self.ArtillerySupportFxBone, army, v )
@@ -753,7 +753,7 @@ function SupportingArtilleryAbility(SuperClass)
         end,
 
         PlaySupportedArtilleryTargetPosEffects = function(self, targetPos)
-            # create some effect at target position for when supporting an artillery unit
+            -- create some effect at target position for when supporting an artillery unit
             local ent = Entity()
             Warp(ent, Vector(unpack(targetPos)))
 
@@ -785,7 +785,7 @@ function SupportingArtilleryAbility(SuperClass)
     }
 end
 
-#** This class should be used to derive the artillery weapon from.
+--** This class should be used to derive the artillery weapon from.
 function SupportedArtilleryWeapon(SuperClass)
     return Class(SuperClass) {
 
@@ -802,10 +802,10 @@ function SupportedArtilleryWeapon(SuperClass)
 
         RackSalvoFiringState = State(SuperClass.RackSalvoFiringState) {
             Main = function(self)
-                # check for support
+                -- check for support
                 if self.ArtillerySupportEnabled then
                     self.SupportingUnit = self:GetAnArtillerySupporter()
-                    self.SupportedThisSalvo = (self.SupportingUnit != nil)
+                    self.SupportedThisSalvo = (self.SupportingUnit ~= nil)
                     if self.SupportedThisSalvo then
                         self.SupportingUnit:OnSupportingArtillery( self.unit, self:GetCurrentTargetPos(), self:GetCurrentTarget() )
                         self.unit:OnWeaponSupported( self.SupportingUnit, self, self:GetCurrentTargetPos(), self:GetCurrentTarget() )
@@ -814,7 +814,7 @@ function SupportedArtilleryWeapon(SuperClass)
                     self.SupportingUnit = nil
                     self.SupportedThisSalvo = false
                 end
-                #LOG('Salvo supported = '..repr(self.SupportedThisSalvo))
+                --LOG('Salvo supported = '..repr(self.SupportedThisSalvo))
                 SuperClass.RackSalvoFiringState.Main(self)
             end,
         },
@@ -823,7 +823,7 @@ function SupportedArtilleryWeapon(SuperClass)
             local proj
             if self.SupportedThisSalvo then
                 local OrgFR, NewFR = self:MakeSupported()
-                #LOG('Projectile supported. NewFR = '..repr(NewFR)..' OrgFR = '..repr(OrgFR))
+                --LOG('Projectile supported. NewFR = '..repr(NewFR)..' OrgFR = '..repr(OrgFR))
                 local proj = SuperClass.CreateProjectileAtMuzzle(self, muzzle)
                 self:MakeUnsupported(OrgFR)
             else
@@ -833,10 +833,10 @@ function SupportedArtilleryWeapon(SuperClass)
         end,
 
         GetAnArtillerySupporter = function(self)
-            # returns a unit that can support this weapon, or nil if none are found
+            -- returns a unit that can support this weapon, or nil if none are found
 
             local PosIsOk = function(pos)
-                # this weird position checking is necessary to filter out some strange positions, don't remove!
+                -- this weird position checking is necessary to filter out some strange positions, don't remove!
                 if pos and pos[1] and pos[2] and pos[3] and pos[1] + 1 > pos[1] and pos[2] + 1 > pos[2] and pos[3] + 1 > pos[3] then
                     return true
                 end
@@ -852,7 +852,7 @@ function SupportedArtilleryWeapon(SuperClass)
             if PosIsOk(targetPos) then
                 local range, pos1, dist
 
-                # the next line effectively limits the ability range to 70.
+                -- the next line effectively limits the ability range to 70.
                 local SupportingUnits = AIUtils.GetOwnUnitsAroundPoint(self.unit:GetAIBrain(), categories.ARTILLERYSUPPORT, targetPos, 70)
                 for k, unit in SupportingUnits do
                     range = unit:GetArtillerySupportRange() or 0
@@ -873,8 +873,8 @@ function SupportedArtilleryWeapon(SuperClass)
         end,
 
         MakeSupported = function(self)
-            # improve firing randomness. No need to use a buff here because we can get the firing randomness before improving and then
-            # restore it to what it was.
+            -- improve firing randomness. No need to use a buff here because we can get the firing randomness before improving and then
+            -- restore it to what it was.
             local SupportedFiringRandomnessDivider = self:GetBlueprint().SupportedFiringRandomnessDivider or 2
             local OrgFR = self:GetFiringRandomness()
             local NewFR = 0
@@ -891,12 +891,12 @@ function SupportedArtilleryWeapon(SuperClass)
     }
 end
 
-# ================================================================================================================
-# Lights class stuff
-# ================================================================================================================
+-- ================================================================================================================
+-- Lights class stuff
+-- ================================================================================================================
 
 function AddLights(SuperClass)
-    # a quick way to add four different lighttypes to many bones
+    -- a quick way to add four different lighttypes to many bones
     return Class(SuperClass) {
 
         LightBones = nil,
@@ -919,12 +919,12 @@ function AddLights(SuperClass)
         OnBombardmentModeChanged = function( self, enabled, changedByTransport )
             SuperClass.OnBombardmentModeChanged( self, enabled, changedByTransport )
 
-            # refresh lights
+            -- refresh lights
             self:AddLights()
         end,
 
         AddLights = function(self)
-            # adds light emitters to the light bones
+            -- adds light emitters to the light bones
             self:RemoveLights()
             if self.LightBones then
                 local army, emit, templ = self:GetArmy(), nil, nil
@@ -962,7 +962,7 @@ function AddLights(SuperClass)
 end
 
 function AddNavalLights(SuperClass)
-    # a quick way to add lights on two antennae of most naval units
+    -- a quick way to add lights on two antennae of most naval units
     SuperClass = AddLights(SuperClass)
     return Class(SuperClass) {
 
@@ -1000,7 +1000,7 @@ function AddNavalLights(SuperClass)
         end,
 
         AddLights = function(self)
-            # adds light emitters to the antennae bones
+            -- adds light emitters to the antennae bones
             self:RemoveLights()
             if self.LightBone_Left and self.LightBone_Right then
                 local army, templ, emit = self:GetArmy(), self:GetLightTemplate(0), nil
@@ -1035,9 +1035,9 @@ function AddNavalLights(SuperClass)
     }
 end
 
-# ================================================================================================================
-# RAPID REPAIR
-# ================================================================================================================
+-- ================================================================================================================
+-- RAPID REPAIR
+-- ================================================================================================================
 
 function AddRapidRepair(SuperClass)
     return Class(SuperClass) {
@@ -1055,19 +1055,19 @@ function AddRapidRepair(SuperClass)
         end,
 
         OnStartRapidRepairing = function(self)
-            # when the unit starts to be repaired
+            -- when the unit starts to be repaired
         end,
 
         OnFinishedRapidRepairing = function(self)
-            # when the unit is fully repaired
+            -- when the unit is fully repaired
         end,
 
         OnRapidRepairingInterrupted = function(self)
-            # when the unit is being repaired but receives damage or fires a weapon
+            -- when the unit is being repaired but receives damage or fires a weapon
         end,
 
         OnRapidRepairingDelayed = function(self)
-            # when the unitis NOT being repaired and receives damage or fires a weapon
+            -- when the unitis NOT being repaired and receives damage or fires a weapon
         end,
 
         SetRapidRepairParams = function(self, buffName, repairDelay, WeaponFireInterrupts)
@@ -1076,7 +1076,7 @@ function AddRapidRepair(SuperClass)
                 repairDelay = repairDelay or 30,
             }
 
-            if WeaponFireInterrupts != nil then
+            if WeaponFireInterrupts ~= nil then
                 local nwep, wep = self:GetWeaponCount()
                 for i=1, nwep do
                     wep = self:GetWeapon(i)
@@ -1086,7 +1086,7 @@ function AddRapidRepair(SuperClass)
         end,
 
         RapidRepairIsRepairing = function(self)
-            # says whether we're repairing at this moment
+            -- says whether we're repairing at this moment
             if self.RapidRepairProcessThreadHandle then
                 return true
             end
@@ -1094,7 +1094,7 @@ function AddRapidRepair(SuperClass)
         end,
 
         EnableRapidRepair = function(self, enable)
-            # enables or disables the rapid repair process (this is something else than stopping it)
+            -- enables or disables the rapid repair process (this is something else than stopping it)
             if enable then
                 self.RapidRepairCounter = 0
                 if not self.RapidRepairThreadHandle then
@@ -1119,8 +1119,8 @@ function AddRapidRepair(SuperClass)
         end,
 
         DelayRapidRepair = function(self)
-            # used to stop and reset the rapid repair process. Should be called if unit is damaged or fires a weapon.
-            #LOG('*DEBUG: DelayRapidRepair')
+            -- used to stop and reset the rapid repair process. Should be called if unit is damaged or fires a weapon.
+            --LOG('*DEBUG: DelayRapidRepair')
             local repairing = self:RapidRepairIsRepairing()
             self.RapidRepairCounter = math.min( 0, self.RapidRepairCounter )
             self:RapidRepairProcessStop()
@@ -1130,17 +1130,17 @@ function AddRapidRepair(SuperClass)
         end,
 
         RapidRepairThread = function(self)
-            # counts up and starts the repair process when enough time passed
+            -- counts up and starts the repair process when enough time passed
             local bp = self:GetBlueprint()
             local delay = self:GetRapidRepairParam('repairDelay')
 
             while not self:IsDead() and self.RapidRepairCounter >= 0 do
 
-                # if the timer isn't expired yet, add one to it
+                -- if the timer isn't expired yet, add one to it
                 if self.RapidRepairCounter < delay then
                     self.RapidRepairCounter = self.RapidRepairCounter + 1
 
-                # if the counter is expired but we're not repairing, start repairing
+                -- if the counter is expired but we're not repairing, start repairing
                 elseif not self:RapidRepairIsRepairing() and self:GetHealth() < self:GetMaxHealth() then
                     self.RapidRepairProcessThreadHandle = self:ForkThread( self.RapidRepairProcessThread )
 
@@ -1153,18 +1153,18 @@ function AddRapidRepair(SuperClass)
 
             local buffName = self:GetRapidRepairParam('buffName')
 
-            # start self repair effects
+            -- start self repair effects
             self.RapidRepairFxBag:Add( ForkThread( NomadEffectUtil.CreateSelfRepairEffects, self, self.RapidRepairFxBag ) )
             Buff.ApplyBuff(self, buffName)
 
             self:OnStartRapidRepairing()
 
-            # the buff increases regen. Wait till we're done "repairing"
+            -- the buff increases regen. Wait till we're done "repairing"
             while not self:IsDead() and self:GetHealth() < self:GetMaxHealth() and self.RapidRepairCounter > -1 and self.RapidRepairProcessThreadHandle do
                 WaitTicks(1)
             end
 
-            # stop the repair effects
+            -- stop the repair effects
             if Buff.HasBuff( self, buffName ) then
                 Buff.RemoveBuff( self, buffName )
             end
@@ -1178,7 +1178,7 @@ function AddRapidRepair(SuperClass)
                 KillThread( self.RapidRepairProcessThreadHandle )
                 self.RapidRepairProcessThreadHandle = nil
 
-                # since we just killed the thread that (also) remove the buff, do it here: stop the repair effects
+                -- since we just killed the thread that (also) remove the buff, do it here: stop the repair effects
                 local buffName = self:GetRapidRepairParam('buffName')
                 if Buff.HasBuff( self, buffName ) then
                     Buff.RemoveBuff( self, buffName )
@@ -1192,7 +1192,7 @@ function AddRapidRepair(SuperClass)
 end
 
 function AddRapidRepairToWeapon(SuperClass)
-    # should be used for the units weapon classes
+    -- should be used for the units weapon classes
     return Class(SuperClass) {
 
         OnCreate = function(self)
@@ -1209,18 +1209,18 @@ function AddRapidRepairToWeapon(SuperClass)
     }
 end
 
-# ================================================================================================================
-# ENHANCEMENT PRESET
-# ================================================================================================================
+-- ================================================================================================================
+-- ENHANCEMENT PRESET
+-- ================================================================================================================
 --Proper enhancement preset code was integrated in FAF with version 3629, so removing it here.
 function AddEnhancementPresetHandling(SuperClass)
     return Class(SuperClass) {}
 end
 -- todo - remove this completely
 
-# ================================================================================================================
-# AKIMBO
-# ================================================================================================================
+-- ================================================================================================================
+-- AKIMBO
+-- ================================================================================================================
 
 function AddAkimbo( SuperClass )
     return Class(SuperClass) {
@@ -1241,18 +1241,18 @@ function AddAkimbo( SuperClass )
         end,
 
         AkimboThread = function(self)
-            # Keeps the head and torso rotated to the current target position.
-            # The SCU has 2 arms which can individually target enemies. They each have a limited firing arc (yaw) so it is possible that the
-            # arms have a target that's not within the firing arc. This script makes the torso rotate so that at least 1 arm can fire at it's
-            # target. It does it's best to also accomodate the second weapon (gattling) but if it's not possible, the second weapon is assigned
-            # the target of the first weapon.
-            # The head is rotated to face (1) the target of weapon 1, (2) the target of weapon 2, or (3) the movement destination.
+            -- Keeps the head and torso rotated to the current target position.
+            -- The SCU has 2 arms which can individually target enemies. They each have a limited firing arc (yaw) so it is possible that the
+            -- arms have a target that's not within the firing arc. This script makes the torso rotate so that at least 1 arm can fire at it's
+            -- target. It does it's best to also accomodate the second weapon (gattling) but if it's not possible, the second weapon is assigned
+            -- the target of the first weapon.
+            -- The head is rotated to face (1) the target of weapon 1, (2) the target of weapon 2, or (3) the movement destination.
 
-            # TODO: implement [1] support for weapon HeadingArc parameters, [2] non-zero-based default torso yaw (so that it's relaxed
-            # position is not rotation 0 but something else, specified in bp, [3] further optimizations (remove or combine calculations?), 
-            # [4] support for third and fourth weapon???
+            -- TODO: implement [1] support for weapon HeadingArc parameters, [2] non-zero-based default torso yaw (so that it's relaxed
+            -- position is not rotation 0 but something else, specified in bp, [3] further optimizations (remove or combine calculations?), 
+            -- [4] support for third and fourth weapon???
 
-            # local functions, used to make the code below more readable
+            -- local functions, used to make the code below more readable
             local GetWepTargetPos = function(wep)
                 local wepTarget, wepTargetPos
                 local target = wep:GetCurrentTarget()
@@ -1292,7 +1292,7 @@ function AddAkimbo( SuperClass )
             local torsoRotLimit = bp.TorsoYawRange or 360
             local allowRetarget = bp.AllowRetargettingSecondWeapon or false
 
-            local yawRangeMarginMulti = 1 - 0.05  # 5% safety margin, decrease firing arc by this much to make sure we interact on time.
+            local yawRangeMarginMulti = 1 - 0.05  -- 5% safety margin, decrease firing arc by this much to make sure we interact on time.
 
             local weps = {}
             weps[1] = self:GetWeaponByLabel( bp.FirstWeapon )
@@ -1306,24 +1306,24 @@ function AddAkimbo( SuperClass )
             local wepYawRangeMax = {}
             for k, wep in weps do
                 local wepBp = wep:GetBlueprint()
-                wepYawRangeMin[k] = wepBp.TurretYaw - (wepBp.TurretYawRange * yawRangeMarginMulti) + math.min(3, wepBp.TurretYawRange * yawRangeMarginMulti) # second half of this line is also for safety
-                wepYawRangeMax[k] = wepBp.TurretYaw + (wepBp.TurretYawRange * yawRangeMarginMulti) - math.min(3, wepBp.TurretYawRange * yawRangeMarginMulti) # second half of this line is also for safety
+                wepYawRangeMin[k] = wepBp.TurretYaw - (wepBp.TurretYawRange * yawRangeMarginMulti) + math.min(3, wepBp.TurretYawRange * yawRangeMarginMulti) -- second half of this line is also for safety
+                wepYawRangeMax[k] = wepBp.TurretYaw + (wepBp.TurretYawRange * yawRangeMarginMulti) - math.min(3, wepBp.TurretYawRange * yawRangeMarginMulti) -- second half of this line is also for safety
             end
 
             local wepTargetPos = {}
             local wepCurTargetAngle = {}
             local PrimaryWeaponTarget = nil
 
-#            local wep1 = self:GetWeaponByLabel( bp.FirstWeapon )
-#            local wep1Bp = wep1:GetBlueprint()
-#            local wep1YawRangeMin = wep1Bp.TurretYaw - (wep1Bp.TurretYawRange * yawRangeMarginMulti) + math.min(3, wep1Bp.TurretYawRange * yawRangeMarginMulti) # second half of this line is also for safety
-#            local wep1YawRangeMax = wep1Bp.TurretYaw + (wep1Bp.TurretYawRange * yawRangeMarginMulti) - math.min(3, wep1Bp.TurretYawRange * yawRangeMarginMulti) # second half of this line is also for safety
-#            local wep2 = self:GetWeaponByLabel( bp.SecondWeapon )  # this weapon might be forced to retarget
-#            local wep2Bp = wep2:GetBlueprint()
-#            local wep2YawRangeMin = wep2Bp.TurretYaw - (wep2Bp.TurretYawRange * yawRangeMarginMulti) + math.min(3, wep2Bp.TurretYawRange * yawRangeMarginMulti) # second half of this line is also for safety
-#            local wep2YawRangeMax = wep2Bp.TurretYaw + (wep2Bp.TurretYawRange * yawRangeMarginMulti) - math.min(3, wep2Bp.TurretYawRange * yawRangeMarginMulti) # second half of this line is also for safety
+--            local wep1 = self:GetWeaponByLabel( bp.FirstWeapon )
+--            local wep1Bp = wep1:GetBlueprint()
+--            local wep1YawRangeMin = wep1Bp.TurretYaw - (wep1Bp.TurretYawRange * yawRangeMarginMulti) + math.min(3, wep1Bp.TurretYawRange * yawRangeMarginMulti) -- second half of this line is also for safety
+--            local wep1YawRangeMax = wep1Bp.TurretYaw + (wep1Bp.TurretYawRange * yawRangeMarginMulti) - math.min(3, wep1Bp.TurretYawRange * yawRangeMarginMulti) -- second half of this line is also for safety
+--            local wep2 = self:GetWeaponByLabel( bp.SecondWeapon )  -- this weapon might be forced to retarget
+--            local wep2Bp = wep2:GetBlueprint()
+--            local wep2YawRangeMin = wep2Bp.TurretYaw - (wep2Bp.TurretYawRange * yawRangeMarginMulti) + math.min(3, wep2Bp.TurretYawRange * yawRangeMarginMulti) -- second half of this line is also for safety
+--            local wep2YawRangeMax = wep2Bp.TurretYaw + (wep2Bp.TurretYawRange * yawRangeMarginMulti) - math.min(3, wep2Bp.TurretYawRange * yawRangeMarginMulti) -- second half of this line is also for safety
 
-            local nav = self:GetNavigator()  # can tell us where the unit is heading
+            local nav = self:GetNavigator()  -- can tell us where the unit is heading
 
             if doHeadRotation then
                 self.HeadRotManip = CreateRotator(self, headBone, 'y', nil):SetCurrentAngle(0)
@@ -1334,18 +1334,18 @@ function AddAkimbo( SuperClass )
 
             while not self:IsDead() do
 
-                # if we're EMP-ed then wait till we're no longer EMP-ed
+                -- if we're EMP-ed then wait till we're no longer EMP-ed
                 while self:IsStunned() do
                     WaitSeconds( 0.2 )
                 end
 
-                # get torso orientations
+                -- get torso orientations
                 torsoX, torsoY, torsoZ = self:GetBoneDirection(torsoBone)
                 torsoDir = Utils.NormalizeVector( Vector( torsoX, 0, torsoZ) )
 
-                # find current target for weapon 1. We mainly need the position of the target, but the target unit is stored in case we need to retarget wep 2
-#                wep1TargetPos, wep1Target = GetWepTargetPos(wep1)
-#                wep2TargetPos = GetWepTargetPos(wep2)
+                -- find current target for weapon 1. We mainly need the position of the target, but the target unit is stored in case we need to retarget wep 2
+--                wep1TargetPos, wep1Target = GetWepTargetPos(wep1)
+--                wep2TargetPos = GetWepTargetPos(wep2)
                 local PrimaryWeaponTarget = nil
                 local PrimaryWeaponKey = -1
                 for k, wep in weps do
@@ -1357,7 +1357,7 @@ function AddAkimbo( SuperClass )
                     end
                 end
 
-                # determine angles of both weapons targets. The function returns nil when no target
+                -- determine angles of both weapons targets. The function returns nil when no target
                 local NumWepWithCurTargetAngle = 0
                 local CurTargetAngleSum = 0
                 for k, wep in weps do
@@ -1368,48 +1368,48 @@ function AddAkimbo( SuperClass )
                     end
                 end
 
-#                wep1CurTargetAngle = GetTargetAngle( self, wep1TargetPos, torsoDir )
-#                wep2CurTargetAngle = GetTargetAngle( self, wep2TargetPos, torsoDir )
+--                wep1CurTargetAngle = GetTargetAngle( self, wep1TargetPos, torsoDir )
+--                wep2CurTargetAngle = GetTargetAngle( self, wep2TargetPos, torsoDir )
 
-                # if one weapon doesn't have a current target angle then take the one from the other weapon
-#                if wep1CurTargetAngle == nil and wep2CurTargetAngle != nil then
-#                    wep1CurTargetAngle = wep2CurTargetAngle
-#                elseif wep2CurTargetAngle == nil and wep1CurTargetAngle != nil then
-#                    wep2CurTargetAngle = wep1CurTargetAngle
-#                end
+                -- if one weapon doesn't have a current target angle then take the one from the other weapon
+--                if wep1CurTargetAngle == nil and wep2CurTargetAngle ~= nil then
+--                    wep1CurTargetAngle = wep2CurTargetAngle
+--                elseif wep2CurTargetAngle == nil and wep1CurTargetAngle ~= nil then
+--                    wep2CurTargetAngle = wep1CurTargetAngle
+--                end
 
-                # now find the best rotation for the torso. Ideally the torso rotates so it's in between both targets. In case this is not
-                # possible because the targets too far apart then weapon 1 is prefered and weapon 2 gets the target of weapon 1. If there's just
-                # 1 target then it's easy, and if there is no target at all then just rotate to normal position.
-#                if wep2CurTargetAngle == nil and wep1CurTargetAngle == nil then
+                -- now find the best rotation for the torso. Ideally the torso rotates so it's in between both targets. In case this is not
+                -- possible because the targets too far apart then weapon 1 is prefered and weapon 2 gets the target of weapon 1. If there's just
+                -- 1 target then it's easy, and if there is no target at all then just rotate to normal position.
+--                if wep2CurTargetAngle == nil and wep1CurTargetAngle == nil then
                 if NumWepWithCurTargetAngle == 0 then
-                    torsoIntendRot = 0  # no target means no rotation needed
+                    torsoIntendRot = 0  -- no target means no rotation needed
 
                 else
 
-                    # get torso and main bone orientations. MOved here for efficiency reason from a few lines up, we only need it here
+                    -- get torso and main bone orientations. MOved here for efficiency reason from a few lines up, we only need it here
                     unitX, unitY, unitZ = self:GetBoneDirection(0)
                     unitDir = Utils.NormalizeVector( Vector( unitX, 0, unitZ) )
                     torsoRot = ( math.atan2( torsoDir.x, torsoDir.z ) - math.atan2( unitDir.x, unitDir.z ) ) * 180 / math.pi
 
-                    if CurTargetAngleSum == 0 then  # avoid dividing by 0 (see the else)
-                        torsoIntendRot = 0  # if the target of both weapons is direct forward then no need for a rotation adjustment 
+                    if CurTargetAngleSum == 0 then  -- avoid dividing by 0 (see the else)
+                        torsoIntendRot = 0  -- if the target of both weapons is direct forward then no need for a rotation adjustment 
 
                     else
 
-                        # calculate current torso rotation limits, the torso cannot rotate beyond these values
+                        -- calculate current torso rotation limits, the torso cannot rotate beyond these values
                         minTorsoRotLimit = -torsoRotLimit - torsoRot
                         maxTorsoRotLimit = torsoRotLimit - torsoRot
 
-                        # the best angle is calculated here. Works for 1 target aswell since both have the same angle. The max-ing and min-ing is
-                        # for limiting torso rotation (if so intended)
+                        -- the best angle is calculated here. Works for 1 target aswell since both have the same angle. The max-ing and min-ing is
+                        -- for limiting torso rotation (if so intended)
                         torsoIntendRot = math.max( minTorsoRotLimit, math.min( maxTorsoRotLimit, CurTargetAngleSum / NumWepWithCurTargetAngle ))
 
-#                        torsoIntendRot = math.max( minTorsoRotLimit, math.min( maxTorsoRotLimit, (wep1CurTargetAngle + wep2CurTargetAngle) / 2))
+--                        torsoIntendRot = math.max( minTorsoRotLimit, math.min( maxTorsoRotLimit, (wep1CurTargetAngle + wep2CurTargetAngle) / 2))
 
-                        # Ok, so now we have determined the best ideal angle for the torso. Now checking if it allows both weapons to hit target. If
-                        # not then adjust the angle.
-                        # First weapon 1. If it can't hit target then wep 2 will have to retarget.
+                        -- Ok, so now we have determined the best ideal angle for the torso. Now checking if it allows both weapons to hit target. If
+                        -- not then adjust the angle.
+                        -- First weapon 1. If it can't hit target then wep 2 will have to retarget.
 
                         for k, wep in weps do
 
@@ -1417,39 +1417,39 @@ function AddAkimbo( SuperClass )
                                 continue
 
                             elseif (wepCurTargetAngle[k] - torsoIntendRot) <= wepYawRangeMin[k] then
-                                # wep 2 can't hit. Check if wep 2 can hit if torso rotates a bit more. If not, retarget or use best rotation possible
-#                                local wep1YawRemaining = math.min( math.abs(torsoIntendRot + wep1YawRangeMin - wep1CurTargetAngle), math.abs(torsoIntendRot + wep1YawRangeMax - wep1CurTargetAngle) )
-#                                local wep2YawNeeded = wep2CurTargetAngle - torsoIntendRot - wep2YawRangeMin
-#                                if math.abs(wep2YawNeeded) < wep1YawRemaining then
-#                                    torsoIntendRot = torsoIntendRot + wep2YawNeeded  # rotate a bit more for wep 2
-#                                    torsoIntendRot = math.max( minTorsoRotLimit, math.min( torsoIntendRot, maxTorsoRotLimit)) # abide torso rotation limit
-#                                elseif allowRetarget and wep1Target then  # retarget wep 2, only if there is a target
+                                -- wep 2 can't hit. Check if wep 2 can hit if torso rotates a bit more. If not, retarget or use best rotation possible
+--                                local wep1YawRemaining = math.min( math.abs(torsoIntendRot + wep1YawRangeMin - wep1CurTargetAngle), math.abs(torsoIntendRot + wep1YawRangeMax - wep1CurTargetAngle) )
+--                                local wep2YawNeeded = wep2CurTargetAngle - torsoIntendRot - wep2YawRangeMin
+--                                if math.abs(wep2YawNeeded) < wep1YawRemaining then
+--                                    torsoIntendRot = torsoIntendRot + wep2YawNeeded  -- rotate a bit more for wep 2
+--                                    torsoIntendRot = math.max( minTorsoRotLimit, math.min( torsoIntendRot, maxTorsoRotLimit)) -- abide torso rotation limit
+--                                elseif allowRetarget and wep1Target then  -- retarget wep 2, only if there is a target
 
-                                if allowRetarget and PrimaryWeaponTarget then  # retarget wep 2, only if there is a target
+                                if allowRetarget and PrimaryWeaponTarget then  -- retarget wep 2, only if there is a target
                                     wep:SetTargetEntity( PrimaryWeaponTarget )
                                     torsoIntendRot = wepCurTargetAngle[PrimaryWeaponKey]
-                                    torsoIntendRot = math.max( minTorsoRotLimit, math.min( torsoIntendRot, maxTorsoRotLimit)) # abide torso rotation limit
-                                else  # no valid target, at least let wep 1 fire. Rotate so target 1 is just in firing arc for wep 1
-                                    torsoIntendRot = torsoIntendRot + (wepCurTargetAngle[PrimaryWeaponKey] - torsoIntendRot - wepYawRangeMin[PrimaryWeaponKey])  # min!
-                                    torsoIntendRot = math.max( minTorsoRotLimit, math.min( torsoIntendRot, maxTorsoRotLimit)) # abide torso rotation limit
+                                    torsoIntendRot = math.max( minTorsoRotLimit, math.min( torsoIntendRot, maxTorsoRotLimit)) -- abide torso rotation limit
+                                else  -- no valid target, at least let wep 1 fire. Rotate so target 1 is just in firing arc for wep 1
+                                    torsoIntendRot = torsoIntendRot + (wepCurTargetAngle[PrimaryWeaponKey] - torsoIntendRot - wepYawRangeMin[PrimaryWeaponKey])  -- min!
+                                    torsoIntendRot = math.max( minTorsoRotLimit, math.min( torsoIntendRot, maxTorsoRotLimit)) -- abide torso rotation limit
                                 end
 
                             elseif (wepCurTargetAngle[k] - torsoIntendRot) >= wepYawRangeMax[k] then
-                                # wep 2 can't hit. Check if wep 2 can hit if torso rotates a bit more. If not, retarget or use best rotation possible
-#                                local wep1YawRemaining = math.min( math.abs(torsoIntendRot + wep1YawRangeMin - wep1CurTargetAngle), math.abs(torsoIntendRot + wep1YawRangeMax - wep1CurTargetAngle) )
-#                                local wep2YawNeeded = wep2CurTargetAngle - torsoIntendRot - wep2YawRangeMax
-#                                if math.abs(wep2YawNeeded) < wep1YawRemaining then
-#                                    torsoIntendRot = torsoIntendRot + wep2YawNeeded  # rotate a bit more for wep 2
-#                                    torsoIntendRot = math.max( minTorsoRotLimit, math.min( torsoIntendRot, maxTorsoRotLimit)) # abide torso rotation limit
-#                                elseif allowRetarget and wep1Target then  # retarget wep 2, only if there is a target
+                                -- wep 2 can't hit. Check if wep 2 can hit if torso rotates a bit more. If not, retarget or use best rotation possible
+--                                local wep1YawRemaining = math.min( math.abs(torsoIntendRot + wep1YawRangeMin - wep1CurTargetAngle), math.abs(torsoIntendRot + wep1YawRangeMax - wep1CurTargetAngle) )
+--                                local wep2YawNeeded = wep2CurTargetAngle - torsoIntendRot - wep2YawRangeMax
+--                                if math.abs(wep2YawNeeded) < wep1YawRemaining then
+--                                    torsoIntendRot = torsoIntendRot + wep2YawNeeded  -- rotate a bit more for wep 2
+--                                    torsoIntendRot = math.max( minTorsoRotLimit, math.min( torsoIntendRot, maxTorsoRotLimit)) -- abide torso rotation limit
+--                                elseif allowRetarget and wep1Target then  -- retarget wep 2, only if there is a target
 
-                                if allowRetarget and PrimaryWeaponTarget then  # retarget wep 2, only if there is a target
+                                if allowRetarget and PrimaryWeaponTarget then  -- retarget wep 2, only if there is a target
                                     wep:SetTargetEntity( PrimaryWeaponTarget )
                                     torsoIntendRot = wepCurTargetAngle[PrimaryWeaponKey]
-                                    torsoIntendRot = math.max( minTorsoRotLimit, math.min( torsoIntendRot, maxTorsoRotLimit)) # abide torso rotation limit
-                                else  # no valid target, at least let wep 1 fire. Rotate so target 1 is just in firing arc for wep 1
-                                    torsoIntendRot = torsoIntendRot + (wepCurTargetAngle[PrimaryWeaponKey] - torsoIntendRot - wepYawRangeMax[PrimaryWeaponKey])  # max!
-                                    torsoIntendRot = math.max( minTorsoRotLimit, math.min( torsoIntendRot, maxTorsoRotLimit)) # abide torso rotation limit
+                                    torsoIntendRot = math.max( minTorsoRotLimit, math.min( torsoIntendRot, maxTorsoRotLimit)) -- abide torso rotation limit
+                                else  -- no valid target, at least let wep 1 fire. Rotate so target 1 is just in firing arc for wep 1
+                                    torsoIntendRot = torsoIntendRot + (wepCurTargetAngle[PrimaryWeaponKey] - torsoIntendRot - wepYawRangeMax[PrimaryWeaponKey])  -- max!
+                                    torsoIntendRot = math.max( minTorsoRotLimit, math.min( torsoIntendRot, maxTorsoRotLimit)) -- abide torso rotation limit
                                 end
                             end
 
@@ -1457,96 +1457,96 @@ function AddAkimbo( SuperClass )
 
 
 
-#                        if (wep1CurTargetAngle - torsoIntendRot) <= wep1YawRangeMin then
-#                            # weapon 1 can't hit target with new rotation - have weapon 2 also target weapon 1's target
-#                            if allowRetarget and wep1Target then  # if weapon 1 has a valid target have wep 2 also target that
-#                                wep2:SetTargetEntity( wep1Target )
-#                                torsoIntendRot = wep1CurTargetAngle
-#                                torsoIntendRot = math.max( minTorsoRotLimit, math.min( torsoIntendRot, maxTorsoRotLimit)) # abide torso rotation limit
-#                            else  # if no valid target then at least give wep 1 the room to fire. Rotate so target 1 is just in firing arc for wep 1
-#                                torsoIntendRot = torsoIntendRot + (wep1CurTargetAngle - torsoIntendRot - wep1YawRangeMin)  # min!
-#                                torsoIntendRot = math.max( minTorsoRotLimit, math.min( torsoIntendRot, maxTorsoRotLimit)) # abide torso rotation limit
-#                            end
+--                        if (wep1CurTargetAngle - torsoIntendRot) <= wep1YawRangeMin then
+--                            -- weapon 1 can't hit target with new rotation - have weapon 2 also target weapon 1's target
+--                            if allowRetarget and wep1Target then  -- if weapon 1 has a valid target have wep 2 also target that
+--                                wep2:SetTargetEntity( wep1Target )
+--                                torsoIntendRot = wep1CurTargetAngle
+--                                torsoIntendRot = math.max( minTorsoRotLimit, math.min( torsoIntendRot, maxTorsoRotLimit)) -- abide torso rotation limit
+--                            else  -- if no valid target then at least give wep 1 the room to fire. Rotate so target 1 is just in firing arc for wep 1
+--                                torsoIntendRot = torsoIntendRot + (wep1CurTargetAngle - torsoIntendRot - wep1YawRangeMin)  -- min!
+--                                torsoIntendRot = math.max( minTorsoRotLimit, math.min( torsoIntendRot, maxTorsoRotLimit)) -- abide torso rotation limit
+--                            end
 
-#                        elseif (wep1CurTargetAngle - torsoIntendRot) >= wep1YawRangeMax then
-#                            # weapon 1 can't hit target with new rotation - have weapon 2 also target weapon 1's target
-#                            if allowRetarget and wep1Target then  # if weapon 1 has a valid target have wep 2 also target that
-#                                wep2:SetTargetEntity( wep1Target )
-#                                torsoIntendRot = wep1CurTargetAngle
-#                                torsoIntendRot = math.max( minTorsoRotLimit, math.min( torsoIntendRot, maxTorsoRotLimit)) # abide torso rotation limit
-#                            else  # if no valid target then at least give wep 1 the room to fire. Rotate so target 1 is just in firing arc for wep 1
-#                                torsoIntendRot = torsoIntendRot + (wep1CurTargetAngle - torsoIntendRot - wep1YawRangeMax)  # max!
-#                                torsoIntendRot = math.max( minTorsoRotLimit, math.min( torsoIntendRot, maxTorsoRotLimit)) # abide torso rotation limit
-#                            end
+--                        elseif (wep1CurTargetAngle - torsoIntendRot) >= wep1YawRangeMax then
+--                            -- weapon 1 can't hit target with new rotation - have weapon 2 also target weapon 1's target
+--                            if allowRetarget and wep1Target then  -- if weapon 1 has a valid target have wep 2 also target that
+--                                wep2:SetTargetEntity( wep1Target )
+--                                torsoIntendRot = wep1CurTargetAngle
+--                                torsoIntendRot = math.max( minTorsoRotLimit, math.min( torsoIntendRot, maxTorsoRotLimit)) -- abide torso rotation limit
+--                            else  -- if no valid target then at least give wep 1 the room to fire. Rotate so target 1 is just in firing arc for wep 1
+--                                torsoIntendRot = torsoIntendRot + (wep1CurTargetAngle - torsoIntendRot - wep1YawRangeMax)  -- max!
+--                                torsoIntendRot = math.max( minTorsoRotLimit, math.min( torsoIntendRot, maxTorsoRotLimit)) -- abide torso rotation limit
+--                            end
 
-                        # Now check weapon 2. If it can't hit the target perhaps rotating the torso a bit more will do it, so check if that's
-                        # possible. If not, retarget.
+                        -- Now check weapon 2. If it can't hit the target perhaps rotating the torso a bit more will do it, so check if that's
+                        -- possible. If not, retarget.
 
-#                        elseif (wep2CurTargetAngle - torsoIntendRot) <= wep2YawRangeMin then
-#                            # wep 2 can't hit. Check if wep 2 can hit if torso rotates a bit more. If not, retarget or use best rotation possible
-#                            local wep1YawRemaining = math.min( math.abs(torsoIntendRot + wep1YawRangeMin - wep1CurTargetAngle), math.abs(torsoIntendRot + wep1YawRangeMax - wep1CurTargetAngle) )
-#                            local wep2YawNeeded = wep2CurTargetAngle - torsoIntendRot - wep2YawRangeMin
-#                            if math.abs(wep2YawNeeded) < wep1YawRemaining then
-#                                torsoIntendRot = torsoIntendRot + wep2YawNeeded  # rotate a bit more for wep 2
-#                                torsoIntendRot = math.max( minTorsoRotLimit, math.min( torsoIntendRot, maxTorsoRotLimit)) # abide torso rotation limit
-#                            elseif allowRetarget and wep1Target then  # retarget wep 2, only if there is a target
-#                                wep2:SetTargetEntity( wep1Target )
-#                                torsoIntendRot = wep1CurTargetAngle
-#                                torsoIntendRot = math.max( minTorsoRotLimit, math.min( torsoIntendRot, maxTorsoRotLimit)) # abide torso rotation limit
-#                            else  # no valid target, at least let wep 1 fire. Rotate so target 1 is just in firing arc for wep 1
-#                                torsoIntendRot = torsoIntendRot + (wep1CurTargetAngle - torsoIntendRot - wep1YawRangeMin)  # min!
-#                                torsoIntendRot = math.max( minTorsoRotLimit, math.min( torsoIntendRot, maxTorsoRotLimit)) # abide torso rotation limit
-#                            end
+--                        elseif (wep2CurTargetAngle - torsoIntendRot) <= wep2YawRangeMin then
+--                            -- wep 2 can't hit. Check if wep 2 can hit if torso rotates a bit more. If not, retarget or use best rotation possible
+--                            local wep1YawRemaining = math.min( math.abs(torsoIntendRot + wep1YawRangeMin - wep1CurTargetAngle), math.abs(torsoIntendRot + wep1YawRangeMax - wep1CurTargetAngle) )
+--                            local wep2YawNeeded = wep2CurTargetAngle - torsoIntendRot - wep2YawRangeMin
+--                            if math.abs(wep2YawNeeded) < wep1YawRemaining then
+--                                torsoIntendRot = torsoIntendRot + wep2YawNeeded  -- rotate a bit more for wep 2
+--                                torsoIntendRot = math.max( minTorsoRotLimit, math.min( torsoIntendRot, maxTorsoRotLimit)) -- abide torso rotation limit
+--                            elseif allowRetarget and wep1Target then  -- retarget wep 2, only if there is a target
+--                                wep2:SetTargetEntity( wep1Target )
+--                                torsoIntendRot = wep1CurTargetAngle
+--                                torsoIntendRot = math.max( minTorsoRotLimit, math.min( torsoIntendRot, maxTorsoRotLimit)) -- abide torso rotation limit
+--                            else  -- no valid target, at least let wep 1 fire. Rotate so target 1 is just in firing arc for wep 1
+--                                torsoIntendRot = torsoIntendRot + (wep1CurTargetAngle - torsoIntendRot - wep1YawRangeMin)  -- min!
+--                                torsoIntendRot = math.max( minTorsoRotLimit, math.min( torsoIntendRot, maxTorsoRotLimit)) -- abide torso rotation limit
+--                            end
 
-#                        elseif (wep2CurTargetAngle - torsoIntendRot) >= wep2YawRangeMax then
-#                            # wep 2 can't hit. Check if wep 2 can hit if torso rotates a bit more. If not, retarget or use best rotation possible
-#                            local wep1YawRemaining = math.min( math.abs(torsoIntendRot + wep1YawRangeMin - wep1CurTargetAngle), math.abs(torsoIntendRot + wep1YawRangeMax - wep1CurTargetAngle) )
-#                            local wep2YawNeeded = wep2CurTargetAngle - torsoIntendRot - wep2YawRangeMax
-#                            if math.abs(wep2YawNeeded) < wep1YawRemaining then
-#                                torsoIntendRot = torsoIntendRot + wep2YawNeeded  # rotate a bit more for wep 2
-#                                torsoIntendRot = math.max( minTorsoRotLimit, math.min( torsoIntendRot, maxTorsoRotLimit)) # abide torso rotation limit
-#                            elseif allowRetarget and wep1Target then  # retarget wep 2, only if there is a target
-#                                wep2:SetTargetEntity( wep1Target )
-#                                torsoIntendRot = wep1CurTargetAngle
-#                                torsoIntendRot = math.max( minTorsoRotLimit, math.min( torsoIntendRot, maxTorsoRotLimit)) # abide torso rotation limit
-#                            else  # no valid target, at least let wep 1 fire. Rotate so target 1 is just in firing arc for wep 1
-#                                torsoIntendRot = torsoIntendRot + (wep1CurTargetAngle - torsoIntendRot - wep1YawRangeMax)  # max!
-#                                torsoIntendRot = math.max( minTorsoRotLimit, math.min( torsoIntendRot, maxTorsoRotLimit)) # abide torso rotation limit
-#                            end
-#                        end
+--                        elseif (wep2CurTargetAngle - torsoIntendRot) >= wep2YawRangeMax then
+--                            -- wep 2 can't hit. Check if wep 2 can hit if torso rotates a bit more. If not, retarget or use best rotation possible
+--                            local wep1YawRemaining = math.min( math.abs(torsoIntendRot + wep1YawRangeMin - wep1CurTargetAngle), math.abs(torsoIntendRot + wep1YawRangeMax - wep1CurTargetAngle) )
+--                            local wep2YawNeeded = wep2CurTargetAngle - torsoIntendRot - wep2YawRangeMax
+--                            if math.abs(wep2YawNeeded) < wep1YawRemaining then
+--                                torsoIntendRot = torsoIntendRot + wep2YawNeeded  -- rotate a bit more for wep 2
+--                                torsoIntendRot = math.max( minTorsoRotLimit, math.min( torsoIntendRot, maxTorsoRotLimit)) -- abide torso rotation limit
+--                            elseif allowRetarget and wep1Target then  -- retarget wep 2, only if there is a target
+--                                wep2:SetTargetEntity( wep1Target )
+--                                torsoIntendRot = wep1CurTargetAngle
+--                                torsoIntendRot = math.max( minTorsoRotLimit, math.min( torsoIntendRot, maxTorsoRotLimit)) -- abide torso rotation limit
+--                            else  -- no valid target, at least let wep 1 fire. Rotate so target 1 is just in firing arc for wep 1
+--                                torsoIntendRot = torsoIntendRot + (wep1CurTargetAngle - torsoIntendRot - wep1YawRangeMax)  -- max!
+--                                torsoIntendRot = math.max( minTorsoRotLimit, math.min( torsoIntendRot, maxTorsoRotLimit)) -- abide torso rotation limit
+--                            end
+--                        end
                     end
 
-                    torsoIntendRot = torsoRot + torsoIntendRot  # don't forget current torso rotation!
+                    torsoIntendRot = torsoRot + torsoIntendRot  -- don't forget current torso rotation!
                 end
 
-                # Rotate torso with new found rotation!
+                -- Rotate torso with new found rotation!
                 self.TorsoRotManip:SetSpeed( torsoRotSpeed ):SetGoal(torsoIntendRot)
 
                 if doHeadRotation then
-                    # Head rotation is next. The head should "look" at target of wep 1, target of wep2, where it is going, or be in default rotation (in this order).
-                    headTargetPos = wep1TargetPos or wep2TargetPos or nav:GetCurrentTargetPos() # Get the location of interest
+                    -- Head rotation is next. The head should "look" at target of wep 1, target of wep2, where it is going, or be in default rotation (in this order).
+                    headTargetPos = wep1TargetPos or wep2TargetPos or nav:GetCurrentTargetPos() -- Get the location of interest
 
-                    # calculate the angle for the head rotation. The rotation of the torso is taken into account. Since the head shouldn't rotate
-                    # 360 degrees also limit the rotation.
+                    -- calculate the angle for the head rotation. The rotation of the torso is taken into account. Since the head shouldn't rotate
+                    -- 360 degrees also limit the rotation.
                     headIntendRot = math.max( -headRotLimit, math.min( headRotLimit, GetTargetAngle( self, headTargetPos, torsoDir )))
 
-                    # rotate head
+                    -- rotate head
                     self.HeadRotManip:SetSpeed( headRotSpeed ):SetGoal(headIntendRot)
                 end
 
-                WaitSeconds(0.3) # rinse and repeat after this
+                WaitSeconds(0.3) -- rinse and repeat after this
             end
         end,
     }
 end
 
-# ================================================================================================================
-# CAPACITOR
-# ================================================================================================================
+-- ================================================================================================================
+-- CAPACITOR
+-- ================================================================================================================
 
 function AddCapacitorAbility( SuperClass )
-    # The capacitor ability boosts the unit for a short time. It doesn't work with shielded units because this
-    # ability uses the shield indicator on the unit for the capacity in the capacitor.
+    -- The capacitor ability boosts the unit for a short time. It doesn't work with shielded units because this
+    -- ability uses the shield indicator on the unit for the capacity in the capacitor.
 
     return Class(SuperClass) {
 
@@ -1584,7 +1584,7 @@ function AddCapacitorAbility( SuperClass )
             aiBrain:CapacitorRegisterUnit(self)
 
             self:CapUpdateBar()
-            #self:SetFuelUseTime( -1 )  # not using fuel indicator anymore
+            --self:SetFuelUseTime( -1 )  -- not using fuel indicator anymore
             self:SetScriptBit('RULEUTC_WeaponToggle', true)
             self:CapStartCharging()
         end,
@@ -1599,7 +1599,7 @@ function AddCapacitorAbility( SuperClass )
             SuperClass.OnKilled(self, instigator, type, overkillRatio)
         end,
 
-        # don't do shield things
+        -- don't do shield things
         EnableShield = function(self)
             WARN('Shields disabled by capacitor ability...')
         end,
@@ -1609,10 +1609,10 @@ function AddCapacitorAbility( SuperClass )
         end,
 
         OnScriptBitSet = function(self, bit)
-# TODO: create keyboard keymap so you can press a character on the keyboard and this happens.
+-- TODO: create keyboard keymap so you can press a character on the keyboard and this happens.
             SuperClass.OnScriptBitSet(self, bit)
-            if bit == 1 then # cloak toggle
-                #LOG('*DEBUG: OnScriptBitSet')
+            if bit == 1 then -- cloak toggle
+                --LOG('*DEBUG: OnScriptBitSet')
                 if self:CapIsFull() then
                     self:CapUse()
                 end
@@ -1620,10 +1620,10 @@ function AddCapacitorAbility( SuperClass )
         end,
 
         OnScriptBitClear = function(self, bit)
-# TODO: this script makes sure the correct toggle button is shown. If the player clicks it when there's not enough charge yet the button
-# reverts to it's previous state. This can probably be handled better in the UI???
-            if bit == 1 then # cloak toggle
-                #LOG('*DEBUG: OnScriptBitClear')
+-- TODO: this script makes sure the correct toggle button is shown. If the player clicks it when there's not enough charge yet the button
+-- reverts to it's previous state. This can probably be handled better in the UI???
+            if bit == 1 then -- cloak toggle
+                --LOG('*DEBUG: OnScriptBitClear')
                 if not self:CapIsFull() then
                     self:SetScriptBit('RULEUTC_WeaponToggle', true)
                 end
@@ -1631,68 +1631,68 @@ function AddCapacitorAbility( SuperClass )
         end,
 
         OnHealthChanged = function(self, new, old)
-            #LOG('*DEBUG: OnHealthChanged( new = '..repr(new)..', old = '..repr(old)..')')
-            # TODO: see if we can filter out small damages. No need to start the capacitor if we receive damage from a scout...
+            --LOG('*DEBUG: OnHealthChanged( new = '..repr(new)..', old = '..repr(old)..')')
+            -- TODO: see if we can filter out small damages. No need to start the capacitor if we receive damage from a scout...
             if self.CapDoAutoUse and new <= 0.25 and self:CapIsFull() then
                 self:CapUse()
             end
         end,
 
         SetMaintenanceConsumptionActive = function(self)
-            #LOG('*DEBUG: SetMaintenanceConsumptionActive()')
+            --LOG('*DEBUG: SetMaintenanceConsumptionActive()')
             self.CapDoCharge = true
             self:CapStartCharging()
             SuperClass.SetMaintenanceConsumptionActive(self)
         end,
 
         SetMaintenanceConsumptionInactive = function(self)
-            #LOG('*DEBUG: SetMaintenanceConsumptionInactive()')
+            --LOG('*DEBUG: SetMaintenanceConsumptionInactive()')
             self.CapDoCharge = false
             self:CapStopCharging()
             SuperClass.SetMaintenanceConsumptionInactive(self)
         end,
 
         OnBrainNotifiesOfChargeFraction = function(self, fraction)
-            #LOG('OnBrainNotifiesOfChargeFraction = '..repr(fraction))
+            --LOG('OnBrainNotifiesOfChargeFraction = '..repr(fraction))
             self.CapChargeFraction = fraction
         end,
 
         OnBrainNotifiesOfSufficientEnergy = function(self)
-            #LOG('OnBrainNotifiesOfSufficientEnergy')
+            --LOG('OnBrainNotifiesOfSufficientEnergy')
             if not self:CapIsCharging() and not self:CapIsBeingUsed() and not self:CapIsFull() then
                 self:CapStartCharging()
             end
         end,
 
         OnBrainNotifiesOfInsufficientEnergy = function(self)
-            #LOG('OnBrainNotifiesOfInsufficientEnergy')
+            --LOG('OnBrainNotifiesOfInsufficientEnergy')
             if self:CapIsCharging() then
                 self:CapStopCharging()
             end
         end,
 
         OnCapIsFull = function(self)
-            #LOG('*DEBUG: OnCapIsFull()')
+            --LOG('*DEBUG: OnCapIsFull()')
             self:SetScriptBit('RULEUTC_WeaponToggle', false)
         end,
 
         OnCapIsEmpty = function(self)
-            #LOG('*DEBUG: OnCapIsEmpty()')
+            --LOG('*DEBUG: OnCapIsEmpty()')
             self:SetScriptBit('RULEUTC_WeaponToggle', true)
         end,
 
         OnCapStartBeingUsed = function(self, duration)
-            #LOG('*DEBUG: OnCapStartBeingUsed( duration = '..repr(duration)..')')
+            --LOG('*DEBUG: OnCapStartBeingUsed( duration = '..repr(duration)..')')
             self:SetScriptBit('RULEUTC_WeaponToggle', true)
         end,
 
         OnCapStopBeingUsed = function(self)
-            #LOG('*DEBUG: OnCapStopBeingUsed()')
+            --LOG('*DEBUG: OnCapStopBeingUsed()')
             self:SetScriptBit('RULEUTC_WeaponToggle', true)
         end,
 
         CapUse = function(self)
-            #LOG('*DEBUG: CapUse()')
+            --LOG('*DEBUG: CapUse()')
             if self:CapIsFull() then
                 self:CapBeingUsedState()
                 return true
@@ -1701,13 +1701,13 @@ function AddCapacitorAbility( SuperClass )
         end,
 
         CapStartCharging = function(self)
-            #LOG('*DEBUG: CapStartCharging()')
+            --LOG('*DEBUG: CapStartCharging()')
             self:CapChargingState()
             return true
         end,
 
         CapStopCharging = function(self)
-            #LOG('*DEBUG: CapStopCharging()')
+            --LOG('*DEBUG: CapStopCharging()')
             if self:CapIsCharging() then
                 self:CapNotChargingState()
             end
@@ -1715,12 +1715,12 @@ function AddCapacitorAbility( SuperClass )
         end,
 
         CapIsCharging = function(self)
-            #LOG('*DEBUG: CapIsCharging() = '..repr((self.CapState == 'CapChargingState')))
+            --LOG('*DEBUG: CapIsCharging() = '..repr((self.CapState == 'CapChargingState')))
             return (self.CapState == 'CapChargingState')
         end,
 
         CapIsFull = function(self)
-            #LOG('*DEBUG: CapIsFull()')
+            --LOG('*DEBUG: CapIsFull()')
             return (self.CapState == 'CapFullState')
         end,
 
@@ -1754,7 +1754,7 @@ function AddCapacitorAbility( SuperClass )
         end,
 
         CapSetChargeSpeedMulti = function(self, multi)
-            # used to buff charging of the capacitor
+            -- used to buff charging of the capacitor
             self.CapChargeSpeedMulti = multi
         end,
 
@@ -1763,7 +1763,7 @@ function AddCapacitorAbility( SuperClass )
         end,
 
         CapGetCapacityFrac = function(self)
-            #LOG('*DEBUG: CapGetCapacity() = '..repr((self.CapCurCharge / self.CapChargeWhenFull)))
+            --LOG('*DEBUG: CapGetCapacity() = '..repr((self.CapCurCharge / self.CapChargeWhenFull)))
             if self.CapCurCharge < 0 then self.CapCurCharge = 0 end
             if self.CapCurCharge == 0 or self.CapChargeWhenFull == 0 then
                 return 0
@@ -1784,7 +1784,7 @@ function AddCapacitorAbility( SuperClass )
 
         CapChargingState = function(self)
             local Main = function(self)
-                #LOG('*DEBUG: CapChargingState()')
+                --LOG('*DEBUG: CapChargingState()')
 
                 local capFrac = self:CapGetCapacityFrac()
                 if self:CapGetCapacityFrac() >= 1 then
@@ -1815,7 +1815,7 @@ function AddCapacitorAbility( SuperClass )
 
         CapNotChargingState = function(self)
             local Main = function(self)
-                #LOG('*DEBUG: CapNotChargingState()')
+                --LOG('*DEBUG: CapNotChargingState()')
 
                 local capFrac = self:CapGetCapacityFrac()
                 if self:CapGetCapacityFrac() >= 1 then
@@ -1829,9 +1829,9 @@ function AddCapacitorAbility( SuperClass )
                 local dissip = self:CapGetDissipationRate()
                 if dissip > 0 then
 
-                    # calculating how long to wait and how much to reduce the capacity with, each cycle. Can only wait multiples of tenths of seconds and not for example 0.3333 seconds
-                    # The goal is to determine how long to wait to reduce the counter by 1. This is rounded up. Then find out how much to
-                    # decrease the counter with, using the waiting time. Also, minimal waiting time is 0.1.
+                    -- calculating how long to wait and how much to reduce the capacity with, each cycle. Can only wait multiples of tenths of seconds and not for example 0.3333 seconds
+                    -- The goal is to determine how long to wait to reduce the counter by 1. This is rounded up. Then find out how much to
+                    -- decrease the counter with, using the waiting time. Also, minimal waiting time is 0.1.
                     local wait = math.ceil( math.max(1, 10 / dissip) ) / 10
                     local step = math.max( 1, dissip / (1/wait) )
 
@@ -1854,9 +1854,9 @@ function AddCapacitorAbility( SuperClass )
         end,
 
         CapFullState = function(self)
-# TODO: show pulsating icon on ui panel when charging up (right now it's static), perhaps with a progress indicator (ring around it)
+-- TODO: show pulsating icon on ui panel when charging up (right now it's static), perhaps with a progress indicator (ring around it)
             local Main = function(self)
-                #LOG('*DEBUG: CapFullState()')
+                --LOG('*DEBUG: CapFullState()')
                 self:GetAIBrain():OnCapacitorUnitChargingState(self, false)
                 self:CapPlayFx('Full')
                 self:CapUpdateBar()
@@ -1869,15 +1869,15 @@ function AddCapacitorAbility( SuperClass )
         end,
 
         CapBeingUsedState = function(self)
-# TODO: show an icon on the unit when using capacitor, much like the "production paused" or the "stunned" strategic icons. This should be
-# possible, looking at file unitview.lua, where they also take care of fuel bars, etc. If not possible create a different visual on the
-# unit so it's clear it's being boosted by the capacitor.
+-- TODO: show an icon on the unit when using capacitor, much like the "production paused" or the "stunned" strategic icons. This should be
+-- possible, looking at file unitview.lua, where they also take care of fuel bars, etc. If not possible create a different visual on the
+-- unit so it's clear it's being boosted by the capacitor.
             local Main = function(self)
-                #LOG('*DEBUG: CapBeingUsedState()')
+                --LOG('*DEBUG: CapBeingUsedState()')
 
                 self:GetAIBrain():OnCapacitorUnitChargingState(self, false)
 
-                while self:IsStunned() do  # dont waste capacitor time being stunned
+                while self:IsStunned() do  -- dont waste capacitor time being stunned
                     WaitTicks(1)
                 end
 
@@ -1887,12 +1887,12 @@ function AddCapacitorAbility( SuperClass )
                 local buffs = bp.Capacitor.Buffs or {}
                 local duration = self:CapGetDuration()
 
-                # apply buffs
+                -- apply buffs
                 for k, buffName in buffs do
                     Buff.ApplyBuff( self, buffName )
                 end
 
-                # notify weapons
+                -- notify weapons
                 for i = 1, self:GetWeaponCount() do
                     local wep = self:GetWeapon(i)
                     if wep.UseCapacitorBoost then
@@ -1913,12 +1913,12 @@ function AddCapacitorAbility( SuperClass )
                 self.CapCurCharge = 0
                 self:CapUpdateBar()
 
-                # remove buffs
+                -- remove buffs
                 for k, buffName in buffs do
                     Buff.RemoveBuff( self, buffName )
                 end
 
-                # notify weapons again
+                -- notify weapons again
                 for i = 1, self:GetWeaponCount() do
                     local wep = self:GetWeapon(i)
                     if wep.UseCapacitorBoost then
@@ -1946,10 +1946,10 @@ function AddCapacitorAbility( SuperClass )
         end,
 
         CapUpdateBar = function(self)
-            # update the fuel bar at the unit. We use it to display the charge of the capacitor
-            # TODO: create dedicated bar for capacitor? Seeing unitview_mini.lua (look for fuel bar) this coul be possible
-#            self:SetFuelRatio( math.max(self:CapGetCapacity(), 0.0001) )
-# fuel bar overwrites the work progress bar. That's not good, using shield bar instead, until fixed
+            -- update the fuel bar at the unit. We use it to display the charge of the capacitor
+            -- TODO: create dedicated bar for capacitor? Seeing unitview_mini.lua (look for fuel bar) this coul be possible
+--            self:SetFuelRatio( math.max(self:CapGetCapacity(), 0.0001) )
+-- fuel bar overwrites the work progress bar. That's not good, using shield bar instead, until fixed
             self:SetShieldRatio( self:CapGetCapacityFrac() )
         end,
 
@@ -1961,7 +1961,7 @@ function AddCapacitorAbility( SuperClass )
                     templ = self.CapFxEmptyTemplate
                     self:StopUnitAmbientSound('CapacitorInUseLoop')
                     self:PlayUnitSound('CapacitorEmpty')
-                    #AddVOUnitEvent(self, 'CapacitorEmpty')
+                    --AddVOUnitEvent(self, 'CapacitorEmpty')
                 elseif state == 'Charging' then
                     templ = self.CapFxChargingTemplate
                     self:StopUnitAmbientSound('CapacitorInUseLoop')
@@ -2003,20 +2003,20 @@ function AddCapacitorAbility( SuperClass )
 end
 
 function AddCapacitorAbilityToWeapon( SuperClass )
-    # The capacitor ability code for weapons
+    -- The capacitor ability code for weapons
 
     return Class(SuperClass) {
 
         UseCapacitorBoost = true,
 
         CapGetWepAffectingEnhancementBP = function(self)
-            # Overwrite on SCUs and ACUs to have support for weapon enhancements. There are requirements to the values in the returned table.
-            # All values in the enhancement should begin with "New". See code below to find all supported bp values.
+            -- Overwrite on SCUs and ACUs to have support for weapon enhancements. There are requirements to the values in the returned table.
+            -- All values in the enhancement should begin with "New". See code below to find all supported bp values.
             return {}
         end,
 
         GetDamageTable = function(self)
-            # if capacitor in use pass different data to projectile, to create DoT effect
+            -- if capacitor in use pass different data to projectile, to create DoT effect
             local damageTable = SuperClass.GetDamageTable(self)
             if self:CapIsBeingUsed() then
                 local ebp = self:CapGetWepAffectingEnhancementBP()
@@ -2032,9 +2032,9 @@ function AddCapacitorAbilityToWeapon( SuperClass )
         end,
 
         OnCapStartBeingUsed = function(self, duration)
-            # Changes several aspects of the weapon. Please note that ROF is handled through a unit buff. It is actually the only weapon
-            # aspect that can be handled this way. Using buffs is needed for compatibility with other features such as bombard.
-            #LOG('*DEBUG: wep OnCapStartBeingUsed( duration = '..repr(duration)..')')
+            -- Changes several aspects of the weapon. Please note that ROF is handled through a unit buff. It is actually the only weapon
+            -- aspect that can be handled this way. Using buffs is needed for compatibility with other features such as bombard.
+            --LOG('*DEBUG: wep OnCapStartBeingUsed( duration = '..repr(duration)..')')
 
             local ebp = self:CapGetWepAffectingEnhancementBP()
             local wbp = self:GetBlueprint()
@@ -2044,7 +2044,7 @@ function AddCapacitorAbilityToWeapon( SuperClass )
         end,
 
         OnCapStopBeingUsed = function(self)
-            #LOG('*DEBUG: wep OnCapStopBeingUsed()')
+            --LOG('*DEBUG: wep OnCapStopBeingUsed()')
 
             local wbp = self:GetBlueprint()
             local newProjwbp = wbp.ProjectileId
@@ -2058,9 +2058,9 @@ function AddCapacitorAbilityToWeapon( SuperClass )
     }
 end
 
-# ================================================================================================================
-# ANCHOR
-# ================================================================================================================
+-- ================================================================================================================
+-- ANCHOR
+-- ================================================================================================================
 
 function AddAnchorAbilty(SuperClass)
     return Class(SuperClass) {

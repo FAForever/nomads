@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "ueb2108", # UEF TML
+    BlueprintId = "ueb2108", -- UEF TML
     SpecialAbilities = {
         LaunchTacMissile = {
             AreaOfEffect = 2,

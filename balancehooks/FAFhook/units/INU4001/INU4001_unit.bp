@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "inu4001", # exp Crawler
+    BlueprintId = "inu4001", -- exp Crawler
     Veteran = {
         Level1 = 40,
         Level2 = 80,

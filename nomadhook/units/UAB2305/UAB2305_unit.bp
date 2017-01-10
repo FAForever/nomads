@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "uab2305", # aeon SML
+    BlueprintId = "uab2305", -- aeon SML
     SpecialAbilities = {
         LaunchNuke = {
             AreaOfEffect = 40,

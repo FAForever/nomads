@@ -154,50 +154,50 @@ UnitBlueprint {
         },
         ForcedBuildSpin = 0,
         IdleEffects = {
-#            Air = {
-#                Effects = {
-#                    {
-#                        Bones = {
-#                            'exhaust_bottom',
-#                            'exhaust_left.001',
-#                            'exhaust_left.002',
-#                            'exhaust_right.001',
-#                            'exhaust_right.002',
-#                        },
-#                        Type = 'Hover02',
-#                    },
-#                },
-#            },
+--            Air = {
+--                Effects = {
+--                    {
+--                        Bones = {
+--                            'exhaust_bottom',
+--                            'exhaust_left.001',
+--                            'exhaust_left.002',
+--                            'exhaust_right.001',
+--                            'exhaust_right.002',
+--                        },
+--                        Type = 'Hover02',
+--                    },
+--                },
+--            },
         },
         LayerChangeEffects = {
-#            AirLand = {
-#                Effects = {
-#                    {
-#                        Bones = {
-#                            'exhaust_bottom',
-#                            'exhaust_left.001',
-#                            'exhaust_left.002',
-#                            'exhaust_right.001',
-#                            'exhaust_right.002',
-#                        },
-#                        Type = 'Landing01',
-#                    },
-#                },
-#            },
-#            LandAir = {
-#                Effects = {
-#                    {
-#                        Bones = {
-#                            'exhaust_bottom',
-#                            'exhaust_left.001',
-#                            'exhaust_left.002',
-#                            'exhaust_right.001',
-#                            'exhaust_right.002',
-#                        },
-#                        Type = 'TakeOff01',
-#                    },
-#                },
-#            },
+--            AirLand = {
+--                Effects = {
+--                    {
+--                        Bones = {
+--                            'exhaust_bottom',
+--                            'exhaust_left.001',
+--                            'exhaust_left.002',
+--                            'exhaust_right.001',
+--                            'exhaust_right.002',
+--                        },
+--                        Type = 'Landing01',
+--                    },
+--                },
+--            },
+--            LandAir = {
+--                Effects = {
+--                    {
+--                        Bones = {
+--                            'exhaust_bottom',
+--                            'exhaust_left.001',
+--                            'exhaust_left.002',
+--                            'exhaust_right.001',
+--                            'exhaust_right.002',
+--                        },
+--                        Type = 'TakeOff01',
+--                    },
+--                },
+--            },
         },
         Mesh = {
             IconFadeInZoom = 130,
@@ -212,7 +212,7 @@ UnitBlueprint {
                     SpecularName = '/units/INA4001/INA4001_SpecTeam.dds',
                 },
                 {
-# TODO: LOD1 model
+-- TODO: LOD1 model
                     AlbedoName = '/units/INA4001/INA4001_Albedo.dds',
                     LODCutoff = 1000,
                     MeshName = '/units/INA4001/INA4001_Lod0.scm',
@@ -223,30 +223,30 @@ UnitBlueprint {
             },
         },
         MovementEffects = {
-#            Air = {
-#                Effects = {
-#                    {
-#                        Bones = {
-#                            'exhaust_bottom',
-#                            'exhaust_left.001',
-#                            'exhaust_left.002',
-#                            'exhaust_right.001',
-#                            'exhaust_right.002',
-#                        },
-#                        Type = 'AirMoveExhaust02',
-#                    },
-#                },
-#            },
-#            BeamExhaust = {
-#                Bones = {
-#                    'exhaust_left.001',
-#                    'exhaust_left.002',
-#                    'exhaust_right.001',
-#                    'exhaust_right.002',
-#                },
-#                Cruise = true,
-#                Idle = true,
-#            },
+--            Air = {
+--                Effects = {
+--                    {
+--                        Bones = {
+--                            'exhaust_bottom',
+--                            'exhaust_left.001',
+--                            'exhaust_left.002',
+--                            'exhaust_right.001',
+--                            'exhaust_right.002',
+--                        },
+--                        Type = 'AirMoveExhaust02',
+--                    },
+--                },
+--            },
+--            BeamExhaust = {
+--                Bones = {
+--                    'exhaust_left.001',
+--                    'exhaust_left.002',
+--                    'exhaust_right.001',
+--                    'exhaust_right.002',
+--                },
+--                Cruise = true,
+--                Idle = true,
+--            },
         },
         PlaceholderMeshName = 'UXA0009',
         SpawnRandomRotation = false,

@@ -1,4 +1,4 @@
-# mass storage
+-- mass storage
 
 local NMassStorageUnit = import('/lua/nomadunits.lua').NMassStorageUnit
 

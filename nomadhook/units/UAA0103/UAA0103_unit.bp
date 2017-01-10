@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "uaa0103", # aeon T1 bomber
+    BlueprintId = "uaa0103", -- aeon T1 bomber
     Weapon = {
         {
             Buffs = {

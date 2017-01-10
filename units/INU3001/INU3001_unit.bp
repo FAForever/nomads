@@ -6,7 +6,7 @@ UnitBlueprint {
                 'CapacitorEngineering',
                 'CapacitorIntel',
                 'CapacitorRegen',
-#                'CapacitorROF',
+--                'CapacitorROF',
                 'CapacitorROFSCUGatling',
                 'CapacitorROFSCURailgun',
             },
@@ -751,50 +751,50 @@ UnitBlueprint {
             },
             Slot = 'RCH',
         },
-#        GunRightUpgrade = {
-#            AddDamage = 0,
-#            AddRateOfFire = 0.6667,
-#            AddRateOfFireIsMultiplier = false,
-#            AddRange = 10,
-#            BuildCostEnergy = 24000,
-#            BuildCostMass = 800,
-#            BuildTime = 2000,
-#            HideBones = {
-#                'Gatling_R_Barrels',
-#            },
-#            Icon = 'acu2',
-#            Name = '<LOC NomadSCUEnh_RightArmGunUpgrade_Help>Upgrade Right Arm Gun',
-#            ShowBones = {
-#                'GatlingBig_R',
-#                'GatlingBig_R_Barrels',
-#            },
-#            Prerequisite = 'GunRight',
-#            Slot = 'RCH',
-#            UpgradeEffectBones = {
-#                'Gatling_R',
-#            },
-#            UpgradeUnitAmbientBones = {
-#                'Torso',
-#            },
-#        },
-#        GunRightUpgradeRemove = {
-#            BuildCostEnergy = 1,
-#            BuildCostMass = 1,
-#            BuildTime = 0.1,
-#            HideBones = {
-#                'Bicep_R',
-#            },
-#            Icon = 'acu2',
-#            Name = '<LOC NomadSCUEnh_RightArmGunUpgrade_Remove>Remove Upgraded Right Arm Gun',
-#            Prerequisite = 'GunRightUpgrade',
-#            RemoveEnhancements = {
-#                'GunRight',
-#                'GunRightUpgrade',
-#                'GunRightUpgradeRemove',
-#            },
-#            RemovesRightArm = true,
-#            Slot = 'RCH',
-#        },
+--        GunRightUpgrade = {
+--            AddDamage = 0,
+--            AddRateOfFire = 0.6667,
+--            AddRateOfFireIsMultiplier = false,
+--            AddRange = 10,
+--            BuildCostEnergy = 24000,
+--            BuildCostMass = 800,
+--            BuildTime = 2000,
+--            HideBones = {
+--                'Gatling_R_Barrels',
+--            },
+--            Icon = 'acu2',
+--            Name = '<LOC NomadSCUEnh_RightArmGunUpgrade_Help>Upgrade Right Arm Gun',
+--            ShowBones = {
+--                'GatlingBig_R',
+--                'GatlingBig_R_Barrels',
+--            },
+--            Prerequisite = 'GunRight',
+--            Slot = 'RCH',
+--            UpgradeEffectBones = {
+--                'Gatling_R',
+--            },
+--            UpgradeUnitAmbientBones = {
+--                'Torso',
+--            },
+--        },
+--        GunRightUpgradeRemove = {
+--            BuildCostEnergy = 1,
+--            BuildCostMass = 1,
+--            BuildTime = 0.1,
+--            HideBones = {
+--                'Bicep_R',
+--            },
+--            Icon = 'acu2',
+--            Name = '<LOC NomadSCUEnh_RightArmGunUpgrade_Remove>Remove Upgraded Right Arm Gun',
+--            Prerequisite = 'GunRightUpgrade',
+--            RemoveEnhancements = {
+--                'GunRight',
+--                'GunRightUpgrade',
+--                'GunRightUpgradeRemove',
+--            },
+--            RemovesRightArm = true,
+--            Slot = 'RCH',
+--        },
         LeftRocket = {
             BuildCostEnergy = 36100,
             BuildCostMass = 900,
@@ -838,7 +838,7 @@ UnitBlueprint {
             BuildCostMass = 400,
             BuildTime = 1600,
             Icon = 'il',
-            Name = '<LOC NomadSCUEnh_MovementSpeedIncrease_Help>Improved Locomotor',  # https://www.youtube.com/watch?v=S3BNWHCOxaw
+            Name = '<LOC NomadSCUEnh_MovementSpeedIncrease_Help>Improved Locomotor',  -- https://www.youtube.com/watch?v=S3BNWHCOxaw
             SpeedMulti = 1.5,
             ShowBones = {
                 'BackUpg',
@@ -1148,7 +1148,7 @@ UnitBlueprint {
                 'GunRight',
                 'MovementSpeedIncrease',
             },
-            HelpText = '<LOC inu3001_fastcombat_help>Houses a Nomads soldier. Can be Customised as a heavy combatant, #improved T3 engineer or combination. Enhanced during construction with a machine gun and improved locomotor.',
+            HelpText = '<LOC inu3001_fastcombat_help>Houses a Nomads soldier. Can be Customised as a heavy combatant, --improved T3 engineer or combination. Enhanced during construction with a machine gun and improved locomotor.',
             SelectionPriority = 1,
             SortCategory = 'SORTSTRATEGIC',
             UnitName = '<LOC inu3001_fastcombat_name>Support Armored Command Unit (Preset: Fast Combat)',
@@ -1233,17 +1233,17 @@ UnitBlueprint {
             SortCategory = 'SORTOTHER',
             UnitName = '<LOC inu3001_rocket_name>Support Armored Command Unit (Preset: Rocket Launcher)',
         },
-#        Trooper = {
-#            BuildIconSortPriority = 25,
-#            Description = '<LOC inu3001_trooper_desc>Support Armored Command Unit (Preset: Trooper)',
-#            Enhancements = {
-#                'GunLeft',
-#            },
-#            HelpText = '<LOC inu3001_trooper_help>Houses a Nomads soldier. Can be Customised as a heavy combatant, #improved T3 engineer or combination. Enhanced during construction with a simple gun on its left arm.',
-#            SelectionPriority = 1,
-#            SortCategory = 'SORTSTRATEGIC',
-#            UnitName = '<LOC inu3001_trooper_name>Support Armored Command Unit (Preset: Trooper)',
-#        },
+--        Trooper = {
+--            BuildIconSortPriority = 25,
+--            Description = '<LOC inu3001_trooper_desc>Support Armored Command Unit (Preset: Trooper)',
+--            Enhancements = {
+--                'GunLeft',
+--            },
+--            HelpText = '<LOC inu3001_trooper_help>Houses a Nomads soldier. Can be Customised as a heavy combatant, --improved T3 engineer or combination. Enhanced during construction with a simple gun on its left arm.',
+--            SelectionPriority = 1,
+--            SortCategory = 'SORTSTRATEGIC',
+--            UnitName = '<LOC inu3001_trooper_name>Support Armored Command Unit (Preset: Trooper)',
+--        },
     },
     General = {
         BuildBones = {
@@ -1417,7 +1417,7 @@ UnitBlueprint {
             RackSlavedToTurret = false,
             RangeCategory = 'UWRC_DirectFire',
             RateOfFire = 0.5,
-            ReceiveROFBuff = true,  # used for gun upgrade
+            ReceiveROFBuff = true,  -- used for gun upgrade
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -1573,7 +1573,7 @@ UnitBlueprint {
             ProjectileId = '/projectiles/NRocketProj5/NRocketProj5_proj.bp',
             ProjectileIdDuringCapacitor = '/projectiles/NRocketProj4/NRocketProj4_proj.bp',
             ProjectileLifetime = 5,
-#            ProjectileLifetimeUsesMultiplier = 1,
+--            ProjectileLifetimeUsesMultiplier = 1,
             ProjectilesPerOnFire = 4,
             RackBones = {
                 {
@@ -1659,7 +1659,7 @@ UnitBlueprint {
             ProjectileId = '/projectiles/NRocketProj5/NRocketProj5_proj.bp',
             ProjectileIdDuringCapacitor = '/projectiles/NRocketProj4/NRocketProj4_proj.bp',
             ProjectileLifetime = 5,
-#            ProjectileLifetimeUsesMultiplier = 1,
+--            ProjectileLifetimeUsesMultiplier = 1,
             ProjectilesPerOnFire = 4,
             RackBones = {
                 {

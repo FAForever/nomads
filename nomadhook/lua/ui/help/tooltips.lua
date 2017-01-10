@@ -1,10 +1,10 @@
 do
 
-# TODO: make sure all tooltips are in
+-- TODO: make sure all tooltips are in
 
 local NomadTooltips = {
 
-    # Options stuff
+    -- Options stuff
     options_unitsnd_selection = {
         title = "<LOC NomadsNewOptions0006>Unit selection sounds",
         description = "<LOC NomadsNewOptions0005>Sets the audio response level when selecting units",
@@ -14,7 +14,7 @@ local NomadTooltips = {
         description = "<LOC NomadsNewOptions0015>Sets the audio response level when giving commands to units",
     },
 
-    # Game menu stuff
+    -- Game menu stuff
     lob_nomad = {
         title = "<LOC tooltip_lobby_nomadsfaction_title>Nomads (should not see this)",
         description = '<LOC tooltip_lobby_nomadsfaction_desc>',
@@ -24,7 +24,7 @@ local NomadTooltips = {
         description = '<LOC tooltip_lobby_unit_restriction_nonomads_desc>',
     },
 
-    # in game - toggles
+    -- in game - toggles
     toggle_radar_boost = {
         title = "<LOC tooltip_radar_boost_title>Radar Toggle",
         description = "<LOC tooltip_radar_boost_desc>Turn the selection units radar on/off",
@@ -54,7 +54,7 @@ local NomadTooltips = {
         description = "<LOC tooltip_stealthshield_desc>Turn the select units shield and stealth field on/off",
     },
 
-    # special ability texts
+    -- special ability texts
     specabil_launch_nuke = {
         title = "<LOC SpecAbil_LaunchNuke_title>",
         description = "<LOC SpecAbil_LaunchNuke_desc>",

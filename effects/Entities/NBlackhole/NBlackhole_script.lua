@@ -1,4 +1,4 @@
-# Nomad black hole
+-- Nomad black hole
 
 local NullShell = import('/lua/sim/defaultprojectiles.lua').NullShell
 local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
@@ -29,7 +29,7 @@ NBlackhole = Class(NullShell) {
         self.NukeBlackHoleFxScale = 1
         self:SetParent( self:GetLauncher() )
 
-        # make sure the black hole is above the surface
+        -- make sure the black hole is above the surface
         local pos = self:GetPosition()
         self.surfaceY = GetTerrainHeight(pos[1], pos[3]) + GetTerrainTypeOffset(pos[1], pos[3])
         if pos[2] < (self.surfaceY + 4) then
@@ -42,7 +42,7 @@ NBlackhole = Class(NullShell) {
         self.parent = parent
 
         if EntityCategoryContains( categories.COMMAND, parent ) then
-            # adjust effects for the ACU
+            -- adjust effects for the ACU
             self.BlackholeCoreFx = NomadEffectTemplate.ACUDeathBlackholeCore
             self.DissipatedFx = NomadEffectTemplate.ACUDeathBlackholeDissipated
             self.FlashFx = NomadEffectTemplate.ACUDeathBlackholeFlash
@@ -78,11 +78,11 @@ NBlackhole = Class(NullShell) {
     CreateNuclearExplosion = function(self)
         local lifetime = math.max( math.max( self.NukeOuterRingTotalTime, self.NukeInnerRingTotalTime ), self.NukeBlackHoleMinDuration )
 
-        # Create Damage Threads
+        -- Create Damage Threads
         self:ForkThread(self.OuterRingDamage)
         self:ForkThread(self.InnerRingDamage)
 
-        # Create thread that spawns and controls effects. Also eventually destroys this entity
+        -- Create thread that spawns and controls effects. Also eventually destroys this entity
         self:ForkThread(self.EffectThread, lifetime)
     end,
 
@@ -135,7 +135,7 @@ NBlackhole = Class(NullShell) {
     OnPropBeingSuckedIn = function(self, prop)
         table.insert( self.PropsBeingSuckedIn, prop )
 
-        # remember reclaim values
+        -- remember reclaim values
         local e = math.max(0, prop.EnergyReclaim or 0)
         local m = math.max(0, prop.MassReclaim or 0)
         local t = math.max(e * (prop.ReclaimTimeEnergyMult or 1), m * (prop.ReclaimTimeMassMult or 1))
@@ -147,10 +147,10 @@ NBlackhole = Class(NullShell) {
     OnUnitSuckedIn = function(self, unit, unitOverkillRatio)
         table.removeByValue( self.UnitsBeingSuckedIn, unit )
 
-        # some units are so overkilled that there's no reclaim to be added. In case no overkill is specified the assumption is also that
-        # no reclaim was left.
+        -- some units are so overkilled that there's no reclaim to be added. In case no overkill is specified the assumption is also that
+        -- no reclaim was left.
         if unitOverkillRatio and unitOverkillRatio >= 0 and unitOverkillRatio < 1 then
-            # remember reclaim values
+            -- remember reclaim values
             local bp = unit:GetBlueprint()
             local e = bp.Economy.BuildCostEnergy * (bp.Wreckage.EnergyMult or 0) * unit:GetFractionComplete() * (1 - unitOverkillRatio)
             local m = bp.Economy.BuildCostMass * (bp.Wreckage.MassMult or 0) * unit:GetFractionComplete() * (1 - unitOverkillRatio)
@@ -162,7 +162,7 @@ NBlackhole = Class(NullShell) {
     end,
 
     OnDestroy = function(self)
-        # notify units being sucked in that the black hole is gone
+        -- notify units being sucked in that the black hole is gone
         for k, unit in self.UnitsBeingSuckedIn do
             if unit and not unit:BeenDestroyed() then
                 unit:OnBlackHoleDissipated()
@@ -203,7 +203,7 @@ NBlackhole = Class(NullShell) {
         prop:SetHealth( self, resources['h'] )
     end,
 
-# ===========================================================================================================================================================
+-- ===========================================================================================================================================================
 
     EffectThread = function(self, lifetime)
         local army = self:GetArmy()
@@ -211,14 +211,14 @@ NBlackhole = Class(NullShell) {
         local cloudsBag = TrashBag()
         local threads = TrashBag()
 
-        # BLACK HOLE EFFECTS ===========================================
+        -- BLACK HOLE EFFECTS ===========================================
 
-        # in case this is the ACU death nuke making sure the effect can be seen by the defeated player
+        -- in case this is the ACU death nuke making sure the effect can be seen by the defeated player
         if self.IsAcuDeathNuke then
             self:Camera( nil, lifetime + 2.5 )
         end
 
-        # start effect threads
+        -- start effect threads
         threads:Add( self:ForkThread( self.CoreEffects, bag, lifetime) )
         threads:Add( self:ForkThread( self.RadiationJetEffects, bag, lifetime) )
         threads:Add( self:ForkThread( self.DisposableCoreEffects, bag, lifetime) )
@@ -227,38 +227,38 @@ NBlackhole = Class(NullShell) {
         threads:Add( self:ForkThread( self.LightningThread, bag, lifetime) )
         threads:Add( self:ForkThread( self.PropThread, bag, lifetime) )
 
-        # Create ground decals
+        -- Create ground decals
         local pos = self:GetPosition()
         local orientation = RandomFloat( 0, 2 * math.pi )
         CreateDecal(pos, orientation, 'Crater01_albedo', '', 'Albedo', 30, 30, 1200, 0, army)
         CreateDecal(pos, orientation, 'Crater01_normals', '', 'Normals', 30, 30, 1200, 0, army)
         CreateDecal(pos, orientation, 'nuke_scorch_003_albedo', '', 'Albedo', 30, 30, 1200, 0, army)
 
-        # wait till the lifetime (for the black hole) is over, clean up the effects and move on to the dissipating effects
+        -- wait till the lifetime (for the black hole) is over, clean up the effects and move on to the dissipating effects
         WaitSeconds( lifetime )
         bag:Destroy()
         threads:Destroy()
 
-        # BLACK HOLE DISSIPATING =======================================
+        -- BLACK HOLE DISSIPATING =======================================
 
         lifetime = 3.5
 
         threads:Add( self:ForkThread( self.DissipateEffects, bag, lifetime) )
 
-        # wait till the dissipating is over, clean up the effects and move on to the aftermath effects
+        -- wait till the dissipating is over, clean up the effects and move on to the aftermath effects
         WaitSeconds( lifetime )
         cloudsBag:Destroy()
         bag:Destroy()
         threads:Destroy()
 
-        # AFTERMATH ====================================================
+        -- AFTERMATH ====================================================
 
         lifetime = 20
 
-        # leave a wreckage to reclaim the sucked in mass (and energy)
+        -- leave a wreckage to reclaim the sucked in mass (and energy)
         local wreck = self:CreateWreckage()
 
-        # start effect threads
+        -- start effect threads
         threads:Add( self:ForkThread( self.AftermathExplosion, bag, lifetime, wreck ) )
         threads:Add( self:ForkThread( self.AftermathFireBalls, bag, lifetime, wreck ) )
         if self.logo then
@@ -275,7 +275,7 @@ NBlackhole = Class(NullShell) {
     end,
 
     Camera = function(self, bag, lifetime)
-        # creates a camera so the effect is visible through the fog
+        -- creates a camera so the effect is visible through the fog
         local pos = self:GetPosition()
         local spec = {
             X = pos[1],
@@ -299,7 +299,7 @@ NBlackhole = Class(NullShell) {
             Cue = name,
         })
         self:PlaySound(snd)
-        #LOG('PlayBlackholeSound = '..repr(name))
+        --LOG('PlayBlackholeSound = '..repr(name))
     end,
 
     PlayBlackholeAmbientSound = function(self, name)
@@ -317,7 +317,7 @@ NBlackhole = Class(NullShell) {
             Cue = name,
         })
         self.AmbientSounds[name]:SetAmbientSound( snd, nil )
-        #LOG('PlayBlackholeAmbientSound = '..repr(name))
+        --LOG('PlayBlackholeAmbientSound = '..repr(name))
     end,
 
     StopBlackholeAmbientSound = function(self, name)
@@ -325,16 +325,16 @@ NBlackhole = Class(NullShell) {
         self.AmbientSounds[name]:SetAmbientSound(nil, nil)
         self.AmbientSounds[name]:Destroy()
         self.AmbientSounds[name] = nil
-        #LOG('StopBlackholeAmbientSound = '..repr(name))
+        --LOG('StopBlackholeAmbientSound = '..repr(name))
     end,
 
-    # =======================================================================================================================
+    -- =======================================================================================================================
 
     CoreEffects = function(self, bag, lifetime)
         local army = self:GetArmy()
         local emit
 
-        # short flash
+        -- short flash
         self:ShakeCamera( 55, 2.5, 0, lifetime or 0.5 )
         CreateLightParticleIntel( self, -1, army, (10 * self.NukeBlackHoleFxScale), 2, 'glow_02', 'ramp_white_01')
         for k, v in self.FlashFx do
@@ -345,12 +345,12 @@ NBlackhole = Class(NullShell) {
 
         self:PlayBlackholeSound('Blackhole_FirstExplosion')
 
-        # knock down trees, etc
+        -- knock down trees, etc
         DamageRing(self, self:GetPosition(), 0.1, (30 * self.NukeBlackHoleFxScale), 1, 'ForceInwards', true)
         WaitSeconds(0.1)
         DamageRing(self, self:GetPosition(), 0.1, (30 * self.NukeBlackHoleFxScale), 1, 'ForceInwards', true)
 
-        # start up core black hole Fx
+        -- start up core black hole Fx
         for k, v in self.BlackholeCoreFx do
             emit = CreateEmitterOnEntity(self, army, v ):ScaleEmitter( self.NukeBlackHoleFxScale or 1 )
             self.Trash:Add( emit )
@@ -379,10 +379,10 @@ NBlackhole = Class(NullShell) {
             bag:Add( beam )
         end
 
-        # orient blackhole entity so the beam goes up
+        -- orient blackhole entity so the beam goes up
         self:SetOrientation(OrientFromDir(Vector(RandomFloat(-0.1, 0.1),-1,RandomFloat(-0.1, 0.1))), true)
 
-        # wait some time, then shrink the beams
+        -- wait some time, then shrink the beams
         WaitSeconds(lifetime/2)
         local frac
         for i=1, steps do
@@ -405,7 +405,7 @@ NBlackhole = Class(NullShell) {
     end,
 
     CloudsThread = function(self, bag, lifetime)
-        # creates the grey clouds moving in the hole
+        -- creates the grey clouds moving in the hole
 
         local projBp = '/effects/entities/NBlackholeEffect01/NBlackholeEffect01_proj.bp'
 
@@ -439,7 +439,7 @@ NBlackhole = Class(NullShell) {
     end, 
 
     CloudsThread2 = function(self, bag, lifetime)
-        # creates the white clouds moving in the hole
+        -- creates the white clouds moving in the hole
 
         local projBp = '/effects/entities/NBlackholeEffect02/NBlackholeEffect02_proj.bp'
 
@@ -473,7 +473,7 @@ NBlackhole = Class(NullShell) {
     end, 
 
     LightningThread = function(self, bag, lifetime)
-        # Creates a random lightning
+        -- Creates a random lightning
 
         local beamBps = { NomadEffectTemplate.NukeBlackholeEnergyBeam1, NomadEffectTemplate.NukeBlackholeEnergyBeam2, NomadEffectTemplate.NukeBlackholeEnergyBeam3, }
         local fxBp = NomadEffectTemplate.NukeBlackholeEnergyBeamEnd
@@ -487,7 +487,7 @@ NBlackhole = Class(NullShell) {
         local X, Y, Z, angle = 0,0,0,0,0
         local army = self:GetArmy()
 
-        # setting up the entities used to attach the end point of the beam on
+        -- setting up the entities used to attach the end point of the beam on
         for i=1, num do
             local entity = Entity()
             self.Trash:Add( entity )
@@ -499,11 +499,11 @@ NBlackhole = Class(NullShell) {
             entity.fx = false
         end
 
-        # keep doing lightning strikes everywhere until thread destroyed
+        -- keep doing lightning strikes everywhere until thread destroyed
         while self do
             for k, entity in entities do
 
-                if entity.counter <= 0 then  # if counter is 0 destroy beam and maybe create a new one
+                if entity.counter <= 0 then  -- if counter is 0 destroy beam and maybe create a new one
 
                     if entity.beam then
                         entity.fx:Destroy()
@@ -546,9 +546,9 @@ NBlackhole = Class(NullShell) {
     end,
 
     PropThread = function(self, bag, lifetime)
-        # creates effects at props that look like parts of it are sucked in the black hole.
-        # Using entities oriented towards the blackhole. If the emitter emits particles along the Z axis they'll go towards the black hole.
-        # no need to do waits, the emitters remain until destroyed or their lifetime runs out.
+        -- creates effects at props that look like parts of it are sucked in the black hole.
+        -- Using entities oriented towards the blackhole. If the emitter emits particles along the Z axis they'll go towards the black hole.
+        -- no need to do waits, the emitters remain until destroyed or their lifetime runs out.
 
         local CreateEffect = function(self, bag, lifetime, pos)
             local vector = VDiff( pos, self:GetPosition() )
@@ -580,12 +580,12 @@ NBlackhole = Class(NullShell) {
         end
     end,
 
-    # =======================================================================================================================
+    -- =======================================================================================================================
 
     DissipateEffects = function(self, bag, lifetime)
-        # deals with the dissipating
+        -- deals with the dissipating
 
-        # notify units and props being sucked in that the black hole is gone
+        -- notify units and props being sucked in that the black hole is gone
         for k, unit in self.UnitsBeingSuckedIn do
             if unit and not unit:BeenDestroyed() then
                 unit:OnBlackHoleDissipated()
@@ -601,7 +601,7 @@ NBlackhole = Class(NullShell) {
 
         local army = self:GetArmy()
 
-        # create core black hole again but scale it down over 'lifetime'
+        -- create core black hole again but scale it down over 'lifetime'
         local emitters = {}
         for k, v in self.BlackholeCoreFx do
             emit = CreateEmitterOnEntity(self, army, v ):ScaleEmitter( self.NukeBlackHoleFxScale or 1 )
@@ -610,13 +610,13 @@ NBlackhole = Class(NullShell) {
             bag:Add( emit )
         end
 
-        # small glow, simulates the black hole getting not black anymore
+        -- small glow, simulates the black hole getting not black anymore
         CreateLightParticleIntel(self, -1, army, 2 * (self.NukeBlackHoleFxScale or 1), (40 * lifetime), 'glow_03', 'ramp_white_02')
 
         self:StopBlackholeAmbientSound('Blackhole_Loop')
         self:PlayBlackholeSound('Blackhole_Fadeout')
 
-        # create core black hole again but scale it down over 'lifetime'
+        -- create core black hole again but scale it down over 'lifetime'
         local dissipEmts = {}
         for k, v in self.BlackholeDissipatingFx do
             emit = CreateEmitterOnEntity(self, army, v ):ScaleEmitter( self.NukeBlackHoleFxScale or 1 )
@@ -625,9 +625,9 @@ NBlackhole = Class(NullShell) {
             bag:Add( emit )
         end
 
-        # each 0.1 seconds scale the effect down
+        -- each 0.1 seconds scale the effect down
         local declScale = self.NukeBlackHoleFxScale or 1
-        local declStep = declScale / (lifetime / 0.18)  # by diving by more than 0.1 the effect will appear gone completely for a moment
+        local declStep = declScale / (lifetime / 0.18)  -- by diving by more than 0.1 the effect will appear gone completely for a moment
         local lifetimeGrowFx = (lifetime / 0.1) - (lifetime / 0.15)
         local growScale = 0
         local growStep = (self.NukeBlackHoleFxScale or 1) / lifetimeGrowFx
@@ -647,14 +647,14 @@ NBlackhole = Class(NullShell) {
         end
     end,
 
-    # =======================================================================================================================
+    -- =======================================================================================================================
 
     AftermathExplosion = function(self, bag, lifetime, wreck)
-        # creates a flash and shockwave
+        -- creates a flash and shockwave
 
         local army = self:GetArmy()
 
-        # warp to surface position for the aftermath
+        -- warp to surface position for the aftermath
         local pos = self:GetPosition()
         pos[2] = GetTerrainHeight(pos[1], pos[3]) + GetTerrainTypeOffset(pos[1], pos[3]) + 1
         Warp( self, pos )
@@ -673,8 +673,8 @@ NBlackhole = Class(NullShell) {
     end,
 
     AftermathFireBalls = function(self, bag, lifetime, wreck)
-# TODO: add more particles, this can be much more dramatic
-        # creates fireballs in the air flying outwards in a nice arc
+-- TODO: add more particles, this can be much more dramatic
+        -- creates fireballs in the air flying outwards in a nice arc
 
         local fireballs = Random( 6, 10)
         if fireballs < 1 then
@@ -716,17 +716,17 @@ NBlackhole = Class(NullShell) {
     end,
 
     AftermathFireArmsRandom = function(self, bag, lifetime, wreck)
-        # creates several fires in a line outward from the black hole area
+        -- creates several fires in a line outward from the black hole area
 
         wreck:SetCanTakeDamage(false)
 
-        # fire effect blueprints. The first is the close to the center so this should be a large effect. The last one is far away and should be smallish
+        -- fire effect blueprints. The first is the close to the center so this should be a large effect. The last one is far away and should be smallish
         local FireArmTempl = { NomadEffectTemplate.NukeBlackholeFireArmSegment1, NomadEffectTemplate.NukeBlackholeFireArmSegment2, 
                                NomadEffectTemplate.NukeBlackholeFireArmSegment3, NomadEffectTemplate.NukeBlackholeFireArmSegment4, 
                                NomadEffectTemplate.NukeBlackholeFireArmSegment5, }
         local FireCntrTempl =  NomadEffectTemplate.NukeBlackholeFireArmCenter1
 
-        # Length is the length of the fire 'arms'. The effect emitters don't grow so if changed don't forget to update the emitters aswell
+        -- Length is the length of the fire 'arms'. The effect emitters don't grow so if changed don't forget to update the emitters aswell
         local maxLength = 16
         local arms = Random( 5, 8)
 
@@ -735,7 +735,7 @@ NBlackhole = Class(NullShell) {
         local randomAngle, offset, height, curAngle, X, Z, offset, pos, entity, emit = 0, 0, 0, 0, 0, 0, 0
         local army = self:GetArmy()
 
-        # creating center fire
+        -- creating center fire
         for k, v in FireCntrTempl do
             emit = CreateEmitterAtEntity( self, army, v )
             self.Trash:Add( emit )
@@ -743,7 +743,7 @@ NBlackhole = Class(NullShell) {
             DamageArea(self, self:GetPosition(), (12 * self.NukeBlackHoleFxScale), 1, 'BigFire', true)
         end
 
-        # creating fire arms
+        -- creating fire arms
         for i = 0, (arms-1) do
 
             randomAngle = 0.3 * RandomFloat( -angle, angle )
@@ -780,7 +780,7 @@ NBlackhole = Class(NullShell) {
     end,
 
     AftermathFireArmsLogo = function(self, bag, lifetime, wreck)
-        # creates the nomad logo in fire
+        -- creates the nomad logo in fire
 
         wreck:SetCanTakeDamage(false)
 

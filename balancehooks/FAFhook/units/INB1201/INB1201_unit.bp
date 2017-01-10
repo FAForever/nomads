@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "inb1201", # T2 pgen
+    BlueprintId = "inb1201", -- T2 pgen
     Economy = {
         BuildTime = 2198,
     },

@@ -1,4 +1,4 @@
-# t1 land scout
+-- t1 land scout
 
 local AddAnchorAbilty = import('/lua/nomadutils.lua').AddAnchorAbilty
 local NHoverLandUnit = import('/lua/nomadunits.lua').NHoverLandUnit

@@ -1,4 +1,4 @@
-# T1 gunship
+-- T1 gunship
 
 local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
 local SupportingArtilleryAbility = import('/lua/nomadutils.lua').SupportingArtilleryAbility
@@ -40,13 +40,13 @@ INA1004 = Class(NAirTransportUnit) {
         NAirTransportUnit.OnMotionVertEventChange( self, new, old )
         self:UpdateHoverEmitter(new, old)
 
-        # special abilities only available when on cruising height
+        -- special abilities only available when on cruising height
         if new == 'Top' then
-            # unit reaching target altitude, coming from surface
+            -- unit reaching target altitude, coming from surface
             self:EnableArtillerySupport(true)
 
         elseif new == 'Down' then
-            # unit starts landing
+            -- unit starts landing
             self:EnableArtillerySupport(false)
         end
     end,
@@ -56,7 +56,7 @@ INA1004 = Class(NAirTransportUnit) {
             local r = self.BarrelAnim:GetRate()
             local f = self.BarrelAnim:GetAnimationFraction()
             if r == 0 then
-                #LOG('INA1004: Not watching barrel anim because animation rate is 0')
+                --LOG('INA1004: Not watching barrel anim because animation rate is 0')
                 return
             elseif (r > 0 and f >= fraction) or (r < 0 and f <= fraction) then
                 self.BarrelAnim:SetRate(0)

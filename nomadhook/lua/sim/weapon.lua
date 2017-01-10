@@ -1,6 +1,6 @@
 do
 
-# Small modification that allows requesting weapon enabled state
+-- Small modification that allows requesting weapon enabled state
 
 local oldWeapon = Weapon
 Weapon = Class(oldWeapon) {
@@ -41,10 +41,10 @@ Weapon = Class(oldWeapon) {
     end,
 
     OnLayerChange = function(self, new, old)
-        #LOG('*DEBUG: Weapon OnLayerChange new = '..repr(new)..' old = '..repr(old))
+        --LOG('*DEBUG: Weapon OnLayerChange new = '..repr(new)..' old = '..repr(old))
     end,
 
-    # allowing the unit stun script to halt fire of this weapon
+    -- allowing the unit stun script to halt fire of this weapon
     OnHaltFire = function(self)
         self.HaltFireOrdered = true
     end,
@@ -59,7 +59,7 @@ Weapon = Class(oldWeapon) {
     end,
 
     SetOnTransport = function(self, transportstate)
-        # remember previous weapon state when going in transport and revert to that when going out of transport
+        -- remember previous weapon state when going in transport and revert to that when going out of transport
         if not self.unit:GetBlueprint().Transport.CanFireFromTransport then
             if transportstate then
                 self.WeaponDisabledOnTransportWasEnabled = self:IsEnabled()
@@ -77,7 +77,7 @@ Weapon = Class(oldWeapon) {
     end,
 
     SetupTurret = function(self)
-        # First part rewritten to allow for individual targeting dual weapon turrets
+        -- First part rewritten to allow for individual targeting dual weapon turrets
 
         local bp = self:GetBlueprint()
         local yawBone = bp.TurretBoneYaw
@@ -98,12 +98,12 @@ Weapon = Class(oldWeapon) {
                 local pitchBone2 = bp.TurretBoneDualPitch
                 local muzzleBone2 = bp.TurretBoneDualMuzzle
 
-                if (yawBone2 != nil and not self.unit:ValidateBone(yawBone2)) or not self.unit:ValidateBone(pitchBone2) or not self.unit:ValidateBone(muzzleBone2) then
+                if (yawBone2 ~= nil and not self.unit:ValidateBone(yawBone2)) or not self.unit:ValidateBone(pitchBone2) or not self.unit:ValidateBone(muzzleBone2) then
                     error('*ERROR: Bone aborting turret setup due to Dual yaw/pitch/muzzle bone issues.', 2)
                     return
                 end
 
-                if bp.TurretBoneDualYaw then ### dual turret - individual targeting
+                if bp.TurretBoneDualYaw then ------ dual turret - individual targeting
 
                     self.AimControl = CreateAimController(self, 'Torso', yawBone)
                     self.AimRight = CreateAimController(self, 'Right', yawBone, pitchBone, muzzleBone)
@@ -120,20 +120,20 @@ Weapon = Class(oldWeapon) {
                     self.unit.Trash:Add(self.AimRight)
                     self.unit.Trash:Add(self.AimLeft)
 
-                    # only allow alternate if different aim bones are used and not all racks are fired together
-                    self.DoAlternateDualAimController = bp.RackFireTogether != true and (bp.TurretDualManipulatorsAlternate == true or bp.TurretDualManipulatorsAlternate == nil)
+                    -- only allow alternate if different aim bones are used and not all racks are fired together
+                    self.DoAlternateDualAimController = bp.RackFireTogether ~= true and (bp.TurretDualManipulatorsAlternate == true or bp.TurretDualManipulatorsAlternate == nil)
 
-                    # when doing alternate fire verify required BP keys are present and valid
+                    -- when doing alternate fire verify required BP keys are present and valid
                     if self.DoAlternateDualAimController then
-                        # do BP checks
+                        -- do BP checks
                         for n, rack in bp.RackBones do
-                            if rack.TurretBoneDualManip != 'Left' and rack.TurretBoneDualManip != 'Right' then
+                            if rack.TurretBoneDualManip ~= 'Left' and rack.TurretBoneDualManip ~= 'Right' then
                                 WARN('*DEBUG: unit '..self.unit:GetUnitId()..', TurretBoneDualManip should have value Left or Right, not '..repr(switchTo)..' in weapon rack '..repr(self.CurrentRackSalvoNumber)..' of weapon '..bp.DisplayName)
                             end
                         end
                     end
 
-                else  ### dual turret - always right (original game)
+                else  ------ dual turret - always right (original game)
 
                     self.AimControl = CreateAimController(self, 'Torso', yawBone)
                     self.AimRight = CreateAimController(self, 'Right', pitchBone, pitchBone, muzzleBone)
@@ -153,7 +153,7 @@ Weapon = Class(oldWeapon) {
                     self.unit.Trash:Add(self.AimLeft)
                 end
 
-            else ### single turret (1 barrel)
+            else ------ single turret (1 barrel)
 
                 self.AimControl = CreateAimController(self, 'Default', yawBone, pitchBone, muzzleBone)
                 if EntityCategoryContains(categories.STRUCTURE, self.unit) then
@@ -163,7 +163,7 @@ Weapon = Class(oldWeapon) {
                 self.AimControl:SetPrecedence(precedence)
                 if bp.RackSlavedToTurret and table.getn(bp.RackBones) > 0 then
                     for k, v in bp.RackBones do
-                        if v.RackBone != pitchBone then
+                        if v.RackBone ~= pitchBone then
                             local slaver = CreateSlaver(self.unit, v.RackBone, pitchBone)
                             slaver:SetPrecedence(precedence-1)
                             self.unit.Trash:Add(slaver)
@@ -181,7 +181,7 @@ Weapon = Class(oldWeapon) {
         local turretyawmin, turretyawmax, turretyawspeed
         local turretpitchmin, turretpitchmax, turretpitchspeed
 
-        #SETUP MANIPULATORS AND SET TURRET YAW, PITCH AND SPEED
+        --SETUP MANIPULATORS AND SET TURRET YAW, PITCH AND SPEED
         if self:GetBlueprint().TurretYaw and self:GetBlueprint().TurretYawRange then
             turretyawmin, turretyawmax = self:GetTurretYawMinMax()
         else
@@ -220,15 +220,15 @@ Weapon = Class(oldWeapon) {
 
     GetNextRackSalvoNumber = function(self)
         local bp = self:GetBlueprint()
-        local next = (self.CurrentRackSalvoNumber or (table.getn(bp.RackBones) + 1)) - 1  # minus one to correct for RackSalvoFiringState.Main, it leaves the variable one too
-        if next > table.getn(bp.RackBones) then                                           # high. Also, the last rackbone seems to fire first so use that as default.
+        local next = (self.CurrentRackSalvoNumber or (table.getn(bp.RackBones) + 1)) - 1  -- minus one to correct for RackSalvoFiringState.Main, it leaves the variable one too
+        if next > table.getn(bp.RackBones) then                                           -- high. Also, the last rackbone seems to fire first so use that as default.
             next = 1
         end
         return next
     end,
 
     SwitchAimController = function(self)
-        # Alternate between aim controller after each shot so each barrel fires at the unit and no shots are wasted.
+        -- Alternate between aim controller after each shot so each barrel fires at the unit and no shots are wasted.
         if self.DoAlternateDualAimController then
             if self.AlternateDualAimCtrlThread then
                 KillThread(self.AlternateDualAimCtrlThread)
@@ -238,7 +238,7 @@ Weapon = Class(oldWeapon) {
             local bp = self:GetBlueprint()
             local rack = bp.RackBones[ self:GetNextRackSalvoNumber() ]
             local switchTo = rack.TurretBoneDualManip
-            local delay = rack.TurretBoneDualManipSwitchDelay or (0.2 * (1 / self:GetRateOfFire())) # switch when half way to next salvo, calculate in real time to include buffs and alike
+            local delay = rack.TurretBoneDualManipSwitchDelay or (0.2 * (1 / self:GetRateOfFire())) -- switch when half way to next salvo, calculate in real time to include buffs and alike
 
             self.AlternateDualAimCtrlThread = self:ForkThread( self.SwitchAimControllerThread, switchTo, delay )
         end
@@ -248,7 +248,7 @@ Weapon = Class(oldWeapon) {
         local bp = self:GetBlueprint()
         local precedence = bp.AimControlPrecedence or 10
 
-        if delay >= 0.1 then  # if delay is less than 0 don't wait at all
+        if delay >= 0.1 then  -- if delay is less than 0 don't wait at all
             WaitSeconds(delay)
             if self and self.unit and not self.unit:IsDead() then
                 return

@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "ina3006", # T3 Gunship
+    BlueprintId = "ina3006", -- T3 Gunship
     Air = {
         MaxAirspeed = 10,
     },

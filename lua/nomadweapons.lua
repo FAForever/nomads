@@ -10,15 +10,15 @@ local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
 local RandomFloat = import('/lua/utilities.lua').GetRandomFloat
 
 
-# ====================================================================================================
+-- ====================================================================================================
 
 OverchargeWeapon = Class(DefaultProjectileWeapon) {
-# TODO: used?
+-- TODO: used?
     FxMuzzleFlash = EffectTemplate.TCommanderOverchargeFlash01,
 }
 
 AcuUpgradedWeapon = Class(DefaultProjectileWeapon) {
-# TODO: used?
+-- TODO: used?
     FxMuzzleFlash = EffectTemplate.TLaserMuzzleFlash,
 }
 
@@ -57,12 +57,12 @@ DarkMatterWeapon1 = Class(DefaultProjectileWeapon) {
 EMPGun = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = NomadEffectTemplate.EMPGunMuzzleFlash,
 
-# DamageToShields globally implemented in defaultweapons.lua and projectile.lua per build 41
-#    GetDamageTable = function(self)
-#        local damageTable = DefaultProjectileWeapon.GetDamageTable(self)
-#        damageTable.DamageToShields = self:GetBlueprint().DamageToShields
-#        return damageTable
-#    end,
+-- DamageToShields globally implemented in defaultweapons.lua and projectile.lua per build 41
+--    GetDamageTable = function(self)
+--        local damageTable = DefaultProjectileWeapon.GetDamageTable(self)
+--        damageTable.DamageToShields = self:GetBlueprint().DamageToShields
+--        return damageTable
+--    end,
 }
 
 RailgunWeapon1 = Class(DefaultProjectileWeapon) {
@@ -113,7 +113,7 @@ GattlingWeapon1 = Class(DefaultProjectileWeapon) {
         DefaultProjectileWeapon.OnCreate(self)
 
         local bp = self:GetBlueprint()
-        self.Rotates = (bp.GattlingBarrelBone != nil)
+        self.Rotates = (bp.GattlingBarrelBone ~= nil)
         if self.Rotates then
             if not bp.GattlingBarrelBone then
                 WARN('GattlingWeapon: no barrel bone defined in weapon blueprint for unit '..repr(self.unit:GetUnitId()))
@@ -131,13 +131,13 @@ GattlingWeapon1 = Class(DefaultProjectileWeapon) {
     end,
 
     SetBarrelRotating = function(self, enabled)
-        # makes gattling weapon barrel spinning or still
+        -- makes gattling weapon barrel spinning or still
         if self.Rotates then
             local speed = 0
             if enabled then
                 speed = self:GetBlueprint().GattlingBarrelRotationSpeed or (self:GetRateOfFire() * 100)
                 self:PlayWeaponSound('SpinningStart')
-                self:PlayWeaponAmbientSound('SpinningLoop')  # can use BarrelLoop as with other gatlings. See original OnStartTracking fn.
+                self:PlayWeaponAmbientSound('SpinningLoop')  -- can use BarrelLoop as with other gatlings. See original OnStartTracking fn.
             else
                 if self.IsRotating then
                     self:StopWeaponAmbientSound('SpinningLoop')
@@ -151,12 +151,12 @@ GattlingWeapon1 = Class(DefaultProjectileWeapon) {
 
     PlayFxWeaponUnpackSequence = function(self)
         DefaultProjectileWeapon.PlayFxWeaponPackSequence(self)
-        # we started unpacking the weapon, begin spinning barrel
+        -- we started unpacking the weapon, begin spinning barrel
         self:SetBarrelRotating( true )
     end,
 
     PlayFxWeaponPackSequence = function(self)
-        # we stopped firing, stop rotating barrel
+        -- we stopped firing, stop rotating barrel
         self:SetBarrelRotating( false )
         DefaultProjectileWeapon.PlayFxWeaponPackSequence(self)
     end,
@@ -195,7 +195,7 @@ EMPMissileWeapon = Class(DefaultProjectileWeapon) {
 }
 
 TacticalMissileWeapon1 = Class(DefaultProjectileWeapon) {
-# Use NumChildProjectiles in the BP to tell the weapon to split up in this many child projectiles when close to the target.
+-- Use NumChildProjectiles in the BP to tell the weapon to split up in this many child projectiles when close to the target.
     FxMuzzleFlash = NomadEffectTemplate.TacticalMissileMuzzleFx,
 
     CreateProjectileAtMuzzle = function(self, muzzle)
@@ -348,7 +348,7 @@ StrategicMissileWeapon = Class(DefaultProjectileWeapon) {
 StrategicMissileDefenseWeapon = Class(DefaultProjectileWeapon) {}
 
 DeathNuke = Class(BareBonesWeapon) {
-    FiringMuzzleBones = {0}, # just fire from the base bone of the unit
+    FiringMuzzleBones = {0}, -- just fire from the base bone of the unit
 
     OnCreate = function(self)
         BareBonesWeapon.OnCreate(self)
@@ -391,7 +391,7 @@ DeathNuke = Class(BareBonesWeapon) {
 }
 
 DeathEnergyBombWeapon = Class(BareBonesWeapon) {
-    FiringMuzzleBones = {0}, # just fire from the base bone of the unit
+    FiringMuzzleBones = {0}, -- just fire from the base bone of the unit
 
     OnCreate = function(self)
         BareBonesWeapon.OnCreate(self)
@@ -415,9 +415,9 @@ DeathEnergyBombWeapon = Class(BareBonesWeapon) {
     end,
 }
 
-#------------------------------------------------------------------------
-# Mothership weapons
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+-- Mothership weapons
+--------------------------------------------------------------------------
 
 OrbitalMissileWeapon = Class(DefaultProjectileWeapon) {
 
@@ -448,7 +448,7 @@ OrbitalMissileWeapon = Class(DefaultProjectileWeapon) {
         if self.CurTargetPos then
             self:SetEnabled( true )
             self:SetTargetGround( self.CurTargetPos )
-            self:DelayedSetDisabled(10)  # fail-safe. in rare cases the weapon is not disabled and that breaks orbital striking
+            self:DelayedSetDisabled(10)  -- fail-safe. in rare cases the weapon is not disabled and that breaks orbital striking
         else
             self:SetEnabled( false )
             WARN('OrbitalMissileWeapon: AssignTarget: no valid target!')
@@ -458,7 +458,7 @@ OrbitalMissileWeapon = Class(DefaultProjectileWeapon) {
     CreateProjectileForWeapon = function(self, bone)
         local proj = DefaultProjectileWeapon.CreateProjectileForWeapon( self, bone )
         if proj and not proj:BeenDestroyed() then
-            # give the projectile a target. Prevents an issue where the missile keeps flying straight, don't remove.
+            -- give the projectile a target. Prevents an issue where the missile keeps flying straight, don't remove.
             if self.CurTargetPos then
                 proj:SetNewTargetGround( self.CurTargetPos )
                 self:SetTargetGround( self.CurTargetPos )
@@ -501,14 +501,14 @@ OrbitalEnergyCannon = Class(DefaultProjectileWeapon) {
     FxChargeMuzzleFlash = {},
     FxMuzzleFlash = {},
 
-    IfTargetPosUnknownUseLastKnown = true,  # enable to try to prevent not firing projectiles cause no target location is known
+    IfTargetPosUnknownUseLastKnown = true,  -- enable to try to prevent not firing projectiles cause no target location is known
 
     CreateProjectileAtMuzzle = function(self, muzzle)
-        # creates a projectile in the sky that falls down on the target destination.
+        -- creates a projectile in the sky that falls down on the target destination.
 
         local pos, proj, maxOffset, angle, velocity, bp
 
-        # determine impact position. This is the targets position
+        -- determine impact position. This is the targets position
         if self:GetCurrentTargetPos() then
             pos = self:GetCurrentTargetPos()
 
@@ -531,7 +531,7 @@ OrbitalEnergyCannon = Class(DefaultProjectileWeapon) {
         self.LastKnownTargetPos = pos
         bp = self:GetBlueprint()
 
-        # create projectile and position it above the target location. keep firing randomness in mind
+        -- create projectile and position it above the target location. keep firing randomness in mind
         proj = DefaultProjectileWeapon.CreateProjectileAtMuzzle(self, muzzle)
         maxOffset = bp.FiringRandomness or 1
         velocity = bp.MuzzleVelocity or 100
@@ -548,11 +548,11 @@ OrbitalEnergyCannon = Class(DefaultProjectileWeapon) {
     end,
 }
 
-#------------------------------------------------------------------------
-# Flame weapons
-#------------------------------------------------------------------------
-# Nomads is not using these anymore. Have 1 - 3 units with this weapon fire at the same time and you'll notice why...
-# Also the emitter limit is reached pretty quickly. Left in here for other modders to use.
+--------------------------------------------------------------------------
+-- Flame weapons
+--------------------------------------------------------------------------
+-- Nomads is not using these anymore. Have 1 - 3 units with this weapon fire at the same time and you'll notice why...
+-- Also the emitter limit is reached pretty quickly. Left in here for other modders to use.
 
 Flamer = Class(DefaultProjectileWeapon) {
 
@@ -571,19 +571,19 @@ Flamer = Class(DefaultProjectileWeapon) {
     end,
 
     CalcScale = function(self)
-        # set the effect scale, works properly for the default flamer effect only
+        -- set the effect scale, works properly for the default flamer effect only
         local maxRadius = self:GetBlueprint().MaxRadius or 12
         self.FlameScale = maxRadius / 12
     end,
 
     CreateProjectileForWeapon = function(self, bone)
-        # when firing a first projectile add the flamer effect to the muzzle. Don't take it off until we're done shooting.
+        -- when firing a first projectile add the flamer effect to the muzzle. Don't take it off until we're done shooting.
 
         DefaultProjectileWeapon.CreateProjectileForWeapon(self, bone)
 
         self.FlameTimer = 0
 
-        # attaches the flame effect to the weapon muzzle if not done yet
+        -- attaches the flame effect to the weapon muzzle if not done yet
         if self.FlameTimer <= 0 then
 
             local army = self.unit:GetArmy()
@@ -593,13 +593,13 @@ Flamer = Class(DefaultProjectileWeapon) {
                 self.unit.Trash:Add( emit )
             end
 
-            # start the effect removal timer
+            -- start the effect removal timer
             self.FlameTimerThreadHandle = self:ForkThread( self.FlameTimerThread )
         end
     end,
 
     FlameTimerThread = function(self)
-        # decreases the counter value, when it reaches max the flame effect is removed.
+        -- decreases the counter value, when it reaches max the flame effect is removed.
         local max = 20 / (self:GetBlueprint().RateOfFire or 1)
         while self and self.unit and not self.unit:BeenDestroyed() and not self.unit:IsDead() and self.FlameTimer <= max do
             WaitTicks(1)
@@ -611,7 +611,7 @@ Flamer = Class(DefaultProjectileWeapon) {
     end,
 
     SetWeaponEnabled = function(self, enable)
-        # Create a flame FX or remove it
+        -- Create a flame FX or remove it
         DefaultProjectileWeapon.SetWeaponEnabled(self, enable)
 
         if enable then

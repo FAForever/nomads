@@ -1,4 +1,4 @@
-# T3 SCU factory
+-- T3 SCU factory
 
 local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
 local AddLights = import('/lua/nomadutils.lua').AddLights
@@ -31,12 +31,12 @@ INB0304 = Class(NSCUFactoryUnit) {
     end,
 
     OnStopBeingBuilt = function(self, builder, layer)
-        # self being build
+        -- self being build
         NSCUFactoryUnit.OnStopBeingBuilt(self, builder, layer)
     end,
 
     OnStartBuild = function(self, unitBeingBuilt, order)
-        # start building a unit
+        -- start building a unit
         NSCUFactoryUnit.OnStartBuild(self, unitBeingBuilt, order)
 
         local ubp = unitBeingBuilt:GetBlueprint()
@@ -49,12 +49,12 @@ INB0304 = Class(NSCUFactoryUnit) {
     end,
 
     OnStopBuild = function(self, unitBeingBuilt)
-        # stop building a unit
+        -- stop building a unit
         NSCUFactoryUnit.OnStopBuild(self, unitBeingBuilt)
     end,
 
     OnFailedToBuild = function(self)
-        # failed to build because the user cancelled construction or the factory was destroyed
+        -- failed to build because the user cancelled construction or the factory was destroyed
         NSCUFactoryUnit.OnFailedToBuild(self)
         self:DestroyPartArrivesByDropshipThread()
     end,
@@ -63,7 +63,7 @@ INB0304 = Class(NSCUFactoryUnit) {
         self:SetBusy(true)
         self:SetBlockCommandQueue(true)
 
-        # waiting for head attached to body (see thread below)
+        -- waiting for head attached to body (see thread below)
         while self and not self:IsDead() and self.PABD_progress < 10 do
             WaitTicks(1)
         end
@@ -73,15 +73,15 @@ INB0304 = Class(NSCUFactoryUnit) {
 
     PartArrivesByDropshipThread = function(self, unitBeingBuilt)
 
-        # The bones that are supposed to arrive by dropship are hidden and a lookalike is created that shows these hidden bones. Bones can't
-        # be hidden on the lookalike so a seperate model has to be created that is exactly the same as the hidden bones on the unit.
-        # 2 models that appear to be one, it's all trickery and deceit!
+        -- The bones that are supposed to arrive by dropship are hidden and a lookalike is created that shows these hidden bones. Bones can't
+        -- be hidden on the lookalike so a seperate model has to be created that is exactly the same as the hidden bones on the unit.
+        -- 2 models that appear to be one, it's all trickery and deceit!
 
         local ubp = unitBeingBuilt:GetBlueprint()
         local ubbBone = ubp.Display.BuildEffect.PartArrivesByDropshipBone
         local pos = self:GetPosition('TractorFocus')
 
-        # creating and positioning lookalike
+        -- creating and positioning lookalike
         self.lookalike = Entity()
         self.Trash:Add( self.lookalike )
         self.lookalike:SetPosition( pos, true )
@@ -91,10 +91,10 @@ INB0304 = Class(NSCUFactoryUnit) {
         self.TractorSlider:SetGoal(0,0,0)
         self.TractorSlider:SetSpeed(-1)
 
-        # hiding bone on the unit being build
+        -- hiding bone on the unit being build
         unitBeingBuilt:HideBone(ubbBone, true)
 
-        # additional effects
+        -- additional effects
         self:CreateTractorBeamFx()
 
         self.PABD_progress = 0
@@ -104,7 +104,7 @@ INB0304 = Class(NSCUFactoryUnit) {
 
             WaitTicks(1)
 
-            # checking current progress to determine the current state ---------------------------
+            -- checking current progress to determine the current state ---------------------------
 
             ok = (self and not self:IsDead() and unitBeingBuilt and not unitBeingBuilt:IsDead())
             if not ok then
@@ -117,36 +117,36 @@ INB0304 = Class(NSCUFactoryUnit) {
                 self.PABD_progress = 1
             end
 
-            # handling that state ----------------------------------------------------------------
+            -- handling that state ----------------------------------------------------------------
 
-            # Not using elseif on purpuse, in case the progress goes from 0 to 9 in 1 tick we still need to do all intermediate states
+            -- Not using elseif on purpuse, in case the progress goes from 0 to 9 in 1 tick we still need to do all intermediate states
 
             if self.PABD_progress == prevProg then
-                # no need to do the same thing twice
+                -- no need to do the same thing twice
                 continue
             end
 
             if self.PABD_progress == 99 then
-                # something died. Stop this.
-                #LOG('*DEBUG: INB0304 something died.')
+                -- something died. Stop this.
+                --LOG('*DEBUG: INB0304 something died.')
 
                 self:DestroyPartArrivesByDropshipThread()
                 break
             end
 
             if self.PABD_progress == 0 then
-                # wait till progressed far enough
-                #LOG('*DEBUG: INB0304 waiting till unit construction progress is far enough')
+                -- wait till progressed far enough
+                --LOG('*DEBUG: INB0304 waiting till unit construction progress is far enough')
             end
 
             if self.PABD_progress == 1 or (prevProg < 1 and self.PABD_progress > 1) then
-                # start moving head to body
-                #LOG('*DEBUG: INB0304 move head to body')
+                -- start moving head to body
+                --LOG('*DEBUG: INB0304 move head to body')
 
                 local FocusCurPos = self:GetPosition('TractorFocus')
                 local TarPos = unitBeingBuilt:GetPosition(ubbBone)
                 local SliderGoal = import('/lua/utilities.lua').GetDifferenceVector(FocusCurPos, TarPos)
-                #LOG('*DEBUG: v1 = '..repr(FocusCurPos)..' v2 = '..repr(TarPos)..' d = '..repr(SliderGoal))
+                --LOG('*DEBUG: v1 = '..repr(FocusCurPos)..' v2 = '..repr(TarPos)..' d = '..repr(SliderGoal))
 
                 self.TractorSlider:SetGoal( -SliderGoal[1], -SliderGoal[2], -SliderGoal[3] )
                 self.TractorSlider:SetSpeed(0.5)
@@ -155,8 +155,8 @@ INB0304 = Class(NSCUFactoryUnit) {
             end
 
             if self.PABD_progress == 9 then
-                # attach head to body
-                #LOG('*DEBUG: INB0304 attach head to body')
+                -- attach head to body
+                --LOG('*DEBUG: INB0304 attach head to body')
 
                 unitBeingBuilt:ShowBone(ubbBone, true)
                 self.lookalike:Destroy()
@@ -164,7 +164,7 @@ INB0304 = Class(NSCUFactoryUnit) {
                 self.TractorSlider:SetGoal(0,0,0)
                 self.TractorSlider:SetSpeed(-1)
 
-                # setting progress tracker to 10 to signal that we're done here
+                -- setting progress tracker to 10 to signal that we're done here
                 self.PABD_progress = 10
                 break
             end
@@ -174,7 +174,7 @@ INB0304 = Class(NSCUFactoryUnit) {
     end,
 
     DestroyPartArrivesByDropshipThread = function(self)
-        # TODO: head explode effect?
+        -- TODO: head explode effect?
         if self.PartArrivesByDropshipThreadHandle then
             KillThread( self.PartArrivesByDropshipThreadHandle )
         end

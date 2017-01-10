@@ -73,7 +73,7 @@ ProjectileBlueprint {
         InitialSpeed = 3,
         Lifetime = 99999,
         MaxSpeed = 25,
-        TrackTarget = false,  # will be enabled by scripting, causes a problems otherwise
+        TrackTarget = false,  -- will be enabled by scripting, causes a problems otherwise
         TrackTargetGround = true,
         TurnRate = 30,
         UseGravity = true,

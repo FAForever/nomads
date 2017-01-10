@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "inu0001", #ACU
+    BlueprintId = "inu0001", --ACU
     Enhancements = {
         AdvancedEngineering = {
             NewBuildRate = 42,
@@ -23,8 +23,8 @@ UnitBlueprint {
         {
         },
         {
-            NukeInnerRingDamage = 2000, #from 45000
-            NukeOuterRingDamage = 500, #from 5000
+            NukeInnerRingDamage = 2000, --from 45000
+            NukeOuterRingDamage = 500, --from 5000
         },
     },
 }

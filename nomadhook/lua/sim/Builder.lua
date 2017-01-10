@@ -1,12 +1,12 @@
 do
 
 
-# Injecting something to have the AI run the function GenericPlatoonBehaviors in AIBehaviors.lua each time a unit is created.
+-- Injecting something to have the AI run the function GenericPlatoonBehaviors in AIBehaviors.lua each time a unit is created.
 
 local AddNomadsModifications = function(SuperClass)
     return Class(SuperClass) {
         GetPlatoonAddBehaviors = function(self)
-            #LOG('*DEBUG: AI GetPlatoonAddBehaviors')
+            --LOG('*DEBUG: AI GetPlatoonAddBehaviors')
             local behaviors = SuperClass.GetPlatoonAddBehaviors(self)
             if not behaviors then
                 behaviors = {}

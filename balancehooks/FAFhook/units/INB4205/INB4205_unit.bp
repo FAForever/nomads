@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "inb4205", # T2 stealth shield
+    BlueprintId = "inb4205", -- T2 stealth shield
     Defense = {
         Shield = {
             ShieldRegenStartTime = 3,

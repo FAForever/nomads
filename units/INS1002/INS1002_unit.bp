@@ -122,7 +122,7 @@ UnitBlueprint {
                 Effects = {
                     {
                         Bones = {
-                            #'Front_Left_Wake',
+                            --'Front_Left_Wake',
                             'wake',
                         },
                         Scale = 0.5,
@@ -130,7 +130,7 @@ UnitBlueprint {
                     },
                     {
                         Bones = {
-                            #'Front_Right_Wake',
+                            --'Front_Right_Wake',
                             'wake',
                         },
                         Scale = 0.5,

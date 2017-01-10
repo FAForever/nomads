@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "urb2108", # Cybran TML
+    BlueprintId = "urb2108", -- Cybran TML
     SpecialAbilities = {
         LaunchTacMissile = {
             AreaOfEffect = 2,

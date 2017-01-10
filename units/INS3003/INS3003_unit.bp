@@ -85,8 +85,8 @@ UnitBlueprint {
         'OVERLAYRADAR',
         'OVERLAYSONAR',
         'OVERLAYDEFENSE',
-#        'OVERLAYMISC',
-#        'ARTILLERYSUPPORT',
+--        'OVERLAYMISC',
+--        'ARTILLERYSUPPORT',
     },
     CollisionOffsetY = -0.375,
     Defense = {
@@ -116,7 +116,7 @@ UnitBlueprint {
             '<LOC ability_carrier>Carrier',
             '<LOC ability_factory>Factory',
             '<LOC ability_flares>Flares',
-#            '<LOC ability_artillerysupport>Artillery Support',
+--            '<LOC ability_artillerysupport>Artillery Support',
             '<LOC ability_radar>Radar',
             '<LOC ability_sonar>Sonar',
             '<LOC ability_tacmissiledef>Tactical Missile Defense',
@@ -211,13 +211,13 @@ UnitBlueprint {
                 },
             },
         },
-#        MotionAdjustment = {
-#            Sliderlanding = 0.5,
-#            Sliderstatic = -8,
-#            Yoffsetinmotion = 0.5,
-#            Yoffsetlanding = -0.375,
-#            slideinmotion = 0.5,
-#        },
+--        MotionAdjustment = {
+--            Sliderlanding = 0.5,
+--            Sliderstatic = -8,
+--            Yoffsetinmotion = 0.5,
+--            Yoffsetlanding = -0.375,
+--            slideinmotion = 0.5,
+--        },
         MovementEffects = {
             Water = {
                 Effects = {
@@ -714,7 +714,7 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 60,
-#            NeedPrep = true,
+--            NeedPrep = true,
             ProjectileId = '/projectiles/NAntiMissileProj1/NAntiMissileProj1_proj.bp',
             ProjectileLifetimeUsesMultiplier = 2,
             ProjectilesPerOnFire = 1,
@@ -789,7 +789,7 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 60,
-#            NeedPrep = true,
+--            NeedPrep = true,
             ProjectileId = '/projectiles/NAntiMissileProj1/NAntiMissileProj1_proj.bp',
             ProjectileLifetimeUsesMultiplier = 2,
             ProjectilesPerOnFire = 1,

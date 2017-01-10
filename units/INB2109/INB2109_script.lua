@@ -1,4 +1,4 @@
-# T1 torpedo launcher
+-- T1 torpedo launcher
 
 local NStructureUnit = import('/lua/nomadunits.lua').NStructureUnit
 local TorpedoWeapon1 = import('/lua/nomadweapons.lua').TorpedoWeapon1

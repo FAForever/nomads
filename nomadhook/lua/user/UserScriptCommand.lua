@@ -3,10 +3,10 @@ do
 AbilityDefinition = import('/lua/abilitydefinition.lua').abilities
 
 
-#local OldVerifyScriptCommand = VerifyScriptCommand
+--local OldVerifyScriptCommand = VerifyScriptCommand
 
 function VerifyScriptCommand(data)
-    #LOG('USerScriptCommand data = '..repr(data))
+    --LOG('USerScriptCommand data = '..repr(data))
 
     local modeData = CM.GetCommandMode()[2]
     local TaskName = modeData.TaskName
@@ -22,7 +22,7 @@ function VerifyScriptCommand(data)
         UserValidated = false,
     }
 
-    # get units associated with this task
+    -- get units associated with this task
     if abilDef.GetAllUnitsFile then
         result.UnitIds = import(abilDef.GetAllUnitsFile).GetAllUnitsScript( TaskName )
         for k, id in result.UnitIds do
@@ -35,12 +35,12 @@ function VerifyScriptCommand(data)
         end
     end
 
-    # allow customized manipulations
+    -- allow customized manipulations
     if abilDef.UserProcessFile then
         result = import(abilDef.UserProcessFile).ProcessUserCommandScript(TaskName, result)
     end
 
-    # reticule things - retrieve from UI, assign a reticule position to a unit, remove excess units from task list
+    -- reticule things - retrieve from UI, assign a reticule position to a unit, remove excess units from task list
     local ReticulePositions
     local views = import('/lua/ui/game/worldview.lua').GetWorldViews()
     for k, view in views do
@@ -50,8 +50,8 @@ function VerifyScriptCommand(data)
         end
     end
     if ReticulePositions then
-        # assign target positions to units and remove excess units. Units are in excess when there's no reticule mapped to them, no need
-        # to give them the script command.
+        -- assign target positions to units and remove excess units. Units are in excess when there's no reticule mapped to them, no need
+        -- to give them the script command.
         local map
         if abilDef.MapReticulesToUnitIdsFile then
             map = import(abilDef.MapReticulesToUnitIdsFile).MapReticulesToUnitIdsScript(TaskName, ReticulePositions, result.Units, result.UnitIds)
@@ -77,19 +77,19 @@ function VerifyScriptCommand(data)
         end
     end
 
-    # make sure it is verified. If not the UI won't accept the mouse click and forces the user to either alter the order (click in range) or
-    # cancel the whole order.
+    -- make sure it is verified. If not the UI won't accept the mouse click and forces the user to either alter the order (click in range) or
+    -- cancel the whole order.
     if abilDef.UserVerifyFile then
         result = import( abilDef.UserVerifyFile ).VerifyScriptCommand( result )
     else
         result = import( '/lua/user/tasks/Tasks.lua' ).VerifyScriptCommand( result )
     end
 
-    if result.Units then   # to prevent game crashes
+    if result.Units then   -- to prevent game crashes
         result.Units = nil
     end
 
-    #LOG('USerScriptCommand result = '..repr(result))
+    --LOG('USerScriptCommand result = '..repr(result))
     return result
 end
 
