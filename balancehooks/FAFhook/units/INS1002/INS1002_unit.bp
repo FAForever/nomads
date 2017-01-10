@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "ins1002", # frigate
+    BlueprintId = "ins1002", -- frigate
     Veteran = {
         Level1 = 6,
         Level2 = 12,

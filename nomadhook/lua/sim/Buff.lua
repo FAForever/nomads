@@ -16,7 +16,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 
     for atype, vals in buffAffects do
 
-        #### NEW AFFECTS
+        -------- NEW AFFECTS
 
         if atype == 'Immobilize' then
 
@@ -32,7 +32,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
             if unit.BuffDeactivationThreads[atype] then KillThread(unit.BuffDeactivationThreads[atype]) end
             
             if (not afterRemove and actDelay > 0) or (afterRemove and deaDelay > 0) then
-                # activate or deactivate immobility after a delay
+                -- activate or deactivate immobility after a delay
                 local fn = function(unit, delay, bool)
                     WaitSeconds(delay)
                     if unit and not unit:IsDead() then
@@ -47,7 +47,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
                     unit.BuffDeactivationThreads[atype] = unit:ForkThread(fn, deaDelay, false)
                 end
             else
-                # activate or deactivate immobility immediately
+                -- activate or deactivate immobility immediately
                 unit:SetImmobile( not (afterRemove == true) )
             end
 
@@ -83,7 +83,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
                 wep:SetFiringRandomness(val)
             end
 
-        #### EXISTING AFFECTS (but modified)
+        -------- EXISTING AFFECTS (but modified)
 
         elseif atype == 'MaxRadius'
             or atype == 'MaxRadiusSpecifiedWeapons'
@@ -106,7 +106,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 
                 wep:ChangeMaxRadius(val)
 
-                #LOG('*BUFF: Unit ', repr(unit:GetEntityId()), ' buffed max radius to ', repr(val))
+                --LOG('*BUFF: Unit ', repr(unit:GetEntityId()), ' buffed max radius to ', repr(val))
             end
 
         elseif atype == 'RateOfFire'
@@ -138,15 +138,15 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
                     val = val + BRF
                 end
 
-                local delay = 1 / weprof                    # these calculations result in having to use "weird" buff values. A mult of 0.5
-                wep:ChangeRateOfFire( 1 / ( val * delay ) ) # actually double the ROF. Adding a positive value actually decreases ROF...
+                local delay = 1 / weprof                    -- these calculations result in having to use "weird" buff values. A mult of 0.5
+                wep:ChangeRateOfFire( 1 / ( val * delay ) ) -- actually double the ROF. Adding a positive value actually decreases ROF...
 
-                #LOG('*BUFF: RateOfFire = ' ..  (1 / ( val * delay )) )
+                --LOG('*BUFF: RateOfFire = ' ..  (1 / ( val * delay )) )
             end
 
         elseif atype == 'RadarRadius' then
 
-            # checking for a value > 0 to avoid erroring out
+            -- checking for a value > 0 to avoid erroring out
             local radarrad = unit:GetBlueprint().Intel.RadarRadius or 0
             local val = BuffCalculate(unit, buffName, 'RadarRadius', radarrad)
             if val > 0 then
@@ -163,7 +163,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
         
         elseif atype == 'OmniRadius' then
 
-            # checking for a value > 0 to avoid erroring out
+            -- checking for a value > 0 to avoid erroring out
             local omnirad = unit:GetBlueprint().Intel.RadarRadius or 0
             local val = BuffCalculate(unit, buffName, 'OmniRadius', omnirad)
             if val > 0 then
@@ -181,9 +181,9 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
         end
     end
 
-    # the original BuffAffectedUnit produces an error in the log when a buff unknown to the script is generated. To prevent that, remove
-    # the new affect types from the affects table first, then run the function and then restore the table.
-# FAF integration: perhaps something can be done about this problem, to make it more mod friendly?
+    -- the original BuffAffectedUnit produces an error in the log when a buff unknown to the script is generated. To prevent that, remove
+    -- the new affect types from the affects table first, then run the function and then restore the table.
+-- FAF integration: perhaps something can be done about this problem, to make it more mod friendly?
     local OrgAffectsTable = table.deepcopy(Buffs[buffName].Affects)
     Buffs[buffName].Affects['Immobilize'] = nil
     Buffs[buffName].Affects['RadarRadius'] = nil
@@ -207,7 +207,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
     end
 end
 
-# Modding in activation and deactivation delays. Only used in the function above, support for other affects should be added in above aswell.
+-- Modding in activation and deactivation delays. Only used in the function above, support for other affects should be added in above aswell.
 function BuffCalculate(unit, buffName, affectType, initialVal, initialBool, initialActivateDelay, initialDeactivateDelay)
     local adds = 0
     local mults = 1.0
@@ -221,7 +221,7 @@ function BuffCalculate(unit, buffName, affectType, initialVal, initialBool, init
     
     if unit.Buffs.Affects[affectType] then
         for k, v in unit.Buffs.Affects[affectType] do
-            if v.Add and v.Add != 0 then
+            if v.Add and v.Add ~= 0 then
                 adds = adds + (v.Add * v.Count)
             end
             if v.Mult then
@@ -257,7 +257,7 @@ function BuffCalculate(unit, buffName, affectType, initialVal, initialBool, init
 end
 
 
-# The RemoveBuff script should check whether it has the specified buff and if not, don't throw an error.
+-- The RemoveBuff script should check whether it has the specified buff and if not, don't throw an error.
 local oldRemoveBuff = RemoveBuff
 function RemoveBuff(unit, buffName, removeAllCounts, instigator)
     if HasBuff(unit, buffName) then
@@ -266,8 +266,8 @@ function RemoveBuff(unit, buffName, removeAllCounts, instigator)
 end
 
 
-# if a buff is deactivated it is not possible to get the deactivation delay through BuffCalculate and it will always return 0. So we'll
-# need to remember what the value is when it is set. We do that using this function and retrieve the value using another function below.
+-- if a buff is deactivated it is not possible to get the deactivation delay through BuffCalculate and it will always return 0. So we'll
+-- need to remember what the value is when it is set. We do that using this function and retrieve the value using another function below.
 function RememberDeactivationDelay(unit, buffName, affectType, value)
     if not unit.BuffDeactivationDelays then
         unit.BuffDeactivationDelays = {}

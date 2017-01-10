@@ -161,7 +161,7 @@ UnitBlueprint {
         },
         TechLevel = 'RULEUTL_Secret',
         ToggleCaps = {
-#            RULEUTC_SpecialToggle = true,
+--            RULEUTC_SpecialToggle = true,
         },
         UnitName = '<LOC inu3004_name>Mauler',
         UnitWeight = 1,

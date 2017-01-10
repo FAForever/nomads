@@ -36,14 +36,14 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
-    BuildIconSortPriority = 41, #
+    BuildIconSortPriority = 41, --
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1FACTORY',
-        'BUILTBYTIER2ENGINEER', #
-        'BUILTBYTIER2COMMANDER', #
-        'BUILTBYTIER3ENGINEER', #
-        'BUILTBYTIER3COMMANDER', #
+        'BUILTBYTIER2ENGINEER', --
+        'BUILTBYTIER2COMMANDER', --
+        'BUILTBYTIER3ENGINEER', --
+        'BUILTBYTIER3COMMANDER', --
         'NOMAD',
         'STRUCTURE',
         'NAVAL',
@@ -58,7 +58,7 @@ UnitBlueprint {
         'SHOWQUEUE',
         'SORTCONSTRUCTION',
         'CONSTRUCTIONSORTDOWN',
-	'SUPPORTFACTORY', #
+	'SUPPORTFACTORY', --
     },
     CollisionOffsetY = -1,
     CollisionOffsetZ = 0,
@@ -66,13 +66,13 @@ UnitBlueprint {
         AirThreatLevel = 0,
         ArmorType = 'Structure',
         EconomyThreatLevel = 12,
-        Health = 7750, #
-        MaxHealth = 7750, #
+        Health = 7750, --
+        MaxHealth = 7750, --
         RegenRate = 0,
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
     },
-    Description = '<LOC inb0213_desc>Naval Factory', #
+    Description = '<LOC inb0213_desc>Naval Factory', --
     Display = {
         Abilities = {
             '<LOC ability_upgradable>Upgradeable',
@@ -104,12 +104,12 @@ UnitBlueprint {
             IconFadeInZoom = 130,
             LODs = {
                 {
-                    AlbedoName = '/units/INB0203/INB0203_Albedo.dds', #
+                    AlbedoName = '/units/INB0203/INB0203_Albedo.dds', --
                     LODCutoff = 500,
-                    MeshName = '/units/INB0203/INB0203_Lod0.scm', #
-                    NormalsName = '/units/INB0203/INB0203_NormalsTS.dds', #
+                    MeshName = '/units/INB0203/INB0203_Lod0.scm', --
+                    NormalsName = '/units/INB0203/INB0203_NormalsTS.dds', --
                     ShaderName = 'NomadUnit',
-                    SpecularName = '/units/INB0203/INB0203_SpecTeam.dds', #
+                    SpecularName = '/units/INB0203/INB0203_SpecTeam.dds', --
                 },
             },
         },
@@ -118,22 +118,22 @@ UnitBlueprint {
         UniformScale = 0.4,
     },
     Economy = {
-        BuildCostEnergy = 4000, #
-        BuildCostMass = 800, #
-        BuildRate = 60, #
-        BuildTime = 2000, #
+        BuildCostEnergy = 4000, --
+        BuildCostMass = 800, --
+        BuildRate = 60, --
+        BuildTime = 2000, --
         BuildableCategory = {
             'BUILTBYTIER2FACTORY NOMAD MOBILE CONSTRUCTION',
             'BUILTBYTIER2SUPPORTFACTORY NOMAD STRUCTURE NAVAL',
             'BUILTBYTIER2FACTORY NOMAD MOBILE NAVAL',
             'FIELDENGINEER NOMAD MOBILE LAND',
         },
-	DifferentialUpgradeCostCalculation = true, #
+	DifferentialUpgradeCostCalculation = true, --
         InitialRallyX = 0,
         InitialRallyZ = 10,
-        RebuildBonusIds = { #
-            'inb0213', #
-        }, #
+        RebuildBonusIds = { --
+            'inb0213', --
+        }, --
         StorageEnergy = 0,
         StorageMass = 160,
     },
@@ -176,14 +176,14 @@ UnitBlueprint {
         TechLevel = 'RULEUTL_Advanced',
         UnitWeight = 1,
         UpgradesFrom = 'inb0103',
-        UpgradesFromBase = 'inb0103', #
-        UpgradesTo = 'inb0313', #
+        UpgradesFromBase = 'inb0103', --
+        UpgradesTo = 'inb0313', --
     },
     Intel = {
         VisionRadius = 20,
     },
     Interface = {
-        HelpText = '<LOC inb0213_help>Naval Factory', #
+        HelpText = '<LOC inb0213_help>Naval Factory', --
     },
     LifeBarHeight = 0.075,
     LifeBarOffset = 4.75,

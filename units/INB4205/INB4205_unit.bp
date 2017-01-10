@@ -5,21 +5,21 @@ UnitBlueprint {
             Cue = 'Destroy_Lrg_Structure',
             LodCutoff = 'UnitMove_LodCutoff',
         },
-#        ShieldActiveLoop = Sound {
-#            Bank = 'NomadsMisc',
-#            Cue = 'ShieldActiveLoop',
-#            LodCutoff = 'UnitMove_LodCutoff',
-#        },
-#        ShieldOff = Sound {
-#            Bank = 'NomadsMisc',
-#            Cue = 'ShieldDeactivated',
-#            LodCutoff = 'UnitMove_LodCutoff',
-#        },
-#        ShieldOn = Sound {
-#            Bank = 'NomadsMisc',
-#            Cue = 'ShieldActivated',
-#            LodCutoff = 'UnitMove_LodCutoff',
-#        },
+--        ShieldActiveLoop = Sound {
+--            Bank = 'NomadsMisc',
+--            Cue = 'ShieldActiveLoop',
+--            LodCutoff = 'UnitMove_LodCutoff',
+--        },
+--        ShieldOff = Sound {
+--            Bank = 'NomadsMisc',
+--            Cue = 'ShieldDeactivated',
+--            LodCutoff = 'UnitMove_LodCutoff',
+--        },
+--        ShieldOn = Sound {
+--            Bank = 'NomadsMisc',
+--            Cue = 'ShieldActivated',
+--            LodCutoff = 'UnitMove_LodCutoff',
+--        },
         UISelection = Sound {
             Bank = 'NomadsInterface',
             Cue = 'Nomads_Select_Shield',
@@ -63,8 +63,8 @@ UnitBlueprint {
             ShieldRechargeTime = 16,
             ShieldRegenRate = 115,
             ShieldRegenStartTime = 1,
-            ShieldSize = 27,   # keep shield size equal to stealth field size
-            ShieldVerticalOffset = -3, #0, # TODO: I'm sure we can do without offset. Add ring on ground?
+            ShieldSize = 27,   -- keep shield size equal to stealth field size
+            ShieldVerticalOffset = -3, --0, -- TODO: I'm sure we can do without offset. Add ring on ground?
         },
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,

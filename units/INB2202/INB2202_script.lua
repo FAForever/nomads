@@ -1,4 +1,4 @@
-# T2 AA gun
+-- T2 AA gun
 
 local NStructureUnit = import('/lua/nomadunits.lua').NStructureUnit
 local ParticleBlaster1 = import('/lua/nomadweapons.lua').ParticleBlaster1
@@ -11,7 +11,7 @@ INB2202 = Class(NStructureUnit) {
             OnWeaponFired = function(self) 
                 ParticleBlaster1.OnWeaponFired(self) 
 
-                # set timer and start the watch thread if it is not running yet
+                -- set timer and start the watch thread if it is not running yet
                 local yep = (not self.Timer or self.Timer <= 0)
                 self.Timer = 5
                 if yep or not self.WaitThreadHandle then
@@ -22,7 +22,7 @@ INB2202 = Class(NStructureUnit) {
             end, 
 
             WatchThread = function(self)
-                # keeps decreasing the counter until it reaches 0, then stops the spinners.
+                -- keeps decreasing the counter until it reaches 0, then stops the spinners.
                 while not self:BeenDestroyed() and self.Timer > 0 do
                     self.Timer = self.Timer - 1
                     WaitSeconds(1)
@@ -53,7 +53,7 @@ INB2202 = Class(NStructureUnit) {
     end,
 
     GoSpinners = function(self, go)
-        # makes the spinners rotate or stop
+        -- makes the spinners rotate or stop
         go = (go == true)
         if go and not self.Spinning then
             for k, v in self.Spinners do

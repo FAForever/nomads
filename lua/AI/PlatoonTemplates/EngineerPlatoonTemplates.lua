@@ -1,4 +1,4 @@
-# Added field engineer categories to exclude these from regular engineer platoons. Also added Nomads ofcourse.
+-- Added field engineer categories to exclude these from regular engineer platoons. Also added Nomads ofcourse.
 
 PlatoonTemplate {
     Name = 'CommanderAssist',
@@ -144,7 +144,7 @@ PlatoonTemplate {
     },        
 }
 
-### Factory built Engineers below
+------ Factory built Engineers below
 
 PlatoonTemplate {
     Name = 'T1BuildEngineer',

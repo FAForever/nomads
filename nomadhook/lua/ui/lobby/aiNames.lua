@@ -1,5 +1,5 @@
 ainames = table.merged( ainames, {
-    nomads = {    # Nomad AI player names
+    nomads = {    -- Nomad AI player names
         'Admiral Vantoga',
         'Ara Aidt',
         'Atet Tonet',
@@ -36,7 +36,7 @@ ainames = table.merged( ainames, {
         'Torkach',
         'Zuper',
 
-        # names of Nomad team members that wanted to be in this list (the name might be slightly altered)
+        -- names of Nomad team members that wanted to be in this list (the name might be slightly altered)
         'Brute',
         'Kirvesnaama',
         'Scalestor',
@@ -49,7 +49,7 @@ ainames = table.merged( ainames, {
         'ColonelSheppard',
         'Intekin',
 
-        # old team
+        -- old team
         'Colonel Jessep',
         'ZombieJesus',
         'Legion Darrath',

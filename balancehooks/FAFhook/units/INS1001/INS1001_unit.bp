@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "ins1001", # T1 sub
+    BlueprintId = "ins1001", -- T1 sub
     RemoveAnimationDeath = true,
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',

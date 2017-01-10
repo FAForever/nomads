@@ -5,7 +5,7 @@ AutoRotatingMovie = Class(Movie) {
     curSeqKey = -1,
 
     LoadSequence = function(self, seq, replace)
-        # puts a new movie sequence in the sequence list. if replace is true then the old sequence list is deleted first
+        -- puts a new movie sequence in the sequence list. if replace is true then the old sequence list is deleted first
         if replace then
             self.sequence = {}
         end

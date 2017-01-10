@@ -24,7 +24,7 @@ INA0001 = Class(Unit) {
     end,
 
     AddOpenUpCallback = function(self, fn)
-        # fn -> function( <INA0001 instance>, <Opening anim state: opening|opened|expired>)
+        -- fn -> function( <INA0001 instance>, <Opening anim state: opening|opened|expired>)
         self:AddUnitCallback(fn, 'openup')
     end,
 
@@ -66,8 +66,8 @@ INA0001 = Class(Unit) {
     end,
 
     IsUnderWater = function(self)
-        # since we're actually an air unit and we use trickery to appear under water a simple  call to GetCurrentLayer()
-        # always returns 'Air'. So using a workaround to determine if we're under water or not.
+        -- since we're actually an air unit and we use trickery to appear under water a simple  call to GetCurrentLayer()
+        -- always returns 'Air'. So using a workaround to determine if we're under water or not.
         local x,y,z = unpack(self:GetPosition())
         return (y < GetSurfaceHeight(x, z))
     end,

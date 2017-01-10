@@ -1,18 +1,18 @@
 ProjectileBlueprint
 {
     Merge = true,
-    Source = "/projectiles/CAANanoDart01/CAANanoDart01_proj.bp",   # Cybran t1 mobile AA unit missile
+    Source = "/projectiles/CAANanoDart01/CAANanoDart01_proj.bp",   -- Cybran t1 mobile AA unit missile
     Categories = {
         'CYBRAN',
         'PROJECTILE',
-        'MISSILE', # added this to allow AA missile flares on Nomad gunships
+        'MISSILE', -- added this to allow AA missile flares on Nomad gunships
         'ANTIAIR',
     },
     General = {
         EntityCategory = {
             'CYBRAN',
             'PROJECTILE',
-            'MISSILE', # added
+            'MISSILE', -- added
             'ANTIAIR',
         },
     },

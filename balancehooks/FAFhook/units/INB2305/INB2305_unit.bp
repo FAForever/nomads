@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "inb2305", # Nuke launcher
+    BlueprintId = "inb2305", -- Nuke launcher
     Economy = {
         BuildTime = 10453,
     },

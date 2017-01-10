@@ -1,20 +1,20 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "ins3003", # Aircraft carrier
+    BlueprintId = "ins3003", -- Aircraft carrier
     Weapon = {
-        {   # AA particle blaster
+        {   -- AA particle blaster
             MaxRadius = 85,
         },
-        {   # AA particle blaster
+        {   -- AA particle blaster
             MaxRadius = 85,
         },
-        {   # AA particle blaster
+        {   -- AA particle blaster
             MaxRadius = 85,
         },
-        {   # AA particle blaster
+        {   -- AA particle blaster
             MaxRadius = 85,
         },
-        {   # TMD
+        {   -- TMD
         },
     },
     Wreckage = {

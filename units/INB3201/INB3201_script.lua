@@ -1,4 +1,4 @@
-# t2 radar
+-- t2 radar
 
 local NRadarUnit = import('/lua/nomadunits.lua').NRadarUnit
 local AddIntelOvercharge = import('/lua/nomadutils.lua').AddIntelOvercharge

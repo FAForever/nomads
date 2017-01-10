@@ -1,4 +1,4 @@
-# Nomads regular intel probe deployed
+-- Nomads regular intel probe deployed
 
 local SupportingArtilleryAbility = import('/lua/nomadutils.lua').SupportingArtilleryAbility
 local NStructureUnit = import('/lua/nomadunits.lua').NStructureUnit
@@ -8,14 +8,14 @@ NStructureUnit = SupportingArtilleryAbility( NStructureUnit )
 INY0001 = Class(NStructureUnit) {
 
 OnCreate = function(self)
-#LOG('create')
+--LOG('create')
 NStructureUnit.OnCreate(self)
 end,
 
     OnStopBeingBuilt = function(self, builder, layer)
         NStructureUnit.OnStopBeingBuilt(self, builder, layer)
         self:EnableArtillerySupport(true)
-#        self:ForkThread( self.PointAntennaStraightUp )
+--        self:ForkThread( self.PointAntennaStraightUp )
     end,
 
     OnKilled = function(self, instigator, type, overkillRatio)
@@ -30,19 +30,19 @@ end,
     end,
 
     PointAntennaStraightUp = function(self)
-        #LOG('INY0001: PointAntennaStraightUp')
+        --LOG('INY0001: PointAntennaStraightUp')
 
         WaitSeconds(0.2)
 
         local orientation = self:GetOrientation()
-        #LOG('orientation = '..repr(orientation))
+        --LOG('orientation = '..repr(orientation))
 
-# TODO: make antenna go striaght up
+-- TODO: make antenna go striaght up
 
-# bit 1 = op zn kop
-# bit 2 = achterstevoren
-# bit 3 = op zn kop
-# bit 4 = weet niet
+-- bit 1 = op zn kop
+-- bit 2 = achterstevoren
+-- bit 3 = op zn kop
+-- bit 4 = weet niet
 
         self:SetOrientation( {0,0,0,0}, true)
 for t=1, 10 do

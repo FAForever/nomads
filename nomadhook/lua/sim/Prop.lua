@@ -1,4 +1,4 @@
-# some code for black hole effects. Doesn't support multiple blackholes around the same area because of the boolean but that's ok.
+-- some code for black hole effects. Doesn't support multiple blackholes around the same area because of the boolean but that's ok.
 
 do
 
@@ -14,9 +14,9 @@ Prop = Class(oldProp) {
     end,
 
     BlackhHoleCanPropSuckIn = function(self)
-        # some props should not be sucked in, like mass deposits. These have the INVULNERABLE category, so just check
-        # for that. Mass deposit BlueprintId = /env/common/props/massdeposit01_prop.bp and hydrocarbon BlueprintId is
-        # /env/common/props/hydrocarbondeposit01_prop.bp .
+        -- some props should not be sucked in, like mass deposits. These have the INVULNERABLE category, so just check
+        -- for that. Mass deposit BlueprintId = /env/common/props/massdeposit01_prop.bp and hydrocarbon BlueprintId is
+        -- /env/common/props/hydrocarbondeposit01_prop.bp .
         local bp = self:GetBlueprint()
         if bp and bp.Categories and table.find(bp.Categories, 'INVULNERABLE') then
             return false

@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "inu2007", # exp beamer
+    BlueprintId = "inu2007", -- exp beamer
     Veteran = {
         Level1 = 30,
         Level2 = 60,

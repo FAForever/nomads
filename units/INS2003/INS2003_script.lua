@@ -1,4 +1,4 @@
-# T2 railgun boat
+-- T2 railgun boat
 
 local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
 local AddNavalLights = import('/lua/nomadutils.lua').AddNavalLights
@@ -74,39 +74,39 @@ INS2003 = Class(NSeaUnit) {
     end,
 
     OnTargetAcquired = function(self)
-        #LOG('OnTargetAcquired')
+        --LOG('OnTargetAcquired')
         self:PlayTAEffects()
     end,
 
     OnTargetLost = function(self)
-        #LOG('OnTargetLost')
+        --LOG('OnTargetLost')
         self:DestroyTAEffects()
     end,
 
     OnStopBeingBuilt = function(self, builder, layer)
         NSeaUnit.OnStopBeingBuilt(self, builder, layer)
 
-#        local wbp = self:GetWeaponByLabel('MainGun'):GetBlueprint()
-#        self.TurretRotManip = CreateRotator(self, wbp.TurretBoneYaw, 'y', nil):SetCurrentAngle(0):SetPrecedence(1)
-#        self.Trash:Add(self.TurretRotManip)
-#        self.TurretRotationEnabled = false
-#        self:ForkThread(self.TurretRotationThread)
+--        local wbp = self:GetWeaponByLabel('MainGun'):GetBlueprint()
+--        self.TurretRotManip = CreateRotator(self, wbp.TurretBoneYaw, 'y', nil):SetCurrentAngle(0):SetPrecedence(1)
+--        self.Trash:Add(self.TurretRotManip)
+--        self.TurretRotationEnabled = false
+--        self:ForkThread(self.TurretRotationThread)
     end,
 
     OnMotionHorzEventChange = function( self, new, old )
         NSeaUnit.OnMotionHorzEventChange( self, new, old )
 
-        self.TurretRotationEnabled = (old != 'None')
+        self.TurretRotationEnabled = (old ~= 'None')
 
-        # blow smoke from the vents
-        if new != old then
+        -- blow smoke from the vents
+        if new ~= old then
             self:DestroyMovementSmokeEffects()
             self:PlayMovementSmokeEffects(new)
         end
     end,
 
     TurretRotationThread = function(self)
-        # keeps the Turret rotated to the current target position
+        -- keeps the Turret rotated to the current target position
 
         local wep = self:GetWeaponByLabel('MainGun')
         local wbp = wep:GetBlueprint()
@@ -119,12 +119,12 @@ INS2003 = Class(NSeaUnit) {
 
         while not self:IsDead() do
 
-            # don't rotate if we're not allowed to
+            -- don't rotate if we're not allowed to
             while not self.TurretRotationEnabled do
                 WaitSeconds(0.2)
             end
 
-            # get a location of interest. This is the unit we're currently firing on or, alternatively, the position we're moving to
+            -- get a location of interest. This is the unit we're currently firing on or, alternatively, the position we're moving to
             target = wep:GetCurrentTarget()
             if target and target.GetPosition then
                 target = target:GetPosition()
@@ -132,7 +132,7 @@ INS2003 = Class(NSeaUnit) {
                 target = wep:GetCurrentTargetPos() or nav:GetCurrentTargetPos()
             end
 
-            # calculate the angle for the Turret rotation. The rotation of the Body is taken into account
+            -- calculate the angle for the Turret rotation. The rotation of the Body is taken into account
             MyPos = self:GetPosition()
             target.y = 0
             target.x = target.x - MyPos.x
@@ -142,7 +142,7 @@ INS2003 = Class(NSeaUnit) {
             BodyDir = Utilities.NormalizeVector( Vector( BodyX, 0, BodyZ) )
             GoalAngle = ( math.atan2( target.x, target.z ) - math.atan2( BodyDir.x, BodyDir.z ) ) * 180 / math.pi
 
-            # rotation limits, sometimes the angle is more than 180 degrees which causes a bad rotation.
+            -- rotation limits, sometimes the angle is more than 180 degrees which causes a bad rotation.
             if GoalAngle > 180 then
                 GoalAngle = GoalAngle - 360
             elseif GoalAngle < -180 then

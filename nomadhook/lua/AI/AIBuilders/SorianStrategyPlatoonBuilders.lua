@@ -1,12 +1,12 @@
-# Modifying Sorian AI to enhance Nomads ACUs
-# Deleted SCU enhancement builder group because we build pre-enhanced SCUs
+-- Modifying Sorian AI to enhance Nomads ACUs
+-- Deleted SCU enhancement builder group because we build pre-enhanced SCUs
 
 
 BuilderGroup {
     BuilderGroupName = 'SorianACUUpgrades - Rush',
     BuildersType = 'EngineerBuilder',
 
-    # Nomads
+    -- Nomads
     Builder {
         BuilderName = 'Sorian Nomads CDR Upgrade - Rush - Gun',
         PlatoonTemplate = 'CommanderEnhanceSorian',

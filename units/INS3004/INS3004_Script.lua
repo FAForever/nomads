@@ -1,4 +1,4 @@
-# T3 heavy destroyer
+-- T3 heavy destroyer
 
 local SupportedArtilleryWeapon = import('/lua/nomadutils.lua').SupportedArtilleryWeapon
 local AddNavalLights = import('/lua/nomadutils.lua').AddNavalLights
@@ -44,7 +44,7 @@ INS3004 = Class(NSeaUnit) {
         local AATurret = self:GetWeaponByLabel('AATurret')
         if AATurret then
             local bp = AATurret:GetBlueprint()
-            local RotateSpeed = 90 * (1 / ((1 / (bp.RateOfFire / table.getsize(bp.RackBones))) - 0.2))  # calc how fast to rotate 90 degrees with current ROF and 0.2 sec free time
+            local RotateSpeed = 90 * (1 / ((1 / (bp.RateOfFire / table.getsize(bp.RackBones))) - 0.2))  -- calc how fast to rotate 90 degrees with current ROF and 0.2 sec free time
             self.AATurretRotators = {
                 CreateRotator( self, bp.RackBones[1].RackBone, 'z', 0, RotateSpeed ),
                 CreateRotator( self, bp.RackBones[2].RackBone, 'z', 0, RotateSpeed ),

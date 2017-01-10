@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "inb1105", # T1 energy storage
+    BlueprintId = "inb1105", -- T1 energy storage
     Audio = {
         ActiveLoop = Sound {
             Bank = 'UEB',
@@ -23,5 +23,5 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
-    StrategicIconName = 'icon_structure_energy', # removed the "1" as FAF did
+    StrategicIconName = 'icon_structure_energy', -- removed the "1" as FAF did
 }

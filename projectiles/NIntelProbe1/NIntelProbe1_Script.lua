@@ -1,5 +1,5 @@
-# The intel probe (all versions) is initially a projectile until it hits the ground. When it does a new entity is created that looks like the
-# projectile. This entity is responsible for the intel.
+-- The intel probe (all versions) is initially a projectile until it hits the ground. When it does a new entity is created that looks like the
+-- projectile. This entity is responsible for the intel.
 
 local Buoy1 = import('/lua/nomadprojectiles.lua').Buoy1
 local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
@@ -8,12 +8,12 @@ NIntelProbe1 = Class(Buoy1) {
 
     OnCreate = function(self)
         Buoy1.OnCreate(self)
-        self:SetCollisionShape('Sphere', 0, 0, 0, 2.0)  # so the probe can be shot down by TMD
+        self:SetCollisionShape('Sphere', 0, 0, 0, 2.0)  -- so the probe can be shot down by TMD
     end,
 
     GetSpec = function(self, targetType, targetEntity)
 
-        # setting up additional buoy specifications
+        -- setting up additional buoy specifications
         local spec = Buoy1.GetSpec(self, targetType, targetEntity)
         spec = table.merged( spec, {
             Lifetime = self.Data.Lifetime or 60,
@@ -29,8 +29,8 @@ NIntelProbe1 = Class(Buoy1) {
             Vision = self.Data.Vision or false,
             WaterVision = self.Data.WaterVision or self.Data.Vision or false,
         })
-        if not self.Data.CanBeKilledByAllFriendlyFire then   # the army parameter determines what weapons can kill the buoy. If 'Army' is used
-            spec['Army'] = spec.RealArmy                     # then weapons with DamageFriendly turned on don't damage it
+        if not self.Data.CanBeKilledByAllFriendlyFire then   -- the army parameter determines what weapons can kill the buoy. If 'Army' is used
+            spec['Army'] = spec.RealArmy                     -- then weapons with DamageFriendly turned on don't damage it
         end
 
         return spec

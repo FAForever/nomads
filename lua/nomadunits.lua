@@ -41,7 +41,7 @@ local CreateNomadBuildSliceBeams = NomadEffectUtil.CreateNomadBuildSliceBeams
 local CreateRepairBuildBeams = NomadEffectUtil.CreateRepairBuildBeams
 
 
-# added later
+-- added later
 local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
 local Unit = import('/lua/sim/Unit.lua').Unit
 local NomadsOrbitUtils = import('/lua/nomadorbitalutils.lua')
@@ -51,7 +51,7 @@ function AddNomadBeingBuiltEffects( SuperClass )
   return Class(SuperClass) {
 
     StartBeingBuiltEffects = function(self, builder, layer)
-        # starts the build effect thread, which creates the build cube and the flashing. The flashing is avoided if the unit is upgrading.
+        -- starts the build effect thread, which creates the build cube and the flashing. The flashing is avoided if the unit is upgrading.
         local UpgradesFrom = self:GetBlueprint().General.UpgradesFrom or false
         local IsUpgrade = (UpgradesFrom == builder:GetUnitId())
         self.OnBeingBuiltEffectsBag:Add( self:ForkThread( CreateBuildCubeThread, builder, self.OnBeingBuiltEffectsBag, nil, IsUpgrade))
@@ -67,10 +67,10 @@ end
 function NomadSharedFactory( SuperClass )
   return Class(SuperClass) {
 
-    # Nomad factory build unit effects. Assumes unit collision boxes are pretty accurately sized but can be tweaked using unit blueprint values
-    # Display.BuildEffect.ExtendsFront and ExtendsRear.
-    # The factory may need tweaking too; Display.BuildFieldOffset to offset the build field ranges, and Display.BuildFieldReversed to
-    # reverse the direction that the arms are moving. Needed on some factories.
+    -- Nomad factory build unit effects. Assumes unit collision boxes are pretty accurately sized but can be tweaked using unit blueprint values
+    -- Display.BuildEffect.ExtendsFront and ExtendsRear.
+    -- The factory may need tweaking too; Display.BuildFieldOffset to offset the build field ranges, and Display.BuildFieldReversed to
+    -- reverse the direction that the arms are moving. Needed on some factories.
 
     SliderBone = 'slider',
 
@@ -88,7 +88,7 @@ function NomadSharedFactory( SuperClass )
     end,
 
     CreateDestructionEffects = function( self, overKillRatio )
-        # when we're dead there's a chance to begin moving the arms as an added effect
+        -- when we're dead there's a chance to begin moving the arms as an added effect
         if self.ArmSlider1 and Random( 1, 2 ) == 1 then
             local dir = 1
             if self:GetBlueprint().Display.BuildEffect.Factory.BuildFieldReversed then dir = -1 end
@@ -104,10 +104,10 @@ function NomadSharedFactory( SuperClass )
             local bones = bp.General.BuildBones.BuildEffectBones
             local emitrate = math.ceil((bp.Economy.BuildRate or 1) / 2)
 
-            # creates the orange build fields
+            -- creates the orange build fields
             self.BuildEffectsBag:Add( self:ForkThread(NomadEffectUtil.CreateFactoryBuildBeams, unitBeingBuilt, bones, self.BuildEffectsBag) )
 
-            # add effects to the build field
+            -- add effects to the build field
             for k, bone in bones do
                 offset, unitHeight = self:GetEffectOffsetRange(bone)
                 for _, v in NomadEffectTemplate.FactoryConstructionField do
@@ -125,14 +125,14 @@ function NomadSharedFactory( SuperClass )
     end,
 
     StartArmsMoving = function(self, unitBeingBuilt)
-        # this is the yellow plane moving back and forth while building a unit, only start moving arms if they aren't already
+        -- this is the yellow plane moving back and forth while building a unit, only start moving arms if they aren't already
         if not self.ArmsThread then
             self.ArmsThread = self:ForkThread( self.MovingArmsThread )
         end
     end,
 
     StopArmsMoving = function(self)
-        # stops the arm movement
+        -- stops the arm movement
         if self.ArmsThread then
             KillThread( self.ArmsThread )
             self.ArmsThread = nil
@@ -143,19 +143,19 @@ function NomadSharedFactory( SuperClass )
     end,
 
     MovingArmsThread = function(self)
-        # moves the arm  back and forth as long as a unit is being constructed
+        -- moves the arm  back and forth as long as a unit is being constructed
         if not self.UnitBeingBuilt or self.UnitBeingBuilt:BeenDestroyed() then
-            #WARN('NLandFactoryUnit -> MovingArmsThread: no unit being built '..repr(self:GetUnitId()))
+            --WARN('NLandFactoryUnit -> MovingArmsThread: no unit being built '..repr(self:GetUnitId()))
             return
         elseif not self.ArmSlider1 then
-            #wARN('NLandFactoryUnit -> MovingArmsThread: No arm slider '..repr(self:GetUnitId()))
+            --wARN('NLandFactoryUnit -> MovingArmsThread: No arm slider '..repr(self:GetUnitId()))
             return
         end
 
-        local r = 0.9         # while the construction progress is below this move to 'max'. When over this, go back to 'min'
+        local r = 0.9         -- while the construction progress is below this move to 'max'. When over this, go back to 'min'
         local z, mul, dir, emit = 0, 0, 1
         local InitialDist, Length = self:GetInitialAndLength()
-        if self:GetBlueprint().Display.BuildEffect.Factory.BuildFieldReversed then dir = -1 end  # some factories have backwards bones, here's a correction
+        if self:GetBlueprint().Display.BuildEffect.Factory.BuildFieldReversed then dir = -1 end  -- some factories have backwards bones, here's a correction
         self.ArmSlider1:SetSpeed( 1000 ):SetWorldUnits(true)
 
         while not self:BeenDestroyed() and not self.UnitBeingBuilt:BeenDestroyed() and self.UnitBeingBuilt:GetFractionComplete() < 1 and not self:IsDead() do
@@ -180,7 +180,7 @@ function NomadSharedFactory( SuperClass )
         local UnitSize, MeshExtends1, MeshExtends2, UnitOffset, Diff
         local ubbBp = self.UnitBeingBuilt:GetBlueprint()
 
-        # some factories like the naval ones have the build field emitted from above, not from the left or right
+        -- some factories like the naval ones have the build field emitted from above, not from the left or right
         if bp.Display.BuildEffect.Factory.VerticalEffect then
             UnitSize = (ubbBp.SizeX or 1)
             MeshExtends1 = ubbBp.Display.BuildEffect.ExtendsLeft or 0
@@ -199,7 +199,7 @@ function NomadSharedFactory( SuperClass )
     end,
 
     GetInitialAndLength = function(self)
-        # this is not 'just' a version of GetEffectUnitSizes(), there's a correction for factory differences aswell
+        -- this is not 'just' a version of GetEffectUnitSizes(), there's a correction for factory differences aswell
         local BuildAttachBone = self:GetBlueprint().Display.BuildAttachBone or 0
         local ubbBp = self.UnitBeingBuilt:GetBlueprint()
         local UnitSizeZ = (ubbBp.SizeZ or 1)
@@ -213,9 +213,9 @@ function NomadSharedFactory( SuperClass )
   }
 end
 
-#-------------------------------------------------------------
-#  AIR UNITS
-#-------------------------------------------------------------
+---------------------------------------------------------------
+--  AIR UNITS
+---------------------------------------------------------------
 NAirUnit = Class(AirUnit) {
     BeamExhaustCruise = NomadEffectTemplate.AirThrusterCruisingBeam,
     BeamExhaustIdle = NomadEffectTemplate.AirThrusterIdlingBeam,
@@ -226,32 +226,32 @@ NAirTransportUnit = Class(AirTransport) {
     BeamExhaustIdle = NomadEffectTemplate.AirThrusterIdlingBeam,
 }
 
-#-------------------------------------------------------------
-#  LAND UNITS
-#-------------------------------------------------------------
+---------------------------------------------------------------
+--  LAND UNITS
+---------------------------------------------------------------
 NLandUnit = Class(LandUnit) {
 
 }
 
-#-------------------------------------------------------------
-#  AMPHIBIOUS UNITS
-#-------------------------------------------------------------
+---------------------------------------------------------------
+--  AMPHIBIOUS UNITS
+---------------------------------------------------------------
 NAmphibiousUnit = Class(NLandUnit) {
-    # on water speed multiplier moved to unit.lua per build 41
+    -- on water speed multiplier moved to unit.lua per build 41
 }
 
-#-------------------------------------------------------------
-#  HOVER LAND UNITS
-#-------------------------------------------------------------
+---------------------------------------------------------------
+--  HOVER LAND UNITS
+---------------------------------------------------------------
 NHoverLandUnit = Class(HoverLandUnit) {
 
-    # The code below for speed reduction and weapon disabling in water should be the same as the amphibious unit class, above
+    -- The code below for speed reduction and weapon disabling in water should be the same as the amphibious unit class, above
 
     OnStartBeingBuilt = function(self, builder, layer)
         HoverLandUnit.OnStartBeingBuilt(self, builder, layer)
 
-        # if not built yet then dont play sounds
-        # TODO: Perhaps this should be generic behavior and placed in the unit.lua file?
+        -- if not built yet then dont play sounds
+        -- TODO: Perhaps this should be generic behavior and placed in the unit.lua file?
         self:StopUnitAmbientSound( 'AmbientMove' )
         self:StopUnitAmbientSound( 'AmbientMoveWater' )
         self:StopUnitAmbientSound( 'AmbientMoveSub' )
@@ -260,7 +260,7 @@ NHoverLandUnit = Class(HoverLandUnit) {
 
     OnKilled = function(self, instigator, type, overkillRatio)
         HoverLandUnit.OnKilled(self, instigator, type, overkillRatio)
-        self:DestroyMovementEffects()  # remove green hover effect
+        self:DestroyMovementEffects()  -- remove green hover effect
     end,
 
     OnMotionHorzEventChange = function( self, new, old )
@@ -268,7 +268,7 @@ NHoverLandUnit = Class(HoverLandUnit) {
 
         if not self:IsDead() then
             local layer = self:GetCurrentLayer()
-            if new == 'Stopped' or new == 'Stopping' then   # when stopping play the idle sound, on water play a different one
+            if new == 'Stopped' or new == 'Stopping' then   -- when stopping play the idle sound, on water play a different one
                 if layer == 'Water' and self:GetBlueprint().Audio and self:GetBlueprint().Audio.AmbientMoveWater then
                     self:PlayUnitAmbientSound( 'AmbientMoveWater' )
                 else
@@ -289,7 +289,7 @@ NExperimentalHoverLandUnit = Class(NHoverLandUnit) {
     end,
 
     OnMotionHorzEventChange = function( self, new, old )
-        self.DoCrushing = (new != 'Stopped')
+        self.DoCrushing = (new ~= 'Stopped')
         if self.DoCrushing then
             if not self.MoveCrushThread then
                 self.MoveCrushThread = self:ForkThread( self.CrushingThread )
@@ -312,7 +312,7 @@ NExperimentalHoverLandUnit = Class(NHoverLandUnit) {
     end,
 
     CrushingThread = function(self)
-        # damages the area every X interval
+        -- damages the area every X interval
         local bp = self:GetBlueprint().Display.MovementEffects.Crush
         if bp and bp.Damage then
             while not self:IsDead() and self.DoCrushing do
@@ -335,23 +335,23 @@ NExperimentalHoverLandUnit = Class(NHoverLandUnit) {
     end,
 
     DoCrushDamage = function(self, pos, bpDamage)
-        # To determine the offset in the units blueprint you can use this line:
-        # CreateUnitHPR('inu1002', self:GetArmy(), pos[1], pos[2], pos[3], 0,0,0)
+        -- To determine the offset in the units blueprint you can use this line:
+        -- CreateUnitHPR('inu1002', self:GetArmy(), pos[1], pos[2], pos[3], 0,0,0)
         DamageArea(self, pos, bpDamage.Radius, bpDamage.Amount, bpDamage.Type, bpDamage.DamageFriendly )
     end,
 }
 
-#-------------------------------------------------------------
-#  SEA UNITS
-#-------------------------------------------------------------
+---------------------------------------------------------------
+--  SEA UNITS
+---------------------------------------------------------------
 NSeaUnit = Class(SeaUnit) {
 
     PlayAnimationThread = function(self, anim, rate)
 
-        # someone made ship sink animations that run to fast. The original nomads team decided to add this line that
-        # can be used to alter the animation speed through the blueprint.
-        #        rate = rate or animBlock.Rate or 1
-        # the rest of the stuff comes from the unit.lua file.
+        -- someone made ship sink animations that run to fast. The original nomads team decided to add this line that
+        -- can be used to alter the animation speed through the blueprint.
+        --        rate = rate or animBlock.Rate or 1
+        -- the rest of the stuff comes from the unit.lua file.
 
         local bp = self:GetBlueprint().Display[anim]
         if bp then
@@ -382,9 +382,9 @@ NSeaUnit = Class(SeaUnit) {
     end,
 }
 
-#-------------------------------------------------------------
-#  WALKING LAND UNITS
-#-------------------------------------------------------------
+---------------------------------------------------------------
+--  WALKING LAND UNITS
+---------------------------------------------------------------
 NWalkingLandUnit = Class(WalkingLandUnit) {
 
     WalkingAnimRate = 1,
@@ -392,9 +392,9 @@ NWalkingLandUnit = Class(WalkingLandUnit) {
     DisabledBones = {},
 
     CreateBuildEffects = function( self, unitBeingBuilt, order )
-        # If we are assisting an upgrading unit, or repairing a unit, play seperate effects
+        -- If we are assisting an upgrading unit, or repairing a unit, play seperate effects
         local UpgradesFrom = unitBeingBuilt:GetBlueprint().General.UpgradesFrom
-        if (order == 'Repair' and not unitBeingBuilt:IsBeingBuilt()) or (UpgradesFrom and UpgradesFrom != 'none' and self:IsUnitState('Guarding'))then
+        if (order == 'Repair' and not unitBeingBuilt:IsBeingBuilt()) or (UpgradesFrom and UpgradesFrom ~= 'none' and self:IsUnitState('Guarding'))then
             self.BuildEffectsBag:Add( NomadEffectUtil.CreateRepairBuildBeams( self, unitBeingBuilt, self:GetBlueprint().General.BuildBones.BuildEffectBones, self.BuildEffectsBag ) )
         else
             self.BuildEffectsBag:Add( NomadEffectUtil.CreateNomadBuildSliceBeams( self, unitBeingBuilt, self:GetBlueprint().General.BuildBones.BuildEffectBones, self.BuildEffectsBag ) )
@@ -420,19 +420,19 @@ NWalkingLandUnit = Class(WalkingLandUnit) {
     end,
 }
 
-#-------------------------------------------------------------
-#  SUBMARINE UNITS
-#-------------------------------------------------------------
+---------------------------------------------------------------
+--  SUBMARINE UNITS
+---------------------------------------------------------------
 NSubUnit = Class(SubUnit) {}
 
-#-------------------------------------------------------------
-#  Construction Units
-#-------------------------------------------------------------
+---------------------------------------------------------------
+--  Construction Units
+---------------------------------------------------------------
 NConstructionUnit = Class(ConstructionUnit) {
 
     CreateBuildEffects = function( self, unitBeingBuilt, order )
         local UpgradesFrom = unitBeingBuilt:GetBlueprint().General.UpgradesFrom
-        if (not unitBeingBuilt:IsBeingBuilt()) or (UpgradesFrom and UpgradesFrom != 'none' and self:IsUnitState('Guarding')) then
+        if (not unitBeingBuilt:IsBeingBuilt()) or (UpgradesFrom and UpgradesFrom ~= 'none' and self:IsUnitState('Guarding')) then
             CreateRepairBuildBeams( self, unitBeingBuilt, self:GetBlueprint().General.BuildBones.BuildEffectBones, self.BuildEffectsBag )
         else
             CreateNomadBuildSliceBeams( self, unitBeingBuilt, self:GetBlueprint().General.BuildBones.BuildEffectBones, self.BuildEffectsBag )   
@@ -457,12 +457,12 @@ NConstructionUnit = Class(ConstructionUnit) {
         NomadEffectUtil.PlayNomadReclaimEndEffects( self, target, self.ReclaimEffectsBag )
     end,
 
-    # The code below for speed reduction and weapon disabling in water should be the same as the amphibious unit class, above
+    -- The code below for speed reduction and weapon disabling in water should be the same as the amphibious unit class, above
 
     OnKilled = function(self, instigator, type, overkillRatio)
         ConstructionUnit.OnKilled(self, instigator, type, overkillRatio)
-        self:DestroyMovementEffects()  # remove green hover effect
-        self:StopBuildingEffects()  # remove building beams
+        self:DestroyMovementEffects()  -- remove green hover effect
+        self:StopBuildingEffects()  -- remove building beams
     end,
 
     OnMotionHorzEventChange = function( self, new, old )
@@ -470,7 +470,7 @@ NConstructionUnit = Class(ConstructionUnit) {
 
         if not self:IsDead() then
             local layer = self:GetCurrentLayer()
-            if new == 'Stopped' or new == 'Stopping' then   # when stopping play the idle sound, on water play a different one
+            if new == 'Stopped' or new == 'Stopping' then   -- when stopping play the idle sound, on water play a different one
                 if layer == 'Water' and self:GetBlueprint().Audio and self:GetBlueprint().Audio.AmbientMoveWater then
                     self:PlayUnitAmbientSound( 'AmbientMoveWater' )
                 else
@@ -483,9 +483,9 @@ NConstructionUnit = Class(ConstructionUnit) {
     end,
 }
 
-#-------------------------------------------------------------
-# FACTORY UNITS
-#-------------------------------------------------------------
+---------------------------------------------------------------
+-- FACTORY UNITS
+---------------------------------------------------------------
 LandFactoryUnit = AddNomadBeingBuiltEffects(NomadSharedFactory(LandFactoryUnit))
 NLandFactoryUnit = Class(LandFactoryUnit) {
 
@@ -505,9 +505,9 @@ NSCUFactoryUnit = Class(LandFactoryUnit) {
 
 }
 
-#-------------------------------------------------------------
-#  UNITS IN PLANET ORBIT
-#-------------------------------------------------------------
+---------------------------------------------------------------
+--  UNITS IN PLANET ORBIT
+---------------------------------------------------------------
 NOrbitUnit = Class(Unit) {
 
     BeamExhaustCruise = NomadEffectTemplate.AirThrusterCruisingBeam,
@@ -517,7 +517,7 @@ NOrbitUnit = Class(Unit) {
         Unit.OnCreate(self)
         self:WarpIntoOrbit()
 
-        # give us a name
+        -- give us a name
         local name = self:GetBlueprint().General.UnitName
         if name then
             self:SetCustomName(name)
@@ -525,31 +525,31 @@ NOrbitUnit = Class(Unit) {
     end,
 
     WarpIntoOrbit = function(self)
-        # warp into orbit
+        -- warp into orbit
         local pos = self:GetPosition()
         local surface = GetSurfaceHeight(pos[1], pos[3]) + GetTerrainTypeOffset(pos[1], pos[3])
         local orbit = self:GetBlueprint().Physics.Elevation or 75
         pos[2] = surface + orbit
         Warp( self, pos, self:GetOrientation() )
 
-        # in orbit we have a slight rotation
-        if self:GetBlueprint().Physics.RotateOnSpot != false then
+        -- in orbit we have a slight rotation
+        if self:GetBlueprint().Physics.RotateOnSpot ~= false then
             self.RotatorManip = CreateRotator( self, 0, 'y', nil, 2 )
         end
     end,
 }
 
-#-------------------------------------------------------------
-#  AIR STAGING STRUCTURES
-#-------------------------------------------------------------
+---------------------------------------------------------------
+--  AIR STAGING STRUCTURES
+---------------------------------------------------------------
 AirStagingPlatformUnit = AddNomadBeingBuiltEffects(AirStagingPlatformUnit)
 NAirStagingPlatformUnit = Class(AirStagingPlatformUnit) {
 
 }
 
-#-------------------------------------------------------------
-# ENERGY CREATION STRUCTURES
-#-------------------------------------------------------------
+---------------------------------------------------------------
+-- ENERGY CREATION STRUCTURES
+---------------------------------------------------------------
 EnergyCreationUnit = AddNomadBeingBuiltEffects(EnergyCreationUnit)
 NEnergyCreationUnit = Class(EnergyCreationUnit) {
 
@@ -572,7 +572,7 @@ NEnergyCreationUnit = Class(EnergyCreationUnit) {
     end,
 
     PlayActiveEffects = function(self)
-        # emitters
+        -- emitters
         if self.ActiveEffectTemplateName and self.ActiveEffectBone then
             local army, emit = self:GetArmy()
             for k, v in NomadEffectTemplate[ self.ActiveEffectTemplateName ] do
@@ -582,7 +582,7 @@ NEnergyCreationUnit = Class(EnergyCreationUnit) {
             end
         end
 
-        # sound
+        -- sound
         local bp = self:GetBlueprint()
         if bp and bp.Audio and bp.Audio.Activate then
             self:PlaySound( bp.Activate )
@@ -594,49 +594,49 @@ NEnergyCreationUnit = Class(EnergyCreationUnit) {
     end,
 }
 
-#-------------------------------------------------------------
-#  MASS COLLECTION UNITS
-#-------------------------------------------------------------
+---------------------------------------------------------------
+--  MASS COLLECTION UNITS
+---------------------------------------------------------------
 MassCollectionUnit = AddNomadBeingBuiltEffects(MassCollectionUnit)
 NMassCollectionUnit = Class(MassCollectionUnit) {
 
 }
 
-#-------------------------------------------------------------
-# MASS FABRICATION STRUCTURES
-#-------------------------------------------------------------
+---------------------------------------------------------------
+-- MASS FABRICATION STRUCTURES
+---------------------------------------------------------------
 MassFabricationUnit = AddNomadBeingBuiltEffects(MassFabricationUnit)
 NMassFabricationUnit = Class(MassFabricationUnit) {
 
 }
 
-#-------------------------------------------------------------
-# ENERGY STORAGE STRUCTURES
-#-------------------------------------------------------------
+---------------------------------------------------------------
+-- ENERGY STORAGE STRUCTURES
+---------------------------------------------------------------
 EnergyStorageUnit = AddNomadBeingBuiltEffects(EnergyStorageUnit)
 NEnergyStorageUnit = Class(EnergyStorageUnit) {
 
 }
 
-#-------------------------------------------------------------
-# MASS STORAGE STRUCTURES
-#-------------------------------------------------------------
+---------------------------------------------------------------
+-- MASS STORAGE STRUCTURES
+---------------------------------------------------------------
 MassStorageUnit = AddNomadBeingBuiltEffects(MassStorageUnit)
 NMassStorageUnit = Class(MassStorageUnit) {
 
 }
 
-#-------------------------------------------------------------
-#  COUNTER INTEL STRUCTURES
-#-------------------------------------------------------------
+---------------------------------------------------------------
+--  COUNTER INTEL STRUCTURES
+---------------------------------------------------------------
 RadarJammerUnit = AddNomadBeingBuiltEffects(RadarJammerUnit)
 NRadarJammerUnit = Class(RadarJammerUnit) {
 
 }
 
-#-------------------------------------------------------------
-#  RADAR STRUCTURES
-#-------------------------------------------------------------
+---------------------------------------------------------------
+--  RADAR STRUCTURES
+---------------------------------------------------------------
 RadarUnit = AddNomadBeingBuiltEffects(RadarUnit)
 NRadarUnit = Class(RadarUnit) {
 
@@ -651,17 +651,17 @@ NRadarUnit = Class(RadarUnit) {
     OverchargeChargingFxScale = 1,
 }
 
-#-------------------------------------------------------------
-#  SONAR STRUCTURES
-#-------------------------------------------------------------
+---------------------------------------------------------------
+--  SONAR STRUCTURES
+---------------------------------------------------------------
 SonarUnit = AddNomadBeingBuiltEffects(SonarUnit)
 NSonarUnit = Class(SonarUnit) {
 
 }
 
-#-------------------------------------------------------------
-#  SHIELD STRUCTURES
-#-------------------------------------------------------------
+---------------------------------------------------------------
+--  SHIELD STRUCTURES
+---------------------------------------------------------------
 ShieldStructureUnit = AddNomadBeingBuiltEffects(ShieldStructureUnit)
 NShieldStructureUnit = Class(ShieldStructureUnit) {
 
@@ -700,25 +700,25 @@ NShieldStructureUnit = Class(ShieldStructureUnit) {
     end,
 }
 
-#-------------------------------------------------------------
-#  STRUCTURES
-#-------------------------------------------------------------
+---------------------------------------------------------------
+--  STRUCTURES
+---------------------------------------------------------------
 StructureUnit = AddNomadBeingBuiltEffects(StructureUnit)
 NStructureUnit = Class(StructureUnit) {
 
 }
 
-#-------------------------------------------------------------
-#  WALL  STRUCTURES
-#-------------------------------------------------------------
+---------------------------------------------------------------
+--  WALL  STRUCTURES
+---------------------------------------------------------------
 WallStructureUnit = AddNomadBeingBuiltEffects(WallStructureUnit)
 NWallStructureUnit = Class(WallStructureUnit) {
 
 }
 
-#-------------------------------------------------------------
-#  CIVILIAN STRUCTURES
-#-------------------------------------------------------------
+---------------------------------------------------------------
+--  CIVILIAN STRUCTURES
+---------------------------------------------------------------
 NCivilianStructureUnit = Class(StructureUnit) {
 
 }

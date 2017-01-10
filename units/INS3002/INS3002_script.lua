@@ -1,4 +1,4 @@
-# T3 strategic sub
+-- T3 strategic sub
 
 local Buff = import('/lua/sim/buff.lua')
 local AddNavalLights = import('/lua/nomadutils.lua').AddNavalLights
@@ -19,7 +19,7 @@ INS3002 = Class(NSubUnit) {
     LightBone_Right = 'Light2',
 
     OnCreate = function(self)
-        # create buff used to reduce range under water
+        -- create buff used to reduce range under water
         local wep = self:GetWeaponByLabel('MissileLauncher1')
         if wep then
             self.OnInWaterBuff = 'INS3002_OnWater'

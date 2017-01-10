@@ -15,7 +15,7 @@ DRA0202 = Class(oldDRA0202) {
                 OnGotTarget = function(self)
                     self.unit:SetBreakOffTriggerMult(2.0)
                     self.unit:SetBreakOffDistanceMult(8.0)
-                    self.unit:SetSpeedMult( math.pow(0.67,2) ) # bug in SetSpeedMult fixed, adjusting value to keep same speed
+                    self.unit:SetSpeedMult( math.pow(0.67,2) ) -- bug in SetSpeedMult fixed, adjusting value to keep same speed
                     CIFMissileCorsairWeapon.IdleState.OnGotTarget(self)
                 end,            
             },
@@ -23,7 +23,7 @@ DRA0202 = Class(oldDRA0202) {
             OnGotTarget = function(self)
                 self.unit:SetBreakOffTriggerMult(2.0)
                 self.unit:SetBreakOffDistanceMult(8.0)
-                self.unit:SetSpeedMult( math.pow(0.67,2) ) # bug in SetSpeedMult fixed, adjusting value to keep same speed
+                self.unit:SetSpeedMult( math.pow(0.67,2) ) -- bug in SetSpeedMult fixed, adjusting value to keep same speed
                 CIFMissileCorsairWeapon.OnGotTarget(self)
             end,
         

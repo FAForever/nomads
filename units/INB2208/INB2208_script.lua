@@ -1,4 +1,4 @@
-# T2 TML
+-- T2 TML
 
 local NStructureUnit = import('/lua/nomadunits.lua').NStructureUnit
 local TacticalMissileWeapon1 = import('/lua/nomadweapons.lua').TacticalMissileWeapon1

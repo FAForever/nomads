@@ -1,4 +1,4 @@
-# T2 destroyer
+-- T2 destroyer
 
 local SupportedArtilleryWeapon = import('/lua/nomadutils.lua').SupportedArtilleryWeapon
 local AddNavalLights = import('/lua/nomadutils.lua').AddNavalLights

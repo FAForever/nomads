@@ -48,7 +48,7 @@ function ShowEnhancement(bp, bpID, iconID, iconPrefix, userUnit)
         if View.Description then
             local tempDescID = bpID.."-"..iconID
 
-            # if unit is an enhancement preset unit then use the base units blueprint id for the enhancement tooltips
+            -- if unit is an enhancement preset unit then use the base units blueprint id for the enhancement tooltips
             if userUnit and userUnit:GetBlueprint().EnhancementPresetAssigned then
                 tempDescID = userUnit:GetBlueprint().EnhancementPresetAssigned.BaseBlueprintId .. "-" .. iconID
             end
@@ -83,7 +83,7 @@ end
 
 function Show(bp, buildingUnit, bpID)
     if CheckFormat() then
-        # Name / Description
+        -- Name / Description
         if false then
             local foo, iconName = GameCommon.GetCachedUnitIconFileNames(bp)
             if iconName then
@@ -98,7 +98,7 @@ function Show(bp, buildingUnit, bpID)
         if GetTechLevelString(bp) then
             description = LOCF('Tech %d %s', GetTechLevelString(bp), description)
         end
-        if bp.General.UnitName != nil then
+        if bp.General.UnitName ~= nil then
             View.UnitShortDesc:SetText(LOCF("%s: %s", bp.General.UnitName, description))
         else
             View.UnitShortDesc:SetText(LOCF("%s", description))
@@ -110,7 +110,7 @@ function Show(bp, buildingUnit, bpID)
         local showecon = true
         local showUpKeep = false
         local showAbilities = false
-        if buildingUnit != nil then
+        if buildingUnit ~= nil then
 
 
 	   -- Differential upgrading. Check to see if building this would be an upgrade
@@ -151,7 +151,7 @@ function Show(bp, buildingUnit, bpID)
             showecon = false
         end
             
-        # Health stat
+        -- Health stat
         local MaxHealth = bp.Display.UIUnitViewOverrides.MaxHealth or bp.Defense.MaxHealth
         View.HealthStat.Value:SetText(string.format("%d", MaxHealth))
     

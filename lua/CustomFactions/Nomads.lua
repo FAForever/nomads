@@ -1,4 +1,4 @@
-# Working example file
+-- Working example file
 
 FactionList = {
     {
@@ -48,13 +48,13 @@ FactionList = {
             Regular = { 'INB0101', 'INB1101', 'INB1101', 'INB1101', 'INB1101', },
         },
 
-        # AI stuff
+        -- AI stuff
         BaseTemplatesFile = '/lua/CustomFactions/NomadsAIFiles/BaseTemplates.lua',
         BuildingTemplatesFile = '/lua/CustomFactions/NomadsAIFiles/BuildingTemplates.lua',
         UpgradeTemplatesFile = '/lua/CustomFactions/NomadsAIFiles/UpgradeTemplates.lua',
         PlatoonTemplateKey = 'Nomad',
 
-        # Used by GAZ_UI. This mod needs to be the version that supports Nomads and other custom factions
+        -- Used by GAZ_UI. This mod needs to be the version that supports Nomads and other custom factions
         GAZ_UI_Info = {
             BuildingIdPrefixes = { 'inb', },
             TexEnhancementPrefix = {

@@ -262,7 +262,7 @@ function HandleUnitWithBuildPresets(bps, allUnitBlueprints)
 
             -- teleport cost adjustments. Teleporting a manually enhanced SCU is cheaper than a prebuild SCU because the latter has its cost
             -- adjusted (up). This code sets bp values used in the code to calculate with different base values than the unit cost.
-            if preset.TeleportNoCostAdjustment != false then
+            if preset.TeleportNoCostAdjustment ~= false then
                 -- set teleport cost overrides to cost of base unit
                 tempBp.Economy.TeleportEnergyCost = bp.Economy.BuildCostEnergy or 0
                 tempBp.Economy.TeleportMassCost = bp.Economy.BuildMassEnergy or 0
@@ -274,7 +274,7 @@ function HandleUnitWithBuildPresets(bps, allUnitBlueprints)
                     for _, v in SortCats do
                         table.removeByValue(tempBp.Categories, v)
                     end
-                    if preset.SortCategory != 'None' then
+                    if preset.SortCategory ~= 'None' then
                         table.insert(tempBp.Categories, preset.SortCategory)
                     end
                 end
@@ -431,7 +431,7 @@ function DEBUG_UNIT_BP_CHECK(bps)
     for _, bp in bps do
 
         -- filtering out irrelevant units
-        if DEBUGFACTION != '' and bp.General.FactionName != DEBUGFACTION then
+        if DEBUGFACTION ~= '' and bp.General.FactionName ~= DEBUGFACTION then
             continue
         end
 
@@ -513,13 +513,13 @@ function DEBUG_UNIT_BP_CHECK(bps)
         -- ---------------------------------------------------------------------------------------------------------------
 
         if DEBUGTEXTS then
-            if not bp.Description or string.len(bp.Description) < 19 or string.sub(bp.Description, 1, 18) != '<LOC '..bp.BlueprintId..'_desc>' then
+            if not bp.Description or string.len(bp.Description) < 19 or string.sub(bp.Description, 1, 18) ~= '<LOC '..bp.BlueprintId..'_desc>' then
                 WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' missing, invalid or incomplete Description')
             end
-            if not bp.Interface.HelpText or string.len(bp.Interface.HelpText) < 19 or string.sub(bp.Interface.HelpText, 1, 18) != '<LOC '..bp.BlueprintId..'_help>' then
+            if not bp.Interface.HelpText or string.len(bp.Interface.HelpText) < 19 or string.sub(bp.Interface.HelpText, 1, 18) ~= '<LOC '..bp.BlueprintId..'_help>' then
                 WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' missing, invalid or incomplete Interface.HelpText')
             end
-            if bp.General.UnitName and (string.len(bp.General.UnitName) < 19 or string.sub(bp.General.UnitName, 1, 18) != '<LOC '..bp.BlueprintId..'_name>') then
+            if bp.General.UnitName and (string.len(bp.General.UnitName) < 19 or string.sub(bp.General.UnitName, 1, 18) ~= '<LOC '..bp.BlueprintId..'_name>') then
                 WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' invalid or incomplete General.UnitName')
             end
         end
@@ -538,7 +538,7 @@ function DEBUG_UNIT_BP_CHECK(bps)
 
                                 for __, effect in val.Effects do
 
-                                    if effect.Offset and effect.Offset[2] != elev then
+                                    if effect.Offset and effect.Offset[2] ~= elev then
                                         WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' bad hover effect Y offset. It should be '..repr(elev)..' and not '..repr(effect.Offset[2]))
                                     end
 
@@ -549,16 +549,16 @@ function DEBUG_UNIT_BP_CHECK(bps)
                     end
                 end
             end
-            if bp.SelectionCenterOffsetY != -0.1 then
+            if bp.SelectionCenterOffsetY ~= -0.1 then
                 WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' SelectionCenterOffsetY should be -0.1')
             end
         end
 
-        if (TECH1 and bp.General.TechLevel != 'RULEUTL_Basic') or (TECH2 and bp.General.TechLevel != 'RULEUTL_Advanced') or ((TECH3 or EXP) and bp.General.TechLevel != 'RULEUTL_Secret') then
+        if (TECH1 and bp.General.TechLevel ~= 'RULEUTL_Basic') or (TECH2 and bp.General.TechLevel ~= 'RULEUTL_Advanced') or ((TECH3 or EXP) and bp.General.TechLevel ~= 'RULEUTL_Secret') then
             WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' incorrect General.TechLevel')
         end
 
-        if MOBILE and (LAND or AIR) and not CANNOTUSEAIRSTAGING and ((TECH1 and TransportClass != 1) or (TECH2 and TransportClass != 2) or (TECH3 and TransportClass != 3)) then
+        if MOBILE and (LAND or AIR) and not CANNOTUSEAIRSTAGING and ((TECH1 and TransportClass ~= 1) or (TECH2 and TransportClass ~= 2) or (TECH3 and TransportClass ~= 3)) then
             WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' incorrect transport class')
         end
 
@@ -566,14 +566,14 @@ function DEBUG_UNIT_BP_CHECK(bps)
             WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' Transport.AirClass not set')
         end
 
-        if (ENGINEER and not SUBCOMMANDER and not COMMAND and bp.General.Classification != 'RULEUC_Engineer') or 
-           (LAND and not ENGINEER and not SUBCOMMANDER and not COMMAND and bp.General.Classification != 'RULEUC_MilitaryVehicle') or 
-           (AIR and bp.General.Classification != 'RULEUC_MilitaryAircraft') or (FACTORY and STRUCTURE and bp.General.Classification != 'RULEUC_Factory') or
-           (ENERGYPRODUCTION and STRUCTURE and bp.General.Classification != 'RULEUC_Resource') or (MASSPRODUCTION and STRUCTURE and bp.General.Classification != 'RULEUC_Resource') or
-           (DEFENSE and STRUCTURE and bp.General.Classification != 'RULEUC_Weapon') or (INTELLIGENCE and STRUCTURE and not DEFENSE and bp.General.Classification != 'RULEUC_Sensor') or
-           (ANTIMISSILE and STRUCTURE and bp.General.Classification != 'RULEUC_CounterMeasure') or (SHIELD and bp.General.Classification != 'RULEUC_CounterMeasure') or
-           ((COMMAND or SUBCOMMANDER) and bp.General.Classification != 'RULEUC_Commander') or
-           (NAVAL and not STRUCTURE and not SUBMERSIBLE and bp.General.Classification != 'RULEUC_MilitaryShip') or (SUBMERSIBLE and bp.General.Classification != 'RULEUC_MilitarySub')
+        if (ENGINEER and not SUBCOMMANDER and not COMMAND and bp.General.Classification ~= 'RULEUC_Engineer') or 
+           (LAND and not ENGINEER and not SUBCOMMANDER and not COMMAND and bp.General.Classification ~= 'RULEUC_MilitaryVehicle') or 
+           (AIR and bp.General.Classification ~= 'RULEUC_MilitaryAircraft') or (FACTORY and STRUCTURE and bp.General.Classification ~= 'RULEUC_Factory') or
+           (ENERGYPRODUCTION and STRUCTURE and bp.General.Classification ~= 'RULEUC_Resource') or (MASSPRODUCTION and STRUCTURE and bp.General.Classification ~= 'RULEUC_Resource') or
+           (DEFENSE and STRUCTURE and bp.General.Classification ~= 'RULEUC_Weapon') or (INTELLIGENCE and STRUCTURE and not DEFENSE and bp.General.Classification ~= 'RULEUC_Sensor') or
+           (ANTIMISSILE and STRUCTURE and bp.General.Classification ~= 'RULEUC_CounterMeasure') or (SHIELD and bp.General.Classification ~= 'RULEUC_CounterMeasure') or
+           ((COMMAND or SUBCOMMANDER) and bp.General.Classification ~= 'RULEUC_Commander') or
+           (NAVAL and not STRUCTURE and not SUBMERSIBLE and bp.General.Classification ~= 'RULEUC_MilitaryShip') or (SUBMERSIBLE and bp.General.Classification ~= 'RULEUC_MilitarySub')
         then
             WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' incorrect classification')
         end
@@ -581,16 +581,16 @@ function DEBUG_UNIT_BP_CHECK(bps)
 --RULEUMT_Amphibious
 --'RULEUC_MiscSupport'
 
-        if (HOVER and bp.Physics.MotionType != 'RULEUMT_Hover') or (AIR and not STRUCTURE and bp.Physics.MotionType != 'RULEUMT_Air') or (STRUCTURE and bp.Physics.MotionType != 'RULEUMT_None') or
-           (LAND and not HOVER and not STRUCTURE and (bp.Physics.MotionType != 'RULEUMT_Land' and bp.Physics.MotionType != 'RULEUMT_Amphibious' and bp.Physics.MotionType != 'RULEUMT_AmphibiousFloating')) or
-           (SUBMERSIBLE and bp.Physics.MotionType != 'RULEUMT_SurfacingSub') or (NAVAL and not SUBMERSIBLE and not STRUCTURE and bp.Physics.MotionType != 'RULEUMT_Water')
+        if (HOVER and bp.Physics.MotionType ~= 'RULEUMT_Hover') or (AIR and not STRUCTURE and bp.Physics.MotionType ~= 'RULEUMT_Air') or (STRUCTURE and bp.Physics.MotionType ~= 'RULEUMT_None') or
+           (LAND and not HOVER and not STRUCTURE and (bp.Physics.MotionType ~= 'RULEUMT_Land' and bp.Physics.MotionType ~= 'RULEUMT_Amphibious' and bp.Physics.MotionType ~= 'RULEUMT_AmphibiousFloating')) or
+           (SUBMERSIBLE and bp.Physics.MotionType ~= 'RULEUMT_SurfacingSub') or (NAVAL and not SUBMERSIBLE and not STRUCTURE and bp.Physics.MotionType ~= 'RULEUMT_Water')
         then
             WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' Physics.MotionType is incorrect')
         end
 
         if not MOBILE then
             local spd = bp.Physics.MaxSpeed
-            if bp.Physics.MaxAcceleration != spd or bp.Physics.MaxBrake != spd then
+            if bp.Physics.MaxAcceleration ~= spd or bp.Physics.MaxBrake ~= spd then
                 WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' Physics.MaxAcceleration or Physics.MaxBrake not equal to MaxSpeed')
             end
         end
@@ -599,11 +599,11 @@ function DEBUG_UNIT_BP_CHECK(bps)
             WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' no SizeSphere defined')
         elseif MOBILE and AIR and not TRANSPORTATION and not bp.Physics.GroundCollisionOffset then
             WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' no Physics.GroundCollisionOffset defined')
-        elseif MOBILE and AIR and not TRANSPORTATION and bp.SizeSphere != bp.Physics.GroundCollisionOffset then
+        elseif MOBILE and AIR and not TRANSPORTATION and bp.SizeSphere ~= bp.Physics.GroundCollisionOffset then
             WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' Physics.GroundCollisionOffset not equal to SizeSphere ('..repr(bp.SizeSphere)..')')
         end
 
-        if HOVER and not ENGINEER and bp.General.FactionName == 'Nomad' and bp.Physics.OnWaterSpeedMultiplier and math.ceil(bp.Physics.OnWaterSpeedMultiplier * 100) != 75 then
+        if HOVER and not ENGINEER and bp.General.FactionName == 'Nomad' and bp.Physics.OnWaterSpeedMultiplier and math.ceil(bp.Physics.OnWaterSpeedMultiplier * 100) ~= 75 then
             WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' Physics.OnWaterSpeedMultiplier is not 0.75, it is '..repr(bp.Physics.OnWaterSpeedMultiplier))
         end
 
@@ -611,7 +611,7 @@ function DEBUG_UNIT_BP_CHECK(bps)
             WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' units that (can) float on the water surface should have a CollisionOffsetY >= -0.1 so torpedoes can hit it')
         end
 
-        if PRODUCTSC1 and bp.General.FactionName != 'UEF' and bp.General.FactionName != 'Aeon' and bp.General.FactionName != 'Cybran' and string.sub(bp.BlueprintId, 1, 1) != 'u' and string.sub(bp.BlueprintId, 1, 1) != 'd' then
+        if PRODUCTSC1 and bp.General.FactionName ~= 'UEF' and bp.General.FactionName ~= 'Aeon' and bp.General.FactionName ~= 'Cybran' and string.sub(bp.BlueprintId, 1, 1) ~= 'u' and string.sub(bp.BlueprintId, 1, 1) ~= 'd' then
             WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' shouldnt have category PRODUCTSC1')
         end
 
@@ -630,27 +630,27 @@ function DEBUG_UNIT_BP_CHECK(bps)
             end
         end
 
-        if (OMNI or (not OMNI and COMMAND)) != (bp.Intel.OmniRadius != nil and bp.Intel.OmniRadius > 0) then               WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' omni intel and OMNI category mismatch') end
-        if RADAR != (bp.Intel.RadarRadius != nil and bp.Intel.RadarRadius > 0) then                                        WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' radar intel and RADAR category mismatch') end
-        if SONAR != (bp.Intel.SonarRadius != nil and bp.Intel.SonarRadius > 0) then                                        WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' sonar intel and SONAR category mismatch') end
-        if COUNTERINTELLIGENCE != (bp.Intel.SonarStealthFieldRadius != nil and bp.Intel.SonarStealthFieldRadius > 0) then  WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' sonarstealth intel and COUNTERINTELLIGENCE category mismatch') end
-        if COUNTERINTELLIGENCE != (bp.Intel.RadarStealthFieldRadius != nil and bp.Intel.RadarStealthFieldRadius > 0) then  WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' radarstealth intel and COUNTERINTELLIGENCE category mismatch') end
-        if COUNTERINTELLIGENCE != (bp.Intel.CloakFieldRadius != nil and bp.Intel.CloakFieldRadius > 0) then                WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' cloakfield intel and COUNTERINTELLIGENCE category mismatch') end
-        if COUNTERINTELLIGENCE != (bp.Intel.JamRadius != nil and bp.Intel.JamRadius > 0) then                              WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' radar jammer intel and COUNTERINTELLIGENCE category mismatch') end
+        if (OMNI or (not OMNI and COMMAND)) ~= (bp.Intel.OmniRadius ~= nil and bp.Intel.OmniRadius > 0) then               WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' omni intel and OMNI category mismatch') end
+        if RADAR ~= (bp.Intel.RadarRadius ~= nil and bp.Intel.RadarRadius > 0) then                                        WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' radar intel and RADAR category mismatch') end
+        if SONAR ~= (bp.Intel.SonarRadius ~= nil and bp.Intel.SonarRadius > 0) then                                        WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' sonar intel and SONAR category mismatch') end
+        if COUNTERINTELLIGENCE ~= (bp.Intel.SonarStealthFieldRadius ~= nil and bp.Intel.SonarStealthFieldRadius > 0) then  WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' sonarstealth intel and COUNTERINTELLIGENCE category mismatch') end
+        if COUNTERINTELLIGENCE ~= (bp.Intel.RadarStealthFieldRadius ~= nil and bp.Intel.RadarStealthFieldRadius > 0) then  WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' radarstealth intel and COUNTERINTELLIGENCE category mismatch') end
+        if COUNTERINTELLIGENCE ~= (bp.Intel.CloakFieldRadius ~= nil and bp.Intel.CloakFieldRadius > 0) then                WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' cloakfield intel and COUNTERINTELLIGENCE category mismatch') end
+        if COUNTERINTELLIGENCE ~= (bp.Intel.JamRadius ~= nil and bp.Intel.JamRadius > 0) then                              WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' radar jammer intel and COUNTERINTELLIGENCE category mismatch') end
 
-        if INTELLIGENCE != (RADAR or SONAR or OMNI or SCOUT) then WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' ambiguous category INTELLIGENCE, missing SCOUT, RADAR, SONAR or OMNI') end
-        if RADAR != OVERLAYRADAR then                             WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' ambiguous category OVERLAYRADAR') end
-        if OMNI != OVERLAYOMNI then                               WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' ambiguous category OVERLAYOMNI') end
-        if SONAR != OVERLAYSONAR then                             WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' ambiguous category OVERLAYSONAR') end
-        if COUNTERINTELLIGENCE != OVERLAYCOUNTERINTEL then        WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' ambiguous category OVERLAYCOUNTERINTEL') end
-        if DIRECTFIRE != OVERLAYDIRECTFIRE then                   WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' ambiguous category OVERLAYDIRECTFIRE') end
-        if (INDIRECTFIRE or bp.Enhancements) != OVERLAYINDIRECTFIRE then               WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' ambiguous category OVERLAYINDIRECTFIRE') end
-        if ANTIAIR != OVERLAYANTIAIR then                         WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' ambiguous category OVERLAYANTIAIR') end
-        if ANTINAVY != OVERLAYANTINAVY then                       WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' ambiguous category OVERLAYANTINAVY') end
-        if (ANTIMISSILE or DEFENSE) != (OVERLAYDEFENSE or OVERLAYANTINAVY) then        WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' ambiguous category OVERLAYDEFENSE') end
-        if not MASSEXTRACTION and not CIVILIAN and (STRUCTURE or NEEDMOBILEBUILD) != DRAGBUILD then       WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' ambiguous category DRAGBUILD') end
+        if INTELLIGENCE ~= (RADAR or SONAR or OMNI or SCOUT) then WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' ambiguous category INTELLIGENCE, missing SCOUT, RADAR, SONAR or OMNI') end
+        if RADAR ~= OVERLAYRADAR then                             WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' ambiguous category OVERLAYRADAR') end
+        if OMNI ~= OVERLAYOMNI then                               WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' ambiguous category OVERLAYOMNI') end
+        if SONAR ~= OVERLAYSONAR then                             WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' ambiguous category OVERLAYSONAR') end
+        if COUNTERINTELLIGENCE ~= OVERLAYCOUNTERINTEL then        WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' ambiguous category OVERLAYCOUNTERINTEL') end
+        if DIRECTFIRE ~= OVERLAYDIRECTFIRE then                   WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' ambiguous category OVERLAYDIRECTFIRE') end
+        if (INDIRECTFIRE or bp.Enhancements) ~= OVERLAYINDIRECTFIRE then               WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' ambiguous category OVERLAYINDIRECTFIRE') end
+        if ANTIAIR ~= OVERLAYANTIAIR then                         WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' ambiguous category OVERLAYANTIAIR') end
+        if ANTINAVY ~= OVERLAYANTINAVY then                       WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' ambiguous category OVERLAYANTINAVY') end
+        if (ANTIMISSILE or DEFENSE) ~= (OVERLAYDEFENSE or OVERLAYANTINAVY) then        WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' ambiguous category OVERLAYDEFENSE') end
+        if not MASSEXTRACTION and not CIVILIAN and (STRUCTURE or NEEDMOBILEBUILD) ~= DRAGBUILD then       WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' ambiguous category DRAGBUILD') end
 
-        if RECLAIMABLE != (not COMMAND and not SUBCOMMANDER) then WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' ambiguous category RECLAIMABLE (dont use on commanders)') end
+        if RECLAIMABLE ~= (not COMMAND and not SUBCOMMANDER) then WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' ambiguous category RECLAIMABLE (dont use on commanders)') end
 
         if not VISIBLETORECON then WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' missing category VISIBLETORECON') end
         if ARTILLERY and not INDIRECTFIRE then WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' missing category INDIRECTFIRE') end
@@ -660,7 +660,7 @@ function DEBUG_UNIT_BP_CHECK(bps)
         if bp.Veteran then
             if not bp.Veteran.Level1 or not bp.Veteran.Level2 or not bp.Veteran.Level3 or not bp.Veteran.Level4 or not bp.Veteran.Level5 then
                 WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' missing a veteran level')
-            elseif (bp.Veteran.Level1 * 2) != bp.Veteran.Level2 or (bp.Veteran.Level1 * 3) != bp.Veteran.Level3 or (bp.Veteran.Level1 * 4) != bp.Veteran.Level4 or (bp.Veteran.Level1 * 5) != bp.Veteran.Level5 then
+            elseif (bp.Veteran.Level1 * 2) ~= bp.Veteran.Level2 or (bp.Veteran.Level1 * 3) ~= bp.Veteran.Level3 or (bp.Veteran.Level1 * 4) ~= bp.Veteran.Level4 or (bp.Veteran.Level1 * 5) ~= bp.Veteran.Level5 then
                 WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' bad veteran level steps, each step should be a multiple of Veteran.Level1')
             elseif not bp.Buffs or not bp.Buffs.Regen or not bp.Buffs.Regen.Level1 or not bp.Buffs.Regen.Level2 or not bp.Buffs.Regen.Level3 or not bp.Buffs.Regen.Level4 or not bp.Buffs.Regen.Level5 then
                 WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' missing regeneration buffs for veteran levels')
@@ -701,27 +701,27 @@ function DEBUG_UNIT_BP_CHECK(bps)
             end
         end
 
-        if HOVER != abilHov then             WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' hover ability (not) displayed') end
-        if ENGINEER != abilEng then          WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' engineering suite ability (not) displayed') end
-        if ANTIAIR != abilaa then            WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' anti-air ability (not) displayed') end
-        if RADAR != abilradar then           WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' radar ability (not) displayed') end
-        if ARTILLERY != abilart then         WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' artillery ability (not) displayed') end
-        if ARTILLERYSUPPORT != abilas then   WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' artillery support ability (not) displayed') end
-        if CARRIER != abilcar then           WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' carrier ability (not) displayed') end
-        if SUBMERSIBLE != abilsub then       WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' submersible ability (not) displayed') end
-        if UNSTUNABLE != abilunstun then     WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' unstunable ability (not) displayed') end
-        if ANTIMISSILE != abiltmd then       WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' tactical missile defense ability (not) displayed') end
-        if TRANSPORTATION != abiltransp then WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' transport ability (not) displayed') end
+        if HOVER ~= abilHov then             WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' hover ability (not) displayed') end
+        if ENGINEER ~= abilEng then          WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' engineering suite ability (not) displayed') end
+        if ANTIAIR ~= abilaa then            WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' anti-air ability (not) displayed') end
+        if RADAR ~= abilradar then           WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' radar ability (not) displayed') end
+        if ARTILLERY ~= abilart then         WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' artillery ability (not) displayed') end
+        if ARTILLERYSUPPORT ~= abilas then   WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' artillery support ability (not) displayed') end
+        if CARRIER ~= abilcar then           WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' carrier ability (not) displayed') end
+        if SUBMERSIBLE ~= abilsub then       WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' submersible ability (not) displayed') end
+        if UNSTUNABLE ~= abilunstun then     WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' unstunable ability (not) displayed') end
+        if ANTIMISSILE ~= abiltmd then       WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' tactical missile defense ability (not) displayed') end
+        if TRANSPORTATION ~= abiltransp then WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' transport ability (not) displayed') end
 
-        if (SHIELD and bp.Defense.Shield.Mesh != nil) != abilshieldome then WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' shield dome ability (not) displayed') end
-        if (STRUCTURE and bp.Physics.BuildOnLayerCaps.LAYER_Water and bp.Physics.BuildOnLayerCaps.LAYER_Land) != abilaqua then WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' aquatic ability (not) displayed') end
-        if bp.Intel and bp.Intel.RadarStealth and bp.Intel.RadarStealth != abilStealth then WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' personal stealth ability (not) displayed') end
-        if bp.Physics.MotionType and (bp.Physics.MotionType == 'RULEUMT_Amphibious') != abilamph then WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' ampibious ability (not) displayed') end
-        if (TransportClass == 4 and MOBILE and LAND and EXP) != abiltransportable then WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' transportable ability (not) displayed') end
+        if (SHIELD and bp.Defense.Shield.Mesh ~= nil) ~= abilshieldome then WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' shield dome ability (not) displayed') end
+        if (STRUCTURE and bp.Physics.BuildOnLayerCaps.LAYER_Water and bp.Physics.BuildOnLayerCaps.LAYER_Land) ~= abilaqua then WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' aquatic ability (not) displayed') end
+        if bp.Intel and bp.Intel.RadarStealth and bp.Intel.RadarStealth ~= abilStealth then WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' personal stealth ability (not) displayed') end
+        if bp.Physics.MotionType and (bp.Physics.MotionType == 'RULEUMT_Amphibious') ~= abilamph then WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' ampibious ability (not) displayed') end
+        if (TransportClass == 4 and MOBILE and LAND and EXP) ~= abiltransportable then WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' transportable ability (not) displayed') end
         if bp.Defense.AntiMissileFlares and not abilflares then WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' anti air flares ability (not) displayed') end
-        if (STRUCTURE and bp.General.UpgradesTo != nil) != abilupgr then WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' upgradeable ability (not) displayed') end
-        if bp.Intel.OverchargeType != nil and (bp.Intel.OverchargeType == 'Radar') != abilradarboost then WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' radar boost ability (not) displayed') end
-        if bp.Intel.OverchargeType != nil and (bp.Intel.OverchargeType == 'Sonar') != abilsonarboost then WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' sonar boost ability (not) displayed') end
+        if (STRUCTURE and bp.General.UpgradesTo ~= nil) ~= abilupgr then WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' upgradeable ability (not) displayed') end
+        if bp.Intel.OverchargeType ~= nil and (bp.Intel.OverchargeType == 'Radar') ~= abilradarboost then WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' radar boost ability (not) displayed') end
+        if bp.Intel.OverchargeType ~= nil and (bp.Intel.OverchargeType == 'Sonar') ~= abilsonarboost then WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' sonar boost ability (not) displayed') end
 
         -- --------------
 
@@ -745,10 +745,10 @@ function DEBUG_UNIT_BP_CHECK(bps)
                     if not bp.Enhancements[RealEnh] then
                         WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' no enhancement exists to remove with '..enh..' (expected '..RealEnh..')')
                     else
---                        if not data.Prerequisite or data.Prerequisite != RealEnh then WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' no or invalid prerequisite for '..enh) end
-                        if data.BuildCostEnergy != 1 or data.BuildCostMass != 1 or data.BuildTime != 0.1 then WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' enhancement '..enh..' has bad costs. E and M should be 1, T should be 0.1') end
-                        if not data.Slot or data.Slot != bp.Enhancements[RealEnh].Slot then WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' enhancement '..enh..' uses wrong slot, should be equal to that of enhancement '..RealEnh) end
-                        if not data.Icon or data.Icon != bp.Enhancements[RealEnh].Icon then WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' enhancement '..enh..' uses wrong icon, should be equal to that of enhancement '..RealEnh) end
+--                        if not data.Prerequisite or data.Prerequisite ~= RealEnh then WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' no or invalid prerequisite for '..enh) end
+                        if data.BuildCostEnergy ~= 1 or data.BuildCostMass ~= 1 or data.BuildTime ~= 0.1 then WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' enhancement '..enh..' has bad costs. E and M should be 1, T should be 0.1') end
+                        if not data.Slot or data.Slot ~= bp.Enhancements[RealEnh].Slot then WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' enhancement '..enh..' uses wrong slot, should be equal to that of enhancement '..RealEnh) end
+                        if not data.Icon or data.Icon ~= bp.Enhancements[RealEnh].Icon then WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' enhancement '..enh..' uses wrong icon, should be equal to that of enhancement '..RealEnh) end
                     end
                 end
             end
@@ -779,9 +779,9 @@ function DEBUG_UNIT_BP_CHECK(bps)
             end
         end
 
-        if HasDeathWep != abilvolatile then WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' volatile ability (not) displayed') end
-        if (MOBILE and AIR) != HasDeathImpWep then WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' has (no) air crash weapon') end
-        if bp.Intel.OverchargeEnablesDeathWeapon != nil and bp.Intel.OverchargeEnablesDeathWeapon != HasIntelOverchargeDeathWep then WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' has (no) intel overcharge deathweapon') end
+        if HasDeathWep ~= abilvolatile then WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' volatile ability (not) displayed') end
+        if (MOBILE and AIR) ~= HasDeathImpWep then WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' has (no) air crash weapon') end
+        if bp.Intel.OverchargeEnablesDeathWeapon ~= nil and bp.Intel.OverchargeEnablesDeathWeapon ~= HasIntelOverchargeDeathWep then WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' has (no) intel overcharge deathweapon') end
 
 
     end

@@ -1,4 +1,4 @@
-# T1 light tank (should match LABs in power)
+-- T1 light tank (should match LABs in power)
 
 local NHoverLandUnit = import('/lua/nomadunits.lua').NHoverLandUnit
 local DarkMatterWeapon1 = import('/lua/nomadweapons.lua').DarkMatterWeapon1

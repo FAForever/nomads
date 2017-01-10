@@ -127,22 +127,22 @@ UnitBlueprint {
     SpecialAbilities = {
         NomadAreaBombardment = {
             AreaOfEffect = 3,
-            MaxRadius = 0,  # depend on other units to determine range
+            MaxRadius = 0,  -- depend on other units to determine range
             NoAutoEnable = true,
-            WantNumTargets = 10,  # keep equal to number of weapons
+            WantNumTargets = 10,  -- keep equal to number of weapons
             CanUseRangeExtenders = true,
         },
         NomadIntelProbe = {
-            MaxRadius = -1, # unlimited range
+            MaxRadius = -1, -- unlimited range
             NoAutoEnable = true,
         },
         NomadIntelProbeAdvanced = {
-            MaxRadius = -1, # unlimited range
+            MaxRadius = -1, -- unlimited range
             NoAutoEnable = true,
         },
     },
-#    StrategicIconName = 'icon_experimental_generic',
-#    StrategicIconSortPriority = 55,
+--    StrategicIconName = 'icon_experimental_generic',
+--    StrategicIconSortPriority = 55,
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
@@ -725,20 +725,20 @@ UnitBlueprint {
             WeaponUnpacks = false,
         },
     },
-#    Wreckage = {
-#        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-#        EnergyMult = 0,
-#        HealthMult = 0.9,
-#        MassMult = 0.9,
-#        ReclaimTimeMultiplier = 1,
-#        WreckageLayers = {
-#            Air = false,
-#            Land = true,
-#            Seabed = false,
-#            Sub = false,
-#            Water = false,
-#        },
-#    },
+--    Wreckage = {
+--        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+--        EnergyMult = 0,
+--        HealthMult = 0.9,
+--        MassMult = 0.9,
+--        ReclaimTimeMultiplier = 1,
+--        WreckageLayers = {
+--            Air = false,
+--            Land = true,
+--            Seabed = false,
+--            Sub = false,
+--            Water = false,
+--        },
+--    },
 }
 
-# UNIT DB: IGNORE
+-- UNIT DB: IGNORE

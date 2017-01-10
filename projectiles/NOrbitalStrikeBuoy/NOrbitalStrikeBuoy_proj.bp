@@ -1,4 +1,4 @@
-# Orbital strike buoy
+-- Orbital strike buoy
 ProjectileBlueprint {
     Audio = {
         Impact = Sound {

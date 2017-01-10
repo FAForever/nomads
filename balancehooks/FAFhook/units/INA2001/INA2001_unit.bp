@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "ina2001", # T2 Transport
+    BlueprintId = "ina2001", -- T2 Transport
     Air = {
         MaxAirspeed = 16,
     },

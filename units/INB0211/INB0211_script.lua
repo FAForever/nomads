@@ -1,4 +1,4 @@
-# T2 land factory (support, non HQ)
+-- T2 land factory (support, non HQ)
 
 local NLandFactoryUnit = import('/lua/nomadunits.lua').NLandFactoryUnit
 
@@ -7,8 +7,8 @@ INB0211 = Class(NLandFactoryUnit) {
     OnCreate = function(self)
         NLandFactoryUnit.OnCreate(self)
 
-        # hide bones to show difference between this factory and the HQ
-#        self:HideBone('', true)
+        -- hide bones to show difference between this factory and the HQ
+--        self:HideBone('', true)
     end,
 }
 

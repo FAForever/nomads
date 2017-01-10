@@ -1,4 +1,4 @@
-# stuff for campaigns overviews / briefings / etc, but not missions. Just the UI part in between missions.
+-- stuff for campaigns overviews / briefings / etc, but not missions. Just the UI part in between missions.
 
 local UIUtil = import('/lua/ui/uiutil.lua')
 local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
@@ -23,7 +23,7 @@ local MapUtil = import('/lua/ui/maputil.lua')
 local Campaigns = import('/lua/campaigns.lua')
 local CampaignMovies = import('/lua/ui/campaign/campaignmovies.lua')
 
-# get most up to date faction data
+-- get most up to date faction data
 dirty_module('/lua/factions.lua')
 local Factions = import('/lua/factions.lua').GetFactions()
 
@@ -33,9 +33,9 @@ local GUI = false
 local mapErrorDialog = false
 
 
-# -------------------------------------------------------------------------------
+-- -------------------------------------------------------------------------------
 
-# Provides a general purpuse campaign UI.
+-- Provides a general purpuse campaign UI.
 function CreateDefaultUI()
 
     local _SelectedMissionInfo = false
@@ -45,9 +45,9 @@ function CreateDefaultUI()
     local progress = Campaigns.GetMissionProgress(campaignInfo.uid, currentFaction) or 0
     local curDifficulty = Campaigns.GetDifficulty(campaignInfo.uid) or 2
 
-    # ---------------------------------------------------------------------------
-    #   SETUP
-    # ---------------------------------------------------------------------------
+    -- ---------------------------------------------------------------------------
+    --   SETUP
+    -- ---------------------------------------------------------------------------
 
     GUI.parent = Group(GetFrame(0))
     LayoutHelpers.FillParent(GUI.parent, GetFrame(0))
@@ -70,9 +70,9 @@ function CreateDefaultUI()
     LayoutHelpers.AtTopIn(GUI.subTitle, GUI.foreground, 80)
 
 
-    # ---------------------------------------------------------------------------
-    #   BUTTONS
-    # ---------------------------------------------------------------------------
+    -- ---------------------------------------------------------------------------
+    --   BUTTONS
+    -- ---------------------------------------------------------------------------
 
 
     GUI.factionBtn = UIUtil.CreateButtonStd(GUI.parent, '/scx_menu/small-btn/small', "<LOC uicampaign_0012>Other faction", 16, 2)
@@ -118,9 +118,9 @@ function CreateDefaultUI()
     import('/lua/ui/uimain.lua').SetEscapeHandler(function() GUI.backBtn.OnClick() end)
 
 
-    # ---------------------------------------------------------------------------
-    #   MISSION INFO
-    # ---------------------------------------------------------------------------
+    -- ---------------------------------------------------------------------------
+    --   MISSION INFO
+    -- ---------------------------------------------------------------------------
 
     GUI.missioninfo = Group(GUI.foreground)
     GUI.missioninfo.Width:Set(550)
@@ -137,9 +137,9 @@ function CreateDefaultUI()
     LayoutHelpers.AtBottomIn(GUI.briefingText, GUI.missioninfo, 0)
 
 
-    # ---------------------------------------------------------------------------
-    #   MISSION LIST
-    # ---------------------------------------------------------------------------
+    -- ---------------------------------------------------------------------------
+    --   MISSION LIST
+    -- ---------------------------------------------------------------------------
 
     local numMissionsPerPage = 7
 
@@ -200,9 +200,9 @@ function CreateDefaultUI()
         self.top = 0
     end
 
-    # ---------------------------------------------------------------------------
-    #   BEHAVIOUR
-    # ---------------------------------------------------------------------------
+    -- ---------------------------------------------------------------------------
+    --   BEHAVIOUR
+    -- ---------------------------------------------------------------------------
 
     function OnselectedMissionChanged(missionInfo)
         _SelectedMissionInfo = missionInfo
@@ -210,7 +210,7 @@ function CreateDefaultUI()
     end
 
     function OnFactionChanged( newFaction)
-        if newFaction != currentFaction then
+        if newFaction ~= currentFaction then
             Campaigns.SetLastPlayedFaction(campaignInfo.uid, newFaction)
             currentFaction = newFaction
             ShowFactionMissions()
@@ -218,7 +218,7 @@ function CreateDefaultUI()
     end
 
     local function AddMissionToList(parent, missionNum, missionInfo, isAvailable)
-        local text = missionInfo.name or 'unknown ('..repr(missionNum)..')' #LOC("<LOC campaign_00007>Mission") .. ' ' .. repr(missionNum)
+        local text = missionInfo.name or 'unknown ('..repr(missionNum)..')' --LOC("<LOC campaign_00007>Mission") .. ' ' .. repr(missionNum)
         local button = UIUtil.CreateButtonStd(parent, '/scx_menu/small-wide-btn/small', text, 16, 2)
 
         button.missionNum = missionNum
@@ -247,7 +247,7 @@ function CreateDefaultUI()
         for i, MissionInfo in campaignLayout.Missions[currentFaction] do
             if availableMissions[currentFaction][i] then
                 local m = NewMission(i, MissionInfo)
-#                LayoutHelpers.AtRightTopIn(m, GUI.missionlist, 0, (c * spacingBetweenItems) )
+--                LayoutHelpers.AtRightTopIn(m, GUI.missionlist, 0, (c * spacingBetweenItems) )
                 c = c + 1
             end
         end
@@ -262,7 +262,7 @@ function CreateDefaultUI()
         UIUtil.SetTextBoxText(GUI.briefingText, missionInfo.briefing.text)
     end
 
-    # ---------------------------------------------------------------------------
+    -- ---------------------------------------------------------------------------
 
     if not currentFaction then
         GUI.parent:Hide()
@@ -277,7 +277,7 @@ function CreateDefaultUI()
     end
 end
 
-# -------------------------------------------------------------------------------
+-- -------------------------------------------------------------------------------
 
 function AfterMission( missionInfo)
 
@@ -286,19 +286,19 @@ function AfterMission( missionInfo)
     CreateDefaultUI()
 end
 
-# -------------------------------------------------------------------------------
+-- -------------------------------------------------------------------------------
 
 function CreateFactionSelectUI(callback)
 
     local campaignInfo = GetCampaignInfo()
     local campaignLayout = GetCampaignLayout()
 
-    # first find out what factions we can choose (which have missions available)
+    -- first find out what factions we can choose (which have missions available)
 
     local AM = GetMissionsAvailability()
     local AF = {}
 
-    Factions = import('/lua/factions.lua').GetFactions() # get most recent faction data
+    Factions = import('/lua/factions.lua').GetFactions() -- get most recent faction data
     for k, faction in Factions do
         if AM[faction.Key] then
             for num, isAvailable in AM[faction.Key] do
@@ -312,24 +312,24 @@ function CreateFactionSelectUI(callback)
 
     local NumFactionsAvailable = table.getn(AF)
 
-    # if only 1 faction can be chosen then don't bother creating an UI, just use that faction
+    -- if only 1 faction can be chosen then don't bother creating an UI, just use that faction
     if NumFactionsAvailable == 1 then
         Campaigns.SetLastPlayedFaction(AF[1])
         callback()
         return
 
     elseif NumFactionsAvailable == 0 then
-        # if we have no factions available just exit all together and throw error in log
+        -- if we have no factions available just exit all together and throw error in log
         WARN('*Campaign: No faction with missions available found!')
         import('/lua/ui/menus/main.lua').CreateUI()
         return
     end
 
-    # create faction select box. It's supposed to be dynamic and auto-sizing so it can fit many factions
+    -- create faction select box. It's supposed to be dynamic and auto-sizing so it can fit many factions
 
     local iconsPerRow = 5
     if math.mod(NumFactionsAvailable, 5) == 0 then
-        # nothing, iconsPerRow is already 5. this is here to make the following 2 statements easier
+        -- nothing, iconsPerRow is already 5. this is here to make the following 2 statements easier
     elseif math.mod(NumFactionsAvailable, 4) == 0 then
         iconsPerRow = 4
     elseif math.mod(NumFactionsAvailable, 3) == 0 then
@@ -339,11 +339,11 @@ function CreateFactionSelectUI(callback)
     local iconSize = 64
     local width = iconSize * math.max(3, iconsPerRow)
     local height = iconSize * math.ceil(NumFactionsAvailable / iconsPerRow)
-    local horzBarWidth = 2 + math.max(0, width - 236)  # the minus stuff comes from the corner images
+    local horzBarWidth = 2 + math.max(0, width - 236)  -- the minus stuff comes from the corner images
     local horzSpacing = math.max( (((width - 236) * -1) / iconsPerRow), 0)
     local vertBarHeight = 2 + math.max(0, height - 64)
 
-    # background
+    -- background
     local parentBG = Group(GetFrame(0))
     LayoutHelpers.FillParent(parentBG, GetFrame(0))
     parentBG:DisableHitTest()
@@ -351,14 +351,14 @@ function CreateFactionSelectUI(callback)
     parentBG.bg = bg.bg or nil
     parentBG.bgfmv = bg.bgfmv or nil
 
-    # bg
+    -- bg
     local center = Bitmap(parentBG, UIUtil.UIFile('/campaign/campaign-framework/faction-select_bg.dds'))
     LayoutHelpers.AtCenterIn(center, parentBG)
     center.Depth:Set(function() return parentBG.Depth() + 1 end)
     center.Width:Set(horzBarWidth)
     center.Height:Set(vertBarHeight)
 
-    # horz stuff
+    -- horz stuff
     local top = Bitmap(center, UIUtil.UIFile('/campaign/campaign-framework/faction-select_top.dds'))
     LayoutHelpers.Above(top, center)
     top.Width:Set(horzBarWidth)
@@ -366,7 +366,7 @@ function CreateFactionSelectUI(callback)
     LayoutHelpers.Below(bottom, center)
     bottom.Width:Set(horzBarWidth)
 
-    # vert stuff
+    -- vert stuff
     local left = Bitmap(center, UIUtil.UIFile('/campaign/campaign-framework/faction-select_left.dds'))
     LayoutHelpers.LeftOf(left, center)
     left.Height:Set(vertBarHeight)
@@ -374,7 +374,7 @@ function CreateFactionSelectUI(callback)
     LayoutHelpers.RightOf(right, center)
     right.Height:Set(vertBarHeight)
 
-    # corners
+    -- corners
     local leftTop = Bitmap(top, UIUtil.UIFile('/campaign/campaign-framework/faction-select_left_top.dds'))
     LayoutHelpers.LeftOf(leftTop, top)
     local rightTop = Bitmap(top, UIUtil.UIFile('/campaign/campaign-framework/faction-select_right_top.dds'))
@@ -384,12 +384,12 @@ function CreateFactionSelectUI(callback)
     local rightBottom = Bitmap(bottom, UIUtil.UIFile('/campaign/campaign-framework/faction-select_right_bottom.dds'))
     LayoutHelpers.RightOf(rightBottom, bottom)
 
-    # title
+    -- title
     local title = UIUtil.CreateText(top, "<LOC sel_campaign_0025>Choose your faction", 16)
     LayoutHelpers.AtHorizontalCenterIn(title, top)
     LayoutHelpers.AtTopIn(title, top, 32)
 
-    # faction icons
+    -- faction icons
     local function CreateFactionIcon(parent, factionName)
 
         local faction
@@ -402,7 +402,7 @@ function CreateFactionSelectUI(callback)
 
         local icon = Bitmap(parent, UIUtil.UIFile(faction.LargeIcon))
         icon.Depth:Set(function() return parent.Depth() + 1 end)
-        icon:SetAlpha(1) # no see-through please!
+        icon:SetAlpha(1) -- no see-through please!
         icon.factionName = factionName
 
         local name = UIUtil.CreateText(icon, faction.DisplayName, 14)
@@ -419,10 +419,10 @@ function CreateFactionSelectUI(callback)
             elseif event.Type == 'ButtonPress' or event.Type == 'ButtonDClick' then
                 local sound = Sound({Cue = "UI_Mod_Select", Bank = "Interface",})
                 PlaySound(sound)
-#                Campaigns.SetLastPlayedFaction(campaignInfo.uid, self.factionName)
+--                Campaigns.SetLastPlayedFaction(campaignInfo.uid, self.factionName)
                 parentBG:Destroy()
                 callback(self.factionName)
-#                CreateDefaultUI()
+--                CreateDefaultUI()
             end
         end
 
@@ -441,10 +441,10 @@ function CreateFactionSelectUI(callback)
 
 end
 
-# -------------------------------------------------------------------------------
+-- -------------------------------------------------------------------------------
 
 function StartMission(ScenName, faction, missionNum, difficulty, campaignUID)
-    # ScenName = /maps/<something>/<something>_scenario.lua
+    -- ScenName = /maps/<something>/<something>_scenario.lua
     local scenario = MapUtil.LoadScenario(ScenName)
     if scenario then
 
@@ -490,7 +490,7 @@ function CreateBackground(parent, forFactionSelect)
         screen = "FacionScreen"
     end
 
-    # Background image
+    -- Background image
     if campaignLayout.Layout[screen].BackgroundImage then
         local filepath = UIUtil.UIFile(campaignLayout.Layout[screen].BackgroundImage)
         if not DiskGetFileInfo(filepath) then
@@ -508,7 +508,7 @@ function CreateBackground(parent, forFactionSelect)
         end
     end
 
-    # Background movie
+    -- Background movie
     if campaignLayout.Layout[screen].BackgroundMovie then
         table.bgfmv = Movie(parent, '/movies'..campaignLayout.Layout[screen].BackgroundMovie..'.sfd')
         table.bg.Depth:Set(function() return parent.Depth() - 1 end)
@@ -528,7 +528,7 @@ function CreateForeground(parent)
 end
 
 
-# call this whenever a mission ends
+-- call this whenever a mission ends
 function MissionFinished(MissionNum, faction, Succesfully)
     if Succesfully then
         local campaignInfo = GetCampaignInfo()
@@ -542,15 +542,15 @@ function MissionFinished(MissionNum, faction, Succesfully)
 end
 
 
-# gets all available missions, for all factions. Returns a table with this layout: [faction][mission] = available (true/false)
-# so it looks somethign like this:
-# [uef]  => [1] => true
-#           [2] => true
-#           [3] => false
-# [aeon] => [1] => true
-#           [2] => false
-#           [3] => false
-# etc
+-- gets all available missions, for all factions. Returns a table with this layout: [faction][mission] = available (true/false)
+-- so it looks somethign like this:
+-- [uef]  => [1] => true
+--           [2] => true
+--           [3] => false
+-- [aeon] => [1] => true
+--           [2] => false
+--           [3] => false
+-- etc
 function GetMissionsAvailability()
     local campaignInfo = GetCampaignInfo()
     local campaignLayout = GetCampaignLayout()
@@ -565,7 +565,7 @@ function GetMissionsAvailability()
         for missionNum, details in missionLayout do
 
             if missionNum > progress and not details.initiallyEnabled then
-                # set missions not yet available to false
+                -- set missions not yet available to false
                 availableMissions[faction][missionNum] = false
                 continue
             end
@@ -573,22 +573,22 @@ function GetMissionsAvailability()
             availableMissions[faction][missionNum] = true
 
             if not details.unlocks then
-                # if no unlock data then assume it unlocks next mission
+                -- if no unlock data then assume it unlocks next mission
                 availableMissions[faction][(missionNum + 1)] = true
 
             elseif type(details.unlocks) == 'number' then
                 availableMissions[faction][details.unlocks] = true
 
             elseif type(details.unlocks) == 'table' then
-                # looks like we're unlocking multiple missions and/or other factions missions!
+                -- looks like we're unlocking multiple missions and/or other factions missions!
                 for k, v in details.unlocks do
                     if type(k) == 'string' then
-                        # unlocking other faction mission(s)
+                        -- unlocking other faction mission(s)
                         for l, w in v do
                             availableMissions[k][w] = true
                         end
                     else
-                        # unlocking current faction mission
+                        -- unlocking current faction mission
                         availableMissions[faction][v] = true
                     end
                 end
@@ -684,7 +684,7 @@ function SetupCampaignSession(scenario, difficulty, inFaction, campaignInfo, isT
         scenarioInfo = scenario,
     }
 
-    # session options
+    -- session options
     sessionInfo.scenarioInfo.Options = {}
     sessionInfo.scenarioInfo.Options.FogOfWar = 'explored'
     sessionInfo.scenarioInfo.Options.Difficulty = difficulty
@@ -693,7 +693,7 @@ function SetupCampaignSession(scenario, difficulty, inFaction, campaignInfo, isT
     sessionInfo.scenarioInfo.Options.GameSpeed = 'normal'
     sessionInfo.scenarioInfo.Options.FACampaignFaction = Factions[faction].Key
 
-    # army stuff
+    -- army stuff
     local armies = sessionInfo.scenarioInfo.Configurations.standard.teams[1].armies
     for index, name in armies do
         sessionInfo.teamInfo[index] = import('/lua/ui/lobby/lobbyComm.lua').GetDefaultPlayerOptions(sessionInfo.playerName)

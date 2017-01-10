@@ -12,7 +12,7 @@ LaunchTacMissile = Class(ScriptTask) {
     end,
 
     LaunchMissile = function(self)
-        # making this support 1 location only on purpose. Nuke launchers cannot handle more than 2 IssueNuke commads simultaniously (they get queued)
+        -- making this support 1 location only on purpose. Nuke launchers cannot handle more than 2 IssueNuke commads simultaniously (they get queued)
         local loc = self:GetLocations()[1]
         local unit = self:GetUnit()
 

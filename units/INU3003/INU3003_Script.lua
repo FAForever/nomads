@@ -1,4 +1,4 @@
-# T2 EMP tank
+-- T2 EMP tank
 
 local AddBombardModeToUnit = import('/lua/nomadutils.lua').AddBombardModeToUnit
 local NLandUnit = import('/lua/nomadunits.lua').NLandUnit

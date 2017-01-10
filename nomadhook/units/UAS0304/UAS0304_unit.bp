@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "uas0304", # Aeon T3 sub
+    BlueprintId = "uas0304", -- Aeon T3 sub
     SpecialAbilities = {
         LaunchNuke = {
             AreaOfEffect = 40,

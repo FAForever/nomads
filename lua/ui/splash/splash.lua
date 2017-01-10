@@ -1,5 +1,5 @@
-# Original header below. Added support for different intro movies for Nomads mod. Unfortunately this couldn't be hooked cause this
-# script seems to run before hooking is done.
+-- Original header below. Added support for different intro movies for Nomads mod. Unfortunately this couldn't be hooked cause this
+-- script seems to run before hooking is done.
 
 --*****************************************************************************
 --* File: lua/modules/ui/splash/splash.lua
@@ -20,14 +20,14 @@ local movies = {
     { "/movies/nvidia_logo.sfd", {Cue = 'NVIDIA', Bank = 'FMV_BG' } },
     { "/movies/nomad_logo.sfd", },
 
-# don't play the FA intro for Nomads
-#    { "/movies/fmv_scx_intro.sfd", {Cue = 'X_FMV_Intro', Bank = 'FMV_BG' }, {Cue = 'SCX_INTRO_VO', Bank = 'X_FMV' } }
+-- don't play the FA intro for Nomads
+--    { "/movies/fmv_scx_intro.sfd", {Cue = 'X_FMV_Intro', Bank = 'FMV_BG' }, {Cue = 'SCX_INTRO_VO', Bank = 'X_FMV' } }
 }
 
-# remember the number of logos so we can skip them easily
+-- remember the number of logos so we can skip them easily
 local numLogos = table.getn(movies)
 
-# import third party movies
+-- import third party movies
 local files = DiskFindFiles('/lua/ui/splash/splashmovies', '*.lua')
 for k, file in files do
     local content = import(file)
@@ -76,7 +76,7 @@ function CreateUI()
         -- cancel movie playback on mouse click or key hit
         if event.Type == "ButtonPress" or event.Type == "KeyDown" then
 
-# Changed the section below
+-- Changed the section below
 
             local skipAllMovies = false
             if event.KeyCode then

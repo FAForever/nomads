@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "inb3303", # T3 rocket artillery
+    BlueprintId = "inb3303", -- T3 rocket artillery
     Economy = {
         BuildTime = 5975,
     },

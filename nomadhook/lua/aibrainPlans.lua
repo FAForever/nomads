@@ -1,6 +1,6 @@
 do
 
-# overwriting the stock AIPlansList variable here to create a default aiarchetype for all factions.
+-- overwriting the stock AIPlansList variable here to create a default aiarchetype for all factions.
 
 local Factions = import('/lua/factions.lua').GetFactions(true)
 

@@ -1,4 +1,4 @@
-# energy storage
+-- energy storage
 
 local NEnergyStorageUnit = import('/lua/nomadunits.lua').NEnergyStorageUnit
 

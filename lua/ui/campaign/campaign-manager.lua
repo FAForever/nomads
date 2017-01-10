@@ -2,10 +2,10 @@ local Campaigns = import('/lua/campaigns.lua')
 
 function AfterCampaignMission( missionInfo)
 
-    # TODO: put the campaign UID in missionInfo and use that below. For some reason the campaign UID doesn't
-    #       get passed all the way to here so for now using the profile variable work-around.
+    -- TODO: put the campaign UID in missionInfo and use that below. For some reason the campaign UID doesn't
+    --       get passed all the way to here so for now using the profile variable work-around.
 
-#    local campaignUID = missionInfo.campaignUID
+--    local campaignUID = missionInfo.campaignUID
     local campaignUID = Campaigns.GetLastStartedCampaign()
 
     if not campaignUID then

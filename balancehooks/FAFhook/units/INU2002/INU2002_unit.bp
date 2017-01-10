@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "inu2002", # T2 Fast hover tank
+    BlueprintId = "inu2002", -- T2 Fast hover tank
     Wreckage = {
         WreckageLayers = {
             Seabed = true,

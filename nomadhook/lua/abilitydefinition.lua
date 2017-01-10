@@ -29,12 +29,12 @@ abilities = table.merged( abilities, {
         --any information contained in this table will be available in the task script.. in commandData
         ExtraInfo = {
             CoolDownTime = 10,
-            AbilMinRange = 10,  # minimum range, 0 means no range limit, def = 0
-            AbilMaxRange = 100, # maximum range, 0 means no range limit, def = 0
+            AbilMinRange = 10,  -- minimum range, 0 means no range limit, def = 0
+            AbilMaxRange = 100, -- maximum range, 0 means no range limit, def = 0
         },
     },
 
-# TODO: active ability decals for most
+-- TODO: active ability decals for most
 
     LaunchNuke = {
         UIBitmapId = 'nuke',
@@ -120,18 +120,18 @@ abilities = table.merged( abilities, {
             DragDelta = 1,
             UseSelected = false,
         },
-# TODO: make ActivateImmediately work
-#        UIBehaviorSingleClickRight = {
-#            ActivateImmediately = true,
-#        },
+-- TODO: make ActivateImmediately work
+--        UIBehaviorSingleClickRight = {
+--            ActivateImmediately = true,
+--        },
 
         SoundReady = 'IntelBoostReady',
         SoundLaunched = 'IntelBoostInitiated',
 
         GetAllUnitsFile = '/lua/user/tasks/Tasks.lua',
         GetRangeCheckUnitsFile = '/lua/user/tasks/Tasks.lua',
-# FIXME: This MapReticulesToUnitIdsFile needs to be finished before it can be used.
-#        MapReticulesToUnitIdsFile = '/lua/user/tasks/NomadIntelOvercharge.lua',
+-- FIXME: This MapReticulesToUnitIdsFile needs to be finished before it can be used.
+--        MapReticulesToUnitIdsFile = '/lua/user/tasks/NomadIntelOvercharge.lua',
         UserProcessFile = '/lua/user/tasks/Tasks.lua',
         UserVerifyFile = '/lua/user/tasks/Tasks.lua',
     },
@@ -187,12 +187,12 @@ abilities = table.merged( abilities, {
             Sonar = true,
             Vision = false,
             WaterVision = false,
-            UnitBpId = 'iny0001',  # TODO: embed this in the probe projectile script
+            UnitBpId = 'iny0001',  -- TODO: embed this in the probe projectile script
         },
         UIHelpText = 'specabil_intelprobe',
         ActiveDecal = {
-# TODO: enable this once decal is done
-#            enabled = true,
+-- TODO: enable this once decal is done
+--            enabled = true,
             enabled = false,
         },
         UISlot = 4,
@@ -234,19 +234,19 @@ abilities = table.merged( abilities, {
             Sonar = false,
             Vision = true,
             WaterVision = true,
-            UnitBpId = 'iny0001',  # TODO: embed this in the probe projectile script
+            UnitBpId = 'iny0001',  -- TODO: embed this in the probe projectile script
         },
         UIHelpText = 'specabil_intelprobe',
         ActiveDecal = {
-# TODO: enable this once decal is done
-#            enabled = true,
+-- TODO: enable this once decal is done
+--            enabled = true,
             enabled = false,
         },
         UISlot = 4,
         script = 'NomadIntelProbeAdvanced',
         usage = 'Event',
 
-# TODO: Perhaps these sound vars should be in an Audio section to conform to for example units?
+-- TODO: Perhaps these sound vars should be in an Audio section to conform to for example units?
         SoundReady = 'IntelProbeReady',
         SoundLaunched = 'IntelProbeLaunched',
 
@@ -279,8 +279,8 @@ abilities = table.merged( abilities, {
         },
         UIHelpText = 'specabil_remoteviewing',
         ActiveDecal = {
-# TODO: enable this once decal is done
-#            enabled = true,
+-- TODO: enable this once decal is done
+--            enabled = true,
             enabled = false,
         },
         UISlot = 1,

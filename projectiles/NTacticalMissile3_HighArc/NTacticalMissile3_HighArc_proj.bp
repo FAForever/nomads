@@ -64,9 +64,9 @@ ProjectileBlueprint {
     Physics = {
         Acceleration = 0,
         DestroyOnWater = true,
-        DetonateBelowHeight = 8,  # at what height do the speed boost
+        DetonateBelowHeight = 8,  -- at what height do the speed boost
         InitialSpeed = 35,
-        LifetimeSpeedup = 1,  # lifetime remaining when started speed boost
+        LifetimeSpeedup = 1,  -- lifetime remaining when started speed boost
         MaxSpeed = 50,
         MaxZigZag = 0,
         TrackTarget = false,

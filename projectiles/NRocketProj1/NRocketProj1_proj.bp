@@ -1,4 +1,4 @@
-# Simple rocket
+-- Simple rocket
 ProjectileBlueprint {
     Audio = {
         Impact = Sound {
@@ -63,6 +63,6 @@ ProjectileBlueprint {
         TurnRate = 360,
         VelocityAlign = true,
         ZigZagFrequency = 0,
-        UseGravity = false, # should make unit not get stuck shooting AA
+        UseGravity = false, -- should make unit not get stuck shooting AA
     },
 }

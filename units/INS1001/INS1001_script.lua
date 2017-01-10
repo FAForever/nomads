@@ -1,4 +1,4 @@
-# T1 submarine
+-- T1 submarine
 
 local NSubUnit = import('/lua/nomadunits.lua').NSubUnit
 local TorpedoWeapon1 = import('/lua/nomadweapons.lua').TorpedoWeapon1

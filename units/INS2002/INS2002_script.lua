@@ -1,4 +1,4 @@
-# T2 cruiser
+-- T2 cruiser
 
 local AddNavalLights = import('/lua/nomadutils.lua').AddNavalLights
 local NSeaUnit = import('/lua/nomadunits.lua').NSeaUnit

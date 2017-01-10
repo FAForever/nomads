@@ -1,13 +1,13 @@
-#***************************************************************************
-#*
-#**  File     :  /lua/ai/LandPlatoonTemplates.lua
-#**
-#**  Summary  : Global platoon templates
-#**
-#**  Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+--***************************************************************************
+--*
+--**  File     :  /lua/ai/LandPlatoonTemplates.lua
+--**
+--**  Summary  : Global platoon templates
+--**
+--**  Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
+--****************************************************************************
 
-# ==== Global Form platoons ==== #
+-- ==== Global Form platoons ==== --
 PlatoonTemplate {
     Name = 'LandAttack',
     Plan = 'AttackForceAI',
@@ -94,7 +94,7 @@ PlatoonTemplate {
 
 PlatoonTemplate {
     Name = 'T1MassHuntersCategory',
-    #Plan = 'AttackForceAI',    
+    --Plan = 'AttackForceAI',    
     Plan = 'GuardMarker',    
     GlobalSquads = {
         { categories.TECH1 * categories.LAND * categories.MOBILE * categories.DIRECTFIRE * categories.BOT - categories.SCOUT - categories.ENGINEER - categories.EXPERIMENTAL, 3, 15, 'attack', 'none' },
@@ -104,7 +104,7 @@ PlatoonTemplate {
 
 PlatoonTemplate {
     Name = 'T2MassHuntersCategory',
-    #Plan = 'AttackForceAI',    
+    --Plan = 'AttackForceAI',    
     Plan = 'GuardMarker',    
     GlobalSquads = {
         { categories.TECH1 * categories.LAND * categories.MOBILE * categories.DIRECTFIRE * categories.BOT - categories.SCOUT - categories.ENGINEER - categories.EXPERIMENTAL, 10, 25, 'attack', 'none' },
@@ -113,7 +113,7 @@ PlatoonTemplate {
 }
 PlatoonTemplate {
     Name = 'T2MassHuntersCategory',
-    #Plan = 'AttackForceAI',    
+    --Plan = 'AttackForceAI',    
     Plan = 'GuardMarker',    
     GlobalSquads = {
         { categories.TECH1 * categories.LAND * categories.MOBILE * categories.DIRECTFIRE * categories.BOT - categories.SCOUT - categories.ENGINEER - categories.EXPERIMENTAL, 3, 15, 'attack', 'none' },
@@ -133,7 +133,7 @@ PlatoonTemplate {
 PlatoonTemplate {
     Name = 'T2HuntersCategory',
     Plan = 'AttackForceAI',
-    #Plan = 'HuntAI',
+    --Plan = 'HuntAI',
     GlobalSquads = {
         { categories.LAND * categories.MOBILE * categories.DIRECTFIRE - categories.SCOUT - categories.ENGINEER - categories.EXPERIMENTAL, 10, 15, 'attack', 'none' },
         { categories.LAND * categories.SCOUT, 0, 1, 'attack', 'none' },
@@ -157,9 +157,9 @@ PlatoonTemplate {
 }
 
 
-# ==== Factional Templates ==== #
+-- ==== Factional Templates ==== --
 
-# T1
+-- T1
 PlatoonTemplate {
     Name = 'T1LandAA',
     FactionSquads = {
@@ -198,7 +198,7 @@ PlatoonTemplate {
         },
         Nomad = {
             { 'inu1008', 1, 1, 'Attack', 'none' },
-            { 'inu1004', 1, 2, 'Attack', 'none' }, # 1 or 2 T1 tanks to make the sniper tank less numerous on the battlefield
+            { 'inu1004', 1, 2, 'Attack', 'none' }, -- 1 or 2 T1 tanks to make the sniper tank less numerous on the battlefield
         },
     }
 }
@@ -266,7 +266,7 @@ PlatoonTemplate {
     }
 }
 
-# T2
+-- T2
 PlatoonTemplate {
     Name = 'T2LandAA',
     FactionSquads = {
@@ -383,7 +383,7 @@ PlatoonTemplate {
         },
         Nomads = {
             { 'inu3003', 1, 1, 'support', 'none' },
-            { 'inu2005', 1, 2, 'support', 'none' }, # 1 or 2 T2 tanks to make the EMP tank less numerous on the battlefield
+            { 'inu2005', 1, 2, 'support', 'none' }, -- 1 or 2 T2 tanks to make the EMP tank less numerous on the battlefield
         },
     }
 }
@@ -397,7 +397,7 @@ PlatoonTemplate {
     }
 }
 
-# T3
+-- T3
 PlatoonTemplate {
     Name = 'T3LandAA',
     FactionSquads = {
@@ -517,7 +517,7 @@ PlatoonTemplate {
         },
         Nomads = {
             { 'inu3003', 1, 1, 'support', 'none' },
-            { 'inu3002', 1, 1, 'support', 'none' }, # 1 T3 tanks to make the EMP tank less numerous on the battlefield
+            { 'inu3002', 1, 1, 'support', 'none' }, -- 1 T3 tanks to make the EMP tank less numerous on the battlefield
         },
     }
 }

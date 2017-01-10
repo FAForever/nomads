@@ -5,8 +5,8 @@ local NomadShieldChanges = function(SuperClass)
     return Class(SuperClass) {
 
     OnDamage =  function(self,instigator,amount,vector,type)
-        # experimental footfall damage shouldn't damage the shield. This type of damage is also done by hover experimentals such as the crawler
-        if type != 'ExperimentalFootfall' then
+        -- experimental footfall damage shouldn't damage the shield. This type of damage is also done by hover experimentals such as the crawler
+        if type ~= 'ExperimentalFootfall' then
             SuperClass.OnDamage(self, instigator, amount, vector, type)
         end
     end,

@@ -1,4 +1,4 @@
-# experimental beam tank
+-- experimental beam tank
 
 local NLandUnit = import('/lua/nomadunits.lua').NLandUnit
 local PhaseRayGun = import('/lua/nomadweapons.lua').PhaseRayGun
@@ -11,10 +11,10 @@ INU2007 = Class(NLandUnit) {
 
     Weapons = {
         MainGun = Class(PhaseRayGun) {
-            # unfortunately this code is too specific to be put in a generic class
+            -- unfortunately this code is too specific to be put in a generic class
 
             DoChargeUpEffects = function(self)
-                # this plays when the unit packs and unpacks, so both directions
+                -- this plays when the unit packs and unpacks, so both directions
                 local fn = function(self)
                     local frac, oldfrac = 0, -1
                     if self.UnpackAnimator then frac = self.UnpackAnimator:GetAnimationFraction() end
@@ -29,7 +29,7 @@ INU2007 = Class(NLandUnit) {
                         end
                         WaitTicks(1)
                     end
-                    if frac < 1 then  # leaving the effects cleaned up by another process if we're charging up
+                    if frac < 1 then  -- leaving the effects cleaned up by another process if we're charging up
                         self.unit:DestroyBeamChargeUpEffects()
                     end
                 end
@@ -39,62 +39,62 @@ INU2007 = Class(NLandUnit) {
             PlayFxBeamStart = function(self, muzzle)
 
                 local beam = false
-                for k, v in self.Beams do   # find beam
+                for k, v in self.Beams do   -- find beam
                     if v.Muzzle == muzzle then
                         beam = v.Beam
                         break
                     end
                 end
 
-                if beam and not beam:IsEnabled() then  # beam exists but is not active
+                if beam and not beam:IsEnabled() then  -- beam exists but is not active
 
-                    # ativate beam
+                    -- ativate beam
                     beam:Enable()
                     self.unit.Trash:Add(beam)
                     self.unit.Beaming = true
                     self.AllowBeamShutdown = false
 
-                    # additional effects
+                    -- additional effects
                     self.unit:DestroyBeamChargeUpEffects()
                     self.unit:PlayFakeBeamEffects()
                     local bp = self:GetBlueprint()
                     if bp.Audio.BeamStart then self:PlaySound(bp.Audio.BeamStart) end
                     if bp.Audio.BeamLoop and self.Beams[1].Beam then self.Beams[1].Beam:SetAmbientSound(bp.Audio.BeamLoop, nil) end
 
-                    # check for hold fire
+                    -- check for hold fire
                     if not bp.ContinuousBeam and bp.BeamLifetime > 0 then
                         self:ForkThread( self.BeamLifetimeThread, beam, bp.BeamLifetime or 1)
                     else
                         self.HoldFireThread = self:ForkThread(self.WatchForHoldFire, beam)
                     end
 
-                elseif beam then  # nothing to do
+                elseif beam then  -- nothing to do
                     return
 
-                else  # no beam exist, error
+                else  -- no beam exist, error
                     error('*ERROR: We have a beam created that does not coincide with a muzzle bone.  Internal Error, aborting beam weapon.', 2)
                 end
             end,
 
             PlayFxBeamEnd = function(self, beam)
 
-                # only allow shutting down the beam if the lifetime is exceeded or hold fire was used. If we don't do this the beam
-                # shuts down each time the target assigned by the player is killed. The unit then waits a while before starting the
-                # beam again.
+                -- only allow shutting down the beam if the lifetime is exceeded or hold fire was used. If we don't do this the beam
+                -- shuts down each time the target assigned by the player is killed. The unit then waits a while before starting the
+                -- beam again.
                 if not self.AllowBeamShutdown and self.unit and not self.unit:IsDead() then return end
 
                 if self.HoldFireThread then
                     KillThread( self.HoldFireThread )
                 end
 
-                # destroy unit effects and beam
+                -- destroy unit effects and beam
                 self.unit:DestroyBeamChargeUpEffects()
                 self.unit:DestroyFakeBeamEffects()
                 local bp = self:GetBlueprint()
                 if bp.Audio.BeamStop and self.unit.Beaming then self:PlaySound(bp.Audio.BeamStop) end
                 if bp.Audio.BeamLoop and self.Beams[1].Beam then self.Beams[1].Beam:SetAmbientSound(nil, nil) end
 
-                # find current beam(s) and disable them
+                -- find current beam(s) and disable them
                 if beam then
                     beam:Disable()
                 else
@@ -105,16 +105,16 @@ INU2007 = Class(NLandUnit) {
                 self.unit.Beaming = false
             end,
 
-            BeamLifetimeThread = function(self, beam, lifeTime)  # this is used for a beams lifetime, modified to set the allowbeamshutdown flag
+            BeamLifetimeThread = function(self, beam, lifeTime)  -- this is used for a beams lifetime, modified to set the allowbeamshutdown flag
                 WaitSeconds(lifeTime)
                 self.AllowBeamShutdown = true
                 self:PlayFxBeamEnd(beam)
             end,
 
-            WatchForHoldFire = function(self, beam)  # modified to set the allowbeamshutdown flag
+            WatchForHoldFire = function(self, beam)  -- modified to set the allowbeamshutdown flag
                 while true do
                     WaitSeconds(1)
-                    if self.unit and self.unit:GetFireState() == 1 then   #if we're at hold fire, stop beam
+                    if self.unit and self.unit:GetFireState() == 1 then   --if we're at hold fire, stop beam
                         self.BeamStarted = false
                         self.AllowBeamShutdown = true
                         self:PlayFxBeamEnd(beam)
@@ -123,10 +123,10 @@ INU2007 = Class(NLandUnit) {
             end,
 
             PlayFxWeaponUnpackSequence = function(self)
-                # this is forked by another process. Injecting the charge up effect.
+                -- this is forked by another process. Injecting the charge up effect.
                 self:DoChargeUpEffects()
 
-                # play charge up sound, but only when it should
+                -- play charge up sound, but only when it should
                 local bp = self:GetBlueprint()
                 if bp.Audio.ChargingBeam and not self.ChargeSoundPlayed and (not self.UnpackAnimator or self.UnpackAnimator:GetAnimationFraction() <= 0.1) then
                     self:PlaySound(bp.Audio.ChargingBeam)
@@ -135,8 +135,8 @@ INU2007 = Class(NLandUnit) {
 
                 PhaseRayGun.PlayFxWeaponUnpackSequence(self)
 
-                # default script bug fix: it doesn't handle properly if we're packing when this function is called. Making
-                # sure we unpack before firing. Also requires the code in WeaponUnpackingState
+                -- default script bug fix: it doesn't handle properly if we're packing when this function is called. Making
+                -- sure we unpack before firing. Also requires the code in WeaponUnpackingState
                 if self.UnpackAnimator then
                     self.UnpackAnimator:SetRate(bp.WeaponUnpackAnimationRate)
                     WaitFor(self.UnpackAnimator)
@@ -146,16 +146,16 @@ INU2007 = Class(NLandUnit) {
 
             WeaponUnpackingState = State(PhaseRayGun.WeaponUnpackingState) {
                 Main = function(self)
-                    # the next line is also part of the bug fix mentioned in PlayFxWeaponUnpackSequence()
+                    -- the next line is also part of the bug fix mentioned in PlayFxWeaponUnpackSequence()
                     self:PlayFxWeaponUnpackSequence()
                     return PhaseRayGun.WeaponUnpackingState.Main(self)
                 end,
             },
 
             WeaponPackingState = State(PhaseRayGun.WeaponPackingState) {
-                 # shut down beam before packing up
+                 -- shut down beam before packing up
                  Main = function(self)
-                    WaitTicks(1)   # wait a tick before shutting down the beam, in case we suddenly have another target
+                    WaitTicks(1)   -- wait a tick before shutting down the beam, in case we suddenly have another target
                     self.AllowBeamShutdown = true
                     self:PlayFxBeamEnd(self.Beams[1].Beam)
                     return PhaseRayGun.WeaponPackingState.Main(self)
@@ -180,7 +180,7 @@ INU2007 = Class(NLandUnit) {
     OnDetachedFromTransport = function(self, transport, transportBone)
         NLandUnit.OnDetachedFromTransport(self, transport, transportBone)
 
-        # reset weapon in case it was firing from transport
+        -- reset weapon in case it was firing from transport
         local wep = self:GetWeaponByLabel('MainGun')
         if wep and self.Beaming then
             wep.AllowBeamShutdown = true
@@ -190,7 +190,7 @@ INU2007 = Class(NLandUnit) {
     end,
 
     PlayBeamChargeUpSequence = function(self)
-        # plays the flashing effects at the body
+        -- plays the flashing effects at the body
         local fn = function(self)
             local army, emitrate, emitters, emit = self:GetArmy(), 0, {}, nil
             for k, v in NomadEffectTemplate.PhaseRayChargeUpFxPerm do
@@ -222,7 +222,7 @@ INU2007 = Class(NLandUnit) {
     end,
 
     PlayFakeBeamEffects = function(self)
-        # this is just for the beam that emits from the unit body to the 'mirror' on floating above the unit
+        -- this is just for the beam that emits from the unit body to the 'mirror' on floating above the unit
 
         local army, emit, beam = self:GetArmy(), nil, nil
         for k, v in NomadEffectTemplate.PhaseRayFakeBeamMuzzle do
@@ -231,7 +231,7 @@ INU2007 = Class(NLandUnit) {
             self.Trash:Add( emit )
         end
 
-        # create a beam between the body of the unit and the tiny aimer thing
+        -- create a beam between the body of the unit and the tiny aimer thing
         for k, v in NomadEffectTemplate.PhaseRayFakeBeam do
             beam = AttachBeamEntityToEntity(self, 'circle', self, "aim", army, v )
             self.BeamHelperFxBag:Add( beam )
@@ -253,7 +253,7 @@ INU2007 = Class(NLandUnit) {
         end
     end,
 
-    # ---------------------------------------------------------------------------------------------------------------
+    -- ---------------------------------------------------------------------------------------------------------------
 
     DeathThread = function( self, overkillRatio, instigator)
         if self.Beaming then
@@ -268,7 +268,7 @@ INU2007 = Class(NLandUnit) {
         self:PlayUnitSound('Killed')
         local army = self:GetArmy()
 
-        # extra effect: explosion at the thingy that redirects the beam
+        -- extra effect: explosion at the thingy that redirects the beam
         if self.Beaming then
             Explosion.CreateDefaultHitExplosionAtBone(self, 'drone', 0.5 )
             self:HideBone( 'drone', false)
@@ -276,7 +276,7 @@ INU2007 = Class(NLandUnit) {
 
         WaitTicks( Random(2, 3) )
 
-        # Create Initial explosion effects
+        -- Create Initial explosion effects
         Explosion.CreateFlash( self, 'beamstart', 3, army )
         CreateAttachedEmitter(self, 'INU2007', army, '/effects/emitters/destruction_explosion_concussion_ring_03_emit.bp'):ScaleEmitter(0.5)
         CreateAttachedEmitter(self, 'INU2007', army, '/effects/emitters/explosion_fire_sparks_02_emit.bp')
@@ -287,25 +287,25 @@ INU2007 = Class(NLandUnit) {
         self:CreateExplosionDebris( 'INU2007', army )
         self:CreateExplosionDebris( 'INU2007', army )
 
-        # damage ring to push trees
+        -- damage ring to push trees
         local x, y, z = unpack(self:GetPosition())
         z = z + 3
         DamageRing(self, {x,y,z}, 0.1, 3, 1, 'Force', true)
         DamageRing(self, {x,y,z}, 0.1, 3, 1, 'Force', true)
 
-        # create wreckage
+        -- create wreckage
         self:CreateWreckage(overkillRatio)
 
         self:Destroy()
     end,
 
     DeathExplosionsThread = function( self, overkillRatio)
-        # slightly inspired by the monkeylords effect
+        -- slightly inspired by the monkeylords effect
 
         self:PlayUnitSound('Killed')
         local army = self:GetArmy()
 
-        # Create Initial explosion effects
+        -- Create Initial explosion effects
         Explosion.CreateFlash( self, 'beamstart', 2, army )
         CreateAttachedEmitter(self, 'INU2007', army, '/effects/emitters/explosion_fire_sparks_02_emit.bp')
         CreateAttachedEmitter(self, 'INU2007', army, '/effects/emitters/distortion_ring_01_emit.bp'):ScaleEmitter(0.2)
@@ -313,14 +313,14 @@ INU2007 = Class(NLandUnit) {
 
         self:CreateExplosionDebris( 'INU2007', army )
 
-        # damage ring to push trees
+        -- damage ring to push trees
         local x, y, z = unpack(self:GetPosition())
         z = z + 3
         DamageRing(self, {x,y,z}, 0.1, 3, 1, 'Force', true)
 
         WaitTicks( Random(2, 8) )
 
-        # some more explosions
+        -- some more explosions
         local numBones = self:GetBoneCount() - 1
         for i=Random(1,3), 5 do
             local bone = Random( 0, numBones )
@@ -329,7 +329,7 @@ INU2007 = Class(NLandUnit) {
             WaitTicks( 13 - i - Random(0, 2) )
         end
 
-        # final explosion
+        -- final explosion
         Explosion.CreateFlash( self, 'INU2007', 3, army )
         self:ShakeCamera(2.5, 1.25, 0, 0.15)
         self:PlayUnitSound('Destroyed')
@@ -337,10 +337,10 @@ INU2007 = Class(NLandUnit) {
         self:CreateExplosionDebris( 'INU2007', army )
         self:CreateExplosionDebris( 'INU2007', army )
 
-        # Finish up force ring to push trees
+        -- Finish up force ring to push trees
         DamageRing(self, {x,y,z}, 0.1, 3, 1, 'Force', true)
 
-        # create wreckage
+        -- create wreckage
         self:CreateWreckage(overkillRatio)
 
         self:Destroy()

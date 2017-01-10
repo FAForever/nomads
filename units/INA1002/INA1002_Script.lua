@@ -1,4 +1,4 @@
-# T1 interceptor
+-- T1 interceptor
 
 local NAirUnit = import('/lua/nomadunits.lua').NAirUnit
 local AirToAirGun1 = import('/lua/nomadweapons.lua').AirToAirGun1

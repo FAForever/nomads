@@ -1,4 +1,4 @@
-# a rocket that has the effects of missiles
+-- a rocket that has the effects of missiles
 
 local Rocket1 = import('/lua/nomadprojectiles.lua').Rocket1
 local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')

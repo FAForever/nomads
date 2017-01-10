@@ -1,4 +1,4 @@
-# t1 air scout
+-- t1 air scout
 
 local NAirUnit = import('/lua/nomadunits.lua').NAirUnit
 

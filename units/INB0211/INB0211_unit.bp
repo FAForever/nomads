@@ -36,14 +36,14 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
-    BuildIconSortPriority = 71, #
+    BuildIconSortPriority = 71, --
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1FACTORY',
-        'BUILTBYTIER2ENGINEER', #
-        'BUILTBYTIER2COMMANDER', #
-        'BUILTBYTIER3ENGINEER', #
-        'BUILTBYTIER3COMMANDER', #
+        'BUILTBYTIER2ENGINEER', --
+        'BUILTBYTIER2COMMANDER', --
+        'BUILTBYTIER3ENGINEER', --
+        'BUILTBYTIER3COMMANDER', --
         'NOMAD',
         'STRUCTURE',
         'LAND',
@@ -58,20 +58,20 @@ UnitBlueprint {
         'SHOWQUEUE',
         'SORTCONSTRUCTION',
         'CONSTRUCTIONSORTDOWN',
-	'SUPPORTFACTORY', #
+	'SUPPORTFACTORY', --
     },
     CollisionOffsetZ = 0.2,
     Defense = {
         AirThreatLevel = 0,
         ArmorType = 'Structure',
         EconomyThreatLevel = 11,
-        Health = 4000, #
-        MaxHealth = 4000, #
+        Health = 4000, --
+        MaxHealth = 4000, --
         RegenRate = 0,
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
     },
-    Description = '<LOC inb0211_desc>Land Factory', #
+    Description = '<LOC inb0211_desc>Land Factory', --
     Display = {
         Abilities = {
             '<LOC ability_upgradable>Upgradeable',
@@ -101,7 +101,7 @@ UnitBlueprint {
         BuildAttachBone = 'Attachpoint',
         BuildEffect = {
             Factory = {
-                BuildFieldOffset = 0, #0.2,
+                BuildFieldOffset = 0, --0.2,
                 BuildFieldReversed = true,
             },
         },
@@ -137,20 +137,20 @@ UnitBlueprint {
         UniformScale = 0.45,
     },
     Economy = {
-        BuildCostEnergy = 4800, #
-        BuildCostMass = 540, #
+        BuildCostEnergy = 4800, --
+        BuildCostMass = 540, --
         BuildRate = 40,
-        BuildTime = 1300, #
+        BuildTime = 1300, --
         BuildableCategory = {
             'BUILTBYTIER2FACTORY NOMAD MOBILE CONSTRUCTION',
             'BUILTBYTIER2SUPPORTFACTORY NOMAD STRUCTURE LAND',
             'BUILTBYTIER2FACTORY NOMAD MOBILE LAND',
             'FIELDENGINEER NOMAD MOBILE LAND',
         },
-	DifferentialUpgradeCostCalculation = true, #
-        RebuildBonusIds = { #
-            'inb0211', #
-        }, #
+	DifferentialUpgradeCostCalculation = true, --
+        RebuildBonusIds = { --
+            'inb0211', --
+        }, --
         StorageEnergy = 0,
         StorageMass = 160,
     },
@@ -192,14 +192,14 @@ UnitBlueprint {
         TechLevel = 'RULEUTL_Advanced',
         UnitWeight = 1,
         UpgradesFrom = 'inb0101',
-        UpgradesFromBase = 'inb0101', #
+        UpgradesFromBase = 'inb0101', --
         UpgradesTo = 'inb0311',
     },
     Intel = {
         VisionRadius = 20,
     },
     Interface = {
-        HelpText = '<LOC inb0211_help>Land Factory', #
+        HelpText = '<LOC inb0211_help>Land Factory', --
     },
     LifeBarHeight = 0.075,
     LifeBarOffset = 2.5,
@@ -221,88 +221,88 @@ UnitBlueprint {
         MotionType = 'RULEUMT_None',
         RaisedPlatforms = {
 
-            # Platform 1
-            # TopLeft Offset From Center
-            -1.875, #-1.5,
+            -- Platform 1
+            -- TopLeft Offset From Center
+            -1.875, ---1.5,
 
-            # x
-            -2.5, #-2,
+            -- x
+            -2.5, ---2,
 
-            # z
-            0.8125, #0.65,
+            -- z
+            0.8125, --0.65,
 
-            # height
-            # TopRight Offset From Center
-            1.875, #1.5,
+            -- height
+            -- TopRight Offset From Center
+            1.875, --1.5,
 
-            # x
-            -2.5, #-2,
+            -- x
+            -2.5, ---2,
 
-            # z
-            0.8125, #0.65,
+            -- z
+            0.8125, --0.65,
 
-            # height
-            # BottomLeft Offset From Center
-            -1.875, #-1.5,
+            -- height
+            -- BottomLeft Offset From Center
+            -1.875, ---1.5,
 
-            # x
-            2.5, #2,
+            -- x
+            2.5, --2,
 
-            # z
-            0.8125, #0.65,
+            -- z
+            0.8125, --0.65,
 
-            # height
-            # BottomRight Offset From Center
-            1.875, #1.5,
+            -- height
+            -- BottomRight Offset From Center
+            1.875, --1.5,
 
-            # x
-            2.5, #2,
+            -- x
+            2.5, --2,
 
-            # z
-            0.8125, #0.65,
+            -- z
+            0.8125, --0.65,
 
-            # height
-            # Platform 2
-            # TopLeft Offset From Center
-            -1.875, #-1.5,
+            -- height
+            -- Platform 2
+            -- TopLeft Offset From Center
+            -1.875, ---1.5,
 
-            # x
-            2.5, #2,
+            -- x
+            2.5, --2,
 
-            # z
-            0.8125, #0.65,
+            -- z
+            0.8125, --0.65,
 
-            # height
-            # TopRight Offset From Center
-            1.875, #1.5,
+            -- height
+            -- TopRight Offset From Center
+            1.875, --1.5,
 
-            # x
-            2.5, #2,
+            -- x
+            2.5, --2,
 
-            # z
-            0.8125, #0.65,
+            -- z
+            0.8125, --0.65,
 
-            # height
-            # BottomLeft Offset From Center
-            1.875, #-1.5,
+            -- height
+            -- BottomLeft Offset From Center
+            1.875, ---1.5,
 
-            # x
-            4.375, #3.5,
+            -- x
+            4.375, --3.5,
 
-            # z
+            -- z
             0,
 
-            # height
-            # BottomRight Offset From Center
-            1.875, #1.5,
+            -- height
+            -- BottomRight Offset From Center
+            1.875, --1.5,
 
-            # x
-            4.375, #3.5,
+            -- x
+            4.375, --3.5,
 
-            # z
+            -- z
             0,
 
-            # height
+            -- height
             
         },
         RollOffPoints = {

@@ -7,7 +7,7 @@ UnitBlueprint {
     },
     Air = {
         AutoLandTime = 1,
-        BankFactor = 0.4,  # this is 0.4 cause the transport should bank (totally cool) but it does land crooked because of it...
+        BankFactor = 0.4,  -- this is 0.4 cause the transport should bank (totally cool) but it does land crooked because of it...
         BankForward = true,
         CanFly = true,
         KLift = 6,

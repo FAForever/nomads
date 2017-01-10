@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "ina1003", # T1 Bomber
+    BlueprintId = "ina1003", -- T1 Bomber
     Economy = {
         BuildCostEnergy = 2250,
         BuildTime = 500,

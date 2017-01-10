@@ -1,7 +1,7 @@
 UnitBlueprint {
     Abilities = {
         Capacitor = {
-            Active = false,  # do not remove or set to true. This does nothing but Fix an error in log caused by line 915 in /lua/ui/game/orders.lua
+            Active = false,  -- do not remove or set to true. This does nothing but Fix an error in log caused by line 915 in /lua/ui/game/orders.lua
             AutoUseWhenHealthLow = false,
             Buffs = {
                 'CapacitorEngineering',
@@ -85,11 +85,11 @@ UnitBlueprint {
             Cue = 'FootfallUnderWater',
             LodCutoff = 'UnitMove_LodCutoff',
         },
-#        Killed = Sound {
-#            Bank = 'Explosions',
-#            Cue = 'UEF_Nuke_Impact',
-#            LodCutoff = 'UnitMove_LodCutoff',
-#        },
+--        Killed = Sound {
+--            Bank = 'Explosions',
+--            Cue = 'UEF_Nuke_Impact',
+--            LodCutoff = 'UnitMove_LodCutoff',
+--        },
         ReclaimLoop = Sound {
             Bank = 'UEL',
             Cue = 'UEL0105_Reclaim_Loop',

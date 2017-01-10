@@ -1,11 +1,11 @@
 do
 
-# TODO: make sure all descriptions are up to date
-# TODO: reduce filesize a bit by removing all redundant texts in the LOC tags
+-- TODO: make sure all descriptions are up to date
+-- TODO: reduce filesize a bit by removing all redundant texts in the LOC tags
 
 Description = table.merged( Description, {
 
-    # enhancements
+    -- enhancements
     ['inu0001-aes'] = "<LOC Unit_Description_0005>Expands the number of available schematics and increases the ACU's build speed and maximum health.",
     ['inu0001-hamc'] = "<LOC NomadACUEnh_GunUpgrade_Description>Increases main cannon's damage output by several factors. Also increases range of main cannon and overcharge.",
     ['inu0001-isb'] = "<LOC Unit_Description_0012>Increases ACU's resource generation.",
@@ -42,7 +42,7 @@ Description = table.merged( Description, {
     ['inu3001-isb'] = "<LOC NomadSCUEnh_ResourceAllocation_Description>Adds a resource generator to the SACU. This system generates some resources, especially power, which speeds up the capacitor charge time. Because of the volatile nature of this generator, a large explosion is generated when the SACU dies. This enhancement is often used for increased firepower via capacitor but also sometimes for kamikaze attacks.",
 
 
-    # NOMAD COMMANDER UNITS
+    -- NOMAD COMMANDER UNITS
     ['inu0001'] = "<LOC inu0001_help>Houses Commander. Combination barracks and command center. Contains all the blueprints necessary to build a basic army from scratch.",
     ['inu3001'] = "<LOC inu3001_help>Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or combination.",
     ['inu3001_Amphibious'] = "<LOC inu3001_amphibious_help>Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or a combination. Enhanced during construction with a railgun on the left arm, a machine gune on the right arm and an improved locomotor.",
@@ -61,13 +61,13 @@ Description = table.merged( Description, {
     ['inu3001_Sniper'] = "<LOC inu3001_sniper_help>Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or combination. Enhanced during construction with an upgraded weapon on its right arm and the sniper enhancement on its back.",
 
 
-    # NOMAD ENGINEERS
+    -- NOMAD ENGINEERS
     ['inu1001'] = "<LOC inu1001_help>Tech 1 amphibious construction, repair, capture and reclamation unit.",
     ['inu1005'] = "<LOC inu1005_help>Tech 2 amphibious construction, repair, capture and reclamation unit.",
     ['inu2001'] = "<LOC inu2001_help>Tech 3 amphibious construction, repair, capture and reclamation unit.",
 
 
-    # NOMAD FACTORIES
+    -- NOMAD FACTORIES
     ['inb0101'] = "<LOC inb0101_help>Constructs Tech 1 land units. Upgradeable.",
     ['inb0102'] = "<LOC inb0102_help>Constructs Tech 1 air units. Upgradeable.",
     ['inb0103'] = "<LOC inb0103_help>Constructs Tech 1 naval units. Upgradeable.",
@@ -79,7 +79,7 @@ Description = table.merged( Description, {
     ['inb0303'] = "<LOC inb0303_help>Constructs Tech 3 naval units. Highest tech level available.",
     ['inb0304'] = "<LOC inb0304_help>Constructs Support command units.",
     
-    # NOMAD SUPPORT FACTORIES (FAF SPECIFIC)
+    -- NOMAD SUPPORT FACTORIES (FAF SPECIFIC)
     ['inb0211'] = "<LOC inb0211_help>Constructs Tech 2 land units. Upgradeable.",
     ['inb0212'] = "<LOC inb0212_help>Constructs Tech 2 air units. Upgradeable.",
     ['inb0213'] = "<LOC inb0213_help>Constructs Tech 2 naval units. Upgradeable.",
@@ -88,7 +88,7 @@ Description = table.merged( Description, {
     ['inb0313'] = "<LOC inb0313_help>Constructs Tech 3 naval units. Highest tech level available.",
 
 
-    # WEAPON STRUCTURES
+    -- WEAPON STRUCTURES
     ['inb2101'] = "<LOC inb2101_help>Low-end defensive tower that attacks land- and sea-based units. Does not engage aircraft or submerged units.",
     ['inb2102'] = "<LOC inb2102_help>Anti-air tower. Designed to engage low-end aircraft.",
     ['inb2109'] = "<LOC inb2109_help>Anti-naval defense system.",
@@ -104,14 +104,14 @@ Description = table.merged( Description, {
     ['inb2304'] = "<LOC inb2304_help>Coordinates attacks Nomad spacecraft in from high orbit.",
 
 
-    # DEFENSE STRUCTURES
+    -- DEFENSE STRUCTURES
     ['inb4204'] = "<LOC inb4204_help>Tactical missile defense. Protection is limited to the structure's operational area.",
     ['inb4202'] = "<LOC inb4202_help>Generates a protective shield around units and structures within its radius.",
     ['inb4301'] = "<LOC inb4301_help>Generates a heavy shield around units and structures within its radius.",
     ['inb4302'] = "<LOC inb4302_help>Strategic missile defense. Protection is limited to the structure's operational area.",
 
 
-    # ECONOMIC STRUCTURES
+    -- ECONOMIC STRUCTURES
     ['inb1101'] = "<LOC inb1101_help>Generates Energy. Construct next to other structures for adjacency bonus.",
     ['inb1102'] = "<LOC inb1102_help>Extracts Mass. Must be constructed on Mass deposits. Construct structures next to Mass extractor for adjacency bonus.",
     ['inb1105'] = "<LOC inb1105_help>Stores Energy. Construct next to power generators for adjacency bonus.",
@@ -125,7 +125,7 @@ Description = table.merged( Description, {
     ['inb1303'] = "<LOC inb1303_help>High-end Mass fabricator. Requires large amounts of Energy. Construct next to other structures for adjacency bonus.",
 
 
-    # INTELLIGENCE STRUCTURES
+    -- INTELLIGENCE STRUCTURES
     ['inb3101'] = "<LOC inb3101_help>Radar system with minimal range. Detects and tracks surface and air units.",
     ['inb3102'] = "<LOC inb3102_help>Sonar system with minimal range. Detects and tracks naval units.",
     ['inb3201'] = "<LOC inb3201_help>Radar system with moderate range. Detects and tracks surface and air units.",
@@ -134,13 +134,13 @@ Description = table.merged( Description, {
     ['inb3302'] = "<LOC inb3302_help>Sonar system with exceptional range. Detects and tracks naval units. Armed with a bottom-mounted torpedo turret.",
 
 
-    # MISC
+    -- MISC
     ['inb5101'] = "<LOC inb5101_help>Restricts the movement of enemy units. Offers minimal protection from enemy fire.",
     ['inb5202'] = "<LOC inb5202_help>Refuels and repairs aircraft. Air patrols will automatically use facility.",
     ['inb4303'] = "<LOC inb4303_help>",
 
 
-    # NOMAD LAND UNITS
+    -- NOMAD LAND UNITS
     ['inu1002'] = "<LOC inu1002_help>Fast, lightly armored reconnaissance vehicle. Armed with a light gun and a state-of-the-art sensor suite.",
     ['inu1007'] = "<LOC inu1007_help>Lightly armored hover tank. Provides direct-fire support against low-end units.",
     ['inu1004'] = "<LOC inu1004_help>Armored hover tank. Armed with a single cannon, useful against lower tier units.",
@@ -166,7 +166,7 @@ Description = table.merged( Description, {
     ['inu4002'] = "<LOC inu4002_help>Experimental Ultraheavy Tank",
 
 
-    # NOMAD AIR UNTIS
+    -- NOMAD AIR UNTIS
     ['ina1001'] = "<LOC ina1001_help>Air scout",
     ['ina1002'] = "<LOC ina1002_help>Interceptor",
     ['ina1003'] = "<LOC ina1003_help>Bomber",
@@ -183,7 +183,7 @@ Description = table.merged( Description, {
     ['ina3006'] = "<LOC ina3006_help>Heavy Gunship",
 
 
-    # NOMAD SEA UNITS
+    -- NOMAD SEA UNITS
     ['ins1001'] = "<LOC ins1001_help>Attack Submarine",
     ['ins1002'] = "<LOC ins1002_help>Frigate",
 
@@ -195,7 +195,7 @@ Description = table.merged( Description, {
     ['ins3002'] = "<LOC ins3002_help>Heavy Attack Submarine",
 
 
-    # NOMAD ORBITAL UNITS (probably non-controlable)
+    -- NOMAD ORBITAL UNITS (probably non-controlable)
     ['ina0001'] = "<LOC ina0001_help>Meteor Dropship",
     ['ino0001'] = "<LOC ino0001_help>Surface Operations Support",
     ['ino2302'] = "<LOC ino2302_help>Orbital Artillery Gun",

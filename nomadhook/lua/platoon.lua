@@ -1,19 +1,19 @@
 do
 
 
-# Adding Nomads experimentals for better AI support
+-- Adding Nomads experimentals for better AI support
 
 local oldPlatoon = Platoon
 
 Platoon = Class(oldPlatoon) {
 
     ExperimentalAIHub = function(self)
-        #LOG('*DEBUG: AI ExperimentalAIHub')
+        --LOG('*DEBUG: AI ExperimentalAIHub')
         local experimental = self:GetPlatoonUnits()[1]
         if experimental then
             local behaviors = import('/lua/ai/AIBehaviors.lua')
             local ID = experimental:GetUnitId()
-            #LOG('*DEBUG: AI choosing behavior for nomads experimental '..repr(ID))
+            --LOG('*DEBUG: AI choosing behavior for nomads experimental '..repr(ID))
             if ID == 'ina4001' then
                 return behaviors.CometBehavior(self)
             elseif ID == 'inu2007' then
@@ -29,12 +29,12 @@ Platoon = Class(oldPlatoon) {
     end,
 
     ExperimentalAIHubSorian = function(self)
-        # trying to have Sorian support Nomads aswell. This is mostly copy-paste from Sorians code. Hooking doesn't work here 
-        # because the function call seems to be terminated when one of the behaviours is returned. So by using hooking only the call to
-        # SOrians function is executed. Everything coming after (Nomads code) is neglected.
-        #local ret = oldPlatoon.ExperimentalAIHubSorian(self)
+        -- trying to have Sorian support Nomads aswell. This is mostly copy-paste from Sorians code. Hooking doesn't work here 
+        -- because the function call seems to be terminated when one of the behaviours is returned. So by using hooking only the call to
+        -- SOrians function is executed. Everything coming after (Nomads code) is neglected.
+        --local ret = oldPlatoon.ExperimentalAIHubSorian(self)
 
-        #LOG('*DEBUG: AI ExperimentalAIHubSorian')
+        --LOG('*DEBUG: AI ExperimentalAIHubSorian')
 
         local experimental = self:GetPlatoonUnits()[1]
         if experimental then
@@ -42,7 +42,7 @@ Platoon = Class(oldPlatoon) {
 
             if ID == 'ina4001' or ID == 'inu2007' or ID == 'inu4001' or ID == 'inu4002' then
 
-                # The next 7 lines or so are copy-paste from Sorian
+                -- The next 7 lines or so are copy-paste from Sorian
                 local aiBrain = self:GetBrain()
                 if Random(1,5) == 3 and (not aiBrain.LastTaunt or GetGameTimeSeconds() - aiBrain.LastTaunt > 90) then
                     local randelay = Random(60,180)
@@ -54,7 +54,7 @@ Platoon = Class(oldPlatoon) {
 
 
                 local behaviors = import('/lua/ai/AIBehaviors.lua')
-                #LOG('*DEBUG: AI choosing behavior for nomads experimental '..repr(ID))
+                --LOG('*DEBUG: AI choosing behavior for nomads experimental '..repr(ID))
                 if ID == 'ina4001' then
                     return behaviors.CometBehavior(self)
                 elseif ID == 'inu2007' then
@@ -67,7 +67,7 @@ Platoon = Class(oldPlatoon) {
             end
         end
 
-        #return ret
+        --return ret
         return oldPlatoon.ExperimentalAIHubSorian(self)
     end,
 }

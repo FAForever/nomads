@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "uel0001", # UEF ACU
+    BlueprintId = "uel0001", -- UEF ACU
     SpecialAbilities = {
         LaunchTacMissile = {
             MaxRadius = 256,

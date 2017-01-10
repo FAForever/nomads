@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "inb3202", # t2 sonar
+    BlueprintId = "inb3202", -- t2 sonar
     Economy = {
         BuildTime = 845,
     },

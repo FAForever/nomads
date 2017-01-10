@@ -13,9 +13,9 @@ local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
 local RandomFloat = import('/lua/utilities.lua').GetRandomFloat
 
 
-# -----------------------------------------------------------------------------------------------------
-# BALLISTIC PROJECTILES        (UNGUIDED, NOT PROPELED)
-# -----------------------------------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------------------------------
+-- BALLISTIC PROJECTILES        (UNGUIDED, NOT PROPELED)
+-- -----------------------------------------------------------------------------------------------------
 
 RailGunProj = Class(SinglePolyTrailProjectile) {
     FxImpactAirUnit = NomadEffectTemplate.RailgunHitAirUnit1,
@@ -36,7 +36,7 @@ RailGunProj = Class(SinglePolyTrailProjectile) {
     OnCreate = function(self, InWater)
         SinglePolyTrailProjectile.OnCreate(self, InWater)
         if self.CollisionCats and table.getn(self.CollisionCats) > 0 then
-            self:SetCollisionShape('Sphere', 0, 0, 0, 1.8)  # size of the collision hit box, larger means easier to eat projectiles
+            self:SetCollisionShape('Sphere', 0, 0, 0, 1.8)  -- size of the collision hit box, larger means easier to eat projectiles
         end
     end,
 
@@ -44,7 +44,7 @@ RailGunProj = Class(SinglePolyTrailProjectile) {
 
         local ok = false
 
-        # filtering out only projectiles that dont fit the categories
+        -- filtering out only projectiles that dont fit the categories
         if not self.CollisionCats or table.getn(self.CollisionCats) < 1 then
             return false
         elseif self:GetArmy() == other:GetArmy() or IsAlly( self:GetArmy(), other:GetArmy() ) then
@@ -96,9 +96,9 @@ KineticRound = Class(SinglePolyTrailProjectile) {
     OnImpact = function(self, targetType, targetEntity)
         SinglePolyTrailProjectile.OnImpact(self, targetType, targetEntity)  
 
-        # create some additional effects
+        -- create some additional effects
         local army = self:GetArmy()
-        local ok = (targetType != 'Water' and targetType != 'Shield' and targetType != 'Air' and targetType != 'UnitAir' and targetType != 'UnitUnderwater')
+        local ok = (targetType ~= 'Water' and targetType ~= 'Shield' and targetType ~= 'Air' and targetType ~= 'UnitAir' and targetType ~= 'UnitUnderwater')
         if ok then 
             local rotation = RandomFloat(0,2*math.pi)
             local size = RandomFloat(2, 3)
@@ -126,9 +126,9 @@ APRound = Class(SinglePolyTrailProjectile) {
     OnImpact = function(self, targetType, targetEntity)
         SinglePolyTrailProjectile.OnImpact(self, targetType, targetEntity)  
 
-        # create some additional effects
+        -- create some additional effects
         local army = self:GetArmy()
-        local ok = (targetType != 'Water' and targetType != 'Shield' and targetType != 'Air' and targetType != 'UnitAir' and targetType != 'UnitUnderwater')
+        local ok = (targetType ~= 'Water' and targetType ~= 'Shield' and targetType ~= 'Air' and targetType ~= 'UnitAir' and targetType ~= 'UnitUnderwater')
         if ok then 
             local rotation = RandomFloat(0,2*math.pi)
             local size = RandomFloat(1, 1.8)
@@ -158,9 +158,9 @@ Annihilator = Class(SinglePolyTrailProjectile) {
     OnImpact = function(self, targetType, targetEntity)
         SinglePolyTrailProjectile.OnImpact(self, targetType, targetEntity)  
 
-        # create some additional effects
+        -- create some additional effects
         local army = self:GetArmy()
-        local ok = (targetType != 'Water' and targetType != 'Shield' and targetType != 'Air' and targetType != 'UnitAir' and targetType != 'UnitUnderwater')
+        local ok = (targetType ~= 'Water' and targetType ~= 'Shield' and targetType ~= 'Air' and targetType ~= 'UnitAir' and targetType ~= 'UnitUnderwater')
         if ok then 
             local rotation = RandomFloat(0,2*math.pi)
             local size = RandomFloat(2, 3)
@@ -197,7 +197,7 @@ ArtilleryShell = Class(SinglePolyTrailProjectile) {
             CreateLightParticle( self, -1, army, 16, 6, 'glow_03', 'ramp_antimatter_02' )
         end
 
-        local ok = (targetType != 'Water' and targetType != 'Shield' and targetType != 'Air' and targetType != 'UnitAir')
+        local ok = (targetType ~= 'Water' and targetType ~= 'Shield' and targetType ~= 'Air' and targetType ~= 'UnitAir')
         if ok then
             if self.DoImpactFlash then
                 CreateLightParticle( self, -1, army, 16, 6, 'glow_03', 'ramp_antimatter_02' )
@@ -234,9 +234,9 @@ ParticleBlastArtilleryShell = Class(SinglePolyTrailProjectile) {
     OnImpact = function(self, targetType, targetEntity)
         MultiPolyTrailProjectile.OnImpact(self, targetType, targetEntity)  
 
-        # create some additional effects
+        -- create some additional effects
         local army = self:GetArmy()
-        local ok = (targetType != 'Water' and targetType != 'Shield' and targetType != 'Air' and targetType != 'UnitAir')
+        local ok = (targetType ~= 'Water' and targetType ~= 'Shield' and targetType ~= 'Air' and targetType ~= 'UnitAir')
         if ok then 
             local rotation = RandomFloat(0,2*math.pi)
             local size = RandomFloat(8, 12)
@@ -277,7 +277,7 @@ SplittingArtilleryShell = Class(SinglePolyTrailProjectile) {
         if self.DoImpactFlash then
             CreateLightParticle( self, -1, army, RandomFloat(15,17), RandomFloat(8,12), 'glow_03', 'ramp_antimatter_02' )
         end
-        if targetType != "Shield" then
+        if targetType ~= "Shield" then
             local rotation = RandomFloat(0, 2*math.pi)
             local size = RandomFloat(2, 3)
             local life = RandomFloat(50, 100)
@@ -294,16 +294,16 @@ SplittingArtilleryShell = Class(SinglePolyTrailProjectile) {
             return
         end
 
-        # split damage between projectiles
-        self.DamageData.DamageAmount = self.DamageData.DamageAmount / (numProjectiles + 1)   # plus one cause the parent projectile also counts
+        -- split damage between projectiles
+        self.DamageData.DamageAmount = self.DamageData.DamageAmount / (numProjectiles + 1)   -- plus one cause the parent projectile also counts
 
-        # calc angles
+        -- calc angles
         local angle = (2*math.pi) / numProjectiles
         local angleInitial = RandomFloat( 0, angle )
 
-        # Randomization of the spread
-        local angleVariation = angle * 0.75 # Adjusts angle variance spread
-        local spreadMul = 0.5 # Adjusts the width of the dispersal
+        -- Randomization of the spread
+        local angleVariation = angle * 0.75 -- Adjusts angle variance spread
+        local spreadMul = 0.5 -- Adjusts the width of the dispersal
         local velocity = self.DamageData.FragmentDispersalRadius
         local variation = velocity / 3
 
@@ -374,9 +374,9 @@ IonBlast = Class(SinglePolyTrailProjectile) {
     OnImpact = function(self, targetType, targetEntity)
         MultiPolyTrailProjectile.OnImpact(self, targetType, targetEntity)  
 
-        # create some additional effects
+        -- create some additional effects
         local army = self:GetArmy()
-        local ok = (targetType != 'Water' and targetType != 'Shield' and targetType != 'Air' and targetType != 'UnitAir')
+        local ok = (targetType ~= 'Water' and targetType ~= 'Shield' and targetType ~= 'Air' and targetType ~= 'UnitAir')
         if ok then 
             local rotation = RandomFloat(0,2*math.pi)
             local size = RandomFloat(1, 1.5)
@@ -405,9 +405,9 @@ ParticleBlast = Class(SinglePolyTrailProjectile) {
     OnImpact = function(self, targetType, targetEntity)
         MultiPolyTrailProjectile.OnImpact(self, targetType, targetEntity)  
 
-        # create some additional effects
+        -- create some additional effects
         local army = self:GetArmy()
-        local ok = (targetType != 'Water' and targetType != 'Shield' and targetType != 'Air' and targetType != 'UnitAir')
+        local ok = (targetType ~= 'Water' and targetType ~= 'Shield' and targetType ~= 'Air' and targetType ~= 'UnitAir')
         if ok then 
             local rotation = RandomFloat(0,2*math.pi)
             local size = RandomFloat(1, 1.5)
@@ -450,32 +450,32 @@ EmpShell = Class(SinglePolyTrailProjectile) {
     PolyTrail = NomadEffectTemplate.EMPGunPolyTrail,
     PolyTrailOffset = 0,
 
-# DamageToShields globally implemented in defaultweapons.lua and projectile.lua per build 41
-#    PassDamageData = function(self, DamageData)
-#        EmitterProjectile.PassDamageData(self, DamageData)
-#        if DamageData.DamageToShields then
-#            self.DamageData.DamageToShields = DamageData.DamageToShields
-#        end
-#    end,
-#
-#    DoShieldDamage = function(self, shield)
-#        if self.DamageData.DamageToShields and self.DamageData.DamageToShields > 0 and shield then
-#            local damage = math.min( self.DamageData.DamageToShields, shield:GetHealth() )
-#            if damage > 0 then
-#                Damage( self:GetLauncher(), self:GetPosition(), shield, damage, self.DamageData.DamageType)
-#            end
-#        end
-#    end,
+-- DamageToShields globally implemented in defaultweapons.lua and projectile.lua per build 41
+--    PassDamageData = function(self, DamageData)
+--        EmitterProjectile.PassDamageData(self, DamageData)
+--        if DamageData.DamageToShields then
+--            self.DamageData.DamageToShields = DamageData.DamageToShields
+--        end
+--    end,
+--
+--    DoShieldDamage = function(self, shield)
+--        if self.DamageData.DamageToShields and self.DamageData.DamageToShields > 0 and shield then
+--            local damage = math.min( self.DamageData.DamageToShields, shield:GetHealth() )
+--            if damage > 0 then
+--                Damage( self:GetLauncher(), self:GetPosition(), shield, damage, self.DamageData.DamageType)
+--            end
+--        end
+--    end,
 
     OnImpact = function(self, targetType, targetEntity)
         EmitterProjectile.OnImpact(self, targetType, targetEntity)
 
-# DamageToShields globally implemented in defaultweapons.lua and projectile.lua per build 41
-#        if targetType == 'Shield' then
-#            self:DoShieldDamage( targetEntity )
-#        end
+-- DamageToShields globally implemented in defaultweapons.lua and projectile.lua per build 41
+--        if targetType == 'Shield' then
+--            self:DoShieldDamage( targetEntity )
+--        end
 
-        # create custom electricity effect based on stun duration
+        -- create custom electricity effect based on stun duration
         local Duration = false
         for k, buff in self.DamageData.Buffs do
             if buff.BuffType == "STUN" then
@@ -521,7 +521,7 @@ EmpShell = Class(SinglePolyTrailProjectile) {
             else
                 emit = CreateEmitterAtEntity(self,army,v)
             end 
-            if emit and EffectScale != 1 then
+            if emit and EffectScale ~= 1 then
                 emit:ScaleEmitter(EffectScale or 1)
             end
             if emit then
@@ -552,9 +552,9 @@ PlasmaProj = Class(SinglePolyTrailProjectile) {
     OnImpact = function(self, targetType, targetEntity)
         MultiPolyTrailProjectile.OnImpact(self, targetType, targetEntity)  
 
-        # create some additional effects
+        -- create some additional effects
         local army = self:GetArmy()
-        local ok = (targetType != 'Water' and targetType != 'Shield' and targetType != 'Air' and targetType != 'UnitAir')
+        local ok = (targetType ~= 'Water' and targetType ~= 'Shield' and targetType ~= 'Air' and targetType ~= 'UnitAir')
         if ok then 
             local rotation = RandomFloat(0,2*math.pi)
             local size = RandomFloat(2.5, 4)
@@ -585,24 +585,24 @@ EnergyProj = Class(SinglePolyTrailProjectile) {
     OnImpact = function(self, targetType, targetEntity)
         MultiPolyTrailProjectile.OnImpact(self, targetType, targetEntity)  
 
-        # create some additional effects
+        -- create some additional effects
         local pos = self:GetPosition()
-        DamageArea(self, pos, (self.DamageData.DamageRadius or 1) * 1.2, 1, 'BigFire', true)  # light trees on fire
+        DamageArea(self, pos, (self.DamageData.DamageRadius or 1) * 1.2, 1, 'BigFire', true)  -- light trees on fire
         local army = self:GetArmy()
-        local ok = (targetType != 'Water' and targetType != 'Shield' and targetType != 'Air' and targetType != 'UnitAir' and targetType != 'UnitUnderwater')
+        local ok = (targetType ~= 'Water' and targetType ~= 'Shield' and targetType ~= 'Air' and targetType ~= 'UnitAir' and targetType ~= 'UnitUnderwater')
         if ok then 
             local rotation = RandomFloat(0,2*math.pi)
             local size = RandomFloat(8, 10)
             local life = Random(40, 60)
-            local albedo = { 'Scorch_001_albedo', 'Scorch_002_albedo', 'Scorch_003_albedo', }  # keep the 'random' up to date in next line
+            local albedo = { 'Scorch_001_albedo', 'Scorch_002_albedo', 'Scorch_003_albedo', }  -- keep the 'random' up to date in next line
             CreateDecal(pos, rotation, albedo[ Random(1, 3) ], '', 'Albedo', size, size, 300, life, self:GetArmy())
         end	 
     end,
 }
 
-# -----------------------------------------------------------------------------------------------------
-# MISSILES       (GUIDED, PROPELED)
-# -----------------------------------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------------------------------
+-- MISSILES       (GUIDED, PROPELED)
+-- -----------------------------------------------------------------------------------------------------
 
 Missile1 = Class(SingleCompositeEmitterProjectile) {
 
@@ -624,9 +624,9 @@ Missile1 = Class(SingleCompositeEmitterProjectile) {
     OnImpact = function(self, targetType, targetEntity)
         SingleCompositeEmitterProjectile.OnImpact(self, targetType, targetEntity)  
 
-        # create some additional effects
+        -- create some additional effects
         local army = self:GetArmy()
-        local ok = (targetType != 'Water' and targetType != 'Shield' and targetType != 'Air' and targetType != 'UnitAir' and targetType != 'UnitUnderwater')
+        local ok = (targetType ~= 'Water' and targetType ~= 'Shield' and targetType ~= 'Air' and targetType ~= 'UnitAir' and targetType ~= 'UnitUnderwater')
         if ok then 
             local rotation = RandomFloat(0,2*math.pi)
             local size = RandomFloat(1.5, 2.5)
@@ -667,8 +667,8 @@ FusionMissile = Class(SingleCompositeEmitterProjectile) {
     end,
 
     OnImpact = function(self, targetType, TargetEntity)
-        # create decal
-        local ok = (targetType != 'Water' and targetType != 'Shield' and targetType != 'Air' and targetType != 'UnitAir' and targetType != 'UnitUnderwater')
+        -- create decal
+        local ok = (targetType ~= 'Water' and targetType ~= 'Shield' and targetType ~= 'Air' and targetType ~= 'UnitAir' and targetType ~= 'UnitUnderwater')
         if ok then 
             local rotation = RandomFloat(0,2*math.pi)
             local size = RandomFloat(4.5, 6.5)
@@ -684,17 +684,17 @@ FusionMissile = Class(SingleCompositeEmitterProjectile) {
     end,
 
     MonitorTargetPosition = function(self)
-        # Monitors the target and updates it's known position regularly. If the target is destroyed then the projectile is guided to the
-        # last known position of the target, instead of blowing the missile up as is done with other tracking projectiles.
-        # If the target is destroyed GetCurrentTargetPosition() reports a bad position, with values 1.#qnan. The "strange" code with
-        # ctp[1]+1 > ctp[1] is to check for number values. The bad position is filtered out this way.
+        -- Monitors the target and updates it's known position regularly. If the target is destroyed then the projectile is guided to the
+        -- last known position of the target, instead of blowing the missile up as is done with other tracking projectiles.
+        -- If the target is destroyed GetCurrentTargetPosition() reports a bad position, with values 1.--qnan. The "strange" code with
+        -- ctp[1]+1 > ctp[1] is to check for number values. The bad position is filtered out this way.
         local targetPos, ctp = false, false
         while self and not self:BeenDestroyed() do
             ctp = self:GetCurrentTargetPosition()
             if ctp[1] and ctp[2] and ctp[3] and ctp[1]+1 > ctp[1] and ctp[2]+1 > ctp[2] and ctp[3]+1 > ctp[3] then
                 targetPos = ctp
             else
-                # make sure the new target is at the ground to make the missile hit the surface instead of nothing-ness (and thus hang around)
+                -- make sure the new target is at the ground to make the missile hit the surface instead of nothing-ness (and thus hang around)
                 targetPos[2] = GetTerrainHeight(targetPos[1], targetPos[3]) + GetTerrainTypeOffset(targetPos[1], targetPos[3])
                 self:SetNewTargetGround(targetPos)
                 self:TrackTarget(self._TrackTarget)
@@ -736,7 +736,7 @@ EMPMissile = Class(FusionMissile) {
     OnImpact = function(self, targetType, targetEntity)
         FusionMissile.OnImpact(self, targetType, targetEntity)
 
-        # create custom electricity effect based on stun duration
+        -- create custom electricity effect based on stun duration
         local Duration = false
         for k, buff in self.DamageData.Buffs do
             if buff.BuffType == "STUN" then
@@ -782,7 +782,7 @@ EMPMissile = Class(FusionMissile) {
             else
                 emit = CreateEmitterAtEntity(self,army,v)
             end 
-            if emit and EffectScale != 1 then
+            if emit and EffectScale ~= 1 then
                 emit:ScaleEmitter(EffectScale)
             end
             if emit then
@@ -793,7 +793,7 @@ EMPMissile = Class(FusionMissile) {
 }
 
 TacticalMissile = Class(SingleCompositeEmitterProjectile) {
-    # Weapon BP item: NumChildProjectiles, should be supported in weapon aswell.
+    -- Weapon BP item: NumChildProjectiles, should be supported in weapon aswell.
 
     BeamName = NomadEffectTemplate.TacticalMissileBeam,
     FxImpactAirUnit = NomadEffectTemplate.TacticalMissileHitAirUnit1,
@@ -809,7 +809,7 @@ TacticalMissile = Class(SingleCompositeEmitterProjectile) {
     FxTrails = NomadEffectTemplate.TacticalMissileTrail,
     PolyTrail = NomadEffectTemplate.TacticalMissilePolyTrail,
 
-    # small correction to make the smoke appear to come from the missile
+    -- small correction to make the smoke appear to come from the missile
     FxTrailOffset = -0.22,
     PolyTrailOffset = -0.22,
 
@@ -849,7 +849,7 @@ TacticalMissile = Class(SingleCompositeEmitterProjectile) {
     MovementThread = function(self)
         self:SetTurnRate(0)
 
-        # wait till exitting water before leveling off
+        -- wait till exitting water before leveling off
         if self.IsUnderWater then
             while self and self.IsUnderWater do
                 WaitTicks(1)
@@ -900,7 +900,7 @@ TacticalMissile = Class(SingleCompositeEmitterProjectile) {
 
     UnderWaterThread = function(self, EffectsBag)
 
-        # create attached air bubbles emitter
+        -- create attached air bubbles emitter
         self.IsUnderWater = true
         local army, emit = self:GetLauncher():GetArmy()
         for k, v in NomadEffectTemplate.TacticalMissileTrailFxUnderWaterAddon do
@@ -909,7 +909,7 @@ TacticalMissile = Class(SingleCompositeEmitterProjectile) {
             self.Trash:Add( emit )
         end
 
-        # monitor projectile height to see when it's below water surface
+        -- monitor projectile height to see when it's below water surface
         local pos = self:GetPosition()
         local surface = GetSurfaceHeight(pos[1], pos[3]) + GetTerrainTypeOffset(pos[1], pos[3])
         while pos[2] < surface do
@@ -918,7 +918,7 @@ TacticalMissile = Class(SingleCompositeEmitterProjectile) {
             pos = self:GetPosition()
         end
 
-        # remove water trail
+        -- remove water trail
         EffectsBag:Destroy()
 
         self.IsUnderWater = false
@@ -940,8 +940,8 @@ TacticalMissile = Class(SingleCompositeEmitterProjectile) {
             DamageArea(self, self:GetPosition(), self.DamageData.DamageRadius * 1.2, 1, 'Force', true)
         end
 
-        # create some additional effects
-        local ok = (targetType != 'Water' and targetType != 'Shield' and targetType != 'Air' and targetType != 'UnitAir' and targetType != 'UnitUnderwater')
+        -- create some additional effects
+        local ok = (targetType ~= 'Water' and targetType ~= 'Shield' and targetType ~= 'Air' and targetType ~= 'UnitAir' and targetType ~= 'UnitUnderwater')
         if ok then 
             local army = self:GetArmy()
             local rotation = RandomFloat(0,2*math.pi)
@@ -973,35 +973,35 @@ TacticalMissile = Class(SingleCompositeEmitterProjectile) {
         local ChildProjectileBP = '/projectiles/NBombProj2Child/NBombProj2Child_proj.bp'
         local numProjectiles = self.DamageData.NumChildProjectiles
 
-        # split damage between projectiles
+        -- split damage between projectiles
         self.DamageData.DamageAmount = self.DamageData.DamageAmount / numProjectiles
 
-        # Split effects
+        -- Split effects
         CreateLightParticle( self, -1, self:GetArmy(), 2, 3, 'glow_03', 'ramp_yellow_blue_01' )
         
         local vx, vy, vz = self:GetVelocity()
         local velocity = 6
 
-        # One initial projectile following same directional path as the original
+        -- One initial projectile following same directional path as the original
         local child = self:CreateChildProjectile(ChildProjectileBP)
         child:SetVelocity(vx, vy, vz)
         child:SetVelocity(velocity)
         child:PassDamageData(self.DamageData)
 
-        # Create several other projectiles in a dispersal pattern
+        -- Create several other projectiles in a dispersal pattern
         local angle = (3*math.pi) / numProjectiles
         local angleInitial = RandomFloat( 0, angle )
         
-        # Randomization of the spread
-        local angleVariation = angle * 0.75 # Adjusts angle variance spread
-        local spreadMul = 0.7 # Adjusts the width of the dispersal        
+        -- Randomization of the spread
+        local angleVariation = angle * 0.75 -- Adjusts angle variance spread
+        local spreadMul = 0.7 -- Adjusts the width of the dispersal        
         
         local xVec = vx
         local yVec = vy
         local zVec = vz
 
-        # Launch projectiles at semi-random angles away from split location. NumProjs minus 2 iso 1 because we already made a
-        # child proj.
+        -- Launch projectiles at semi-random angles away from split location. NumProjs minus 2 iso 1 because we already made a
+        -- child proj.
         for i = 0, (numProjectiles - 2) do
             xVec = vx + (math.sin(angleInitial + (i*angle) + RandomFloat(-angleVariation, angleVariation))) * spreadMul
             zVec = vz + (math.cos(angleInitial + (i*angle) + RandomFloat(-angleVariation, angleVariation))) * spreadMul 
@@ -1030,14 +1030,14 @@ ArcingTacticalMissile = Class(TacticalMissile) {
     FxTrails = NomadEffectTemplate.ArcingTacticalMissileTrail,
     PolyTrail = NomadEffectTemplate.ArcingTacticalMissilePolyTrail,
 
-    # small correction to make the smoke appear to come from the missile
+    -- small correction to make the smoke appear to come from the missile
     FxTrailOffset = -0.22,
     PolyTrailOffset = -0.22,
 
-    OnFlare_SetTrackTarget = true,  # used to enable Aeon TMD working on this projectile
+    OnFlare_SetTrackTarget = true,  -- used to enable Aeon TMD working on this projectile
 
     MovementThread = function(self)
-        # since this projectile is supposed to act like a high artillery we dont need this
+        -- since this projectile is supposed to act like a high artillery we dont need this
     end,
 }
 
@@ -1049,7 +1049,7 @@ StrategicMissile = Class(SingleBeamProjectile) {
     ThrustEffects = NomadEffectTemplate.NukeMissileThrustEffects,
     BeamName = NomadEffectTemplate.NukeMissileBeam,
 
-    # no impact Fx, the blackhole script does this
+    -- no impact Fx, the blackhole script does this
     FxImpactUnit = {},
     FxImpactLand = {},
     FxImpactUnderWater = {},
@@ -1057,13 +1057,13 @@ StrategicMissile = Class(SingleBeamProjectile) {
     OnCreate = function(self)
         SingleBeamProjectile.OnCreate(self)
 
-        # allow collisions with other things so we can die during flight
+        -- allow collisions with other things so we can die during flight
         self:SetCollisionShape('Sphere', 0, 0, 0, 2.0)
 
-        # movement stuff
+        -- movement stuff
         self:ForkThread( self.MovementThread )
 
-        # callback. I'm not really sure what this is used for, probably a campaign thingy
+        -- callback. I'm not really sure what this is used for, probably a campaign thingy
         local launcher = self:GetLauncher()
         if launcher and not launcher:IsDead() and launcher.EventCallbacks.ProjectileDamaged then
             self.ProjectileDamaged = {}
@@ -1074,7 +1074,7 @@ StrategicMissile = Class(SingleBeamProjectile) {
     end,
 
     DoTakeDamage = function(self, instigator, amount, vector, damageType)
-        # do callback, probably used for campaign (but don't delete!!)
+        -- do callback, probably used for campaign (but don't delete!!)
         if self.ProjectileDamaged then
             for k,v in self.ProjectileDamaged do
                 v(self)
@@ -1084,10 +1084,10 @@ StrategicMissile = Class(SingleBeamProjectile) {
     end,
 
     OnImpact = function(self, targetType, TargetEntity)
-        # if we didn't impact with another projectile (that would be the anti nuke projectile) then create nuke effect
+        -- if we didn't impact with another projectile (that would be the anti nuke projectile) then create nuke effect
         if not TargetEntity or not EntityCategoryContains(categories.PROJECTILE, TargetEntity) then
 
-            # Play the explosion sound
+            -- Play the explosion sound
             local myBlueprint = self:GetBlueprint()
             if myBlueprint.Audio.Explosion then
                 self:PlaySound(myBlueprint.Audio.Explosion)
@@ -1106,16 +1106,16 @@ StrategicMissile = Class(SingleBeamProjectile) {
         local launcher = self:GetLauncher()
         self.CreateEffects( self, self.InitialEffects, army, 1 )
         self:TrackTarget(false)
-        WaitSeconds(2.5)		# Height
+        WaitSeconds(2.5)		-- Height
         self:SetCollision(true)
         self.CreateEffects( self, self.LaunchEffects, army, 1 )
         WaitSeconds(2.5)
         self.CreateEffects( self, self.ThrustEffects, army, 3 )
         WaitSeconds(2.5)
-        self:TrackTarget(true) # Turn ~90 degrees towards target
+        self:TrackTarget(true) -- Turn ~90 degrees towards target
         self:SetDestroyOnWater(true)
         self:SetTurnRate(47.36)
-        WaitSeconds(2) 					# Now set turn rate to zero so nuke flies straight
+        WaitSeconds(2) 					-- Now set turn rate to zero so nuke flies straight
         self:SetTurnRate(0)
         self:SetAcceleration(0.001)
         self.WaitTime = 0.5
@@ -1133,18 +1133,18 @@ StrategicMissile = Class(SingleBeamProjectile) {
 
     SetTurnRateByDist = function(self)
         local dist = self:GetDistanceToTarget()
-        #Get the nuke as close to 90 deg as possible
+        --Get the nuke as close to 90 deg as possible
         if dist > 150 then        
-            #Freeze the turn rate as to prevent steep angles at long distance targets
+            --Freeze the turn rate as to prevent steep angles at long distance targets
             self:SetTurnRate(0)
         elseif dist > 75 and dist <= 150 then
-						# Increase check intervals
+						-- Increase check intervals
             self.WaitTime = 0.3
         elseif dist > 32 and dist <= 75 then
-						# Further increase check intervals
+						-- Further increase check intervals
             self.WaitTime = 0.1
         elseif dist < 32 then
-						# Turn the missile down
+						-- Turn the missile down
             self:SetTurnRate(50)
         end
     end,
@@ -1173,9 +1173,9 @@ StrategicMissile = Class(SingleBeamProjectile) {
     end,
 }
 
-# -----------------------------------------------------------------------------------------------------
-# ROCKETS       (UNGUIDED, PROPELED)
-# -----------------------------------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------------------------------
+-- ROCKETS       (UNGUIDED, PROPELED)
+-- -----------------------------------------------------------------------------------------------------
 
 Rocket1 = Class(SingleCompositeEmitterProjectile) {
     BeamName = NomadEffectTemplate.RocketBeam,
@@ -1262,9 +1262,9 @@ Rocket5 = Class(SingleCompositeEmitterProjectile) {
     PolyTrail = NomadEffectTemplate.RocketPolyTrail5,
 }
 
-# -----------------------------------------------------------------------------------------------------
-# Bombs and alike (dropped from aircraft)
-# -----------------------------------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------------------------------
+-- Bombs and alike (dropped from aircraft)
+-- -----------------------------------------------------------------------------------------------------
 
 ConventionalBomb = Class(SinglePolyTrailProjectile) {
     FxImpactAirUnit = NomadEffectTemplate.ConventionalBombHitAirUnit1,
@@ -1303,8 +1303,8 @@ ConcussionBomb = Class(SinglePolyTrailProjectile) {
     end,
 
     OnImpact = function(self, targetType, targetEntity)
-        # create decal
-        local ok = (targetType != 'Water' and targetType != 'Shield' and targetType != 'Air' and targetType != 'UnitAir' and targetType != 'UnitUnderwater')
+        -- create decal
+        local ok = (targetType ~= 'Water' and targetType ~= 'Shield' and targetType ~= 'Air' and targetType ~= 'UnitAir' and targetType ~= 'UnitUnderwater')
         if ok then 
             local rotation = RandomFloat(0, 2*math.pi)
             local size = RandomFloat(2, 3)
@@ -1342,14 +1342,14 @@ EnergyBomb = Class(SinglePolyTrailProjectile) {
             CreateLightParticle(self, -1, self:GetArmy(), 25, 9, 'glow_02', 'ramp_red_01')
         end
 
-        # create some additional effects
+        -- create some additional effects
         local army = self:GetArmy()
-        local ok = (targetType != 'Water' and targetType != 'Shield' and targetType != 'Air' and targetType != 'UnitAir' and targetType != 'UnitUnderwater')
+        local ok = (targetType ~= 'Water' and targetType ~= 'Shield' and targetType ~= 'Air' and targetType ~= 'UnitAir' and targetType ~= 'UnitUnderwater')
         if ok then 
             local rotation = RandomFloat(0,2*math.pi)
             local size = RandomFloat(15, 20)
             local life = Random(40, 60)
-            local albedo = { 'Scorch_001_albedo', 'Scorch_002_albedo', 'Scorch_003_albedo', }  # keep the 'random' up to date in next line
+            local albedo = { 'Scorch_001_albedo', 'Scorch_002_albedo', 'Scorch_003_albedo', }  -- keep the 'random' up to date in next line
             CreateDecal(self:GetPosition(), rotation, albedo[ Random(1, 3) ], '', 'Albedo', size, size, 300, life, self:GetArmy())
         end	 
     end,
@@ -1373,7 +1373,7 @@ Buoy1 = Class(SinglePolyTrailProjectile) {
     OnCreate = function(self)
         SinglePolyTrailProjectile.OnCreate(self)
 
-        # check for DoT damage, this destroys the buoy right away
+        -- check for DoT damage, this destroys the buoy right away
         local bp = self:GetBlueprint()
         if bp.DoTPulses or bp.DoTTime then
             WARN('Buoy1: The projectile that creates a buoy is a damage over time weapon. This can destroy the buoy.')
@@ -1382,7 +1382,7 @@ Buoy1 = Class(SinglePolyTrailProjectile) {
 
     OnImpact = function(self, targetType, targetEntity)
         SinglePolyTrailProjectile.OnImpact(self, targetType, targetEntity)
-        local ok = (targetType != 'None' and targetType != 'Shield' and targetType != 'Air' and targetType != 'UnitAir')  # removed water
+        local ok = (targetType ~= 'None' and targetType ~= 'Shield' and targetType ~= 'Air' and targetType ~= 'UnitAir')  -- removed water
         if ok then
             local spec = self:GetSpec( targetType, targetEntity )
             self:CreateBuoy( spec, targetType, targetEntity )
@@ -1398,12 +1398,12 @@ Buoy1 = Class(SinglePolyTrailProjectile) {
         local pos = self:GetPosition()
         pos[2] = GetTerrainHeight(pos[1], pos[3]) + GetTerrainTypeOffset(pos[1], pos[3])
         local spec = {
-            Activated = true,  # buoy should activate immediately
-            AttachTo = nil,    # unit to attach the buoy to, if any
-            Lifetime = 60,     # how long the buoy lives
+            Activated = true,  -- buoy should activate immediately
+            AttachTo = nil,    -- unit to attach the buoy to, if any
+            Lifetime = 60,     -- how long the buoy lives
             Owner = self:GetLauncher() or self:GetArmy() or self,
             Pos = pos,
-            RealArmy = self:GetArmy() or -1, # using RealArmy iso Army, see remarks in buoy.lua
+            RealArmy = self:GetArmy() or -1, -- using RealArmy iso Army, see remarks in buoy.lua
         }
         return spec
     end,
@@ -1412,7 +1412,7 @@ Buoy1 = Class(SinglePolyTrailProjectile) {
     end,
 }
 
-# anti air missile flares
+-- anti air missile flares
 Flare1 = Class(SinglePolyTrailProjectile) {
 
     FxImpactAirUnit = NomadEffectTemplate.FlareHitAirUnit1,
@@ -1446,12 +1446,12 @@ Flare1 = Class(SinglePolyTrailProjectile) {
     end,
 }
 
-#------------------------------------------------------------------------
-# Anti navy projectiles (under water)
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+-- Anti navy projectiles (under water)
+--------------------------------------------------------------------------
 
 Torpedo1 = Class(OnWaterEntryEmitterProjectile) {
-    # Can be dropped from aircraft
+    -- Can be dropped from aircraft
 
     FxImpactAirUnit = NomadEffectTemplate.TorpedoHitAirUnit1,
     FxImpactLand = NomadEffectTemplate.TorpedoHitLand1,
@@ -1490,14 +1490,14 @@ Torpedo1 = Class(OnWaterEntryEmitterProjectile) {
         self:SetMaxSpeed( bp.MaxSpeed or 18)
         self:StayUnderwater( bp.StayUnderwater or true )
 
-        if UseEnterWaterTurnRate != false and bp.EnterWaterTurnRate and bp.EnterWaterTurnRate != bp.TurnRate then
+        if UseEnterWaterTurnRate ~= false and bp.EnterWaterTurnRate and bp.EnterWaterTurnRate ~= bp.TurnRate then
             self:DelayedSetTurnRate( 0.3, bp.EnterWaterTurnRate or 400, bp.TurnRate or 120 )
         else
             self:SetTurnRate( bp.TurnRate or 120 )
         end
 
         if self.DroppedFromAir then
-            # if dropped from air create splash
+            -- if dropped from air create splash
             local army = self:GetArmy()
             for k, v in self.FxEnterWater do
                 CreateEmitterAtEntity(self,army,v)
@@ -1546,7 +1546,7 @@ DepthChargeBomb = Class(OnWaterEntryEmitterProjectile) {
     FxImpactProjectile = NomadEffectTemplate.DepthChargeBombHitProjectile1,
     FxImpactUnderWater = NomadEffectTemplate.DepthChargeBombHitUnderWater1,
 
-    FxImpactDeepWater = NomadEffectTemplate.DepthChargeBombDeepWaterExplosion,  # special for this one
+    FxImpactDeepWater = NomadEffectTemplate.DepthChargeBombDeepWaterExplosion,  -- special for this one
     FxDeepWaterScale = 1,
 
     FxTrails = NomadEffectTemplate.DepthChargeBombTrailWater,
@@ -1563,7 +1563,7 @@ DepthChargeBomb = Class(OnWaterEntryEmitterProjectile) {
         OnWaterEntryEmitterProjectile.OnCreate(self, inWater)
         self:SetDestroyOnWater(false)
         if not inWater then
-            # trail while in air (parent class takes care of trail in water)
+            -- trail while in air (parent class takes care of trail in water)
             self:CreateAirTrail()
         end
     end,
@@ -1587,18 +1587,18 @@ DepthChargeBomb = Class(OnWaterEntryEmitterProjectile) {
     end,
 
     OnImpact = function(self, targetType, targetEntity)
-        # If this projectile impacts at a deep enough level under water then don't play regular fx but another one instead. We'll
-        # disable the normal fx in a function in this class somewhere based on a flag set here.
-        # BUG: sometimes water splashing is displayed even though the bomb hit shoreline / ground. This is engine related because
-        # it tells the script (GetTerrainType() in GetTerrainEffects()) that the projectile hit water instead of normal terrain.
-        # Cannot fix this problem.
+        -- If this projectile impacts at a deep enough level under water then don't play regular fx but another one instead. We'll
+        -- disable the normal fx in a function in this class somewhere based on a flag set here.
+        -- BUG: sometimes water splashing is displayed even though the bomb hit shoreline / ground. This is engine related because
+        -- it tells the script (GetTerrainType() in GetTerrainEffects()) that the projectile hit water instead of normal terrain.
+        -- Cannot fix this problem.
         self.PlayFxImpactFlag = not self:PlayExtraImpactEffects(targetType)
 
         OnWaterEntryEmitterProjectile.OnImpact(self, targetType, targetEntity)
 
-        # create some additional effects
+        -- create some additional effects
         local army = self:GetArmy()
-        local ok = (targetType != 'Water' and targetType != 'Shield' and targetType != 'Air' and targetType != 'UnitAir' and targetType != 'UnitUnderwater' and targetType != 'Underwater')
+        local ok = (targetType ~= 'Water' and targetType ~= 'Shield' and targetType ~= 'Air' and targetType ~= 'UnitAir' and targetType ~= 'UnitUnderwater' and targetType ~= 'Underwater')
         if ok then 
             local rotation = RandomFloat(0,2*math.pi)
             local size = RandomFloat(3, 5)
@@ -1608,7 +1608,7 @@ DepthChargeBomb = Class(OnWaterEntryEmitterProjectile) {
     end,
 
     SetDetonationDepth = function(self, depth)
-        #LOG('*DEBUG: SetDetonationDepth = '..repr(depth))
+        --LOG('*DEBUG: SetDetonationDepth = '..repr(depth))
         self.DetonateBelowDepth = depth
 
         if not self.DepthMonitorThread then
@@ -1669,9 +1669,9 @@ DepthChargeBomb = Class(OnWaterEntryEmitterProjectile) {
             local pos = self:GetPosition()
             local surface = GetSurfaceHeight(pos[1], pos[3]) + GetTerrainTypeOffset(pos[1], pos[3])
 
-            if pos[2] < surface then  # below water surface
+            if pos[2] < surface then  -- below water surface
 
-                # Only create effect when we're deep enough in the water
+                -- Only create effect when we're deep enough in the water
                 if self.DamageData.DamageRadius and self.DamageData.DamageRadius > 0 and (surface - pos[2]) > (self.DamageData.DamageRadius / 3) then
 
                     local army = self:GetArmy()
@@ -1682,10 +1682,10 @@ DepthChargeBomb = Class(OnWaterEntryEmitterProjectile) {
                     }
                     ExplEntity = import('/effects/Entities/NomadDepthChargeExplosion01/NomadDepthChargeExplosion01_script.lua').NomadDepthChargeExplosion01(spec)
 
-                    # additional FX. (Use derived class to avoid the self.PlayFxImpactFlag )
+                    -- additional FX. (Use derived class to avoid the self.PlayFxImpactFlag )
                     OnWaterEntryEmitterProjectile.CreateImpactEffects(self, army, self.FxImpactDeepWater, self.FxDeepWaterScale)
 
-                    return true   # indicate that we're creating fx (used to not play certain other fx)
+                    return true   -- indicate that we're creating fx (used to not play certain other fx)
                 end
             end
         end
@@ -1694,11 +1694,11 @@ DepthChargeBomb = Class(OnWaterEntryEmitterProjectile) {
     end,
 }
 
-#------------------------------------------------------------------------
-# Orbital weapons
-#------------------------------------------------------------------------
+--------------------------------------------------------------------------
+-- Orbital weapons
+--------------------------------------------------------------------------
 
-OrbitalEnergyProj = Class(SinglePolyTrailProjectile) {   # big energy projectile dropped from high above the target
+OrbitalEnergyProj = Class(SinglePolyTrailProjectile) {   -- big energy projectile dropped from high above the target
 
     FxImpactAirUnit = NomadEffectTemplate.EnergyProjHitAirUnit2,
     FxImpactLand = NomadEffectTemplate.EnergyProjHitLand2,
@@ -1725,7 +1725,7 @@ OrbitalEnergyProj = Class(SinglePolyTrailProjectile) {   # big energy projectile
             CreateLightParticle(self, -1, self:GetArmy(), 25, 9, 'glow_02', 'ramp_red_01')
         end
 
-        local ok = (targetType != 'Water' and targetType != 'Shield' and targetType != 'Air' and targetType != 'UnitAir' and targetType != 'UnitUnderwater')
+        local ok = (targetType ~= 'Water' and targetType ~= 'Shield' and targetType ~= 'Air' and targetType ~= 'UnitAir' and targetType ~= 'UnitUnderwater')
         if ok then 
             local rotation = RandomFloat(0, 2*math.pi)
             local size = RandomFloat(14, 16)
@@ -1738,10 +1738,10 @@ OrbitalEnergyProj = Class(SinglePolyTrailProjectile) {   # big energy projectile
     end,
 }
 
-#------------------------------------------------------------------------
-# Flamer projectiles
-#------------------------------------------------------------------------
-# Nomads is not using these anymore. Left in here for other modders.
+--------------------------------------------------------------------------
+-- Flamer projectiles
+--------------------------------------------------------------------------
+-- Nomads is not using these anymore. Left in here for other modders.
 
 Flamer = Class(EmitterProjectile) {
 
@@ -1752,7 +1752,7 @@ Flamer = Class(EmitterProjectile) {
     
     FxImpactTrajectoryAligned = false,
 
-    # Hit Effects
+    -- Hit Effects
     FxImpactUnit = NomadEffectTemplate.NPlasmaFlameThrowerHitLand01,
     FxImpactProp = NomadEffectTemplate.NPlasmaFlameThrowerHitLand01,
     FxImpactLand = NomadEffectTemplate.NPlasmaFlameThrowerHitLand01,

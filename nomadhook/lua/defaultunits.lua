@@ -6,7 +6,7 @@ local oldAirUnit = AirUnit
 AirUnit = Class(oldAirUnit) {
 
     OnKilled = function(self, instigator, type, overkillRatio)
-        # if killed by black hole then suck in unit regardless of flying or not
+        -- if killed by black hole then suck in unit regardless of flying or not
         if self:DoOnKilledByBlackhole(type) then
             self.DeathBounce = 1
             if instigator and IsUnit(instigator) then
@@ -20,7 +20,7 @@ AirUnit = Class(oldAirUnit) {
 
     OnRunOutOfFuel = function(self)
         oldAirUnit.OnRunOutOfFuel(self)
-        self:SetSpeedMult( math.pow(0.25,2) ) # bug in SetSpeedMult fixed, adjusting value to keep same speed
+        self:SetSpeedMult( math.pow(0.25,2) ) -- bug in SetSpeedMult fixed, adjusting value to keep same speed
     end,
 }
 

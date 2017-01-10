@@ -1,5 +1,5 @@
 function GetUnitsInSphere(position, radius)
-    # New function
+    -- New function
     local x1 = position.x - radius
     local y1 = position.y - radius
     local z1 = position.z - radius

@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "ina1005", # T1 transport
+    BlueprintId = "ina1005", -- T1 transport
     DelCategories = {
         'CANTRANSPORTCOMMANDER',
     },

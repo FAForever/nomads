@@ -1,4 +1,4 @@
-# T3 pgen
+-- T3 pgen
 
 local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
 local NEnergyCreationUnit = import('/lua/nomadunits.lua').NEnergyCreationUnit
@@ -9,7 +9,7 @@ INB1301 = Class(NEnergyCreationUnit) {
     ActiveEffectTemplateName = 'T3PGAmbient',
 
     OnStopBeingBuilt = function(self, builder, layer)
-        # antennae lights
+        -- antennae lights
         local army, emit = self:GetArmy()
         for k, v in NomadEffectTemplate.AntennaeLights1 do
             self.Trash:Add( CreateAttachedEmitter(self, 'blinklight.001', army, v) )

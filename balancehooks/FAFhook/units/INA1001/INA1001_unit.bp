@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "ina1001", # T1 air scout
+    BlueprintId = "ina1001", -- T1 air scout
     AddCategories = {
         'OVERLAYRADAR',
         'OVERLAYSONAR',

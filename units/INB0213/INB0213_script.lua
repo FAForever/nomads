@@ -1,4 +1,4 @@
-# T2 naval factory (support, non HQ)
+-- T2 naval factory (support, non HQ)
 
 local NSeaFactoryUnit = import('/lua/nomadunits.lua').NSeaFactoryUnit
 
@@ -7,7 +7,7 @@ INB0213 = Class(NSeaFactoryUnit) {
     OnCreate = function(self)
         NSeaFactoryUnit.OnCreate(self)
 
-        # hide bones
+        -- hide bones
     end,
 }
 

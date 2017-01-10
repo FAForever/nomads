@@ -8,12 +8,12 @@ Buoy = Class(Entity) {
 
     OnCreate = function(self, spec)
 
-    # Unfortunately I can't use spec.Army here. The underlying mechanics use this to determine whether this entity should be damaged by a
-    # projectile, based on this info (and on the damagefriendly flag in unit blueprints).
-    # Since I want / need this entity destroyed by all weapon fire (especially the orbital missiles) I have to not use self.spec.Army. Instead
-    # I'm passing the army in self.spec.RealArmy. The script creating this entity needs to be aware of that.
+    -- Unfortunately I can't use spec.Army here. The underlying mechanics use this to determine whether this entity should be damaged by a
+    -- projectile, based on this info (and on the damagefriendly flag in unit blueprints).
+    -- Since I want / need this entity destroyed by all weapon fire (especially the orbital missiles) I have to not use self.spec.Army. Instead
+    -- I'm passing the army in self.spec.RealArmy. The script creating this entity needs to be aware of that.
 
-        # checking spec table
+        -- checking spec table
         if (not spec.Army and not spec.RealArmy) or not spec.Pos then
             if not spec.Army and not spec.RealArmy then WARN('Buoy: No army defined') end
             if not spec.Pos then WARN('Buoy: No position defined') end
@@ -29,17 +29,17 @@ Buoy = Class(Entity) {
         self.spec = spec
         Entity.OnCreate( self, spec )
 
-# TODO: fix buoy strategic icons (if possible)
-#        if self.spec.StrategicIconName then
-#            self:SetStrategicUnderlay( self.spec.StrategicIconName )
-#        end
+-- TODO: fix buoy strategic icons (if possible)
+--        if self.spec.StrategicIconName then
+--            self:SetStrategicUnderlay( self.spec.StrategicIconName )
+--        end
 
         self.Health = self.spec.Health or 10
         if self.spec.ActiveFx then self.ActiveFx = self.spec.ActiveFx end
         if self.spec.DestroyedFx then self.DestroyedFx = self.spec.DestroyedFx end
         if self.spec.LightsFx then self.LightsFx = self.spec.LightsFx end
 
-        # move to location and perhaps attach to a unit
+        -- move to location and perhaps attach to a unit
         Warp( self, spec.Pos )
         if spec.AttachTo then
             self:AttachToUnit( spec.AttachTo )
@@ -67,11 +67,11 @@ Buoy = Class(Entity) {
         self.Destroyed = true
     end,
 
-    # ----------------------------------------------------------------------------------------
-    # Visuals
+    -- ----------------------------------------------------------------------------------------
+    -- Visuals
 
     PlayLightsFx = function(self)
-        # permanent lights on the buoy
+        -- permanent lights on the buoy
         local army = self:GetArmy()
         for k, v in self.LightsFx do
             local emit = CreateAttachedEmitter( self, -1, army, v )
@@ -80,7 +80,7 @@ Buoy = Class(Entity) {
     end,
 
     PlayActiveFx = function(self)
-        # plays 'active' effects
+        -- plays 'active' effects
         local army = self:GetArmy()
         for k, v in self.ActiveFx do
             local emit = CreateAttachedEmitter( self, -1, army, v )
@@ -90,7 +90,7 @@ Buoy = Class(Entity) {
     end,
 
     DestroyActiveFx = function(self)
-        # destroys the 'active' effects
+        -- destroys the 'active' effects
         self.ActiveFxBag:Destroy()
     end,
 
@@ -101,8 +101,8 @@ Buoy = Class(Entity) {
         end
     end,
 
-    # ----------------------------------------------------------------------------------------
-    # mechanics
+    -- ----------------------------------------------------------------------------------------
+    -- mechanics
 
     ActivateBuoy = function(self)
         self:PlayActiveFx()
@@ -147,8 +147,8 @@ Buoy = Class(Entity) {
         return bone
     end,
 
-    # ----------------------------------------------------------------------------------------
-    # Misc stuff
+    -- ----------------------------------------------------------------------------------------
+    -- Misc stuff
 
     GetArmy = function(self)
         return self.spec.RealArmy or self.spec.Army

@@ -8,7 +8,7 @@ XSL0305 = Class(oldXSL0305) {
         oldXSL0305.OnScriptBitSet(self, bit)
         if bit == 1 then 
             local bp = self:GetBlueprint()
-            self:SetSpeedMult(bp.Physics.LandSpeedMultiplier * math.pow(0.75,2)) # bug in SetSpeedMult fixed, adjusting value to keep same speed
+            self:SetSpeedMult(bp.Physics.LandSpeedMultiplier * math.pow(0.75,2)) -- bug in SetSpeedMult fixed, adjusting value to keep same speed
         end
     end,
 

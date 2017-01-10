@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "ina3003", #T3 ASF
+    BlueprintId = "ina3003", --T3 ASF
     Defense = {
         Health = 1700,
         MaxHealth = 1700,

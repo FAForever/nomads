@@ -1,4 +1,4 @@
-# count the number of occurences of val as value in t
+-- count the number of occurences of val as value in t
 function table.count(t, val)
     local n = 0
     for k, v in t do

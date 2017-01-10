@@ -1,5 +1,5 @@
-# A proximity detector is an entity with a large collision sphere attached to another entity or unit. It can detect projectiles when
-# the projectile crosses the collision sphere. When that happens an event is triggered, allowing the parent entity to do react.
+-- A proximity detector is an entity with a large collision sphere attached to another entity or unit. It can detect projectiles when
+-- the projectile crosses the collision sphere. When that happens an event is triggered, allowing the parent entity to do react.
 
 local Entity = import('/lua/sim/Entity.lua').Entity
 
@@ -25,7 +25,7 @@ function ProximityDetector(SuperClass)
         end,
 
         OnProximityAlert = function(self, other, radius, proxDetectorName)
-            # called when the proximity detector detects something so hook this. Doesn't detect units though!
+            -- called when the proximity detector detects something so hook this. Doesn't detect units though!
         end,
     }
 end
@@ -33,7 +33,7 @@ end
 ProxDetectEntity = Class(Entity) {
 
     __init = function(self, spec)
-        #LOG('__ProxDetectEntity')
+        --LOG('__ProxDetectEntity')
         Entity.__init(self, spec)
         self.Name = spec.Name or ''
         self.Owner = spec.Owner
@@ -88,16 +88,16 @@ ProxDetectEntity = Class(Entity) {
     SetDetectRadius = function(self, radius)
         self.Radius = radius
         if self:IsEnabled() then
-            self:Enable() # to reinitialise and use the new radius
+            self:Enable() -- to reinitialise and use the new radius
         end
     end,
 
     OnCollisionCheck = function(self, other, firingWeapon)
-        # doesn't detect units!
+        -- doesn't detect units!
         if not self:IsEnabled() then
             return false
         end
-        if other:GetArmy() == -1 then # -1 == observer
+        if other:GetArmy() == -1 then -- -1 == observer
             return false
         end
         if self.Owner:IsDead() then
@@ -120,7 +120,7 @@ ProxDetectEntity = Class(Entity) {
     end,
 
     ProximityAlarm = function(self, other)
-        # doesn't detect units!
+        -- doesn't detect units!
         self.Owner:OnProximityAlert(other, self.Radius, self.Name)
     end,
 }

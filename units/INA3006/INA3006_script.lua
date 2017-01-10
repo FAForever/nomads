@@ -1,4 +1,4 @@
-# T3 gunship
+-- T3 gunship
 
 local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
 local SupportingArtilleryAbility = import('/lua/nomadutils.lua').SupportingArtilleryAbility
@@ -7,7 +7,7 @@ local StingrayCannon1 = import('/lua/nomadweapons.lua').StingrayCannon1
 local AnnihilatorCannon1 = import('/lua/nomadweapons.lua').AnnihilatorCannon1
 local RocketWeapon1 = import('/lua/nomadweapons.lua').RocketWeapon1
 
-# add supporting artillery ability and aa missile flares
+-- add supporting artillery ability and aa missile flares
 NAirUnit = SupportingArtilleryAbility( NAirUnit )
 
 INA3006 = Class(NAirUnit) {
@@ -38,21 +38,21 @@ INA3006 = Class(NAirUnit) {
         NAirUnit.OnMotionVertEventChange( self, new, old )
         self:UpdateHoverEmitter(new, old)
 
-        # The weapon should not fire when close to the ground.
+        -- The weapon should not fire when close to the ground.
 
         if new == 'Up' and old == 'Bottom' then
-            # lift off, from surface
-            # disabling weapons so we don't fire in the ground, wait 2 ticks before enabling the weapons again
+            -- lift off, from surface
+            -- disabling weapons so we don't fire in the ground, wait 2 ticks before enabling the weapons again
             self:EnableWeapons( 0.5, true, true )
         end
 
-        # special abilities only available when on cruising height
+        -- special abilities only available when on cruising height
         if new == 'Top' then
-            # unit reaching target altitude, coming from surface
+            -- unit reaching target altitude, coming from surface
             self:EnableArtillerySupport(true)
 
         elseif new == 'Down' then
-            # unit starts landing
+            -- unit starts landing
             self:EnableArtillerySupport(false)
 
         end

@@ -24,32 +24,32 @@ function buildActionTemplate(modifier)
   local availableOrders,  availableToggles, buildableCategories = GetUnitCommandData(selection)
   local buildableUnits = EntityCategoryGetUnitList(buildableCategories)
   --Allow all races to build other races templates
-# Brute51: You wish! Should never hardcode factions like this, ever!
+-- Brute51: You wish! Should never hardcode factions like this, ever!
 
-#  local currentFaction = selection[1]:GetBlueprint().General.FactionName
-#  if options.gui_all_race_templates != 0 and currentFaction then
-#    local function ConvertID(BPID)
-#      local prefixes = {
-#        ["AEON"]     = {"uab", "xab", "dab",},
-#        ["UEF"]      = {"ueb", "xeb", "deb",},
-#        ["CYBRAN"]   = {"urb", "xrb", "drb",},
-#        ["SERAPHIM"] = {"xsb", "usb", "dsb",},
-#      }
-#      for i, prefix in prefixes[string.upper(currentFaction)] do
-#        if table.find(buildableUnits, string.gsub(BPID, "(%a+)(%d+)", prefix .. "%2")) then
-#          return string.gsub(BPID, "(%a+)(%d+)", prefix .. "%2")
-#        end
-#      end
-#      return false
-#    end
+--  local currentFaction = selection[1]:GetBlueprint().General.FactionName
+--  if options.gui_all_race_templates ~= 0 and currentFaction then
+--    local function ConvertID(BPID)
+--      local prefixes = {
+--        ["AEON"]     = {"uab", "xab", "dab",},
+--        ["UEF"]      = {"ueb", "xeb", "deb",},
+--        ["CYBRAN"]   = {"urb", "xrb", "drb",},
+--        ["SERAPHIM"] = {"xsb", "usb", "dsb",},
+--      }
+--      for i, prefix in prefixes[string.upper(currentFaction)] do
+--        if table.find(buildableUnits, string.gsub(BPID, "(%a+)(%d+)", prefix .. "%2")) then
+--          return string.gsub(BPID, "(%a+)(%d+)", prefix .. "%2")
+--        end
+--      end
+--      return false
+--    end
 
-# Brute51: this part of the code is pretty much a copy of GAZ-UI construction.lua. Copying the same code to fix the hardcoding in that
-# mod to here, with a minor change to the IF.
+-- Brute51: this part of the code is pretty much a copy of GAZ-UI construction.lua. Copying the same code to fix the hardcoding in that
+-- mod to here, with a minor change to the IF.
 
                 local unitFactionName = selection[1]:GetBlueprint().General.FactionName
                 local currentFaction = Factions[ FactionInUnitBpToKey[unitFactionName] ]
 
-                if options.gui_all_race_templates != 0 and currentFaction then
+                if options.gui_all_race_templates ~= 0 and currentFaction then
 
                     local function ConvertID(BPID)
                         local prefixes = currentFaction.GAZ_UI_Info.BuildingIdPrefixes or {}
@@ -163,7 +163,7 @@ function buildActionTemplate(modifier)
   CommandMode.StartCommandMode("build", {name = cmd})
   SetActiveBuildTemplate(template.templateData)
 
-  if options.gui_template_rotator != 0 then
+  if options.gui_template_rotator ~= 0 then
     -- rotating templates
     local worldview = import('/lua/ui/game/worldview.lua').viewLeft
     local oldHandleEvent = worldview.HandleEvent

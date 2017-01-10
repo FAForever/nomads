@@ -77,7 +77,7 @@ UnitBlueprint {
         BuildAttachBone = 'Attachpoint',
         BuildEffect = {
             Factory = {
-#                BuildFieldReversed = true,
+--                BuildFieldReversed = true,
             },
         },
         Mesh = {
@@ -118,7 +118,7 @@ UnitBlueprint {
             'TRANSPORTBUILTBYTIER1FACTORY NOMAD MOBILE AIR',
         },
         RebuildBonusIds = {
-# TODO: think about this. See T1 land factory for more info
+-- TODO: think about this. See T1 land factory for more info
             'inb0102',
             'inb0202',
             'inb0202',
@@ -137,7 +137,7 @@ UnitBlueprint {
         BuildBones = {
             BuildEffectBones = {
                 'muzzle.001',
-#                'muzzle.002',
+--                'muzzle.002',
             },
         },
         Category = 'Factory',
@@ -194,126 +194,126 @@ UnitBlueprint {
         MotionType = 'RULEUMT_None',
         RaisedPlatforms = {
 
-            # Platform 1
-            # TopLeft Offset From Center
-            -2.1, #-1.6,
+            -- Platform 1
+            -- TopLeft Offset From Center
+            -2.1, ---1.6,
 
-            # x
-            -2.625, #-2,
+            -- x
+            -2.625, ---2,
 
-            # z
-            0.23625, #0.18,
+            -- z
+            0.23625, --0.18,
 
-            # height
-            # TopRight Offset From Center
-            2.625, #2,
+            -- height
+            -- TopRight Offset From Center
+            2.625, --2,
 
-            # x
-            -2.625, #-2,
+            -- x
+            -2.625, ---2,
 
-            # z
-            0.23625, #0.18,
+            -- z
+            0.23625, --0.18,
 
-            # height
-            # BottomLeft Offset From Center
-            -2.1, #-1.6,
+            -- height
+            -- BottomLeft Offset From Center
+            -2.1, ---1.6,
 
-            # x
-            2.1, #1.6,
+            -- x
+            2.1, --1.6,
 
-            # z
-            0.23625, #0.18,
+            -- z
+            0.23625, --0.18,
 
-            # height
-            # BottomRight Offset From Center
-            2.625, #2,
+            -- height
+            -- BottomRight Offset From Center
+            2.625, --2,
 
-            # x
-            2.1, #1.6,
+            -- x
+            2.1, --1.6,
 
-            # z
-            0.23625, #0.18,
+            -- z
+            0.23625, --0.18,
 
-            # height
-            # Platform 2
-            # TopLeft Offset From Center
-            2.296, #-1.75,
+            -- height
+            -- Platform 2
+            -- TopLeft Offset From Center
+            2.296, ---1.75,
 
-            # x
-            -2.625, #-2,
+            -- x
+            -2.625, ---2,
 
-            # z
+            -- z
             0,
 
-            # height
-            # TopRight Offset From Center
-            -2.1, #-1.6,
+            -- height
+            -- TopRight Offset From Center
+            -2.1, ---1.6,
 
-            # x
-            -2.625, #-2,
+            -- x
+            -2.625, ---2,
 
-            # z
-            0.23625, #0.18,
+            -- z
+            0.23625, --0.18,
 
-            # height
-            # BottomLeft Offset From Center
-            -2.296, #-1.75,
+            -- height
+            -- BottomLeft Offset From Center
+            -2.296, ---1.75,
 
-            # x
-            2.1, #1.6,
+            -- x
+            2.1, --1.6,
 
-            # z
+            -- z
             0,
 
-            # height
-            # BottomRight Offset From Center
-            -2.1, #-1.6,
+            -- height
+            -- BottomRight Offset From Center
+            -2.1, ---1.6,
 
-            # x
-            2.1, #1.6,
+            -- x
+            2.1, --1.6,
 
-            # z
-            0.23625, #0.18,
+            -- z
+            0.23625, --0.18,
 
-            # height
-            # Platform 3
-            # TopLeft Offset From Center
-            -2.625, #-2,
+            -- height
+            -- Platform 3
+            -- TopLeft Offset From Center
+            -2.625, ---2,
 
-            # x
-            2.1, #1.6,
+            -- x
+            2.1, --1.6,
 
-            # z
-            0.23625, #0.18,
+            -- z
+            0.23625, --0.18,
 
-            # height
-            # TopRight Offset From Center
-            2.625, #2,
+            -- height
+            -- TopRight Offset From Center
+            2.625, --2,
 
-            # x
-            2.1, #1.6,
+            -- x
+            2.1, --1.6,
 
-            # z
-            0.23625, #0.18,
+            -- z
+            0.23625, --0.18,
 
-            # height
-            # BottomLeft Offset From Center
-            -2.625, #-2,
+            -- height
+            -- BottomLeft Offset From Center
+            -2.625, ---2,
 
-            # x
-            2.296, #1.75,
+            -- x
+            2.296, --1.75,
 
-            # z
+            -- z
             0,
 
-            # height
-            # BottomRight Offset From Center
-            2.625, #2,
+            -- height
+            -- BottomRight Offset From Center
+            2.625, --2,
 
-            # x
-            2.296, #1.75,
+            -- x
+            2.296, --1.75,
 
-            # z
+            -- z
             0,
         },
         RollOffPoints = {

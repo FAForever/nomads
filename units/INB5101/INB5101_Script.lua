@@ -1,4 +1,4 @@
-# wall
+-- wall
 
 local NWallStructureUnit = import('/lua/nomadunits.lua').NWallStructureUnit
 

@@ -4,7 +4,7 @@ BuilderGroup {
     BuilderGroupName = 'ACUUpgrades',
     BuildersType = 'PlatoonFormBuilder',
 
-    # Nomads
+    -- Nomads
     Builder {
         BuilderName = 'Nomads CDR Upgrade 1',
         PlatoonTemplate = 'CommanderEnhance',

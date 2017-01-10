@@ -25,11 +25,11 @@ ProjectileBlueprint {
             Cue = 'Impact_Water_Splash_AEON',
             LodCutoff = 'DefaultLodCutoff',
         },
-#        ImpactWater = Sound {
-#            Bank = 'NomadsMisc',
-#            Cue = 'MeteorImpactWaterSurface',
-#            LodCutoff = 'DefaultLodCutoff',
-#        },
+--        ImpactWater = Sound {
+--            Bank = 'NomadsMisc',
+--            Cue = 'MeteorImpactWaterSurface',
+--            LodCutoff = 'DefaultLodCutoff',
+--        },
     },
     Display = {
         MeshBlueprint = '/effects/Entities/NomadACUDropMeteor/NomadDroppod_mesh.bp',

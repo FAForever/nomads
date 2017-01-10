@@ -1,4 +1,4 @@
-# t1 AA gun
+-- t1 AA gun
 
 local NStructureUnit = import('/lua/nomadunits.lua').NStructureUnit
 local ParticleBlaster1 = import('/lua/nomadweapons.lua').ParticleBlaster1

@@ -1,4 +1,4 @@
-# TODO: make sure this is up to date
+-- TODO: make sure this is up to date
 
 local NomadT1Eng = {
     ['L'] = 'inb0101',
@@ -132,7 +132,7 @@ local NomadT3Sea = {
 
 buildModeKeys = table.merged( buildModeKeys, {
 
-    # ACU
+    -- ACU
     ['inu0001'] = {
         [1] = NomadT1Eng,
         [2] = NomadT2Eng,
@@ -140,7 +140,7 @@ buildModeKeys = table.merged( buildModeKeys, {
         [4] = NomadT4Eng,
     },
 
-    # SCU
+    -- SCU
     ['inu3001'] = {
         [1] = NomadT1Eng,
         [2] = NomadT2Eng,
@@ -148,24 +148,24 @@ buildModeKeys = table.merged( buildModeKeys, {
         [4] = NomadT4Eng,
     },
 
-    # T1 engineer
+    -- T1 engineer
     ['inu1001'] = {
         [1] = NomadT1Eng,
     },
 
-    # T2 engineer
+    -- T2 engineer
     ['inu1005'] = {
         [1] = NomadT1Eng,
         [2] = NomadT2Eng,
     },
 
-    # T2 field engineer
+    -- T2 field engineer
     ['inu3008'] = {
         [1] = NomadT1Eng,
         [2] = NomadT2Eng,
     },
 
-    # T3 engineer
+    -- T3 engineer
     ['inu2001'] = {
         [1] = NomadT1Eng,
         [2] = NomadT2Eng,
@@ -173,67 +173,67 @@ buildModeKeys = table.merged( buildModeKeys, {
         [4] = NomadT4Eng,
     },
 
-    # T1 Land Factory
+    -- T1 Land Factory
     ['inb0101'] = {
         [1] = NomadT1Land,
         ['U'] = 'inb0201',
     },
 
-    # T2 Land Factory
+    -- T2 Land Factory
     ['inb0201'] = {
         [1] = NomadT1Land,
         [2] = NomadT2Land,
         ['U'] = 'inb0301',
     },
 
-    # T3 Land Factory
+    -- T3 Land Factory
     ['inb0301'] = {
         [1] = NomadT1Land,
         [2] = NomadT2Land,
         [3] = NomadT3Land,
     },
 
-    # T1 Air Factory
+    -- T1 Air Factory
     ['inb0102'] = {
         [1] = NomadT1Air,
         ['U'] = 'inb0202',
     },
 
-    # T2 Air Factory
+    -- T2 Air Factory
     ['inb0202'] = {
         [1] = NomadT1Air,
         [2] = NomadT2Air,
         ['U'] = 'inb0302',
     },
 
-    # T3 Air Factory
+    -- T3 Air Factory
     ['inb0302'] = {
         [1] = NomadT1Air,
         [2] = NomadT2Air,
         [3] = NomadT3Air,
     },
 
-    # T1 Naval Factory
+    -- T1 Naval Factory
     ['inb0103'] = {
         [1] = NomadT1Sea,
         ['U'] = 'inb0203',
     },
 
-    # T2 Naval Factory
+    -- T2 Naval Factory
     ['inb0203'] = {
         [1] = NomadT1Sea,
         [2] = NomadT2Sea,
         ['U'] = 'inb0303',
     },
 
-    # T3 Naval Factory
+    -- T3 Naval Factory
     ['inb0303'] = {
         [1] = NomadT1Sea,
         [2] = NomadT2Sea,
         [3] = NomadT3Sea,
     },
 
-    # Quantum Gateway
+    -- Quantum Gateway
     ['inb0304'] = {
         [3] = {
             ['C'] = 'inu3001_Default',
@@ -245,47 +245,47 @@ buildModeKeys = table.merged( buildModeKeys, {
         },
     },
 
-    # T1 Mass Extractor
+    -- T1 Mass Extractor
     ['inb1102'] = {
         ['U'] = 'inb1202',
     },
 
-    # T2 Mass Extractor
+    -- T2 Mass Extractor
     ['inb1202'] = {
         ['U'] = 'inb1302',
     },
 
-    # T1 Radar
+    -- T1 Radar
     ['inb3101'] = {
         ['U'] = 'inb3201',
     },
 
-    # T2 Radar
+    -- T2 Radar
     ['inb3201'] = {
         ['U'] = 'inb3301',
     },
 
-    # T1 Sonar
+    -- T1 Sonar
     ['inb3102'] = {
         ['U'] = 'inb3202',
     },
 
-    # T2 Sonar
+    -- T2 Sonar
     ['inb3202'] = {
         ['U'] = 'inb3302',
     },
 
-    # T2 shield
+    -- T2 shield
     ['inb4202'] = {
         ['U'] = 'inb4205',
     },
 
-    # T3 shield
+    -- T3 shield
     ['inb4301'] = {
         ['U'] = 'inb4305',
     },
 
-    # Aircraft Carrier
+    -- Aircraft Carrier
     ['ins3003'] = {
         [1] = NomadT1Air,
         [2] = NomadT2Air,

@@ -24,10 +24,10 @@ NomadACUDropMeteor = Class(Meteor) {
         local terrain = GetTerrainHeight(x, z)
         y = terrain
         local droppod = CreateUnitHPR('INA0001', army, x, y, z, 0, 0, 0)
-        #self.Trash:Add(droppod)
+        --self.Trash:Add(droppod)
 
-        # adjusting droppod elevation to make the unit appear under water if we need it there. Since it is an air unit
-        # it will always stay on the surface but changing the elevation works.
+        -- adjusting droppod elevation to make the unit appear under water if we need it there. Since it is an air unit
+        -- it will always stay on the surface but changing the elevation works.
         local surface = GetSurfaceHeight(x, z)
         local baseElev = droppod:GetBlueprint().Physics.Elevation or 0
         local elev = baseElev - (surface-terrain)

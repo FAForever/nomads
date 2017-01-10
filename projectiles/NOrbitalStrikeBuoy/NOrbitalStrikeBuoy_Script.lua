@@ -1,4 +1,4 @@
-# acts like a bomb that when dropped calls in an orbital strike
+-- acts like a bomb that when dropped calls in an orbital strike
 
 local Buoy1 = import('/lua/nomadprojectiles.lua').Buoy1
 

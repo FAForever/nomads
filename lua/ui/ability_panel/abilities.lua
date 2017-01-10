@@ -19,10 +19,10 @@ local oldCheckbox = import('/lua/maui/checkbox.lua').Checkbox
 local Checkbox = Class( oldCheckbox ) {
 
     HandleEvent = function(self, event)
-        # modified to also pass on what button was used and in what way
+        -- modified to also pass on what button was used and in what way
         if event.Type == 'ButtonPress' or event.Type == 'ButtonDClick' then
             self:OnClick(event.Modifiers, event.Type, event.KeyCode)
-            if self.mClickCue != "NO_SOUND" then
+            if self.mClickCue ~= "NO_SOUND" then
                 if self.mClickCue then
                     local sound = Sound({Cue = self.mClickCue, Bank = "Interface",})
                     PlaySound(sound)
@@ -44,15 +44,15 @@ controls = {
     parent = false,
 }
 
-# positioning controls, don't belong to file
+-- positioning controls, don't belong to file
 local layoutVar = false
 local glowThread = {}
 local NewGlowThread = {}
 savedParent = false
 Panel_State = 'closed'
 
-# these variables control the number of slots available for orders
-# though they are fixed, the code is written so they could easily be made soft
+-- these variables control the number of slots available for orders
+-- though they are fixed, the code is written so they could easily be made soft
 local numSlots = 5
 local firstAltSlot = 1
 local vertRows = 5
@@ -255,7 +255,7 @@ function SetAvailableOrders()
         end
     end
 	    
-    if numValidOrders != 0 and numValidOrders <= numSlots then
+    if numValidOrders ~= 0 and numValidOrders <= numSlots then
         CreateAltOrders()
     end
     
@@ -295,7 +295,7 @@ function CreateAltOrders()
     -- since this is only alt orders, just deal with slots 7-12
     local orderInSlot = {}
     
-    # go through first time and add all the first entries to their preferred slot
+    -- go through first time and add all the first entries to their preferred slot
     for slot = firstAltSlot, numSlots do
         if desiredSlot[slot] then
             orderInSlot[slot] = desiredSlot[slot][1]
@@ -317,7 +317,7 @@ function CreateAltOrders()
                     end
                     if not foundFreeSlot then
                         WARN("No free slot for order: " .. item)
-                        # could break here, but don't, then you'll know how many extra orders you have
+                        -- could break here, but don't, then you'll know how many extra orders you have
                     end
                 end
             end
@@ -332,14 +332,14 @@ function CreateAltOrders()
     
     -- create the alt order buttons
     for index, availOrder in availableOrders do
-        if not standardOrdersTable[availOrder] then continue end   # skip any orders we don't have in our table
+        if not standardOrdersTable[availOrder] then continue end   -- skip any orders we don't have in our table
 
 		local orderInfo = standardOrdersTable[availOrder] or AbilityInformation[availOrder]
 		local orderCheckbox = AddOrder(orderInfo, slotForOrder[availOrder], true)
 
 		orderCheckbox._order = availOrder
             
-#		if standardOrdersTable[availOrder].script then
+--		if standardOrdersTable[availOrder].script then
 		if standardOrdersTable[availOrder].Name then
 			orderCheckbox._script = standardOrdersTable[availOrder].script
 			orderCheckbox._Name = standardOrdersTable[availOrder].Name
@@ -354,7 +354,7 @@ function AddOrder(orderInfo, slot, batchMode)
     batchMode = batchMode or false
     
     local checkbox = Checkbox(controls.orderButtonGrid, GetOrderBitmapNames(orderInfo.UIBitmapId))
-#	local button = orderInfo.script
+--	local button = orderInfo.script
 	local button = orderInfo.Name
 	
 
@@ -483,7 +483,7 @@ end
 --mouse over glow
 function CreateOrderGlow(parent)
 
-#	local button = parent._data.script
+--	local button = parent._data.script
 	local button = parent._data.Name
 	if controls.NewButtonGlows[button] then 
 		controls.NewButtonGlows[button]:Destroy()
@@ -519,7 +519,7 @@ end
 
 --when a new button is added OR enabled make it glow for a while..
 function CreateNewAbilityGlow(parent)
-#	local button = parent._data.script
+--	local button = parent._data.script
 	local button = parent._data.Name
     controls.NewButtonGlows[button] = Bitmap(parent, UIUtil.UIFile('/game/orders/glow-02_bmp.dds'))
     LayoutHelpers.AtCenterIn(controls.NewButtonGlows[button], parent)
@@ -554,7 +554,7 @@ end
 
 --when a new button is added to our panel, make it flash for a few seconds.. 
 function newOrderGlow(parent)
-#	local button = parent._data.script
+--	local button = parent._data.script
 	local button = parent._data.Name
 	NewGlowThread[button] = CreateNewAbilityGlow(parent)
 	WaitSeconds(FlashTime)
@@ -583,7 +583,7 @@ function CreateMouseoverDisplay(parent, ID)
     local text = TooltipInfo['Tooltips'][ID]['title'] or ID
     local desc = TooltipInfo['Tooltips'][ID]['description'] or ID
     
-    if TooltipInfo['Tooltips'][ID]['keyID'] and TooltipInfo['Tooltips'][ID]['keyID'] != "" then
+    if TooltipInfo['Tooltips'][ID]['keyID'] and TooltipInfo['Tooltips'][ID]['keyID'] ~= "" then
         for i, v in Keymapping do
             if v == TooltipInfo['Tooltips'][ID]['keyID'] then
                 local properkeyname = import('/lua/ui/dialogs/keybindings.lua').formatkeyname(i)
@@ -629,7 +629,7 @@ end
 function GetOrderBitmapNames(bitmapId)
     if bitmapId == nil then
         LOG("Error - nil bitmap passed to GetOrderBitmapNames")
-        bitmapId = "basic-empty"    # TODO do I really want to default it?
+        bitmapId = "basic-empty"    -- TODO do I really want to default it?
     end
     
     local button_prefix = "/game/orders/" .. bitmapId .. "_btn_"
@@ -639,7 +639,7 @@ function GetOrderBitmapNames(bitmapId)
         ,  UIUtil.SkinnableFile(button_prefix .. "over_sel.dds")
         ,  UIUtil.SkinnableFile(button_prefix .. "dis.dds")
         ,  UIUtil.SkinnableFile(button_prefix .. "dis_sel.dds")
-        , "UI_Action_MouseDown", "UI_Action_Rollover"   # sets click and rollover cues
+        , "UI_Action_MouseDown", "UI_Action_Rollover"   -- sets click and rollover cues
 end
 
 function GetSelectedUnitIds()
@@ -671,14 +671,14 @@ function GetBehaviour(AbilityName, ClickType, MouseButton)
     end
 end
 
-# ability button behaviour
+-- ability button behaviour
 function AbilityButtonBehavior(self, modifiers, ClickType, MouseButton)
 
     local behavior = GetBehaviour(self._script, ClickType, MouseButton)
 
-# TODO: make ActivateImmediately work
-#    if behavior.ActivateImmediately then
-        # bypass the command mode and activate ability immediately
+-- TODO: make ActivateImmediately work
+--    if behavior.ActivateImmediately then
+        -- bypass the command mode and activate ability immediately
             local modeData = {
                 name = 'RULEUCC_Script',
                 AbilityName = self._data.abilityname,
@@ -692,7 +692,7 @@ function AbilityButtonBehavior(self, modifiers, ClickType, MouseButton)
             CM.StartCommandMode("order", modeData)
             CM.EndCommandMode(false)
   
-#    else
+--    else
         if self:IsChecked() then
             CM.EndCommandMode(true)
         else
@@ -708,7 +708,7 @@ function AbilityButtonBehavior(self, modifiers, ClickType, MouseButton)
             }
             CM.StartCommandMode("order", modeData)
         end
-#    end
+--    end
 end
 
 function StartCoolDownTimer(buttonName)

@@ -1,4 +1,4 @@
-# T1 mex
+-- T1 mex
 
 local NMassCollectionUnit = import('/lua/nomadunits.lua').NMassCollectionUnit
 

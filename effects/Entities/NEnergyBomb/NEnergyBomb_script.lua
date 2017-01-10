@@ -31,19 +31,19 @@ NEnergyBomb = Class(NullShell) {
         local surface = GetTerrainHeight(position[1], position[3]) + GetTerrainTypeOffset(position[1], position[3])
         local underWater = (position[2] < (surface -1) )
 
-        # Play the "NukeExplosion" sound
+        -- Play the "NukeExplosion" sound
         local bp = self:GetBlueprint()
         if bp.Audio.NukeExplosion then
             self:PlaySound(bp.Audio.NukeExplosion)
         end
 
-        # Create ground decals
+        -- Create ground decals
         local orientation = RandomFloat( 0, 2 * math.pi )
         CreateDecal(position, orientation, 'Crater01_albedo', '', 'Albedo', (20 * scale), (20 * scale), 1200, 0, army)
         CreateDecal(position, orientation, 'Crater01_normals', '', 'Normals', (20 * scale), (20 * scale), 1200, 0, army)
         CreateDecal(position, orientation, 'nuke_scorch_003_albedo', '', 'Albedo', (20 * scale), (20 * scale), 1200, 0, army)
 
-        # Plasma bomb effects
+        -- Plasma bomb effects
         local templ = self.EnergyBombSurfaceFx
         if underWater then
             templ = self.EnergyBombUnderWaterFx
@@ -53,12 +53,12 @@ NEnergyBomb = Class(NullShell) {
             emit:ScaleEmitter( scale )
         end
 
-        # Knockdown force rings
+        -- Knockdown force rings
         DamageRing(self, position, 0.1, (15 * scale), 1, 'Force', true)
         WaitSeconds(0.1)
         DamageRing(self, position, 0.1, (15 * scale), 1, 'Force', true)
 
-        # Residual smoke and fire
+        -- Residual smoke and fire
         WaitSeconds(1.9)
         local emitters, templ, n, m
         local maxOffset = 5

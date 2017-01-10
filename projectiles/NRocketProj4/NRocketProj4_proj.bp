@@ -1,4 +1,4 @@
-# Simple rocket
+-- Simple rocket
 ProjectileBlueprint {
     Audio = {
         Impact = Sound {

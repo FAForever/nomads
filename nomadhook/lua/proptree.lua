@@ -7,7 +7,7 @@ local Prop = import('/lua/sim/Prop.lua').Prop
 local RemoveDamagedTrees = false
 
 
-# Redone the trees quite significantly. This may be a bit destructive but else I couldn't get the trees working like I wanted.
+-- Redone the trees quite significantly. This may be a bit destructive but else I couldn't get the trees working like I wanted.
 
 local oldTree = Tree
 Tree = Class(oldTree) {
@@ -32,7 +32,7 @@ Tree = Class(oldTree) {
 
     OnBlackHoleSuckingIn = function(self, blackhole)
         oldTree.OnBlackHoleSuckingIn(self, blackhole)
-        self:DestroyFireEffects()  # fire < black hole
+        self:DestroyFireEffects()  -- fire < black hole
     end,
 
     CheckForBlackHoleDamage = function(self, instigator, type)
@@ -55,7 +55,7 @@ Tree = Class(oldTree) {
         OnDamage = function(self, instigator, armormod, direction, type)
             if self:DamageIsForce(type) then
 
-                if GetGameTimeSeconds() < 10 then  # game start, trees should be gone where ACU spawns
+                if GetGameTimeSeconds() < 10 then  -- game start, trees should be gone where ACU spawns
                     ChangeState(self, self.ObliteratedState)
 
                 else
@@ -68,7 +68,7 @@ Tree = Class(oldTree) {
                 end
 
             elseif self:DamageIsFire(type) then
-                if not self.Burning and (type != 'ForestFire' or Random(1, 5) <= 1) then
+                if not self.Burning and (type ~= 'ForestFire' or Random(1, 5) <= 1) then
                     self.Burning = true
                     self.BigFireFx = (type == 'BigFire')
                     self:PlayFireEffects()
@@ -99,7 +99,7 @@ Tree = Class(oldTree) {
 
         OnDamage = function(self, instigator, armormod, direction, type)
             if self:DamageIsFire(type) then
-                if not self.Burning and (type != 'ForestFire' or Random(1, 3) <= 1) then
+                if not self.Burning and (type ~= 'ForestFire' or Random(1, 3) <= 1) then
                     self.Burning = true
                     self.BigFireFx = (type == 'BigFire')
                     self:PlayFireEffects()
@@ -181,7 +181,7 @@ Tree = Class(oldTree) {
             local templ = NomadEffectTemplate.TreeDisintegrate
             if self.Fallen then templ = NomadEffectTemplate.FallenTreeDisintegrate end
             for k, v in templ do
-                CreateEmitterAtBone( self, 0, -1, v )  # the effects must have a limited life...
+                CreateEmitterAtBone( self, 0, -1, v )  -- the effects must have a limited life...
             end
             self.Burning = false
             self:DestroyFireEffects()
@@ -195,7 +195,7 @@ Tree = Class(oldTree) {
     end,
 
     DamageIsForce = function(self, type)
-        return (type == 'Force' or type == 'ForceInwards' or type == 'ExperimentalFootfall')  # exp footfall so the trees fall by steps from experimentals
+        return (type == 'Force' or type == 'ForceInwards' or type == 'ExperimentalFootfall')  -- exp footfall so the trees fall by steps from experimentals
     end,
 
     DamageIsFire = function(self, type)
@@ -235,16 +235,16 @@ Tree = Class(oldTree) {
 
         local fn = function(self, templ, initialScale, curveParam)
             local scale, frac, curve, dmgTime, emit = initialScale, 1, 1, 1
-# FIXME: this seems to put the flames on a wrong place
-#            local offset = RandomFloat(0, 1)
-#            local dx, dy, dz = self:GetBoneDirection(0)
+-- FIXME: this seems to put the flames on a wrong place
+--            local offset = RandomFloat(0, 1)
+--            local dx, dy, dz = self:GetBoneDirection(0)
 
             self:PlayPropSound('BurnStart')
             self:PlayPropAmbientSound('BurnLoop')
 
             for k, v in templ do
                 emit = CreateAttachedEmitter(self, 0, -1, v):ScaleEmitter( scale )
-#                emit:OffsetEmitter( dx * offset, dy * offset, dz * offset)
+--                emit:OffsetEmitter( dx * offset, dy * offset, dz * offset)
                 table.insert( self.FireEffects, emit )
                 self.Trash:Add(emit)
             end
@@ -262,17 +262,17 @@ Tree = Class(oldTree) {
                 for k, v in self.FireEffects do
                     v:ScaleEmitter( scale )
                 end
-# TODO: disabled for performance reasons. remove completely?
-#                if dmgTime <= 0 then
-#                    DamageArea(self, self:GetCachePosition(), 1, 1, 'ForestFire', true)
-#                    dmgTime = Random(140, 200)
-#                    if self.BigFireFx then
-#                        dmgTime = dmgTime * 0.75
-#                    end
-#                end
+-- TODO: disabled for performance reasons. remove completely?
+--                if dmgTime <= 0 then
+--                    DamageArea(self, self:GetCachePosition(), 1, 1, 'ForestFire', true)
+--                    dmgTime = Random(140, 200)
+--                    if self.BigFireFx then
+--                        dmgTime = dmgTime * 0.75
+--                    end
+--                end
                 WaitTicks(10)
                 self.BurnTime = self.BurnTime - 1
-#                dmgTime = dmgTime - 10
+--                dmgTime = dmgTime - 10
             end
 
             self:PlayPropAmbientSound(nil)
@@ -303,7 +303,7 @@ Tree = Class(oldTree) {
             self.PlayingAfterFireEffects = true
             if Random(1, 10) <= 6 then
                 local lifetime = Random(200, 500)
-                for k, v in NomadEffectTemplate.TreeAfterFireEffects do  # these effects should have a limited life...
+                for k, v in NomadEffectTemplate.TreeAfterFireEffects do  -- these effects should have a limited life...
                     CreateEmitterAtEntity(self, -1, v):SetEmitterParam('LIFETIME', lifetime)
                 end
             end
@@ -315,7 +315,7 @@ Tree = Class(oldTree) {
 local oldTreeGroup = TreeGroup
 TreeGroup = Class(TreeGroup) {
     OnDamage = function(self, instigator, armormod, direction, type)
-        # making all new damage types break up the tree group so each tree properly handles the damage type
+        -- making all new damage types break up the tree group so each tree properly handles the damage type
         if type == 'ForceInwards' or type == 'Fire' or type == 'BigFire' then
             self:Breakup()
         else

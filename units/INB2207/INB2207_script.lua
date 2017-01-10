@@ -1,4 +1,4 @@
-# T2 under water railgun defense
+-- T2 under water railgun defense
 
 local AddLights = import('/lua/nomadutils.lua').AddLights
 local NStructureUnit = import('/lua/nomadunits.lua').NStructureUnit

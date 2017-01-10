@@ -61,7 +61,7 @@ UnitBlueprint {
         BuildCostEnergy = 320,
         BuildCostMass = 32,
         BuildTime = 40,
-#        MaintenanceConsumptionPerSecondEnergy = 20,
+--        MaintenanceConsumptionPerSecondEnergy = 20,
     },
     General = {
         Category = 'Intelligence',

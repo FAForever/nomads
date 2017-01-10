@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "xss0201", # seraphim destroyer
+    BlueprintId = "xss0201", -- seraphim destroyer
     Weapon = {
         {
             DoNotCollideList = {

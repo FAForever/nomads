@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "inb4204", # Tac defense
+    BlueprintId = "inb4204", -- Tac defense
     Economy = {
         BuildTime = 600,
     },

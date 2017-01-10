@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "ins3002", # Tactical Sub
+    BlueprintId = "ins3002", -- Tactical Sub
     RemoveAnimationDeath = true,
     Veteran = {
         Level1 = 16,

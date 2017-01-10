@@ -1,4 +1,4 @@
-# Info for GAZ UI mod so our new strategic icons can be displayed in game properly
+-- Info for GAZ UI mod so our new strategic icons can be displayed in game properly
 
 GAZ_UI_StratIconTranslation = {
     icon_land1_aa_arty = '/textures/ui/common/game/strategicicons/GAZ_UI/small/land1_aa_arty',

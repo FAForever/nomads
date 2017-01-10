@@ -1,4 +1,4 @@
-# t3 arillery
+-- t3 arillery
 
 local AddAnchorAbilty = import('/lua/nomadutils.lua').AddAnchorAbilty
 local SupportedArtilleryWeapon = import('/lua/nomadutils.lua').SupportedArtilleryWeapon

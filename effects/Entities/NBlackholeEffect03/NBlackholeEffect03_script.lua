@@ -21,7 +21,7 @@ NBlackholeEffect03 = Class(EmitterProjectile) {
         local army, emit = self:GetArmy()
         local emitters = {}
 
-        self:SetBallisticAcceleration( -2 )  # "gravity"
+        self:SetBallisticAcceleration( -2 )  -- "gravity"
 
         for k, v in NomadEffectTemplate.NukeBlackholeFireball do
             emit = CreateEmitterOnEntity(self, army, v ):ScaleEmitter( scale )

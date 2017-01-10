@@ -1,6 +1,6 @@
-# Adding nomads terrain effects.
-# I would have used the nomad template file if the game allowed me to use the import function in this file. I guess this file
-# is run in a separate layer or when the import function is not available. Going back to hard coding the effects.
+-- Adding nomads terrain effects.
+-- I would have used the nomad template file if the game allowed me to use the import function in this file. I guess this file
+-- is run in a separate layer or when the import function is not available. Going back to hard coding the effects.
 
 local path = '/effects/Emitters/'
 

@@ -141,7 +141,7 @@ AIBrain = Class(oldAIBrain) {
                 end
             end
             enable = (enable == true)
-            if self:IsSpecialAbilityEnabled( type ) == nil or self:IsSpecialAbilityEnabled( type ) != enable then
+            if self:IsSpecialAbilityEnabled( type ) == nil or self:IsSpecialAbilityEnabled( type ) ~= enable then
                 local army = self:GetArmyIndex()
                 self.SpecialAbilities[ type ][ 'enabled' ] = enable
                 if enable then
@@ -162,7 +162,7 @@ AIBrain = Class(oldAIBrain) {
     SetSpecialAbilityParam = function(self, type, parameter, value)
 
         -- set and/or change a parameter for the special ability. Returns old value (could be nil if previously not set)
-        if parameter != 'enabled' then
+        if parameter ~= 'enabled' then
             local old
             if self.SpecialAbilities[ type ][ parameter ] then
                 old = self.SpecialAbilities[ type ][ parameter ]
@@ -261,7 +261,7 @@ AIBrain = Class(oldAIBrain) {
         if unit then
             local unitId = unit:GetEntityId()
             --LOG('OnCapacitorUnitChargingState('..repr(unitId)..', bool = '..repr(bool)..')')
-            if self.CapacitorUnits[unitId] != nil and self.CapacitorUnits[unitId] != bool then
+            if self.CapacitorUnits[unitId] ~= nil and self.CapacitorUnits[unitId] ~= bool then
                 local energyperTick = self:CapacitorGetUnitEnergyDrainPerTick(unit)
                 if bool == true then
                     self.CapacitorUnits[ unit:GetEntityId() ] = true
@@ -338,7 +338,7 @@ AIBrain = Class(oldAIBrain) {
             frac = 0
 
             -- notify units of current economy state
-            if self.CapEconIsOk != lastEconOk then
+            if self.CapEconIsOk ~= lastEconOk then
                 self:CapacitorNotifyUnitsOfEnergyState(self.CapEconIsOk)
             end
             lastEconOk = self.CapEconIsOk
@@ -354,7 +354,7 @@ AIBrain = Class(oldAIBrain) {
             end
 
             -- notify units of current fraction
-            if frac != self.CapLastFrac then
+            if frac ~= self.CapLastFrac then
                 self:CapacitorNotifyUnitsOfChargeFraction( frac )
             end
             self.CapLastFrac = frac
@@ -508,7 +508,7 @@ AIBrain = Class(oldAIBrain) {
 
     ConstructUnitInOrbit = function(self, bpId, ConstructedCallback)
         -- Tells the Nomad orbital unit to construct a unit of given type. Only these units can be constructed in orbit:
-        if bpId != 'ino2302' and bpId != 'inu3006h' then
+        if bpId ~= 'ino2302' and bpId ~= 'inu3006h' then
             WARN('Cant construct unit type '..repr(bpId)..' in orbit.')
             return false
         end
@@ -607,15 +607,15 @@ AIBrain = Class(oldAIBrain) {
         oldAIBrain.OnSpawnPreBuiltUnits(self)
 
         local factionIndex = self:GetFactionIndex()
-        if self.PreBuilt and Factions[factionIndex].Category != 'UEF' and Factions[factionIndex].Category != 'AEON'
-                      and Factions[factionIndex].Category != 'CYBRAN' and Factions[factionIndex].Category != 'SERAPHIM' then
+        if self.PreBuilt and Factions[factionIndex].Category ~= 'UEF' and Factions[factionIndex].Category ~= 'AEON'
+                      and Factions[factionIndex].Category ~= 'CYBRAN' and Factions[factionIndex].Category ~= 'SERAPHIM' then
 
             local posX, posY = self:GetArmyStartPos()
 
             local resourceStructures = Factions[factionIndex].PreBuildUnits.MassExtractors or {}
             for k, v in resourceStructures do
                 local unit = self:CreateResourceBuildingNearest(v, posX, posY)
-                if unit != nil and unit:GetBlueprint().Physics.FlattenSkirt then
+                if unit ~= nil and unit:GetBlueprint().Physics.FlattenSkirt then
                     unit:CreateTarmac(true, true, true, false, false)
                 end
             end
@@ -623,7 +623,7 @@ AIBrain = Class(oldAIBrain) {
             local initialUnits = Factions[factionIndex].PreBuildUnits.Regular or {}
             for k, v in initialUnits do
                 local unit = self:CreateUnitNearSpot(v, posX, posY)
-                if unit != nil and unit:GetBlueprint().Physics.FlattenSkirt then
+                if unit ~= nil and unit:GetBlueprint().Physics.FlattenSkirt then
                     unit:CreateTarmac(true, true, true, false, false)
                 end
             end
@@ -635,7 +635,7 @@ AIBrain = Class(oldAIBrain) {
     LoadCustomFactions = function(self)
         self.CustomFactions = {}
         for k, v in Factions do
-            if v.Key != 'uef' and v.Key != 'aeon' and v.Key != 'cybran' and v.Key != 'seraphim' then
+            if v.Key ~= 'uef' and v.Key ~= 'aeon' and v.Key ~= 'cybran' and v.Key ~= 'seraphim' then
                 table.insert( self.CustomFactions, { customCat = ParseEntityCategory(v.Category), cat = v.PlatoonTemplateKey, } )
             end
         end

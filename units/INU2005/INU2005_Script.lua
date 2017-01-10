@@ -1,4 +1,4 @@
-# T2 main tank
+-- T2 main tank
 
 local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
 local SupportingArtilleryAbility = import('/lua/nomadutils.lua').SupportingArtilleryAbility

@@ -148,8 +148,8 @@ UnitBlueprint {
                 Bones = {
                    'exhaust.001',
                    'exhaust.002',
-                   #'exhaust.003',
-                   #'exhaust.004',
+                   --'exhaust.003',
+                   --'exhaust.004',
                 },
                 Cruise = true,
                 Idle = true,

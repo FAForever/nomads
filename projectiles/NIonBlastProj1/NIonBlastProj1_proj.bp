@@ -45,6 +45,6 @@ ProjectileBlueprint {
         DestroyOnWater = false,
         InitialSpeed = 35,
         VelocityAlign = true,
-        UseGravity = false, # should make unit not get stuck shooting AA
+        UseGravity = false, -- should make unit not get stuck shooting AA
     },
 }

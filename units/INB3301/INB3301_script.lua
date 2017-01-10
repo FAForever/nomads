@@ -1,4 +1,4 @@
-# T3 radar
+-- T3 radar
 
 local NRadarUnit = import('/lua/nomadunits.lua').NRadarUnit
 local AddIntelOvercharge = import('/lua/nomadutils.lua').AddIntelOvercharge
@@ -20,7 +20,7 @@ INB3301 = Class(NRadarUnit) {
     OnCreate = function(self)
         NRadarUnit.OnCreate(self)
 
-        # set up a rotator
+        -- set up a rotator
         self.Rotator = CreateRotator(self, 'rotator', 'y')
         self.Rotator:SetAccel(5)
         self.Trash:Add(self.Rotator)
@@ -29,7 +29,7 @@ INB3301 = Class(NRadarUnit) {
     OnStopBeingBuilt = function(self, builder, layer)
         NRadarUnit.OnStopBeingBuilt(self, builder, layer)
 
-        # start the rotation
+        -- start the rotation
         self.Rotator:SetSpeed(10)
         self:ForkThread( self.RotatorThread )
     end,

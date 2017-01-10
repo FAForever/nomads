@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "ina3001", # T3 scout
+    BlueprintId = "ina3001", -- T3 scout
     Wreckage = {
         WreckageLayers = {
             Air = false,

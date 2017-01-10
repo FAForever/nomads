@@ -22,7 +22,7 @@ Wreckage = Class(oldWreckage) {
         self:AdjustHealth(instigator, -amount)
         local health = self:GetHealth()
         if health <= 0 and self.BlackholeSuckedIn then
-            # let the black hole script destroy the wreckage
+            -- let the black hole script destroy the wreckage
         else
             oldWreckage.DoTakeDamage(self, instigator, amount, vector, damageType)
         end

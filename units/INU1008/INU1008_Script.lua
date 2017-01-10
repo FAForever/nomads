@@ -1,4 +1,4 @@
-# T1 tank destroyer
+-- T1 tank destroyer
 
 local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
 local AddAnchorAbilty = import('/lua/nomadutils.lua').AddAnchorAbilty
@@ -18,11 +18,11 @@ INU1008 = Class(NLandUnit) {
             SetMovingAccuracy = function(self, bool)
                 local bp = self:GetBlueprint()
                 if bool then
-                    #LOG('Setting accuracy to moving')
+                    --LOG('Setting accuracy to moving')
                     self:SetFiringRandomness( bp.FiringRandomnessWhileMoving or (math.max(0, bp.FiringRandomness) * 4) )
                     self:ChangeFiringTolerance( bp.FiringToleranceWhileMoving or (math.max(0, bp.FiringTolerance) * 5) )
                 else
-                    #LOG('Setting accuracy to stopped')
+                    --LOG('Setting accuracy to stopped')
                     self:SetFiringRandomness( bp.FiringRandomness )
                     self:ChangeFiringTolerance( bp.FiringTolerance )
                 end
@@ -40,7 +40,7 @@ INU1008 = Class(NLandUnit) {
             self.AnimManip = CreateAnimator(self):PlayAnim(bp.Display.WeaponExhaustAnimation):SetRate(0)
             self.Trash:Add(self.AnimManip)
             local rof = self:GetWeaponByLabel('MainGun'):GetBlueprint().RateOfFire or 1
-            self.ExhaustAnimDelay = math.min( self.ExhaustAnimDelay, (0.8 / rof) )  # making sure the exhausting happens before next shot (at least 80% before)
+            self.ExhaustAnimDelay = math.min( self.ExhaustAnimDelay, (0.8 / rof) )  -- making sure the exhausting happens before next shot (at least 80% before)
         end
     end,
 
@@ -50,11 +50,11 @@ INU1008 = Class(NLandUnit) {
     end,
 
     OnMotionHorzEventChange = function( self, new, old )
-        # the engine already supports BP values ...WhileMoving but it does this when the unit is "Stopped". We want it when
-        # the unit is "Stopping" to make the first shot of the unit count already (the first shot happens before "Stopped").
-        #LOG('*DEBUG: OnMotionHorzEventChange new = '..repr(new)..' old = '..repr(old))
+        -- the engine already supports BP values ...WhileMoving but it does this when the unit is "Stopped". We want it when
+        -- the unit is "Stopping" to make the first shot of the unit count already (the first shot happens before "Stopped").
+        --LOG('*DEBUG: OnMotionHorzEventChange new = '..repr(new)..' old = '..repr(old))
         NLandUnit.OnMotionHorzEventChange( self, new, old )
-        self:UpdateWeaponAccuracy( (new != 'Stopped' and new != 'Stopping') )
+        self:UpdateWeaponAccuracy( (new ~= 'Stopped' and new ~= 'Stopping') )
     end,
 
     UpdateWeaponAccuracy = function(self, moving)

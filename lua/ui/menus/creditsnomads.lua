@@ -1,4 +1,4 @@
-# copy-paste from the default credits file with a modification to play the nomads credits
+-- copy-paste from the default credits file with a modification to play the nomads credits
 
 local UIUtil = import('/lua/ui/uiutil.lua')
 local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
@@ -18,7 +18,7 @@ function CreateDialog(exitBehavior)
     
     local worldCover = UIUtil.CreateWorldCover(parent)
 
-# TODO: play nomads credits movie when we have one
+-- TODO: play nomads credits movie when we have one
     local creditsMovie = Movie(parent, "/movies/credits_generic.sfd", Sound({Bank = 'FMV_BG', Cue = 'Menu_Credits'}))
 
     local function ExitDialog()

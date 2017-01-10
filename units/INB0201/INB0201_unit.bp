@@ -96,7 +96,7 @@ UnitBlueprint {
         BuildAttachBone = 'Attachpoint',
         BuildEffect = {
             Factory = {
-                BuildFieldOffset = 0, #0.2,
+                BuildFieldOffset = 0, --0.2,
                 BuildFieldReversed = true,
             },
         },
@@ -207,88 +207,88 @@ UnitBlueprint {
         MotionType = 'RULEUMT_None',
         RaisedPlatforms = {
 
-            # Platform 1
-            # TopLeft Offset From Center
-            -1.875, #-1.5,
+            -- Platform 1
+            -- TopLeft Offset From Center
+            -1.875, ---1.5,
 
-            # x
-            -2.5, #-2,
+            -- x
+            -2.5, ---2,
 
-            # z
-            0.8125, #0.65,
+            -- z
+            0.8125, --0.65,
 
-            # height
-            # TopRight Offset From Center
-            1.875, #1.5,
+            -- height
+            -- TopRight Offset From Center
+            1.875, --1.5,
 
-            # x
-            -2.5, #-2,
+            -- x
+            -2.5, ---2,
 
-            # z
-            0.8125, #0.65,
+            -- z
+            0.8125, --0.65,
 
-            # height
-            # BottomLeft Offset From Center
-            -1.875, #-1.5,
+            -- height
+            -- BottomLeft Offset From Center
+            -1.875, ---1.5,
 
-            # x
-            2.5, #2,
+            -- x
+            2.5, --2,
 
-            # z
-            0.8125, #0.65,
+            -- z
+            0.8125, --0.65,
 
-            # height
-            # BottomRight Offset From Center
-            1.875, #1.5,
+            -- height
+            -- BottomRight Offset From Center
+            1.875, --1.5,
 
-            # x
-            2.5, #2,
+            -- x
+            2.5, --2,
 
-            # z
-            0.8125, #0.65,
+            -- z
+            0.8125, --0.65,
 
-            # height
-            # Platform 2
-            # TopLeft Offset From Center
-            -1.875, #-1.5,
+            -- height
+            -- Platform 2
+            -- TopLeft Offset From Center
+            -1.875, ---1.5,
 
-            # x
-            2.5, #2,
+            -- x
+            2.5, --2,
 
-            # z
-            0.8125, #0.65,
+            -- z
+            0.8125, --0.65,
 
-            # height
-            # TopRight Offset From Center
-            1.875, #1.5,
+            -- height
+            -- TopRight Offset From Center
+            1.875, --1.5,
 
-            # x
-            2.5, #2,
+            -- x
+            2.5, --2,
 
-            # z
-            0.8125, #0.65,
+            -- z
+            0.8125, --0.65,
 
-            # height
-            # BottomLeft Offset From Center
-            1.875, #-1.5,
+            -- height
+            -- BottomLeft Offset From Center
+            1.875, ---1.5,
 
-            # x
-            4.375, #3.5,
+            -- x
+            4.375, --3.5,
 
-            # z
+            -- z
             0,
 
-            # height
-            # BottomRight Offset From Center
-            1.875, #1.5,
+            -- height
+            -- BottomRight Offset From Center
+            1.875, --1.5,
 
-            # x
-            4.375, #3.5,
+            -- x
+            4.375, --3.5,
 
-            # z
+            -- z
             0,
 
-            # height
+            -- height
             
         },
         RollOffPoints = {

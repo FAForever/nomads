@@ -1,6 +1,6 @@
-# T3 SMD
+-- T3 SMD
 
-# TODO: make this a normal anti-nuke. Currently the game errors out on the weapon which does not exist
+-- TODO: make this a normal anti-nuke. Currently the game errors out on the weapon which does not exist
 
 local NStructureUnit = import('/lua/nomadunits.lua').NStructureUnit
 local StrategicMissileDefenseWeapon = import('/lua/nomadweapons.lua').StrategicMissileDefenseWeapon
@@ -15,8 +15,8 @@ INB4302 = Class(NStructureUnit) {
 
                 OnGotTarget = function(self)
                     local bp = self:GetBlueprint()
-                    #only say we've fired if the parent fire conditions are met
-                    if (bp.WeaponUnpackLockMotion != true or (bp.WeaponUnpackLocksMotion == true and not self.unit:IsUnitState('Moving'))) then
+                    --only say we've fired if the parent fire conditions are met
+                    if (bp.WeaponUnpackLockMotion ~= true or (bp.WeaponUnpackLocksMotion == true and not self.unit:IsUnitState('Moving'))) then
                         if (bp.CountedProjectile == false) or self:CanFire() then
                              nukeFiredOnGotTarget = true
                         end
@@ -24,7 +24,7 @@ INB4302 = Class(NStructureUnit) {
                     StrategicMissileDefenseWeapon.IdleState.OnGotTarget(self)
                 end,
 
-                # uses OnGotTarget, so we shouldn't do this.
+                -- uses OnGotTarget, so we shouldn't do this.
                 OnFire = function(self)
                     if not nukeFiredOnGotTarget then
                         StrategicMissileDefenseWeapon.IdleState.OnFire(self)

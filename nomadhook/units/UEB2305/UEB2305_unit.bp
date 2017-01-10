@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "ueb2305", # UEF SML
+    BlueprintId = "ueb2305", -- UEF SML
     SpecialAbilities = {
         LaunchNuke = {
             AreaOfEffect = 40,

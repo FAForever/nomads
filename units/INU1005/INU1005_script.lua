@@ -1,4 +1,4 @@
-# t2 engineer
+-- t2 engineer
 
 local NConstructionUnit = import('/lua/nomadunits.lua').NConstructionUnit
 

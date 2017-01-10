@@ -1,13 +1,13 @@
-#***************************************************************************
-#*
-#**  File     :  /lua/ai/AirPlatoonTemplates.lua
-#**
-#**  Summary  : Global platoon templates
-#**
-#**  Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+--***************************************************************************
+--*
+--**  File     :  /lua/ai/AirPlatoonTemplates.lua
+--**
+--**  Summary  : Global platoon templates
+--**
+--**  Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
+--****************************************************************************
 
-# ==== Global Form platoons ==== #
+-- ==== Global Form platoons ==== --
 PlatoonTemplate {
     Name = 'AirAttack',
     Plan = 'StrikeForceAI',
@@ -21,7 +21,7 @@ PlatoonTemplate {
     Plan = 'StrikeForceAI',
     GlobalSquads = {
         { categories.MOBILE * categories.AIR * categories.BOMBER - categories.EXPERIMENTAL - categories.ANTINAVY, 1, 100, 'Attack', 'GrowthFormation' },
-        #{ categories.MOBILE * categories.AIR * categories.ANTIAIR - categories.EXPERIMENTAL - categories.BOMBER - categories.TRANSPORTFOCUS, 0, 10, 'Attack', 'GrowthFormation' },
+        --{ categories.MOBILE * categories.AIR * categories.ANTIAIR - categories.EXPERIMENTAL - categories.BOMBER - categories.TRANSPORTFOCUS, 0, 10, 'Attack', 'GrowthFormation' },
     }
 }
 
@@ -30,7 +30,7 @@ PlatoonTemplate {
     Plan = 'AttackForceAI',
     GlobalSquads = {
         { categories.MOBILE * categories.AIR * categories.ANTINAVY - categories.EXPERIMENTAL, 1, 100, 'Attack', 'GrowthFormation' },
-        #{ categories.MOBILE * categories.AIR * categories.ANTIAIR - categories.EXPERIMENTAL - categories.BOMBER - categories.TRANSPORTFOCUS, 0, 10, 'Attack', 'GrowthFormation' },
+        --{ categories.MOBILE * categories.AIR * categories.ANTIAIR - categories.EXPERIMENTAL - categories.BOMBER - categories.TRANSPORTFOCUS, 0, 10, 'Attack', 'GrowthFormation' },
     }
 }
 
@@ -107,7 +107,7 @@ PlatoonTemplate {
     },
 }
 
-# ==== Faction Build Platoons ==== #
+-- ==== Faction Build Platoons ==== --
 PlatoonTemplate {
     Name = 'T1AirScout',
     FactionSquads = {
@@ -204,9 +204,9 @@ PlatoonTemplate {
     }
 }
 
-# ==================== #
-#     T3 Air Units
-# ==================== #
+-- ==================== --
+--     T3 Air Units
+-- ==================== --
 PlatoonTemplate {
     Name = 'T2AirScout',
     FactionSquads = {
@@ -312,9 +312,9 @@ PlatoonTemplate {
     }
 }
 
-# ==================== #
-#     T3 Air Units
-# ==================== #
+-- ==================== --
+--     T3 Air Units
+-- ==================== --
 PlatoonTemplate {
     Name = 'T3AirBomber',
     FactionSquads = {
