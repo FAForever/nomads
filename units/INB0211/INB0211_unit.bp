@@ -58,7 +58,7 @@ UnitBlueprint {
         'SHOWQUEUE',
         'SORTCONSTRUCTION',
         'CONSTRUCTIONSORTDOWN',
-	'SUPPORTFACTORY', --
+        'SUPPORTFACTORY',
     },
     CollisionOffsetZ = 0.2,
     Defense = {

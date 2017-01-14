@@ -54,6 +54,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SHOWQUEUE',
         'SORTCONSTRUCTION',
+        'RESEARCH',
     },
     CollisionOffsetZ = 0.2,
     Defense = {
@@ -311,7 +312,7 @@ UnitBlueprint {
     SizeX = 5.25,
     SizeY = 1.75,
     SizeZ = 6,
-    StrategicIconName = 'icon_factory2_land',
+    StrategicIconName = 'icon_factoryhq2_land',
     StrategicIconSortPriority = 215,
     UpgradeDesc = '<LOC ueb0201_upgradedesc>Upgrading to Tech 3 Land Factory',
     Wreckage = {

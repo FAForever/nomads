@@ -57,6 +57,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SHOWQUEUE',
         'SORTCONSTRUCTION',
+        'RESEARCH',
     },
     Defense = {
         AirThreatLevel = 0,
@@ -354,7 +355,7 @@ UnitBlueprint {
     SizeX = 5.25,
     SizeY = 1.84,
     SizeZ = 5.25,
-    StrategicIconName = 'icon_factory2_air',
+    StrategicIconName = 'icon_factoryhq2_air',
     StrategicIconSortPriority = 215,
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',

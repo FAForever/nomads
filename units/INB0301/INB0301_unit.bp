@@ -54,6 +54,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'SHOWQUEUE',
         'SORTCONSTRUCTION',
+        'RESEARCH',
     },
     CollisionOffsetZ = 0.2,
     Defense = {
@@ -308,7 +309,7 @@ UnitBlueprint {
     SizeX = 5.25,
     SizeY = 1.75,
     SizeZ = 6,
-    StrategicIconName = 'icon_factory3_land',
+    StrategicIconName = 'icon_factoryhq3_land',
     StrategicIconSortPriority = 215,
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
