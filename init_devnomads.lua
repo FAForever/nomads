@@ -43,21 +43,3 @@ protocols = {
     'daap',
     'im',
 }
-protocols = {
-
-    'http',
-
-    'https',
-
-    'mailto',
-
-    'ventrilo',
-
-    'teamspeak',
-
-    'daap',
-
-    'im',
-
-}
-
