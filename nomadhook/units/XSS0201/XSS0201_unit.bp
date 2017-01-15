@@ -1,0 +1,18 @@
+UnitBlueprint {
+    Merge = true,
+    BlueprintId = "xss0201", -- seraphim destroyer
+    Weapon = {
+        {
+            DoNotCollideList = {
+                'TORPEDO',
+                'PROJECTILE',
+            },
+        },
+        {
+            DoNotCollideList = {
+                'TORPEDO',
+                'PROJECTILE',
+            },
+        },
+    },
+}

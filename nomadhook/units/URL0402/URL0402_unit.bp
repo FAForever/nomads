@@ -1,0 +1,16 @@
+UnitBlueprint {
+    Merge = true,
+    BlueprintId = "url0402", -- Cybran monkeylord exp
+    AddCategories = {
+        'TRANSPORTABLEEXP',
+    },
+    General = {
+        CommandCaps = {
+            RULEUCC_CallTransport = true,
+        },
+    },
+    Transport = {
+        CanFireFromTransport = false,
+        TransportClass = 4,
+    },
+}

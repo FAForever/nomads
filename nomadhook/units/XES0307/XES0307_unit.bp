@@ -1,0 +1,18 @@
+UnitBlueprint {
+    Merge = true,
+    BlueprintId = "xes0307", -- uef battlecruiser 
+    Weapon = {
+        {
+            DoNotCollideList = {
+                'TORPEDO',
+                'PROJECTILE',
+            },
+        },
+        {
+            DoNotCollideList = {
+                'TORPEDO',
+                'PROJECTILE',
+            },
+        },
+    },
+}

@@ -1,0 +1,10 @@
+UnitBlueprint {
+    Merge = true,
+    BlueprintId = "ueb2305", -- UEF SML
+    SpecialAbilities = {
+        LaunchNuke = {
+            AreaOfEffect = 40,
+            MaxRadius = -1,
+        },
+    },
+}

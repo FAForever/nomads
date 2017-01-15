@@ -1,0 +1,18 @@
+UnitBlueprint {
+    Merge = true,
+    BlueprintId = "uaa0103", -- aeon T1 bomber
+    Weapon = {
+        {
+            Buffs = {
+                {
+                    Add = {
+                        ImpactTypeDisallow = {
+                            'Shield',
+                        },
+                    },
+                    TargetDisallow = 'UNSTUNABLE,TECH3,EXPERIMENTAL,COMMAND',
+                },
+            },
+        },
+    },
+}

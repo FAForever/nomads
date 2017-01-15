@@ -1,0 +1,9 @@
+UnitBlueprint {
+    Merge = true,
+    BlueprintId = "uel0401", -- UEF fatboy exp
+    Defense = {
+        Shield = {
+            NoStunShieldCollapse = true,
+        },
+    },
+}

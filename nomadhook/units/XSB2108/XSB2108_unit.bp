@@ -1,0 +1,11 @@
+UnitBlueprint {
+    Merge = true,
+    BlueprintId = "xsb2108", -- Seraphim TML
+    SpecialAbilities = {
+        LaunchTacMissile = {
+            AreaOfEffect = 2,
+            MaxRadius = 256,
+            MinRadius = 15,
+        },
+    },
+}

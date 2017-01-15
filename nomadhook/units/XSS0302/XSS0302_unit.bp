@@ -1,0 +1,10 @@
+UnitBlueprint {
+    Merge = true,
+    BlueprintId = "xss0302", -- Seraphim T3 battleship
+    SpecialAbilities = {
+        LaunchNuke = {
+            AreaOfEffect = 40,
+            MaxRadius = -1,
+        },
+    },
+}

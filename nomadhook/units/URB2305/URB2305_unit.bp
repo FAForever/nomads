@@ -1,0 +1,21 @@
+UnitBlueprint {
+    Merge = true,
+    BlueprintId = "urb2305", -- cybran nuke launcher
+    SpecialAbilities = {
+        LaunchNuke = {
+            AreaOfEffect = 40,
+            MaxRadius = -1,
+        },
+    },
+    Weapon = {
+        {
+            Buffs = {
+                {
+                    TargetDisallow = 'UNSTUNABLE',
+                },
+            },
+        },
+        {
+        },
+    },
+}

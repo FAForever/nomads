@@ -1,0 +1,18 @@
+UnitBlueprint {
+    Merge = true,
+    BlueprintId = "url0103", -- Cybran t1 artillery
+    Weapon = {
+        {
+            Buffs = {
+                {
+                    Add = {
+                        ImpactTypeDisallow = {
+                            'Shield',
+                        },
+                    },
+                    TargetDisallow = 'UNSTUNABLE',
+                },
+            },
+        },
+    },
+}

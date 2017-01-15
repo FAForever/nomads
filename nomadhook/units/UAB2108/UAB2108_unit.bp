@@ -1,0 +1,11 @@
+UnitBlueprint {
+    Merge = true,
+    BlueprintId = "uab2108", -- aeon TML
+    SpecialAbilities = {
+        LaunchTacMissile = {
+            AreaOfEffect = 2,
+            MaxRadius = 256,
+            MinRadius = 15,
+        },
+    },
+}
