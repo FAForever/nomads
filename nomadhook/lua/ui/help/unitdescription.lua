@@ -107,7 +107,9 @@ Description = table.merged( Description, {
     -- DEFENSE STRUCTURES
     ['inb4204'] = "<LOC inb4204_help>Tactical missile defense. Protection is limited to the structure's operational area.",
     ['inb4202'] = "<LOC inb4202_help>Generates a protective shield around units and structures within its radius.",
+    ['inb4205'] = "<LOC inb4205_help>Generates a protective shield and a stealth field around units and structures within its radius. Upgrade of the normal t2 shield generator",
     ['inb4301'] = "<LOC inb4301_help>Generates a heavy shield around units and structures within its radius.",
+    ['inb4305'] = "<LOC inb4205_help>Generates a heavy shield and a stealth field around units and structures within its radius. Upgrade of the normal t3 shield generator",
     ['inb4302'] = "<LOC inb4302_help>Strategic missile defense. Protection is limited to the structure's operational area.",
 
 
@@ -181,7 +183,9 @@ Description = table.merged( Description, {
     ['ina3003'] = "<LOC ina3003_help>Air-Superiority Fighter",
     ['ina3004'] = "<LOC ina3004_help>Strategic Bomber",
     ['ina3006'] = "<LOC ina3006_help>Heavy Gunship",
-
+    
+    ['ina4001'] = "<LOC ina4001_help>Experimental transport unit. Can also transport the Beamer (can fire from transport) and single naval units.",
+    
 
     -- NOMAD SEA UNITS
     ['ins1001'] = "<LOC ins1001_help>Attack Submarine",
@@ -193,13 +197,15 @@ Description = table.merged( Description, {
 
     ['ins3001'] = "<LOC ins3001_help>Battleship",
     ['ins3002'] = "<LOC ins3002_help>Heavy Attack Submarine",
-
+    ['ins3003'] = "<LOC ins3003_help>Aircraft Carrier. Can store, transport and repair aircraft. Armed with strong missile based anti air.",
+    ['ins3004'] = "<LOC ins3004_help>Long-range surface bombardment ship. Armed with direct fire cannons and underwater railguns.",
 
     -- NOMAD ORBITAL UNITS (probably non-controlable)
     ['ina0001'] = "<LOC ina0001_help>Meteor Dropship",
     ['ino0001'] = "<LOC ino0001_help>Surface Operations Support",
     ['ino2302'] = "<LOC ino2302_help>Orbital Artillery Gun",
     ['ina2101'] = "<LOC ina2101_help>Area reinforcement",
+    ['iny0001'] = "<LOC iny0001_help>Commander launches intel probe",
 
 } )
 
