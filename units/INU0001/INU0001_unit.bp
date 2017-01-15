@@ -167,6 +167,9 @@ UnitBlueprint {
         RegenRate = 10,
         SubThreatLevel = 0,
         SurfaceThreatLevel = 75,
+        Shield = {
+            ShieldMaxHealth = 0,
+        }
     },
     Description = '<LOC inu0001_desc>Armored Command Unit',
     Display = {
