@@ -11,7 +11,7 @@ buildingTab = {
   "ual0301",
   "uel0301",
   "xsl0301",
-'inu3001',
+  "inu3001",
 },
 
 ["Sensors"] = {
