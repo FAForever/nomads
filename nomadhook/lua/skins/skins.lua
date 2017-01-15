@@ -3,7 +3,7 @@ do
 skins = table.merged( skins, {
 
     nomads = {
-        default = "uef",
+        default = "default",
         texturesPath = "/textures/ui/nomad",
         imagerMesh = "/meshes/game/map-border_squ_uef_mesh",
         imagerMeshHorz = "/meshes/game/map-border_hor_uef_mesh",
@@ -12,7 +12,6 @@ skins = table.merged( skins, {
         bodyFont = "Arial",
         fixedFont = "Arial",
         titleFont = "Zeroes Three",
-        fontColor = "FFD8AF97",
         bodyColor = "FFC1782A",
         fontOverColor = "FFFFFFFF",
         fontDownColor = "FF513923",
@@ -41,5 +40,17 @@ skins['default']['cursors'] = table.merged( skins['default']['cursors'], {
     SPECABIL_Eye = {  '/textures/ui/common/game/cursors/eye-.dds', 15, 15, 11, 2},
     SPECABIL_Nuke = { '/textures/ui/common/game/cursors/nuke.dds', 15, 15 },
 })
+
+-- Do this again since now nomads isn't flattened yet and we added things to default.
+-- Flatten skins for performance. Note that this doesn't avoid the need to scan texture paths.
+for k, v in skins do
+    local default = skins[v.default]
+    while default do
+        -- Copy the entire default chain into the toplevel skin.
+        table.assimilate(v, default)
+
+        default = skins[default.default]
+    end
+end
 
 end
