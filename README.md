@@ -13,4 +13,12 @@ To get nomads working on your PC you need to do a few steps:
 C:\ProgramData\FAForever\bin\ForgedAlliance.exe /init init_devnomads.lua /EnableDiskWatch /showlog /log C:\ProgramData\FAForever\logs\dev.log
 
 
+
+if you encounter an error like this: 
+WARNING: attempt to retrieve annotation from unknown technique NomadUnit
+WARNING: c:\work\rts\main\code\src\libs\gpggal\EffectD3D9.cpp(89) invalid effect technique requested: NomadUnit
+
+run the shader_cleaner.bat to fix it
+
+
 hope for the best
