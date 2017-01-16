@@ -21,4 +21,20 @@ WARNING: c:\work\rts\main\code\src\libs\gpggal\EffectD3D9.cpp(89) invalid effect
 run the shader_cleaner.bat to fix it
 
 
+
+#editor
+To run the editor with nomads units you need to do the following steps:
+
+1) go to your sup com installation (not FA) and navigate to the gamedata folder
+
+2) rename the files effects.scd, env.scd, units.scd and textures.scd to the ending .zip
+
+3) copy the content of the nomads directories from your githup repo into the respective archives
+
+4) replace the mesh.fx file in effects.scd/ with the nomads_mesh.fx (rename that file to mesh.fx)
+
+5) rename all .zip files back to .scd
+
+6) go to USERNAME\AppData\Local\Gas Powered Games\SupremeCommander\cache and delete the content of the folder
+
 hope for the best
