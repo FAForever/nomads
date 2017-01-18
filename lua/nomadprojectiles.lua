@@ -1339,7 +1339,9 @@ EnergyBomb = Class(SinglePolyTrailProjectile) {
         DamageArea(self, pos, self.DamageData.DamageRadius, 1, 'Force', true)
 
         if self.DoImpactFlash then
-            CreateLightParticle(self, -1, self:GetArmy(), 25, 9, 'glow_02', 'ramp_red_01')
+			CreateLightParticle(self, -1, self:GetArmy(), 15, 9, 'glow_02', 'ramp_red_01')
+            CreateLightParticle(self, -1, self:GetArmy(), 25, 18, 'glow_02', 'ramp_red_01')
+			CreateLightParticle(self, -1, self:GetArmy(), 25, 34, 'glow_02', 'ramp_red_01')
         end
 
         -- create some additional effects

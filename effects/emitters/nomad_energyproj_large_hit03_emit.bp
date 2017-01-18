@@ -1,6 +1,6 @@
 EmitterBlueprint {
 	BlueprintId = 'nomad_energyproj_large_hit03',
-	Lifetime = 24.10,
+	Lifetime = 7.10,
 	Repeattime = 0.10,
 	TextureFramecount = 1.00,
 	Blendmode = 3.00,
@@ -24,7 +24,7 @@ EmitterBlueprint {
 	MedFidelity = true,
 	HighFidelity = true,
 	Texture = [[/textures/particles/plasma_white_add_01.dds]],
-	RampTexture = [[/textures/particles/ramp_red_02.dds]],
+	RampTexture = [[/textures/particles/ramp_Nred_02.dds]],
 	XDirectionCurve = {
 		XRange = 0.10,
 		Keys = {
@@ -52,7 +52,7 @@ EmitterBlueprint {
 	LifetimeCurve = {
 		XRange = 0.10,
 		Keys = {
-			{ x=0.052,y=6.000,z=0.000 },
+			{ x=0.052,y=1.700,z=0.000 },
 		},
 	},
 	VelocityCurve = {
@@ -100,25 +100,25 @@ EmitterBlueprint {
 	YPosCurve = {
 		XRange = 0.10,
 		Keys = {
-			{ x=0.051,y=0.000,z=0.000 },
+			{ x=0.051,y=3.000,z=0.000 },
 		},
 	},
 	ZPosCurve = {
 		XRange = 0.10,
 		Keys = {
-			{ x=0.014,y=-2.000,z=0.000 },
+			{ x=0.014,y=0.000,z=0.000 },
 		},
 	},
 	StartSizeCurve = {
 		XRange = 0.10,
 		Keys = {
-			{ x=0.050,y=15.000,z=0.300 },
+			{ x=0.050,y=9.000,z=0.300 },
 		},
 	},
 	EndSizeCurve = {
 		XRange = 0.10,
 		Keys = {
-			{ x=0.050,y=19.620,z=0.300 },
+			{ x=0.050,y=12.620,z=0.300 },
 		},
 	},
 	InitialRotationCurve = {

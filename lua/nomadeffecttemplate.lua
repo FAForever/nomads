@@ -1723,7 +1723,9 @@ EnergyProjHitNone2 = {
 EnergyProjHitLand2 = {
     EmtBpPathNomad .. 'nomad_energyproj_large_hit01_emit.bp',  -- slow flash
     EmtBpPathNomad .. 'nomad_energyproj_large_hit02_emit.bp',  -- short star effect large
-    EmtBpPathNomad .. 'nomad_energyproj_large_hit03_emit.bp',  -- circular effect at ground
+	EmtBpPathNomad .. 'nomad_energyproj_large_hit02_secondary_emit.bp',  -- even shorter star effect large, imitates flash
+    EmtBpPathNomad .. 'nomad_energyproj_large_hit02_tertiary_emit.bp',  -- longer star effect giving illusion of expansion
+	EmtBpPathNomad .. 'nomad_energyproj_large_hit03_emit.bp',  -- circular effect at ground
     EmtBpPathNomad .. 'nomad_energyproj_large_hit04_emit.bp',  -- sparks moving up
     EmtBpPathNomad .. 'nomad_energyproj_large_hit05_emit.bp',  -- flames
     EmtBpPathNomad .. 'nomad_energyproj_large_hit06_emit.bp',  -- flame refraction effect
