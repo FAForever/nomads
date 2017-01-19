@@ -99,7 +99,7 @@ UnitBlueprint {
         UnitWeight = 1,
     },
     Intel = {
-        VisionRadius = 0,
+        VisionRadius = 15,
     },
     Interface = {
         HelpText = '<LOC inc0001_help>Orbital Support Spacecraft',
