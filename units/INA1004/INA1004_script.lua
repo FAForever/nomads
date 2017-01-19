@@ -2,12 +2,13 @@
 
 local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
 local SupportingArtilleryAbility = import('/lua/nomadutils.lua').SupportingArtilleryAbility
-local NAirTransportUnit = import('/lua/nomadunits.lua').NAirTransportUnit
+--local NAirTransportUnit = import('/lua/nomadunits.lua').NAirTransportUnit
 local DarkMatterWeapon1 = import('/lua/nomadweapons.lua').DarkMatterWeapon1
+local NAirUnit = import('/lua/nomadunits.lua').NAirUnit
 
-NAirTransportUnit = SupportingArtilleryAbility( NAirTransportUnit )
+NAirUnit = SupportingArtilleryAbility( NAirUnit )
 
-INA1004 = Class(NAirTransportUnit) {
+INA1004 = Class(NAirUnit) {
     Weapons = {
         Gun1 = Class(DarkMatterWeapon1) {},
         Gun2 = Class(DarkMatterWeapon1) {},
@@ -18,7 +19,7 @@ INA1004 = Class(NAirTransportUnit) {
     BeamHoverExhaustIdle = NomadEffectTemplate.AirThrusterLargeIdlingBeam,
 
     OnCreate = function(self)
-        NAirTransportUnit.OnCreate(self)
+        NAirUnit.OnCreate(self)
         self.HoverEmitterEffectTrashBag = TrashBag()
         self.BarrelAnim = CreateAnimator(self):PlayAnim('/units/INA1004/INA1004_Retract.sca'):SetRate(0)
         self.BarrelAnim:SetAnimationFraction(1)
@@ -27,17 +28,17 @@ INA1004 = Class(NAirTransportUnit) {
 
     OnDestroy = function(self)
         self:DestroyHoverEmitterEffects()
-        NAirTransportUnit.OnDestroy(self)
+        NAirUnit.OnDestroy(self)
     end,
 
     OnStopBeingBuilt = function(self, builder, layer)
-        NAirTransportUnit.OnStopBeingBuilt(self, builder, layer)
+        NAirUnit.OnStopBeingBuilt(self, builder, layer)
         self.BarrelAnim:SetRate(-0.5)
         self:ForkThread(self.WatchBarrelAnim, 0.65)
     end,
 
     OnMotionVertEventChange = function( self, new, old )
-        NAirTransportUnit.OnMotionVertEventChange( self, new, old )
+        NAirUnit.OnMotionVertEventChange( self, new, old )
         self:UpdateHoverEmitter(new, old)
 
         -- special abilities only available when on cruising height
