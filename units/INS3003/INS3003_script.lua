@@ -145,8 +145,8 @@ INS3003 = Class(NSeaUnit) {
     OnUnitRemovedFromStorage = function(self, unit)
         NSeaUnit.OnUnitRemovedFromStorage(self, unit)
 
---        self:PlayAllOpenAnims(true)
---        self:AutoClose()
+        self:PlayAllOpenAnims(true)
+        self:AutoClose()
     end,
 
     OnTargetAcquired = function(self, TMD)
