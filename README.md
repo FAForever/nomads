@@ -22,19 +22,13 @@ run the shader_cleaner.bat to fix it
 
 
 
-#editor
-To run the editor with nomads units you need to do the following steps:
+# Map Editor
+To run the Map Editor with nomads units you need to do the following steps:
 
-1) go to your sup com installation (not FA) and navigate to the gamedata folder
+1) Paste *nomads_mesh.fx* file into *effects* folder and rename it to *mesh.fx*
 
-2) rename the files effects.scd, env.scd, units.scd and textures.scd to the ending .zip
+2) Pack *effects, env, textures, units* folders into *Z_nomad.scd* using Winrar or similar  (needs to be set as *.zip* NOT *.rar*)
 
-3) copy the content of the nomads directories from your githup repo into the respective archives
+3) Paste *Z_nomad.scd* into Supcom *gamedata* folder `THQ\Gas Powered Games\Supreme Commander\gamedata`
 
-4) replace the mesh.fx file in effects.scd/ with the nomads_mesh.fx (rename that file to mesh.fx)
-
-5) rename all .zip files back to .scd
-
-6) go to USERNAME\AppData\Local\Gas Powered Games\SupremeCommander\cache and delete the content of the folder
-
-hope for the best
+4) Go to `%USERNAME%\AppData\Local\Gas Powered Games\SupremeCommander\cache` and delete the content of the folder
