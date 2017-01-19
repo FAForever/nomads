@@ -362,7 +362,8 @@ Unit = Class(oldUnit) {
 
         -- disable intel
         if self.IntelDisables and type(self.IntelDisables) == 'table' then
-            self:DisableUnitIntel()
+            self:DisableUnitIntel('stunned', 'Radar')
+            self:DisableUnitIntel('stunned', 'Sonar')
         end
 
         -- stop weapon salvos
@@ -387,7 +388,8 @@ Unit = Class(oldUnit) {
 
         -- enable intel
         if self.IntelDisables then
-            self:EnableUnitIntel()
+            self:EnableUnitIntel('stunned', 'Radar')
+            self:EnableUnitIntel('stunned', 'Sonar')
         end
 
         -- make sure weapons can fire again (set variable haltfireordered to false)
@@ -462,7 +464,7 @@ Unit = Class(oldUnit) {
             self:DestroyIdleEffects()
 
             self:DisableShield()
-            self:DisableUnitIntel()
+            self:DisableUnitIntel('killed')
 
             if self.TarmacBag then
                 self:DestroyTarmac()

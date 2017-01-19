@@ -371,11 +371,13 @@ function AddIntelOvercharge(SuperClass)
             -- recovery time if requested
             if recoverTime > 0 then
                 self.IntelOverchargeInRecoveryTime = true
-                self:DisableUnitIntel()
+                self:DisableUnitIntel('recover', 'Radar')
+                self:DisableUnitIntel('recover', 'Sonar')
                 self:OnBeginIntelOverchargeRecovery()
                 WaitSeconds( recoverTime )
                 self.IntelOverchargeInRecoveryTime = false
-                self:EnableUnitIntel()
+                self:EnableUnitIntel('recover', 'Radar')
+                self:EnableUnitIntel('recover', 'Sonar')
             end
 
             self:OnFinishedIntelOverchargeRecovery()
