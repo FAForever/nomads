@@ -27,8 +27,10 @@ To run the Map Editor with nomads units you need to do the following steps:
 
 1) Paste *nomads_mesh.fx* file into *effects* folder and rename it to *mesh.fx*
 
-2) Pack *effects, env, textures, units* folders into *Z_nomad.scd* using Winrar or similar  (needs to be set as *.zip* NOT *.rar*)
+2) Pack *effects, env, textures, units* folders from this repository into *Z_nomad.scd* using Winrar or similar (needs to be set as *.zip* NOT *.rar*)
 
-3) Paste *Z_nomad.scd* into Supcom *gamedata* folder `THQ\Gas Powered Games\Supreme Commander\gamedata`
+3) remove the mesh.fx file from the *effects* folder of the repository again
 
-4) Go to `%USERNAME%\AppData\Local\Gas Powered Games\SupremeCommander\cache` and delete the content of the folder
+4) Paste *Z_nomad.scd* into Supcom *gamedata* folder `THQ\Gas Powered Games\Supreme Commander\gamedata`
+
+5) Go to `%USERNAME%\AppData\Local\Gas Powered Games\SupremeCommander\cache` and delete the content of the folder
