@@ -130,7 +130,6 @@ abilities = table.merged( abilities, {
 
         GetAllUnitsFile = '/lua/user/tasks/Tasks.lua',
         GetRangeCheckUnitsFile = '/lua/user/tasks/Tasks.lua',
--- FIXME: This MapReticulesToUnitIdsFile needs to be finished before it can be used.
         MapReticulesToUnitIdsFile = '/lua/user/tasks/NomadIntelOvercharge.lua',
         UserProcessFile = '/lua/user/tasks/Tasks.lua',
         UserVerifyFile = '/lua/user/tasks/Tasks.lua',
