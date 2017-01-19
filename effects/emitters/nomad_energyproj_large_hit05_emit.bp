@@ -23,7 +23,7 @@ EmitterBlueprint {
 	LowFidelity = true,
 	MedFidelity = true,
 	HighFidelity = true,
-	Texture = [[/textures/particles/fire_flame_add_01.dds]],
+	Texture = [[/textures/particles/fire_flame_add_04.dds]],
 	RampTexture = [[/textures/particles/ramp_Nred_02.dds]],
 	XDirectionCurve = {
 		XRange = 1.00,
@@ -46,14 +46,14 @@ EmitterBlueprint {
 	EmitRateCurve = {
 		XRange = 1.00,
 		Keys = {
-			{ x=0.100,y=4.000,z=0.000 },
+			{ x=0.100,y=8.000,z=0.000 },
 			{ x=0.663,y=-0.500,z=0.000 },
 		},
 	},
 	LifetimeCurve = {
 		XRange = 1.00,
 		Keys = {
-			{ x=0.500,y=31.000,z=18.000 },
+			{ x=0.500,y=16.000,z=10.000 },
 		},
 	},
 	VelocityCurve = {
@@ -101,7 +101,7 @@ EmitterBlueprint {
 	YPosCurve = {
 		XRange = 1.00,
 		Keys = {
-			{ x=0.500,y=3.100,z=1.000 },
+			{ x=0.500,y=3.100/2.25,z=1.000 },
 		},
 	},
 	ZPosCurve = {
@@ -113,13 +113,13 @@ EmitterBlueprint {
 	StartSizeCurve = {
 		XRange = 1.00,
 		Keys = {
-			{ x=0.505,y=1.000,z=0.500 },
+			{ x=0.505,y=1.000/1.5,z=0.500 },
 		},
 	},
 	EndSizeCurve = {
 		XRange = 1.00,
 		Keys = {
-			{ x=0.511,y=2.000,z=1.000 },
+			{ x=0.511,y=2.000/1.5,z=1.000 },
 		},
 	},
 	InitialRotationCurve = {

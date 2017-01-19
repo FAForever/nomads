@@ -100,7 +100,7 @@ EmitterBlueprint {
 	YPosCurve = {
 		XRange = 0.10,
 		Keys = {
-			{ x=0.051,y=3.000,z=0.000 },
+			{ x=0.051,y=3.000/3,z=0.000 },
 		},
 	},
 	ZPosCurve = {
@@ -112,13 +112,13 @@ EmitterBlueprint {
 	StartSizeCurve = {
 		XRange = 0.10,
 		Keys = {
-			{ x=0.050,y=9.000,z=0.300 },
+			{ x=0.050,y=9.000/2,z=0.300 },
 		},
 	},
 	EndSizeCurve = {
 		XRange = 0.10,
 		Keys = {
-			{ x=0.050,y=12.620,z=0.300 },
+			{ x=0.050,y=12.620/2,z=0.300 },
 		},
 	},
 	InitialRotationCurve = {
