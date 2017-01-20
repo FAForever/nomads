@@ -1193,8 +1193,8 @@ EMPMissileTrail = {
 EMPMissileHitNone1 = {
     EmtBpPathNomad .. 'nomad_empmissile_hit05_emit.bp',  
 	EmtBpPathNomad .. 'nomad_empmissile_hit07_emit.bp',  
-    EmtBpPath .. 'destruction_explosion_debris_04_emit.bp',
-    EmtBpPath .. 'destruction_explosion_debris_07_emit.bp',
+    -- EmtBpPath .. 'destruction_explosion_debris_04_emit.bp',
+    -- EmtBpPath .. 'destruction_explosion_debris_07_emit.bp',
 }
 
 EMPMissileElectricityEffect = {
@@ -1249,15 +1249,15 @@ TacticalMissileTrailFxUnderWaterAddon = {
 }
 
 TacticalMissileHitNone1 = {
-	-- EmtBpPathNomad .. 'Standard_smoke.bp',  -- smoke
+	EmtBpPathNomad .. 'Standard_smoke.bp',  -- smoke
     EmtBpPathNomad .. 'nomad_tacticalmissile_hit01_emit.bp',  -- orange flames
 	EmtBpPathNomad .. 'nomad_tacticalmissile_hit02_emit.bp',  -- shockwave
     EmtBpPathNomad .. 'nomad_tacticalmissile_hit03_emit.bp',  -- red lightning
 }
 
 TacticalMissileHitLand1 = TableCat( TacticalMissileHitNone1, {
-    EmtBpPath .. 'destruction_explosion_debris_06_emit.bp',
-    EmtBpPath .. 'destruction_explosion_debris_07_emit.bp',
+    -- EmtBpPath .. 'destruction_explosion_debris_06_emit.bp',
+    -- EmtBpPath .. 'destruction_explosion_debris_07_emit.bp',
 })
 
 TacticalMissileHitWater1 = TableCat( TacticalMissileHitNone1, {
@@ -1676,7 +1676,7 @@ PhaseRayCannonHitUnderWater1 = PhaseRayCannonHitUnit1
 --------------------------------------------------------------------------
 --  Nomad Energy projectile
 --------------------------------------------------------------------------
--- used on T2 destroyer and T2 static artillery
+-- used on T2 destroyer and T2 static artillery and t3 bomber
 
 EnergyProjMuzzleFlash = {
     EmtBpPathNomad .. 'nomad_energyproj_muzzleflash01_emit.bp',

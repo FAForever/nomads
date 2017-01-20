@@ -1,7 +1,7 @@
 EmitterBlueprint {
 	BlueprintId = 'CybT2_smoke',
 	Lifetime = 3.00,
-	Repeattime = 50.00,
+	Repeattime = 1.00,
 	TextureFramecount = 1.00,
 	Blendmode = 0.00,
 	LocalVelocity = false,
@@ -23,7 +23,7 @@ EmitterBlueprint {
 	LowFidelity = true,
 	MedFidelity = true,
 	HighFidelity = true,
-	Texture = [[/textures/particles/cloud_smoke_alpha_white_transparent.dds]],
+	Texture = [[/textures/particles/cloud_smoke_alpha_black_transparent.dds]],
 	RampTexture = [[/textures/particles/ramp_white_premod_01.dds]],
 	XDirectionCurve = {
 		XRange = 50.00,
@@ -46,7 +46,7 @@ EmitterBlueprint {
 	EmitRateCurve = {
 		XRange = 50.00,
 		Keys = {
-			{ x=25.000,y=1.000,z=0.000 },
+			{ x=25.000,y=3.000,z=0.000 },
 		},
 	},
 	LifetimeCurve = {
@@ -112,13 +112,13 @@ EmitterBlueprint {
 	StartSizeCurve = {
 		XRange = 50.00,
 		Keys = {
-			{ x=25.000,y=1.000,z=0.000 },
+			{ x=25.000,y=0.500,z=0.000 },
 		},
 	},
 	EndSizeCurve = {
 		XRange = 50.00,
 		Keys = {
-			{ x=25.000,y=3.000,z=1.000 },
+			{ x=25.000,y=1.000,z=1.000 },
 		},
 	},
 	InitialRotationCurve = {
