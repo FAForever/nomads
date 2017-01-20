@@ -1,5 +1,5 @@
 EmitterBlueprint {
-	BlueprintId = 'nomad_tacticalmissile',
+	BlueprintId = 'nomad_tacticalmissile_hit03',
 	Lifetime = 2.00,
 	Repeattime = 2.00,
 	TextureFramecount = 1.00,
@@ -46,13 +46,13 @@ EmitterBlueprint {
 	EmitRateCurve = {
 		XRange = 2.00,
 		Keys = {
-			{ x=1.000,y=35.000*2,z=0.000 },
+			{ x=1.000,y=95.000,z=0.000 },
 		},
 	},
 	LifetimeCurve = {
 		XRange = 2.00,
 		Keys = {
-			{ x=0.000,y=0.500/2,z=0.350/2 },
+			{ x=0.000,y=3.500,z=3.350 },
 		},
 	},
 	VelocityCurve = {

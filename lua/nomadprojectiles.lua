@@ -945,8 +945,8 @@ TacticalMissile = Class(SingleCompositeEmitterProjectile) {
         end
 		
 		local army = self:GetArmy()
-		NomadExplosions.CreateFlashCustom( self, -2, army, 2.5, 5, 'glow_05_red', 'ramp_jammer_01' )
-		NomadExplosions.CreateFlashCustom( self, -2, army, 3, 2, 'glow_05_red', 'ramp_jammer_01' )
+		NomadExplosions.CreateFlashCustom( self, -2, army, 2.5, 5*2, 'glow_05_red', 'ramp_jammer_01' )
+		NomadExplosions.CreateFlashCustom( self, -2, army, 3, 2*2, 'glow_05_red', 'ramp_jammer_01' )
 
         -- create some additional effects
         local ok = (targetType ~= 'Water' and targetType ~= 'Shield' and targetType ~= 'Air' and targetType ~= 'UnitAir' and targetType ~= 'UnitUnderwater')
