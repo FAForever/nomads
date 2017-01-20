@@ -24,7 +24,7 @@ EmitterBlueprint {
 	MedFidelity = true,
 	HighFidelity = true,
 	Texture = [[/textures/particles/n_electricity_beam_01.dds]],
-	RampTexture = [[/textures/particles/ramp_red_03.dds]],
+	RampTexture = [[/textures/particles/ramp_Nred_02.dds]],
 	XDirectionCurve = {
 		XRange = 2.00,
 		Keys = {
@@ -46,13 +46,13 @@ EmitterBlueprint {
 	EmitRateCurve = {
 		XRange = 2.00,
 		Keys = {
-			{ x=1.000,y=50.000,z=0.000 },
+			{ x=1.000,y=35.000*2,z=0.000 },
 		},
 	},
 	LifetimeCurve = {
 		XRange = 2.00,
 		Keys = {
-			{ x=0.000,y=1.000,z=0.150 },
+			{ x=0.000,y=0.500/2,z=0.350/2 },
 		},
 	},
 	VelocityCurve = {
@@ -88,7 +88,7 @@ EmitterBlueprint {
 	SizeCurve = {
 		XRange = 2.00,
 		Keys = {
-			{ x=1.000,y=2.000,z=0.000 },
+			{ x=1.000,y=1.000,z=0.000 },
 		},
 	},
 	XPosCurve = {

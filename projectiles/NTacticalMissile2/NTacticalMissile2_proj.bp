@@ -26,9 +26,9 @@ ProjectileBlueprint {
     Display = {
         CameraFollowTimeout = 2,
         CameraFollowsProjectile = true,
-        ImpactEffects = {
-            Type = 'Medium01',
-        },
+        --ImpactEffects = {
+        --    Type = 'Medium01',
+        --},
         Mesh = {
             LODs = {
                 {

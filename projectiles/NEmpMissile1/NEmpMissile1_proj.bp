@@ -28,9 +28,9 @@ ProjectileBlueprint {
         MaxHealth = 2,
     },
     Display = {
-        ImpactEffects = {
-            Type = 'Medium01',
-        },
+        -- ImpactEffects = {
+        --     Type = 'Medium01',
+        -- },
         Mesh = {
             LODs = {
                 {

@@ -1,7 +1,7 @@
 EmitterBlueprint {
 	BlueprintId = 'nomad_empmissile_trail02',
 	Lifetime = -1.00,
-	Repeattime = 5.00,
+	Repeattime = 1.00,
 	TextureFramecount = 1.00,
 	Blendmode = 3.00,
 	LocalVelocity = true,

@@ -10,7 +10,7 @@ EmitterBlueprint {
 	AlignRotation = false,
 	AlignToBone = false,
 	Flat = false,
-	LODCutoff = 100.00,
+	LODCutoff = 1000.00,
 	EmitIfVisible = true,
 	CatchupEmit = true,
 	CreateIfVisible = false,
@@ -52,7 +52,7 @@ EmitterBlueprint {
 	LifetimeCurve = {
 		XRange = 1.00,
 		Keys = {
-			{ x=0.000,y=5.000,z=0.000 },
+			{ x=0.000,y=5.000,z=3.000 },
 		},
 	},
 	VelocityCurve = {
@@ -112,16 +112,13 @@ EmitterBlueprint {
 	StartSizeCurve = {
 		XRange = 1.00,
 		Keys = {
-			{ x=0.000,y=0.100,z=0.000 },
-			{ x=0.100,y=0.100,z=0.000 },
+			{ x=1.000,y=0.300/2,z=0.000 },
 		},
 	},
 	EndSizeCurve = {
 		XRange = 1.00,
 		Keys = {
-			{ x=0.250,y=0.300,z=0.100 },
-			{ x=0.700,y=0.300,z=0.100 },
-			{ x=1.000,y=0.000,z=0.000 },
+			{ x=1.000,y=0.300,z=0.100 },
 		},
 	},
 	InitialRotationCurve = {

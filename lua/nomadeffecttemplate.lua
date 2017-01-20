@@ -1191,21 +1191,19 @@ EMPMissileTrail = {
 }
 
 EMPMissileHitNone1 = {
-    EmtBpPathNomad .. 'nomad_empmissile_hit01_emit.bp',  -- green circular thing
-    EmtBpPathNomad .. 'nomad_empmissile_hit02_emit.bp',  -- blue circular thing
-    EmtBpPathNomad .. 'nomad_empmissile_hit06_emit.bp',  -- flash
+    EmtBpPathNomad .. 'nomad_empmissile_hit05_emit.bp',  
+	EmtBpPathNomad .. 'nomad_empmissile_hit07_emit.bp',  
+    EmtBpPath .. 'destruction_explosion_debris_04_emit.bp',
+    EmtBpPath .. 'destruction_explosion_debris_07_emit.bp',
 }
 
 EMPMissileElectricityEffect = {
-    EmtBpPathNomad .. 'nomad_empmissile_hit03_emit.bp',  -- green flat circular thing (bigger)
-    EmtBpPathNomad .. 'nomad_empmissile_hit04_emit.bp',  -- green circular thing (smaller)
+    EmtBpPathNomad .. 'nomad_empmissile_hit03_emit.bp', 
+    EmtBpPathNomad .. 'nomad_empmissile_hit04_emit.bp',  
 }
-EMPMissileElectricityEffectDurationMulti = 2.5
+EMPMissileElectricityEffectDurationMulti = 0.5
 
 EMPMissileHitLand1 = TableCat( EMPMissileHitNone1, {
-    EmtBpPathNomad .. 'nomad_empmissile_hit05_emit.bp',  -- shockwave ring
-    EmtBpPath .. 'destruction_explosion_debris_04_emit.bp',
-    EmtBpPath .. 'destruction_explosion_debris_07_emit.bp',
 })
 
 EMPMissileHitWater1 = TableCat( EMPMissileHitNone1, {
@@ -1213,6 +1211,7 @@ EMPMissileHitWater1 = TableCat( EMPMissileHitNone1, {
 })
 
 EMPMissileHitUnit1 = TableCat( EMPMissileHitNone1, {
+    EmtBpPathNomad .. 'nomad_empmissile_hit05_emit.bp',  -- shockwave ring
     EmtBpPath .. 'destruction_unit_hit_shrapnel_01_emit.bp',
 })
 
@@ -1241,6 +1240,7 @@ TacticalMissileMuzzleFxUnderWaterAddon = {
 TacticalMissileBeam = EmtBpPath .. 'nomad_missilebeam01_emit.bp'
 TacticalMissilePolyTrail = EmtBpPath .. 'nomad_missile_polytrail_01_emit.bp'
 TacticalMissileTrail = {
+	EmtBpPathNomad .. 'nomad_small_lense_flare_emit.bp',
     EmtBpPathNomad .. 'nomad_tacticalmissile_trail01_emit.bp',
 }
 TacticalMissileTrailFxUnderWaterAddon = {
@@ -1249,14 +1249,13 @@ TacticalMissileTrailFxUnderWaterAddon = {
 }
 
 TacticalMissileHitNone1 = {
+	-- EmtBpPathNomad .. 'Standard_smoke.bp',  -- smoke
     EmtBpPathNomad .. 'nomad_tacticalmissile_hit01_emit.bp',  -- orange flames
+	EmtBpPathNomad .. 'nomad_tacticalmissile_hit02_emit.bp',  -- shockwave
     EmtBpPathNomad .. 'nomad_tacticalmissile_hit03_emit.bp',  -- red lightning
-    EmtBpPathNomad .. 'nomad_tacticalmissile_hit04_emit.bp',  -- red flash
-    EmtBpPathNomad .. 'nomad_tacticalmissile_hit05_emit.bp',  -- brown smoke
 }
 
 TacticalMissileHitLand1 = TableCat( TacticalMissileHitNone1, {
-    EmtBpPathNomad .. 'nomad_tacticalmissile_hit02_emit.bp',  -- shockwave
     EmtBpPath .. 'destruction_explosion_debris_06_emit.bp',
     EmtBpPath .. 'destruction_explosion_debris_07_emit.bp',
 })

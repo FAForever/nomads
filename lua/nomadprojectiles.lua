@@ -11,7 +11,7 @@ local EffectTemplate = import('/lua/EffectTemplates.lua')
 local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
 
 local RandomFloat = import('/lua/utilities.lua').GetRandomFloat
-
+local NomadExplosions = import('/lua/nomadexplosions.lua')
 
 -- -----------------------------------------------------------------------------------------------------
 -- BALLISTIC PROJECTILES        (UNGUIDED, NOT PROPELED)
@@ -735,6 +735,10 @@ EMPMissile = Class(FusionMissile) {
 
     OnImpact = function(self, targetType, targetEntity)
         FusionMissile.OnImpact(self, targetType, targetEntity)
+		
+		local army = self:GetArmy()
+		NomadExplosions.CreateFlashCustom( self, -2, army, 2, 52, 'glow_05_green', 'ramp_jammer_01_transparent' )
+		NomadExplosions.CreateFlashCustom( self, -2, army, 3, 3, 'glow_05_green', 'ramp_jammer_01' )
 
         -- create custom electricity effect based on stun duration
         local Duration = false
@@ -810,7 +814,7 @@ TacticalMissile = Class(SingleCompositeEmitterProjectile) {
     PolyTrail = NomadEffectTemplate.TacticalMissilePolyTrail,
 
     -- small correction to make the smoke appear to come from the missile
-    FxTrailOffset = -0.22,
+    FxTrailOffset = -0.32,
     PolyTrailOffset = -0.22,
 
     FxImpactTrajectoryAligned = false,
@@ -939,6 +943,10 @@ TacticalMissile = Class(SingleCompositeEmitterProjectile) {
         if targetType == 'Terrain' then
             DamageArea(self, self:GetPosition(), self.DamageData.DamageRadius * 1.2, 1, 'Force', true)
         end
+		
+		local army = self:GetArmy()
+		NomadExplosions.CreateFlashCustom( self, -2, army, 2.5, 5, 'glow_05_red', 'ramp_jammer_01' )
+		NomadExplosions.CreateFlashCustom( self, -2, army, 3, 2, 'glow_05_red', 'ramp_jammer_01' )
 
         -- create some additional effects
         local ok = (targetType ~= 'Water' and targetType ~= 'Shield' and targetType ~= 'Air' and targetType ~= 'UnitAir' and targetType ~= 'UnitUnderwater')
@@ -947,7 +955,7 @@ TacticalMissile = Class(SingleCompositeEmitterProjectile) {
             local rotation = RandomFloat(0,2*math.pi)
             local size = RandomFloat(4, 5.5)
             local life = Random(100, 150)
-            CreateDecal(self:GetPosition(), rotation, 'Scorch_012_albedo', '', 'Albedo', size, size, 300, life, army)
+            -- CreateDecal(self:GetPosition(), rotation, 'Scorch_012_albedo', '', 'Albedo', size, size, 300, life, army) not a smart idea to leave decals on something that fires so fast
             if self.DoImpactFlash then
                 CreateLightParticle( self, -1, army, 6, 5, 'glow_03', 'ramp_yellow_blue_01' )
                 CreateLightParticle( self, -1, army, 8, 16, 'glow_03', 'ramp_antimatter_02' )
