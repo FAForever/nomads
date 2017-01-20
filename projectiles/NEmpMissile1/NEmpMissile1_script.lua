@@ -10,7 +10,7 @@ NEmpMissile1 = Class(EMPMissile) {
     end,
 
     StageThread = function(self)
-        WaitSeconds(2)
+        WaitSeconds(1.5 +Random(0,100)*0.005 )
         self:SetTurnRate(self:GetBlueprint().Physics.TurnRate)
     end,
 }
