@@ -94,9 +94,15 @@ function UpdateWindow(info)
                         controls.statGroups[i].icon:SetTexture(UIUtil.UIFile('/game/unit_view_icons/tactical.dds'))
                     end
                 else
-                    controls.statGroups[i].value:SetText(statFuncs[i](info, bp))
+                    if (not bp.Abilities.Capacitor or i ~= 6)then
+                        controls.statGroups[i].value:SetText(statFuncs[i](info, bp))
+                    end
                 end
-                controls.statGroups[i].icon:Show()
+                if bp.Abilities.Capacitor and i == 6 then
+                    controls.statGroups[i].icon:Hide()
+                else
+                    controls.statGroups[i].icon:Show()
+                end
             else
                 controls.statGroups[i].icon:Hide()
                 if controls.statGroups[i].color then
