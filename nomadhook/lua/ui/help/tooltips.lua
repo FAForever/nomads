@@ -43,7 +43,7 @@ local NomadTooltips = {
     },
     toggle_capacitor = {
         title = "<LOC tooltip_usecapacitor_title>Capacitor Toggle",
-        description = "<LOC tooltip_usecapacitor_desc>Boost unit temporarily (firepower, build power, regeneration) using the capacitor ability",
+        description = "<LOC tooltip_usecapacitor_desc>Boost unit temporarily (vision range, build power, regeneration) using the capacitor ability. Capacitor is filled when overflowing power and loses stored power when not overflowing.",
     },
     toggle_anchor = {
         title = "<LOC tooltip_anchor_title>Anchor Toggle",
