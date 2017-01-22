@@ -22,6 +22,15 @@ INO0001 = Class(NOrbitUnit) {
     BuildBones = { 0, },
     BuildEffectsBag = nil,
 
+    OnPreCreate = function(self)
+        --yes i know this is disgusting but it has to be done since the nomad orbital ship crashes the game
+        --so it needs an exception FIXME: refactor nomads orbital frigate so its not so crazy.
+        
+        self.ColourIndex = 5 --default nomads colour apparently. This makes it not call the DetermineColourIndex later on.
+        
+        NOrbitUnit.OnPreCreate(self)
+    end,
+    
     OnCreate = function(self)
         self.BuildEffectsBag = TrashBag()
         NOrbitUnit.OnCreate(self)
