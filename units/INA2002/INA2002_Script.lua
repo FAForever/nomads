@@ -19,7 +19,6 @@ INA2002 = Class(NAirUnit) {
             -- is called pretty much immediately in RackSalvoFiringState so this is the next best thing, though not ideal.
             DestroyRecoilManips = function(self)
                 ConcussionBombWeapon.DestroyRecoilManips(self)
-                self.unit:OnBombDropped('Bomb')
             end,
         
             OnGotTarget = function(self)
@@ -35,7 +34,24 @@ INA2002 = Class(NAirUnit) {
         AGRockets = Class(RocketWeapon1) {},
         AARockets = Class(RocketWeapon1) {},
     },
-
+    ChangeSpeedFor = function(self, reason)
+    # changes the units speed, ground attacks require a slower aircraft (appearantly)
+        if reason == 'GroundAttack' then
+            self:SetBreakOffTriggerMult(2.0)
+            self:SetBreakOffDistanceMult(8.0)
+            self:SetSpeedMult( math.pow(0.67,2) * self:GetSpeedModifier()) # bug in SetSpeedMult fixed, using math.pow to adjust value to keep same speed
+        elseif reason == 'DepthChargeAttack' then
+            self:SetBreakOffTriggerMult(2.75)
+            self:SetBreakOffDistanceMult(12.0)
+            self:SetSpeedMult(0.6 * self:GetSpeedModifier()) # the speed multi here is ok, we've already considered the bug is now fixed
+        else
+            self:SetBreakOffTriggerMult(1.0)
+            self:SetBreakOffDistanceMult(1.0)
+            self:SetSpeedMult(1.0 * self:GetSpeedModifier())
+        end
+    end,
+    
+    
     OnCreate = function(self)
         NAirUnit.OnCreate(self)
         self.Rack2Manip = CreateSlaver(self, 'barrel.002', 'barrel.001')
