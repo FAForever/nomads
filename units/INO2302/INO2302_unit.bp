@@ -29,6 +29,7 @@ UnitBlueprint {
         'UNTARGETABLE',
         'NOFORMATION',
         'INSIGNIFICANTUNIT',
+        'VISIBLETORECON',
     },
     Defense = {
         AirThreatLevel = 0,
