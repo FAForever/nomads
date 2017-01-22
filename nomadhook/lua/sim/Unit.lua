@@ -91,47 +91,7 @@ Unit = Class(oldUnit) {
         end
     end,
 
-    -- Bug fix for GPG 3599 and 3603 code. The original DeathThread function calls this function. It does this in this way:
-    -- self:CreateDestructionEffects( self, overkillRatio )
-    -- The variable "self" is used as the overkillRatio parameter. The overkill variable is passed as the third parameter which isn't
-    -- specified in the function declaration. Removing the second "self" fixes the problem. Unfortunately this can only be done
-    -- destructively, or so it seems.
-    DeathThread = function( self, overkillRatio, instigator)
 
-        WaitSeconds( utilities.GetRandomFloat( self.DestructionExplosionWaitDelayMin, self.DestructionExplosionWaitDelayMax) )
-        self:DestroyAllDamageEffects()
-
-        if self.PlayDestructionEffects then
-            self:CreateDestructionEffects( overkillRatio )  -- removed "self" as first parameter
-        end
-
-        --MetaImpact( self, self:GetPosition(), 0.1, 0.5 )
-        if self.DeathAnimManip then
-            WaitFor(self.DeathAnimManip)
-            if self.PlayDestructionEffects and self.PlayEndAnimDestructionEffects then
-                self:CreateDestructionEffects( overkillRatio )  -- removed "self" as first parameter
-            end
-        end
-
-        self:CreateWreckage( overkillRatio )
-
-        if( self.ShowUnitDestructionDebris and overkillRatio ) then
-            if overkillRatio <= 1 then
-                self.CreateUnitDestructionDebris( self, true, true, false )
-            elseif overkillRatio <= 2 then
-                self.CreateUnitDestructionDebris( self, true, true, false )
-            elseif overkillRatio <= 3 then
-                self.CreateUnitDestructionDebris( self, true, true, true )
-            else --VAPORIZED
-                self.CreateUnitDestructionDebris( self, true, true, true )
-            end
-        end
-
-        WaitSeconds(self.DeathThreadDestructionWaitTime)
-
-        self:PlayUnitSound('Destroyed')
-        self:Destroy()
-    end,
 
     UpdateWeaponLayers = function(self, new, old)
         -- TODO: this could/should include the SetValidTargetsForCurrentLayer part from OnLayerChange()
