@@ -169,6 +169,39 @@ AAGun = Class(DefaultProjectileWeapon) {
     },
 }
 
+HVFlakWeapon = Class(DefaultBeamWeapon) {
+--high velocity flak for use as tmd
+    BeamType = NomadCollisionBeamFile.HVFlakCollisionBeam,
+    FxMuzzleFlash = {
+        '/effects/emitters/cannon_muzzle_fire_01_emit.bp',
+        --'/effects/emitters/cannon_muzzle_smoke_03_emit.bp',
+        '/effects/emitters/cannon_muzzle_smoke_04_emit.bp',   
+        '/effects/emitters/cannon_muzzle_water_shock_01_emit.bp',
+        '/effects/emitters/cannon_muzzle_flash_09_emit.bp',    
+        '/effects/emitters/cannon_muzzle_flash_08_emit.bp',  
+    },
+    
+    OnCreate = function(self)
+        DefaultBeamWeapon.OnCreate(self)
+
+
+    end,
+
+    IdleState = State (DefaultBeamWeapon.IdleState) {
+        Main = function(self)
+            DefaultBeamWeapon.IdleState.Main(self)
+        end,
+
+        OnGotTarget = function(self)
+            DefaultBeamWeapon.IdleState.OnGotTarget(self)
+        end,
+    },
+
+    OnLostTarget = function(self)
+        DefaultBeamWeapon.OnLostTarget(self)
+    end,
+}
+
 MissileWeapon1 = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = NomadEffectTemplate.MissileMuzzleFx,
 }

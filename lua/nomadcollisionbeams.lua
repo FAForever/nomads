@@ -1,4 +1,5 @@
 local CollisionBeam = import('/lua/sim/CollisionBeam.lua').CollisionBeam
+local SCCollisionBeam = import('/lua/defaultcollisionbeams.lua').SCCollisionBeam
 local NomadEffectTemplate = import ('/lua/nomadeffecttemplate.lua')
 local EffectUtilities = import('/lua/EffectUtilities.lua')
 local Util = import('/lua/utilities.lua')
@@ -88,3 +89,13 @@ NomadPhaseRayCannon = Class(NomadPhaseRay) {
     FxImpactProjectile = NomadEffectTemplate.PhaseRayCannonHitProjectile1,
     FxImpactUnderWater = NomadEffectTemplate.PhaseRayCannonHitUnderWater1,
 }
+
+HVFlakCollisionBeam = Class(SCCollisionBeam) {
+    FxBeam = {
+        '/effects/emitters/targeting_beam_invisible.bp'
+    },
+    FxBeamEndPoint = NomadEffectTemplate.MissileHitNone1,
+                       
+    --FxImpactNone = NomadEffectTemplate.MissileHitNone1,
+}
+
