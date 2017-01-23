@@ -6,22 +6,23 @@ local EffectTemplate = import('/lua/EffectTemplates.lua')
 local Utilities = import('/lua/utilities.lua')
 local NomadEffectUtil = import('/lua/nomadeffectutilities.lua')
 
-local AddRapidRepair = import('/lua/nomadutils.lua').AddRapidRepair
-local AddRapidRepairToWeapon = import('/lua/nomadutils.lua').AddRapidRepairToWeapon
-local AddCapacitorAbility = import('/lua/nomadutils.lua').AddCapacitorAbility
-local AddCapacitorAbilityToWeapon = import('/lua/nomadutils.lua').AddCapacitorAbilityToWeapon
+local NUtils = import('/lua/nomadutils.lua')
+local AddRapidRepair = NUtils.AddRapidRepair
+local AddRapidRepairToWeapon = NUtils.AddRapidRepairToWeapon
+local AddCapacitorAbility = NUtils.AddCapacitorAbility
+local AddCapacitorAbilityToWeapon = NUtils.AddCapacitorAbilityToWeapon
 
-local NWalkingLandUnit = import('/lua/nomadunits.lua').NWalkingLandUnit
-local APCannon1 = import('/lua/nomadweapons.lua').APCannon1
-local APCannon1_Overcharge = import('/lua/nomadweapons.lua').APCannon1_Overcharge
-local DeathNuke = import('/lua/nomadweapons.lua').DeathNuke
+local NWeapons = import('/lua/nomadweapons.lua')
+local APCannon1 = NWeapons.APCannon1
+local APCannon1_Overcharge = NWeapons.APCannon1_Overcharge
+local DeathNuke = NWeapons.DeathNuke
 
-NWalkingLandUnit = AddCapacitorAbility(AddRapidRepair(NWalkingLandUnit))
 APCannon1 = AddCapacitorAbilityToWeapon(APCannon1)
 APCannon1_Overcharge = AddCapacitorAbilityToWeapon(APCannon1_Overcharge)
 
+ACUUnit = AddCapacitorAbility(AddRapidRepair(import('/lua/defaultunits.lua').ACUUnit))
 
-INU0001 = Class(NWalkingLandUnit) {
+INU0001 = Class(ACUUnit) {
 
     Weapons = {
         MainGun = Class(AddRapidRepairToWeapon(APCannon1)) {
@@ -42,51 +43,7 @@ INU0001 = Class(NWalkingLandUnit) {
                 end
             end,
         },
-        OverCharge = Class(AddRapidRepairToWeapon(APCannon1_Overcharge)) {
-
-            OnCreate = function(self)
-                APCannon1_Overcharge.OnCreate(self)
-                self:SetWeaponEnabled(false)
-                self.AimControl:SetEnabled(false)
-                self.AimControl:SetPrecedence(0)
-                self.unit:SetOverchargePaused(false)
-            end,
-
-            GetWeaponEnergyRequired = function(self)
-                local e = APCannon1_Overcharge.GetWeaponEnergyRequired(self)
-                if self.unit.DoubleBarrels then
-                    e = e * 2
-                end
-                return e
-            end,
-
-            OnEnableWeapon = function(self)
-                self:SetWeaponEnabled(true)
-                self.unit:SetWeaponEnabledByLabel('MainGun', false)
-                self.unit:ResetWeaponByLabel('MainGun')
-                self.unit:BuildManipulatorSetEnabled(false)
-                self.AimControl:SetEnabled(true)
-                self.AimControl:SetPrecedence(20)
-                self.unit.BuildArmManipulator:SetPrecedence(0)
-                self.AimControl:SetHeadingPitch( self.unit:GetWeaponManipulatorByLabel('MainGun'):GetHeadingPitch() )
-            end,
-
-            OnWeaponFired = function(self)
-                APCannon1_Overcharge.OnWeaponFired(self)
-                self:OnDisableWeapon()
-                self:ForkThread(self.PauseOvercharge)
-            end,
-            
-            OnDisableWeapon = function(self)
-                self:SetWeaponEnabled(false)
-                self.unit:SetWeaponEnabledByLabel('MainGun', true)
-                self.unit:BuildManipulatorSetEnabled(false)
-                self.AimControl:SetEnabled(false)
-                self.AimControl:SetPrecedence(0)
-                self.unit.BuildArmManipulator:SetPrecedence(0)
-                self.unit:GetWeaponManipulatorByLabel('MainGun'):SetHeadingPitch( self.AimControl:GetHeadingPitch() )
-            end,
-
+        AutoOverCharge = Class(AddRapidRepairToWeapon(APCannon1_Overcharge)) {
             PlayFxMuzzleSequence = function(self, muzzle)
                 APCannon1_Overcharge.PlayFxMuzzleSequence(self, muzzle)
 
@@ -96,62 +53,32 @@ INU0001 = Class(NWalkingLandUnit) {
                     CreateAttachedEmitter(self.unit, bone, self.unit:GetArmy(), v):ScaleEmitter(self.FxMuzzleFlashScale)
                 end
             end,
+        },
+        OverCharge = Class(AddRapidRepairToWeapon(APCannon1_Overcharge)) {
+            PlayFxMuzzleSequence = function(self, muzzle)
+                APCannon1_Overcharge.PlayFxMuzzleSequence(self, muzzle)
 
-            CreateProjectileAtMuzzle = function(self, muzzle)
-                if self.unit.DoubleBarrelOvercharge then
-                    APCannon1_Overcharge.CreateProjectileAtMuzzle(self, 'right_arm_upgrade_muzzle')
-                end
-                return APCannon1_Overcharge.CreateProjectileAtMuzzle(self, muzzle)
-            end,
-
-            PauseOvercharge = function(self)
-                if not self.unit:IsOverchargePaused() then
-                    self.unit:SetOverchargePaused(true)
-                    WaitSeconds(1/self:GetBlueprint().RateOfFire)
-                    self.unit:SetOverchargePaused(false)
+                -- create extra effect
+                local bone = self:GetBlueprint().RackBones[1]['RackBone']
+                for k, v in EffectTemplate.TCommanderOverchargeFlash01 do
+                    CreateAttachedEmitter(self.unit, bone, self.unit:GetArmy(), v):ScaleEmitter(self.FxMuzzleFlashScale)
                 end
             end,
-            
-            OnFire = function(self)
-                if not self.unit:IsOverchargePaused() then
-                    APCannon1_Overcharge.OnFire(self)
-                end
-            end,
-
-            IdleState = State(APCannon1_Overcharge.IdleState) {
-
-                OnGotTarget = function(self)
-                    if not self.unit:IsOverchargePaused() then
-                        APCannon1_Overcharge.IdleState.OnGotTarget(self)
-                    end
-                end,
-
-                OnFire = function(self)
-                    if not self.unit:IsOverchargePaused() then
-                        ChangeState(self, self.RackSalvoFiringState)
-                    end
-                end,
-            },
-
-            RackSalvoFireReadyState = State(APCannon1_Overcharge.RackSalvoFireReadyState) {
-
-                OnFire = function(self)
-                    if not self.unit:IsOverchargePaused() then
-                        APCannon1_Overcharge.RackSalvoFireReadyState.OnFire(self)
-                    end
-                end,
-            },
         },
         DeathWeapon = Class(DeathNuke) {},
     },
 
+    __init = function(self)
+        ACUUnit.__init(self, 'MainGun')
+    end,
+    
     -- =====================================================================================================================
     -- CREATION AND FIRST SECONDS OF GAMEPLAY
 
     CapFxBones = { 'torso_thingy_left', 'torso_thingy_right', },
 
     OnCreate = function(self)
-        NWalkingLandUnit.OnCreate(self)
+        ACUUnit.OnCreate(self)
 
         local bp = self:GetBlueprint()
 
@@ -185,20 +112,12 @@ INU0001 = Class(NWalkingLandUnit) {
     end,
 
     OnStopBeingBuilt = function(self, builder, layer)
-        NWalkingLandUnit.OnStopBeingBuilt(self, builder, layer)
-
-        self:BuildManipulatorSetEnabled(false)
+        ACUUnit.OnStopBeingBuilt(self, builder, layer)
         self:SetWeaponEnabledByLabel('MainGun', true)
         self:ForkThread(self.GiveInitialResources)
         self:ForkThread(self.HeadRotationThread)
 
         self:ForkThread(self.DoMeteorAnim)
-    end,
-
-    GiveInitialResources = function(self)
-        WaitTicks(5)
-        self:GetAIBrain():GiveResource('Energy', self:GetBlueprint().Economy.StorageEnergy)
-        self:GetAIBrain():GiveResource('Mass', self:GetBlueprint().Economy.StorageMass)
     end,
 
     -- =====================================================================================================================
@@ -208,44 +127,12 @@ INU0001 = Class(NWalkingLandUnit) {
         self:SetOrbitalBombardEnabled(false)
         self:SetIntelProbeEnabled(true, false)
         self:SetIntelProbeEnabled(false, false)
-        NWalkingLandUnit.OnKilled(self, instigator, type, overkillRatio)
+        ACUUnit.OnKilled(self, instigator, type, overkillRatio)
     end,
 
     DeathThread = function( self, overkillRatio, instigator)
         -- since we're spawning a black hole the ACU disappears right away
         self:Destroy()
-    end,
-
-    -- =====================================================================================================================
-    -- GENERIC
-
-    OnMotionHorzEventChange = function( self, new, old )
-        if old == 'Stopped' and self.UseRunWalkAnim then
-            local bp = self:GetBlueprint()
-            if bp.Display.AnimationRun then
-                if not self.Animator then
-                    self.Animator = CreateAnimator(self, true)
-                end
-                self.Animator:PlayAnim(bp.Display.AnimationRun, true)
-                self.Animator:SetRate(bp.Display.AnimationRunRate or 1)
-            else
-                NWalkingLandUnit.OnMotionHorzEventChange(self, new, old)
-            end
-        else
-            NWalkingLandUnit.OnMotionHorzEventChange(self, new, old)
-        end
-    end,
-
-    -- =====================================================================================================================
-    -- BUILDING STUFF
-
-    OnPrepareArmToBuild = function(self)
-        NWalkingLandUnit.OnPrepareArmToBuild(self)
-        self:BuildManipulatorSetEnabled(true)
-        self.BuildArmManipulator:SetPrecedence(20)
-        self:SetWeaponEnabledByLabel('MainGun', false)
-        self:SetWeaponEnabledByLabel('OverCharge', false)
-        self.BuildArmManipulator:SetHeadingPitch( self:GetWeaponManipulatorByLabel('MainGun'):GetHeadingPitch() )
     end,
 
     OnStartBuild = function(self, unitBeingBuilt, order)
@@ -283,76 +170,32 @@ INU0001 = Class(NWalkingLandUnit) {
         self.UnitBuildOrder = order
         self.BuildingUnit = true
     end,
-
-    OnFailedToBuild = function(self)
-        NWalkingLandUnit.OnFailedToBuild(self)
-        self:BuildManipulatorSetEnabled(false)
-        self.BuildArmManipulator:SetPrecedence(0)
-        self.BuildArmManipulator:SetAimingArc(-180, 180, 360, -180, 180, 360)
-        self:SetWeaponEnabledByLabel('MainGun', true)
-        self:SetWeaponEnabledByLabel('OverCharge', false)
-        self:GetWeaponManipulatorByLabel('MainGun'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
-    end,
-
-    OnStopBuild = function(self, unitBeingBuilt)
-        NWalkingLandUnit.OnStopBuild(self, unitBeingBuilt)
-        self:BuildManipulatorSetEnabled(false)
-        self.BuildArmManipulator:SetPrecedence(0)
-        self.BuildArmManipulator:SetAimingArc(-180, 180, 360, -180, 180, 360)
-        self:SetWeaponEnabledByLabel('MainGun', true)
-        self:SetWeaponEnabledByLabel('OverCharge', false)
-        self:GetWeaponManipulatorByLabel('MainGun'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
-        self.UnitBeingBuilt = nil
-        self.UnitBuildOrder = nil
-        self.BuildingUnit = false
-    end,
-
-    OnPaused = function(self)
-        NWalkingLandUnit.OnPaused(self)
-        if self.BuildingUnit then
-            NWalkingLandUnit.StopBuildingEffects(self, self:GetUnitBeingBuilt())
-        end    
+    
+    -- use our own reclaim animation
+    CreateReclaimEffects = function( self, target )
+        NomadEffectUtil.PlayNomadReclaimEffects( self, target, self:GetBlueprint().General.BuildBones.BuildEffectBones or {0,}, self.ReclaimEffectsBag )
     end,
     
-    OnUnpaused = function(self)
-        if self.BuildingUnit then
-            NWalkingLandUnit.StartBuildingEffects(self, self:GetUnitBeingBuilt(), self.UnitBuildOrder)
+    -- =====================================================================================================================
+    -- GENERIC
+
+    OnMotionHorzEventChange = function( self, new, old )
+        if old == 'Stopped' and self.UseRunWalkAnim then
+            local bp = self:GetBlueprint()
+            if bp.Display.AnimationRun then
+                if not self.Animator then
+                    self.Animator = CreateAnimator(self, true)
+                end
+                self.Animator:PlayAnim(bp.Display.AnimationRun, true)
+                self.Animator:SetRate(bp.Display.AnimationRunRate or 1)
+            else
+                ACUUnit.OnMotionHorzEventChange(self, new, old)
+            end
+        else
+            ACUUnit.OnMotionHorzEventChange(self, new, old)
         end
-        NWalkingLandUnit.OnUnpaused(self)
     end,
 
-    -- =====================================================================================================================
-    -- CAPTURING STUFF
-
-    OnStopCapture = function(self, target)
-        NWalkingLandUnit.OnStopCapture(self, target)
-        self:BuildManipulatorSetEnabled(false)
-        self.BuildArmManipulator:SetPrecedence(0)
-        self:SetWeaponEnabledByLabel('MainGun', true)
-        self:SetWeaponEnabledByLabel('OverCharge', false)
-        self:GetWeaponManipulatorByLabel('MainGun'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
-    end,
-
-    OnFailedCapture = function(self, target)
-        NWalkingLandUnit.OnFailedCapture(self, target)
-        self:BuildManipulatorSetEnabled(false)
-        self.BuildArmManipulator:SetPrecedence(0)
-        self:SetWeaponEnabledByLabel('MainGun', true)
-        self:SetWeaponEnabledByLabel('OverCharge', false)
-        self:GetWeaponManipulatorByLabel('MainGun'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
-    end,
-
-    -- =====================================================================================================================
-    -- RECLAIMING STUFF
-
-    OnStopReclaim = function(self, target)
-        NWalkingLandUnit.OnStopReclaim(self, target)
-        self:BuildManipulatorSetEnabled(false)
-        self.BuildArmManipulator:SetPrecedence(0)
-        self:SetWeaponEnabledByLabel('MainGun', true)
-        self:SetWeaponEnabledByLabel('OverCharge', false)
-        self:GetWeaponManipulatorByLabel('MainGun'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
-    end,
 
     -- =====================================================================================================================
     -- EFFECTS AND ANIMATIONS
@@ -483,7 +326,7 @@ INU0001 = Class(NWalkingLandUnit) {
 
     UpdateMovementEffectsOnMotionEventChange = function( self, new, old )
         self.HeadRotationEnabled = self.AllowHeadRotation
-        NWalkingLandUnit.UpdateMovementEffectsOnMotionEventChange( self, new, old )
+        ACUUnit.UpdateMovementEffectsOnMotionEventChange( self, new, old )
     end,
 
     -- =====================================================================================================================
@@ -514,7 +357,7 @@ INU0001 = Class(NWalkingLandUnit) {
     -- ENHANCEMENTS
 
     CreateEnhancement = function(self, enh)
-        NWalkingLandUnit.CreateEnhancement(self, enh)
+        ACUUnit.CreateEnhancement(self, enh)
 
         local bp = self:GetBlueprint().Enhancements[enh]
         if not bp then return end
@@ -580,6 +423,8 @@ INU0001 = Class(NWalkingLandUnit) {
             -- adjust overcharge gun
             local oc = self:GetWeaponByLabel('OverCharge')
             oc:ChangeMaxRadius( bp.NewMaxRadius or wbp.MaxRadius )
+            local oca = self:GetWeaponByLabel('AutoOverCharge')
+            oca:ChangeMaxRadius( bp.NewMaxRadius or wbp.MaxRadius )
 
         elseif enh =='GunUpgradeRemove' then
             Buff.RemoveBuff( self, 'NOMADACUGunUpgrade' )
@@ -593,6 +438,8 @@ INU0001 = Class(NWalkingLandUnit) {
             -- adjust overcharge gun
             local oc = self:GetWeaponByLabel('OverCharge')
             oc:ChangeMaxRadius( wbp.MaxRadius )
+            local oca = self:GetWeaponByLabel('AutoOverCharge')
+            oca:ChangeMaxRadius( bp.NewMaxRadius or wbp.MaxRadius )
 
         -- ---------------------------------------------------------------------------------------
         -- MAIN WEAPON UPGRADE 2
@@ -619,6 +466,8 @@ INU0001 = Class(NWalkingLandUnit) {
             -- adjust overcharge gun
             local oc = self:GetWeaponByLabel('OverCharge')
             oc:ChangeMaxRadius( wbp.MaxRadius )
+            local oca = self:GetWeaponByLabel('AutoOverCharge')
+            oca:ChangeMaxRadius( bp.NewMaxRadius or wbp.MaxRadius )
 
         -- ---------------------------------------------------------------------------------------
         -- LOCOMOTOR UPGRADE

@@ -3,7 +3,7 @@ local WeaponFile = import('/lua/sim/DefaultWeapons.lua')
 local BareBonesWeapon = WeaponFile.BareBonesWeapon
 local DefaultProjectileWeapon = WeaponFile.DefaultProjectileWeapon
 local DefaultBeamWeapon = WeaponFile.DefaultBeamWeapon
-
+local OverchargeWeapon = WeaponFile.OverchargeWeapon
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
 
@@ -11,11 +11,6 @@ local RandomFloat = import('/lua/utilities.lua').GetRandomFloat
 
 
 -- ====================================================================================================
-
-OverchargeWeapon = Class(DefaultProjectileWeapon) {
--- TODO: used?
-    FxMuzzleFlash = EffectTemplate.TCommanderOverchargeFlash01,
-}
 
 AcuUpgradedWeapon = Class(DefaultProjectileWeapon) {
 -- TODO: used?
@@ -34,8 +29,9 @@ APCannon1 = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = NomadEffectTemplate.APCannonMuzzleFlash,
 }
 
-APCannon1_Overcharge = Class(DefaultProjectileWeapon) {
+APCannon1_Overcharge = Class(OverchargeWeapon) {
     FxMuzzleFlash = NomadEffectTemplate.APCannonMuzzleFlash,
+    DesiredWeaponLabel = 'MainGun'
 }
 
 ArtilleryWeapon = Class(DefaultProjectileWeapon) {
