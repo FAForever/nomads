@@ -87,8 +87,8 @@ UnitBlueprint {
         BuildEffect = {
             ExtendsFront = 0.03,
         },
-        IdleEffects = {
-            Land = {
+        IdleEffects = {--fxtype => this one is fxidle
+            Land = {--layer
                 Effects = {
                     {
                         Bones = {
@@ -101,6 +101,7 @@ UnitBlueprint {
                         },
                         Scale = 0.65,
                         Type = 'NomadHoverGroundFx1',
+                        Recolour = true,
                     },
                 },
             },

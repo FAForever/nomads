@@ -3,38 +3,58 @@
 local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
 local AddLights = import('/lua/nomadutils.lua').AddLights
 local NStructureUnit = import('/lua/nomadunits.lua').NStructureUnit
-local MissileWeapon1 = import('/lua/nomadweapons.lua').MissileWeapon1
+local EffectTemplate = import('/lua/EffectTemplates.lua')
+local HVFlakWeapon = import('/lua/nomadweapons.lua').HVFlakWeapon
 
 NStructureUnit = AddLights(NStructureUnit)
 
 INB4204 = Class(NStructureUnit) {
     Weapons = {
-        Turret01 = Class(MissileWeapon1) {
+        Turret01 = Class(HVFlakWeapon) {
+        -- BeamType = CollisionBeam,
+        -- FxMuzzleFlash = NomadEffectTemplate.MissileMuzzleFx,
+        -- FxBeamEndPoint = EffectTemplate.TDFHiroGeneratorHitLand,
+        -- WARN(repr(EffectTemplate.TDFHiroGeneratorHitLand)),
+        -- TerrainImpactScale = 1,
+        -- FxBeamEndPointScale = 1,
+        -- FxNoneHitScale = 1,
+        -- FxImpactProp = EffectTemplate.TDFHiroGeneratorHitLand,
+        -- FxImpactShield = EffectTemplate.TDFHiroGeneratorHitLand,    
+        -- FxImpactNone = EffectTemplate.TDFHiroGeneratorHitLand,
 
-            IdleState = State(MissileWeapon1.IdleState) {
+        -- FxUnitHitScale = 1,
+        -- FxLandHitScale = 1,
+        -- FxWaterHitScale = 1,
+        -- FxUnderWaterHitScale = 0.25,
+        -- FxAirUnitHitScale = 1,
+        -- FxPropHitScale = 1,
+        -- FxShieldHitScale = 1,
+        -- FxNoneHitScale = 1,
+
+            IdleState = State(HVFlakWeapon.IdleState) {
                 Main = function(self)
-                    MissileWeapon1.IdleState.Main(self)
+                    HVFlakWeapon.IdleState.Main(self)
                     self.unit:OnTargetLost()
                 end,
             },
 
-            RackSalvoReloadState = State(MissileWeapon1.RackSalvoReloadState) {
+            RackSalvoReloadState = State(HVFlakWeapon.RackSalvoReloadState) {
                 Main = function(self)
-                    MissileWeapon1.RackSalvoReloadState.Main(self)
+                    HVFlakWeapon.RackSalvoReloadState.Main(self)
                     self.unit:OnTargetLost()
                 end,
             },
 
-            RackSalvoFireReadyState = State(MissileWeapon1.RackSalvoFireReadyState ) {
+            RackSalvoFireReadyState = State(HVFlakWeapon.RackSalvoFireReadyState ) {
                 Main = function(self)
-                    MissileWeapon1.RackSalvoFireReadyState.Main(self)
+                    HVFlakWeapon.RackSalvoFireReadyState.Main(self)
                     self.unit:OnTargetAcquired()
                 end,
             },
 
-            RackSalvoFiringState = State(MissileWeapon1.RackSalvoFiringState ) {
+            RackSalvoFiringState = State(HVFlakWeapon.RackSalvoFiringState ) {
                 Main = function(self)
-                    MissileWeapon1.RackSalvoFiringState.Main(self)
+                    HVFlakWeapon.RackSalvoFiringState.Main(self)
                     self.unit:OnTargetAcquired()
                 end,
             },

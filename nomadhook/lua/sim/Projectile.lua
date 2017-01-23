@@ -9,9 +9,33 @@ Projectile = Class(oldProjectile) {
     CanDoInitialDamage = true,  -- used to prevent doing initialdamage twice in FAF games. This is set to false in FAF balance path.
 
     OnCreate = function(self, inWater)
+    if not self:GetLauncher().ColourIndex then 
+        WARN('projectile could not get colour index from launcher! something is wrong!')
+    end
+        self.ColourIndex = self:GetLauncher().ColourIndex or 5
+        --WARN(repr(self))
+        -- RecolourEffects(self.ColourIndex, effects)
         oldProjectile.OnCreate(self, inWater)
         self.ImpactOnType = "Unknown"
     end,
+    
+    -- FXRecolour = {
+        -- FxImpactAirUnit = {},
+        -- FxImpactLand = {},
+        -- FxImpactNone = {},
+        -- FxImpactProp = {},
+        -- FxImpactShield = {},
+        -- FxImpactWater = {},
+        -- FxImpactUnderWater = {},
+        -- FxImpactUnit = {},
+        -- FxImpactProjectile = {},
+        -- FxImpactProjectileUnderWater = {},
+        -- FxOnKilled = {},
+    -- }
+    
+    -- RecolourEffects = function(index, effects)
+    
+    -- end,
 
     PassDamageData = function(self, DamageData)
         oldProjectile.PassDamageData(self, DamageData)

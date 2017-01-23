@@ -4,6 +4,71 @@ local oldUnit = Unit
 
 Unit = Class(oldUnit) {
 
+    -- ================================================================================================================
+    -- improved emitter features
+    --we add the functionality to change the colour of emitters based on the units faction colour.
+    --this is done via a specially made ramp texture containing all the faction colours,
+    --and then using SetEmitterCurveParam to change the colour via script.
+    
+    OnPreCreate = function(self)
+        --yes i know this is disgusting but it has to be done since the nomad orbital ship crashes the game
+        --so it needs an exception FIXME: refactor nomads orbital frigate so its not so crazy.
+        if not self.ColourIndex then
+            self:DetermineColourIndex()
+        end
+        
+        oldUnit.OnPreCreate(self)
+    end,
+    
+        CreateTerrainTypeEffects = function( self, effectTypeGroups, FxBlockType, FxBlockKey, TypeSuffix, EffectBag, TerrainType )
+        local army = self:GetArmy()
+        local pos = self:GetPosition()
+        local effects = {}
+        local emit
+
+        for kBG, vTypeGroup in effectTypeGroups do
+            if TerrainType then
+                effects = TerrainType[FxBlockType][FxBlockKey][vTypeGroup.Type] or {}
+            else
+                effects = self.GetTerrainTypeEffects( FxBlockType, FxBlockKey, pos, vTypeGroup.Type, TypeSuffix )
+            end
+
+            if not vTypeGroup.Bones or (vTypeGroup.Bones and (table.getn(vTypeGroup.Bones) == 0)) then
+                WARN('*WARNING: No effect bones defined for layer group ',repr(self:GetUnitId()),', Add these to a table in Display.[EffectGroup].', self:GetCurrentLayer(), '.Effects { Bones ={} } in unit blueprint.' )
+            else
+                for kb, vBone in vTypeGroup.Bones do
+                    for ke, vEffect in effects do
+                        emit = CreateAttachedEmitter(self,vBone,army,vEffect):ScaleEmitter(vTypeGroup.Scale or 1)
+                        if vTypeGroup.Offset then
+                            emit:OffsetEmitter(vTypeGroup.Offset[1] or 0, vTypeGroup.Offset[2] or 0,vTypeGroup.Offset[3] or 0)
+                        end
+                        if vTypeGroup.Recolour then
+                            --WARN('Trying to recolour emitter (make sure it has a ramp compatible with this feature): '..vEffect)
+                            emit:SetEmitterCurveParam('RAMPSELECTION_CURVE', 1-((self.ColourIndex)*(1/32)), 0)
+                            --WARN('recolouring emitter'..(self.ColourIndex)*(1/32)..' with index of: '..self.ColourIndex)
+                        end
+                        if EffectBag then
+                            table.insert( EffectBag, emit )
+                        end
+                    end
+                end
+            end
+        end
+    end,
+    
+    DetermineColourIndex = function(self)
+        --we determine the index once on create then save it in the entity table to save on sim slowdown
+        --WARN('setting colour index for blueprintID: ' .. self:GetUnitId())
+        local tblArmy = ListArmies()
+        local army = self:GetArmy()
+        self.ColourIndex = ScenarioInfo.ArmySetup[tblArmy[army]].ArmyColor
+        --WARN('colour index: '..self.ColourIndex)
+    end,
+    
+    
+    
+    
+    
     OnCreate = function(self)
         oldUnit.OnCreate(self)
         self._IsSuckedInBlackHole = false
