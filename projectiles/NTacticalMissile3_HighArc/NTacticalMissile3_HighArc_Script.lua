@@ -34,7 +34,7 @@ NTacticalMissile3_HighArc = Class(ArcingTacticalMissile) {
     SpeedUp = function(self)
         -- create clone projectile, the original can't increase speed for some reason but a clone can
 --        local ChildProjectileBP = '/projectiles/NTacticalMissile3_HighArc/NTacticalMissile3_HighArc_proj.bp'
-        local ChildProjectileBP = '/projectiles/NPlasmaProj1/NPlasmaProj1_proj.bp'
+        local ChildProjectileBP = '/projectiles/NPlasmaProj1_arty/NPlasmaProj1_arty_proj.bp'
         local vx, vy, vz = self:GetVelocity()
         local velocity = self:GetCurrentSpeed() * 30
 
