@@ -176,7 +176,7 @@ UnitBlueprint {
                 Land = 'Air',
                 Water = 'Air',
             },
-            FiringTolerance = 0.5,
+            FiringTolerance = 0,
             Label = 'Turret01',
             MaxRadius = 31,
             MaximumBeamLength = 42,
@@ -188,29 +188,9 @@ UnitBlueprint {
                 {
                     MuzzleBones = {
                         'Muzzle1',
-                    },
-                    RackBone = 'Pitch',
-                },
-                {
-                    MuzzleBones = {
                         'Muzzle2',
-                    },
-                    RackBone = 'Pitch',
-                },
-                {
-                    MuzzleBones = {
                         'Muzzle3',
-                    },
-                    RackBone = 'Pitch',
-                },
-                {
-                    MuzzleBones = {
                         'Muzzle4',
-                    },
-                    RackBone = 'Pitch',
-                },
-                {
-                    MuzzleBones = {
                         'Muzzle5',
                     },
                     RackBone = 'Pitch',
@@ -224,7 +204,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RangeCategory = 'UWRC_Countermeasure',
             RateOfFire = 10,
-            TargetCheckInterval = 0.5,
+            TargetCheckInterval = 2.5,
             TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'TACTICAL MISSILE',
             TargetType = 'RULEWTT_Projectile',
