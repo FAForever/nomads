@@ -11,13 +11,16 @@ NStructureUnit = AddLights(NStructureUnit)
 INB4204 = Class(NStructureUnit) {
     Weapons = {
         Turret01 = Class(HVFlakWeapon) {
+        
 
             IdleState = State(HVFlakWeapon.IdleState) {
                 Main = function(self)
                     HVFlakWeapon.IdleState.Main(self)
                     self.unit:OnTargetLost()
+                    if self.IdleReloadThread then
+                        KillThread(self.IdleReloadThread)
+                    end
                     self.IdleReloadThread = self:ForkThread(self.ReloadThread)
-                    --self.DeadBaseThread = self:ForkThread( self.DeadBaseMonitor )
                 end,
                 
                 
@@ -64,11 +67,21 @@ INB4204 = Class(NStructureUnit) {
                         self.counter = 0
                         self.RackSalvoReloadState.Main(self)
                     else
+                        self:PlaySound(self.Audio.FireSpecial)
                         WARN('fire counter: '..self.counter)
                         HVFlakWeapon.RackSalvoFiringState.Main(self)
                         self.unit:OnTargetAcquired()
                     end
                 end,
+                
+                
+                Audio = {
+                    FireSpecial = Sound {
+                        Bank = 'NomadsWeapons',
+                        Cue = 'DarkMatterCannon2_Muzzle',
+                        LodCutoff = 'Weapon_LodCutoff',
+                    },
+                },
                 
             },
                 
