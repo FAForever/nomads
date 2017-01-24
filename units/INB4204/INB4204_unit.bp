@@ -159,7 +159,7 @@ UnitBlueprint {
         {
             AimsStraightOnDisable = true,
             Audio = {
-                Fire = Sound {
+                FireSpecial = Sound {
                     Bank = 'NomadsWeapons',
                     Cue = 'DarkMatterCannon2_Muzzle',
                     LodCutoff = 'Weapon_LodCutoff',
@@ -169,14 +169,14 @@ UnitBlueprint {
             BeamCollisionDelay = 0.1,
             BeamLifetime = 0.1,
             CollideFriendly = false,
-            Damage = 1,
+            Damage = 0.2,
             DamageType = 'Normal',
             DisplayName = 'Super sonic flak Launcher',
             FireTargetLayerCapsTable = {
                 Land = 'Air',
                 Water = 'Air',
             },
-            FiringTolerance = 0.5,
+            FiringTolerance = 0,
             Label = 'Turret01',
             MaxRadius = 31,
             MaximumBeamLength = 42,
@@ -188,29 +188,9 @@ UnitBlueprint {
                 {
                     MuzzleBones = {
                         'Muzzle1',
-                    },
-                    RackBone = 'Pitch',
-                },
-                {
-                    MuzzleBones = {
                         'Muzzle2',
-                    },
-                    RackBone = 'Pitch',
-                },
-                {
-                    MuzzleBones = {
                         'Muzzle3',
-                    },
-                    RackBone = 'Pitch',
-                },
-                {
-                    MuzzleBones = {
                         'Muzzle4',
-                    },
-                    RackBone = 'Pitch',
-                },
-                {
-                    MuzzleBones = {
                         'Muzzle5',
                     },
                     RackBone = 'Pitch',
@@ -223,8 +203,8 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RangeCategory = 'UWRC_Countermeasure',
-            RateOfFire = 0.56,
-            TargetCheckInterval = 0.5,
+            RateOfFire = 10,
+            TargetCheckInterval = 0.1,
             TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'TACTICAL MISSILE',
             TargetType = 'RULEWTT_Projectile',
