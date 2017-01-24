@@ -9,9 +9,10 @@ Projectile = Class(oldProjectile) {
     CanDoInitialDamage = true,  -- used to prevent doing initialdamage twice in FAF games. This is set to false in FAF balance path.
 
     OnCreate = function(self, inWater)
-    if not self:GetLauncher().ColourIndex then 
-        WARN('projectile could not get colour index from launcher! something is wrong!')
-    end
+        -- if not self:GetLauncher().ColourIndex then 
+            -- WARN('projectile could not get colour index from launcher! something is wrong!')
+            -- --debug for warning on projectiles - note: a bunch of those are created as debris on death which dont have an army so it can be a false alarm
+        -- end
         self.ColourIndex = self:GetLauncher().ColourIndex or 5
         --WARN(repr(self))
         -- RecolourEffects(self.ColourIndex, effects)
