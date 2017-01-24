@@ -25,6 +25,7 @@ INB4204 = Class(NStructureUnit) {
                         WaitSeconds(1)
                         HVFlakWeapon.RackSalvoReloadState.Main(self)
                         self.unit:OnTargetLost()
+                    end)
                 end,
             },
 
