@@ -22,7 +22,7 @@ INB4204 = Class(NStructureUnit) {
             RackSalvoReloadState = State(HVFlakWeapon.RackSalvoReloadState) {
                 Main = function(self)
                     ForkThread(function()
-                        WaitSeconds(1)
+                        WARN("reloading")
                         HVFlakWeapon.RackSalvoReloadState.Main(self)
                         self.unit:OnTargetLost()
                     end)
@@ -47,7 +47,7 @@ INB4204 = Class(NStructureUnit) {
                         WARN("reset")
                         self.counter = 0
                         WARN("ready again")
-                        HVFlakWeapon.RackSalvoReloadState.Main(self)
+                        self.RackSalvoReloadState.Main(self)
                     else
                         WARN('fire!')
                         HVFlakWeapon.RackSalvoFiringState.Main(self)
