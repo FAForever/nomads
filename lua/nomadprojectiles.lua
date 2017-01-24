@@ -568,6 +568,47 @@ PlasmaProj = Class(SinglePolyTrailProjectile) {
     end,
 }
 
+PlasmaProjHighArcMissileArtillery = Class(SinglePolyTrailProjectile) {
+    BeamName = NomadEffectTemplate.RcktArtyPlasmaBoltBeam,
+
+    FxImpactAirUnit = NomadEffectTemplate.RcktArtyPlasmaBoltHitAirUnit1,
+    FxImpactLand = NomadEffectTemplate.RcktArtyPlasmaBoltHitLand1,
+    FxImpactNone = NomadEffectTemplate.RcktArtyPlasmaBoltHitNone1,
+    FxImpactProp = NomadEffectTemplate.RcktArtyPlasmaBoltHitProp1,
+    FxImpactShield = NomadEffectTemplate.RcktArtyPlasmaBoltHitShield1,
+    FxImpactUnit = NomadEffectTemplate.RcktArtyPlasmaBoltHitUnit1,
+    FxImpactWater = NomadEffectTemplate.RcktArtyPlasmaBoltHitWater1,
+    FxImpactProjectile = NomadEffectTemplate.RcktArtyPlasmaBoltHitProjectile1,
+    FxImpactUnderWater = NomadEffectTemplate.RcktArtyPlasmaBoltHitUnderWater1,
+
+    FxTrails = NomadEffectTemplate.RcktArtyPlasmaBoltTrail,
+    PolyTrail = NomadEffectTemplate.RcktArtyPlasmaBoltPolyTrail,
+
+    DoImpactFlash = false,
+
+    OnImpact = function(self, targetType, targetEntity)
+        MultiPolyTrailProjectile.OnImpact(self, targetType, targetEntity)
+		local army = self:GetArmy()
+		NomadExplosions.CreateFlashCustom( self, -2, army, 1, 43, 'glow_03_red', 'ramp_transparency_flash_dark_2' )
+		NomadExplosions.CreateFlashCustom( self, -2, army, 1, 43, 'glow_03_red', 'ramp_transparency_flash_dark_2' )
+		NomadExplosions.CreateFlashCustom( self, -2, army, 4, 5, 'glow_03_red', 'ramp_transparency_flash_dark' )
+
+        -- create some additional effects
+        local army = self:GetArmy()
+        local ok = (targetType ~= 'Water' and targetType ~= 'Shield' and targetType ~= 'Air' and targetType ~= 'UnitAir')
+        if ok then 
+            local rotation = RandomFloat(0,2*math.pi)
+            local size = RandomFloat(2.5, 4)
+            local life = Random(40, 60)
+            CreateDecal(self:GetPosition(), rotation, 'Scorch_009_albedo', '', 'Albedo', size, size, 300, life, self:GetArmy())
+        end	 
+        if self.DoImpactFlash then
+            CreateLightParticle( self, -1, army, 6, 5, 'glow_03', 'ramp_yellow_blue_01' )
+            CreateLightParticle( self, -1, army, 8, 16, 'glow_03', 'ramp_antimatter_02' )   
+        end
+    end,
+}
+
 EnergyProj = Class(SinglePolyTrailProjectile) {
     FxImpactAirUnit = NomadEffectTemplate.EnergyProjHitAirUnit1,
     FxImpactLand = NomadEffectTemplate.EnergyProjHitLand1,
@@ -1039,7 +1080,7 @@ ArcingTacticalMissile = Class(TacticalMissile) {
     PolyTrail = NomadEffectTemplate.ArcingTacticalMissilePolyTrail,
 
     -- small correction to make the smoke appear to come from the missile
-    FxTrailOffset = -0.22,
+    FxTrailOffset = -0.32,
     PolyTrailOffset = -0.22,
 
     OnFlare_SetTrackTarget = true,  -- used to enable Aeon TMD working on this projectile

@@ -1,6 +1,8 @@
 local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
 local ArcingTacticalMissile = import('/lua/nomadprojectiles.lua').ArcingTacticalMissile
 local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
+local util = import('/lua/utilities.lua')
+local GetRandomFloat = util.GetRandomFloat
 
 NTacticalMissile3_HighArc = Class(ArcingTacticalMissile) {
     FxImpactAirUnit = NomadEffectTemplate.ArcingTacticalMissileHitAirUnit2,
@@ -16,7 +18,7 @@ NTacticalMissile3_HighArc = Class(ArcingTacticalMissile) {
     -- To accomodate the Aeon TMD that uses flares to distract and redirect tactical missiles some additional code is added here.
     -- It makes missiles not speed up if flared by the Aeon TMD but missiles that have sped up do not react to the TMD (this is
     -- handled in the defaultantimissile.lua file).
-
+	
     OnImpact = function(self, targetType, targetEntity)
         if targetType == 'Air' and not targetEntity then
             if self:IsFlared() then
@@ -34,7 +36,7 @@ NTacticalMissile3_HighArc = Class(ArcingTacticalMissile) {
 --        local ChildProjectileBP = '/projectiles/NTacticalMissile3_HighArc/NTacticalMissile3_HighArc_proj.bp'
         local ChildProjectileBP = '/projectiles/NPlasmaProj1/NPlasmaProj1_proj.bp'
         local vx, vy, vz = self:GetVelocity()
-        local velocity = self:GetCurrentSpeed() * 100
+        local velocity = self:GetCurrentSpeed() * 30
 
         local child = self:CreateChildProjectile(ChildProjectileBP)
         child:ChangeDetonateBelowHeight(0)

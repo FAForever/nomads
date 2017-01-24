@@ -1249,7 +1249,7 @@ TacticalMissileTrailFxUnderWaterAddon = {
 }
 
 TacticalMissileHitNone1 = {
-	EmtBpPathNomad .. 'Standard_smoke.bp',  -- smoke
+	EmtBpPathNomad .. 'smoke_black_small.bp',  -- smoke
     EmtBpPathNomad .. 'nomad_tacticalmissile_hit01_emit.bp',  -- orange flames
 	EmtBpPathNomad .. 'nomad_tacticalmissile_hit02_emit.bp',  -- shockwave
     EmtBpPathNomad .. 'nomad_tacticalmissile_hit03_emit.bp',  -- red lightning
@@ -1380,6 +1380,9 @@ ArcingTacticalMissileHitUnderWater2 = ArcingTacticalMissileHitNone2
 
 ArcingTacticalMissileSpeedupFlash = {
     EmtBpPathNomad .. 'nomad_tacticalmissile_speedup01_emit.bp',  -- flash
+	EmtBpPathNomad .. 'nomad_tacticalmissile_speedup02_emit.bp',  -- lense
+	EmtBpPathNomad .. 'smoke_white_small.bp',  -- smoke
+	EmtBpPathNomad .. 'split_shockwave.bp',  -- shockwave 
 }
 
 --------------------------------------------------------------------------
@@ -1558,6 +1561,57 @@ PlasmaBoltHitShield1 = PlasmaBoltHitNone1
 PlasmaBoltHitProjectile1 = PlasmaBoltHitNone1
 PlasmaBoltHitProp1 = PlasmaBoltHitUnit1
 PlasmaBoltHitUnderWater1 = PlasmaBoltHitUnit1
+
+--------------------------------------------------------------------------
+--  Plasma Bolt Made From Missile
+--------------------------------------------------------------------------
+
+RcktArtyPlasmaBoltMuzzleFlash = {
+    EmtBpPathNomad .. 'nomad_plasmabolt_muzzle01_emit_rcktarty.bp',
+    EmtBpPathNomad .. 'nomad_plasmabolt_muzzle02_emit_rcktarty.bp',
+    EmtBpPathNomad .. 'nomad_plasmabolt_muzzle03_emit_rcktarty.bp',
+    EmtBpPathNomad .. 'nomad_plasmabolt_muzzle04_emit_rcktarty.bp',
+    EmtBpPath .. 'cannon_muzzle_flash_01_emit.bp',
+}
+
+RcktArtyPlasmaBoltBeam = EmtBpPathNomad .. 'nomad_plasmacannon_beam01_rcktarty.bp'
+
+RcktArtyPlasmaBoltTrail = {
+--    EmtBpPathNomad .. 'nomad_plasmabolt_trail01_emit.bp',  -- smaller projectile
+    EmtBpPathNomad .. 'nomad_plasmabolt_trail02_emit_rcktarty.bp',  -- smoke
+    EmtBpPathNomad .. 'nomad_plasmabolt_trail03_emit_rcktarty.bp',  -- larger projectile
+}
+
+RcktArtyPlasmaBoltPolyTrail = EmtBpPath .. 'default_polytrail_04_emit.bp'
+--PlasmaBoltPolyTrail = ''
+
+RcktArtyPlasmaBoltHitNone1 = {
+    -- EmtBpPathNomad .. 'nomad_plasmabolt_hit02_rcktarty.bp',  -- flash
+	EmtBpPathNomad .. 'nomad_plasmabolt_hit04_rcktarty.bp',  -- flames
+    EmtBpPathNomad .. 'smoke_black_arty.bp',  -- smoke
+	EmtBpPathNomad .. 'nomad_plasmabolt_hit03_rcktarty.bp',  -- fountain
+	EmtBpPathNomad .. 'nomad_plasmabolt_hit01_rcktarty.bp',  -- shock wave
+}
+
+RcktArtyPlasmaBoltHitLand1 = TableCat( RcktArtyPlasmaBoltHitNone1, {
+    EmtBpPath .. 'destruction_explosion_debris_07_emit.bp',
+})
+
+RcktArtyPlasmaBoltHitWater1 = TableCat( RcktArtyPlasmaBoltHitNone1, {
+    EmtBpPathNomad .. 'nomad_plasmabolt_hit01_rcktarty.bp',  -- shock wave
+    EmtBpPath .. 'water_splash_ripples_ring_01_emit.bp',
+    EmtBpPath .. 'water_splash_plume_01_emit.bp',
+})
+
+RcktArtyPlasmaBoltHitUnit1 = TableCat( RcktArtyPlasmaBoltHitNone1, {
+    EmtBpPath .. 'destruction_unit_hit_shrapnel_01_emit.bp',
+})
+
+RcktArtyPlasmaBoltHitAirUnit1 = PlasmaBoltHitUnit1
+RcktArtyPlasmaBoltHitShield1 = PlasmaBoltHitNone1
+RcktArtyPlasmaBoltHitProjectile1 = PlasmaBoltHitNone1
+RcktArtyPlasmaBoltHitProp1 = PlasmaBoltHitUnit1
+RcktArtyPlasmaBoltHitUnderWater1 = PlasmaBoltHitUnit1
 
 --------------------------------------------------------------------------
 --  Nomad Phase-Ray emitters
