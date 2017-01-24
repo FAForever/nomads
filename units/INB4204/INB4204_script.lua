@@ -11,25 +11,6 @@ NStructureUnit = AddLights(NStructureUnit)
 INB4204 = Class(NStructureUnit) {
     Weapons = {
         Turret01 = Class(HVFlakWeapon) {
-        -- BeamType = CollisionBeam,
-        -- FxMuzzleFlash = NomadEffectTemplate.MissileMuzzleFx,
-        -- FxBeamEndPoint = EffectTemplate.TDFHiroGeneratorHitLand,
-        -- WARN(repr(EffectTemplate.TDFHiroGeneratorHitLand)),
-        -- TerrainImpactScale = 1,
-        -- FxBeamEndPointScale = 1,
-        -- FxNoneHitScale = 1,
-        -- FxImpactProp = EffectTemplate.TDFHiroGeneratorHitLand,
-        -- FxImpactShield = EffectTemplate.TDFHiroGeneratorHitLand,    
-        -- FxImpactNone = EffectTemplate.TDFHiroGeneratorHitLand,
-
-        -- FxUnitHitScale = 1,
-        -- FxLandHitScale = 1,
-        -- FxWaterHitScale = 1,
-        -- FxUnderWaterHitScale = 0.25,
-        -- FxAirUnitHitScale = 1,
-        -- FxPropHitScale = 1,
-        -- FxShieldHitScale = 1,
-        -- FxNoneHitScale = 1,
 
             IdleState = State(HVFlakWeapon.IdleState) {
                 Main = function(self)
@@ -54,10 +35,29 @@ INB4204 = Class(NStructureUnit) {
 
             RackSalvoFiringState = State(HVFlakWeapon.RackSalvoFiringState ) {
                 Main = function(self)
-                    HVFlakWeapon.RackSalvoFiringState.Main(self)
-                    self.unit:OnTargetAcquired()
+                    if not self.counter then
+                        self.counter = 0
+                    end
+                    self.counter = self.counter + 1
+                    WARN(self.counter)
+                    if self.counter >= 5 then
+                        WARN("reset")
+                        ForkThread(function()
+                            WaitSeconds(1)
+                            self.counter = 0
+                            WARN("ready again")
+                            HVFlakWeapon.RackSalvoFiringState.Main(self)
+                            self.unit:OnTargetAcquired()
+                        end)
+                    else
+                        WARN('fire!')
+                        HVFlakWeapon.RackSalvoFiringState.Main(self)
+                        self.unit:OnTargetAcquired()
+                    end
                 end,
+                
             },
+            
         },
     },
 
