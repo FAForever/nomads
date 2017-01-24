@@ -169,7 +169,7 @@ UnitBlueprint {
             BeamCollisionDelay = 0.1,
             BeamLifetime = 0.1,
             CollideFriendly = false,
-            Damage = 0.2,
+            Damage = 0.21,
             DamageType = 'Normal',
             DisplayName = 'Super sonic flak Launcher',
             FireTargetLayerCapsTable = {
@@ -185,12 +185,32 @@ UnitBlueprint {
             NeedPrep = true,
             ProjectilesPerOnFire = 1,
             RackBones = {
-                {
+            {
                     MuzzleBones = {
                         'Muzzle1',
+                    },
+                    RackBone = 'Pitch',
+                },
+                {
+                    MuzzleBones = {
                         'Muzzle2',
+                    },
+                    RackBone = 'Pitch',
+                },
+                {
+                    MuzzleBones = {
                         'Muzzle3',
+                    },
+                    RackBone = 'Pitch',
+                },
+                {
+                    MuzzleBones = {
                         'Muzzle4',
+                    },
+                    RackBone = 'Pitch',
+                },
+                {
+                    MuzzleBones = {
                         'Muzzle5',
                     },
                     RackBone = 'Pitch',
