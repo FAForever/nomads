@@ -204,7 +204,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RangeCategory = 'UWRC_Countermeasure',
             RateOfFire = 10,
-            TargetCheckInterval = 2.5,
+            TargetCheckInterval = 0.1,
             TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'TACTICAL MISSILE',
             TargetType = 'RULEWTT_Projectile',
