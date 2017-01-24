@@ -16,6 +16,21 @@ INB4204 = Class(NStructureUnit) {
                 Main = function(self)
                     HVFlakWeapon.IdleState.Main(self)
                     self.unit:OnTargetLost()
+                    self.IdleReloadThread = self:ForkThread(self.ReloadThread)
+                    --self.DeadBaseThread = self:ForkThread( self.DeadBaseMonitor )
+                end,
+                
+                
+                ReloadThread = function(self)
+                    WARN('waiting in idle reload')
+                    WaitSeconds(1.5)
+                    if not self.PlayingTAEffects then
+                        WARN('idle reload time elapsed successfully')
+                        self.counter = 0
+                    else
+                        WARN('idle reload time reset with counter: '..self.counter)
+                    end
+                    --self.RackSalvoFireReadyState.Main(self)
                 end,
             },
 
@@ -23,6 +38,8 @@ INB4204 = Class(NStructureUnit) {
                 Main = function(self)
                     ForkThread(function()
                         WARN("reloading")
+                        WaitSeconds(1.5)
+                        WARN('wait time elapsed')
                         HVFlakWeapon.RackSalvoReloadState.Main(self)
                         self.unit:OnTargetLost()
                     end)
@@ -42,20 +59,31 @@ INB4204 = Class(NStructureUnit) {
                         self.counter = 0
                     end
                     self.counter = self.counter + 1
-                    WARN(self.counter)
                     if self.counter >= 5 then
-                        WARN("reset")
+                        WARN("reseting counter from: "..self.counter)
                         self.counter = 0
-                        WARN("ready again")
                         self.RackSalvoReloadState.Main(self)
                     else
-                        WARN('fire!')
+                        WARN('fire counter: '..self.counter)
                         HVFlakWeapon.RackSalvoFiringState.Main(self)
                         self.unit:OnTargetAcquired()
                     end
                 end,
                 
             },
+                
+            ReloadThread = function(self) --i think this isnt needed
+                WARN('waiting in idle reload')
+                WaitSeconds(1.5)
+                if not self.PlayingTAEffects then
+                    WARN('idle reload time elapsed successfully')
+                    self.counter = 0
+                else
+                    WARN('idle reload time reset with counter: '..self.counter)
+                end
+                --self.RackSalvoFireReadyState.Main(self)
+            end,
+            
             
         },
     },
