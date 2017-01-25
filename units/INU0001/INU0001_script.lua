@@ -139,7 +139,7 @@ INU0001 = Class(ACUUnit) {
 
        local bp = self:GetBlueprint()
 
-       if order ~= 'Upgrade' or bp.Display.ShowBuildEffectsDuringUpgrade then
+        if order ~= 'Upgrade' or bp.Display.ShowBuildEffectsDuringUpgrade then
 
             -- If we are assisting an upgrading unit, or repairing a unit, play seperate effects
             local UpgradesFrom = unitBeingBuilt:GetBlueprint().General.UpgradesFrom
@@ -357,6 +357,7 @@ INU0001 = Class(ACUUnit) {
     -- ENHANCEMENTS
 
     CreateEnhancement = function(self, enh)
+        
         ACUUnit.CreateEnhancement(self, enh)
 
         local bp = self:GetBlueprint().Enhancements[enh]
@@ -660,7 +661,7 @@ INU0001 = Class(ACUUnit) {
                 }
             end
             Buff.ApplyBuff(self, 'NOMADACUT2BuildRate')
-
+            self:updateBuildRestrictions()
         elseif enh =='AdvancedEngineeringRemove' then
 
             -- remove extra build bone
@@ -674,7 +675,7 @@ INU0001 = Class(ACUUnit) {
             -- restore build restrictions
             self:RestoreBuildRestrictions()
             self:AddBuildRestriction( categories.NOMAD * (categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER) )
-
+            self:updateBuildRestrictions()
         -- ---------------------------------------------------------------------------------------
         -- TECH 3 SUITE
         -- ---------------------------------------------------------------------------------------
@@ -710,7 +711,7 @@ INU0001 = Class(ACUUnit) {
                 }
             end
             Buff.ApplyBuff(self, 'NOMADACUT3BuildRate')
-
+            self:updateBuildRestrictions()
         elseif enh =='T3EngineeringRemove' then
 
             -- remove buff
@@ -721,7 +722,7 @@ INU0001 = Class(ACUUnit) {
             -- reset build restrictions
             self:RestoreBuildRestrictions()
             self:AddBuildRestriction( categories.NOMAD * ( categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER) )
-
+            self:updateBuildRestrictions()
         -- ---------------------------------------------------------------------------------------
         -- ORBITAL BOMBARDMENT
         -- ---------------------------------------------------------------------------------------
