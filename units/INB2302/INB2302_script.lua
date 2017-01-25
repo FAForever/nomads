@@ -144,9 +144,9 @@ INB2302 = Class(NStructureUnit) {
         -- called each time the gun fires a projectile
     end,
 
-    OnArtilleryUnitKilledUnit = function(self)
+    OnArtilleryUnitKilledUnit = function(self, unitKilled)
         -- called each time the gun kills a unit
-        self:AddXP(1)
+        self:OnKilledUnit(unitKilled)
     end,
 }
 
