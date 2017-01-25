@@ -30,8 +30,8 @@ NomadIntelProbe = Class(ScriptTask) {
         local unit = self:GetUnit()
 
         if unit then
-            self.IntelProbe = unit:LaunchProbe(location, projBp, data)
-            if self.IntelProbe then
+            self.IntelProbeProjectile = unit:LaunchProbe(location, projBp, data)
+            if self.IntelProbeProjectile then
                 self:SetAIResult(AIRESULT.Unknown)
             else
                 self:SetAIResult(AIRESULT.Fail)
@@ -42,7 +42,7 @@ NomadIntelProbe = Class(ScriptTask) {
     end,
 	  
     TaskTick = function(self)
-        if self.IntelProbe and not self.IntelProbe:BeenDestroyed() then
+        if self.IntelProbeProjectile and not self.IntelProbeProjectile:BeenDestroyed() then
             return TASKSTATUS.Wait
         else
             self:SetAIResult(AIRESULT.Success)
