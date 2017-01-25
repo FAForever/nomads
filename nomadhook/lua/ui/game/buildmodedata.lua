@@ -141,7 +141,7 @@ buildModeKeys = table.merged( buildModeKeys, {
     },
 
     -- SCU
-    ['inu3001'] = {
+    ['inu0301'] = {
         [1] = NomadT1Eng,
         [2] = NomadT2Eng,
         [3] = NomadT3Eng,
@@ -236,12 +236,12 @@ buildModeKeys = table.merged( buildModeKeys, {
     -- Quantum Gateway
     ['inb0304'] = {
         [3] = {
-            ['C'] = 'inu3001_Default',
-            ['A'] = 'inu3001_AntiNaval',
-            ['O'] = 'inu3001_Combat',
-            ['E'] = 'inu3001_Engineer',
-            ['R'] = 'inu3001_Rambo',
-            ['K'] = 'inu3001_Rocket',
+            ['C'] = 'inu0301_Default',
+            ['A'] = 'inu0301_AntiNaval',
+            ['O'] = 'inu0301_Combat',
+            ['E'] = 'inu0301_Engineer',
+            ['R'] = 'inu0301_Rambo',
+            ['K'] = 'inu0301_Rocket',
         },
     },
 

@@ -538,7 +538,7 @@ PlatoonTemplate {
             { 'xsl0301', 1, 1, 'support', 'none' }
         },
         Nomads = {
-            { 'inu3001_Default', 1, 1, 'support', 'none' }
+            { 'inu0301_Default', 1, 1, 'support', 'none' }
         },
     }
 }

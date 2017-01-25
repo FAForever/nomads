@@ -28,7 +28,7 @@ UnderwaterRailgunWeapon1 = AddCapacitorAbilityToWeapon(UnderwaterRailgunWeapon1)
 RocketWeapon1 = AddCapacitorAbilityToWeapon(RocketWeapon1)
 
 
-INU3001 = Class(NWalkingLandUnit) {
+inu0301 = Class(NWalkingLandUnit) {
     
     Weapons = {
         GunLeft = Class(AddRapidRepairToWeapon(APCannon1)) {
@@ -1022,4 +1022,4 @@ LOG('Todo: SCU right arm upgrade')
     end,
 }
 
-TypeClass = INU3001
+TypeClass = inu0301

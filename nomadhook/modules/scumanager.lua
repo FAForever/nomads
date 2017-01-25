@@ -115,7 +115,7 @@ function LayoutGrid(buttonGrid, faction, scuType)
 	elseif faction == 'Seraphim' then
 		bpid = 'xsl0301'
 	elseif faction == 'Nomads' then
-		bpid = 'inu3001'
+		bpid = 'inu0301'
 	end
 	local bp = __blueprints[bpid]
 	local availableEnhancements = bp["Enhancements"]
