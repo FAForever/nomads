@@ -569,6 +569,47 @@ PlasmaProj = Class(SinglePolyTrailProjectile) {
 }
 
 PlasmaProjHighArcMissileArtillery = Class(SinglePolyTrailProjectile) {
+    BeamName = NomadEffectTemplate.PlasmaBoltBeam,
+
+    FxImpactAirUnit = NomadEffectTemplate.PlasmaBoltHitAirUnit1,
+    FxImpactLand = NomadEffectTemplate.PlasmaBoltHitLand1,
+    FxImpactNone = NomadEffectTemplate.PlasmaBoltHitNone1,
+    FxImpactProp = NomadEffectTemplate.PlasmaBoltHitProp1,
+    FxImpactShield = NomadEffectTemplate.PlasmaBoltHitShield1,
+    FxImpactUnit = NomadEffectTemplate.PlasmaBoltHitUnit1,
+    FxImpactWater = NomadEffectTemplate.PlasmaBoltHitWater1,
+    FxImpactProjectile = NomadEffectTemplate.PlasmaBoltHitProjectile1,
+    FxImpactUnderWater = NomadEffectTemplate.PlasmaBoltHitUnderWater1,
+
+    FxTrails = NomadEffectTemplate.PlasmaBoltTrail,
+    PolyTrail = NomadEffectTemplate.PlasmaBoltPolyTrail,
+
+    DoImpactFlash = false,
+
+    OnImpact = function(self, targetType, targetEntity)
+        MultiPolyTrailProjectile.OnImpact(self, targetType, targetEntity)
+		--local army = self:GetArmy()
+		--NomadExplosions.CreateFlashCustom( self, -2, army, 1, 43, 'glow_03_red', 'ramp_transparency_flash_dark_2' )
+		--NomadExplosions.CreateFlashCustom( self, -2, army, 1, 43, 'glow_03_red', 'ramp_transparency_flash_dark_2' )
+		--NomadExplosions.CreateFlashCustom( self, -2, army, 4, 5, 'glow_03_red', 'ramp_transparency_flash_dark' )
+
+        -- create some additional effects
+        local army = self:GetArmy()
+        local ok = (targetType ~= 'Water' and targetType ~= 'Shield' and targetType ~= 'Air' and targetType ~= 'UnitAir')
+        if ok then 
+            local rotation = RandomFloat(0,2*math.pi)
+            local size = RandomFloat(2.5, 4)
+            local life = Random(40, 60)
+            CreateDecal(self:GetPosition(), rotation, 'Scorch_009_albedo', '', 'Albedo', size, size, 300, life, self:GetArmy())
+        end	 
+        if self.DoImpactFlash then
+            CreateLightParticle( self, -1, army, 6, 5, 'glow_03', 'ramp_yellow_blue_01' )
+            CreateLightParticle( self, -1, army, 8, 16, 'glow_03', 'ramp_antimatter_02' )   
+        end
+    end,
+}
+
+PlasmaProjHighArcMissileArtilleryStatic = Class(SinglePolyTrailProjectile) {
     BeamName = NomadEffectTemplate.RcktArtyPlasmaBoltBeam,
 
     FxImpactAirUnit = NomadEffectTemplate.RcktArtyPlasmaBoltHitAirUnit1,
