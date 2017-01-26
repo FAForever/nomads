@@ -119,17 +119,17 @@ APRound = Class(SinglePolyTrailProjectile) {
     FxImpactProjectile = NomadEffectTemplate.APCannonHitProjectile1,
     FxImpactUnderWater = NomadEffectTemplate.APCannonHitUnderWater1,
 	
-    FxAirUnitHitScale = 0.75,
-    FxLandHitScale = 0.75,
-    FxNoneHitScale = 0.75,
-    FxPropHitScale = 0.75,
-    FxProjectileHitScale = 0.75,
-    FxProjectileUnderWaterHitScale = 0.75,
-    FxShieldHitScale = 0.75,
-    FxUnderWaterHitScale = 0.75 * 0.25,
-    FxUnitHitScale = 0.75,
-    FxWaterHitScale = 0.75,
-    FxOnKilledScale = 0.75,
+    FxAirUnitHitScale = 0.95,
+    FxLandHitScale = 0.95,
+    FxNoneHitScale = 0.95,
+    FxPropHitScale = 0.95,
+    FxProjectileHitScale = 0.95,
+    FxProjectileUnderWaterHitScale = 0.95,
+    FxShieldHitScale = 0.95,
+    FxUnderWaterHitScale = 0.95 * 0.25,
+    FxUnitHitScale = 0.95,
+    FxWaterHitScale = 0.95,
+    FxOnKilledScale = 0.95,
 	
     FxImpactTrajectoryAligned = false,
     FxTrails = NomadEffectTemplate.APCannonTrail,
@@ -138,8 +138,8 @@ APRound = Class(SinglePolyTrailProjectile) {
     OnImpact = function(self, targetType, targetEntity)
         SinglePolyTrailProjectile.OnImpact(self, targetType, targetEntity) 
 		local army = self:GetArmy()
-		NomadExplosions.CreateFlashCustom( self, -2, army, 1.475*0.75, 5, 'glow_06_red', 'ramp_transparency_flash_dark_2' )
-		NomadExplosions.CreateFlashCustom( self, -2, army, 0.315*0.75, 36.5, 'glow_06_red', 'ramp_transparency_flash_dark_2' )
+		NomadExplosions.CreateFlashCustom( self, -2, army, 1.475*0.95, 5, 'glow_06_red', 'ramp_transparency_flash_dark_2' )
+		NomadExplosions.CreateFlashCustom( self, -2, army, 0.315*0.95, 36.5, 'glow_06_red', 'ramp_transparency_flash_dark_2' )
 
         -- create some additional effects
         local army = self:GetArmy()
@@ -164,17 +164,17 @@ APRoundCap = Class(SinglePolyTrailProjectile) {
     FxImpactProjectile = NomadEffectTemplate.APCannonHitProjectile2,
     FxImpactUnderWater = NomadEffectTemplate.APCannonHitUnderWater2,	
 	
-    FxAirUnitHitScale = 0.65,
-    FxLandHitScale = 0.65,
-    FxNoneHitScale = 0.65,
-    FxPropHitScale = 0.65,
-    FxProjectileHitScale = 0.65,
-    FxProjectileUnderWaterHitScale = 0.65,
-    FxShieldHitScale = 0.65,
-    FxUnderWaterHitScale = 0.65 * 0.25,
-    FxUnitHitScale = 0.65,
-    FxWaterHitScale = 0.65,
-    FxOnKilledScale = 0.65,
+    FxAirUnitHitScale = 0.775,
+    FxLandHitScale = 0.775,
+    FxNoneHitScale = 0.775,
+    FxPropHitScale = 0.775,
+    FxProjectileHitScale = 0.775,
+    FxProjectileUnderWaterHitScale = 0.775,
+    FxShieldHitScale = 0.775,
+    FxUnderWaterHitScale = 0.775 * 0.25,
+    FxUnitHitScale = 0.775,
+    FxWaterHitScale = 0.775,
+    FxOnKilledScale = 0.775,
 	
     FxImpactTrajectoryAligned = false,
     FxTrails = NomadEffectTemplate.APCannonTrail2,
@@ -183,8 +183,8 @@ APRoundCap = Class(SinglePolyTrailProjectile) {
     OnImpact = function(self, targetType, targetEntity)
         SinglePolyTrailProjectile.OnImpact(self, targetType, targetEntity) 
 		local army = self:GetArmy()
-		NomadExplosions.CreateFlashCustom( self, -2, army, 2.435*0.65, 8, 'glow_06_red', 'ramp_transparency_flash_dark_2' )
-		NomadExplosions.CreateFlashCustom( self, -2, army, 0.635*0.65, 66.5, 'glow_06_red', 'ramp_transparency_flash_dark_2' )
+		NomadExplosions.CreateFlashCustom( self, -2, army, 2.435*0.775, 8, 'glow_06_red', 'ramp_transparency_flash_dark_2' )
+		NomadExplosions.CreateFlashCustom( self, -2, army, 0.635*0.775, 66.5, 'glow_06_red', 'ramp_transparency_flash_dark_2' )
 
         -- create some additional effects
         local army = self:GetArmy()
