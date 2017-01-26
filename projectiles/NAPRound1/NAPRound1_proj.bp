@@ -28,8 +28,8 @@ ProjectileBlueprint {
             Type = 'Small01',
         },
         MeshBlueprint = '/projectiles/CIFMolecularResonanceShell01/CIFMolecularResonanceShell01_mesh.bp',
-        StrategicIconSize = 1,
-        UniformScale = 0.3,
+        StrategicIconSize = 3,
+        UniformScale = 0.8,
     },
     General = {
         Category = 'DirectFire',

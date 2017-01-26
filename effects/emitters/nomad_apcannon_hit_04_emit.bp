@@ -1,7 +1,7 @@
 EmitterBlueprint {
 	BlueprintId = 'nomad_apcannon_hit_04',
-	Lifetime = 3.00,
-	Repeattime = 10.00,
+	Lifetime = 7.00,
+	Repeattime = 7.00,
 	TextureFramecount = 1.00,
 	Blendmode = 3.00,
 	LocalVelocity = false,
@@ -26,133 +26,147 @@ EmitterBlueprint {
 	Texture = [[/textures/particles/fire_flame_add_01.dds]],
 	RampTexture = [[/textures/particles/ramp_fire_01.dds]],
 	XDirectionCurve = {
-		XRange = 10.00,
+		XRange = 7.00,
 		Keys = {
-			{ x=5.000,y=0.000,z=0.000 },
+			{ x=3.500,y=0.000,z=0.000 },
 		},
 	},
 	YDirectionCurve = {
-		XRange = 10.00,
+		XRange = 7.00,
 		Keys = {
-			{ x=5.000,y=0.250,z=0.000 },
+			{ x=3.500,y=0.250/2,z=0.000 },
 		},
 	},
 	ZDirectionCurve = {
-		XRange = 10.00,
+		XRange = 7.00,
 		Keys = {
-			{ x=5.500,y=0.000,z=0.000 },
+			{ x=3.850,y=0.000,z=0.000 },
 		},
 	},
 	EmitRateCurve = {
-		XRange = 10.00,
+		XRange = 7.00,
 		Keys = {
-			{ x=0.000,y=2.000,z=1.000 },
-			{ x=3.333,y=3.000,z=2.000 },
-			{ x=33.333,y=0.000,z=0.000 },
+			{ x=0.000,y=10.000,z=1.000 },
+			{ x=4.137,y=6.136,z=2.000 },
+			{ x=7.000,y=0.000,z=0.000 },
+			{ x=23.333,y=0.000,z=0.000 },
 		},
 	},
 	LifetimeCurve = {
-		XRange = 10.00,
+		XRange = 7.00,
 		Keys = {
-			{ x=5.400,y=3.000,z=1.000 },
+			{ x=3.780,y=3.000,z=1.000 },
+			{ x=6.159,y=7.500,z=0.000 },
+			{ x=7.000,y=7.364,z=0.000 },
 		},
 	},
 	VelocityCurve = {
-		XRange = 10.00,
+		XRange = 7.00,
 		Keys = {
-			{ x=5.000,y=0.200,z=0.000 },
+			{ x=3.518,y=0.000,z=0.000 },
 		},
 	},
 	XAccelCurve = {
-		XRange = 10.00,
+		XRange = 7.00,
 		Keys = {
-			{ x=5.000,y=0.000,z=0.000 },
+			{ x=3.500,y=0.000,z=0.000 },
 		},
 	},
 	YAccelCurve = {
-		XRange = 10.00,
+		XRange = 7.00,
 		Keys = {
-			{ x=5.000,y=0.000,z=0.000 },
+			{ x=0.000,y=0.159,z=0.000 },
+			{ x=0.813,y=0.080/2,z=0.000 },
+			{ x=7.000,y=0.000,z=0.000 },
+			{ x=7.000,y=0.057/2,z=0.000 },
 		},
 	},
 	ZAccelCurve = {
-		XRange = 10.00,
+		XRange = 7.00,
 		Keys = {
-			{ x=5.000,y=0.000,z=0.000 },
+			{ x=3.500,y=0.000,z=0.000 },
 		},
 	},
 	ResistanceCurve = {
-		XRange = 10.00,
+		XRange = 7.00,
 		Keys = {
-			{ x=5.000,y=0.000,z=0.000 },
+			{ x=3.500,y=0.000,z=0.000 },
 		},
 	},
 	SizeCurve = {
-		XRange = 10.00,
+		XRange = 7.00,
 		Keys = {
-			{ x=5.000,y=0.200,z=0.000 },
+			{ x=0.009,y=0.224,z=0.000 },
+			{ x=7.000,y=0.000,z=0.000 },
 		},
 	},
 	XPosCurve = {
-		XRange = 10.00,
+		XRange = 7.00,
 		Keys = {
 			{ x=0.000,y=0.000,z=0.000 },
 		},
 	},
 	YPosCurve = {
-		XRange = 10.00,
+		XRange = 7.00,
 		Keys = {
-			{ x=5.050,y=0.000,z=0.000 },
+			{ x=0.000,y=0.246/2,z=0.230 },
+			{ x=4.470,y=0.123/2,z=0.000 },
+			{ x=6.972,y=0.138/2,z=0.000 },
+			{ x=6.982,y=0.154/2,z=0.000 },
+			{ x=6.991,y=0.200/2,z=0.000 },
 		},
 	},
 	ZPosCurve = {
-		XRange = 10.00,
+		XRange = 7.00,
 		Keys = {
 			{ x=0.000,y=0.000,z=0.000 },
 		},
 	},
 	StartSizeCurve = {
-		XRange = 10.00,
+		XRange = 7.00,
 		Keys = {
-			{ x=0.000,y=0.800,z=0.200 },
-			{ x=6.667,y=0.200,z=0.050 },
-			{ x=8.333,y=0.100,z=0.000 },
+			{ x=0.000,y=0.478,z=0.200 },
+			{ x=3.195,y=0.299/2,z=0.200 },
+			{ x=7.000,y=0.149/2,z=0.200 },
 		},
 	},
 	EndSizeCurve = {
-		XRange = 10.00,
+		XRange = 7.00,
 		Keys = {
-			{ x=5.100,y=0.050,z=0.000 },
+			{ x=0.009,y=0.985/2,z=0.000 },
+			{ x=2.604,y=0.492/2,z=0.000 },
+			{ x=5.153,y=0.462/2,z=0.000 },
+			{ x=7.000,y=0.000,z=0.000 },
 		},
 	},
 	InitialRotationCurve = {
-		XRange = 10.00,
+		XRange = 7.00,
 		Keys = {
-			{ x=5.300,y=180.000,z=360.000 },
+			{ x=3.710,y=180.000,z=360.000 },
 		},
 	},
 	RotationRateCurve = {
-		XRange = 10.00,
+		XRange = 7.00,
 		Keys = {
-			{ x=5.000,y=0.000,z=0.000 },
+			{ x=3.500,y=0.000,z=0.000 },
 		},
 	},
 	FrameRateCurve = {
-		XRange = 10.00,
+		XRange = 7.00,
 		Keys = {
-			{ x=5.000,y=0.000,z=0.000 },
+			{ x=3.500,y=0.000,z=0.000 },
 		},
 	},
 	TextureSelectionCurve = {
-		XRange = 10.00,
+		XRange = 7.00,
 		Keys = {
-			{ x=4.900,y=0.000,z=0.000 },
+			{ x=3.430,y=0.000,z=0.000 },
 		},
 	},
 	RampSelectionCurve = {
-		XRange = 10.00,
+		XRange = 7.00,
 		Keys = {
-			{ x=5.000,y=0.000,z=0.000 },
+			{ x=3.500,y=0.000,z=0.000 },
 		},
 	},
 }

@@ -1,34 +1,30 @@
 EmitterBlueprint {
-	BlueprintId = 'nomad_blackhole_22',
-	Lifetime = -1.00,
+	BlueprintId = 'nomad_apcannon_muzzle_flash_02_emit',
+	Lifetime = 1.00,
 	Repeattime = 1.00,
 	TextureFramecount = 1.00,
 	Blendmode = 3.00,
-	LocalVelocity = true,
-	LocalAcceleration = true,
+	LocalVelocity = false,
+	LocalAcceleration = false,
 	Gravity = false,
 	AlignRotation = false,
 	AlignToBone = false,
-	Flat = true,
-	LODCutoff = 1000.00,
+	Flat = false,
+	LODCutoff = 100.00,
 	EmitIfVisible = true,
 	CatchupEmit = true,
 	CreateIfVisible = false,
-	SnapToWaterline = false,
+	SnapToWaterline = true,
 	OnlyEmitOnWater = false,
-	ParticleResistance = false,
 	InterpolateEmission = true,
 	TextureStripcount = 1.00,
-	SortOrder = 0.00,
-	LowFidelity = false,
-	MedFidelity = true,
-	HighFidelity = true,
-	Texture = [[/textures/particles/sparkle_05_2.dds]],
-	RampTexture = [[/textures/particles/ramp_yellow_01.dds]],
+	SortOrder = 1.00,
+	Texture = [[/textures/particles/sparkle_white_add_02.dds]],
+	RampTexture = [[/textures/particles/ramp_white_04.dds]],
 	XDirectionCurve = {
 		XRange = 1.00,
 		Keys = {
-			{ x=0.500,y=0.000,z=0.000 },
+			{ x=0.500,y=-0.046,z=0.000 },
 		},
 	},
 	YDirectionCurve = {
@@ -46,19 +42,19 @@ EmitterBlueprint {
 	EmitRateCurve = {
 		XRange = 1.00,
 		Keys = {
-			{ x=0.490,y=4.000,z=0.000 },
+			{ x=0.500,y=1.000,z=0.000 },
 		},
 	},
 	LifetimeCurve = {
 		XRange = 1.00,
 		Keys = {
-			{ x=0.520,y=2.000,z=0.000 },
+			{ x=0.540,y=2.000,z=0.000 },
 		},
 	},
 	VelocityCurve = {
 		XRange = 1.00,
 		Keys = {
-			{ x=0.500,y=0.000,z=0.000 },
+			{ x=0.500,y=1.000,z=0.000 },
 		},
 	},
 	XAccelCurve = {
@@ -79,12 +75,6 @@ EmitterBlueprint {
 			{ x=0.500,y=0.000,z=0.000 },
 		},
 	},
-	ResistanceCurve = {
-		XRange = 1.00,
-		Keys = {
-			{ x=0.500,y=0.000,z=0.000 },
-		},
-	},
 	SizeCurve = {
 		XRange = 1.00,
 		Keys = {
@@ -100,32 +90,31 @@ EmitterBlueprint {
 	YPosCurve = {
 		XRange = 1.00,
 		Keys = {
-			{ x=0.500,y=0.250,z=0.000 },
+			{ x=0.500,y=0.000,z=0.000 },
 		},
 	},
 	ZPosCurve = {
 		XRange = 1.00,
 		Keys = {
-			{ x=0.510,y=-0.300,z=0.000 },
+			{ x=0.510,y=0.100,z=0.100 },
 		},
 	},
 	StartSizeCurve = {
 		XRange = 1.00,
 		Keys = {
-			{ x=0.080,y=2.000,z=0.000 },
+			{ x=0.521,y=6.769,z=1.250 },
 		},
 	},
 	EndSizeCurve = {
 		XRange = 1.00,
 		Keys = {
-			{ x=0.000,y=8.000,z=0.000 },
-			{ x=0.990,y=2.000,z=0.000 },
+			{ x=0.513,y=3.500,z=0.100 },
 		},
 	},
 	InitialRotationCurve = {
 		XRange = 1.00,
 		Keys = {
-			{ x=0.530,y=0.000,z=45.000 },
+			{ x=0.530,y=0.000,z=0.000 },
 		},
 	},
 	RotationRateCurve = {
@@ -149,7 +138,13 @@ EmitterBlueprint {
 	RampSelectionCurve = {
 		XRange = 1.00,
 		Keys = {
-			{ x=0.286,y=0.800,z=0.000 },
+			{ x=0.500,y=0.000,z=0.000 },
+		},
+	},
+	ResistanceCurve = {
+		XRange = 1.00,
+		Keys = {
+			{ x=0.500,y=0.000,z=0.000 },
 		},
 	},
 }

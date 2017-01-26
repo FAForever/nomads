@@ -4,13 +4,13 @@ EmitterBlueprint {
 	Repeattime = 1.00,
 	TextureFramecount = 1.00,
 	Blendmode = 3.00,
-	LocalVelocity = true,
+	LocalVelocity = false,
 	LocalAcceleration = true,
-	Gravity = true,
-	AlignRotation = true,
+	Gravity = false,
+	AlignRotation = false,
 	AlignToBone = false,
 	Flat = false,
-	LODCutoff = 150.00,
+	LODCutoff = 1500.00,
 	EmitIfVisible = true,
 	CatchupEmit = true,
 	CreateIfVisible = true,
@@ -24,7 +24,7 @@ EmitterBlueprint {
 	MedFidelity = true,
 	HighFidelity = true,
 	Texture = [[/textures/particles/sparkle_white_add_02.dds]],
-	RampTexture = [[/textures/particles/ramp_blue_01.dds]],
+	RampTexture = [[/textures/particles/ramp_transparency_fade_to_red_inverted_bright.dds]],
 	XDirectionCurve = {
 		XRange = 1.00,
 		Keys = {
@@ -40,7 +40,7 @@ EmitterBlueprint {
 	ZDirectionCurve = {
 		XRange = 1.00,
 		Keys = {
-			{ x=0.486,y=0.100,z=0.020 },
+			{ x=0.486,y=0.000,z=0.000 },
 		},
 	},
 	EmitRateCurve = {
@@ -52,7 +52,7 @@ EmitterBlueprint {
 	LifetimeCurve = {
 		XRange = 1.00,
 		Keys = {
-			{ x=0.336,y=5.000,z=1.000 },
+			{ x=0.336,y=3.000,z=2.500 },
 		},
 	},
 	VelocityCurve = {
@@ -70,13 +70,13 @@ EmitterBlueprint {
 	YAccelCurve = {
 		XRange = 1.00,
 		Keys = {
-			{ x=0.500,y=-0.010,z=0.000 },
+			{ x=0.500,y=-0.000,z=0.000 },
 		},
 	},
 	ZAccelCurve = {
 		XRange = 1.00,
 		Keys = {
-			{ x=0.500,y=-0.020,z=0.000 },
+			{ x=0.500,y=0.000,z=0.000 },
 		},
 	},
 	ResistanceCurve = {
@@ -88,7 +88,7 @@ EmitterBlueprint {
 	SizeCurve = {
 		XRange = 1.00,
 		Keys = {
-			{ x=0.549,y=0.000,z=0.000 },
+			{ x=0.549,y=0.265,z=0.000 },
 		},
 	},
 	XPosCurve = {
