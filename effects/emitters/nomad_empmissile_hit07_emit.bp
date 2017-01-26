@@ -23,7 +23,7 @@ EmitterBlueprint {
 	LowFidelity = true,
 	MedFidelity = true,
 	HighFidelity = true,
-	Texture = [[/textures/particles/sparkle_05.dds]],
+	Texture = [[/textures/particles/sparkle_05_2.dds]],
 	RampTexture = [[/textures/particles/ramp_green_09_flashing_intense.dds]],
 	XDirectionCurve = {
 		XRange = 5.00,

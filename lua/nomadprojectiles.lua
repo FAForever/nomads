@@ -124,7 +124,43 @@ APRound = Class(SinglePolyTrailProjectile) {
     PolyTrail = NomadEffectTemplate.APCannonPolyTrail,
 
     OnImpact = function(self, targetType, targetEntity)
-        SinglePolyTrailProjectile.OnImpact(self, targetType, targetEntity)  
+        SinglePolyTrailProjectile.OnImpact(self, targetType, targetEntity) 
+		local army = self:GetArmy()
+		NomadExplosions.CreateFlashCustom( self, -2, army, 1.475, 5, 'glow_06_red', 'ramp_transparency_flash_dark_2' )
+		NomadExplosions.CreateFlashCustom( self, -2, army, 0.315, 36.5, 'glow_06_red', 'ramp_transparency_flash_dark_2' )
+
+        -- create some additional effects
+        local army = self:GetArmy()
+        local ok = (targetType ~= 'Water' and targetType ~= 'Shield' and targetType ~= 'Air' and targetType ~= 'UnitAir' and targetType ~= 'UnitUnderwater')
+        if ok then 
+            local rotation = RandomFloat(0,2*math.pi)
+            local size = RandomFloat(1, 1.8)
+            local life = Random(40, 60)
+            CreateDecal(self:GetPosition(), rotation, 'Scorch_002_albedo', '', 'Albedo', size, size, 300, life, self:GetArmy())
+        end	 
+    end,
+}
+
+APRoundCap = Class(SinglePolyTrailProjectile) {
+    FxImpactAirUnit = NomadEffectTemplate.APCannonHitAirUnit2,
+    FxImpactLand = NomadEffectTemplate.APCannonHitLand2,
+    FxImpactNone = NomadEffectTemplate.APCannonHitNone2,
+    FxImpactProp = NomadEffectTemplate.APCannonHitProp2,
+    FxImpactShield = NomadEffectTemplate.APCannonHitShield2,
+    FxImpactUnit = NomadEffectTemplate.APCannonHitUnit2,
+    FxImpactWater = NomadEffectTemplate.APCannonHitWater2,
+    FxImpactProjectile = NomadEffectTemplate.APCannonHitProjectile2,
+    FxImpactUnderWater = NomadEffectTemplate.APCannonHitUnderWater2,
+
+    FxImpactTrajectoryAligned = false,
+    FxTrails = NomadEffectTemplate.APCannonTrail2,
+    PolyTrail = NomadEffectTemplate.APCannonPolyTrail2,
+
+    OnImpact = function(self, targetType, targetEntity)
+        SinglePolyTrailProjectile.OnImpact(self, targetType, targetEntity) 
+		local army = self:GetArmy()
+		NomadExplosions.CreateFlashCustom( self, -2, army, 2.435, 8, 'glow_06_red', 'ramp_transparency_flash_dark_2' )
+		NomadExplosions.CreateFlashCustom( self, -2, army, 0.635, 66.5, 'glow_06_red', 'ramp_transparency_flash_dark_2' )
 
         -- create some additional effects
         local army = self:GetArmy()

@@ -83,20 +83,19 @@ KineticCannonHitUnderWater2 = KineticCannonHitLand2
 -- Used by ACU and SCU
 
 APCannonMuzzleFlash = {
-    EmtBpPath .. 'cannon_artillery_muzzle_flash_01_emit.bp',
+    EmtBpPath .. 'nomad_apcannon_muzzle_flash_01_emit.bp',
+	EmtBpPath .. 'nomad_apcannon_muzzle_flash_02_emit.bp',
     EmtBpPath .. 'cannon_muzzle_smoke_07_emit.bp',
     EmtBpPath .. 'cannon_muzzle_smoke_10_emit.bp',
-    EmtBpPath .. 'cannon_muzzle_flash_03_emit.bp',
 }
 
 APCannonTrail = {
---    EmtBpPathNomad .. 'nomad_apcannon_trail02_emit.bp',
+    EmtBpPathNomad .. 'nomad_apcannon_trail01_emit.bp',
 }
 
 APCannonPolyTrail = EmtBpPath .. 'nomad_apcannon_polytrail01_emit.bp'
 
 APCannonHitNone1 = {
-    EmtBpPathNomad .. 'nomad_apcannon_hit_01_emit.bp',  -- flash
     EmtBpPathNomad .. 'nomad_apcannon_hit_02_emit.bp',  -- small explosion
     EmtBpPathNomad .. 'nomad_apcannon_hit_04_emit.bp',  -- fire
     EmtBpPathNomad .. 'nomad_apcannon_hit_05_emit.bp',  -- color changing fast shockwave
@@ -124,7 +123,7 @@ APCannonHitProjectile1 = APCannonHitUnit1
 APCannonHitProp1 = APCannonHitUnit1
 APCannonHitUnderWater1 = APCannonHitLand1
 
--- a version with a DoT effect (only visuals)
+--------------------------------------------------------------------- a version with a DoT effect (only visuals)
 APCannonMuzzleFlash2 = {
     EmtBpPath .. 'cannon_artillery_muzzle_flash_01_emit.bp',
     EmtBpPath .. 'cannon_muzzle_smoke_07_emit.bp',
@@ -136,10 +135,9 @@ APCannonTrail2 = {
     EmtBpPathNomad .. 'nomad_apcannon_trail02_emit.bp', -- whitish effect
 }
 
-APCannonPolyTrail2 = EmtBpPath .. 'nomad_apcannon_polytrail01_emit.bp'
+APCannonPolyTrail2 = EmtBpPath .. 'nomad_apcannon_polytrail02_emit.bp'
 
 APCannonHitNone2 = {
-    EmtBpPathNomad .. 'nomad_apcannon_hit_01_emit.bp',  -- flash
     EmtBpPathNomad .. 'nomad_apcannon_hit_07_emit.bp',  -- small explosion
     EmtBpPathNomad .. 'nomad_apcannon_hit_06_emit.bp',  -- fire
     EmtBpPathNomad .. 'nomad_apcannon_hit_09_emit.bp',  -- color changing fast shockwave
