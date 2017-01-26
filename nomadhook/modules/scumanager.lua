@@ -198,7 +198,7 @@ local oldGetEnhancementPrefix = GetEnhancementPrefix
 function GetEnhancementPrefix(unitID, iconID)
     local prefix = oldGetEnhancementPrefix(unitID, iconID)
     if string.sub(unitID, 2, 2) == 'n' then
-        prefix = '/game/nomad-enhancements/'..iconID
+        prefix = '/game/nomads-enhancements/'..iconID
     end
     return prefix
 end
@@ -214,7 +214,7 @@ function UpgradeSCU(unit, upgType)
 		faction = 'CYBRAN'
 	elseif unit:IsInCategory('SERAPHIM') then
 		faction = 'SERAPHIM'
-	elseif unit:IsInCategory('NOMAD') then
+	elseif unit:IsInCategory('NOMADS') then
 		faction = 'NOMADS'
 	end
 	if faction then

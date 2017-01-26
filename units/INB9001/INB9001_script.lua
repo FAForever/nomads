@@ -1,8 +1,8 @@
 -- civilian structure with gun
 
-local AddLights = import('/lua/nomadutils.lua').AddLights
-local NStructureUnit = import('/lua/nomadunits.lua').NStructureUnit
-local GattlingWeapon1 = import('/lua/nomadweapons.lua').GattlingWeapon1
+local AddLights = import('/lua/nomadsutils.lua').AddLights
+local NStructureUnit = import('/lua/nomadsunits.lua').NStructureUnit
+local GattlingWeapon1 = import('/lua/nomadsweapons.lua').GattlingWeapon1
 
 NStructureUnit = AddLights(NStructureUnit)
 

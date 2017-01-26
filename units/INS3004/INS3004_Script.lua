@@ -1,14 +1,14 @@
 -- T3 heavy destroyer
 
-local SupportedArtilleryWeapon = import('/lua/nomadutils.lua').SupportedArtilleryWeapon
-local AddNavalLights = import('/lua/nomadutils.lua').AddNavalLights
-local AddBombardModeToUnit = import('/lua/nomadutils.lua').AddBombardModeToUnit
-local NSeaUnit = import('/lua/nomadunits.lua').NSeaUnit
-local AAGun = import('/lua/nomadweapons.lua').AAGun
-local PlasmaCannon = import('/lua/nomadweapons.lua').PlasmaCannon
-local StingrayCannon1 = import('/lua/nomadweapons.lua').StingrayCannon1
-local UnderwaterRailgunWeapon1 = import('/lua/nomadweapons.lua').UnderwaterRailgunWeapon1
-local RocketWeapon1 = import('/lua/nomadweapons.lua').RocketWeapon1
+local SupportedArtilleryWeapon = import('/lua/nomadsutils.lua').SupportedArtilleryWeapon
+local AddNavalLights = import('/lua/nomadsutils.lua').AddNavalLights
+local AddBombardModeToUnit = import('/lua/nomadsutils.lua').AddBombardModeToUnit
+local NSeaUnit = import('/lua/nomadsunits.lua').NSeaUnit
+local AAGun = import('/lua/nomadsweapons.lua').AAGun
+local PlasmaCannon = import('/lua/nomadsweapons.lua').PlasmaCannon
+local StingrayCannon1 = import('/lua/nomadsweapons.lua').StingrayCannon1
+local UnderwaterRailgunWeapon1 = import('/lua/nomadsweapons.lua').UnderwaterRailgunWeapon1
+local RocketWeapon1 = import('/lua/nomadsweapons.lua').RocketWeapon1
 
 NSeaUnit = AddNavalLights(NSeaUnit)
 NSeaUnit = AddBombardModeToUnit( NSeaUnit )

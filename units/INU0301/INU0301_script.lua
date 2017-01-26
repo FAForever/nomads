@@ -1,25 +1,25 @@
 -- T3 support commander
 
-local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
-local NomadEffectUtil = import('/lua/nomadeffectutilities.lua')
+local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
+local NomadsEffectUtil = import('/lua/nomadseffectutilities.lua')
 local Utilities = import('/lua/utilities.lua')
 local EffectUtil = import('/lua/EffectUtilities.lua')
 local Buff = import('/lua/sim/Buff.lua')
 
-local AddEnhancementPresetHandling = import('/lua/nomadutils.lua').AddEnhancementPresetHandling
-local AddRapidRepair = import('/lua/nomadutils.lua').AddRapidRepair
-local AddRapidRepairToWeapon = import('/lua/nomadutils.lua').AddRapidRepairToWeapon
-local AddCapacitorAbility = import('/lua/nomadutils.lua').AddCapacitorAbility
-local AddCapacitorAbilityToWeapon = import('/lua/nomadutils.lua').AddCapacitorAbilityToWeapon
-local AddAkimbo = import('/lua/nomadutils.lua').AddAkimbo
+local AddEnhancementPresetHandling = import('/lua/nomadsutils.lua').AddEnhancementPresetHandling
+local AddRapidRepair = import('/lua/nomadsutils.lua').AddRapidRepair
+local AddRapidRepairToWeapon = import('/lua/nomadsutils.lua').AddRapidRepairToWeapon
+local AddCapacitorAbility = import('/lua/nomadsutils.lua').AddCapacitorAbility
+local AddCapacitorAbilityToWeapon = import('/lua/nomadsutils.lua').AddCapacitorAbilityToWeapon
+local AddAkimbo = import('/lua/nomadsutils.lua').AddAkimbo
 
-local NWalkingLandUnit = import('/lua/nomadunits.lua').NWalkingLandUnit
+local NWalkingLandUnit = import('/lua/nomadsunits.lua').NWalkingLandUnit
 
-local APCannon1 = import('/lua/nomadweapons.lua').APCannon1
-local GattlingWeapon1 = import('/lua/nomadweapons.lua').GattlingWeapon1
-local UnderwaterRailgunWeapon1 = import('/lua/nomadweapons.lua').UnderwaterRailgunWeapon1
-local RocketWeapon1 = import('/lua/nomadweapons.lua').RocketWeapon4
-local DeathEnergyBombWeapon = import('/lua/nomadweapons.lua').DeathEnergyBombWeapon
+local APCannon1 = import('/lua/nomadsweapons.lua').APCannon1
+local GattlingWeapon1 = import('/lua/nomadsweapons.lua').GattlingWeapon1
+local UnderwaterRailgunWeapon1 = import('/lua/nomadsweapons.lua').UnderwaterRailgunWeapon1
+local RocketWeapon1 = import('/lua/nomadsweapons.lua').RocketWeapon4
+local DeathEnergyBombWeapon = import('/lua/nomadsweapons.lua').DeathEnergyBombWeapon
 
 NWalkingLandUnit = AddAkimbo(AddCapacitorAbility(AddEnhancementPresetHandling(AddRapidRepair(NWalkingLandUnit))))
 APCannon1 = AddCapacitorAbilityToWeapon(APCannon1)
@@ -141,7 +141,7 @@ inu0301 = Class(NWalkingLandUnit) {
         self:RemoveCommandCap('RULEUCC_RetaliateToggle')
         self.HasLeftArm = false
         self.HasRightArm = false
-        self:SetRapidRepairParams( 'NomadSCURapidRepair', bp.Enhancements.RapidRepair.RepairDelay, bp.Enhancements.RapidRepair.InterruptRapidRepairByWeaponFired)
+        self:SetRapidRepairParams( 'NomadsSCURapidRepair', bp.Enhancements.RapidRepair.RepairDelay, bp.Enhancements.RapidRepair.InterruptRapidRepairByWeaponFired)
     end,
 
     OnStartBeingBuilt = function(self, builder, layer)
@@ -197,13 +197,13 @@ inu0301 = Class(NWalkingLandUnit) {
 
     OnKilled = function(self, instigator, type, overkillRatio)
         local brain = self:GetAIBrain()
-        brain:RemoveSpecialAbilityUnit(self, 'NomadAreaBombardment')
+        brain:RemoveSpecialAbilityUnit(self, 'NomadsAreaBombardment')
         NWalkingLandUnit.OnKilled(self, instigator, type, overkillRatio)
     end,
 
     OnDestroy = function(self)
         local brain = self:GetAIBrain()
-        brain:RemoveSpecialAbilityUnit(self, 'NomadAreaBombardment')
+        brain:RemoveSpecialAbilityUnit(self, 'NomadsAreaBombardment')
         NWalkingLandUnit.OnDestroy(self)
     end,
 
@@ -306,18 +306,18 @@ inu0301 = Class(NWalkingLandUnit) {
         local bones = self:GetBuildBones() or {0}
         -- If we are assisting an upgrading unit, or repairing a unit, play seperate effects
         if (order == 'Repair' and not unitBeingBuilt:IsBeingBuilt()) or (UpgradesFrom and UpgradesFrom ~= 'none' and self:IsUnitState('Guarding'))then
-            NomadEffectUtil.CreateRepairBuildBeams( self, unitBeingBuilt, bones, self.BuildEffectsBag )
+            NomadsEffectUtil.CreateRepairBuildBeams( self, unitBeingBuilt, bones, self.BuildEffectsBag )
         else
-            NomadEffectUtil.CreateNomadBuildSliceBeams( self, unitBeingBuilt, bones, self.BuildEffectsBag )        
+            NomadsEffectUtil.CreateNomadsBuildSliceBeams( self, unitBeingBuilt, bones, self.BuildEffectsBag )        
         end
     end,
 
     CreateReclaimEffects = function( self, target )
-        NomadEffectUtil.PlayNomadReclaimEffects( self, target, self:GetBlueprint().General.BuildBones.BuildEffectBones or {0,}, self.ReclaimEffectsBag )
+        NomadsEffectUtil.PlayNomadsReclaimEffects( self, target, self:GetBlueprint().General.BuildBones.BuildEffectBones or {0,}, self.ReclaimEffectsBag )
     end,
 
     CreateReclaimEndEffects = function( self, target )
-        NomadEffectUtil.PlayNomadReclaimEndEffects( self, target, self.ReclaimEffectsBag )
+        NomadsEffectUtil.PlayNomadsReclaimEndEffects( self, target, self.ReclaimEffectsBag )
     end,
 
     CreateCaptureEffects = function( self, target )
@@ -683,10 +683,10 @@ inu0301 = Class(NWalkingLandUnit) {
         -- ---------------------------------------------------------------------------------------
 
         elseif enh == 'MovementSpeedIncrease' then
-            if not Buffs['NomadSCUSpeedIncrease'] then
+            if not Buffs['NomadsSCUSpeedIncrease'] then
                 BuffBlueprint {
-                    Name = 'NomadSCUSpeedIncrease',
-                    DisplayName = 'NomadSCUSpeedIncrease',
+                    Name = 'NomadsSCUSpeedIncrease',
+                    DisplayName = 'NomadsSCUSpeedIncrease',
                     BuffType = 'NOMADSCUSPEEDINC',
                     Stacks = 'ALWAYS',
                     Duration = -1,
@@ -698,11 +698,11 @@ inu0301 = Class(NWalkingLandUnit) {
                     },
                 }
             end
-            Buff.ApplyBuff(self, 'NomadSCUSpeedIncrease')
+            Buff.ApplyBuff(self, 'NomadsSCUSpeedIncrease')
 
         elseif enh == 'MovementSpeedIncreaseRemove' then
-            if Buff.HasBuff( self, 'NomadSCUSpeedIncrease' ) then
-                Buff.RemoveBuff( self, 'NomadSCUSpeedIncrease' )
+            if Buff.HasBuff( self, 'NomadsSCUSpeedIncrease' ) then
+                Buff.RemoveBuff( self, 'NomadsSCUSpeedIncrease' )
             else
                 LOG('*DEBUG: SCU enhancement movement speed increase removed but buff wasnt')
             end
@@ -753,10 +753,10 @@ inu0301 = Class(NWalkingLandUnit) {
 
         elseif enh == 'RapidRepair' then
 
-            if not Buffs['NomadSCURapidRepair'] then  -- make sure this buff exists though not used yet
+            if not Buffs['NomadsSCURapidRepair'] then  -- make sure this buff exists though not used yet
                 BuffBlueprint {
-                    Name = 'NomadSCURapidRepair',
-                    DisplayName = 'NomadSCURapidRepair',
+                    Name = 'NomadsSCURapidRepair',
+                    DisplayName = 'NomadsSCURapidRepair',
                     BuffType = 'NOMADSCURAPIDREPAIRREGEN',
                     Stacks = 'ALWAYS',
                     Duration = -1,
@@ -768,10 +768,10 @@ inu0301 = Class(NWalkingLandUnit) {
                     },
                 }
             end
-            if not Buffs['NomadSCURapidRepairPermanentHPboost'] and bp.AddHealth > 0 then
+            if not Buffs['NomadsSCURapidRepairPermanentHPboost'] and bp.AddHealth > 0 then
                 BuffBlueprint {
-                    Name = 'NomadSCURapidRepairPermanentHPboost',
-                    DisplayName = 'NomadSCURapidRepairPermanentHPboost',
+                    Name = 'NomadsSCURapidRepairPermanentHPboost',
+                    DisplayName = 'NomadsSCURapidRepairPermanentHPboost',
                     BuffType = 'NOMADSCURAPIDREPAIRREGENPERMHPBOOST',
                     Stacks = 'ALWAYS',
                     Duration = -1,
@@ -784,7 +784,7 @@ inu0301 = Class(NWalkingLandUnit) {
                 }
             end
             if bp.AddHealth > 0 then
-                Buff.ApplyBuff(self, 'NomadSCURapidRepairPermanentHPboost')
+                Buff.ApplyBuff(self, 'NomadsSCURapidRepairPermanentHPboost')
             end
             self:EnableRapidRepair(true)
 
@@ -792,9 +792,9 @@ inu0301 = Class(NWalkingLandUnit) {
 
             -- keep code below synced to same code in PowerArmorRemove
             self:EnableRapidRepair(false)
-            if Buff.HasBuff( self, 'NomadSCURapidRepairPermanentHPboost' ) then
-                Buff.RemoveBuff( self, 'NomadSCURapidRepair' )
-                Buff.RemoveBuff( self, 'NomadSCURapidRepairPermanentHPboost' )
+            if Buff.HasBuff( self, 'NomadsSCURapidRepairPermanentHPboost' ) then
+                Buff.RemoveBuff( self, 'NomadsSCURapidRepair' )
+                Buff.RemoveBuff( self, 'NomadsSCURapidRepairPermanentHPboost' )
             else
                 LOG('*DEBUG: SCU enhancement rapid repair removed but buff wasnt')
             end
@@ -804,10 +804,10 @@ inu0301 = Class(NWalkingLandUnit) {
         -- ---------------------------------------------------------------------------------------
 
         elseif enh =='PowerArmor' then
-            if not Buffs['NomadSCUPowerArmor'] then
+            if not Buffs['NomadsSCUPowerArmor'] then
                BuffBlueprint {
-                    Name = 'NomadSCUPowerArmor',
-                    DisplayName = 'NomadSCUPowerArmor',
+                    Name = 'NomadsSCUPowerArmor',
+                    DisplayName = 'NomadsSCUPowerArmor',
                     BuffType = 'NSCUUPGRADEHP',
                     Stacks = 'ALWAYS',
                     Duration = -1,
@@ -823,10 +823,10 @@ inu0301 = Class(NWalkingLandUnit) {
                     },
                 }
             end
-            if Buff.HasBuff( self, 'NomadSCUPowerArmor' ) then
-                Buff.RemoveBuff( self, 'NomadSCUPowerArmor' )
+            if Buff.HasBuff( self, 'NomadsSCUPowerArmor' ) then
+                Buff.RemoveBuff( self, 'NomadsSCUPowerArmor' )
             end
-            Buff.ApplyBuff(self, 'NomadSCUPowerArmor')
+            Buff.ApplyBuff(self, 'NomadsSCUPowerArmor')
             if bp.Mesh then
                 self:SetMesh( bp.Mesh, true)
             end
@@ -836,15 +836,15 @@ inu0301 = Class(NWalkingLandUnit) {
             if bp.Mesh then
                 self:SetMesh( ubp.Display.MeshBlueprint, true)
             end
-            if Buff.HasBuff( self, 'NomadSCUPowerArmor' ) then
-                Buff.RemoveBuff( self, 'NomadSCUPowerArmor' )
+            if Buff.HasBuff( self, 'NomadsSCUPowerArmor' ) then
+                Buff.RemoveBuff( self, 'NomadsSCUPowerArmor' )
             end
 
             -- remove rapid repair - copy of above
             self:EnableRapidRepair(false)
-            if Buff.HasBuff( self, 'NomadSCURapidRepairPermanentHPboost' ) then
-                Buff.RemoveBuff( self, 'NomadSCURapidRepair' )
-                Buff.RemoveBuff( self, 'NomadSCURapidRepairPermanentHPboost' )
+            if Buff.HasBuff( self, 'NomadsSCURapidRepairPermanentHPboost' ) then
+                Buff.RemoveBuff( self, 'NomadsSCURapidRepair' )
+                Buff.RemoveBuff( self, 'NomadsSCURapidRepairPermanentHPboost' )
             end
 
         -- ---------------------------------------------------------------------------------------
@@ -973,11 +973,11 @@ LOG('Todo: SCU right arm upgrade')
 
         -- determine effect templates to use
         local layer = self:GetCurrentLayer()
-        local TemplReg = NomadEffectTemplate.SCUDestructionRegularSurface
-        local TemplSmall = NomadEffectTemplate.SCUDestructionSmallExplosionsSurface
+        local TemplReg = NomadsEffectTemplate.SCUDestructionRegularSurface
+        local TemplSmall = NomadsEffectTemplate.SCUDestructionSmallExplosionsSurface
         if layer == 'Seabed' or layer == 'Sub' then
-            TemplReg = NomadEffectTemplate.SCUDestructionRegularUnderWater
-            TemplSmall = NomadEffectTemplate.SCUDestructionSmallExplosionsUnderWater
+            TemplReg = NomadsEffectTemplate.SCUDestructionRegularUnderWater
+            TemplSmall = NomadsEffectTemplate.SCUDestructionSmallExplosionsUnderWater
         end
 
         -- base effect

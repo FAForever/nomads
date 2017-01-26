@@ -1,4 +1,4 @@
-local Annihilator = import('/lua/nomadprojectiles.lua').Annihilator
+local Annihilator = import('/lua/nomadsprojectiles.lua').Annihilator
 
 NAnnihilator1 = Class(Annihilator) {}
 

@@ -1,4 +1,4 @@
-local NomadOrbitalUtils = import('/lua/nomadorbitalutils.lua')
+local NomadsOrbitalUtils = import('/lua/nomadsorbitalutils.lua')
 local Factions = import('/lua/factions.lua').Factions
 local AbilityDefinition = import('/lua/abilitydefinition.lua').abilities
 
@@ -194,27 +194,27 @@ AIBrain = Class(oldAIBrain) {
 
     PrepareOrbitalReinforcement = function(self)
         -- has the ship construct a reinforcement unit which can then be used with the special ability.
-        if not self.OrbitalReinforcementReady and self:IsNomadFaction( self ) then
-            StartAbilityCoolDown( self:GetArmyIndex(), 'NomadAreaReinforcement' )
-            local ship = self.NomadMothership
-            local unitType = self:GetSpecialAbilityParam( 'NomadAreaReinforcement', 'UnitType' ) or AbilityDefinition['NomadAreaReinforcement']['ExtraInfo']['UnitType'] or 'INA2003'
+        if not self.OrbitalReinforcementReady and self:IsNomadsFaction( self ) then
+            StartAbilityCoolDown( self:GetArmyIndex(), 'NomadsAreaReinforcement' )
+            local ship = self.NomadsMothership
+            local unitType = self:GetSpecialAbilityParam( 'NomadsAreaReinforcement', 'UnitType' ) or AbilityDefinition['NomadsAreaReinforcement']['ExtraInfo']['UnitType'] or 'INA2003'
             local readyFn = function(self)      -- self is the constructed unit, not the brain
                 local brain = self:GetAIBrain()
-                brain:AddSpecialAbilityUnit( self, 'NomadAreaReinforcement', false )
+                brain:AddSpecialAbilityUnit( self, 'NomadsAreaReinforcement', false )
                 brain:SetOrbitalReinforcementReady(true)
             end
             ship:AddToConstructionQueue( unitType, readyFn )
         else
-            DisableSpecialAbility( 'NomadAreaReinforcement' )
+            DisableSpecialAbility( 'NomadsAreaReinforcement' )
         end
     end,
 
     SetOrbitalReinforcementReady = function(self, ready)
         self.OrbitalReinforcementReady = (ready == true)
         if self.OrbitalReinforcementReady then
-            EnableSpecialAbility( 'NomadAreaReinforcement' )
+            EnableSpecialAbility( 'NomadsAreaReinforcement' )
         else
-            DisableSpecialAbility( 'NomadAreaReinforcement' )
+            DisableSpecialAbility( 'NomadsAreaReinforcement' )
         end
     end,
 
@@ -378,7 +378,7 @@ AIBrain = Class(oldAIBrain) {
     end,
 
     -- ================================================================================================================
-    -- NOMAD ORBITAL UNIT CONSTRUCTION
+    -- NOMADS ORBITAL UNIT CONSTRUCTION
     -- ================================================================================================================
 
     RequestUnitAssignedToParent = function(self, requester, bpId, AssignedCallback)
@@ -507,12 +507,12 @@ AIBrain = Class(oldAIBrain) {
     end,
 
     ConstructUnitInOrbit = function(self, bpId, ConstructedCallback)
-        -- Tells the Nomad orbital unit to construct a unit of given type. Only these units can be constructed in orbit:
+        -- Tells the Nomads orbital unit to construct a unit of given type. Only these units can be constructed in orbit:
         if bpId ~= 'ino2302' and bpId ~= 'inu3006h' then
             WARN('Cant construct unit type '..repr(bpId)..' in orbit.')
             return false
         end
-        local ship = self.NomadMothership
+        local ship = self.NomadsMothership
         return ship:AddToConstructionQueue( bpId, ConstructedCallback ) or true
     end,
 
@@ -537,31 +537,31 @@ AIBrain = Class(oldAIBrain) {
         local army = self:GetArmyIndex()
         local x, z = self:GetArmyStartPos()
         local y = 0 -- TODO: use surface instead
-        self.NomadMothership = CreateUnitHPR( bp, army, x, y, z, 0, 0, 0)
-        return self.NomadMothership
+        self.NomadsMothership = CreateUnitHPR( bp, army, x, y, z, 0, 0, 0)
+        return self.NomadsMothership
     end,
 
     RemoveOrbitalUnit = function(self)
         local fn = function(self)
             --LOG('*DEBUG: removing orbital unit in 10 seconds')
             WaitSeconds(10)
-            if self.NomadMothership then
-                self.NomadMothership:Destroy()
+            if self.NomadsMothership then
+                self.NomadsMothership:Destroy()
             end
         end
         ForkThread( fn, self )
     end,
 
     OrbitalStrikeTarget = function(self, targetPosition)
-        if self.NomadMothership then
-            self.NomadMothership:OnGivenNewTarget(targetPosition)
+        if self.NomadsMothership then
+            self.NomadsMothership:OnGivenNewTarget(targetPosition)
         end
     end,
 
-    IsNomadFaction = function(self)
+    IsNomadsFaction = function(self)
         -- Says true if we're Nomads, false otherwise
         local factionIndex = self:GetFactionIndex()
-        return ( Factions[factionIndex].Category == 'NOMAD' )
+        return ( Factions[factionIndex].Category == 'NOMADS' )
     end,
 
     -- ================================================================================================================
@@ -581,9 +581,9 @@ AIBrain = Class(oldAIBrain) {
 
         self:LoadCustomFactions()
 
-        -- if we're nomad create a mothership
+        -- if we're nomads create a mothership
         local army = self:GetArmyIndex()
-        if self:IsNomadFaction() and not ArmyIsCivilian(army) and not ArmyIsOutOfGame(army) then
+        if self:IsNomadsFaction() and not ArmyIsCivilian(army) and not ArmyIsOutOfGame(army) then
             self:CreateOrbitalUnit( self )
         end
     end,
@@ -603,7 +603,7 @@ AIBrain = Class(oldAIBrain) {
     end,
 
     OnSpawnPreBuiltUnits = function(self)
-        -- Spawns Nomad prebuilt units
+        -- Spawns Nomads prebuilt units
         oldAIBrain.OnSpawnPreBuiltUnits(self)
 
         local factionIndex = self:GetFactionIndex()

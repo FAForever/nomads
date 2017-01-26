@@ -1,8 +1,8 @@
 -- The surface support vehicle that's in orbit
 
-local NOrbitUnit = import('/lua/nomadunits.lua').NOrbitUnit
-local OrbitalMissileWeapon = import('/lua/nomadweapons.lua').OrbitalMissileWeapon
-local CreateNomadBuildSliceBeams = import('/lua/nomadeffectutilities.lua').CreateNomadBuildSliceBeams
+local NOrbitUnit = import('/lua/nomadsunits.lua').NOrbitUnit
+local OrbitalMissileWeapon = import('/lua/nomadsweapons.lua').OrbitalMissileWeapon
+local CreateNomadsBuildSliceBeams = import('/lua/nomadseffectutilities.lua').CreateNomadsBuildSliceBeams
 
 INO0001 = Class(NOrbitUnit) {
     Weapons = {
@@ -23,7 +23,7 @@ INO0001 = Class(NOrbitUnit) {
     BuildEffectsBag = nil,
 
     OnPreCreate = function(self)
-        --yes i know this is disgusting but it has to be done since the nomad orbital ship crashes the game
+        --yes i know this is disgusting but it has to be done since the nomads orbital ship crashes the game
         --so it needs an exception FIXME: refactor nomads orbital frigate so its not so crazy.
         
         self.ColourIndex = 5 --default nomads colour apparently. This makes it not call the DetermineColourIndex later on.
@@ -173,7 +173,7 @@ INO0001 = Class(NOrbitUnit) {
         end
         local layer = self:GetCurrentLayer()
         unit:StartBeingBuiltEffects( self, layer)
-        local effectThread = ForkThread( CreateNomadBuildSliceBeams, self, unit, self.BuildBones, self.BuildEffectsBag )
+        local effectThread = ForkThread( CreateNomadsBuildSliceBeams, self, unit, self.BuildBones, self.BuildEffectsBag )
 
         -- build process
         local Ticks = math.ceil( unit:GetBlueprint().Economy.BuildTime or 10000 ) / 100

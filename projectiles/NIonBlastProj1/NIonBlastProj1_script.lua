@@ -1,4 +1,4 @@
-local IonBlast = import('/lua/nomadprojectiles.lua').IonBlast
+local IonBlast = import('/lua/nomadsprojectiles.lua').IonBlast
 
 NIonBlastProj1 = Class(IonBlast) {}
 

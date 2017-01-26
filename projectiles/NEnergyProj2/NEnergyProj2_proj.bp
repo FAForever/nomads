@@ -12,7 +12,7 @@ ProjectileBlueprint {
         },
     },
     Categories = {
-        'NOMAD',
+        'NOMADS',
         'PROJECTILE',
         'DIRECTFIRE',
     },
@@ -28,11 +28,11 @@ ProjectileBlueprint {
     General = {
         Category = 'Direct Fire',
         EntityCategory = {
-            'NOMAD',
+            'NOMADS',
             'PROJECTILE',
             'ARTILLERY',
         },
-        Faction = 'NOMAD',
+        Faction = 'NOMADS',
         Weapon = 'Heavy Plasma Cannon',
     },
     Interface = {

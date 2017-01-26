@@ -44,7 +44,7 @@ UnitBlueprint {
         'BUILTBYTIER2COMMANDER', --
         'BUILTBYTIER3ENGINEER', --
         'BUILTBYTIER3COMMANDER', --
-        'NOMAD',
+        'NOMADS',
         'STRUCTURE',
         'NAVAL',
         'TECH2',
@@ -123,10 +123,10 @@ UnitBlueprint {
         BuildRate = 60, --
         BuildTime = 2000, --
         BuildableCategory = {
-            'BUILTBYTIER2FACTORY NOMAD MOBILE CONSTRUCTION',
-            'BUILTBYTIER2SUPPORTFACTORY NOMAD STRUCTURE NAVAL',
-            'BUILTBYTIER2FACTORY NOMAD MOBILE NAVAL',
-            'FIELDENGINEER NOMAD MOBILE LAND',
+            'BUILTBYTIER2FACTORY NOMADS MOBILE CONSTRUCTION',
+            'BUILTBYTIER2SUPPORTFACTORY NOMADS STRUCTURE NAVAL',
+            'BUILTBYTIER2FACTORY NOMADS MOBILE NAVAL',
+            'FIELDENGINEER NOMADS MOBILE LAND',
         },
 	DifferentialUpgradeCostCalculation = true, --
         InitialRallyX = 0,

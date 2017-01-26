@@ -2,8 +2,8 @@ do
 
 -- TODO: find a good way to support other faction taunts
 
-local NomadTaunts = { 65, }
+local NomadsTaunts = { 65, }
 
-AITaunts = table.insert( AITaunts, NomadTaunts )
+AITaunts = table.insert( AITaunts, NomadsTaunts )
 
 end

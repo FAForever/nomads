@@ -1,6 +1,6 @@
 -- t1 air scout
 
-local NAirUnit = import('/lua/nomadunits.lua').NAirUnit
+local NAirUnit = import('/lua/nomadsunits.lua').NAirUnit
 
 INA1001 = Class(NAirUnit) {
     DestructionPartsLowToss = {'INA1001'},

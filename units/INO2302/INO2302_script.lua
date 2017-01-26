@@ -1,7 +1,7 @@
 -- T3 orbital artillery unit (the one that floats in space)
 
-local NOrbitUnit = import('/lua/nomadunits.lua').NOrbitUnit
-local OrbitalGun = import('/lua/nomadweapons.lua').OrbitalGun
+local NOrbitUnit = import('/lua/nomadsunits.lua').NOrbitUnit
+local OrbitalGun = import('/lua/nomadsweapons.lua').OrbitalGun
 
 INO2302 = Class(NOrbitUnit) {
     Weapons = {

@@ -17,7 +17,7 @@ ProjectileBlueprint {
         },
     },
     Categories = {
-        'NOMAD',
+        'NOMADS',
         'PROJECTILE',
         'ANTIAIR',
         'MISSILE',
@@ -39,12 +39,12 @@ ProjectileBlueprint {
     General = {
         Category = 'Anti Air',
         EntityCategory = {
-            'NOMAD',
+            'NOMADS',
             'PROJECTILE',
             'ANTIAIR',
             'MISSILE',
         },
-        Faction = 'Nomad',
+        Faction = 'Nomads',
         TechLevel = 2,
         Weapon = 'Nanodart Launcher',
     },

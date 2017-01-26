@@ -1,4 +1,4 @@
-local Torpedo1 = import('/lua/nomadprojectiles.lua').Torpedo1
+local Torpedo1 = import('/lua/nomadsprojectiles.lua').Torpedo1
 
 NTorpedo1 = Class(Torpedo1) {}
 

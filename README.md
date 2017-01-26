@@ -15,8 +15,8 @@ C:\ProgramData\FAForever\bin\ForgedAlliance.exe /init init_devnomads.lua /Enable
 
 
 if you encounter an error like this: 
-WARNING: attempt to retrieve annotation from unknown technique NomadUnit
-WARNING: c:\work\rts\main\code\src\libs\gpggal\EffectD3D9.cpp(89) invalid effect technique requested: NomadUnit
+WARNING: attempt to retrieve annotation from unknown technique NomadsUnit
+WARNING: c:\work\rts\main\code\src\libs\gpggal\EffectD3D9.cpp(89) invalid effect technique requested: NomadsUnit
 
 run the shader_cleaner.bat to fix it
 
@@ -27,10 +27,10 @@ To run the Map Editor with nomads units you need to do the following steps:
 
 1) Paste *nomads_mesh.fx* file into *effects* folder and rename it to *mesh.fx*
 
-2) Pack *effects, env, textures, units* folders from this repository into *Z_nomad.scd* using Winrar or similar (needs to be set as *.zip* NOT *.rar*)
+2) Pack *effects, env, textures, units* folders from this repository into *Z_nomads.scd* using Winrar or similar (needs to be set as *.zip* NOT *.rar*)
 
 3) remove the mesh.fx file from the *effects* folder of the repository again
 
-4) Paste *Z_nomad.scd* into Supcom *gamedata* folder `THQ\Gas Powered Games\Supreme Commander\gamedata`
+4) Paste *Z_nomads.scd* into Supcom *gamedata* folder `THQ\Gas Powered Games\Supreme Commander\gamedata`
 
 5) Go to `%USERNAME%\AppData\Local\Gas Powered Games\SupremeCommander\cache` and delete the content of the folder

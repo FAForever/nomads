@@ -43,7 +43,7 @@ UnitBlueprint {
         'BUILTBYTIER2ENGINEER',
         'BUILTBYTIER3ENGINEER',
         'BUILTBYCOMMANDER',
-        'NOMAD',
+        'NOMADS',
         'STRUCTURE',
         'LAND',
         'TECH1',
@@ -149,11 +149,11 @@ UnitBlueprint {
         SpawnRandomRotation = false,
         Tarmacs = {
             {
-                Albedo = 'Tarmacs/Tar12x_nomad_01_albedo',
+                Albedo = 'Tarmacs/Tar12x_nomads_01_albedo',
                 DeathLifetime = 300,
                 FadeOut = 150,
                 Length = 12.8,
-                Normal = 'Tarmacs/Tar12x_nomad_01_normals',
+                Normal = 'Tarmacs/Tar12x_nomads_01_normals',
                 Orientations = {
                     0,
                 },
@@ -169,9 +169,9 @@ UnitBlueprint {
         BuildRate = 20,
         BuildTime = 300,
         BuildableCategory = {
-            'BUILTBYTIER1FACTORY NOMAD MOBILE CONSTRUCTION',
-            'BUILTBYTIER1FACTORY NOMAD STRUCTURE LAND',
-            'BUILTBYTIER1FACTORY NOMAD MOBILE LAND',
+            'BUILTBYTIER1FACTORY NOMADS MOBILE CONSTRUCTION',
+            'BUILTBYTIER1FACTORY NOMADS STRUCTURE LAND',
+            'BUILTBYTIER1FACTORY NOMADS MOBILE LAND',
         },
         RebuildBonusIds = {
 -- TODO: think if this is right. in the CBFP mexes got their higher tiers removed from this list since it costs more mass than it

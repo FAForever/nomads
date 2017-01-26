@@ -3,20 +3,20 @@
 FactionList = {
     {
         Key = 'nomads',
-        Category = 'NOMAD',
+        Category = 'NOMADS',
         FactionInUnitBp = 'Nomads',
-        DisplayName = "<LOC _NOMAD>Nomad",
+        DisplayName = "<LOC _NOMADS>Nomads",
         SoundPrefix = 'Nomads',
         InitialUnit = 'INU0001',
         CampaignFileDesignator = 'N',
         TransmissionLogColor = 'ff0000ff',
-        Icon = "/widgets/faction-icons-alpha_bmp/nomad_ico.dds",
-        VeteranIcon = "/game/veteran-logo_bmp/nomad-veteran_bmp.dds",
-        SmallIcon = "/faction_icon-sm/nomad_ico.dds",
-        LargeIcon = "/faction_icon-lg/nomad_ico.dds",
-        TooltipID = 'lob_nomad',
+        Icon = "/widgets/faction-icons-alpha_bmp/nomads_ico.dds",
+        VeteranIcon = "/game/veteran-logo_bmp/nomads-veteran_bmp.dds",
+        SmallIcon = "/faction_icon-sm/nomads_ico.dds",
+        LargeIcon = "/faction_icon-lg/nomads_ico.dds",
+        TooltipID = 'lob_nomads',
         DefaultSkin = 'nomads',
-        loadingMovie = '/movies/nomad_load.sfd',
+        loadingMovie = '/movies/nomads_load.sfd',
         loadingColor = 'FFbadbdb',
         loadingTexture = '/UEF_load.dds',
         IdleEngTextures = {
@@ -52,14 +52,14 @@ FactionList = {
         BaseTemplatesFile = '/lua/CustomFactions/NomadsAIFiles/BaseTemplates.lua',
         BuildingTemplatesFile = '/lua/CustomFactions/NomadsAIFiles/BuildingTemplates.lua',
         UpgradeTemplatesFile = '/lua/CustomFactions/NomadsAIFiles/UpgradeTemplates.lua',
-        PlatoonTemplateKey = 'Nomad',
+        PlatoonTemplateKey = 'Nomads',
 
         -- Used by GAZ_UI. This mod needs to be the version that supports Nomads and other custom factions
         GAZ_UI_Info = {
             BuildingIdPrefixes = { 'inb', },
             TexEnhancementPrefix = {
                 char = 'n',
-                prefix = '/game/nomad-enhancements/',
+                prefix = '/game/nomads-enhancements/',
             },
             SCUEnhancementPaths = {
                 Combat = { 'GunRight', 'GunRightUpgrade', 'GunLeft', 'MovementSpeedIncrease', },

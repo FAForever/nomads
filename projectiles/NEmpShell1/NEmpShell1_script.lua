@@ -1,4 +1,4 @@
-local EmpShell = import('/lua/nomadprojectiles.lua').EmpShell
+local EmpShell = import('/lua/nomadsprojectiles.lua').EmpShell
 
 NEmpShell1 = Class(EmpShell) {}
 

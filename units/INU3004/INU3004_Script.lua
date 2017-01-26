@@ -1,9 +1,9 @@
 -- t3 arillery
 
-local AddAnchorAbilty = import('/lua/nomadutils.lua').AddAnchorAbilty
-local SupportedArtilleryWeapon = import('/lua/nomadutils.lua').SupportedArtilleryWeapon
-local NLandUnit = import('/lua/nomadunits.lua').NLandUnit
-local ArtilleryWeapon = import('/lua/nomadweapons.lua').ArtilleryWeapon
+local AddAnchorAbilty = import('/lua/nomadsutils.lua').AddAnchorAbilty
+local SupportedArtilleryWeapon = import('/lua/nomadsutils.lua').SupportedArtilleryWeapon
+local NLandUnit = import('/lua/nomadsunits.lua').NLandUnit
+local ArtilleryWeapon = import('/lua/nomadsweapons.lua').ArtilleryWeapon
 
 NLandUnit = AddAnchorAbilty(NLandUnit)
 ArtilleryWeapon = SupportedArtilleryWeapon( ArtilleryWeapon )

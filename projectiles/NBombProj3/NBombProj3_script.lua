@@ -1,4 +1,4 @@
-local ConcussionBomb = import('/lua/nomadprojectiles.lua').ConcussionBomb
+local ConcussionBomb = import('/lua/nomadsprojectiles.lua').ConcussionBomb
 
 NBombProj3 = Class(ConcussionBomb) {
 

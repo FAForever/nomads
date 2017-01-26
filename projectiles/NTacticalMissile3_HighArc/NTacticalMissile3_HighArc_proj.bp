@@ -17,7 +17,7 @@ ProjectileBlueprint {
         },
     },
     Categories = {
-        'NOMAD',
+        'NOMADS',
         'PROJECTILE',
         'INDIRECTFIRE',
         'TACTICAL',
@@ -49,13 +49,13 @@ ProjectileBlueprint {
     General = {
         Category = 'Direct Fire',
         EntityCategory = {
-            'NOMAD',
+            'NOMADS',
             'PROJECTILE',
             'TACTICAL',
             'MISSILE',
             'ARTILLERY',
         },
-        Faction = 'Nomad',
+        Faction = 'Nomads',
         Weapon = 'NTacticalMissile3_HighArc',
     },
     Interface = {

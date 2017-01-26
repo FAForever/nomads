@@ -40,7 +40,7 @@ UnitBlueprint {
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1FACTORY',
-        'NOMAD',
+        'NOMADS',
         'STRUCTURE',
         'NAVAL',
         'TECH2',
@@ -115,9 +115,9 @@ UnitBlueprint {
         BuildRate = 40,
         BuildTime = 1800,
         BuildableCategory = {
-            'BUILTBYTIER2FACTORY NOMAD MOBILE CONSTRUCTION',
-            'BUILTBYTIER2FACTORY NOMAD STRUCTURE NAVAL',
-            'BUILTBYTIER2FACTORY NOMAD MOBILE NAVAL',
+            'BUILTBYTIER2FACTORY NOMADS MOBILE CONSTRUCTION',
+            'BUILTBYTIER2FACTORY NOMADS STRUCTURE NAVAL',
+            'BUILTBYTIER2FACTORY NOMADS MOBILE NAVAL',
         },
         InitialRallyX = 0,
         InitialRallyZ = 10,

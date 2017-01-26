@@ -1,6 +1,6 @@
 do
 
-local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
+local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local RandomFloat = import('/lua/utilities.lua').GetRandomFloat
 local Prop = import('/lua/sim/Prop.lua').Prop
 
@@ -178,8 +178,8 @@ Tree = Class(oldTree) {
 
     ObliteratedState = State {
         Main = function(self)
-            local templ = NomadEffectTemplate.TreeDisintegrate
-            if self.Fallen then templ = NomadEffectTemplate.FallenTreeDisintegrate end
+            local templ = NomadsEffectTemplate.TreeDisintegrate
+            if self.Fallen then templ = NomadsEffectTemplate.FallenTreeDisintegrate end
             for k, v in templ do
                 CreateEmitterAtBone( self, 0, -1, v )  -- the effects must have a limited life...
             end
@@ -224,13 +224,13 @@ Tree = Class(oldTree) {
         if not self.FireEffects then self.FireEffects = {} end
         if not self.BurnTimeOrg then self.BurnTimeOrg = self.BurnTime end
 
-        local templ = NomadEffectTemplate.TreeFire
+        local templ = NomadsEffectTemplate.TreeFire
         if self.BigFireFx and self.Fallen then
-            templ = NomadEffectTemplate.FallenTreeBigFire
+            templ = NomadsEffectTemplate.FallenTreeBigFire
         elseif self.BigFireFx then
-            templ = NomadEffectTemplate.TreeBigFire
+            templ = NomadsEffectTemplate.TreeBigFire
         elseif self.Fallen then
-            templ = NomadEffectTemplate.FallenTreeFire
+            templ = NomadsEffectTemplate.FallenTreeFire
         end
 
         local fn = function(self, templ, initialScale, curveParam)
@@ -303,7 +303,7 @@ Tree = Class(oldTree) {
             self.PlayingAfterFireEffects = true
             if Random(1, 10) <= 6 then
                 local lifetime = Random(200, 500)
-                for k, v in NomadEffectTemplate.TreeAfterFireEffects do  -- these effects should have a limited life...
+                for k, v in NomadsEffectTemplate.TreeAfterFireEffects do  -- these effects should have a limited life...
                     CreateEmitterAtEntity(self, -1, v):SetEmitterParam('LIFETIME', lifetime)
                 end
             end

@@ -1,6 +1,6 @@
 -- wall
 
-local NWallStructureUnit = import('/lua/nomadunits.lua').NWallStructureUnit
+local NWallStructureUnit = import('/lua/nomadsunits.lua').NWallStructureUnit
 
 INB5101 = Class(NWallStructureUnit) {}
 

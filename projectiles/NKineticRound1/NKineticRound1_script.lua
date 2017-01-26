@@ -1,4 +1,4 @@
-local KineticRound = import('/lua/nomadprojectiles.lua').KineticRound
+local KineticRound = import('/lua/nomadsprojectiles.lua').KineticRound
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 
 NKineticRound1 = Class(KineticRound) {}

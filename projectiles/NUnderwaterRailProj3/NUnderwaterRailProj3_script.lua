@@ -1,4 +1,4 @@
-local UnderwaterRailGunProj = import('/lua/nomadprojectiles.lua').UnderwaterRailGunProj
+local UnderwaterRailGunProj = import('/lua/nomadsprojectiles.lua').UnderwaterRailGunProj
 
 NUnderwaterRailProj3 = Class(UnderwaterRailGunProj) {
 

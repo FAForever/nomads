@@ -9,10 +9,10 @@ local loc_table
 -- To use, put in the folder /loc a new lua file, it's name is not important but should not
 -- conflict with other mods. This lua file should contain 1 line; for Nomads this is:
 --
---         StringsDB = { 'nomad_strings', }
+--         StringsDB = { 'nomads_strings', }
 --
--- This tells the script below to look for a file called 'nomad_strings.lua' and use it's
--- contents as localization strings. The file 'nomad_strings.lua' can be in any of the language
+-- This tells the script below to look for a file called 'nomads_strings.lua' and use it's
+-- contents as localization strings. The file 'nomads_strings.lua' can be in any of the language
 -- subdirectories. There should always be such a file in the 'us' subdirectory of /loc (so
 -- /lua/us/). This is the fallback directory in case no localization for the given language
 -- exists. It is possible to specify multiple files by providing multiple values in the table.

@@ -1,9 +1,9 @@
 -- T1 tank destroyer
 
-local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
-local AddAnchorAbilty = import('/lua/nomadutils.lua').AddAnchorAbilty
-local NLandUnit = import('/lua/nomadunits.lua').NLandUnit
-local KineticCannon1 = import('/lua/nomadweapons.lua').KineticCannon1
+local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
+local AddAnchorAbilty = import('/lua/nomadsutils.lua').AddAnchorAbilty
+local NLandUnit = import('/lua/nomadsunits.lua').NLandUnit
+local KineticCannon1 = import('/lua/nomadsweapons.lua').KineticCannon1
 
 NLandUnit = AddAnchorAbilty(NLandUnit)
 
@@ -76,7 +76,7 @@ INU1008 = Class(NLandUnit) {
             local fn = function(self)
                 WaitSeconds( self.ExhaustAnimDelay or 1 )
                 local army, emit = self:GetArmy()
-                for k, v in NomadEffectTemplate.TankBusterWeaponFired do
+                for k, v in NomadsEffectTemplate.TankBusterWeaponFired do
                     emit = CreateEmitterAtBone(self, 'turret_ExhaustFX', army, v)
                     self.WeaponFiredEffectsBag:Add(emit)
                     self.Trash:Add(emit)

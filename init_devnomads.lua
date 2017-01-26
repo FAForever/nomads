@@ -30,7 +30,7 @@ mount_dir(fa_path .. '\\gamedata\\*.scd', '/')
 mount_dir(fa_path, '/')
 hook = {
     '/schook',
-    '/nomadhook',
+    '/nomadshook',
     '/sounds',
     '/movies'
 }

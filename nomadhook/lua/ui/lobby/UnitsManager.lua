@@ -274,7 +274,7 @@ function CreateDialog(parent, initial, OnOk, OnCancel, isHost)
     table.insert(factions, UnitsAnalyzer.GetUnitsGroups(blueprints.All, 'UEF'))
     table.insert(factions, UnitsAnalyzer.GetUnitsGroups(blueprints.All, 'CYBRAN'))
     table.insert(factions, UnitsAnalyzer.GetUnitsGroups(blueprints.All, 'AEON'))
-    table.insert(factions, UnitsAnalyzer.GetUnitsGroups(blueprints.All, 'NOMAD'))
+    table.insert(factions, UnitsAnalyzer.GetUnitsGroups(blueprints.All, 'NOMADS'))
 
     local timer = StartedTimer()
     presetsGrid = Grid(buttonGroup, cellSize, cellSize)

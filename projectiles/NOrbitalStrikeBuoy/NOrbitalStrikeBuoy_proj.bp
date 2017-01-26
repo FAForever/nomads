@@ -19,7 +19,7 @@ ProjectileBlueprint {
     },
     Categories = {
         'BUOY',
-        'NOMAD',
+        'NOMADS',
         'PROJECTILE',
         'INDIRECTFIRE',
     },
@@ -34,11 +34,11 @@ ProjectileBlueprint {
         Category = 'Direct Fire',
         EntityCategory = {
             'BUOY',
-            'NOMAD',
+            'NOMADS',
             'PROJECTILE',
             'INDIRECTFIRE',
         },
-        Faction = 'Nomad',
+        Faction = 'Nomads',
         Weapon = 'OrbitalStrikeBuoy',
     },
     Interface = {

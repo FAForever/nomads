@@ -1,9 +1,9 @@
 -- T3 tank
 
-local SupportingArtilleryAbility = import('/lua/nomadutils.lua').SupportingArtilleryAbility
-local NHoverLandUnit = import('/lua/nomadunits.lua').NHoverLandUnit
-local AnnihilatorCannon1 = import('/lua/nomadweapons.lua').AnnihilatorCannon1
-local RocketWeapon1 = import('/lua/nomadweapons.lua').RocketWeapon1
+local SupportingArtilleryAbility = import('/lua/nomadsutils.lua').SupportingArtilleryAbility
+local NHoverLandUnit = import('/lua/nomadsunits.lua').NHoverLandUnit
+local AnnihilatorCannon1 = import('/lua/nomadsweapons.lua').AnnihilatorCannon1
+local RocketWeapon1 = import('/lua/nomadsweapons.lua').RocketWeapon1
 
 NHoverLandUnit = SupportingArtilleryAbility( NHoverLandUnit )
 

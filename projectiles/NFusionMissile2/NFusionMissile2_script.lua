@@ -1,4 +1,4 @@
-local FusionMissile = import('/lua/nomadprojectiles.lua').FusionMissile
+local FusionMissile = import('/lua/nomadsprojectiles.lua').FusionMissile
 
 NFusionMissile2 = Class(FusionMissile) {
 

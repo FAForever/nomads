@@ -1,4 +1,4 @@
-local SplittingArtilleryShell = import('/lua/nomadprojectiles.lua').SplittingArtilleryShell
+local SplittingArtilleryShell = import('/lua/nomadsprojectiles.lua').SplittingArtilleryShell
 
 NSplittingArtilleryShell1 = Class(SplittingArtilleryShell) {}
 

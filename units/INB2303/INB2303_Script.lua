@@ -1,8 +1,8 @@
 -- T2 artillery
 
-local SupportedArtilleryWeapon = import('/lua/nomadutils.lua').SupportedArtilleryWeapon
-local NStructureUnit = import('/lua/nomadunits.lua').NStructureUnit
-local EnergyCannon1 = import('/lua/nomadweapons.lua').EnergyCannon1
+local SupportedArtilleryWeapon = import('/lua/nomadsutils.lua').SupportedArtilleryWeapon
+local NStructureUnit = import('/lua/nomadsunits.lua').NStructureUnit
+local EnergyCannon1 = import('/lua/nomadsweapons.lua').EnergyCannon1
 
 EnergyCannon1 = SupportedArtilleryWeapon( EnergyCannon1 )
 

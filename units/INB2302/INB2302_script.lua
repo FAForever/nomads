@@ -4,7 +4,7 @@
 -- the base station should tell the orbital unit what to fire on. I'm using a fake weapon to do the targetting. It's target
 -- is relayed to the slave unit.
 
-local NStructureUnit = import('/lua/nomadunits.lua').NStructureUnit
+local NStructureUnit = import('/lua/nomadsunits.lua').NStructureUnit
 local DefaultProjectileWeapon = import('/lua/sim/defaultweapons.lua').DefaultProjectileWeapon
 
 INB2302 = Class(NStructureUnit) {

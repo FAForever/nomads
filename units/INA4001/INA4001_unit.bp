@@ -106,7 +106,7 @@ UnitBlueprint {
         'SELECTABLE',
         'BUILTBYTIER3ENGINEER',
         'BUILTBYTIER3COMMANDER',
-        'NOMAD',
+        'NOMADS',
         'DRAGBUILD',
         'MOBILE',
         'AIR',

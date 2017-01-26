@@ -1,7 +1,7 @@
 -- T1 point defense
 
-local NStructureUnit = import('/lua/nomadunits.lua').NStructureUnit
-local GattlingWeapon1 = import('/lua/nomadweapons.lua').GattlingWeapon1
+local NStructureUnit = import('/lua/nomadsunits.lua').NStructureUnit
+local GattlingWeapon1 = import('/lua/nomadsweapons.lua').GattlingWeapon1
 local EffectUtils = import('/lua/effectutilities.lua')
 local Effects = import('/lua/effecttemplates.lua')
 

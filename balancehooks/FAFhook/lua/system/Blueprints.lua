@@ -78,7 +78,7 @@ local oldGetNewUnitLocations = GetNewUnitLocations
 function GetNewUnitLocations()
     local t = oldGetNewUnitLocations()
     t = table.cat( t, {
-        -- adding all Nomad support factories to the game
+        -- adding all Nomads support factories to the game
         '/units/INB0211',
         '/units/INB0212',
         '/units/INB0213',

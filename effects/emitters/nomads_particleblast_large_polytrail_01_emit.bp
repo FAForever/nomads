@@ -1,0 +1,13 @@
+TrailEmitterBlueprint {
+    BlueprintId = 'nomads_particleblast_large_polytrail_01',
+    Lifetime = -1.00,
+    TrailLength = 2,
+    Size = 0.4,
+    SortOrder = 0,
+    BlendMode = 3,
+    TextureRepeatRate = 1,
+    LODCutoff = 160,
+    RepeatTexture = [[/textures/particles/railgun_trail_01.dds]],
+    RampTexture = [[/textures/particles/ramp_purple_02.dds]],
+}
+

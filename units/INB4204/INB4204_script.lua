@@ -1,10 +1,10 @@
 -- TMD
 
-local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
-local AddLights = import('/lua/nomadutils.lua').AddLights
-local NStructureUnit = import('/lua/nomadunits.lua').NStructureUnit
+local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
+local AddLights = import('/lua/nomadsutils.lua').AddLights
+local NStructureUnit = import('/lua/nomadsunits.lua').NStructureUnit
 local EffectTemplate = import('/lua/EffectTemplates.lua')
-local HVFlakWeapon = import('/lua/nomadweapons.lua').HVFlakWeapon
+local HVFlakWeapon = import('/lua/nomadsweapons.lua').HVFlakWeapon
 
 NStructureUnit = AddLights(NStructureUnit)
 
@@ -113,7 +113,7 @@ INB4204 = Class(NStructureUnit) {
     PlayTAEffects = function(self)
         if not self.PlayingTAEffects then
             local bone, army, emit = 'RadarDish', self:GetArmy()
-            for k, v in NomadEffectTemplate.T2TacticalMissileDefenseTargetAcquired do
+            for k, v in NomadsEffectTemplate.T2TacticalMissileDefenseTargetAcquired do
                 emit = CreateAttachedEmitter(self, bone, army, v)
                 self.TAEffectsBag:Add(emit)
                 self.Trash:Add(emit)

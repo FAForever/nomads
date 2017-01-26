@@ -1,6 +1,6 @@
 -- T1 transport
 
-local NAirUnit = import('/lua/nomadunits.lua').NAirUnit
+local NAirUnit = import('/lua/nomadsunits.lua').NAirUnit
 
 INA1005 = Class(NAirUnit) {
 

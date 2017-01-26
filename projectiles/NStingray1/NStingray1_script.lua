@@ -1,4 +1,4 @@
-local Stingray = import('/lua/nomadprojectiles.lua').Stingray
+local Stingray = import('/lua/nomadsprojectiles.lua').Stingray
 
 NStingray1 = Class(Stingray) {}
 

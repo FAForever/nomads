@@ -1,6 +1,6 @@
 -- energy storage
 
-local NEnergyStorageUnit = import('/lua/nomadunits.lua').NEnergyStorageUnit
+local NEnergyStorageUnit = import('/lua/nomadsunits.lua').NEnergyStorageUnit
 
 INB1105 = Class(NEnergyStorageUnit) {
 

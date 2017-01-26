@@ -1,8 +1,8 @@
 -- fighter bomber
 
-local NAirUnit = import('/lua/nomadunits.lua').NAirUnit
-local RocketWeapon1 = import('/lua/nomadweapons.lua').RocketWeapon1
-local ConcussionBombWeapon = import('/lua/nomadweapons.lua').ConcussionBombWeapon
+local NAirUnit = import('/lua/nomadsunits.lua').NAirUnit
+local RocketWeapon1 = import('/lua/nomadsweapons.lua').RocketWeapon1
+local ConcussionBombWeapon = import('/lua/nomadsweapons.lua').ConcussionBombWeapon
 
 INA2002 = Class(NAirUnit) {
     Weapons = {

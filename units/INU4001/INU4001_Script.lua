@@ -1,19 +1,19 @@
 -- experimental hover unit crawler
 
-local AddLights = import('/lua/nomadutils.lua').AddLights
-local AddBombardModeToUnit = import('/lua/nomadutils.lua').AddBombardModeToUnit
-local NExperimentalHoverLandUnit = import('/lua/nomadunits.lua').NExperimentalHoverLandUnit
-local NomadWeaponsFile = import('/lua/nomadweapons.lua')
-local EMPMissileWeapon = NomadWeaponsFile.EMPMissileWeapon
-local MissileWeapon1 = NomadWeaponsFile.MissileWeapon1
-local GattlingWeapon1 = NomadWeaponsFile.GattlingWeapon1
-local TacticalMissileWeapon1 = NomadWeaponsFile.TacticalMissileWeapon1
-local ParticleBlaster1 = NomadWeaponsFile.ParticleBlaster1
+local AddLights = import('/lua/nomadsutils.lua').AddLights
+local AddBombardModeToUnit = import('/lua/nomadsutils.lua').AddBombardModeToUnit
+local NExperimentalHoverLandUnit = import('/lua/nomadsunits.lua').NExperimentalHoverLandUnit
+local NomadsWeaponsFile = import('/lua/nomadsweapons.lua')
+local EMPMissileWeapon = NomadsWeaponsFile.EMPMissileWeapon
+local MissileWeapon1 = NomadsWeaponsFile.MissileWeapon1
+local GattlingWeapon1 = NomadsWeaponsFile.GattlingWeapon1
+local TacticalMissileWeapon1 = NomadsWeaponsFile.TacticalMissileWeapon1
+local ParticleBlaster1 = NomadsWeaponsFile.ParticleBlaster1
 
 local explosion = import('/lua/defaultexplosions.lua')
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 local GetRandomInt = import('/lua/utilities.lua').GetRandomInt
-local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
+local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 
 NExperimentalHoverLandUnit = AddBombardModeToUnit(AddLights(NExperimentalHoverLandUnit))
 
@@ -201,11 +201,11 @@ INU4001 = Class(NExperimentalHoverLandUnit) {
         local army, EffectTable, emit = self:GetArmy()
 
         if type == 'Stopping' then
-            EffectTable = NomadEffectTemplate.HoverEffect_Stopping_Smoke
+            EffectTable = NomadsEffectTemplate.HoverEffect_Stopping_Smoke
         elseif type == 'Stopped' then
-            EffectTable = NomadEffectTemplate.HoverEffect_Stopped_Smoke
+            EffectTable = NomadsEffectTemplate.HoverEffect_Stopped_Smoke
         else
-            EffectTable = NomadEffectTemplate.HoverEffect_Moving_Smoke
+            EffectTable = NomadsEffectTemplate.HoverEffect_Moving_Smoke
         end
 
         for _, bone in self.SmokeEmitterBones do

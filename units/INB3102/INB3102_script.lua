@@ -1,8 +1,8 @@
 -- T1 sonar
 
-local NRadarUnit = import('/lua/nomadunits.lua').NRadarUnit
-local AddIntelOvercharge = import('/lua/nomadutils.lua').AddIntelOvercharge
-local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
+local NRadarUnit = import('/lua/nomadsunits.lua').NRadarUnit
+local AddIntelOvercharge = import('/lua/nomadsutils.lua').AddIntelOvercharge
+local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 
 NRadarUnit = AddIntelOvercharge( NRadarUnit )
 
@@ -12,10 +12,10 @@ INB3102 = Class(NRadarUnit) {
     OverchargeChargingFxBone = 0,
     OverchargeExplosionFxBone = 0,
 
-    OverchargeFx = NomadEffectTemplate.T1SonarOvercharge,
-    OverchargeRecoveryFx = NomadEffectTemplate.T1SonarOverchargeRecovery,
-    OverchargeChargingFx = NomadEffectTemplate.T1SonarOverchargeCharging,
-    OverchargeExplosionFx = NomadEffectTemplate.T1SonarOverchargeExplosion,
+    OverchargeFx = NomadsEffectTemplate.T1SonarOvercharge,
+    OverchargeRecoveryFx = NomadsEffectTemplate.T1SonarOverchargeRecovery,
+    OverchargeChargingFx = NomadsEffectTemplate.T1SonarOverchargeCharging,
+    OverchargeExplosionFx = NomadsEffectTemplate.T1SonarOverchargeExplosion,
 
     OnScriptBitSet = function(self, bit)
         NRadarUnit.OnScriptBitSet(self, bit)

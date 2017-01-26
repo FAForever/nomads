@@ -18,7 +18,7 @@ local movies = {
     { "/movies/thqlogo.sfd", {Cue = 'THQ_Logo', Bank = 'FMV_BG'} },
     { "/movies/gpglogo.sfd", {Cue = 'GPG_introLogo_HD', Bank = 'FMV_BG' } },
     { "/movies/nvidia_logo.sfd", {Cue = 'NVIDIA', Bank = 'FMV_BG' } },
-    { "/movies/nomad_logo.sfd", },
+    { "/movies/nomads_logo.sfd", },
 
 -- don't play the FA intro for Nomads
 --    { "/movies/fmv_scx_intro.sfd", {Cue = 'X_FMV_Intro', Bank = 'FMV_BG' }, {Cue = 'SCX_INTRO_VO', Bank = 'X_FMV' } }

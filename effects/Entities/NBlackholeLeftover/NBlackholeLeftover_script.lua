@@ -1,11 +1,11 @@
 local Prop = import('/lua/sim/Prop.lua').Prop
-local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
+local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 local EffectUtilities = import('/lua/EffectUtilities.lua')
 
 NBlackholeLeftover = Class(Prop) {
 
-    PermanentFx = NomadEffectTemplate.BlackholeLeftoverPerm,
+    PermanentFx = NomadsEffectTemplate.BlackholeLeftoverPerm,
 
     OnCreate = function(self)
         Prop.OnCreate(self)

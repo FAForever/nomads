@@ -1,6 +1,6 @@
 -- T1 pgen
 
-local NEnergyCreationUnit = import('/lua/nomadunits.lua').NEnergyCreationUnit
+local NEnergyCreationUnit = import('/lua/nomadsunits.lua').NEnergyCreationUnit
 
 INB1101 = Class(NEnergyCreationUnit) {
     ActiveEffectBone = 'exhaust',

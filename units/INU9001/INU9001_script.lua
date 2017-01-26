@@ -1,7 +1,7 @@
 -- civilian vehicle
 
-local AddLights = import('/lua/nomadutils.lua').AddLights
-local NLandUnit = import('/lua/nomadunits.lua').NLandUnit
+local AddLights = import('/lua/nomadsutils.lua').AddLights
+local NLandUnit = import('/lua/nomadsunits.lua').NLandUnit
 
 NLandUnit = AddLights(NLandUnit)
 

@@ -1,11 +1,11 @@
 -- T3 mass fab
 
-local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
-local NMassFabricationUnit = import('/lua/nomadunits.lua').NMassFabricationUnit
+local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
+local NMassFabricationUnit = import('/lua/nomadsunits.lua').NMassFabricationUnit
 
 INB1303 = Class(NMassFabricationUnit) {
 
-    ActiveEffectsTemplate = NomadEffectTemplate.T3MFAmbient,
+    ActiveEffectsTemplate = NomadsEffectTemplate.T3MFAmbient,
 
     OnCreate = function(self)
         NMassFabricationUnit.OnCreate(self)

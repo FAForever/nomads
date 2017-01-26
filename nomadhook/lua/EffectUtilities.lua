@@ -54,8 +54,8 @@ function CreateAdjacencyBeams( unit, adjacentUnit, AdjacencyBeamsBag )
 
     elseif faction == 'Nomads' then
 --        nodeMesh = '/effects/entities/uefadjacencynode/uefadjacencynode_mesh'
-        nodeMesh = '/effects/Entities/NomadAdjacencyNode/NmdAdjacencyNode_mesh'
-        beamEffect = '/effects/emitters/nomad_adjacency_beam.bp'	
+        nodeMesh = '/effects/Entities/NomadsAdjacencyNode/NmdAdjacencyNode_mesh'
+        beamEffect = '/effects/emitters/nomads_adjacency_beam.bp'	
 
 
     elseif faction == 'Seraphim' then
@@ -374,7 +374,7 @@ end
 
 
 
-local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
+local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 
 
 
@@ -387,7 +387,7 @@ function PlayTeleportChargingEffects( unit, TeleportDestination, EffectsBag )
 --        local bp = unit:GetBlueprint()
 --        local faction = bp.General.FactionName
 --
---        if faction == 'Nomads' then                                                                    -------- NOMAD --------
+--        if faction == 'Nomads' then                                                                    -------- NOMADS --------
 --            local army = unit:GetArmy()
 --            local Yoffset = TeleportGetUnitYOffset(unit)
 --
@@ -447,7 +447,7 @@ function DoTeleportInDamage(unit)
     -- injecting Nomads effect
     if unit and not unit.TeleportInWeaponFxOverride then
 -- TODO: Nomads teleport damage effect
---        unit.TeleportInWeaponFxOverride = NomadEffectTemplate.NomadTeleportInWeapon01
+--        unit.TeleportInWeaponFxOverride = NomadsEffectTemplate.NomadsTeleportInWeapon01
     end
     oldDoTeleportInDamage(unit)
 end

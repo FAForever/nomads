@@ -2,8 +2,8 @@
 
 -- TODO: make this a normal anti-nuke. Currently the game errors out on the weapon which does not exist
 
-local NStructureUnit = import('/lua/nomadunits.lua').NStructureUnit
-local StrategicMissileDefenseWeapon = import('/lua/nomadweapons.lua').StrategicMissileDefenseWeapon
+local NStructureUnit = import('/lua/nomadsunits.lua').NStructureUnit
+local StrategicMissileDefenseWeapon = import('/lua/nomadsweapons.lua').StrategicMissileDefenseWeapon
 local nukeFiredOnGotTarget = false
 
 INB4302 = Class(NStructureUnit) {

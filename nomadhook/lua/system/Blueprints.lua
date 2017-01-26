@@ -357,7 +357,7 @@ function ExtractBuildMeshBlueprint(bp)
         if buildmeshbp.LODs then
             for i, lod in buildmeshbp.LODs do
                 lod.ShaderName = 'NomadBuild'
-                lod.LookupName = '/textures/effects/NomadBuildNoiseLookup.dds'  -- Nomads 3D build noise texture
+                lod.LookupName = '/textures/effects/NomadsBuildNoiseLookup.dds'  -- Nomads 3D build noise texture
             end
         end
         buildmeshbp.BlueprintId = meshid .. '_build'
@@ -460,7 +460,7 @@ function DEBUG_UNIT_BP_CHECK(bps)
             elseif cat == 'LAND' then LAND = true
             elseif cat == 'NAVAL' then NAVAL = true
             elseif cat == 'AIR' then AIR = true
-            elseif cat == 'NOMAD' then NOMAD = true
+            elseif cat == 'NOMADS' then NOMADS = true
             elseif cat == 'HOVER' then HOVER = true
             elseif cat == 'ENGINEER' then ENGINEER = true
             elseif cat == 'FACTORY' then FACTORY = true
@@ -603,7 +603,7 @@ function DEBUG_UNIT_BP_CHECK(bps)
             WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' Physics.GroundCollisionOffset not equal to SizeSphere ('..repr(bp.SizeSphere)..')')
         end
 
-        if HOVER and not ENGINEER and bp.General.FactionName == 'Nomad' and bp.Physics.OnWaterSpeedMultiplier and math.ceil(bp.Physics.OnWaterSpeedMultiplier * 100) ~= 75 then
+        if HOVER and not ENGINEER and bp.General.FactionName == 'Nomads' and bp.Physics.OnWaterSpeedMultiplier and math.ceil(bp.Physics.OnWaterSpeedMultiplier * 100) ~= 75 then
             WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' Physics.OnWaterSpeedMultiplier is not 0.75, it is '..repr(bp.Physics.OnWaterSpeedMultiplier))
         end
 

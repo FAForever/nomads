@@ -1,12 +1,12 @@
 -- carrier
 
-local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
---local SupportingArtilleryAbility = import('/lua/nomadutils.lua').SupportingArtilleryAbility
-local AddFlares = import('/lua/nomadutils.lua').AddFlares
---local AddNavalLights = import('/lua/nomadutils.lua').AddNavalLights
-local NSeaUnit = import('/lua/nomadunits.lua').NSeaUnit
-local ParticleBlaster1 = import('/lua/nomadweapons.lua').ParticleBlaster1
-local MissileWeapon1 = import('/lua/nomadweapons.lua').MissileWeapon1
+local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
+--local SupportingArtilleryAbility = import('/lua/nomadsutils.lua').SupportingArtilleryAbility
+local AddFlares = import('/lua/nomadsutils.lua').AddFlares
+--local AddNavalLights = import('/lua/nomadsutils.lua').AddNavalLights
+local NSeaUnit = import('/lua/nomadsunits.lua').NSeaUnit
+local ParticleBlaster1 = import('/lua/nomadsweapons.lua').ParticleBlaster1
+local MissileWeapon1 = import('/lua/nomadsweapons.lua').MissileWeapon1
 
 -- add supporting artillery ability and aa missile flares
 --NSeaUnit = AddNavalLights(NSeaUnit)
@@ -163,7 +163,7 @@ INS3003 = Class(NSeaUnit) {
         if not self.PlayingTAEffects then
             local army, emit = self:GetArmy()
             for _, bone in self.TMDEffectBones[TMD] do
-                for k, v in NomadEffectTemplate.T2MobileTacticalMissileDefenseTargetAcquired do
+                for k, v in NomadsEffectTemplate.T2MobileTacticalMissileDefenseTargetAcquired do
                     emit = CreateAttachedEmitter(self, bone, army, v)
                     self.TAEffectsBag:Add(emit)
                     self.Trash:Add(emit)

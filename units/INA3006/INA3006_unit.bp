@@ -105,7 +105,7 @@ UnitBlueprint {
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3FACTORY',
-        'NOMAD',
+        'NOMADS',
         'MOBILE',
         'AIR',
         'TECH3',
