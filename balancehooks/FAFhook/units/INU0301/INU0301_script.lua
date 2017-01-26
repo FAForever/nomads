@@ -2,19 +2,19 @@ do
 
 
 
-local oldINU3001 = INU3001
+local oldinu0301 = inu0301
 
-INU3001 = Class( oldINU3001 ) {
+inu0301 = Class( oldinu0301 ) {
 
     CreateEnhancement = function(self, enh)
-        oldINU3001.CreateEnhancement(self, enh)
+        oldinu0301.CreateEnhancement(self, enh)
         if enh =='AdvancedEngineering' or  enh =='AdvancedEngineeringRemove' or enh =='T3Engineering' or enh =='T3EngineeringRemove' then
             self:UpdateBuildRestrictions()
         end
     end,
 
     UpdateBuildRestrictions = function(self)
-        oldINU3001.UpdateBuildRestrictions(self)
+        oldinu0301.UpdateBuildRestrictions(self)
 
         local HasT2 = self:HasEnhancement('EngineeringRight') or self:HasEnhancement('EngineeringLeft') or false
         local HasT3 = HasT2
@@ -46,7 +46,7 @@ INU3001 = Class( oldINU3001 ) {
     end,
 }
 
-TypeClass = INU3001
+TypeClass = inu0301
 
 
 

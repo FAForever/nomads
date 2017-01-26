@@ -1,0 +1,13 @@
+MeshBlueprint {
+    IconFadeInZoom = 130,
+    LODs = {
+        {
+            AlbedoName = '/units/inu0301/inu0301_Albedo.dds',
+            LODCutoff = 300,
+            MeshName = '/units/inu0301/inu0301_head.scm',
+            NormalsName = '/units/inu0301/inu0301_NormalsTS.dds',
+            ShaderName = 'NomadUnit',
+            SpecularName = '/units/inu0301/inu0301_SpecTeam.dds',
+        },
+    },
+}

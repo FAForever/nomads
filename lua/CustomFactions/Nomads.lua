@@ -24,7 +24,7 @@ FactionList = {
             T2 = '/icons/units/INU1005_icon.dds',
             T2F = '/icons/units/INU3008_icon.dds',
             T3 = '/icons/units/INU2001_icon.dds',
-            SCU = '/icons/units/INU3001_icon.dds',
+            SCU = '/icons/units/inu0301_icon.dds',
         },
         IdleFactoryTextures = {
             LAND = {
