@@ -1,3 +1,15 @@
+local function clear_cache()
+    local dir = SHGetFolderPath('LOCAL_APPDATA') .. 'Gas Powered Games\\Supreme Commander Forged Alliance\\cache\\'
+    LOG('Clearing cached shader files in: ' .. dir)
+    for _,file in io.dir(dir .. '**') do
+        if string.find(file, 'mesh') then
+            os.remove(dir .. file)
+        end
+    end
+end
+
+clear_cache()
+
 dev_path = 'E:\\GITS\\fa'
 dev_pathnomads = 'E:\\GITS\\nomads'
 -- this imports a path file that is written by Forged Alliance Forever right before it starts the game.
