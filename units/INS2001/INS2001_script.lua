@@ -1,11 +1,11 @@
 -- T2 destroyer
 
-local SupportedArtilleryWeapon = import('/lua/nomadutils.lua').SupportedArtilleryWeapon
-local AddNavalLights = import('/lua/nomadutils.lua').AddNavalLights
-local AddBombardModeToUnit = import('/lua/nomadutils.lua').AddBombardModeToUnit
-local NSeaUnit = import('/lua/nomadunits.lua').NSeaUnit
-local EnergyCannon1 = import('/lua/nomadweapons.lua').EnergyCannon1
-local UnderwaterRailgunWeapon1 = import('/lua/nomadweapons.lua').UnderwaterRailgunWeapon1
+local SupportedArtilleryWeapon = import('/lua/nomadsutils.lua').SupportedArtilleryWeapon
+local AddNavalLights = import('/lua/nomadsutils.lua').AddNavalLights
+local AddBombardModeToUnit = import('/lua/nomadsutils.lua').AddBombardModeToUnit
+local NSeaUnit = import('/lua/nomadsunits.lua').NSeaUnit
+local EnergyCannon1 = import('/lua/nomadsweapons.lua').EnergyCannon1
+local UnderwaterRailgunWeapon1 = import('/lua/nomadsweapons.lua').UnderwaterRailgunWeapon1
 
 NSeaUnit = AddBombardModeToUnit( NSeaUnit )
 NSeaUnit = AddNavalLights(NSeaUnit)

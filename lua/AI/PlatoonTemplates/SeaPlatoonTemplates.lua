@@ -26,7 +26,7 @@ PlatoonTemplate {
         Aeon = {
             { 'uas0401', 1, 1, 'attack', 'None' }
         },
-        Nomad = {
+        Nomads = {
             { 'inu4001', 1, 1, 'attack', 'None' }
         },
     }
@@ -48,7 +48,7 @@ PlatoonTemplate {
         Seraphim = {
             { 'xss0103', 1, 1, 'attack', 'GrowthFormation' }
         },
-        Nomad = {
+        Nomads = {
             { 'ins1002', 1, 1, 'attack', 'GrowthFormation' }
         },
     }
@@ -69,7 +69,7 @@ PlatoonTemplate {
         Seraphim = {
             { 'xss0103', 1, 1, 'attack', 'GrowthFormation' }
         },
-        Nomad = {
+        Nomads = {
             { 'ins1002', 1, 1, 'attack', 'GrowthFormation' }
         },
     }
@@ -90,7 +90,7 @@ PlatoonTemplate {
         Seraphim = {
             { 'xss0203', 1, 1, 'attack', 'GrowthFormation' }
         },
-        Nomad = {
+        Nomads = {
             { 'ins1001', 1, 1, 'attack', 'GrowthFormation' }
         },
     }

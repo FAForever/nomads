@@ -1,6 +1,6 @@
 -- The surface support vehicle that's in orbit
 
-local NCivilianStructureUnit = import('/lua/nomadunits.lua').NCivilianStructureUnit
+local NCivilianStructureUnit = import('/lua/nomadsunits.lua').NCivilianStructureUnit
 
 INC0001 = Class(NCivilianStructureUnit) {
     

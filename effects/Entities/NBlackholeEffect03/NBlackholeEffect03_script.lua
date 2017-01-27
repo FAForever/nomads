@@ -1,11 +1,11 @@
 local EmitterProjectile = import('/lua/sim/defaultprojectiles.lua').EmitterProjectile
-local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
+local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local Util = import('/lua/utilities.lua')
 local RandomFloat = Util.GetRandomFloat
 
 NBlackholeEffect03 = Class(EmitterProjectile) {
 
-    FxTrails = NomadEffectTemplate.NukeBlackholeFireballTrail,
+    FxTrails = NomadsEffectTemplate.NukeBlackholeFireballTrail,
 
     OnCreate = function(self)
         EmitterProjectile.OnCreate(self)
@@ -23,7 +23,7 @@ NBlackholeEffect03 = Class(EmitterProjectile) {
 
         self:SetBallisticAcceleration( -2 )  -- "gravity"
 
-        for k, v in NomadEffectTemplate.NukeBlackholeFireball do
+        for k, v in NomadsEffectTemplate.NukeBlackholeFireball do
             emit = CreateEmitterOnEntity(self, army, v ):ScaleEmitter( scale )
             table.insert( emitters, emit )
             self.Trash:Add( emit )
@@ -49,7 +49,7 @@ NBlackholeEffect03 = Class(EmitterProjectile) {
 
     OnImpact = function(self, targetType, targetEntity)
         local army = self:GetArmy()
-        for k, v in NomadEffectTemplate.NukeBlackholeFireballHit do
+        for k, v in NomadsEffectTemplate.NukeBlackholeFireballHit do
             CreateEmitterAtEntity(self, army, v )
         end
         if self.DamageData then

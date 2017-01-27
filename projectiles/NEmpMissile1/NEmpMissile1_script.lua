@@ -1,4 +1,4 @@
-local EMPMissile = import('/lua/nomadprojectiles.lua').EMPMissile
+local EMPMissile = import('/lua/nomadsprojectiles.lua').EMPMissile
 
 NEmpMissile1 = Class(EMPMissile) {
 

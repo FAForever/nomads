@@ -17,7 +17,7 @@ ProjectileBlueprint {
         },
     },
     Categories = {
-        'NOMAD',
+        'NOMADS',
         'PROJECTILE',
         'ANTINAVY',
         'TORPEDO',
@@ -48,11 +48,11 @@ ProjectileBlueprint {
     General = {
         Category = 'Anti Navy',
         EntityCategory = {
-            'NOMAD',
+            'NOMADS',
             'PROJECTILE',
             'ANTINAVY',
         },
-        Faction = 'Nomad',
+        Faction = 'Nomads',
         Weapon = 'Torpedo1Proj',
     },
     Interface = {

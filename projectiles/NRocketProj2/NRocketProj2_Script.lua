@@ -1,4 +1,4 @@
-local Rocket3 = import('/lua/nomadprojectiles.lua').Rocket3
+local Rocket3 = import('/lua/nomadsprojectiles.lua').Rocket3
 
 NRocketProj2 = Class(Rocket3) {}
 

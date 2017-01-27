@@ -1,19 +1,19 @@
-local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
-local GattlingRound = import('/lua/nomadprojectiles.lua').GattlingRound
+local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
+local GattlingRound = import('/lua/nomadsprojectiles.lua').GattlingRound
 
 NGattlingRound2 = Class(GattlingRound) {
 
-    FxImpactAirUnit = NomadEffectTemplate.GattlingHitAirUnit2,
-    FxImpactLand = NomadEffectTemplate.GattlingHitLand2,
-    FxImpactNone = NomadEffectTemplate.GattlingHitNone2,
-    FxImpactProp = NomadEffectTemplate.GattlingHitProp2,
-    FxImpactShield = NomadEffectTemplate.GattlingHitShield2,
-    FxImpactUnit = NomadEffectTemplate.GattlingHitUnit2,
-    FxImpactWater = NomadEffectTemplate.GattlingHitWater2,
-    FxImpactProjectile = NomadEffectTemplate.GattlingHitProjectile2,
+    FxImpactAirUnit = NomadsEffectTemplate.GattlingHitAirUnit2,
+    FxImpactLand = NomadsEffectTemplate.GattlingHitLand2,
+    FxImpactNone = NomadsEffectTemplate.GattlingHitNone2,
+    FxImpactProp = NomadsEffectTemplate.GattlingHitProp2,
+    FxImpactShield = NomadsEffectTemplate.GattlingHitShield2,
+    FxImpactUnit = NomadsEffectTemplate.GattlingHitUnit2,
+    FxImpactWater = NomadsEffectTemplate.GattlingHitWater2,
+    FxImpactProjectile = NomadsEffectTemplate.GattlingHitProjectile2,
 
-    FxTrails = NomadEffectTemplate.GattlingTrail2,
-    PolyTrails = NomadEffectTemplate.GattlingPolyTrails2,
+    FxTrails = NomadsEffectTemplate.GattlingTrail2,
+    PolyTrails = NomadsEffectTemplate.GattlingPolyTrails2,
     PolyTrailOffset = {0,0,0,0},
 }
 

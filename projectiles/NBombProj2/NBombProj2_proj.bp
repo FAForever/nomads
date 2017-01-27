@@ -12,7 +12,7 @@ ProjectileBlueprint {
         },
     },
     Categories = {
-        'NOMAD',
+        'NOMADS',
         'PROJECTILE',
         'INDIRECTFIRE',
     },
@@ -27,11 +27,11 @@ ProjectileBlueprint {
     General = {
         Category = 'Bomb',
         EntityCategory = {
-            'NOMAD',
+            'NOMADS',
             'PROJECTILE',
             'INDIRECTFIRE',
         },
-        Faction = 'NOMAD',
+        Faction = 'NOMADS',
     },
     Interface = {
         HelpText = 0,

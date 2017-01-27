@@ -1,24 +1,24 @@
 -- a rocket that has the effects of missiles
 
-local Rocket1 = import('/lua/nomadprojectiles.lua').Rocket1
-local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
+local Rocket1 = import('/lua/nomadsprojectiles.lua').Rocket1
+local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 
 NRocketProj3 = Class(Rocket1) {
-    BeamName = NomadEffectTemplate.MissileBeam,
+    BeamName = NomadsEffectTemplate.MissileBeam,
 
-    FxImpactAirUnit = NomadEffectTemplate.MissileHitAirUnit1,
-    FxImpactLand = NomadEffectTemplate.MissileHitLand1,
-    FxImpactNone = NomadEffectTemplate.MissileHitNone1,
-    FxImpactProp = NomadEffectTemplate.MissileHitProp1,
-    FxImpactShield = NomadEffectTemplate.MissileHitShield1,
-    FxImpactUnit = NomadEffectTemplate.MissileHitUnit1,
-    FxImpactWater = NomadEffectTemplate.MissileHitWater1,
-    FxImpactProjectile = NomadEffectTemplate.MissileHitProjectile1,
-    FxImpactUnderWater = NomadEffectTemplate.MissileHitUnderWater1,
-    FxTrails = NomadEffectTemplate.MissileTrail,
+    FxImpactAirUnit = NomadsEffectTemplate.MissileHitAirUnit1,
+    FxImpactLand = NomadsEffectTemplate.MissileHitLand1,
+    FxImpactNone = NomadsEffectTemplate.MissileHitNone1,
+    FxImpactProp = NomadsEffectTemplate.MissileHitProp1,
+    FxImpactShield = NomadsEffectTemplate.MissileHitShield1,
+    FxImpactUnit = NomadsEffectTemplate.MissileHitUnit1,
+    FxImpactWater = NomadsEffectTemplate.MissileHitWater1,
+    FxImpactProjectile = NomadsEffectTemplate.MissileHitProjectile1,
+    FxImpactUnderWater = NomadsEffectTemplate.MissileHitUnderWater1,
+    FxTrails = NomadsEffectTemplate.MissileTrail,
     FxTrailOffset = 0,
 
-    PolyTrail = NomadEffectTemplate.MissilePolyTrail,
+    PolyTrail = NomadsEffectTemplate.MissilePolyTrail,
     PolyTrailOffset = 0,
 }
 TypeClass = NRocketProj3

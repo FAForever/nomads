@@ -1,1 +1,0 @@
-StringsDB = { 'nomad_strings_core', }

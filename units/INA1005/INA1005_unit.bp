@@ -84,7 +84,7 @@ UnitBlueprint {
     BuildIconSortPriority = 50,
     Categories = {
         'SELECTABLE',
-        'NOMAD',
+        'NOMADS',
         'MOBILE',
         'AIR',
         'TECH1',

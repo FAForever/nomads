@@ -92,7 +92,7 @@ UnitBlueprint {
         'SELECTABLE',
         'TRANSPORTBUILTBYTIER2FACTORY',
         'TRANSPORTBUILTBYTIER3FACTORY',
-        'NOMAD',
+        'NOMADS',
         'MOBILE',
         'AIR',
         'TECH2',

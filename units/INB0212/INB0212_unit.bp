@@ -47,7 +47,7 @@ UnitBlueprint {
         'BUILTBYTIER2COMMANDER', --
         'BUILTBYTIER3ENGINEER', --
         'BUILTBYTIER3COMMANDER', --
-        'NOMAD',
+        'NOMADS',
         'STRUCTURE',
         'AIR',
         'TECH2',
@@ -97,11 +97,11 @@ UnitBlueprint {
         SpawnRandomRotation = true,
         Tarmacs = {
             {
-                Albedo = 'Tarmacs/Tar12x_nomad_01_albedo',
+                Albedo = 'Tarmacs/Tar12x_nomads_01_albedo',
                 DeathLifetime = 300,
                 FadeOut = 150,
                 Length = 12.8,
-                Normal = 'Tarmacs/Tar12x_nomad_01_normals',
+                Normal = 'Tarmacs/Tar12x_nomads_01_normals',
                 Orientations = {
                     0,
                 },
@@ -117,11 +117,11 @@ UnitBlueprint {
         BuildRate = 40,
         BuildTime = 1300, --
         BuildableCategory = {
-            'BUILTBYTIER2FACTORY NOMAD MOBILE CONSTRUCTION',
-            'BUILTBYTIER2SUPPORTFACTORY NOMAD STRUCTURE AIR',
-            'BUILTBYTIER2FACTORY NOMAD MOBILE AIR',
-            'TRANSPORTBUILTBYTIER2FACTORY NOMAD MOBILE AIR',
-            'FIELDENGINEER NOMAD MOBILE LAND',
+            'BUILTBYTIER2FACTORY NOMADS MOBILE CONSTRUCTION',
+            'BUILTBYTIER2SUPPORTFACTORY NOMADS STRUCTURE AIR',
+            'BUILTBYTIER2FACTORY NOMADS MOBILE AIR',
+            'TRANSPORTBUILTBYTIER2FACTORY NOMADS MOBILE AIR',
+            'FIELDENGINEER NOMADS MOBILE LAND',
         },
 	DifferentialUpgradeCostCalculation = true, --
         RebuildBonusIds = { --

@@ -292,7 +292,7 @@ UnitBlueprint {
     BuildIconSortPriority = 10,
     Categories = {
         'SELECTABLE',
-        'NOMAD',
+        'NOMADS',
         'MOBILE',
         'LAND',
         'TECH3',
@@ -469,7 +469,7 @@ UnitBlueprint {
         BuildRate = 15,
         BuildTime = 7200,
         BuildableCategory = {
-            'BUILTBYTIER3ENGINEER NOMAD',
+            'BUILTBYTIER3ENGINEER NOMADS',
         },
         MaxBuildDistance = 10,
         NaturalProducer = true,
@@ -493,7 +493,7 @@ UnitBlueprint {
                 'Gatling_R',
             },
             Icon = 'acap',
-            Name = '<LOC NomadSCUEnh_AddCapacitor_Help>Additional Capacitor',
+            Name = '<LOC NomadsSCUEnh_AddCapacitor_Help>Additional Capacitor',
             CapacitorNewDuration = 30,
             ShowBones = {
                 'Capacitor'
@@ -514,7 +514,7 @@ UnitBlueprint {
                 'Capacitor'
             },
             Icon = 'rae',
-            Name = '<LOC NomadSCUEnh_AddCapacitor_Remove>Remove Additional Capacitor',
+            Name = '<LOC NomadsSCUEnh_AddCapacitor_Remove>Remove Additional Capacitor',
             Prerequisite = 'AdditionalCapacitor',
             RemoveEnhancements = {
                 'AdditionalCapacitor',
@@ -533,7 +533,7 @@ UnitBlueprint {
                 'Railgun_L',
             },
             Icon = 'ses',
-            Name = '<LOC NomadSCUEnh_LeftArmEngineering_Help>Left Arm Engineering',
+            Name = '<LOC NomadsSCUEnh_LeftArmEngineering_Help>Left Arm Engineering',
             ShowBones = {
                 'Bicep_L',
                 'Forearm_L',
@@ -560,7 +560,7 @@ UnitBlueprint {
                 'Engi_L',
             },
             Icon = 'ses',
-            Name = '<LOC NomadSCUEnh_LeftArmEngineering_Remove>Remove Left Arm Engineering',
+            Name = '<LOC NomadsSCUEnh_LeftArmEngineering_Remove>Remove Left Arm Engineering',
             Prerequisite = 'EngineeringLeft',
             RemovesLeftArm = true,
             RemoveEnhancements = {
@@ -579,7 +579,7 @@ UnitBlueprint {
                 'Gatling_R',
             },
             Icon = 'rae',
-            Name = '<LOC NomadSCUEnh_RightArmEngineering_Help>Right Arm Engineering',
+            Name = '<LOC NomadsSCUEnh_RightArmEngineering_Help>Right Arm Engineering',
             ShowBones = {
                 'Bicep_R',
                 'Forearm_R',
@@ -606,7 +606,7 @@ UnitBlueprint {
                 'Engi_R',
             },
             Icon = 'rae',
-            Name = '<LOC NomadSCUEnh_RightArmEngineering_Remove>Remove Right Arm Engineering',
+            Name = '<LOC NomadsSCUEnh_RightArmEngineering_Remove>Remove Right Arm Engineering',
             Prerequisite = 'EngineeringRight',
             RemoveEnhancements = {
                 'EngineeringRight',
@@ -627,7 +627,7 @@ UnitBlueprint {
                 'Railgun_L',
             },
             Icon = 'rag',
-            Name = '<LOC NomadSCUEnh_LeftArmGun_Help>Left Arm Gun',
+            Name = '<LOC NomadsSCUEnh_LeftArmGun_Help>Left Arm Gun',
             ShowBones = {
                 'Bicep_L',
                 'Forearm_L',
@@ -651,7 +651,7 @@ UnitBlueprint {
                 'Bicep_L',
             },
             Icon = 'rag',
-            Name = '<LOC NomadSCUEnh_LeftArmGun_Remove>Remove Left Arm Gun',
+            Name = '<LOC NomadsSCUEnh_LeftArmGun_Remove>Remove Left Arm Gun',
             Prerequisite = 'GunLeft',
             RemoveEnhancements = {
                 'GunLeft',
@@ -666,7 +666,7 @@ UnitBlueprint {
             BuildCostMass = 700,
             BuildTime = 2200,
             Icon = 'rag2',
-            Name = '<LOC NomadSCUEnh_LeftArmGunUpgrade_Help>Upgrade Left Arm Gun',
+            Name = '<LOC NomadsSCUEnh_LeftArmGunUpgrade_Help>Upgrade Left Arm Gun',
             NewDamageDuringCapacitor = 50,
             NewDamageRadiusDuringCapacitor = 2,
             NewDoTPulsesDuringCapacitor = 5,
@@ -696,7 +696,7 @@ UnitBlueprint {
                 'Bicep_L',
             },
             Icon = 'rag2',
-            Name = '<LOC NomadSCUEnh_LeftArmGunUpgrade_Remove>Remove Upgraded Left Arm Gun',
+            Name = '<LOC NomadsSCUEnh_LeftArmGunUpgrade_Remove>Remove Upgraded Left Arm Gun',
             Prerequisite = 'GunLeftUpgrade',
             RemoveEnhancements = {
                 'GunLeft',
@@ -718,7 +718,7 @@ UnitBlueprint {
                 'GatlingBig_R_Barrels',
             },
             Icon = 'acu',
-            Name = '<LOC NomadSCUEnh_RightArmGun_Help>Right Arm Gun',
+            Name = '<LOC NomadsSCUEnh_RightArmGun_Help>Right Arm Gun',
             ShowBones = {
                 'Bicep_R',
                 'Forearm_R',
@@ -742,7 +742,7 @@ UnitBlueprint {
                 'Bicep_R',
             },
             Icon = 'acu',
-            Name = '<LOC NomadSCUEnh_RightArmGun_Remove>Remove Right Arm Gun',
+            Name = '<LOC NomadsSCUEnh_RightArmGun_Remove>Remove Right Arm Gun',
             Prerequisite = 'GunRight',
             RemovesRightArm = true,
             RemoveEnhancements = {
@@ -763,7 +763,7 @@ UnitBlueprint {
 --                'Gatling_R_Barrels',
 --            },
 --            Icon = 'acu2',
---            Name = '<LOC NomadSCUEnh_RightArmGunUpgrade_Help>Upgrade Right Arm Gun',
+--            Name = '<LOC NomadsSCUEnh_RightArmGunUpgrade_Help>Upgrade Right Arm Gun',
 --            ShowBones = {
 --                'GatlingBig_R',
 --                'GatlingBig_R_Barrels',
@@ -785,7 +785,7 @@ UnitBlueprint {
 --                'Bicep_R',
 --            },
 --            Icon = 'acu2',
---            Name = '<LOC NomadSCUEnh_RightArmGunUpgrade_Remove>Remove Upgraded Right Arm Gun',
+--            Name = '<LOC NomadsSCUEnh_RightArmGunUpgrade_Remove>Remove Upgraded Right Arm Gun',
 --            Prerequisite = 'GunRightUpgrade',
 --            RemoveEnhancements = {
 --                'GunRight',
@@ -805,7 +805,7 @@ UnitBlueprint {
                 'GunModule_L',
             },
             Icon = 'lar',
-            Name = '<LOC NomadSCUEnh_LeftArmRocket_Help>Left Arm Rocket Launcher',
+            Name = '<LOC NomadsSCUEnh_LeftArmRocket_Help>Left Arm Rocket Launcher',
             ShowBones = {
                 'Missile_L',
             },
@@ -825,7 +825,7 @@ UnitBlueprint {
                 'Missile_L',
             },
             Icon = 'rag',
-            Name = '<LOC NomadSCUEnh_LeftArmRocket_Remove>Remove Left Arm Rocket Launcher',
+            Name = '<LOC NomadsSCUEnh_LeftArmRocket_Remove>Remove Left Arm Rocket Launcher',
             Prerequisite = 'LeftRocket',
             RemoveEnhancements = {
                 'LeftRocket',
@@ -838,7 +838,7 @@ UnitBlueprint {
             BuildCostMass = 400,
             BuildTime = 1600,
             Icon = 'il',
-            Name = '<LOC NomadSCUEnh_MovementSpeedIncrease_Help>Improved Locomotor',  -- https://www.youtube.com/watch?v=S3BNWHCOxaw
+            Name = '<LOC NomadsSCUEnh_MovementSpeedIncrease_Help>Improved Locomotor',  -- https://www.youtube.com/watch?v=S3BNWHCOxaw
             SpeedMulti = 1.5,
             ShowBones = {
                 'BackUpg',
@@ -859,7 +859,7 @@ UnitBlueprint {
                 'BackUpg',
             },
             Icon = 'il',
-            Name = '<LOC NomadSCUEnh_MovementSpeedIncrease_Remove>Remove Improved Locomotor',
+            Name = '<LOC NomadsSCUEnh_MovementSpeedIncrease_Remove>Remove Improved Locomotor',
             Prerequisite = 'MovementSpeedIncrease',
             RemoveEnhancements = {
                 'MovementSpeedIncrease',
@@ -875,7 +875,7 @@ UnitBlueprint {
             BuildTime = 10300,
             Icon = 'sepa',
             Mesh = '/units/inu0301/inu0301_PowerArmor_Mesh',
-            Name = '<LOC NomadSCUEnh_PowerArmor_Help>Powered Armor',
+            Name = '<LOC NomadsSCUEnh_PowerArmor_Help>Powered Armor',
             Prerequisite = 'RapidRepair',
             Slot = 'Back',
             UpgradeEffectBones = {
@@ -898,7 +898,7 @@ UnitBlueprint {
                 'Nano_LPauld',
             },
             Icon = 'sepa',
-            Name = '<LOC NomadSCUEnh_PowerArmor_Remove>Remove Powered Armor',
+            Name = '<LOC NomadsSCUEnh_PowerArmor_Remove>Remove Powered Armor',
             Prerequisite = 'PowerArmor',
             RemoveEnhancements = {
                 'RapidRepair',
@@ -919,7 +919,7 @@ UnitBlueprint {
                 'GunModule_L',
             },
             Icon = 'larg',
-            Name = '<LOC NomadSCUEnh_LeftArmRailgun_Help>Left Arm Under Water Railgun',
+            Name = '<LOC NomadsSCUEnh_LeftArmRailgun_Help>Left Arm Under Water Railgun',
             ShowBones = {
                 'Bicep_L',
                 'Forearm_L',
@@ -943,7 +943,7 @@ UnitBlueprint {
                 'Bicep_L',
             },
             Icon = 'larg',
-            Name = '<LOC NomadSCUEnh_LeftArmRailgun_Remove>Remove Left Arm Under Water Railgun',
+            Name = '<LOC NomadsSCUEnh_LeftArmRailgun_Remove>Remove Left Arm Under Water Railgun',
             Prerequisite = 'Railgun',
             RemoveEnhancements = {
                 'Railgun',
@@ -959,7 +959,7 @@ UnitBlueprint {
             BuildTime = 4200,
             Icon = 'se',
             InterruptRapidRepairByWeaponFired = false,
-            Name = '<LOC NomadSCUEnh_RapidRepair_Help>Rapid repair',
+            Name = '<LOC NomadsSCUEnh_RapidRepair_Help>Rapid repair',
             RepairDelay = 15,
             RepairRate = 70,
             ShowBones = {
@@ -981,7 +981,7 @@ UnitBlueprint {
                 'Nano_Chest',
             },
             Icon = 'se',
-            Name = '<LOC NomadSCUEnh_RapidRepair_Remove>Remove Rapid repair',
+            Name = '<LOC NomadsSCUEnh_RapidRepair_Remove>Remove Rapid repair',
             Prerequisite = 'RapidRepair',
             RemoveEnhancements = {
                 'RapidRepair',
@@ -996,7 +996,7 @@ UnitBlueprint {
             CapacitorNewChargeTime = 20,
             CapacitorNewEnergyDrainPerSecond = 100,
             Icon = 'isb',
-            Name = '<LOC NomadSCUEnh_ResourceAllocation_Help>Resource Generator',
+            Name = '<LOC NomadsSCUEnh_ResourceAllocation_Help>Resource Generator',
             NewDeathWeapon = 'RASDeathWeapon',
             ProductionPerSecondEnergy = 500,
             ProductionPerSecondMass = 4,
@@ -1021,7 +1021,7 @@ UnitBlueprint {
                 'Backpack',
             },
             Icon = 'isb',
-            Name = '<LOC NomadSCUEnh_ResourceAllocation_Remove>Remove Resource Generator',
+            Name = '<LOC NomadsSCUEnh_ResourceAllocation_Remove>Remove Resource Generator',
             Prerequisite = 'ResourceAllocation',
             RemoveEnhancements = {
                 'ResourceAllocation',
@@ -1039,7 +1039,7 @@ UnitBlueprint {
                 'Gatling_R',
             },
             Icon = 'rar',
-            Name = '<LOC NomadSCUEnh_RightArmRocket_Help>Right Arm Rocket Launcher',
+            Name = '<LOC NomadsSCUEnh_RightArmRocket_Help>Right Arm Rocket Launcher',
             ShowBones = {
                 'Missile_R',
             },
@@ -1059,7 +1059,7 @@ UnitBlueprint {
                 'Missile_R',
             },
             Icon = 'rar',
-            Name = '<LOC NomadSCUEnh_RightArmRocket_Remove>Remove Right Arm Rocket Launcher',
+            Name = '<LOC NomadsSCUEnh_RightArmRocket_Remove>Remove Right Arm Rocket Launcher',
             Prerequisite = 'RightRocket',
             RemoveEnhancements = {
                 'RightRocket',
@@ -1336,7 +1336,7 @@ UnitBlueprint {
     SizeY = 1.75,
     SizeZ = 0.8,
     SpecialAbilities = {
-        NomadAreaBombardment = {
+        NomadsAreaBombardment = {
             IsRangeExtender = true,
             MaxRadius = 200,
         },

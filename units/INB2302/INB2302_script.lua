@@ -4,7 +4,7 @@
 -- the base station should tell the orbital unit what to fire on. I'm using a fake weapon to do the targetting. It's target
 -- is relayed to the slave unit.
 
-local NStructureUnit = import('/lua/nomadunits.lua').NStructureUnit
+local NStructureUnit = import('/lua/nomadsunits.lua').NStructureUnit
 local DefaultProjectileWeapon = import('/lua/sim/defaultweapons.lua').DefaultProjectileWeapon
 
 INB2302 = Class(NStructureUnit) {
@@ -144,9 +144,9 @@ INB2302 = Class(NStructureUnit) {
         -- called each time the gun fires a projectile
     end,
 
-    OnArtilleryUnitKilledUnit = function(self)
+    OnArtilleryUnitKilledUnit = function(self, unitKilled)
         -- called each time the gun kills a unit
-        self:AddXP(1)
+        self:OnKilledUnit(unitKilled)
     end,
 }
 

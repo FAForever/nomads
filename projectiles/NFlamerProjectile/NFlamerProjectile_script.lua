@@ -1,4 +1,4 @@
-local Flamer = import('/lua/nomadprojectiles.lua').Flamer
+local Flamer = import('/lua/nomadsprojectiles.lua').Flamer
 
 NFlamerProjectile = Class(Flamer) {
 

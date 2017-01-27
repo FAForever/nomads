@@ -1,0 +1,1 @@
+StringsDB = { 'nomads_faf', }

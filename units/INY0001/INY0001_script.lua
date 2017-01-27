@@ -1,7 +1,7 @@
 -- Nomads regular intel probe deployed
 
-local SupportingArtilleryAbility = import('/lua/nomadutils.lua').SupportingArtilleryAbility
-local NStructureUnit = import('/lua/nomadunits.lua').NStructureUnit
+local SupportingArtilleryAbility = import('/lua/nomadsutils.lua').SupportingArtilleryAbility
+local NStructureUnit = import('/lua/nomadsunits.lua').NStructureUnit
 
 NStructureUnit = SupportingArtilleryAbility( NStructureUnit )
 

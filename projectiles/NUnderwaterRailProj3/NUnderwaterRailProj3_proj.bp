@@ -17,7 +17,7 @@ ProjectileBlueprint {
         },
     },
     Categories = {
-        'NOMAD',
+        'NOMADS',
         'PROJECTILE',
         'DIRECTFIRE',
         'ANTINAVY',
@@ -35,7 +35,7 @@ ProjectileBlueprint {
     },
     General = {
         Category = 'Anti Navy',
-        Faction = 'NOMAD',
+        Faction = 'NOMADS',
         Weapon = 'Submerged railgun',
     },
     Interface = {

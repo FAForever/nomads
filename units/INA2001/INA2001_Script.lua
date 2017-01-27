@@ -1,9 +1,9 @@
 -- T2 transport
 
-local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
-local AddFlares = import('/lua/nomadutils.lua').AddFlares
-local AddLights = import('/lua/nomadutils.lua').AddLights
-local NAirTransportUnit = import('/lua/nomadunits.lua').NAirTransportUnit
+local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
+local AddFlares = import('/lua/nomadsutils.lua').AddFlares
+local AddLights = import('/lua/nomadsutils.lua').AddLights
+local NAirTransportUnit = import('/lua/nomadsunits.lua').NAirTransportUnit
 
 NAirTransportUnit = AddFlares( AddLights( NAirTransportUnit ) )
 
@@ -110,7 +110,7 @@ INA2001 = Class(NAirTransportUnit) {
         if self:GetFractionComplete() < 1 then return end
 
         local army, emit = self:GetArmy()
-        for k, v in NomadEffectTemplate.T2TransportThrusters do
+        for k, v in NomadsEffectTemplate.T2TransportThrusters do
             for _, bone in self.ThrusterBurnBones do
                 emit = CreateAttachedEmitter( self, bone, army, v )
                 self.ThrusterEffectsBag:Add( emit )
@@ -129,7 +129,7 @@ INA2001 = Class(NAirTransportUnit) {
         if self:GetFractionComplete() < 1 then return end
 
         local army, emit = self:GetArmy()
-        for k, v in NomadEffectTemplate.T2TransportThrusterBurn do
+        for k, v in NomadsEffectTemplate.T2TransportThrusterBurn do
             for _, bone in self.ThrusterBurnBones do
                 emit = CreateAttachedEmitter( self, bone, army, v )
                 self.ThrusterBurnEffectsBag:Add( emit )
@@ -187,9 +187,9 @@ INA2001 = Class(NAirTransportUnit) {
                     if table.getsize( emits[boneN] ) <= 0 then
 
                         if onWater then
-                            emitTempl = NomadEffectTemplate.T2TransportThrusterBurnWaterSurfaceEffect
+                            emitTempl = NomadsEffectTemplate.T2TransportThrusterBurnWaterSurfaceEffect
                         else
-                            emitTempl = NomadEffectTemplate.T2TransportThrusterBurnSurfaceEffect
+                            emitTempl = NomadsEffectTemplate.T2TransportThrusterBurnSurfaceEffect
                         end
 
 

@@ -1,9 +1,9 @@
 -- T1 frigate
 
-local AddNavalLights = import('/lua/nomadutils.lua').AddNavalLights
-local NSeaUnit = import('/lua/nomadunits.lua').NSeaUnit
-local StingrayCannon1 = import('/lua/nomadweapons.lua').StingrayCannon1
-local RocketWeapon1 = import('/lua/nomadweapons.lua').RocketWeapon1
+local AddNavalLights = import('/lua/nomadsutils.lua').AddNavalLights
+local NSeaUnit = import('/lua/nomadsunits.lua').NSeaUnit
+local StingrayCannon1 = import('/lua/nomadsweapons.lua').StingrayCannon1
+local RocketWeapon1 = import('/lua/nomadsweapons.lua').RocketWeapon1
 
 NSeaUnit = AddNavalLights(NSeaUnit)
 

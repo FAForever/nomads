@@ -1,11 +1,11 @@
 -- Experimental transport
 
 local Explosion = import('/lua/defaultexplosions.lua')
-local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
-local SupportingArtilleryAbility = import('/lua/nomadutils.lua').SupportingArtilleryAbility
-local NAirTransportUnit = import('/lua/nomadunits.lua').NAirTransportUnit
-local RocketWeapon1 = import('/lua/nomadweapons.lua').RocketWeapon1
-local DroppedTorpedoWeapon1  = import('/lua/nomadweapons.lua').DroppedTorpedoWeapon1
+local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
+local SupportingArtilleryAbility = import('/lua/nomadsutils.lua').SupportingArtilleryAbility
+local NAirTransportUnit = import('/lua/nomadsunits.lua').NAirTransportUnit
+local RocketWeapon1 = import('/lua/nomadsweapons.lua').RocketWeapon1
+local DroppedTorpedoWeapon1  = import('/lua/nomadsweapons.lua').DroppedTorpedoWeapon1
 
 NAirTransportUnit = SupportingArtilleryAbility( NAirTransportUnit )
 
@@ -102,7 +102,7 @@ INA4001 = Class(NAirTransportUnit) {
         if self:GetFractionComplete() < 1 then return end
 
         local army, emit = self:GetArmy()
-        for k, v in NomadEffectTemplate.ExpTransportThrusters do
+        for k, v in NomadsEffectTemplate.ExpTransportThrusters do
             for _, bone in self.ThrusterBurnBones do
                 emit = CreateAttachedEmitter( self, bone, army, v )
                 self.ThrusterEffectsBag:Add( emit )
@@ -121,7 +121,7 @@ INA4001 = Class(NAirTransportUnit) {
         if self:GetFractionComplete() < 1 then return end
 
         local army, emit = self:GetArmy()
-        for k, v in NomadEffectTemplate.ExpTransportThrusterBurn do
+        for k, v in NomadsEffectTemplate.ExpTransportThrusterBurn do
             for _, bone in self.ThrusterBurnBones do
                 emit = CreateAttachedEmitter( self, bone, army, v )
                 self.ThrusterBurnEffectsBag:Add( emit )
@@ -179,9 +179,9 @@ INA4001 = Class(NAirTransportUnit) {
                     if table.getsize( emits[boneN] ) <= 0 then
 
                         if onWater then
-                            emitTempl = NomadEffectTemplate.ExpTransportThrusterBurnWaterSurfaceEffect
+                            emitTempl = NomadsEffectTemplate.ExpTransportThrusterBurnWaterSurfaceEffect
                         else
-                            emitTempl = NomadEffectTemplate.ExpTransportThrusterBurnSurfaceEffect
+                            emitTempl = NomadsEffectTemplate.ExpTransportThrusterBurnSurfaceEffect
                         end
 
 
@@ -269,7 +269,7 @@ INA4001 = Class(NAirTransportUnit) {
         local army, emits, emit = self:GetArmy(), {}
         for i, bone in self.ThrusterBurnBones do
             emits[i] = {}
-            for k, v in NomadEffectTemplate.ExpTransportThrusters do
+            for k, v in NomadsEffectTemplate.ExpTransportThrusters do
                 emit = CreateAttachedEmitter( self, bone, army, v )
                 table.insert( emits[i], emit )
                 self.Trash:Add( emit )
@@ -349,7 +349,7 @@ INA4001 = Class(NAirTransportUnit) {
         end
 
         -- damage effects
-        for k, v in NomadEffectTemplate.ExpTransportDestruction do
+        for k, v in NomadsEffectTemplate.ExpTransportDestruction do
             emit = CreateEmitterAtBone(self, 'INA4001', army, v)
         end
         DamageRing(self, pos, 0.1, damageRingSize, 1, 'Force', true)

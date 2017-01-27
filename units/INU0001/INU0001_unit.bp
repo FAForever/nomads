@@ -137,7 +137,7 @@ UnitBlueprint {
     },
     Categories = {
         'SELECTABLE',
-        'NOMAD',
+        'NOMADS',
         'MOBILE',
         'ECONOMIC',
         'COMMAND',
@@ -207,7 +207,7 @@ UnitBlueprint {
                 OffsetZ = 0,
             },
         },
-        EnhancementBoneEmitter = '/effects/Emitters/nomad_light01_emit.bp',
+        EnhancementBoneEmitter = '/effects/Emitters/nomads_light01_emit.bp',
         IdleEffects = {
             Seabed = {
                 Effects = {
@@ -313,9 +313,9 @@ UnitBlueprint {
         BuildRate = 10,
         BuildTime = 6000000,
         BuildableCategory = {
-            'BUILTBYCOMMANDER NOMAD',
-            'BUILTBYTIER2COMMANDER NOMAD',
-            'BUILTBYTIER3COMMANDER NOMAD',
+            'BUILTBYCOMMANDER NOMADS',
+            'BUILTBYTIER2COMMANDER NOMADS',
+            'BUILTBYTIER3COMMANDER NOMADS',
         },
         MaxBuildDistance = 10,
         NaturalProducer = true,
@@ -333,7 +333,7 @@ UnitBlueprint {
             BuildCostEnergy = 18000,
             BuildCostMass = 720,
             BuildTime = 900,
-            BuildableCategoryAdds = 'BUILTBYTIER2COMMANDER NOMAD',
+            BuildableCategoryAdds = 'BUILTBYTIER2COMMANDER NOMADS',
             Icon = 'aes',
             Name = '<LOC enhancements_0037>Tech 2 Engineering Suite',
             NewBuildRate = 30,
@@ -373,7 +373,7 @@ UnitBlueprint {
             BuildCostMass = 1500,
             BuildTime = 1200,
             Icon = 'hamc2',
-            Name = '<LOC NomadACUEnh_DoubleGuns_Help>',
+            Name = '<LOC NomadsACUEnh_DoubleGuns_Help>',
             NewDamageDuringCapacitor = 50,
             NewDamageRadiusDuringCapacitor = 1.5,
             NewDoTPulsesDuringCapacitor = 4,
@@ -402,7 +402,7 @@ UnitBlueprint {
                 'right_arm_upgrade_muzzle',
             },
             Icon = 'hamc2',
-            Name = '<LOC NomadACUEnh_DoubleGuns_Remove>',
+            Name = '<LOC NomadsACUEnh_DoubleGuns_Remove>',
             Prerequisite = 'DoubleGuns',
             RemoveEnhancements = {
                 'GunUpgrade',
@@ -416,7 +416,7 @@ UnitBlueprint {
             BuildCostMass = 800,
             BuildTime = 800,
             Icon = 'hamc',
-            Name = '<LOC NomadACUEnh_GunUpgrade_Help>',
+            Name = '<LOC NomadsACUEnh_GunUpgrade_Help>',
             NewDamage = 150,
             NewDamageDuringCapacitor = 50,
             NewDamageRadiusDuringCapacitor = 1.5,
@@ -440,7 +440,7 @@ UnitBlueprint {
             BuildCostMass = 1,
             BuildTime = 0.1,
             Icon = 'hamc',
-            Name = '<LOC NomadACUEnh_GunUpgrade_Remove>',
+            Name = '<LOC NomadsACUEnh_GunUpgrade_Remove>',
             Prerequisite = 'GunUpgrade',
             RemoveEnhancements = {
                 'GunUpgrade',
@@ -453,7 +453,7 @@ UnitBlueprint {
             BuildCostMass = 600,
             BuildTime = 600,
             Icon = 'ip',
-            Name = '<LOC NomadACUEnh_IntelProbe_Help>Intel Probe',
+            Name = '<LOC NomadsACUEnh_IntelProbe_Help>Intel Probe',
             Slot = 'RCH',
             UpgradeEffectBones = {
                 'right_arm_upgrade_muzzle',
@@ -469,7 +469,7 @@ UnitBlueprint {
             BuildCostMass = 1,
             BuildTime = 0.1,
             Icon = 'ip',
-            Name = '<LOC NomadACUEnh_IntelProbe_Remove>Remove Intel Probe',
+            Name = '<LOC NomadsACUEnh_IntelProbe_Remove>Remove Intel Probe',
             Prerequisite = 'IntelProbe',
             RemoveEnhancements = {
                 'IntelProbe',
@@ -482,7 +482,7 @@ UnitBlueprint {
             BuildCostMass = 1200,
             BuildTime = 1200,
             Icon = 'ip2',
-            Name = '<LOC NomadACUEnh_IntelProbeAdv_Help>Advanced Intel Probe',
+            Name = '<LOC NomadsACUEnh_IntelProbeAdv_Help>Advanced Intel Probe',
             Prerequisite = 'IntelProbe',
             Slot = 'RCH',
             UpgradeEffectBones = {
@@ -499,7 +499,7 @@ UnitBlueprint {
             BuildCostMass = 1,
             BuildTime = 0.1,
             Icon = 'ip2',
-            Name = '<LOC NomadACUEnh_IntelProbe_Remove>Remove Advanced Intel Probe',
+            Name = '<LOC NomadsACUEnh_IntelProbe_Remove>Remove Advanced Intel Probe',
             Prerequisite = 'IntelProbeAdv',
             RemoveEnhancements = {
                 'IntelProbe',
@@ -513,7 +513,7 @@ UnitBlueprint {
             BuildCostMass = 720,
             BuildTime = 900,
             Icon = 'il',
-            Name = '<LOC NomadACUEnh_MovementSpeedIncrease_Help>',
+            Name = '<LOC NomadsACUEnh_MovementSpeedIncrease_Help>',
             SpeedMulti = 1.5,
             Slot = 'Back',
             UpgradeUnitAmbientBones = {
@@ -525,7 +525,7 @@ UnitBlueprint {
             BuildCostMass = 1,
             BuildTime = 0.1,
             Icon = 'il',
-            Name = '<LOC NomadACUEnh_MovementSpeedIncrease_Remove>',
+            Name = '<LOC NomadsACUEnh_MovementSpeedIncrease_Remove>',
             Prerequisite = 'MovementSpeedIncrease',
             RemoveEnhancements = {
                 'MovementSpeedIncrease',
@@ -538,7 +538,7 @@ UnitBlueprint {
             BuildCostMass = 1500,
             BuildTime = 1500,
             Icon = 'heo',
-            Name = '<LOC NomadACUEnh_OrbitalBombardment_Help>',
+            Name = '<LOC NomadsACUEnh_OrbitalBombardment_Help>',
             Slot = 'LCH',
             UpgradeEffectBones = {
                 'left_shoulder_pod',
@@ -557,7 +557,7 @@ UnitBlueprint {
             HideBones = {
             },
             Icon = 'heo',
-            Name = '<LOC NomadACUEnh_OrbitalBombardment_Remove>',
+            Name = '<LOC NomadsACUEnh_OrbitalBombardment_Remove>',
             Prerequisite = 'OrbitalBombardment',
             RemoveEnhancements = {
                  'OrbitalBombardment',
@@ -573,7 +573,7 @@ UnitBlueprint {
             BuildTime = 2500,
             Icon = 'sepa',
             Mesh = '/units/INU0001/INU0001_PowerArmor_Mesh',
-            Name = '<LOC NomadACUEnh_PowerArmor_Help>Powered Armor',
+            Name = '<LOC NomadsACUEnh_PowerArmor_Help>Powered Armor',
             Prerequisite = 'RapidRepair',
             Slot = 'Back',
             UpgradeEffectBones = {
@@ -591,7 +591,7 @@ UnitBlueprint {
                 'upgrade_back',
             },
             Icon = 'sepa',
-            Name = '<LOC NomadACUEnh_PowerArmor_Remove>Remove Powered Armor',
+            Name = '<LOC NomadsACUEnh_PowerArmor_Remove>Remove Powered Armor',
             Prerequisite = 'PowerArmor',
             RemoveEnhancements = {
                 'RapidRepair',
@@ -606,7 +606,7 @@ UnitBlueprint {
             BuildCostMass = 1000,
             BuildTime = 1000,
             Icon = 'se',
-            Name = '<LOC NomadACUEnh_RapidRepair_Help>',
+            Name = '<LOC NomadsACUEnh_RapidRepair_Help>',
             RepairDelay = 15,
             RepairRate = 70,
             Slot = 'Back',
@@ -622,7 +622,7 @@ UnitBlueprint {
             BuildCostMass = 1,
             BuildTime = 0.1,
             Icon = 'se',
-            Name = '<LOC NomadACUEnh_RapidRepair_Remove>',
+            Name = '<LOC NomadsACUEnh_RapidRepair_Remove>',
             Prerequisite = 'RapidRepair',
             RemoveEnhancements = {
                 'RapidRepair',
@@ -688,7 +688,7 @@ UnitBlueprint {
             BuildCostEnergy = 50000,
             BuildCostMass = 2400,
             BuildTime = 6000,
-            BuildableCategoryAdds = 'BUILTBYTIER3COMMANDER NOMAD',
+            BuildableCategoryAdds = 'BUILTBYTIER3COMMANDER NOMADS',
             Icon = 'ees',
             Name = '<LOC enhancements_0053>Tech 3 Engineering Suite',
             NewBuildRate = 90,
@@ -814,7 +814,7 @@ UnitBlueprint {
     SizeY = 2.3,
     SizeZ = 0.8,
     SpecialAbilities = {
-        NomadAreaBombardment = {
+        NomadsAreaBombardment = {
             IsRangeExtender = true,
             MaxRadius = 200,
         },

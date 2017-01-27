@@ -1,7 +1,7 @@
 -- T1 interceptor
 
-local NAirUnit = import('/lua/nomadunits.lua').NAirUnit
-local AirToAirGun1 = import('/lua/nomadweapons.lua').AirToAirGun1
+local NAirUnit = import('/lua/nomadsunits.lua').NAirUnit
+local AirToAirGun1 = import('/lua/nomadsweapons.lua').AirToAirGun1
 
 INA1002 = Class(NAirUnit) {
     Weapons = {

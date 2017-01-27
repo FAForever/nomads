@@ -1,7 +1,7 @@
 do
 
 
-local NomadShieldChanges = function(SuperClass)
+local NomadsShieldChanges = function(SuperClass)
     return Class(SuperClass) {
 
     OnDamage =  function(self,instigator,amount,vector,type)
@@ -35,8 +35,8 @@ local NomadShieldChanges = function(SuperClass)
 } end
 
 
-Shield = NomadShieldChanges(Shield)
-AntiArtilleryShield = NomadShieldChanges(AntiArtilleryShield)
+Shield = NomadsShieldChanges(Shield)
+AntiArtilleryShield = NomadsShieldChanges(AntiArtilleryShield)
 
 
 end

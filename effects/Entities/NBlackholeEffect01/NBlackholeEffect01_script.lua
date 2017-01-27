@@ -1,5 +1,5 @@
 local NullShell = import('/lua/sim/defaultprojectiles.lua').NullShell
-local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
+local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 
 NBlackholeEffect01 = Class(NullShell) {
 
@@ -25,7 +25,7 @@ NBlackholeEffect01 = Class(NullShell) {
 
     EffectThread = function(self)
         local army, emit = self:GetArmy()
-        for k, v in NomadEffectTemplate.NukeBlackholeDustCloud01 do
+        for k, v in NomadsEffectTemplate.NukeBlackholeDustCloud01 do
             emit = CreateEmitterOnEntity(self, army, v )
             self.Trash:Add(emit)
         end	

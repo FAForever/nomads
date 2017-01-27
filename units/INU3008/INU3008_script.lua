@@ -1,10 +1,10 @@
 -- T2 mobile TMD
 
-local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
-local AddAnchorAbilty = import('/lua/nomadutils.lua').AddAnchorAbilty
-local AddIntelOvercharge = import('/lua/nomadutils.lua').AddIntelOvercharge
-local NConstructionUnit = import('/lua/nomadunits.lua').NConstructionUnit
-local MissileWeapon1 = import('/lua/nomadweapons.lua').MissileWeapon1
+local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
+local AddAnchorAbilty = import('/lua/nomadsutils.lua').AddAnchorAbilty
+local AddIntelOvercharge = import('/lua/nomadsutils.lua').AddIntelOvercharge
+local NConstructionUnit = import('/lua/nomadsunits.lua').NConstructionUnit
+local MissileWeapon1 = import('/lua/nomadsweapons.lua').MissileWeapon1
 
 NConstructionUnit = AddAnchorAbilty( AddIntelOvercharge( NConstructionUnit ))
 
@@ -46,10 +46,10 @@ INU3008 = Class(NConstructionUnit) {
     OverchargeChargingFxBone = 'TMD_Fx1',
     OverchargeExplosionFxBone = 'TMD_Fx1',
 
-    OverchargeFx = NomadEffectTemplate.T1RadarOvercharge,
-    OverchargeRecoveryFx = NomadEffectTemplate.T1RadarOverchargeRecovery,
-    OverchargeChargingFx = NomadEffectTemplate.T1RadarOverchargeCharging,
-    OverchargeExplosionFx = NomadEffectTemplate.T1RadarOverchargeExplosion,
+    OverchargeFx = NomadsEffectTemplate.T1RadarOvercharge,
+    OverchargeRecoveryFx = NomadsEffectTemplate.T1RadarOverchargeRecovery,
+    OverchargeChargingFx = NomadsEffectTemplate.T1RadarOverchargeCharging,
+    OverchargeExplosionFx = NomadsEffectTemplate.T1RadarOverchargeExplosion,
 
     TMDEffectBones = { 'TMD_Fx1', 'TMD_Fx2', },
 
@@ -83,7 +83,7 @@ INU3008 = Class(NConstructionUnit) {
         if not self.PlayingTAEffects then
             local army, emit = self:GetArmy()
             for _, bone in self.TMDEffectBones do
-                for k, v in NomadEffectTemplate.T2MobileTacticalMissileDefenseTargetAcquired do
+                for k, v in NomadsEffectTemplate.T2MobileTacticalMissileDefenseTargetAcquired do
                     emit = CreateAttachedEmitter(self, bone, army, v)
                     self.TAEffectsBag:Add(emit)
                     self.Trash:Add(emit)

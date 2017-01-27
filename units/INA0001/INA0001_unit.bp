@@ -12,7 +12,7 @@ UnitBlueprint {
         },
     },
     Categories = {
-        'NOMAD',
+        'NOMADS',
         'AIR',
         'UNTARGETABLE',
         'NOFORMATION',

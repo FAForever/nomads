@@ -1,4 +1,4 @@
-local DepthChargeBomb = import('/lua/nomadprojectiles.lua').DepthChargeBomb
+local DepthChargeBomb = import('/lua/nomadsprojectiles.lua').DepthChargeBomb
 
 NDepthChargeBombs2 = Class(DepthChargeBomb) {
 

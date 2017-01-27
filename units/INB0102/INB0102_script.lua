@@ -1,6 +1,6 @@
 -- T1 air factory
 
-local NAirFactoryUnit = import('/lua/nomadunits.lua').NAirFactoryUnit
+local NAirFactoryUnit = import('/lua/nomadsunits.lua').NAirFactoryUnit
 
 INB0102 = Class(NAirFactoryUnit) {}
 

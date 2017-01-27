@@ -1,10 +1,10 @@
 -- T3 strategic sub
 
 local Buff = import('/lua/sim/buff.lua')
-local AddNavalLights = import('/lua/nomadutils.lua').AddNavalLights
-local NSubUnit = import('/lua/nomadunits.lua').NSubUnit
-local TorpedoWeapon1 = import('/lua/nomadweapons.lua').TorpedoWeapon1
-local TacticalMissileWeapon1 = import('/lua/nomadweapons.lua').TacticalMissileWeapon1
+local AddNavalLights = import('/lua/nomadsutils.lua').AddNavalLights
+local NSubUnit = import('/lua/nomadsunits.lua').NSubUnit
+local TorpedoWeapon1 = import('/lua/nomadsweapons.lua').TorpedoWeapon1
+local TacticalMissileWeapon1 = import('/lua/nomadsweapons.lua').TacticalMissileWeapon1
 
 NSubUnit = AddNavalLights(NSubUnit)
 

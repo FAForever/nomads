@@ -17,7 +17,7 @@ ProjectileBlueprint {
         },
     },
     Categories = {
-        'NOMAD',
+        'NOMADS',
         'PROJECTILE',
         'TACTICAL',
         'MISSILE',
@@ -53,12 +53,12 @@ ProjectileBlueprint {
     General = {
         Category = 'Direct Fire',
         EntityCategory = {
-            'NOMAD',
+            'NOMADS',
             'PROJECTILE',
             'DIRECTFIRE',
         },
-        Faction = 'NOMAD',
-        Weapon = 'NomadOrbitalStrikeMissile01',
+        Faction = 'NOMADS',
+        Weapon = 'NomadsOrbitalStrikeMissile01',
     },
     Interface = {
         HelpText = 0,

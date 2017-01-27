@@ -255,7 +255,7 @@ function BehemothCrushBehavior(self)
 end
 
 
--------- NOMAD EXPERIMENTAL BEHAVIORS --------
+-------- NOMADS EXPERIMENTAL BEHAVIORS --------
 
 function CometBehavior(self)
     --LOG('*DEBUG: AI CometBehavior')
@@ -361,7 +361,7 @@ end
 
 
 
--------- NOMAD ACU BEHAVIOR --------
+-------- NOMADS ACU BEHAVIOR --------
 
 local oldCommanderBehavior = CommanderBehavior
 
@@ -410,7 +410,7 @@ function CommanderBombardThread(cdr, platoon)
     WaitTicks( Random(50,650) )  -- to avoid the artificial appearance when all AI players use their intel probe at the same time
 
     local brain = cdr:GetAIBrain()
-    local AbilityName = 'NomadAreaBombardment'
+    local AbilityName = 'NomadsAreaBombardment'
     local AbilityDef = import('/lua/abilitydefinition.lua').abilities[AbilityName]
     local AbilityCooldown = AbilityDef.ExtraInfo.CoolDownTime + 1
     local TargetLocDeviation = 0
@@ -421,8 +421,8 @@ function CommanderBombardThread(cdr, platoon)
     local BombardUnitBp = __blueprints['ino0001']
     local Damage = BombardUnitBp.Weapon[1].Damage
     local DamageRadius = BombardUnitBp.Weapon[1].DamageRadius  -- damage radius of the missiles
-    local NumTargets = BombardUnitBp.SpecialAbilities.NomadAreaBombardment.WantNumTargets or 1
-    local TargetDist = 2 * (BombardUnitBp.SpecialAbilities.NomadAreaBombardment.AreaOfEffect or DamageRadius)
+    local NumTargets = BombardUnitBp.SpecialAbilities.NomadsAreaBombardment.WantNumTargets or 1
+    local TargetDist = 2 * (BombardUnitBp.SpecialAbilities.NomadsAreaBombardment.AreaOfEffect or DamageRadius)
     local DoSpreadAttack = false
     local TMDcat = categories.ANTIMISSILE - categories.STRATEGIC
     local TMDrange = 28
@@ -611,7 +611,7 @@ function CommanderBombardThread(cdr, platoon)
             end
 
             -- prepare script command
-            local UnitId = brain.NomadMothership:GetEntityId()
+            local UnitId = brain.NomadsMothership:GetEntityId()
             local ExtraInfo = AbilityDef.ExtraInfo
             local angle = RandomFloat(0, math.pi)
             if DoSpreadAttack then
@@ -665,7 +665,7 @@ function CommanderBombardThread(cdr, platoon)
  
 
             -- launch bombardment at found location
-            IssueScript( { brain.NomadMothership, }, commandData )
+            IssueScript( { brain.NomadsMothership, }, commandData )
 
             target = nil
             targetUnits = nil
@@ -733,7 +733,7 @@ function CommanderIntelProbeThread(cdr, platoon)
             end
 
             ProbeEnabled = false
-            AbilityName = 'NomadIntelProbeAdvanced'
+            AbilityName = 'NomadsIntelProbeAdvanced'
             AbilityDef = import('/lua/abilitydefinition.lua').abilities[AbilityName]
             IntelRadius = 0.8 * (AbilityDef.ExtraInfo.Radius or 50)
 
@@ -744,7 +744,7 @@ function CommanderIntelProbeThread(cdr, platoon)
                 continue   -- if this enhancement is no longer available...
             end
 
-            AbilityName = 'NomadIntelProbe'
+            AbilityName = 'NomadsIntelProbe'
             AbilityDef = import('/lua/abilitydefinition.lua').abilities[AbilityName]
             IntelRadius = 0.8 * (AbilityDef.ExtraInfo.Radius or 50)
 

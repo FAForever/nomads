@@ -1,0 +1,27 @@
+ProjectileBlueprint {
+    Audio = {
+        Impact = Sound {
+            Bank = 'NomadsDestroy',
+            Cue = 'Destroy_Land',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+    Display = {
+        ImpactEffects = {
+            Type = 'Large01',
+        },
+        MeshBlueprint = '/effects/Entities/NomadsACUDropPodCover/NomadsACUDropPodCover_Mesh.bp',
+        UniformScale = 1.25,
+    },
+    Physics = {
+        CollideEntity = false,
+        CollideSurface = false,
+        DestroyOnWater = false,
+        RealisticOrdinance = false,
+        RotationalVelocity = 0,
+        RotationalVelocityRange = 0,
+        StayUpright = true,
+        UseGravity = true,
+        VelocityAlign = true,
+    },
+}

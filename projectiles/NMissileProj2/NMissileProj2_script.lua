@@ -1,16 +1,16 @@
-local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
-local Missile1 = import('/lua/nomadprojectiles.lua').Missile1
+local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
+local Missile1 = import('/lua/nomadsprojectiles.lua').Missile1
 
 NMissileProj2 = Class(Missile1) {
-    FxImpactAirUnit = NomadEffectTemplate.MissileHitAirUnit2,
-    FxImpactLand = NomadEffectTemplate.MissileHitLand2,
-    FxImpactNone = NomadEffectTemplate.MissileHitNone2,
-    FxImpactProp = NomadEffectTemplate.MissileHitProp2,
-    FxImpactShield = NomadEffectTemplate.MissileHitShield2,
-    FxImpactUnit = NomadEffectTemplate.MissileHitUnit2,
-    FxImpactWater = NomadEffectTemplate.MissileHitWater2,
-    FxImpactProjectile = NomadEffectTemplate.MissileHitProjectile2,
-    FxImpactUnderWater = NomadEffectTemplate.MissileHitUnderWater2,
+    FxImpactAirUnit = NomadsEffectTemplate.MissileHitAirUnit2,
+    FxImpactLand = NomadsEffectTemplate.MissileHitLand2,
+    FxImpactNone = NomadsEffectTemplate.MissileHitNone2,
+    FxImpactProp = NomadsEffectTemplate.MissileHitProp2,
+    FxImpactShield = NomadsEffectTemplate.MissileHitShield2,
+    FxImpactUnit = NomadsEffectTemplate.MissileHitUnit2,
+    FxImpactWater = NomadsEffectTemplate.MissileHitWater2,
+    FxImpactProjectile = NomadsEffectTemplate.MissileHitProjectile2,
+    FxImpactUnderWater = NomadsEffectTemplate.MissileHitUnderWater2,
 }
 
 TypeClass = NMissileProj2

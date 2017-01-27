@@ -1,10 +1,10 @@
 -- T2 railgun boat
 
-local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
-local AddNavalLights = import('/lua/nomadutils.lua').AddNavalLights
-local NSeaUnit = import('/lua/nomadunits.lua').NSeaUnit
-local UnderwaterRailgunWeapon1 = import('/lua/nomadweapons.lua').UnderwaterRailgunWeapon1
-local MissileWeapon1 = import('/lua/nomadweapons.lua').MissileWeapon1
+local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
+local AddNavalLights = import('/lua/nomadsutils.lua').AddNavalLights
+local NSeaUnit = import('/lua/nomadsunits.lua').NSeaUnit
+local UnderwaterRailgunWeapon1 = import('/lua/nomadsweapons.lua').UnderwaterRailgunWeapon1
+local MissileWeapon1 = import('/lua/nomadsweapons.lua').MissileWeapon1
 local Utilities = import('/lua/utilities.lua')
 
 NSeaUnit = AddNavalLights(NSeaUnit)
@@ -160,11 +160,11 @@ INS2003 = Class(NSeaUnit) {
         local army, EffectTable, emit = self:GetArmy()
 
         if type == 'Stopping' then
-            EffectTable = NomadEffectTemplate.RailgunBoat_Stopping_Smoke
+            EffectTable = NomadsEffectTemplate.RailgunBoat_Stopping_Smoke
         elseif type == 'Stopped' then
-            EffectTable = NomadEffectTemplate.RailgunBoat_Stopped_Smoke
+            EffectTable = NomadsEffectTemplate.RailgunBoat_Stopped_Smoke
         else
-            EffectTable = NomadEffectTemplate.RailgunBoat_Moving_Smoke
+            EffectTable = NomadsEffectTemplate.RailgunBoat_Moving_Smoke
         end
 
         for _, bone in self.SmokeEmitterBones do
@@ -184,7 +184,7 @@ INS2003 = Class(NSeaUnit) {
         if not self.PlayingTAEffects then
             local army, emit = self:GetArmy()
             for _, bone in self.TMDEffectBones do
-                for k, v in NomadEffectTemplate.T2MobileTacticalMissileDefenseTargetAcquired do
+                for k, v in NomadsEffectTemplate.T2MobileTacticalMissileDefenseTargetAcquired do
                     emit = CreateAttachedEmitter(self, bone, army, v)
                     self.TAEffectsBag:Add(emit)
                     self.Trash:Add(emit)

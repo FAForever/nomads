@@ -63,7 +63,7 @@ UnitBlueprint {
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3FACTORY',
-        'NOMAD',
+        'NOMADS',
         'MOBILE',
         'NAVAL',
         'TECH3',
@@ -255,9 +255,9 @@ UnitBlueprint {
         BuildRate = 150,
         BuildTime = 12000,
         BuildableCategory = {
-            'BUILTBYTIER3FACTORY NOMAD MOBILE AIR ANTINAVY',
-            'BUILTBYTIER3FACTORY NOMAD MOBILE AIR INTELLIGENCE',
-            'BUILTBYTIER3FACTORY NOMAD MOBILE AIR ANTIAIR',
+            'BUILTBYTIER3FACTORY NOMADS MOBILE AIR ANTINAVY',
+            'BUILTBYTIER3FACTORY NOMADS MOBILE AIR INTELLIGENCE',
+            'BUILTBYTIER3FACTORY NOMADS MOBILE AIR ANTIAIR',
         },
     },
     Footprint = {

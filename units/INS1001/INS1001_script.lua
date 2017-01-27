@@ -1,7 +1,7 @@
 -- T1 submarine
 
-local NSubUnit = import('/lua/nomadunits.lua').NSubUnit
-local TorpedoWeapon1 = import('/lua/nomadweapons.lua').TorpedoWeapon1
+local NSubUnit = import('/lua/nomadsunits.lua').NSubUnit
+local TorpedoWeapon1 = import('/lua/nomadsweapons.lua').TorpedoWeapon1
 
 INS1001 = Class(NSubUnit) {
     Weapons = {

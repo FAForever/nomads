@@ -5,7 +5,7 @@ skins = table.merged( skins, {
 
     nomads = {
         default = "default",
-        texturesPath = "/textures/ui/nomad",
+        texturesPath = "/textures/ui/nomads",
         imagerMesh = "/meshes/game/map-border_squ_uef_mesh",
         imagerMeshHorz = "/meshes/game/map-border_hor_uef_mesh",
         bodyColor = "FFC1782A",

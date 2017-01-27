@@ -41,7 +41,7 @@ UnitBlueprint {
         'SELECTABLE',
         'BUILTBYTIER3ENGINEER',
         'BUILTBYTIER3COMMANDER',
-        'NOMAD',
+        'NOMADS',
         'STRUCTURE',
         'TECH3',
         'FACTORY',
@@ -82,11 +82,11 @@ UnitBlueprint {
         SpawnRandomRotation = false,
         Tarmacs = {
             {
-                Albedo = 'Tarmacs/Tar12x_nomad_01_albedo',
+                Albedo = 'Tarmacs/Tar12x_nomads_01_albedo',
                 DeathLifetime = 300,
                 FadeOut = 150,
                 Length = 12.8,
-                Normal = 'Tarmacs/Tar12x_nomad_01_normals',
+                Normal = 'Tarmacs/Tar12x_nomads_01_normals',
                 Orientations = {
                     0,
                 },
@@ -102,7 +102,7 @@ UnitBlueprint {
         BuildRate = 120,
         BuildTime = 3000,
         BuildableCategory = {
-            'BUILTBYQUANTUMGATE NOMAD',
+            'BUILTBYQUANTUMGATE NOMADS',
         },
         RebuildBonusIds = {
             'inb0304',

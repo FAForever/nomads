@@ -1,10 +1,10 @@
 -- T2 torpedo gunship
 
-local SupportingArtilleryAbility = import('/lua/nomadutils.lua').SupportingArtilleryAbility
-local AddFlares = import('/lua/nomadutils.lua').AddFlares
-local NAirUnit = import('/lua/nomadunits.lua').NAirUnit
-local StingrayCannon1 = import('/lua/nomadweapons.lua').StingrayCannon1
-local DroppedTorpedoWeapon1  = import('/lua/nomadweapons.lua').DroppedTorpedoWeapon1
+local SupportingArtilleryAbility = import('/lua/nomadsutils.lua').SupportingArtilleryAbility
+local AddFlares = import('/lua/nomadsutils.lua').AddFlares
+local NAirUnit = import('/lua/nomadsunits.lua').NAirUnit
+local StingrayCannon1 = import('/lua/nomadsweapons.lua').StingrayCannon1
+local DroppedTorpedoWeapon1  = import('/lua/nomadsweapons.lua').DroppedTorpedoWeapon1
 
 -- add supporting artillery ability and aa missile flares
 NAirUnit = SupportingArtilleryAbility( NAirUnit )

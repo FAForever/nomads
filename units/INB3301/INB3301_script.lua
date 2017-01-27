@@ -1,8 +1,8 @@
 -- T3 radar
 
-local NRadarUnit = import('/lua/nomadunits.lua').NRadarUnit
-local AddIntelOvercharge = import('/lua/nomadutils.lua').AddIntelOvercharge
-local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
+local NRadarUnit = import('/lua/nomadsunits.lua').NRadarUnit
+local AddIntelOvercharge = import('/lua/nomadsutils.lua').AddIntelOvercharge
+local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 
 NRadarUnit = AddIntelOvercharge( NRadarUnit )
 
@@ -12,10 +12,10 @@ INB3301 = Class(NRadarUnit) {
     OverchargeChargingFxBone = 'blinlight.003',
     OverchargeExplosionFxBone = 0,
 
-    OverchargeFx = NomadEffectTemplate.T3RadarOvercharge,
-    OverchargeRecoveryFx = NomadEffectTemplate.T3RadarOverchargeRecovery,
-    OverchargeChargingFx = NomadEffectTemplate.T3RadarOverchargeCharging,
-    OverchargeExplosionFx = NomadEffectTemplate.T3RadarOverchargeExplosion,
+    OverchargeFx = NomadsEffectTemplate.T3RadarOvercharge,
+    OverchargeRecoveryFx = NomadsEffectTemplate.T3RadarOverchargeRecovery,
+    OverchargeChargingFx = NomadsEffectTemplate.T3RadarOverchargeCharging,
+    OverchargeExplosionFx = NomadsEffectTemplate.T3RadarOverchargeExplosion,
 
     OnCreate = function(self)
         NRadarUnit.OnCreate(self)

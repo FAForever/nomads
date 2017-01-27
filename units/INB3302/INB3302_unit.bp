@@ -60,7 +60,7 @@ UnitBlueprint {
         'SELECTABLE',
         'BUILTBYTIER3ENGINEER',
         'BUILTBYTIER3COMMANDER',
-        'NOMAD',
+        'NOMADS',
         'NAVAL',
         'MOBILE',
         'INTELLIGENCE',
@@ -240,7 +240,7 @@ UnitBlueprint {
     SizeY = 1.1,
     SizeZ = 1,
     SpecialAbilities = {
-        NomadIntelOvercharge = {
+        NomadsIntelOvercharge = {
             AreaOfEffect = 5,
             MaxRadius = 540,
         },

@@ -1,8 +1,8 @@
 -- t1 land scout
 
-local AddAnchorAbilty = import('/lua/nomadutils.lua').AddAnchorAbilty
-local NHoverLandUnit = import('/lua/nomadunits.lua').NHoverLandUnit
-local DarkMatterWeapon1 = import('/lua/nomadweapons.lua').DarkMatterWeapon1
+local AddAnchorAbilty = import('/lua/nomadsutils.lua').AddAnchorAbilty
+local NHoverLandUnit = import('/lua/nomadsunits.lua').NHoverLandUnit
+local DarkMatterWeapon1 = import('/lua/nomadsweapons.lua').DarkMatterWeapon1
 
 NHoverLandUnit = AddAnchorAbilty(NHoverLandUnit)
 

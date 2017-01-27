@@ -1,5 +1,5 @@
-local ConcussionBomb = import('/lua/nomadprojectiles.lua').ConcussionBomb
-local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
+local ConcussionBomb = import('/lua/nomadsprojectiles.lua').ConcussionBomb
+local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local RandomFloat = import('/lua/utilities.lua').GetRandomFloat
 
 -- Coded to only split up if NumFragments is passed to the projectile
@@ -37,7 +37,7 @@ NBombProj2 = Class(ConcussionBomb) {
         self.DamageData.DamageAmount = self.DamageData.DamageAmount / numProjectiles
 
         -- Split effects
-        for k, v in NomadEffectTemplate.ConcussionBombSplit do
+        for k, v in NomadsEffectTemplate.ConcussionBombSplit do
             CreateEmitterAtEntity( self, self:GetArmy(), v )
         end
         

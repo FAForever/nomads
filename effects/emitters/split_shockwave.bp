@@ -1,5 +1,5 @@
 EmitterBlueprint {
-	BlueprintId = 'nomad_tacticalmissile_hit02',
+	BlueprintId = 'nomads_tacticalmissile_hit02',
 	Lifetime = 5.00,
 	Repeattime = 5.00,
 	TextureFramecount = 1.00,

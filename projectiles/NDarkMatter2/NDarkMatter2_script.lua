@@ -1,4 +1,4 @@
-local DarkMatterProj = import('/lua/nomadprojectiles.lua').DarkMatterProj
+local DarkMatterProj = import('/lua/nomadsprojectiles.lua').DarkMatterProj
 
 NDarkMatter2 = Class(DarkMatterProj) {}
 

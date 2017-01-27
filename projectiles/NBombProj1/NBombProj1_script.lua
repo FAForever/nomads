@@ -1,4 +1,4 @@
-local ConventionalBomb = import('/lua/nomadprojectiles.lua').ConventionalBomb
+local ConventionalBomb = import('/lua/nomadsprojectiles.lua').ConventionalBomb
 
 NBombProj1 = Class(ConventionalBomb) {}
 

@@ -1,7 +1,7 @@
 -- T3 mex
 
-local NMassCollectionUnit = import('/lua/nomadunits.lua').NMassCollectionUnit
-local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
+local NMassCollectionUnit = import('/lua/nomadsunits.lua').NMassCollectionUnit
+local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 
 INB1302 = Class(NMassCollectionUnit) {
 
@@ -48,14 +48,14 @@ INB1302 = Class(NMassCollectionUnit) {
         local army, emit, beam = self:GetArmy()
 
         -- start emitters
-        for k, v in NomadEffectTemplate.T3MassExtractorActiveEffects do
+        for k, v in NomadsEffectTemplate.T3MassExtractorActiveEffects do
             emit = CreateAttachedEmitter( self, -1, army, v )
             self.ActiveEffectsBag:Add( emit )
             self.Trash:Add( emit )
         end
 
         -- start beams
-        for k, v in NomadEffectTemplate.T3MassExtractorActiveBeams do
+        for k, v in NomadsEffectTemplate.T3MassExtractorActiveBeams do
             beam = CreateBeamEntityToEntity( self, 'muzzle', self, 0, army, v )
             self.ActiveEffectsBag:Add( beam )
             self.Trash:Add( beam )

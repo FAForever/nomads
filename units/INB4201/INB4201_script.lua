@@ -1,8 +1,8 @@
 -- SAM
 
-local AddLights = import('/lua/nomadutils.lua').AddLights
-local NStructureUnit = import('/lua/nomadunits.lua').NStructureUnit
-local MissileWeapon1 = import('/lua/nomadweapons.lua').MissileWeapon1
+local AddLights = import('/lua/nomadsutils.lua').AddLights
+local NStructureUnit = import('/lua/nomadsunits.lua').NStructureUnit
+local MissileWeapon1 = import('/lua/nomadsweapons.lua').MissileWeapon1
 
 NStructureUnit = AddLights(NStructureUnit)
 INB4201 = Class(NStructureUnit) {

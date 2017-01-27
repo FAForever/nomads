@@ -7,7 +7,7 @@ ProjectileBlueprint {
         },
     },
     Categories = {
-        'NOMAD',
+        'NOMADS',
         'PROJECTILE',
         'INDIRECTFIRE',
     },
@@ -24,7 +24,7 @@ ProjectileBlueprint {
     },
     General = {
         Category = 'Artillery',
-        Faction = 'NOMAD',
+        Faction = 'NOMADS',
         TechLevel = 3,
         Weapon = 'Microcollapsar Launcher',
     },

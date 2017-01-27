@@ -2,7 +2,7 @@ do
 
 -- TODO: make sure all tooltips are in
 
-local NomadTooltips = {
+local NomadsTooltips = {
 
     -- Options stuff
     options_unitsnd_selection = {
@@ -15,7 +15,7 @@ local NomadTooltips = {
     },
 
     -- Game menu stuff
-    lob_nomad = {
+    lob_nomads = {
         title = "<LOC tooltip_lobby_nomadsfaction_title>Nomads (should not see this)",
         description = '<LOC tooltip_lobby_nomadsfaction_desc>',
     },
@@ -85,6 +85,6 @@ local NomadTooltips = {
     },
 }
 
-Tooltips = table.merged( Tooltips, NomadTooltips )
+Tooltips = table.merged( Tooltips, NomadsTooltips )
 
 end

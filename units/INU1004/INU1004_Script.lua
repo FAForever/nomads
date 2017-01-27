@@ -1,7 +1,7 @@
 -- T1 tank
 
-local NHoverLandUnit = import('/lua/nomadunits.lua').NHoverLandUnit
-local ParticleBlaster1 = import('/lua/nomadweapons.lua').ParticleBlaster1
+local NHoverLandUnit = import('/lua/nomadsunits.lua').NHoverLandUnit
+local ParticleBlaster1 = import('/lua/nomadsweapons.lua').ParticleBlaster1
 
 INU1004 = Class(NHoverLandUnit) {
     Weapons = {

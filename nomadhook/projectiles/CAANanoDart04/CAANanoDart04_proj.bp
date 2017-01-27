@@ -5,7 +5,7 @@ ProjectileBlueprint
     Categories = {
         'CYBRAN',
         'PROJECTILE',
-        'MISSILE', -- added this to allow AA missile flares on Nomad gunships
+        'MISSILE', -- added this to allow AA missile flares on Nomads gunships
         'ANTIAIR',
     },
     General = {

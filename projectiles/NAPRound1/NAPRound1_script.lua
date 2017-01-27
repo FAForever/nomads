@@ -1,4 +1,4 @@
-local APRound = import('/lua/nomadprojectiles.lua').APRound
+local APRound = import('/lua/nomadsprojectiles.lua').APRound
 
 NAPRound1 = Class(APRound) {}
 

@@ -1,8 +1,8 @@
 -- The intel probe (all versions) is initially a projectile until it hits the ground. When it does a new entity is created that looks like the
 -- projectile. This entity is responsible for the intel.
 
-local Buoy1 = import('/lua/nomadprojectiles.lua').Buoy1
-local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
+local Buoy1 = import('/lua/nomadsprojectiles.lua').Buoy1
+local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 
 NIntelProbe1 = Class(Buoy1) {
 
@@ -18,9 +18,9 @@ NIntelProbe1 = Class(Buoy1) {
         spec = table.merged( spec, {
             Lifetime = self.Data.Lifetime or 60,
 
-            ActiveFx = NomadEffectTemplate.IntelProbeSurfaceActive,
-            DestroyedFx = NomadEffectTemplate.IntelProbeSurfaceDestroyed,
-            LightsFx = NomadEffectTemplate.IntelProbeSurfaceLights,
+            ActiveFx = NomadsEffectTemplate.IntelProbeSurfaceActive,
+            DestroyedFx = NomadsEffectTemplate.IntelProbeSurfaceDestroyed,
+            LightsFx = NomadsEffectTemplate.IntelProbeSurfaceLights,
 
             Radius = self.Data.Radius or 10,
             Omni = self.Data.Omni or false,
@@ -37,7 +37,7 @@ NIntelProbe1 = Class(Buoy1) {
     end,
 
     CreateBuoy = function(self, spec, targetType, targetEntity)
-        return import('/lua/nomadbuoys.lua').NCameraBuoy(spec)
+        return import('/lua/nomadsbuoys.lua').NCameraBuoy(spec)
     end,
 }
 

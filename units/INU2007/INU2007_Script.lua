@@ -1,10 +1,10 @@
 -- experimental beam tank
 
-local NLandUnit = import('/lua/nomadunits.lua').NLandUnit
-local PhaseRayGun = import('/lua/nomadweapons.lua').PhaseRayGun
+local NLandUnit = import('/lua/nomadsunits.lua').NLandUnit
+local PhaseRayGun = import('/lua/nomadsweapons.lua').PhaseRayGun
 local Explosion = import('/lua/defaultexplosions.lua')
 local EffectTemplate = import('/lua/EffectTemplates.lua')
-local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
+local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local RandomFloat = import('/lua/utilities.lua').GetRandomFloat
 
 INU2007 = Class(NLandUnit) {
@@ -193,7 +193,7 @@ INU2007 = Class(NLandUnit) {
         -- plays the flashing effects at the body
         local fn = function(self)
             local army, emitrate, emitters, emit = self:GetArmy(), 0, {}, nil
-            for k, v in NomadEffectTemplate.PhaseRayChargeUpFxPerm do
+            for k, v in NomadsEffectTemplate.PhaseRayChargeUpFxPerm do
                 emit = CreateAttachedEmitter(self, 'circle', army, v):OffsetEmitter(0, 0.1, 0)
                 table.insert( emitters, emit )
                 self.BeamChargeUpFxBag:Add( emit )
@@ -225,14 +225,14 @@ INU2007 = Class(NLandUnit) {
         -- this is just for the beam that emits from the unit body to the 'mirror' on floating above the unit
 
         local army, emit, beam = self:GetArmy(), nil, nil
-        for k, v in NomadEffectTemplate.PhaseRayFakeBeamMuzzle do
+        for k, v in NomadsEffectTemplate.PhaseRayFakeBeamMuzzle do
             emit = CreateAttachedEmitter( self, 'beamstart', army, v ):OffsetEmitter(0, 0.1, 0)
             self.BeamHelperFxBag:Add( emit )
             self.Trash:Add( emit )
         end
 
         -- create a beam between the body of the unit and the tiny aimer thing
-        for k, v in NomadEffectTemplate.PhaseRayFakeBeam do
+        for k, v in NomadsEffectTemplate.PhaseRayFakeBeam do
             beam = AttachBeamEntityToEntity(self, 'circle', self, "aim", army, v )
             self.BeamHelperFxBag:Add( beam )
             self.Trash:Add( beam )
@@ -248,7 +248,7 @@ INU2007 = Class(NLandUnit) {
 
     PlayAfterBeamEffects = function(self)
         local army = self:GetArmy()
-        for k, v in NomadEffectTemplate.PhaseRayFakeBeamMuzzleBeamingStopped do
+        for k, v in NomadsEffectTemplate.PhaseRayFakeBeamMuzzleBeamingStopped do
             emit = CreateAttachedEmitter( self, 'circle', army, v ):OffsetEmitter(0, 0.1, 0)
         end
     end,

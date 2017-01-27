@@ -1,6 +1,6 @@
 -- mass storage
 
-local NMassStorageUnit = import('/lua/nomadunits.lua').NMassStorageUnit
+local NMassStorageUnit = import('/lua/nomadsunits.lua').NMassStorageUnit
 
 INB1108 = Class(NMassStorageUnit) {
 

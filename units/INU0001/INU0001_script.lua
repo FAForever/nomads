@@ -4,15 +4,15 @@ local Entity = import('/lua/sim/Entity.lua').Entity
 local Buff = import('/lua/sim/Buff.lua')
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 local Utilities = import('/lua/utilities.lua')
-local NomadEffectUtil = import('/lua/nomadeffectutilities.lua')
+local NomadsEffectUtil = import('/lua/nomadseffectutilities.lua')
 
-local NUtils = import('/lua/nomadutils.lua')
+local NUtils = import('/lua/nomadsutils.lua')
 local AddRapidRepair = NUtils.AddRapidRepair
 local AddRapidRepairToWeapon = NUtils.AddRapidRepairToWeapon
 local AddCapacitorAbility = NUtils.AddCapacitorAbility
 local AddCapacitorAbilityToWeapon = NUtils.AddCapacitorAbilityToWeapon
 
-local NWeapons = import('/lua/nomadweapons.lua')
+local NWeapons = import('/lua/nomadsweapons.lua')
 local APCannon1 = NWeapons.APCannon1
 local APCannon1_Overcharge = NWeapons.APCannon1_Overcharge
 local DeathNuke = NWeapons.DeathNuke
@@ -105,8 +105,8 @@ INU0001 = Class(ACUUnit) {
 
         -- enhancements
         self:RemoveToggleCap('RULEUTC_SpecialToggle')
-        self:AddBuildRestriction( categories.NOMAD * (categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER) )
-        self:SetRapidRepairParams( 'NomadACURapidRepair', bp.Enhancements.RapidRepair.RepairDelay, bp.Enhancements.RapidRepair.InterruptRapidRepairByWeaponFired)
+        self:AddBuildRestriction( categories.NOMADS * (categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER) )
+        self:SetRapidRepairParams( 'NomadsACURapidRepair', bp.Enhancements.RapidRepair.RepairDelay, bp.Enhancements.RapidRepair.InterruptRapidRepairByWeaponFired)
 
         self.Sync.Abilities = self:GetBlueprint().Abilities
     end,
@@ -144,9 +144,9 @@ INU0001 = Class(ACUUnit) {
             -- If we are assisting an upgrading unit, or repairing a unit, play seperate effects
             local UpgradesFrom = unitBeingBuilt:GetBlueprint().General.UpgradesFrom
             if (order == 'Repair' and not unitBeingBuilt:IsBeingBuilt()) or (UpgradesFrom and UpgradesFrom ~= 'none' and self:IsUnitState('Guarding')) or (order == 'Repair'  and self:IsUnitState('Guarding') and not unitBeingBuilt:IsBeingBuilt()) then
-                self:ForkThread( NomadEffectUtil.CreateRepairBuildBeams, unitBeingBuilt, self.BuildBones, self.BuildEffectsBag )
+                self:ForkThread( NomadsEffectUtil.CreateRepairBuildBeams, unitBeingBuilt, self.BuildBones, self.BuildEffectsBag )
             else
-                self:ForkThread( NomadEffectUtil.CreateNomadBuildSliceBeams, unitBeingBuilt, self.BuildBones, self.BuildEffectsBag )   
+                self:ForkThread( NomadsEffectUtil.CreateNomadsBuildSliceBeams, unitBeingBuilt, self.BuildBones, self.BuildEffectsBag )   
             end
         end
 
@@ -173,7 +173,7 @@ INU0001 = Class(ACUUnit) {
     
     -- use our own reclaim animation
     CreateReclaimEffects = function( self, target )
-        NomadEffectUtil.PlayNomadReclaimEffects( self, target, self:GetBlueprint().General.BuildBones.BuildEffectBones or {0,}, self.ReclaimEffectsBag )
+        NomadsEffectUtil.PlayNomadsReclaimEffects( self, target, self:GetBlueprint().General.BuildBones.BuildEffectBones or {0,}, self.ReclaimEffectsBag )
     end,
     
     -- =====================================================================================================================
@@ -210,7 +210,7 @@ INU0001 = Class(ACUUnit) {
         self:CapDestroyFx()
         self.CapDoPlayFx = false
 
-        local meteor = self:CreateProjectile('/effects/Entities/NomadACUDropMeteor/NomadACUDropMeteor_proj.bp')
+        local meteor = self:CreateProjectile('/effects/Entities/NomadsACUDropMeteor/NomadsACUDropMeteor_proj.bp')
         self.Trash:Add(meteor)
         meteor:Start(self:GetPosition(), 3)
 
@@ -334,22 +334,22 @@ INU0001 = Class(ACUUnit) {
 
     SetOrbitalBombardEnabled = function(self, enable)
         local brain = self:GetAIBrain()
-        brain:EnableSpecialAbility( 'NomadAreaBombardment', (enable == true) )
+        brain:EnableSpecialAbility( 'NomadsAreaBombardment', (enable == true) )
     end,
 
     SetIntelProbeEnabled = function(self, adv, enable)
         local brain = self:GetAIBrain()
         if enable then
-            local EnAbil, DisAbil = 'NomadIntelProbe', 'NomadIntelProbeAdvanced'
+            local EnAbil, DisAbil = 'NomadsIntelProbe', 'NomadsIntelProbeAdvanced'
             if adv then
-                EnAbil = 'NomadIntelProbeAdvanced'
-                DisAbil = 'NomadIntelProbe'
+                EnAbil = 'NomadsIntelProbeAdvanced'
+                DisAbil = 'NomadsIntelProbe'
             end
             brain:EnableSpecialAbility( DisAbil, false )
             brain:EnableSpecialAbility( EnAbil, true )
         else
-            brain:EnableSpecialAbility( 'NomadIntelProbeAdvanced', false )
-            brain:EnableSpecialAbility( 'NomadIntelProbe', false )
+            brain:EnableSpecialAbility( 'NomadsIntelProbeAdvanced', false )
+            brain:EnableSpecialAbility( 'NomadsIntelProbe', false )
         end
     end,
 
@@ -397,10 +397,10 @@ INU0001 = Class(ACUUnit) {
             local wbp = wep:GetBlueprint()
 
             if bp.RateOfFireMulti then
-                if not Buffs['NOMADACUGunUpgrade'] then
+                if not Buffs['NOMADSACUGunUpgrade'] then
                     BuffBlueprint {
-                        Name = 'NOMADACUGunUpgrade',
-                        DisplayName = 'NOMADACUGunUpgrade',
+                        Name = 'NOMADSACUGunUpgrade',
+                        DisplayName = 'NOMADSACUGunUpgrade',
                         BuffType = 'ACUGUNUPGRADE',
                         Stacks = 'ADD',
                         Duration = -1,
@@ -411,10 +411,10 @@ INU0001 = Class(ACUUnit) {
                         },
                     }
                 end
-                if Buff.HasBuff( self, 'NOMADACUGunUpgrade' ) then
-                    Buff.RemoveBuff( self, 'NOMADACUGunUpgrade' )
+                if Buff.HasBuff( self, 'NOMADSACUGunUpgrade' ) then
+                    Buff.RemoveBuff( self, 'NOMADSACUGunUpgrade' )
                 end
-                Buff.ApplyBuff(self, 'NOMADACUGunUpgrade')
+                Buff.ApplyBuff(self, 'NOMADSACUGunUpgrade')
             end
 
             -- adjust main gun
@@ -428,7 +428,7 @@ INU0001 = Class(ACUUnit) {
             oca:ChangeMaxRadius( bp.NewMaxRadius or wbp.MaxRadius )
 
         elseif enh =='GunUpgradeRemove' then
-            Buff.RemoveBuff( self, 'NOMADACUGunUpgrade' )
+            Buff.RemoveBuff( self, 'NOMADSACUGunUpgrade' )
 
             -- adjust main gun
             local wep = self:GetWeaponByLabel('MainGun')
@@ -455,7 +455,7 @@ INU0001 = Class(ACUUnit) {
             self.DoubleBarrels = false
             self.DoubleBarrelOvercharge = false
 
-            Buff.RemoveBuff( self, 'NOMADACUGunUpgrade' )
+            Buff.RemoveBuff( self, 'NOMADSACUGunUpgrade' )
 
             -- adjust main gun
             local ubp = self:GetBlueprint()
@@ -528,11 +528,11 @@ INU0001 = Class(ACUUnit) {
 
         elseif enh == 'RapidRepair' then
 
-            if not Buffs['NomadACURapidRepair'] then
+            if not Buffs['NomadsACURapidRepair'] then
                 BuffBlueprint {
-                    Name = 'NomadACURapidRepair',
-                    DisplayName = 'NomadACURapidRepair',
-                    BuffType = 'NOMADACURAPIDREPAIRREGEN',
+                    Name = 'NomadsACURapidRepair',
+                    DisplayName = 'NomadsACURapidRepair',
+                    BuffType = 'NOMADSACURAPIDREPAIRREGEN',
                     Stacks = 'ALWAYS',
                     Duration = -1,
                     Affects = {
@@ -543,11 +543,11 @@ INU0001 = Class(ACUUnit) {
                     },
                 }
             end
-            if not Buffs['NomadACURapidRepairPermanentHPboost'] and bp.AddHealth > 0 then
+            if not Buffs['NomadsACURapidRepairPermanentHPboost'] and bp.AddHealth > 0 then
                 BuffBlueprint {
-                    Name = 'NomadACURapidRepairPermanentHPboost',
-                    DisplayName = 'NomadACURapidRepairPermanentHPboost',
-                    BuffType = 'NOMADACURAPIDREPAIRREGENPERMHPBOOST',
+                    Name = 'NomadsACURapidRepairPermanentHPboost',
+                    DisplayName = 'NomadsACURapidRepairPermanentHPboost',
+                    BuffType = 'NOMADSACURAPIDREPAIRREGENPERMHPBOOST',
                     Stacks = 'ALWAYS',
                     Duration = -1,
                     Affects = {
@@ -559,7 +559,7 @@ INU0001 = Class(ACUUnit) {
                 }
             end
             if bp.AddHealth > 0 then
-                Buff.ApplyBuff(self, 'NomadACURapidRepairPermanentHPboost')
+                Buff.ApplyBuff(self, 'NomadsACURapidRepairPermanentHPboost')
             end
             self:EnableRapidRepair(true)
 
@@ -567,9 +567,9 @@ INU0001 = Class(ACUUnit) {
 
             -- keep in sync with same code in PowerArmorRemove
             self:EnableRapidRepair(false)
-            if Buff.HasBuff( self, 'NomadACURapidRepairPermanentHPboost' ) then
-                Buff.RemoveBuff( self, 'NomadACURapidRepair' )
-                Buff.RemoveBuff( self, 'NomadACURapidRepairPermanentHPboost' )
+            if Buff.HasBuff( self, 'NomadsACURapidRepairPermanentHPboost' ) then
+                Buff.RemoveBuff( self, 'NomadsACURapidRepair' )
+                Buff.RemoveBuff( self, 'NomadsACURapidRepairPermanentHPboost' )
             end
 
         -- ---------------------------------------------------------------------------------------
@@ -578,10 +578,10 @@ INU0001 = Class(ACUUnit) {
 
         elseif enh =='PowerArmor' then
 
-            if not Buffs['NomadACUPowerArmor'] then
+            if not Buffs['NomadsACUPowerArmor'] then
                BuffBlueprint {
-                    Name = 'NomadACUPowerArmor',
-                    DisplayName = 'NomadACUPowerArmor',
+                    Name = 'NomadsACUPowerArmor',
+                    DisplayName = 'NomadsACUPowerArmor',
                     BuffType = 'NACUUPGRADEHP',
                     Stacks = 'ALWAYS',
                     Duration = -1,
@@ -597,10 +597,10 @@ INU0001 = Class(ACUUnit) {
                     },
                 }
             end
-            if Buff.HasBuff( self, 'NomadACUPowerArmor' ) then
-                Buff.RemoveBuff( self, 'NomadACUPowerArmor' )
+            if Buff.HasBuff( self, 'NomadsACUPowerArmor' ) then
+                Buff.RemoveBuff( self, 'NomadsACUPowerArmor' )
             end
-            Buff.ApplyBuff(self, 'NomadACUPowerArmor')
+            Buff.ApplyBuff(self, 'NomadsACUPowerArmor')
 
             if bp.Mesh then
                 self:SetMesh( bp.Mesh, true)
@@ -612,15 +612,15 @@ INU0001 = Class(ACUUnit) {
             if bp.Mesh then
                 self:SetMesh( ubp.Display.MeshBlueprint, true)
             end
-            if Buff.HasBuff( self, 'NomadACUPowerArmor' ) then
-                Buff.RemoveBuff( self, 'NomadACUPowerArmor' )
+            if Buff.HasBuff( self, 'NomadsACUPowerArmor' ) then
+                Buff.RemoveBuff( self, 'NomadsACUPowerArmor' )
             end
 
             -- keep in sync with same code above
             self:EnableRapidRepair(false)
-            if Buff.HasBuff( self, 'NomadACURapidRepairPermanentHPboost' ) then
-                Buff.RemoveBuff( self, 'NomadACURapidRepair' )
-                Buff.RemoveBuff( self, 'NomadACURapidRepairPermanentHPboost' )
+            if Buff.HasBuff( self, 'NomadsACURapidRepairPermanentHPboost' ) then
+                Buff.RemoveBuff( self, 'NomadsACURapidRepair' )
+                Buff.RemoveBuff( self, 'NomadsACURapidRepairPermanentHPboost' )
             end
 
         -- ---------------------------------------------------------------------------------------
@@ -637,10 +637,10 @@ INU0001 = Class(ACUUnit) {
             self:RemoveBuildRestriction(cat)
 
             -- add buff
-            if not Buffs['NOMADACUT2BuildRate'] then
+            if not Buffs['NOMADSACUT2BuildRate'] then
                 BuffBlueprint {
-                    Name = 'NOMADACUT2BuildRate',
-                    DisplayName = 'NOMADACUT2BuildRate',
+                    Name = 'NOMADSACUT2BuildRate',
+                    DisplayName = 'NOMADSACUT2BuildRate',
                     BuffType = 'ACUBUILDRATE',
                     Stacks = 'REPLACE',
                     Duration = -1,
@@ -660,22 +660,25 @@ INU0001 = Class(ACUUnit) {
                     },
                 }
             end
-            Buff.ApplyBuff(self, 'NOMADACUT2BuildRate')
-            self:updateBuildRestrictions()
+      
+            Buff.ApplyBuff(self, 'NOMADSACUT2BuildRate')
+
         elseif enh =='AdvancedEngineeringRemove' then
 
             -- remove extra build bone
             table.removeByValue( self.BuildBones, 'left_arm_upgrade_muzzle' )
 
             -- buffs
-            if Buff.HasBuff( self, 'NOMADACUT2BuildRate' ) then
-                Buff.RemoveBuff( self, 'NOMADACUT2BuildRate' )
+            if Buff.HasBuff( self, 'NOMADSACUT2BuildRate' ) then
+                Buff.RemoveBuff( self, 'NOMADSACUT2BuildRate' )
             end
 
             -- restore build restrictions
             self:RestoreBuildRestrictions()
-            self:AddBuildRestriction( categories.NOMAD * (categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER) )
+      
+            self:AddBuildRestriction( categories.NOMADS * (categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER) )
             self:updateBuildRestrictions()
+
         -- ---------------------------------------------------------------------------------------
         -- TECH 3 SUITE
         -- ---------------------------------------------------------------------------------------
@@ -687,10 +690,10 @@ INU0001 = Class(ACUUnit) {
             self:RemoveBuildRestriction(cat)
 
             -- add buff
-            if not Buffs['NOMADACUT3BuildRate'] then
+            if not Buffs['NOMADSACUT3BuildRate'] then
                 BuffBlueprint {
-                    Name = 'NOMADACUT3BuildRate',
-                    DisplayName = 'NOMADCUT3BuildRate',
+                    Name = 'NOMADSACUT3BuildRate',
+                    DisplayName = 'NOMADSCUT3BuildRate',
                     BuffType = 'ACUBUILDRATE',
                     Stacks = 'REPLACE',
                     Duration = -1,
@@ -710,19 +713,21 @@ INU0001 = Class(ACUUnit) {
                     },
                 }
             end
-            Buff.ApplyBuff(self, 'NOMADACUT3BuildRate')
+            Buff.ApplyBuff(self, 'NOMADSACUT3BuildRate')
             self:updateBuildRestrictions()
+
         elseif enh =='T3EngineeringRemove' then
 
             -- remove buff
-            if Buff.HasBuff( self, 'NOMADACUT3BuildRate' ) then
-                Buff.RemoveBuff( self, 'NOMADACUT3BuildRate' )
+            if Buff.HasBuff( self, 'NOMADSACUT3BuildRate' ) then
+                Buff.RemoveBuff( self, 'NOMADSACUT3BuildRate' )
             end
 
             -- reset build restrictions
             self:RestoreBuildRestrictions()
-            self:AddBuildRestriction( categories.NOMAD * ( categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER) )
+            self:AddBuildRestriction( categories.NOMADS * ( categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER) )
             self:updateBuildRestrictions()
+
         -- ---------------------------------------------------------------------------------------
         -- ORBITAL BOMBARDMENT
         -- ---------------------------------------------------------------------------------------

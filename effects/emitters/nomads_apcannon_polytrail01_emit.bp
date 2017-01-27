@@ -1,0 +1,13 @@
+TrailEmitterBlueprint {
+    BlueprintId = 'default_polytrail_04',
+    Lifetime = -1.00,
+    TrailLength = 3,
+    Size = 0.08,
+    SortOrder = 0,
+    BlendMode = 3,
+    TextureRepeatRate = 0.25,
+    LODCutoff = 1600,
+    RepeatTexture = [[/textures/particles/nomads_apcannon_polytrail01.dds]],
+    RampTexture = [[/textures/particles/ramp_transparency_fade_to_red_inverted_bright.dds]],
+}
+

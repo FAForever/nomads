@@ -1,16 +1,16 @@
-local TacticalMissile = import('/lua/nomadprojectiles.lua').TacticalMissile
-local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
+local TacticalMissile = import('/lua/nomadsprojectiles.lua').TacticalMissile
+local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 
 NTacticalMissile1 = Class(TacticalMissile) {
-    FxImpactAirUnit = NomadEffectTemplate.TacticalMissileHitAirUnit2,
-    FxImpactLand = NomadEffectTemplate.TacticalMissileHitLand2,
-    FxImpactNone = NomadEffectTemplate.TacticalMissileHitNone2,
-    FxImpactProp = NomadEffectTemplate.TacticalMissileHitProp2,
-    FxImpactShield = NomadEffectTemplate.TacticalMissileHitShield2,
-    FxImpactUnit = NomadEffectTemplate.TacticalMissileHitUnit2,
-    FxImpactWater = NomadEffectTemplate.TacticalMissileHitWater2,
-    FxImpactProjectile = NomadEffectTemplate.TacticalMissileHitProjectile2,
-    FxImpactUnderWater = NomadEffectTemplate.TacticalMissileHitUnderWater2,
+    FxImpactAirUnit = NomadsEffectTemplate.TacticalMissileHitAirUnit2,
+    FxImpactLand = NomadsEffectTemplate.TacticalMissileHitLand2,
+    FxImpactNone = NomadsEffectTemplate.TacticalMissileHitNone2,
+    FxImpactProp = NomadsEffectTemplate.TacticalMissileHitProp2,
+    FxImpactShield = NomadsEffectTemplate.TacticalMissileHitShield2,
+    FxImpactUnit = NomadsEffectTemplate.TacticalMissileHitUnit2,
+    FxImpactWater = NomadsEffectTemplate.TacticalMissileHitWater2,
+    FxImpactProjectile = NomadsEffectTemplate.TacticalMissileHitProjectile2,
+    FxImpactUnderWater = NomadsEffectTemplate.TacticalMissileHitUnderWater2,
 }
 
 TypeClass = NTacticalMissile1

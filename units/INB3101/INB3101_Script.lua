@@ -1,8 +1,8 @@
 -- T1 radar
 
-local NRadarUnit = import('/lua/nomadunits.lua').NRadarUnit
-local AddIntelOvercharge = import('/lua/nomadutils.lua').AddIntelOvercharge
-local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
+local NRadarUnit = import('/lua/nomadsunits.lua').NRadarUnit
+local AddIntelOvercharge = import('/lua/nomadsutils.lua').AddIntelOvercharge
+local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 
 NRadarUnit = AddIntelOvercharge( NRadarUnit )
 
@@ -12,10 +12,10 @@ INB3101 = Class(NRadarUnit) {
     OverchargeChargingFxBone = 'Blinklight',
     OverchargeExplosionFxBone = 0,
 
-    OverchargeFx = NomadEffectTemplate.T1RadarOvercharge,
-    OverchargeRecoveryFx = NomadEffectTemplate.T1RadarOverchargeRecovery,
-    OverchargeChargingFx = NomadEffectTemplate.T1RadarOverchargeCharging,
-    OverchargeExplosionFx = NomadEffectTemplate.T1RadarOverchargeExplosion,
+    OverchargeFx = NomadsEffectTemplate.T1RadarOvercharge,
+    OverchargeRecoveryFx = NomadsEffectTemplate.T1RadarOverchargeRecovery,
+    OverchargeChargingFx = NomadsEffectTemplate.T1RadarOverchargeCharging,
+    OverchargeExplosionFx = NomadsEffectTemplate.T1RadarOverchargeExplosion,
 
     OnScriptBitSet = function(self, bit)
         NRadarUnit.OnScriptBitSet(self, bit)

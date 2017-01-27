@@ -1,5 +1,5 @@
-local TacticalMissile = import('/lua/nomadprojectiles.lua').TacticalMissile
-local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
+local TacticalMissile = import('/lua/nomadsprojectiles.lua').TacticalMissile
+local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local EffectUtil = import('/lua/EffectUtilities.lua')
 
 NOrbitalMissile1 = Class(TacticalMissile) {
@@ -108,7 +108,7 @@ NOrbitalMissile1 = Class(TacticalMissile) {
         end
 
         if self and not self:BeenDestroyed() then
-            for k, v in  NomadEffectTemplate.OrbitalStrikeMissile_AtmosphereTrail do
+            for k, v in  NomadsEffectTemplate.OrbitalStrikeMissile_AtmosphereTrail do
                 self.Trash:Add( CreateAttachedEmitter( self, -1, self:GetArmy(), v ) )
             end
         end

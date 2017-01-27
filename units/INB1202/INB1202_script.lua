@@ -1,6 +1,6 @@
 -- T2 mex
 
-local NMassCollectionUnit = import('/lua/nomadunits.lua').NMassCollectionUnit
+local NMassCollectionUnit = import('/lua/nomadsunits.lua').NMassCollectionUnit
 
 INB1202 = Class(NMassCollectionUnit) {
 

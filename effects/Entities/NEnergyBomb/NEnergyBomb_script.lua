@@ -1,5 +1,5 @@
 local NullShell = import('/lua/sim/defaultprojectiles.lua').NullShell
-local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
+local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 local EffectUtilities = import('/lua/EffectUtilities.lua')
 local Util = import('/lua/utilities.lua')
@@ -7,8 +7,8 @@ local RandomFloat = Util.GetRandomFloat
 
 NEnergyBomb = Class(NullShell) {
 
-    EnergyBombSurfaceFx = NomadEffectTemplate.EnergyBombSurface,
-    EnergyBombUnderWaterFx = NomadEffectTemplate.EnergyBombUnderWater,
+    EnergyBombSurfaceFx = NomadsEffectTemplate.EnergyBombSurface,
+    EnergyBombUnderWaterFx = NomadsEffectTemplate.EnergyBombUnderWater,
 
     PassData = function(self, data)
         if data.EnergyBombFxScale then self.FxScale = data.EnergyBombFxScale end
@@ -66,13 +66,13 @@ NEnergyBomb = Class(NullShell) {
         for i=1, m do
             n = Random(1, 4)
             if n == 1 then
-                templ = NomadEffectTemplate.EnergyBombResidualFlames_Var1
+                templ = NomadsEffectTemplate.EnergyBombResidualFlames_Var1
             elseif n == 2 then
-                templ = NomadEffectTemplate.EnergyBombResidualFlames_Var2
+                templ = NomadsEffectTemplate.EnergyBombResidualFlames_Var2
             elseif n == 3 then
-                templ = NomadEffectTemplate.EnergyBombResidualFlames_Var3
+                templ = NomadsEffectTemplate.EnergyBombResidualFlames_Var3
             elseif n == 4 then
-                templ = NomadEffectTemplate.EnergyBombResidualFlames_Var4
+                templ = NomadsEffectTemplate.EnergyBombResidualFlames_Var4
             end
             local emitters = EffectUtilities.CreateEffectsWithOffset( self, army, templ, RandomFloat(-maxOffset, maxOffset), 0, RandomFloat(-maxOffset, maxOffset) )
             local scl = RandomFloat(0.75, 1.25)

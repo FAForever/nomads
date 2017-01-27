@@ -104,7 +104,7 @@ UnitBlueprint {
         'BUILTBYTIER1FACTORY',
         'BUILTBYTIER2FACTORY',
         'BUILTBYTIER3FACTORY',
-        'NOMAD',
+        'NOMADS',
         'MOBILE',
         'AIR',
         'TECH1',
