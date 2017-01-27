@@ -175,6 +175,7 @@ DarkMatterWeaponMuzzleFlash = {
 }
 
 DarkMatterWeaponTrail = {}
+
 DarkMatterWeaponPolyTrails = {
     EmtBpPathNomads .. 'nomads_DarkMatterWeapon_polytrail_01_emit.bp',
     EmtBpPathNomads .. 'nomads_DarkMatterWeapon_polytrail_02_emit.bp',
@@ -223,6 +224,42 @@ DarkMatterWeaponHitProjectile2 = DarkMatterWeaponHitUnit2
 DarkMatterWeaponHitProp2 = DarkMatterWeaponHitUnit2
 DarkMatterWeaponHitWater2 = DarkMatterWeaponHitLand2
 DarkMatterWeaponHitUnderWater2 = DarkMatterWeaponHitNone2
+
+-- T1 inty weapon
+
+DarkMatterAirWeaponMuzzleFlash = {
+	EmtBpPath .. 'nomads_DarkMatterWeapon_muzzle_flash_01_emit_air.bp',
+	EmtBpPath .. 'nomads_DarkMatterWeapon_muzzle_flash_02_emit_air.bp',
+	EmtBpPath .. 'nomads_DarkMatterWeapon_muzzle_flash_03_emit_air.bp',
+}
+
+DarkMatterAirWeaponTrail = {}
+
+DarkMatterAirWeaponPolyTrails = {
+    EmtBpPathNomads .. 'nomads_DarkMatterWeapon_polytrail_01_emit_air.bp',
+    EmtBpPathNomads .. 'nomads_DarkMatterWeapon_polytrail_02_emit_air.bp',
+    EmtBpPathNomads .. 'nomads_DarkMatterWeapon_polytrail_03_emit_air.bp',
+}
+
+DarkMatterAirWeaponHitNone1 = {
+    EmtBpPathNomads .. 'nomads_DarkMatterWeapon_hit_01_emit_air.bp', -- splashes
+    EmtBpPathNomads .. 'nomads_DarkMatterWeapon_hit_02_emit_air.bp', -- explosions
+	EmtBpPathNomads .. 'nomads_DarkMatterWeapon_hit_03_emit_air.bp', -- idk
+}
+
+DarkMatterAirWeaponHitLand1 = TableCat( DarkMatterAirWeaponHitNone1, {
+})
+
+DarkMatterAirWeaponHitUnit1 = TableCat( DarkMatterAirWeaponHitNone1, {
+    EmtBpPath .. 'destruction_unit_hit_shrapnel_01_emit.bp',
+})
+
+DarkMatterAirWeaponHitAirUnit1 = DarkMatterAirWeaponHitNone1
+DarkMatterAirWeaponHitShield1 = DarkMatterAirWeaponHitNone1
+DarkMatterAirWeaponHitProjectile1 = DarkMatterAirWeaponHitUnit1
+DarkMatterAirWeaponHitProp1 = DarkMatterAirWeaponHitUnit1
+DarkMatterAirWeaponHitWater1 = DarkMatterAirWeaponHitLand1
+DarkMatterAirWeaponHitUnderWater1 = DarkMatterAirWeaponHitNone1
 
 --------------------------------------------------------------------------
 --  Nomads Ion blast

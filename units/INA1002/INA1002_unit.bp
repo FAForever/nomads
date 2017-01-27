@@ -288,7 +288,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
-            Damage = 26,
+            Damage = 17,
             DamageType = 'Normal',
             DisplayName = 'Dark matter gun',
             FireTargetLayerCapsTable = {
@@ -299,7 +299,7 @@ UnitBlueprint {
             Label = 'MainGun',
             MaxRadius = 25,
             MuzzleSalvoDelay = 0.1,
-            MuzzleSalvoSize = 2,
+            MuzzleSalvoSize = 3,
             MuzzleVelocity = 120,
             ProjectileId = '/projectiles/NDarkMatter2/NDarkMatter2_proj.bp',
             ProjectileLifetimeUsesMultiplier = 1.25,

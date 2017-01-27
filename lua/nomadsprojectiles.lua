@@ -415,6 +415,24 @@ DarkMatterProj2 = Class(SingleBeamProjectile) {
     FxImpactUnderWater = NomadsEffectTemplate.DarkMatterWeaponHitUnderWater2,
 }
 
+DarkMatterProjAir = Class(MultiPolyTrailProjectile) {
+    FxImpactAirUnit = NomadsEffectTemplate.DarkMatterAirWeaponHitAirUnit1,
+    FxImpactLand = NomadsEffectTemplate.DarkMatterAirWeaponHitLand1,
+    FxImpactNone = NomadsEffectTemplate.DarkMatterAirWeaponHitNone1,
+    FxImpactProp = NomadsEffectTemplate.DarkMatterAirWeaponHitProp1,
+    FxImpactShield = NomadsEffectTemplate.DarkMatterAirWeaponHitShield1,
+    FxImpactUnit = NomadsEffectTemplate.DarkMatterAirWeaponHitUnit1,
+    FxImpactWater = NomadsEffectTemplate.DarkMatterAirWeaponHitWater1,
+    FxImpactProjectile = NomadsEffectTemplate.DarkMatterAirWeaponHitProjectile1,
+    FxImpactUnderWater = NomadsEffectTemplate.DarkMatterAirWeaponHitUnderWater1,
+
+    FxTrails = NomadsEffectTemplate.DarkMatterAirWeaponTrail,
+
+    PolyTrails = NomadsEffectTemplate.DarkMatterAirWeaponPolyTrails,
+    PolyTrailOffset = {0,0,0,0,},
+    RandomPolyTrails = 1,
+}
+
 IonBlast = Class(SinglePolyTrailProjectile) {
     FxImpactAirUnit = NomadsEffectTemplate.IonBlastHitAirUnit1,
     FxImpactLand = NomadsEffectTemplate.IonBlastHitLand1,

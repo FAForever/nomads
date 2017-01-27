@@ -331,7 +331,7 @@ DroppedTorpedoWeapon1 = Class(DefaultProjectileWeapon) {
 }
 
 AirToAirGun1 = Class(DefaultProjectileWeapon) {
-    FxMuzzleFlash = EffectTemplate.SThunderStormCannonMuzzleFlash,
+    FxMuzzleFlash = NomadsEffectTemplate.DarkMatterAirWeaponMuzzleFlash,
 }
 
 OrbitalStrikeBuoy = Class(DefaultProjectileWeapon) {

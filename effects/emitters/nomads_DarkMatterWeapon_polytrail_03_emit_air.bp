@@ -4,9 +4,9 @@ TrailEmitterBlueprint {
     TrailLength = 1,
     Size = 0.05,
     SortOrder = 0,
-    BlendMode = 1,
-    TextureRepeatRate = 1,
+    BlendMode = 3,
+    TextureRepeatRate = 10,
     LODCutoff = 160,
 	RampTexture = [[/textures/particles/blackbolt_munition_03.dds]],
-	RepeatTexture = [[/textures/particles/ramp_phalanx_munition_01.dds]],
+	RepeatTexture = [[/textures/particles/ramp_Nred_02.dds]],
 }
