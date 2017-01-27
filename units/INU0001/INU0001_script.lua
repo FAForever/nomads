@@ -662,7 +662,7 @@ INU0001 = Class(ACUUnit) {
             end
       
             Buff.ApplyBuff(self, 'NOMADSACUT2BuildRate')
-
+            self:updateBuildRestrictions()
         elseif enh =='AdvancedEngineeringRemove' then
 
             -- remove extra build bone
