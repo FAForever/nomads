@@ -206,6 +206,10 @@ RocketWeapon1 = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = NomadsEffectTemplate.RocketMuzzleFx,
 }
 
+RocketWeapon1Bomber = Class(DefaultProjectileWeapon) {
+    FxMuzzleFlash = NomadsEffectTemplate.BomberRocketMuzzleFx,
+}
+
 RocketWeapon4 = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = NomadsEffectTemplate.RocketMuzzleFx,
 }

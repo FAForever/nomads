@@ -1391,7 +1391,14 @@ Rocket3 = Class(SingleCompositeEmitterProjectile) {
     FxImpactWater = NomadsEffectTemplate.RocketHitWater3,
     FxImpactProjectile = NomadsEffectTemplate.RocketHitProjectile3,
     FxImpactUnderWater = NomadsEffectTemplate.RocketHitUnderWater3,
-
+	
+	OnImpact = function(self, targetType, targetEntity)
+        -- create flash
+        local army = self:GetArmy()
+			NomadsExplosions.CreateFlashCustom( self, -2, army, 1, 5, 'glow_06_red', 'ramp_transparency_flash_dark_2' )
+        SinglePolyTrailProjectile.OnImpact( self, targetType, targetEntity )
+    end,
+	
     FxTrails = NomadsEffectTemplate.RocketTrail3,
     PolyTrail = NomadsEffectTemplate.RocketPolyTrail3,
 }
