@@ -5,7 +5,7 @@ MeshBlueprint {
             AlbedoName = '/effects/Entities/Shield05/Shield05_Albedo.dds',
             SpecularName = '/effects/Entities/Shield05/Shield05_Specular.dds',
             SecondaryName = '/effects/Entities/Shield05/Shield05_Secondary.dds',
-            ShaderName = 'ShieldNomads',
+            ShaderName = 'ShieldNomad',
 --            ShaderName = 'ShieldUEF',
             LODCutoff = 1000,
         },
