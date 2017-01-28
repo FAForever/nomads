@@ -47,7 +47,7 @@ ArtilleryWeapon = Class(DefaultProjectileWeapon) {
 }
 
 DarkMatterWeapon1 = Class(DefaultProjectileWeapon) {
-    FxMuzzleFlash = NomadsEffectTemplate.DarkMatterWeaponMuzzleFlash,
+    FxMuzzleFlash = NomadsEffectTemplate.DarkMatterAirWeaponMuzzleFlash,
 }
 
 EMPGun = Class(DefaultProjectileWeapon) {

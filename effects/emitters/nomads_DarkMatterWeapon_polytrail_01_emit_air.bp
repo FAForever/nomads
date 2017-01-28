@@ -2,7 +2,7 @@ TrailEmitterBlueprint {
 	BlueprintId = 'nomads_blackbolt_polytrail_01',
 	Lifetime = -1.00,
     TrailLength = 1,
-    Size = 0.05,
+    Size = 0.10,
     SortOrder = 0,
     BlendMode = 3,
     TextureRepeatRate = 10,
