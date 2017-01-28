@@ -1,7 +1,7 @@
 EmitterBlueprint {
 	BlueprintId = 'nomads_DarkMatterWeapon_hit_03',
-	Lifetime = 1.00,
-	Repeattime = 1.00,
+	Lifetime = 2.00,
+	Repeattime = 2.00,
 	TextureFramecount = 1.00,
 	Blendmode = 3.00,
 	LocalVelocity = false,
@@ -23,7 +23,7 @@ EmitterBlueprint {
 	LowFidelity = false,
 	MedFidelity = true,
 	HighFidelity = true,
-	Texture = [[/textures/particles/cloud_smoke_alpha_white.dds]],
+	Texture = [[/textures/particles/cloud_smoke_alpha_white_transparent.dds]],
 	RampTexture = [[/textures/particles/ramp_transparency_fade_to_red_inverted_bright.dds]],
 	XDirectionCurve = {
 		XRange = 3.00,
@@ -46,19 +46,19 @@ EmitterBlueprint {
 	EmitRateCurve = {
 		XRange = 3.00,
 		Keys = {
-			{ x=0.056,y=2.579,z=0.000 },
+			{ x=0.056,y=3.579,z=0.000 },
 		},
 	},
 	LifetimeCurve = {
 		XRange = 3.00,
 		Keys = {
-			{ x=1.631,y=3.575,z=0.000 },
+			{ x=1.631,y=7.575,z=6.000 },
 		},
 	},
 	VelocityCurve = {
 		XRange = 3.00,
 		Keys = {
-			{ x=1.500,y=5.000,z=0.110 },
+			{ x=1.500,y=5.000/5,z=0.110/5 },
 		},
 	},
 	XAccelCurve = {
@@ -88,7 +88,7 @@ EmitterBlueprint {
 	SizeCurve = {
 		XRange = 3.00,
 		Keys = {
-			{ x=0.724,y=1.500,z=0.000 },
+			{ x=0.724,y=1.500/5,z=0.000 },
 		},
 	},
 	XPosCurve = {
@@ -100,7 +100,7 @@ EmitterBlueprint {
 	YPosCurve = {
 		XRange = 3.00,
 		Keys = {
-			{ x=0.602,y=0.100,z=0.100 },
+			{ x=0.602,y=0.200,z=0.200 },
 		},
 	},
 	ZPosCurve = {
@@ -112,13 +112,13 @@ EmitterBlueprint {
 	StartSizeCurve = {
 		XRange = 3.00,
 		Keys = {
-			{ x=1.500,y=0.450,z=0.020 },
+			{ x=1.500,y=0.450/3,z=0.020 },
 		},
 	},
 	EndSizeCurve = {
 		XRange = 3.00,
 		Keys = {
-			{ x=1.500,y=0.750,z=0.000 },
+			{ x=1.500,y=0.750/3,z=0.000 },
 		},
 	},
 	InitialRotationCurve = {

@@ -244,7 +244,7 @@ DarkMatterAirWeaponPolyTrails = {
 DarkMatterAirWeaponHitNone1 = {
     EmtBpPathNomads .. 'nomads_DarkMatterWeapon_hit_01_emit_air.bp', -- idk
     EmtBpPathNomads .. 'nomads_DarkMatterWeapon_hit_02_emit_air.bp', -- explosions
-	--EmtBpPathNomads .. 'nomads_DarkMatterWeapon_hit_03_emit_air.bp', -- idk
+	EmtBpPathNomads .. 'nomads_DarkMatterWeapon_hit_03_emit_air.bp', -- idk
 }
 
 DarkMatterAirWeaponHitLand1 = TableCat( DarkMatterAirWeaponHitNone1, {

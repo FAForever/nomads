@@ -1,7 +1,7 @@
 EmitterBlueprint {
 	BlueprintId = 'DarkMatterWeapon_hit_01',
-	Lifetime = 0.01,
-	Repeattime = 0.00,
+	Lifetime = 1.5,
+	Repeattime = 1.5,
 	TextureFramecount = 1.00,
 	Blendmode = 3.00,
 	LocalVelocity = true,
@@ -46,7 +46,7 @@ EmitterBlueprint {
 	EmitRateCurve = {
 		XRange = 3.00,
 		Keys = {
-			{ x=3.00,y=30.000,z=0.000 },
+			{ x=3.00,y=30.000/2,z=0.000 },
 		},
 	},
 	LifetimeCurve = {
@@ -58,7 +58,7 @@ EmitterBlueprint {
 	VelocityCurve = {
 		XRange = 3.00,
 		Keys = {
-			{ x=1.500,y=3.450,z=0.500 },
+			{ x=1.500,y=2.450,z=0.500 },
 		},
 	},
 	XAccelCurve = {
@@ -112,13 +112,13 @@ EmitterBlueprint {
 	StartSizeCurve = {
 		XRange = 3.00,
 		Keys = {
-			{ x=1.500,y=0.980,z=0.030 },
+			{ x=1.500,y=0.380,z=0.030 },
 		},
 	},
 	EndSizeCurve = {
 		XRange = 3.00,
 		Keys = {
-			{ x=1.500,y=0.000,z=0.000 },
+			{ x=1.500,y=0.100,z=0.000 },
 		},
 	},
 	InitialRotationCurve = {
