@@ -2,7 +2,7 @@
 
 local NMassStorageUnit = import('/lua/nomadsunits.lua').NMassStorageUnit
 
-INB1108 = Class(NMassStorageUnit) {
+inb1106 = Class(NMassStorageUnit) {
 
     OnStopBeingBuilt = function(self,builder,layer)
         NMassStorageUnit.OnStopBeingBuilt( self, builder, layer )
@@ -10,4 +10,4 @@ INB1108 = Class(NMassStorageUnit) {
     end,
 }
 
-TypeClass = INB1108
+TypeClass = inb1106

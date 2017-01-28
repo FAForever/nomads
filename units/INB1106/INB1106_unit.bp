@@ -51,7 +51,7 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
     },
-    Description = '<LOC inb1108_desc>Mass Storage',
+    Description = '<LOC inb1106_desc>Mass Storage',
     Display = {
         BlinkingLights = {
             {
@@ -122,10 +122,10 @@ UnitBlueprint {
                     ShaderName = 'NomadUnit',
                 },
                 {
-                    AlbedoName = 'INB1108_lod1_albedo.dds',
+                    AlbedoName = 'inb1106_lod1_albedo.dds',
                     LODCutoff = 215,
                     ShaderName = 'NomadUnit',
-                    SpecularName = 'INB1108_lod1_specteam.dds',
+                    SpecularName = 'inb1106_lod1_specteam.dds',
                 },
             },
         },
@@ -153,7 +153,7 @@ UnitBlueprint {
         BuildCostMass = 200,
         BuildTime = 250,
         RebuildBonusIds = {
-            'INB1108',
+            'inb1106',
         },
         StorageMass = 1000,
     },
@@ -185,7 +185,7 @@ UnitBlueprint {
         UnitWeight = 1,
     },
     Interface = {
-        HelpText = '<LOC inb1108_help>Mass Storage',
+        HelpText = '<LOC inb1106_help>Mass Storage',
     },
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.35,

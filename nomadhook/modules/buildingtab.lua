@@ -327,7 +327,7 @@ buildingTab = {
 "urb1106",
 "ueb1106",
 "uab1106",
-"inb1108",
+"inb1106",
 },
 ["Point_Defense"] = {
 "xsb2301",
