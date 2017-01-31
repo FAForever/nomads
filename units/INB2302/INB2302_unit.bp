@@ -1,3 +1,5 @@
+-- T3 Artillery Installation
+
 UnitBlueprint {
     Audio = {
         DeathExplosion = Sound {
@@ -97,8 +99,8 @@ UnitBlueprint {
         UniformScale = 0.48,
     },
     Economy = {
-        BuildCostEnergy = 1000000,
-        BuildCostMass = 100000,
+        BuildCostEnergy = 900000,
+        BuildCostMass = 90000,
         BuildTime = 40000,
         RebuildBonusIds = {
             'inb2302',

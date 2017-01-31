@@ -1,3 +1,5 @@
+-- T2 point defense
+
 UnitBlueprint {
     AI = {
         TargetBones = {
@@ -23,14 +25,14 @@ UnitBlueprint {
     },
     Buffs = {
         Regen = {
-            Level1 = 1,
-            Level2 = 2,
-            Level3 = 3,
-            Level4 = 4,
-            Level5 = 5,
+            Level1 = 2,
+            Level2 = 4,
+            Level3 = 6,
+            Level4 = 8,
+            Level5 = 10,
         },
     },
-    BuildIconSortPriority = 120,
+    BuildIconSortPriority = 110,
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2ENGINEER',
@@ -91,7 +93,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 3600,
         BuildCostMass = 510,
-        BuildTime = 450,
+        BuildTime = 600,
         RebuildBonusIds = {
             'inb2201',
         },

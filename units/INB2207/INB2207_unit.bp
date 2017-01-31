@@ -1,3 +1,5 @@
+-- T2 railgun defense
+
 UnitBlueprint {
     AI = {
         TargetBones = {
@@ -113,7 +115,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 9000,
         BuildCostMass = 1080,
-        BuildTime = 1200,
+        BuildTime = 1467,
         RebuildBonusIds = {
             'inb2207',
         },
@@ -279,9 +281,9 @@ UnitBlueprint {
         WreckageLayers = {
             Air = false,
             Land = false,
-            Seabed = false,
-            Sub = false,
-            Water = false,
+            Seabed = true, #from false
+            Sub = true, #from false,
+            Water = true, #from false,
         },
     },
 }

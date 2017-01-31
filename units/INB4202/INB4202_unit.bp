@@ -1,3 +1,5 @@
+-- T2 shield
+
 UnitBlueprint {
     Audio = {
         Destroyed = Sound {
@@ -62,7 +64,7 @@ UnitBlueprint {
             ShieldMaxHealth = 8000,
             ShieldRechargeTime = 16,
             ShieldRegenRate = 115,
-            ShieldRegenStartTime = 1,
+            ShieldRegenStartTime = 3,
             ShieldSize = 27,
             ShieldVerticalOffset = -3,
         },
@@ -112,7 +114,7 @@ UnitBlueprint {
         BuildCostEnergy = 5000,
         BuildCostMass = 500,
         BuildRate = 15,
-        BuildTime = 500,
+        BuildTime = 700,
         BuildableCategory = {
             'inb4205',
         },
@@ -201,7 +203,7 @@ UnitBlueprint {
     SizeY = 2.5,
     SizeZ = 1.5,
     StrategicIconName = 'icon_structure2_shield',
-    StrategicIconSortPriority = 195,
+    StrategicIconSortPriority = 200,
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

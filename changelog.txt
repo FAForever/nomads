@@ -156,3 +156,66 @@ ___________________
 
 T2/T3 naval factory 
 -- change size X/Y/Z 4,3,10 (4,4,13)
+
+T2 pgen
+-- hp 2160 (1900)
+
+t2 mex
+-- icon ambh (land)
+-- wreack: Seabed = true, (false)
+-- StrategicIconSortPriority = 64, (245)
+
+t3 pgen
+-- wreack: Seabed = true, (false)
+
+T3 mex
+-- TechLevel = 'RULEUTL_Advanced', (secret)
+-- StrategicIconSortPriority = 64, (245)
+
+T3 fab
+-- hp 6000 (9000)
+-- damage radius 14 (9)
+
+T1 AA pd
+-- 800hp (1200)
+-- muzzle velocity 45 (50)
+
+T2 PD
+-- regen by vet 2 (1)
+-- BuildIconSortPriority = 110, (120)
+
+T2 AA
+-- regen by vet 2 (1)
+
+T2 radar
+-- StrategicIconSortPriority = 64, (230)
+-- added volilate and EMP into description , while it have EMP on death
+
+T2 sonar
+-- added volilate and EMP into description , while it have EMP on death
+
+T3 radar
+-- added volilate and EMP into description , while it have EMP on death
+
+T3 sonar
+-- added volilate and EMP into description , while it have EMP on death
+
+T3 rocket artilery
+-- veterancy 3 (2)
+
+T2 shield
+-- StrategicIconSortPriority = 200, (195)
+
+T2 stealth shield
+-- stealth size 27 (16) to be same as is shield dome
+
+T3 shield
+-- shield hp 14000 (16000) 
+-- stealth size 42 (28) to be same as is shield dome
+
+Air staging
+-- increse docking slots
+
+
+
+

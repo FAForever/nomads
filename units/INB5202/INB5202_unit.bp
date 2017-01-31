@@ -1,3 +1,5 @@
+-- Air staging facility
+
 UnitBlueprint {
     AI = {
         GuardScanRadius = 300,
@@ -96,7 +98,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 2100,
         BuildCostMass = 175,
-        BuildTime = 350,
+        BuildTime = 534,
         RebuildBonusIds = {
             'inb5202',
         },
@@ -170,9 +172,9 @@ UnitBlueprint {
     StrategicIconName = 'icon_structure2_air',
     StrategicIconSortPriority = 175,
     Transport = {
-        Class2AttachSize = 1,
-        Class3AttachSize = 1,
-        DockingSlots = 1,
+        Class2AttachSize = 2,
+        Class3AttachSize = 4,
+        DockingSlots = 4,
         RepairRate = 0.1,
         StorageSlots = 0,
     },

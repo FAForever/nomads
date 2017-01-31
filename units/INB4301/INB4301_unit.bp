@@ -1,3 +1,5 @@
+-- T3 shield
+
 UnitBlueprint {
     Audio = {
         Destroyed = Sound {
@@ -57,10 +59,10 @@ UnitBlueprint {
             MeshZ = '/effects/Entities/Shield05/Shield05z_mesh',
             RegenAssistMult = 60,
             ShieldEnergyDrainRechargeTime = 5,
-            ShieldMaxHealth = 16000,
+            ShieldMaxHealth = 14000,
             ShieldRechargeTime = 25,
             ShieldRegenRate = 130,
-            ShieldRegenStartTime = 1,
+            ShieldRegenStartTime = 3,
             ShieldSize = 42,
             ShieldVerticalOffset = -4,
         },
@@ -110,7 +112,7 @@ UnitBlueprint {
         BuildCostEnergy = 48000,
         BuildCostMass = 2800,
         BuildRate = 30,
-        BuildTime = 3500,
+        BuildTime = 4900,
         MaintenanceConsumptionPerSecondEnergy = 450,
         RebuildBonusIds = {
             'inb4301',

@@ -1,3 +1,5 @@
+-- T3 stealth shield
+
 UnitBlueprint {
     Audio = {
         Destroyed = Sound {
@@ -59,10 +61,10 @@ UnitBlueprint {
             MeshZ = '/effects/Entities/Shield05_stealth/Shield05_stealthz_mesh',
             RegenAssistMult = 60,
             ShieldEnergyDrainRechargeTime = 5,
-            ShieldMaxHealth = 16000,
+            ShieldMaxHealth = 14000,
             ShieldRechargeTime = 25,
             ShieldRegenRate = 130,
-            ShieldRegenStartTime = 1,
+            ShieldRegenStartTime = 3,
             ShieldSize = 42,
             ShieldVerticalOffset = -4, --0, -- TODO: I'm sure we can do without offset. Add ring on ground?
         },
@@ -157,8 +159,8 @@ UnitBlueprint {
         UpgradesFrom = 'inb4301',
     },
     Intel = {
-        RadarStealthFieldRadius = 28,
-        SonarStealthFieldRadius = 28,
+        RadarStealthFieldRadius = 42,
+        SonarStealthFieldRadius = 42,
         VisionRadius = 20,
     },
     Interface = {

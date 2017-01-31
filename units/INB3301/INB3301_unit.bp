@@ -1,3 +1,5 @@
+-- T3 radar
+
 UnitBlueprint {
     Audio = {
         Destroyed = Sound {
@@ -64,9 +66,11 @@ UnitBlueprint {
     Description = '<LOC inb3301_desc>Omni Sensor Array',
     Display = {
         Abilities = {
+            '<LOC ability_stun>EMP Weapon',
             '<LOC ability_omni>Omni Sensor',
             '<LOC ability_radarboost>Radar Boost',
             '<LOC ability_radar>Radar',
+            '<LOC ability_deathaoe>Volatile',
         },
         BlinkingLights = {
             {
@@ -127,7 +131,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 30000,
         BuildCostMass = 2400,
-        BuildTime = 1800,
+        BuildTime = 2575,
         MaintenanceConsumptionPerSecondEnergy = 2000,
         RebuildBonusIds = {
             'inb3301',

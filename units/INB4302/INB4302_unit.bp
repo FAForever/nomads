@@ -1,3 +1,5 @@
+-- Nuke defense
+
 UnitBlueprint {
     AI = {
         InitialAutoMode = true,
@@ -95,7 +97,7 @@ UnitBlueprint {
         BuildCostEnergy = 105000,
         BuildCostMass = 7500,
         BuildRate = 1080,
-        BuildTime = 4500,
+        BuildTime = 5841,
         RebuildBonusIds = {
             'inb4302',
         },

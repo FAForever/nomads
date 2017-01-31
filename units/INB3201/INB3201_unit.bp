@@ -1,3 +1,5 @@
+-- T2 radar
+
 UnitBlueprint {
     Audio = {
         Destroyed = Sound {
@@ -64,9 +66,11 @@ UnitBlueprint {
     Description = '<LOC inb3201_desc>Radar System',
     Display = {
         Abilities = {
+            '<LOC ability_stun>EMP Weapon',
             '<LOC ability_radar>Radar',
             '<LOC ability_radarboost>Radar Boost',
             '<LOC ability_upgradable>Upgradeable',
+            '<LOC ability_deathaoe>Volatile',
         },
         AnimationUpgrade = '/units/inb3201/inb3201_AUpgrade.sca',
         BlinkingLights = {
@@ -135,8 +139,8 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 3600,
         BuildCostMass = 180,
-        BuildRate = 15,
-        BuildTime = 600,
+        BuildRate = 21.46,
+        BuildTime = 845,
         BuildableCategory = {
             'inb3301',
         },

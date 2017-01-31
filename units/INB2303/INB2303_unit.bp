@@ -1,3 +1,5 @@
+-- T2 Artillery Installation
+
 UnitBlueprint {
     Audio = {
         Destroyed = Sound {
@@ -88,9 +90,9 @@ UnitBlueprint {
         UniformScale = 0.22,
     },
     Economy = {
-        BuildCostEnergy = 17000,
-        BuildCostMass = 2380,
-        BuildTime = 1700,
+        BuildCostEnergy = 12750,
+        BuildCostMass = 1785,
+        BuildTime = 1200,
         RebuildBonusIds = {
             'inb2303',
         },

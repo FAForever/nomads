@@ -1,3 +1,5 @@
+-- nuke launcher
+
 UnitBlueprint {
     AI = {
         InitialAutoMode = true,
@@ -113,7 +115,7 @@ UnitBlueprint {
         BuildCostEnergy = 210000,
         BuildCostMass = 15000,
         BuildRate = 1080,
-        BuildTime = 9000,
+        BuildTime = 10453,
         RebuildBonusIds = {
             'inb2305',
         },

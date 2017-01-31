@@ -1,3 +1,5 @@
+-- T1 Anti-air
+
 UnitBlueprint {
     AI = {
         TargetBones = {
@@ -54,8 +56,8 @@ UnitBlueprint {
         AirThreatLevel = 3,
         ArmorType = 'Structure',
         EconomyThreatLevel = 3,
-        Health = 1200,
-        MaxHealth = 1200,
+        Health = 800,
+        MaxHealth = 800,
         RegenRate = 0,
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
@@ -93,9 +95,9 @@ UnitBlueprint {
         UniformScale = 0.1,
     },
     Economy = {
-        BuildCostEnergy = 2000,
-        BuildCostMass = 200,
-        BuildTime = 250,
+        BuildCostEnergy = 1500,
+        BuildCostMass = 150,
+        BuildTime = 188,
         RebuildBonusIds = {
             'inb2102',
         },
@@ -198,7 +200,7 @@ UnitBlueprint {
             MaxRadius = 44,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 50,
+            MuzzleVelocity = 45,
             ProjectileId = '/projectiles/NIonBlastProj1/NIonBlastProj1_proj.bp',
             ProjectileLifetimeUsesMultiplier = 1.25,
             ProjectilesPerOnFire = 1,
@@ -258,9 +260,9 @@ UnitBlueprint {
         WreckageLayers = {
             Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
+            Seabed = true, #from false
+            Sub = true, #from false
+            Water = true, #from false
         },
     },
 }
