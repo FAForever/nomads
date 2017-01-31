@@ -1,3 +1,5 @@
+--T2 hover tank
+
 UnitBlueprint {
     Audio = {
         AmbientIdle = Sound {
@@ -70,8 +72,8 @@ UnitBlueprint {
         AirThreatLevel = 0,
         ArmorType = 'Normal',
         EconomyThreatLevel = 0,
-        Health = 450,
-        MaxHealth = 450,
+        Health = 400,
+        MaxHealth = 400,
         RegenRate = 0,
         SubThreatLevel = 0,
         SurfaceThreatLevel = 3,
@@ -254,11 +256,11 @@ UnitBlueprint {
         TransportClass = 2,
     },
     Veteran = {
-        Level1 = 3,
-        Level2 = 6,
-        Level3 = 9,
-        Level4 = 12,
-        Level5 = 15,
+        Level1 = 4,
+        Level2 = 8,
+        Level3 = 12,
+        Level4 = 16,
+        Level5 = 20,
     },
     Weapon = {
         {
@@ -272,7 +274,7 @@ UnitBlueprint {
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
-            Damage = 8,
+            Damage = 7,
             DamageType = 'Normal',
             DisplayName = 'Dark matter gun',
             FireTargetLayerCapsTable = {
