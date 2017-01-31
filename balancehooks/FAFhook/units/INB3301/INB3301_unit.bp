@@ -1,7 +1,0 @@
-UnitBlueprint {
-    Merge = true,
-    BlueprintId = "inb3301", -- T3 radar
-    Economy = {
-        BuildTime = 2575,
-    },
-}

@@ -1,7 +1,0 @@
-UnitBlueprint {
-    Merge = true,
-    BlueprintId = "inb4302", -- Nuke defense
-    Economy = {
-        BuildTime = 5841,
-    },
-}

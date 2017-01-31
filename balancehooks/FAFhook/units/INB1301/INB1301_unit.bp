@@ -1,7 +1,0 @@
-UnitBlueprint {
-    Merge = true,
-    BlueprintId = "inb1301", -- T3 pgen
-    Economy = {
-        BuildTime = 6824,
-    },
-}
