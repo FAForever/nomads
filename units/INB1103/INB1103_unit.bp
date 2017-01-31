@@ -1,3 +1,5 @@
+-- T2 mass fab
+
 UnitBlueprint {
     Adjacency = 'T1MassFabricatorAdjacencyBuffs',
     Audio = {

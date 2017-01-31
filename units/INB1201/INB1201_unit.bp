@@ -1,3 +1,5 @@
+-- T2 pgen
+
 UnitBlueprint {
     Adjacency = 'T2PowerGeneratorAdjacencyBuffs',
     Audio = {
@@ -49,8 +51,8 @@ UnitBlueprint {
         AirThreatLevel = 0,
         ArmorType = 'Structure',
         EconomyThreatLevel = 16,
-        Health = 1900,
-        MaxHealth = 1900,
+        Health = 2160,
+        MaxHealth = 2160,
         RegenRate = 0,
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
@@ -207,7 +209,7 @@ UnitBlueprint {
         AdjacentStructureEnergyMod = -4,
         BuildCostEnergy = 12000,
         BuildCostMass = 1200,
-        BuildTime = 2000,
+        BuildTime = 2198,
         ProductionPerSecondEnergy = 500,
         RebuildBonusIds = {
             'inb1201',

@@ -1,3 +1,5 @@
+-- T1 energy storage
+
 UnitBlueprint {
     Adjacency = 'T1EnergyStorageAdjacencyBuffs',
     Audio = {
@@ -8,7 +10,7 @@ UnitBlueprint {
         },
         Destroyed = Sound {
             Bank = 'NomadsDestroy',
-            Cue = 'Destroy_Sml_Structure',
+            Cue = 'Destroy_Sml_Structure_AreaDmg',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         DoneBeingBuilt = Sound {
@@ -195,7 +197,7 @@ UnitBlueprint {
     SizeX = 1,
     SizeY = 1.0,
     SizeZ = 1,
-    StrategicIconName = 'icon_structure1_energy',
+    StrategicIconName = 'icon_structure_energy',
     StrategicIconSortPriority = 250,
     Weapon = {
         {

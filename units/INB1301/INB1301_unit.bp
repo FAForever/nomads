@@ -1,3 +1,5 @@
+-- T3 pgen
+
 UnitBlueprint {
     Adjacency = 'T3PowerGeneratorAdjacencyBuffs',
     Audio = {
@@ -153,7 +155,7 @@ UnitBlueprint {
         AdjacentStructureEnergyMod = -5,
         BuildCostEnergy = 57600,
         BuildCostMass = 3240,
-        BuildTime = 5400,
+        BuildTime = 6824,
         ProductionPerSecondEnergy = 2500,
         RebuildBonusIds = {
             'inb1301',
@@ -245,7 +247,7 @@ UnitBlueprint {
         WreckageLayers = {
             Air = false,
             Land = true,
-            Seabed = false,
+            Seabed = true,
             Sub = false,
             Water = false,
         },
