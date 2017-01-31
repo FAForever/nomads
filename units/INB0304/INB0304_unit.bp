@@ -1,3 +1,5 @@
+-- SACU FActory
+
 UnitBlueprint {
     AI = {
         TargetBones = {
@@ -100,7 +102,7 @@ UnitBlueprint {
         BuildCostEnergy = 30000,
         BuildCostMass = 3000,
         BuildRate = 120,
-        BuildTime = 3000,
+        BuildTime = 4097,
         BuildableCategory = {
             'BUILTBYQUANTUMGATE NOMADS',
         },

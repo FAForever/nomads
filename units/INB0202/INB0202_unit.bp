@@ -1,3 +1,5 @@
+--T2 Air Factory
+
 UnitBlueprint {
     AI = {
         TargetBones = {
@@ -69,7 +71,7 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
     },
-    Description = '<LOC inb0202_desc>Air Factory',
+    Description = '<LOC inb0202faf_desc>Air Factory (HQ)',
     Display = {
         Abilities = {
             '<LOC ability_upgradable>Upgradeable',
@@ -124,15 +126,17 @@ UnitBlueprint {
         UniformScale = 0.42,
     },
     Economy = {
-        BuildCostEnergy = 11700,
-        BuildCostMass = 630,
+        BuildCostEnergy = 14400,
+        BuildCostMass = 840,
         BuildRate = 40,
         BuildTime = 1800,
+        DifferentialUpgradeCostCalculation = true,
         BuildableCategory = {
             'BUILTBYTIER2FACTORY NOMADS MOBILE CONSTRUCTION',
             'BUILTBYTIER2FACTORY NOMADS STRUCTURE AIR',
             'BUILTBYTIER2FACTORY NOMADS MOBILE AIR',
             'TRANSPORTBUILTBYTIER2FACTORY NOMADS MOBILE AIR',
+            'FIELDENGINEER NOMADS MOBILE LAND',
         },
         StorageEnergy = 0,
         StorageMass = 0,
@@ -177,13 +181,14 @@ UnitBlueprint {
         TechLevel = 'RULEUTL_Advanced',
         UnitWeight = 1,
         UpgradesFrom = 'inb0102',
+        UpgradesFromBase = 'inb0102',
         UpgradesTo = 'inb0302',
     },
     Intel = {
         VisionRadius = 20,
     },
     Interface = {
-        HelpText = '<LOC inb0202_help>Air Factory',
+        HelpText = '<LOC inb0202faf_help>Air Factory (HQ)',
     },
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.65,

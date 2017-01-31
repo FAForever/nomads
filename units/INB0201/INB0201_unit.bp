@@ -1,3 +1,5 @@
+--T2 Land Factory
+
 UnitBlueprint {
     AI = {
         TargetBones = {
@@ -129,10 +131,11 @@ UnitBlueprint {
         UniformScale = 0.45,
     },
     Economy = {
-        BuildCostEnergy = 7200,
-        BuildCostMass = 800,
+        BuildCostEnergy = 13300,
+        BuildCostMass = 1520,
         BuildRate = 40,
-        BuildTime = 1600,
+        BuildTime = 2600,
+        DifferentialUpgradeCostCalculation = true, 
         BuildableCategory = {
             'BUILTBYTIER2FACTORY NOMADS MOBILE CONSTRUCTION',
             'BUILTBYTIER2FACTORY NOMADS STRUCTURE LAND',
@@ -180,13 +183,14 @@ UnitBlueprint {
         TechLevel = 'RULEUTL_Advanced',
         UnitWeight = 1,
         UpgradesFrom = 'inb0101',
+        UpgradesFromBase = 'inb0101',
         UpgradesTo = 'inb0301',
     },
     Intel = {
         VisionRadius = 20,
     },
     Interface = {
-        HelpText = '<LOC inb0201_help>Land Factory',
+        HelpText = '<LOC inb0201faf_help>Land Factory (HQ)',
     },
     LifeBarHeight = 0.075,
     LifeBarOffset = 2.5,
