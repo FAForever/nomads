@@ -33,7 +33,7 @@ UnitBlueprint {
         AirThreatLevel = 0,
         ArmorType = 'Normal',
         EconomyThreatLevel = 0,
-        Health = 15000,
+        Health = 20000,
         MaxHealth = 20000,
         RegenRate = 0,
         SubThreatLevel = 0,
