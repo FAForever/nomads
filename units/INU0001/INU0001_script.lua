@@ -28,7 +28,7 @@ INU0001 = Class(ACUUnit) {
         MainGun = Class(AddRapidRepairToWeapon(APCannon1)) {
             CreateProjectileAtMuzzle = function(self, muzzle)
                 if self.unit.DoubleBarrels then
-                    APCannon1.CreateProjectileAtMuzzle(self, 'right_arm_upgrade_muzzle')
+                    APCannon1.CreateProjectileAtMuzzle(self, 'Muzzle2')
                 end
                 return APCannon1.CreateProjectileAtMuzzle(self, muzzle)
             end,
@@ -75,7 +75,7 @@ INU0001 = Class(ACUUnit) {
     -- =====================================================================================================================
     -- CREATION AND FIRST SECONDS OF GAMEPLAY
 
-    CapFxBones = { 'torso_thingy_left', 'torso_thingy_right', },
+    CapFxBones = { 'CapacitorL', 'CapacitorR', },
 
     OnCreate = function(self)
         ACUUnit.OnCreate(self)
@@ -92,11 +92,14 @@ INU0001 = Class(ACUUnit) {
         self.UseRunWalkAnim = false
 
         -- model
-        self:HideBone('right_arm_upgrade_muzzle', true)
-        self:HideBone('left_arm_upgrade_muzzle', true)
-        self:HideBone('upgrade_back', true)
+        self:HideBone('IntelProbe1', true)
+        self:HideBone('IntelProbe2', true)
+        self:HideBone('Gun2', true)
+        self:HideBone('PowerArmor', true)
+        self:HideBone('Locomotion', true)
+        self:HideBone('Orbital Bombardment', true)
 
-        self.HeadRotManip = CreateRotator(self, 'head', 'y', nil):SetCurrentAngle(0)
+        self.HeadRotManip = CreateRotator(self, 'Head', 'y', nil):SetCurrentAngle(0)
         self.Trash:Add(self.HeadRotManip)
 
         -- properties
@@ -217,9 +220,12 @@ INU0001 = Class(ACUUnit) {
         WaitTicks(35) -- time before meteor opens
 
         self:ShowBone(0, true)
-        self:HideBone('right_arm_upgrade_muzzle', true)
-        self:HideBone('left_arm_upgrade_muzzle', true)
-        self:HideBone('upgrade_back', true)
+        self:HideBone('IntelProbe1', true)
+        self:HideBone('IntelProbe2', true)
+        self:HideBone('Gun2', true)
+        self:HideBone('PowerArmor', true)
+        self:HideBone('Locomotion', true)
+        self:HideBone('Orbital Bombardment', true)
 
         local totalBones = self:GetBoneCount() - 1
         local army = self:GetArmy()
@@ -290,7 +296,7 @@ INU0001 = Class(ACUUnit) {
             target.x = target.x - MyPos.x
             target.z = target.z - MyPos.z
             target = Utilities.NormalizeVector(target)
-            torsoX, torsoY, torsoZ = self:GetBoneDirection('torso')
+            torsoX, torsoY, torsoZ = self:GetBoneDirection('Hip')
             torsoDir = Utilities.NormalizeVector( Vector( torsoX, 0, torsoZ) )
             GoalAngle = ( math.atan2( target.x, target.z ) - math.atan2( torsoDir.x, torsoDir.z ) ) * 180 / math.pi
 
@@ -368,11 +374,11 @@ INU0001 = Class(ACUUnit) {
         -- ---------------------------------------------------------------------------------------
 
         if enh == 'IntelProbe' then
-            self:AddEnhancementEmitterToBone( true, 'right_shoulder_pod' )
+            self:AddEnhancementEmitterToBone( true, 'IntelProbe1' )
             self:SetIntelProbeEnabled( false, true )
 
         elseif enh == 'IntelProbeRemove' then
-            self:AddEnhancementEmitterToBone( false, 'right_shoulder_pod' )
+            self:AddEnhancementEmitterToBone( false, 'IntelProbe1' )
             self:SetIntelProbeEnabled( false, false )
 
         -- ---------------------------------------------------------------------------------------
@@ -380,11 +386,11 @@ INU0001 = Class(ACUUnit) {
         -- ---------------------------------------------------------------------------------------
 
         elseif enh == 'IntelProbeAdv' then
---            self:AddEnhancementEmitterToBone( true, 'right_shoulder_pod' )
+--            self:AddEnhancementEmitterToBone( true, 'IntelProbe1' )
             self:SetIntelProbeEnabled( true, true )
 
         elseif enh == 'IntelProbeAdvRemove' then
-            self:AddEnhancementEmitterToBone( false, 'right_shoulder_pod' )
+            self:AddEnhancementEmitterToBone( false, 'IntelProbe1' )
             self:SetIntelProbeEnabled( true, false )
 
         -- ---------------------------------------------------------------------------------------

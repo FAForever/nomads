@@ -213,10 +213,10 @@ UnitBlueprint {
                 Effects = {
                     {
                         Bones = {
-                            'left_arm_shoulder',
-                            'left_arm_ellbow',
-                            'left_arm_muzzle.001',
-                            'right_arm_muzzle',
+                            'ShoulderL',
+                            'ElbowL',
+                            'Muzzle1',
+                            'BuildBeam2',
                         },
                         Type = 'UnderWater01',
                     },
@@ -237,8 +237,8 @@ UnitBlueprint {
                 Effects = {
                     {
                         Bones = {
-                            'left_foot',
-                            'right_foot',
+                            'FootLControl',
+                            'FootRControl',
                         },
                         Type = 'GroundKickup01',
                     },
@@ -246,9 +246,9 @@ UnitBlueprint {
                 Footfall = {
                     Bones = {
                         {
-                            FootBone = 'left_footfall',
-                            HipBone = 'left_hip',
-                            KneeBone = 'left_leglow',
+                            FootBone = 'FootLControl',
+                            HipBone = 'HipL',
+                            KneeBone = 'Knee1L',
                             Tread = {
                                 TreadMarks = '/units/INU0001/INU0001_footprint.dds',
                                 TreadMarksSizeX = 0.7,
@@ -262,9 +262,9 @@ UnitBlueprint {
                             Type = 'FootFall02',
                         },
                         {
-                            FootBone = 'right_footfall',
-                            HipBone = 'right_hip',
-                            KneeBone = 'right_leglow',
+                            FootBone = 'FootRControl',
+                            HipBone = 'HipR',
+                            KneeBone = 'Knee1R',
                             Tread = {
                                 TreadMarks = '/units/INU0001/INU0001_footprint.dds',
                                 TreadMarksSizeX = 0.7,
@@ -284,13 +284,13 @@ UnitBlueprint {
                 Effects = {
                     {
                         Bones = {
-                            'torso',
-                            'left_arm_ellbow',
-                            'right_arm_ellbow',
-                            'left_arm_muzzle.001',
-                            'right_arm_muzzle',
-                            'left_foot',
-                            'right_foot',
+                            'Hip',
+                            'ElbowL',
+                            'ElbowR',
+                            'Muzzle1',
+                            'BuildBeam2',
+                            'FootLControl',
+                            'FootRControl',
                         },
                         Type = 'UnderWater01',
                     },
@@ -340,13 +340,13 @@ UnitBlueprint {
             NewHealth = 3000,
             NewRegenRate = 20,
             ShowBones = {
-                'left_arm_upgrade_muzzle',
+                'Gun2',
             },
             Slot = 'LCH',
             UpgradeEffectBones = {
-                'left_arm_upgrade_muzzle',
-                'left_arm_muzzle.001',
-                'left_arm_ellbow',
+                'Muzzle2',
+                'Muzzle1',
+                'ElbowL',
             },
             UpgradeUnitAmbientBones = {
                 'INU0001',
@@ -357,7 +357,7 @@ UnitBlueprint {
             BuildCostMass = 1,
             BuildTime = 0.1,
             HideBones = {
-                'left_arm_upgrade_muzzle',
+                'Gun2',
             },
             Icon = 'aes',
             Name = '<LOC enhancements_0038>Remove Tech 2 Engineering Suite',
@@ -380,15 +380,15 @@ UnitBlueprint {
             NewDoTTimeDuringCapacitor = 2,
             NewInitialDamageDuringCapacitor = 150,
             ShowBones = {
-                'right_arm_upgrade_muzzle',
+                'Gun2',
             },
             OverchargeIncluded = false,
             Prerequisite = 'GunUpgrade',
             Slot = 'RCH',
             UpgradeEffectBones = {
-                'right_arm_upgrade_muzzle',
-                'right_arm_muzzle.001',
-                'right_arm_ellbow',
+                'Gun2',
+                'Rack2',
+                'Muzzle2',
             },
             UpgradeUnitAmbientBones = {
                 'INU0001',
@@ -399,7 +399,7 @@ UnitBlueprint {
             BuildCostMass = 1,
             BuildTime = 0.1,
             HideBones = {
-                'right_arm_upgrade_muzzle',
+                'Gun2',
             },
             Icon = 'hamc2',
             Name = '<LOC NomadsACUEnh_DoubleGuns_Remove>',
@@ -427,9 +427,9 @@ UnitBlueprint {
             RateOfFireMulti = 2,
             Slot = 'RCH',
             UpgradeEffectBones = {
-                'right_arm_upgrade_muzzle',
-                'right_arm_muzzle.001',
-                'right_arm_ellbow',
+                'Gun2',
+                'Rack2',
+                'Muzzle2',
             },
             UpgradeUnitAmbientBones = {
                 'INU0001',
@@ -456,9 +456,9 @@ UnitBlueprint {
             Name = '<LOC NomadsACUEnh_IntelProbe_Help>Intel Probe',
             Slot = 'RCH',
             UpgradeEffectBones = {
-                'right_arm_upgrade_muzzle',
-                'right_arm_muzzle.001',
-                'right_arm_ellbow',
+                'ShoulderR',
+                'ElbowPBR',
+                'ElbowPTR',
             },
             UpgradeUnitAmbientBones = {
                 'INU0001',
@@ -486,9 +486,9 @@ UnitBlueprint {
             Prerequisite = 'IntelProbe',
             Slot = 'RCH',
             UpgradeEffectBones = {
-                'right_arm_upgrade_muzzle',
-                'right_arm_muzzle.001',
-                'right_arm_ellbow',
+                'ShoulderR',
+                'ElbowPBR',
+                'ElbowPTR',
             },
             UpgradeUnitAmbientBones = {
                 'INU0001',
@@ -541,10 +541,9 @@ UnitBlueprint {
             Name = '<LOC NomadsACUEnh_OrbitalBombardment_Help>',
             Slot = 'LCH',
             UpgradeEffectBones = {
-                'left_shoulder_pod',
-                'left_arm_upgrade_muzzle',
-                'left_arm_muzzle.001',
-                'left_arm_ellbow',
+                'ShoulderL',
+                'ElbowPBL',
+                'ElbowPTL',
             },
             UpgradeUnitAmbientBones = {
                 'INU0001',
@@ -588,7 +587,7 @@ UnitBlueprint {
             BuildCostMass = 1,
             BuildTime = 0.1,
             HideBones = {
-                'upgrade_back',
+                'Chest',
             },
             Icon = 'sepa',
             Name = '<LOC NomadsACUEnh_PowerArmor_Remove>Remove Powered Armor',
@@ -611,7 +610,7 @@ UnitBlueprint {
             RepairRate = 70,
             Slot = 'Back',
             UpgradeEffectBones = {
-                'upgrade_back',
+                'Chest',
             },
             UpgradeUnitAmbientBones = {
                 'INU0001',
@@ -641,11 +640,11 @@ UnitBlueprint {
             ProductionPerSecondEnergy = 2800,
             ProductionPerSecondMass = 17,
             ShowBones = {
-                'upgrade_back',
+                'PowerArmor',
             },
             Slot = 'Back',
             UpgradeEffectBones = {
-                'upgrade_back',
+                'PowerArmor',
             },
             UpgradeUnitAmbientBones = {
                 'INU0001',
@@ -656,7 +655,7 @@ UnitBlueprint {
             BuildCostMass = 1,
             BuildTime = 0.1,
             HideBones = {
-                'upgrade_back',
+                'PowerArmor',
             },
             Icon = 'isb',
             Name = '<LOC enhancements_0046>Remove Resource Allocation System',
@@ -696,10 +695,13 @@ UnitBlueprint {
             NewRegenRate = 35,
             Prerequisite = 'AdvancedEngineering',
             Slot = 'LCH',
+            ShowBones = {
+                'BuildArm3',
+            },
             UpgradeEffectBones = {
-                'left_arm_upgrade_muzzle',
-                'left_arm_muzzle.001',
-                'left_arm_ellbow',
+                'ElbowL',
+                'BuildArm1',
+                'BuildArm2',
             },
             UpgradeUnitAmbientBones = {
                 'INU0001',
@@ -710,7 +712,7 @@ UnitBlueprint {
             BuildCostMass = 1,
             BuildTime = 0.1,
             HideBones = {
-                'left_arm_upgrade_muzzle',
+                'BuildArm3',
             },
             Icon = 'ees',
             Name = '<LOC enhancements_0054>Remove Engineering Suites',
@@ -725,13 +727,14 @@ UnitBlueprint {
     },
     General = {
         BuildBones = {
-            AimBone = 'left_arm_muzzle.001',
+            AimBone = 'ElbowL',
             BuildEffectBones = {
-                'left_arm_muzzle.001',
-                'left_arm_muzzle.002',
+                'BuildBeam1',
+                'BuildBeam2',
+                'BuildBeam3',
             },
-            PitchBone = 'left_arm_ellbow',
-            YawBone = 'torso',
+            PitchBone = 'ElbowL',
+            YawBone = 'Abb1',
         },
         Category = 'Experimental',
         Classification = 'RULEUC_Commander',
@@ -870,9 +873,9 @@ UnitBlueprint {
             RackBones = {
                 {
                     MuzzleBones = {
-                        'right_arm_muzzle',
+                        'Muzzle1',
                     },
-                    RackBone = 'right_arm_recoil',
+                    RackBone = 'Rack1',
                 },
             },
             RackRecoilDistance = -1,
@@ -894,9 +897,9 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TurretBoneMuzzle = 'right_arm_muzzle',
-            TurretBonePitch = 'right_arm_ellbow',
-            TurretBoneYaw = 'torso',
+            TurretBoneMuzzle = 'Muzzle1',
+            TurretBonePitch = 'ElbowR',
+            TurretBoneYaw = 'Abb1',
             TurretDualManipulators = false,
             TurretPitch = 0,
             TurretPitchRange = 90,
@@ -952,9 +955,9 @@ UnitBlueprint {
             RackBones = {
                 {
                     MuzzleBones = {
-                        'right_arm_muzzle',
+                        'Muzzle1',
                     },
-                    RackBone = 'right_arm_ellbow',
+                    RackBone = 'Rack1',
                 },
             },
             RackFireTogether = false,
@@ -980,9 +983,9 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TurretBoneMuzzle = 'right_arm_muzzle',
-            TurretBonePitch = 'right_arm_ellbow',
-            TurretBoneYaw = 'torso',
+            TurretBoneMuzzle = 'Muzzle1',
+            TurretBonePitch = 'ElbowR',
+            TurretBoneYaw = 'Abb1',
             TurretDualManipulators = false,
             TurretPitch = 0,
             TurretPitchRange = 60,
@@ -1040,9 +1043,9 @@ UnitBlueprint {
             RackBones = {
                 {
                     MuzzleBones = {
-                        'right_arm_muzzle',
+                        'Muzzle1',
                     },
-                    RackBone = 'right_arm_ellbow',
+                    RackBone = 'Rack1',
                 },
             },
             RackFireTogether = false,
@@ -1068,9 +1071,9 @@ UnitBlueprint {
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
-            TurretBoneMuzzle = 'right_arm_muzzle',
-            TurretBonePitch = 'right_arm_ellbow',
-            TurretBoneYaw = 'torso',
+            TurretBoneMuzzle = 'Muzzle1',
+            TurretBonePitch = 'ElbowR',
+            TurretBoneYaw = 'Abb1',
             TurretDualManipulators = false,
             TurretPitch = 0,
             TurretPitchRange = 60,
