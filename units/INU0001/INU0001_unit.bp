@@ -305,6 +305,12 @@ UnitBlueprint {
                 Weight = 100,
             },
         },
+        TransportDropAnimation = {
+            {
+                Animation = '/units/INU0001/INU0001_Fold.sca',
+                Weight = 100,
+            },
+        },
         UniformScale = 0.185,
     },
     Economy = {
