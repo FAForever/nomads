@@ -1,3 +1,5 @@
+-- Tactical Sub
+
 UnitBlueprint {
     Audio = {
         AmbientMove = Sound {
@@ -335,11 +337,11 @@ UnitBlueprint {
     StrategicIconName = 'icon_sub3_missile',
     StrategicIconSortPriority = 145,
     Veteran = {
-        Level1 = 12,
-        Level2 = 24,
-        Level3 = 36,
-        Level4 = 48,
-        Level5 = 60,
+        Level1 = 16,
+        Level2 = 32,
+        Level3 = 48,
+        Level4 = 64,
+        Level5 = 80,
     },
     Weapon = {
         {
@@ -478,6 +480,20 @@ UnitBlueprint {
             TrackingRadius = 1.15,
             Turreted = false,
             WeaponCategory = 'Anti Navy',
+        },
+    },
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = false,
+            Seabed = true,
+            Sub = true,
+            Water = true,
         },
     },
 }

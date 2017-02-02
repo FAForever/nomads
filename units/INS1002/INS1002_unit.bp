@@ -1,3 +1,5 @@
+-- frigate
+
 UnitBlueprint {
     Audio = {
         AmbientMove = Sound {
@@ -237,11 +239,11 @@ UnitBlueprint {
     StrategicIconName = 'icon_ship1_intel',
     StrategicIconSortPriority = 165,
     Veteran = {
-        Level1 = 8,
-        Level2 = 16,
-        Level3 = 24,
-        Level4 = 32,
-        Level5 = 40,
+        Level1 = 6,
+        Level2 = 12,
+        Level3 = 18,
+        Level4 = 24,
+        Level5 = 30,
     },
     Weapon = {
         {
@@ -395,6 +397,20 @@ UnitBlueprint {
             WeaponCategory = 'Anti Air',
             WeaponRepackTimeout = 0,
             WeaponUnpacks = false,
+        },
+    },
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = false,
+            Seabed = true,
+            Sub = true,
+            Water = true,
         },
     },
 }
