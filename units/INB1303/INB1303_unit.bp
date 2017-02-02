@@ -1,3 +1,5 @@
+-- T3 mass fab
+
 UnitBlueprint {
     Adjacency = 'T3MassFabricatorAdjacencyBuffs',
     Audio = {
@@ -32,7 +34,7 @@ UnitBlueprint {
         'SELECTABLE',
         'BUILTBYTIER3ENGINEER',
         'BUILTBYTIER3COMMANDER',
-        'NOMAD',
+        'NOMADS',
         'STRUCTURE',
         'ECONOMIC',
         'TECH3',
@@ -48,8 +50,8 @@ UnitBlueprint {
         AirThreatLevel = 0,
         ArmorType = 'Structure',
         EconomyThreatLevel = 39,
-        Health = 9000,
-        MaxHealth = 9000,
+        Health = 6000,
+        MaxHealth = 6000,
         RegenRate = 0,
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
@@ -97,11 +99,11 @@ UnitBlueprint {
         SpawnRandomRotation = true,
         Tarmacs = {
             {
-                Albedo = 'Tarmacs/Tar8x_nomad_01_albedo',
+                Albedo = 'Tarmacs/Tar8x_nomads_01_albedo',
                 DeathLifetime = 300,
                 FadeOut = 150,
                 Length = 12.8,
-                Normal = 'Tarmacs/Tar8x_nomad_01_normals',
+                Normal = 'Tarmacs/Tar8x_nomads_01_normals',
                 Orientations = {
                     0,
                 },
@@ -114,7 +116,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 65000,
         BuildCostMass = 3000,
-        BuildTime = 3750,
+        BuildTime = 4988,
         MaintenanceConsumptionPerSecondEnergy = 3500,
         ProductionPerSecondMass = 12,
         RebuildBonusIds = {
@@ -197,7 +199,7 @@ UnitBlueprint {
         {
             Damage = 5000,
             DamageFriendly = true,
-            DamageRadius = 9,
+            DamageRadius = 14,
             DamageType = 'Normal',
             DisplayName = 'Death Weapon',
             DummyWeapon = true,

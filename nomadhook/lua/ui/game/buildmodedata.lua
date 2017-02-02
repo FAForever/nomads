@@ -1,11 +1,11 @@
 -- TODO: make sure this is up to date
 
-local NomadT1Eng = {
+local NomadsT1Eng = {
     ['L'] = 'inb0101',
     ['A'] = 'inb0102',
     ['S'] = 'inb0103',
     ['E'] = 'inb1102',
-    ['X'] = 'inb1108',
+    ['X'] = 'inb1106',
     ['P'] = 'inb1101',
     ['H'] = 'inb1107',
     ['Y'] = 'inb1105',
@@ -17,7 +17,7 @@ local NomadT1Eng = {
     ['O'] = 'inb3102',
 }
 
-local NomadT2Eng = {
+local NomadsT2Eng = {
     ['E'] = 'inb1201',
     ['P'] = 'inb1202',
     ['D'] = 'inb2201',
@@ -34,7 +34,7 @@ local NomadT2Eng = {
     ['G'] = 'inb5202',
 }
 
-local NomadT3Eng = {
+local NomadsT3Eng = {
     ['E'] = 'inb1302',
     ['D'] = 'inb3303',
     ['F'] = 'inb1303',
@@ -49,14 +49,14 @@ local NomadT3Eng = {
     ['Q'] = 'inb0304',
 }
 
-local NomadT4Eng = {
+local NomadsT4Eng = {
     ['S'] = 'inu2007',
     ['M'] = 'inu4002',
     ['R'] = 'inu4001',
     ['A'] = 'ina4001',
 }
 
-local NomadT1Land = {
+local NomadsT1Land = {
     ['E'] = 'inu1001',
     ['S'] = 'inu1002',
     ['O'] = 'inu1007',
@@ -65,7 +65,7 @@ local NomadT1Land = {
     ['N'] = 'inu1006',
 }
 
-local NomadT2Land = {
+local NomadsT2Land = {
     ['A'] = 'xal0203',
     ['E'] = 'inu1005',
     ['A'] = 'inu2002',
@@ -76,7 +76,7 @@ local NomadT2Land = {
     ['D'] = 'inu3008',
 }
 
-local NomadT3Land = {
+local NomadsT3Land = {
     ['S'] = 'inu1003',
     ['E'] = 'inu2001',
     ['T'] = 'inu3002',
@@ -84,7 +84,7 @@ local NomadT3Land = {
     ['N'] = 'inu3007',
 }
 
-local NomadT1Air = {
+local NomadsT1Air = {
     ['E'] = 'inu1001',
     ['S'] = 'ina1001',
     ['F'] = 'ina1002',
@@ -93,14 +93,14 @@ local NomadT1Air = {
     ['T'] = 'ina1005',
 }
 
-local NomadT2Air = {
+local NomadsT2Air = {
     ['E'] = 'inu1005',
     ['F'] = 'ina2002',
     ['G'] = 'ina2003',
     ['T'] = 'ina2001',
 }
 
-local NomadT3Air = {
+local NomadsT3Air = {
     ['E'] = 'inu2001',
     ['S'] = 'ina3001',
     ['F'] = 'ina3003',
@@ -108,20 +108,20 @@ local NomadT3Air = {
     ['G'] = 'ina3006',
 }
 
-local NomadT1Sea = {
+local NomadsT1Sea = {
     ['E'] = 'inu1001',
     ['F'] = 'ins1002',
     ['S'] = 'ins1001',
 }
 
-local NomadT2Sea = {
+local NomadsT2Sea = {
     ['E'] = 'inu1005',
     ['O'] = 'ins2003',
     ['C'] = 'ins2002',
     ['D'] = 'ins2001',
 }
 
-local NomadT3Sea = {
+local NomadsT3Sea = {
     ['E'] = 'inu2001',
     ['D'] = 'inu3008',
     ['T'] = 'ins3001',
@@ -134,114 +134,114 @@ buildModeKeys = table.merged( buildModeKeys, {
 
     -- ACU
     ['inu0001'] = {
-        [1] = NomadT1Eng,
-        [2] = NomadT2Eng,
-        [3] = NomadT3Eng,
-        [4] = NomadT4Eng,
+        [1] = NomadsT1Eng,
+        [2] = NomadsT2Eng,
+        [3] = NomadsT3Eng,
+        [4] = NomadsT4Eng,
     },
 
     -- SCU
-    ['inu3001'] = {
-        [1] = NomadT1Eng,
-        [2] = NomadT2Eng,
-        [3] = NomadT3Eng,
-        [4] = NomadT4Eng,
+    ['inu0301'] = {
+        [1] = NomadsT1Eng,
+        [2] = NomadsT2Eng,
+        [3] = NomadsT3Eng,
+        [4] = NomadsT4Eng,
     },
 
     -- T1 engineer
     ['inu1001'] = {
-        [1] = NomadT1Eng,
+        [1] = NomadsT1Eng,
     },
 
     -- T2 engineer
     ['inu1005'] = {
-        [1] = NomadT1Eng,
-        [2] = NomadT2Eng,
+        [1] = NomadsT1Eng,
+        [2] = NomadsT2Eng,
     },
 
     -- T2 field engineer
     ['inu3008'] = {
-        [1] = NomadT1Eng,
-        [2] = NomadT2Eng,
+        [1] = NomadsT1Eng,
+        [2] = NomadsT2Eng,
     },
 
     -- T3 engineer
     ['inu2001'] = {
-        [1] = NomadT1Eng,
-        [2] = NomadT2Eng,
-        [3] = NomadT3Eng,
-        [4] = NomadT4Eng,
+        [1] = NomadsT1Eng,
+        [2] = NomadsT2Eng,
+        [3] = NomadsT3Eng,
+        [4] = NomadsT4Eng,
     },
 
     -- T1 Land Factory
     ['inb0101'] = {
-        [1] = NomadT1Land,
+        [1] = NomadsT1Land,
         ['U'] = 'inb0201',
     },
 
     -- T2 Land Factory
     ['inb0201'] = {
-        [1] = NomadT1Land,
-        [2] = NomadT2Land,
+        [1] = NomadsT1Land,
+        [2] = NomadsT2Land,
         ['U'] = 'inb0301',
     },
 
     -- T3 Land Factory
     ['inb0301'] = {
-        [1] = NomadT1Land,
-        [2] = NomadT2Land,
-        [3] = NomadT3Land,
+        [1] = NomadsT1Land,
+        [2] = NomadsT2Land,
+        [3] = NomadsT3Land,
     },
 
     -- T1 Air Factory
     ['inb0102'] = {
-        [1] = NomadT1Air,
+        [1] = NomadsT1Air,
         ['U'] = 'inb0202',
     },
 
     -- T2 Air Factory
     ['inb0202'] = {
-        [1] = NomadT1Air,
-        [2] = NomadT2Air,
+        [1] = NomadsT1Air,
+        [2] = NomadsT2Air,
         ['U'] = 'inb0302',
     },
 
     -- T3 Air Factory
     ['inb0302'] = {
-        [1] = NomadT1Air,
-        [2] = NomadT2Air,
-        [3] = NomadT3Air,
+        [1] = NomadsT1Air,
+        [2] = NomadsT2Air,
+        [3] = NomadsT3Air,
     },
 
     -- T1 Naval Factory
     ['inb0103'] = {
-        [1] = NomadT1Sea,
+        [1] = NomadsT1Sea,
         ['U'] = 'inb0203',
     },
 
     -- T2 Naval Factory
     ['inb0203'] = {
-        [1] = NomadT1Sea,
-        [2] = NomadT2Sea,
+        [1] = NomadsT1Sea,
+        [2] = NomadsT2Sea,
         ['U'] = 'inb0303',
     },
 
     -- T3 Naval Factory
     ['inb0303'] = {
-        [1] = NomadT1Sea,
-        [2] = NomadT2Sea,
-        [3] = NomadT3Sea,
+        [1] = NomadsT1Sea,
+        [2] = NomadsT2Sea,
+        [3] = NomadsT3Sea,
     },
 
     -- Quantum Gateway
     ['inb0304'] = {
         [3] = {
-            ['C'] = 'inu3001_Default',
-            ['A'] = 'inu3001_AntiNaval',
-            ['O'] = 'inu3001_Combat',
-            ['E'] = 'inu3001_Engineer',
-            ['R'] = 'inu3001_Rambo',
-            ['K'] = 'inu3001_Rocket',
+            ['C'] = 'inu0301_Default',
+            ['A'] = 'inu0301_AntiNaval',
+            ['O'] = 'inu0301_Combat',
+            ['E'] = 'inu0301_Engineer',
+            ['R'] = 'inu0301_Rambo',
+            ['K'] = 'inu0301_Rocket',
         },
     },
 
@@ -287,8 +287,8 @@ buildModeKeys = table.merged( buildModeKeys, {
 
     -- Aircraft Carrier
     ['ins3003'] = {
-        [1] = NomadT1Air,
-        [2] = NomadT2Air,
-        [3] = NomadT3Air,
+        [1] = NomadsT1Air,
+        [2] = NomadsT2Air,
+        [3] = NomadsT3Air,
     },
 })

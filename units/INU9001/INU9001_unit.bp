@@ -23,7 +23,7 @@ UnitBlueprint {
     },
     Categories = {
         'SELECTABLE',
-        'NOMAD',
+        'NOMADS',
         'MOBILE',
         'LAND',
         'CIVILIAN',

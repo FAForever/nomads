@@ -1,4 +1,4 @@
-local ParticleBlast = import('/lua/nomadprojectiles.lua').ParticleBlast
+local ParticleBlast = import('/lua/nomadsprojectiles.lua').ParticleBlast
 
 NParticleBlast2 = Class(ParticleBlast) {
     FxAirUnitHitScale = 3,

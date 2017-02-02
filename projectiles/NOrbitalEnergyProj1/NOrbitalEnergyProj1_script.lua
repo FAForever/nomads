@@ -1,4 +1,4 @@
-local OrbitalEnergyProj = import('/lua/nomadprojectiles.lua').OrbitalEnergyProj
+local OrbitalEnergyProj = import('/lua/nomadsprojectiles.lua').OrbitalEnergyProj
 
 NOrbitalEnergyProj1 = Class(OrbitalEnergyProj) {}
 

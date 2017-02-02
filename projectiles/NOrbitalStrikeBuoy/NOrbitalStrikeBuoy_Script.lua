@@ -1,6 +1,6 @@
 -- acts like a bomb that when dropped calls in an orbital strike
 
-local Buoy1 = import('/lua/nomadprojectiles.lua').Buoy1
+local Buoy1 = import('/lua/nomadsprojectiles.lua').Buoy1
 
 NOrbitalStrikeBuoy = Class(Buoy1) {
 
@@ -25,7 +25,7 @@ NOrbitalStrikeBuoy = Class(Buoy1) {
     end,
 
     CreateBuoy = function(self, spec, targetType, targetEntity)
-        return import('/lua/nomadbuoys.lua').NOrbitalStrikeBuoy(spec)
+        return import('/lua/nomadsbuoys.lua').NOrbitalStrikeBuoy(spec)
     end,
 }
 

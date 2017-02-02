@@ -54,7 +54,7 @@ Expressions = {
     CYBRAN      = "(CYBRAN - COMMAND)",
     AEON        = "(AEON - COMMAND)",
     SERAPHIM    = "(SERAPHIM - COMMAND)",
-    NOMADS      = "(NOMAD - COMMAND)",
+    NOMADS      = "(NOMADS - COMMAND)",
     -- Salvation is not categorized as EXPERIMENTAL like Scathis and Mavor so a bit complex expression
     T4ARTY      = "(ARTILLERY * SIZE20 * TECH3) + (ARTILLERY * EXPERIMENTAL) - FACTORY",  -- "xab2307 + url0401 + ueb2401"
     T3ARTY      = "(ARTILLERY * SIZE16 * TECH3)",  -- "uab2302 + urb2302 + ueb2302 + xsb2302", Heavy Artillery  
@@ -213,7 +213,7 @@ local presetsOrder = {
     "ENGISTATION",
     "ENGIDRONES",
     "", -- preset separator 
-    "", -- preset separator (second time cause of nomad symbol)
+    "", -- preset separator (second time cause of nomads symbol)
     "T1_AIR_SPAM",
     "T1_LAND_SPAM",
     "T1_NAVY_SPAM",
@@ -332,7 +332,7 @@ local function CreatePresets()
     CreatePreset("NOMADS", 
         "<LOC restricted_units_info_NOMADS>Prevents all Nomads units and structures, except ACU",
         "<LOC restricted_units_data_NOMADS>No Nomads Units", 
-        "/textures/ui/common/faction_icon-lg/nomad_ico.dds",
+        "/textures/ui/common/faction_icon-lg/nomads_ico.dds",
         Expressions.NOMADS, nil)
     -- TECH restrictions
     CreatePreset("T1", 

@@ -1,4 +1,4 @@
-local ArtilleryShell = import('/lua/nomadprojectiles.lua').ArtilleryShell
+local ArtilleryShell = import('/lua/nomadsprojectiles.lua').ArtilleryShell
 
 NArtilleryShell2 = Class(ArtilleryShell) {}
 

@@ -17,7 +17,7 @@ ProjectileBlueprint {
         },
     },
     Categories = {
-        'NOMAD',
+        'NOMADS',
         'TACTICAL',
         'MISSILE',
         'PROJECTILE',
@@ -47,12 +47,12 @@ ProjectileBlueprint {
     General = {
         Category = 'Artillery',
         EntityCategory = {
-            'NOMAD',
+            'NOMADS',
             'TACTICAL',
             'MISSILE',
             'PROJECTILE',
         },
-        Faction = 'Nomad',
+        Faction = 'Nomads',
         TechLevel = 2,
         Weapon = 'EMP Missile Launcher',
     },

@@ -1,4 +1,6 @@
-UnitBlueprint {
+--T2 Naval Factory
+
+UnitBlueprint { 
     AI = {
         TargetBones = {
             'INB0203',
@@ -40,7 +42,7 @@ UnitBlueprint {
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER1FACTORY',
-        'NOMAD',
+        'NOMADS',
         'STRUCTURE',
         'NAVAL',
         'TECH2',
@@ -68,7 +70,7 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
     },
-    Description = '<LOC inb0203_desc>Naval Factory',
+    Description = '<LOC inb0203faf_desc>Naval Factory (HQ)',
     Display = {
         Abilities = {
             '<LOC ability_upgradable>Upgradeable',
@@ -110,15 +112,17 @@ UnitBlueprint {
         UniformScale = 0.4,
     },
     Economy = {
-        BuildCostEnergy = 5400,
-        BuildCostMass = 1170,
-        BuildRate = 40,
-        BuildTime = 1800,
+        BuildCostEnergy = 10000,
+        BuildCostMass = 2000,
+        BuildRate = 90,
+        BuildTime = 3600,
         BuildableCategory = {
-            'BUILTBYTIER2FACTORY NOMAD MOBILE CONSTRUCTION',
-            'BUILTBYTIER2FACTORY NOMAD STRUCTURE NAVAL',
-            'BUILTBYTIER2FACTORY NOMAD MOBILE NAVAL',
+            'BUILTBYTIER2FACTORY NOMADS MOBILE CONSTRUCTION',
+            'BUILTBYTIER2FACTORY NOMADS STRUCTURE NAVAL',
+            'BUILTBYTIER2FACTORY NOMADS MOBILE NAVAL',
+            'FIELDENGINEER NOMADS MOBILE LAND',
         },
+        DifferentialUpgradeCostCalculation = true,
         InitialRallyX = 0,
         InitialRallyZ = 10,
         StorageEnergy = 0,
@@ -162,14 +166,15 @@ UnitBlueprint {
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
         UnitWeight = 1,
-        UpgradesFrom = 'INB0103',
-        UpgradesTo = 'INB0303',
+        UpgradesFrom = 'inb0103',
+        UpgradesFromBase = 'inb0103',
+        UpgradesTo = 'inb0303',
     },
     Intel = {
         VisionRadius = 20,
     },
     Interface = {
-        HelpText = '<LOC inb0203_help>Naval Factory',
+        HelpText = '<LOC inb0203faf_help>Naval Factory (HQ)',
     },
     LifeBarHeight = 0.075,
     LifeBarOffset = 4.75,
@@ -211,8 +216,8 @@ UnitBlueprint {
     SelectionSizeZ = 8.8,
     SelectionThickness = 0.35,
     SizeX = 4,
-    SizeY = 4,
-    SizeZ = 13,
+    SizeY = 3,
+    SizeZ = 10,
     StrategicIconName = 'icon_factoryhq2_naval',
     StrategicIconSortPriority = 215,
     Wreckage = {

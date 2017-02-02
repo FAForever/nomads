@@ -1,15 +1,15 @@
 -- T2 EMP tank
 
-local AddBombardModeToUnit = import('/lua/nomadutils.lua').AddBombardModeToUnit
-local NLandUnit = import('/lua/nomadunits.lua').NLandUnit
-local EMPGun = import('/lua/nomadweapons.lua').EMPGun
+local AddBombardModeToUnit = import('/lua/nomadsutils.lua').AddBombardModeToUnit
+local NLandUnit = import('/lua/nomadsunits.lua').NLandUnit
+local EMPGun = import('/lua/nomadsweapons.lua').EMPGun
 
 NLandUnit = AddBombardModeToUnit( NLandUnit )
 
 INU3003 = Class(NLandUnit) {
     Weapons = {
         MainGun = Class(EMPGun) {
-            FxMuzzleFlash = import('/lua/nomadeffecttemplate.lua').EMPGunMuzzleFlash_Tank,
+            FxMuzzleFlash = import('/lua/nomadseffecttemplate.lua').EMPGunMuzzleFlash_Tank,
         },
     },
 

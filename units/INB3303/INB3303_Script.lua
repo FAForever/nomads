@@ -1,9 +1,9 @@
 -- T3 rocket artillery
 
 local Entity = import('/lua/sim/Entity.lua').Entity
-local SupportedArtilleryWeapon = import('/lua/nomadutils.lua').SupportedArtilleryWeapon
-local NStructureUnit = import('/lua/nomadunits.lua').NStructureUnit
-local TacticalMissileWeapon1 = import('/lua/nomadweapons.lua').TacticalMissileWeapon1
+local SupportedArtilleryWeapon = import('/lua/nomadsutils.lua').SupportedArtilleryWeapon
+local NStructureUnit = import('/lua/nomadsunits.lua').NStructureUnit
+local TacticalMissileWeapon1 = import('/lua/nomadsweapons.lua').TacticalMissileWeapon1
 
 TacticalMissileWeapon1 = SupportedArtilleryWeapon( TacticalMissileWeapon1 )
 

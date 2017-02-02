@@ -1,3 +1,5 @@
+-- T3 radar
+
 UnitBlueprint {
     Audio = {
         Destroyed = Sound {
@@ -36,7 +38,7 @@ UnitBlueprint {
         'SELECTABLE',
         'BUILTBYTIER3ENGINEER',
         'BUILTBYTIER3COMMANDER',
-        'NOMAD',
+        'NOMADS',
         'STRUCTURE',
         'INTELLIGENCE',
         'TECH3',
@@ -64,9 +66,11 @@ UnitBlueprint {
     Description = '<LOC inb3301_desc>Omni Sensor Array',
     Display = {
         Abilities = {
+            '<LOC ability_stun>EMP Weapon',
             '<LOC ability_omni>Omni Sensor',
             '<LOC ability_radarboost>Radar Boost',
             '<LOC ability_radar>Radar',
+            '<LOC ability_deathaoe>Volatile',
         },
         BlinkingLights = {
             {
@@ -110,11 +114,11 @@ UnitBlueprint {
         SpawnRandomRotation = true,
         Tarmacs = {
             {
-                Albedo = 'Tarmacs/Tar6x_nomad_01_albedo',
+                Albedo = 'Tarmacs/Tar6x_nomads_01_albedo',
                 DeathLifetime = 300,
                 FadeOut = 150,
                 Length = 6.4,
-                Normal = 'Tarmacs/Tar6x_nomad_01_normals',
+                Normal = 'Tarmacs/Tar6x_nomads_01_normals',
                 Orientations = {
                     0,
                 },
@@ -127,7 +131,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 30000,
         BuildCostMass = 2400,
-        BuildTime = 1800,
+        BuildTime = 2575,
         MaintenanceConsumptionPerSecondEnergy = 2000,
         RebuildBonusIds = {
             'inb3301',
@@ -226,7 +230,7 @@ UnitBlueprint {
     SizeY = 2,
     SizeZ = 1.25,
     SpecialAbilities = {
-        NomadIntelOvercharge = {
+        NomadsIntelOvercharge = {
             AreaOfEffect = 5,
             MaxRadius = 750,
         },

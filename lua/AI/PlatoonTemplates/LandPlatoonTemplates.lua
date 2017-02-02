@@ -175,7 +175,7 @@ PlatoonTemplate {
         Seraphim = {
             { 'xsl0104', 1, 1, 'attack', 'none' }
         },
-        Nomad = {
+        Nomads = {
             { 'inu1006', 1, 1, 'attack', 'none' }
         },
     },
@@ -196,7 +196,7 @@ PlatoonTemplate {
         Seraphim = {
             { 'xsl0103', 1, 1, 'Attack', 'none' }
         },
-        Nomad = {
+        Nomads = {
             { 'inu1008', 1, 1, 'Attack', 'none' },
             { 'inu1004', 1, 2, 'Attack', 'none' }, -- 1 or 2 T1 tanks to make the sniper tank less numerous on the battlefield
         },
@@ -538,7 +538,7 @@ PlatoonTemplate {
             { 'xsl0301', 1, 1, 'support', 'none' }
         },
         Nomads = {
-            { 'inu3001_Default', 1, 1, 'support', 'none' }
+            { 'inu0301_Default', 1, 1, 'support', 'none' }
         },
     }
 }

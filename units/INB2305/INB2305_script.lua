@@ -1,7 +1,7 @@
 -- T3 nuke launcher
 
-local NStructureUnit = import('/lua/nomadunits.lua').NStructureUnit
-local StrategicMissileWeapon = import('/lua/nomadweapons.lua').StrategicMissileWeapon
+local NStructureUnit = import('/lua/nomadsunits.lua').NStructureUnit
+local StrategicMissileWeapon = import('/lua/nomadsweapons.lua').StrategicMissileWeapon
 
 INB2305 = Class(NStructureUnit) {
     Weapons = {

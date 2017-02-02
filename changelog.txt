@@ -9,7 +9,7 @@ NOMADS
 - t1 Bomber
 -- AIR section copypast from faf bombers
 --- speed 10 (11)
--- 105m 2450e 700bt
+-- 120m 2400e 800bt
 --radar removed
 -- add DamageFriendly = true,
 -- dmg 75(70) = 300dmg
@@ -18,11 +18,9 @@ NOMADS
 
 - T1 Gunship
 -- speed 10 (12)
--- 300hp (400)
--- 100m 2000e 500bt (150m 4050e 800bt)
--- Rename back to "Golem" (from "Titmouse")
+-- 120m 3000e 800bt (150m 4050e 800bt)
 -- vision 32 (26)
--- dmg 5(8) = 25dps
+-- dmg 6(8) = 30dps
 
 - T1 transport
 -- speed 13 (12)
@@ -102,24 +100,23 @@ T2 enginer
 - speed 1,7 (1,9)
 
 T2 hover tank
-- 450hp (950)
+- 400hp (950)
 - 100m 750e 500bt (200m 1500e 1000bt)
 - vision 15 (20)
 - speed 4,5 (5)
 - veterancy 3 (5)
 - range 23 (18)
--- damage 8(7) = 40dps
 -- velocity 45 (40)
 
 T2 flak
 - speed 3,1 (2,8)
 
 T2 tank (Brute)
-- 1200hp (1750)
+- 1250hp (1750)
 - 198m 990e 880bt (252m 1260e 1120bt)
-- speed 3,1 (2,8)
+- speed 3,2 (2,8)
 - veterancy 6 (7)
-- 60dmg (35) = 120dps
+- 50dmg (35) = 75dps
 -- velocity 30 (28)
 -- range 20 (26)
 -- rof 0,5 (0,667) = 2s =>75dps
@@ -149,6 +146,73 @@ T3 tank
 
 T4 Bullfrog
 - rename to Experimental Heavy tank ( Experimental ultra-heavy tank)
+
+
+BUILIDINGS
+___________________
+
+T2/T3 naval factory 
+-- change size X/Y/Z 4,3,10 (4,4,13)
+
+T2 pgen
+-- hp 2160 (1900)
+
+t2 mex
+-- icon ambh (land)
+-- wreack: Seabed = true, (false)
+-- StrategicIconSortPriority = 64, (245)
+
+t3 pgen
+-- wreack: Seabed = true, (false)
+
+T3 mex
+-- TechLevel = 'RULEUTL_Advanced', (secret)
+-- StrategicIconSortPriority = 64, (245)
+
+T3 fab
+-- hp 6000 (9000)
+-- damage radius 14 (9)
+
+T1 AA pd
+-- 800hp (1200)
+-- muzzle velocity 45 (50)
+
+T2 PD
+-- regen by vet 2 (1)
+-- BuildIconSortPriority = 110, (120)
+
+T2 AA
+-- regen by vet 2 (1)
+
+T2 radar
+-- StrategicIconSortPriority = 64, (230)
+-- added volilate and EMP into description , while it have EMP on death
+
+T2 sonar
+-- added volilate and EMP into description , while it have EMP on death
+
+T3 radar
+-- added volilate and EMP into description , while it have EMP on death
+
+T3 sonar
+-- added volilate and EMP into description , while it have EMP on death
+
+T3 rocket artilery
+-- veterancy 3 (2)
+
+T2 shield
+-- StrategicIconSortPriority = 200, (195)
+
+T2 stealth shield
+-- stealth size 27 (16) to be same as is shield dome
+
+T3 shield
+-- shield hp 14000 (16000) 
+-- stealth size 42 (28) to be same as is shield dome
+
+Air staging
+-- increse docking slots
+
 
 
 

@@ -1,11 +1,11 @@
 -- T3 gunship
 
-local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
-local SupportingArtilleryAbility = import('/lua/nomadutils.lua').SupportingArtilleryAbility
-local NAirUnit = import('/lua/nomadunits.lua').NAirUnit
-local StingrayCannon1 = import('/lua/nomadweapons.lua').StingrayCannon1
-local AnnihilatorCannon1 = import('/lua/nomadweapons.lua').AnnihilatorCannon1
-local RocketWeapon1 = import('/lua/nomadweapons.lua').RocketWeapon1
+local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
+local SupportingArtilleryAbility = import('/lua/nomadsutils.lua').SupportingArtilleryAbility
+local NAirUnit = import('/lua/nomadsunits.lua').NAirUnit
+local StingrayCannon1 = import('/lua/nomadsweapons.lua').StingrayCannon1
+local AnnihilatorCannon1 = import('/lua/nomadsweapons.lua').AnnihilatorCannon1
+local RocketWeapon1 = import('/lua/nomadsweapons.lua').RocketWeapon1
 
 -- add supporting artillery ability and aa missile flares
 NAirUnit = SupportingArtilleryAbility( NAirUnit )
@@ -20,8 +20,8 @@ INA3006 = Class(NAirUnit) {
     },
 
     ArtillerySupportFxBone = 'Arty_Pinger',
-    BeamHoverExhaustCruise = NomadEffectTemplate.AirThrusterLargeCruisingBeam,
-    BeamHoverExhaustIdle = NomadEffectTemplate.AirThrusterLargeIdlingBeam,
+    BeamHoverExhaustCruise = NomadsEffectTemplate.AirThrusterLargeCruisingBeam,
+    BeamHoverExhaustIdle = NomadsEffectTemplate.AirThrusterLargeIdlingBeam,
 
     OnCreate = function(self)
         NAirUnit.OnCreate(self)

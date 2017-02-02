@@ -1,3 +1,5 @@
+-- T3 SAM
+
 UnitBlueprint {
     Audio = {
         Destroyed = Sound {
@@ -30,7 +32,7 @@ UnitBlueprint {
         'SELECTABLE',
         'BUILTBYTIER3ENGINEER',
         'BUILTBYTIER3COMMANDER',
-        'NOMAD',
+        'NOMADS',
         'STRUCTURE',
         'DEFENSE',
         'TECH3',
@@ -47,8 +49,8 @@ UnitBlueprint {
         AirThreatLevel = 27,
         ArmorType = 'Structure',
         EconomyThreatLevel = 17,
-        Health = 10500,
-        MaxHealth = 10500,
+        Health = 7000,
+        MaxHealth = 7000,
         RegenRate = 0,
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
@@ -73,11 +75,11 @@ UnitBlueprint {
         SpawnRandomRotation = true,
         Tarmacs = {
             {
-                Albedo = 'Tarmacs/Tar6x_nomad_01_albedo',
+                Albedo = 'Tarmacs/Tar6x_nomads_01_albedo',
                 DeathLifetime = 300,
                 FadeOut = 150,
                 Length = 8.5,
-                Normal = 'Tarmacs/Tar6x_nomad_01_normals',
+                Normal = 'Tarmacs/Tar6x_nomads_01_normals',
                 Orientations = {
                     0,
                 },
@@ -90,7 +92,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 8000,
         BuildCostMass = 800,
-        BuildTime = 800,
+        BuildTime = 1195,
         RebuildBonusIds = {
             'inb4201',
         },
@@ -165,11 +167,11 @@ UnitBlueprint {
     StrategicIconName = 'icon_structure3_antiair',
     StrategicIconSortPriority = 195,
     Veteran = {
-        Level1 = 12,
-        Level2 = 24,
-        Level3 = 36,
-        Level4 = 48,
-        Level5 = 60,
+        Level1 = 24,
+        Level2 = 48,
+        Level3 = 72,
+        Level4 = 96,
+        Level5 = 120,
     },
     Weapon = {
         {
@@ -185,7 +187,7 @@ UnitBlueprint {
             CannotAttackGround = true,
             CollideFriendly = false,
             Damage = 200,
-            DamageRadius = 0,
+            DamageRadius = 1.5,
             DamageType = 'Normal',
             DisplayName = 'Missile (AA)',
             FireTargetLayerCapsTable = {
@@ -198,7 +200,7 @@ UnitBlueprint {
             MaxRadius = 60,
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 5,
-            MuzzleVelocity = 30,
+            MuzzleVelocity = 45,
             ProjectileId = '/projectiles/NMissileProj1_aa/NMissileProj1_aa_proj.bp',
             ProjectileLifetime = 6,
             ProjectilesPerOnFire = 5,
@@ -297,9 +299,9 @@ UnitBlueprint {
         WreckageLayers = {
             Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
+            Seabed = true,  #from false
+            Sub = true,  #from false
+            Water = true,  #from false
         },
     },
 }

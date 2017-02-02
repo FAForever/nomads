@@ -1,7 +1,0 @@
-UnitBlueprint {
-    Merge = true,
-    BlueprintId = "inb0304", -- SACU FActory
-    Economy = {
-        BuildTime = 4097,
-    },
-}

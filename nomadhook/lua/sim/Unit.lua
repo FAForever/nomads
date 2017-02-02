@@ -11,7 +11,7 @@ Unit = Class(oldUnit) {
     --and then using SetEmitterCurveParam to change the colour via script.
     
     OnPreCreate = function(self)
-        --yes i know this is disgusting but it has to be done since the nomad orbital ship crashes the game
+        --yes i know this is disgusting but it has to be done since the nomads orbital ship crashes the game
         --so it needs an exception FIXME: refactor nomads orbital frigate so its not so crazy.
         if not self.ColourIndex then
             self:DetermineColourIndex()
@@ -763,8 +763,8 @@ Unit = Class(oldUnit) {
             faction = categories.CYBRAN
         elseif EntityCategoryContains(categories.SERAPHIM, self) then
             faction = categories.SERAPHIM
-        elseif EntityCategoryContains(categories.NOMAD, self) then
-            faction = categories.NOMAD
+        elseif EntityCategoryContains(categories.NOMADS, self) then
+            faction = categories.NOMADS
         end
 
         --Defines the unit's layer type

@@ -1,7 +1,7 @@
 local Util = import('/lua/utilities.lua')
 local RandomFloat = Util.GetRandomFloat
 local NullShell = import('/lua/sim/defaultprojectiles.lua').NullShell
-local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
+local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 local EffectUtilities = import('/lua/EffectUtilities.lua')
 local Entity = import('/lua/sim/Entity.lua').Entity
@@ -15,14 +15,14 @@ Meteor = Class(NullShell) {
     InitialHeight = 300,
 
     FxScale = 1,
-    ImpactLandFx = NomadEffectTemplate.MeteorLandImpact,
-    ImpactSeabedFx = NomadEffectTemplate.MeteorSeabedImpact,
-    ImpactWaterFx = NomadEffectTemplate.MeteorWaterImpact,
-    ResidualSmoke1 = NomadEffectTemplate.MeteorResidualSmoke01,
-    ResidualSmoke2 = NomadEffectTemplate.MeteorResidualSmoke02,
-    ResidualSmoke3 = NomadEffectTemplate.MeteorResidualSmoke03,
-    TrailFx = NomadEffectTemplate.MeteorTrail,
-    TrailUnderwaterFx = NomadEffectTemplate.MeteorUnderWaterTrail,
+    ImpactLandFx = NomadsEffectTemplate.MeteorLandImpact,
+    ImpactSeabedFx = NomadsEffectTemplate.MeteorSeabedImpact,
+    ImpactWaterFx = NomadsEffectTemplate.MeteorWaterImpact,
+    ResidualSmoke1 = NomadsEffectTemplate.MeteorResidualSmoke01,
+    ResidualSmoke2 = NomadsEffectTemplate.MeteorResidualSmoke02,
+    ResidualSmoke3 = NomadsEffectTemplate.MeteorResidualSmoke03,
+    TrailFx = NomadsEffectTemplate.MeteorTrail,
+    TrailUnderwaterFx = NomadsEffectTemplate.MeteorUnderWaterTrail,
 
     DecalLifetime = 60,
 

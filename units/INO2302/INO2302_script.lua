@@ -1,7 +1,7 @@
 -- T3 orbital artillery unit (the one that floats in space)
 
-local NOrbitUnit = import('/lua/nomadunits.lua').NOrbitUnit
-local OrbitalGun = import('/lua/nomadweapons.lua').OrbitalGun
+local NOrbitUnit = import('/lua/nomadsunits.lua').NOrbitUnit
+local OrbitalGun = import('/lua/nomadsweapons.lua').OrbitalGun
 
 INO2302 = Class(NOrbitUnit) {
     Weapons = {
@@ -63,7 +63,7 @@ INO2302 = Class(NOrbitUnit) {
 
         -- quick check of unit blueprints
         local myBp, theirBp = self:GetBlueprint(), parent:GetBlueprint()
-        if (theirBp.Buffs and not myBp.Buffs) or (not theirBp.Buffs and myBp.Buffs) or (theirBp.Buffs and myBp.Buffs and not table.equal( myBp.Buffs, theirBp.Buffs)) then
+        if (theirBp.Buffs and not myBp.Buffs) or (not theirBp.Buffs and myBp.Buffs) or (theirBp.Buffs and myBp.Buffs and not table.equal( myBp.Buffs.Regen, theirBp.Buffs.Regen)) then
             WARN('INO2302: Buffs sections in parent and slave unit blueprints do not match')
         end
         if (theirBp.Veteran and not myBp.Veteran) or (not theirBp.Veteran and myBp.Veteran) or (theirBp.Veteran and myBp.Veteran and not table.equal( myBp.Veteran, theirBp.Veteran)) then
@@ -94,10 +94,9 @@ INO2302 = Class(NOrbitUnit) {
     end,
 
     OnKilledUnit = function(self, unitKilled)
-        NOrbitUnit.OnKilledUnit(self, unitKilled)
         local cb = self.parentCallbacks[ 'OnKilledUnit' ]
         if cb then
-            cb( self.parent )
+            cb( self.parent, unitKilled )
         end
     end,
 

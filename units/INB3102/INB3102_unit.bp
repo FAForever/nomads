@@ -39,7 +39,7 @@ UnitBlueprint {
         'BUILTBYTIER3ENGINEER',
         'BUILTBYTIER2COMMANDER',
         'BUILTBYTIER3COMMANDER',
-        'NOMAD',
+        'NOMADS',
         'STRUCTURE',
         'INTELLIGENCE',
         'TECH1',
@@ -203,7 +203,7 @@ UnitBlueprint {
     SizeY = 0.5,
     SizeZ = 0.6,
     SpecialAbilities = {
-        NomadIntelOvercharge = {
+        NomadsIntelOvercharge = {
             AreaOfEffect = 5,
             MaxRadius = 150,
         },

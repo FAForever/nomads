@@ -17,7 +17,7 @@ ProjectileBlueprint {
         },
     },
     Categories = {
-        'NOMAD',
+        'NOMADS',
         'PROJECTILE',
         'ARTILLERY',
     },
@@ -42,11 +42,11 @@ ProjectileBlueprint {
     General = {
         Category = 'Artillery',
         EntityCategory = {
-            'NOMAD',
+            'NOMADS',
             'PROJECTILE',
             'ARTILLERY',
         },
-        Faction = 'NOMAD',
+        Faction = 'NOMADS',
         Weapon = 'NArtilleryRocket1',
     },
     Interface = {

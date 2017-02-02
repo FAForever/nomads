@@ -1,4 +1,4 @@
-local Flare1 = import('/lua/nomadprojectiles.lua').Flare1
+local Flare1 = import('/lua/nomadsprojectiles.lua').Flare1
 
 NAAMissileFlare1 = Class(Flare1) {
     DetectProjectileDistance = 5,

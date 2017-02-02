@@ -1,11 +1,11 @@
 -- experimental hover unit bullfrog
 
-local AddBombardModeToUnit = import('/lua/nomadutils.lua').AddBombardModeToUnit
-local NExperimentalHoverLandUnit = import('/lua/nomadunits.lua').NExperimentalHoverLandUnit
-local PlasmaCannon = import('/lua/nomadweapons.lua').PlasmaCannon
-local AnnihilatorCannon1 = import('/lua/nomadweapons.lua').AnnihilatorCannon1
-local ParticleBlaster1 = import('/lua/nomadweapons.lua').ParticleBlaster1
-local KineticCannon1 = import('/lua/nomadweapons.lua').KineticCannon1
+local AddBombardModeToUnit = import('/lua/nomadsutils.lua').AddBombardModeToUnit
+local NExperimentalHoverLandUnit = import('/lua/nomadsunits.lua').NExperimentalHoverLandUnit
+local PlasmaCannon = import('/lua/nomadsweapons.lua').PlasmaCannon
+local AnnihilatorCannon1 = import('/lua/nomadsweapons.lua').AnnihilatorCannon1
+local ParticleBlaster1 = import('/lua/nomadsweapons.lua').ParticleBlaster1
+local KineticCannon1 = import('/lua/nomadsweapons.lua').KineticCannon1
 local EffectUtils = import('/lua/effectutilities.lua')
 local explosion = import('/lua/defaultexplosions.lua')
 local EffectTemplate = import('/lua/EffectTemplates.lua')

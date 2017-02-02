@@ -1,6 +1,6 @@
 -- T3 Land factory (support, non HQ)
 
-local NLandFactoryUnit = import('/lua/nomadunits.lua').NLandFactoryUnit
+local NLandFactoryUnit = import('/lua/nomadsunits.lua').NLandFactoryUnit
 
 INB0311 = Class(NLandFactoryUnit) {
 

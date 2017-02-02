@@ -1,3 +1,5 @@
+-- T3 sonar
+
 UnitBlueprint {
     Audio = {
         AmbientMove = Sound {
@@ -60,7 +62,7 @@ UnitBlueprint {
         'SELECTABLE',
         'BUILTBYTIER3ENGINEER',
         'BUILTBYTIER3COMMANDER',
-        'NOMAD',
+        'NOMADS',
         'NAVAL',
         'MOBILE',
         'INTELLIGENCE',
@@ -89,8 +91,10 @@ UnitBlueprint {
     Description = '<LOC inb3302_desc>Sonar Platform',
     Display = {
         Abilities = {
+            '<LOC ability_stun>EMP Weapon',
             '<LOC ability_sonar>Sonar',
             '<LOC ability_sonarboost>Sonar Boost',
+            '<LOC ability_deathaoe>Volatile',
         },
         IdleEffects = {
             Water = {
@@ -136,10 +140,10 @@ UnitBlueprint {
         UniformScale = 0.12,
     },
     Economy = {
-        BuildCostEnergy = 9000,
-        BuildCostMass = 350,
-        BuildTime = 600,
-        MaintenanceConsumptionPerSecondEnergy = 100,
+        BuildCostEnergy = 12000,
+        BuildCostMass = 1000,
+        BuildTime = 750,
+        MaintenanceConsumptionPerSecondEnergy = 250,
         RebuildBonusIds = {
             'inb3302',
         },
@@ -240,7 +244,7 @@ UnitBlueprint {
     SizeY = 1.1,
     SizeZ = 1,
     SpecialAbilities = {
-        NomadIntelOvercharge = {
+        NomadsIntelOvercharge = {
             AreaOfEffect = 5,
             MaxRadius = 540,
         },

@@ -37,7 +37,7 @@ UnitBlueprint {
         'BUILTBYTIER2ENGINEER',
         'BUILTBYTIER3ENGINEER',
         'BUILTBYCOMMANDER',
-        'NOMAD',
+        'NOMADS',
         'STRUCTURE',
         'DEFENSE',
         'TECH1',

@@ -1,3 +1,5 @@
+--T3 Naval Factory HQ
+
 UnitBlueprint {
     AI = {
         TargetBones = {
@@ -42,7 +44,7 @@ UnitBlueprint {
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2FACTORY',
-        'NOMAD',
+        'NOMADS',
         'STRUCTURE',
         'NAVAL',
         'TECH3',
@@ -70,7 +72,7 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
     },
-    Description = '<LOC inb0303_desc>Naval Factory',
+    Description = '<LOC inb0303faf_desc>Naval Factory (HQ)',
     Display = {
         BuildAttachBone = 'Attachpoint',
         BuildEffect = {
@@ -108,14 +110,16 @@ UnitBlueprint {
         UniformScale = 0.4,
     },
     Economy = {
-        BuildCostEnergy = 23400,
-        BuildCostMass = 3150,
-        BuildRate = 60,
-        BuildTime = 7200,
+        BuildCostEnergy = 45000,
+        BuildCostMass = 9500,
+        BuildRate = 150,
+        BuildTime = 11250,
+        DifferentialUpgradeCostCalculation = true, 
         BuildableCategory = {
-            'BUILTBYTIER3FACTORY NOMAD MOBILE CONSTRUCTION',
-            'BUILTBYTIER3FACTORY NOMAD STRUCTURE NAVAL',
-            'BUILTBYTIER3FACTORY NOMAD MOBILE NAVAL',
+            'BUILTBYTIER3FACTORY NOMADS MOBILE CONSTRUCTION',
+            'BUILTBYTIER3FACTORY NOMADS STRUCTURE NAVAL',
+            'BUILTBYTIER3FACTORY NOMADS MOBILE NAVAL',
+            'FIELDENGINEER NOMADS MOBILE LAND',
         },
         RebuildBonusIds = {
             'INB0103',
@@ -166,13 +170,14 @@ UnitBlueprint {
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
         UnitWeight = 1,
-        UpgradesFrom = 'INB0203',
+        UpgradesFrom = 'inb0203',
+        UpgradesFromBase = 'inb0103',
     },
     Intel = {
         VisionRadius = 20,
     },
     Interface = {
-        HelpText = '<LOC inb0303_help>Naval Factory',
+        HelpText = '<LOC inb0303faf_help>Naval Factory (HQ)',
     },
     LifeBarHeight = 0.075,
     LifeBarOffset = 4.75,
@@ -216,8 +221,8 @@ UnitBlueprint {
     SelectionSizeZ = 8.8,
     SelectionThickness = 0.35,
     SizeX = 4,
-    SizeY = 4,
-    SizeZ = 13,
+    SizeY = 3,
+    SizeZ = 10,
     StrategicIconName = 'icon_factoryhq3_naval',
     StrategicIconSortPriority = 220,
     Wreckage = {

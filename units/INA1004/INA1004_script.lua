@@ -1,10 +1,10 @@
 -- T1 gunship
 
-local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
-local SupportingArtilleryAbility = import('/lua/nomadutils.lua').SupportingArtilleryAbility
---local NAirTransportUnit = import('/lua/nomadunits.lua').NAirTransportUnit
-local DarkMatterWeapon1 = import('/lua/nomadweapons.lua').DarkMatterWeapon1
-local NAirUnit = import('/lua/nomadunits.lua').NAirUnit
+local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
+local SupportingArtilleryAbility = import('/lua/nomadsutils.lua').SupportingArtilleryAbility
+--local NAirTransportUnit = import('/lua/nomadsunits.lua').NAirTransportUnit
+local DarkMatterWeapon1 = import('/lua/nomadsweapons.lua').DarkMatterWeapon1
+local NAirUnit = import('/lua/nomadsunits.lua').NAirUnit
 
 NAirUnit = SupportingArtilleryAbility( NAirUnit )
 
@@ -15,8 +15,8 @@ INA1004 = Class(NAirUnit) {
     },
 
     ArtillerySupportFxBone = 'Dome',
-    BeamHoverExhaustCruise = NomadEffectTemplate.AirThrusterLargeCruisingBeam,
-    BeamHoverExhaustIdle = NomadEffectTemplate.AirThrusterLargeIdlingBeam,
+    BeamHoverExhaustCruise = NomadsEffectTemplate.AirThrusterLargeCruisingBeam,
+    BeamHoverExhaustIdle = NomadsEffectTemplate.AirThrusterLargeIdlingBeam,
 
     OnCreate = function(self)
         NAirUnit.OnCreate(self)

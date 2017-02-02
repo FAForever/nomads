@@ -1,8 +1,0 @@
-UnitBlueprint {
-    Merge = true,
-    BlueprintId = "inb1202", -- T2 mex
-    Economy = {
-        BuildRate= 20.58,
-        BuildTime = 1171,
-    },
-}

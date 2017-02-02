@@ -55,7 +55,7 @@ UnitBlueprint {
         'SELECTABLE',
         'BUILTBYTIER3COMMANDER',
         'BUILTBYTIER3ENGINEER',
-        'NOMAD',
+        'NOMADS',
         'MOBILE',
         'LAND',
         'EXPERIMENTAL',

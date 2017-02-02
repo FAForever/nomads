@@ -1,7 +1,7 @@
 do
 
 
-local NExperimentalHoverLandUnit = import('/lua/nomadunits.lua').NExperimentalHoverLandUnit
+local NExperimentalHoverLandUnit = import('/lua/nomadsunits.lua').NExperimentalHoverLandUnit
 
 local oldINU4001 = INU4001
 INU4001 = Class(oldINU4001) {

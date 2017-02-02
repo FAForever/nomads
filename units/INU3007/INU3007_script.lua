@@ -1,7 +1,7 @@
 -- t3 mobile anti air
 
-local NLandUnit = import('/lua/nomadunits.lua').NLandUnit
-local RocketWeapon1 = import('/lua/nomadweapons.lua').RocketWeapon1
+local NLandUnit = import('/lua/nomadsunits.lua').NLandUnit
+local RocketWeapon1 = import('/lua/nomadsweapons.lua').RocketWeapon1
 local Utilities = import('/lua/utilities.lua')
 
 INU3007 = Class(NLandUnit) {

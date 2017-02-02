@@ -1,11 +1,11 @@
 -- T2 missile launcher
 
 local Buff = import('/lua/sim/buff.lua')
-local AddAnchorAbilty = import('/lua/nomadutils.lua').AddAnchorAbilty
-local SupportedArtilleryWeapon = import('/lua/nomadutils.lua').SupportedArtilleryWeapon
-local NAmphibiousUnit = import('/lua/nomadunits.lua').NAmphibiousUnit
-local TacticalMissileWeapon1 = import('/lua/nomadweapons.lua').TacticalMissileWeapon1
-local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
+local AddAnchorAbilty = import('/lua/nomadsutils.lua').AddAnchorAbilty
+local SupportedArtilleryWeapon = import('/lua/nomadsutils.lua').SupportedArtilleryWeapon
+local NAmphibiousUnit = import('/lua/nomadsunits.lua').NAmphibiousUnit
+local TacticalMissileWeapon1 = import('/lua/nomadsweapons.lua').TacticalMissileWeapon1
+local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local EffectUtilities = import('/lua/EffectUtilities.lua')
 
 NAmphibiousUnit = AddAnchorAbilty(NAmphibiousUnit)
@@ -21,7 +21,7 @@ INU2003 = Class(NAmphibiousUnit) {
                 local proj = TacticalMissileWeapon1.CreateProjectileAtMuzzle(self, muzzle)
                 local layer = self.unit:GetCurrentLayer()
                 if layer == 'Sub' or layer == 'Seabed' then   -- add under water effects
-                    EffectUtilities.CreateBoneEffects( self.unit, muzzle, self.unit:GetArmy(), NomadEffectTemplate.TacticalMissileMuzzleFxUnderWaterAddon )
+                    EffectUtilities.CreateBoneEffects( self.unit, muzzle, self.unit:GetArmy(), NomadsEffectTemplate.TacticalMissileMuzzleFxUnderWaterAddon )
                 end
                 return proj
             end,

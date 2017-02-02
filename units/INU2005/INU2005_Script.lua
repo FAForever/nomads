@@ -1,9 +1,9 @@
 -- T2 main tank
 
-local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
-local SupportingArtilleryAbility = import('/lua/nomadutils.lua').SupportingArtilleryAbility
-local NLandUnit = import('/lua/nomadunits.lua').NLandUnit
-local ParticleBlaster1 = import('/lua/nomadweapons.lua').ParticleBlaster1
+local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
+local SupportingArtilleryAbility = import('/lua/nomadsutils.lua').SupportingArtilleryAbility
+local NLandUnit = import('/lua/nomadsunits.lua').NLandUnit
+local ParticleBlaster1 = import('/lua/nomadsweapons.lua').ParticleBlaster1
 
 NLandUnit = SupportingArtilleryAbility( NLandUnit )
 
@@ -38,7 +38,7 @@ INU2005 = Class(NLandUnit) {
 
     CreateSensorEmitter = function(self)
         local bone, army, emit = 'Sensors', self:GetArmy()
-        for k, v in NomadEffectTemplate.AntennaeLights1 do
+        for k, v in NomadsEffectTemplate.AntennaeLights1 do
             emit = CreateAttachedEmitter(self, bone, army, v)
             self.Trash:Add(emit)
         end

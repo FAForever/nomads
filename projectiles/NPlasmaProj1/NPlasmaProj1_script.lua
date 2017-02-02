@@ -1,4 +1,4 @@
-local PlasmaProjHighArcMissileArtillery = import('/lua/nomadprojectiles.lua').PlasmaProjHighArcMissileArtillery
+local PlasmaProjHighArcMissileArtillery = import('/lua/nomadsprojectiles.lua').PlasmaProjHighArcMissileArtillery
 
 NPlasmaProj1 = Class(PlasmaProjHighArcMissileArtillery) {}
 

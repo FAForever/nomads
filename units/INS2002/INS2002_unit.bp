@@ -51,7 +51,7 @@ UnitBlueprint {
         'SELECTABLE',
         'BUILTBYTIER2FACTORY',
         'BUILTBYTIER3FACTORY',
-        'NOMAD',
+        'NOMADS',
         'MOBILE',
         'NAVAL',
         'TECH2',

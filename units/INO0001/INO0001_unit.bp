@@ -16,10 +16,11 @@ UnitBlueprint {
     },
     BuildIconSortPriority = 90,
     Categories = {
-        'NOMAD',
+        'NOMADS',
         'UNTARGETABLE',
         'NOFORMATION',
         'INSIGNIFICANTUNIT',
+        'VISIBLETORECON',
     },
     Defense = {
         AirThreatLevel = 0,
@@ -125,18 +126,18 @@ UnitBlueprint {
     SizeY = 0.4,
     SizeZ = 0.9,
     SpecialAbilities = {
-        NomadAreaBombardment = {
+        NomadsAreaBombardment = {
             AreaOfEffect = 3,
             MaxRadius = 0,  -- depend on other units to determine range
             NoAutoEnable = true,
             WantNumTargets = 10,  -- keep equal to number of weapons
             CanUseRangeExtenders = true,
         },
-        NomadIntelProbe = {
+        NomadsIntelProbe = {
             MaxRadius = -1, -- unlimited range
             NoAutoEnable = true,
         },
-        NomadIntelProbeAdvanced = {
+        NomadsIntelProbeAdvanced = {
             MaxRadius = -1, -- unlimited range
             NoAutoEnable = true,
         },

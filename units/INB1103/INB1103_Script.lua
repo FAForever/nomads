@@ -1,11 +1,11 @@
 -- T2 mass fab
 
-local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
-local NMassFabricationUnit = import('/lua/nomadunits.lua').NMassFabricationUnit
+local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
+local NMassFabricationUnit = import('/lua/nomadsunits.lua').NMassFabricationUnit
 
 INB1103 = Class(NMassFabricationUnit) {
 
-    ActiveEffectsTemplate = NomadEffectTemplate.T2MFAmbient,
+    ActiveEffectsTemplate = NomadsEffectTemplate.T2MFAmbient,
 
     OnCreate = function(self)
         NMassFabricationUnit.OnCreate(self)
@@ -17,7 +17,7 @@ INB1103 = Class(NMassFabricationUnit) {
         local bones = { 'flashlight.001', 'flashlight.002', 'flashlight.003', 'flashlight.004', }
         local army, emit = self:GetArmy()
         for _, bone in bones do
-            for k, v in NomadEffectTemplate.AntennaeLights1 do
+            for k, v in NomadsEffectTemplate.AntennaeLights1 do
                 emit = CreateEmitterAtBone(self, bone, army, v)
                 self.Trash:Add( emit )
             end

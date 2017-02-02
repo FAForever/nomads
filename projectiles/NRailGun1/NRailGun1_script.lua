@@ -1,4 +1,4 @@
-local RailGunProj = import('/lua/nomadprojectiles.lua').RailGunProj
+local RailGunProj = import('/lua/nomadsprojectiles.lua').RailGunProj
 
 NRailGun1 = Class(RailGunProj) {}
 

@@ -1,3 +1,5 @@
+-- t2 sonar
+
 UnitBlueprint {
     Audio = {
         Destroyed = Sound {
@@ -38,7 +40,7 @@ UnitBlueprint {
         'BUILTBYTIER3ENGINEER',
         'BUILTBYTIER2COMMANDER',
         'BUILTBYTIER3COMMANDER',
-        'NOMAD',
+        'NOMADS',
         'STRUCTURE',
         'INTELLIGENCE',
         'TECH2',
@@ -65,9 +67,11 @@ UnitBlueprint {
     Description = '<LOC inb3202_desc>Sonar System',
     Display = {
         Abilities = {
+            '<LOC ability_stun>EMP Weapon',
             '<LOC ability_sonar>Sonar',
             '<LOC ability_sonarboost>Sonar Boost',
             '<LOC ability_upgradable>Upgradeable',
+            '<LOC ability_deathaoe>Volatile',
         },
         --AnimationUpgrade = '/units/uab3202/uab3202_aopen.sca',
         IdleEffects = {
@@ -104,9 +108,9 @@ UnitBlueprint {
     },
     Economy = {
         BuildCostEnergy = 3600,
-        BuildCostMass = 120,
+        BuildCostMass = 150,
         BuildRate = 15,
-        BuildTime = 600,
+        BuildTime = 845,
         BuildableCategory = {
             'inb3302',
         },
@@ -207,7 +211,7 @@ UnitBlueprint {
     SizeY = 0.8,
     SizeZ = 0.8,
     SpecialAbilities = {
-        NomadIntelOvercharge = {
+        NomadsIntelOvercharge = {
             AreaOfEffect = 5,
             MaxRadius = 300,
         },
@@ -268,9 +272,9 @@ UnitBlueprint {
         WreckageLayers = {
             Air = false,
             Land = true,
-            Seabed = false,
-            Sub = false,
-            Water = false,
+            Seabed = true,
+            Sub = true,
+            Water = true,
         },
     },
 }

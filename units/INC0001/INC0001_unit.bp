@@ -18,7 +18,8 @@ UnitBlueprint {
     },
     BuildIconSortPriority = 90,
     Categories = {
-        'NOMAD',
+        'NOMADS',
+        'STRUCTURE',
         'CIVILIAN',
         'SELECTABLE',
         'AIR',
@@ -33,7 +34,7 @@ UnitBlueprint {
         ArmorType = 'Normal',
         EconomyThreatLevel = 0,
         Health = 15000,
-        MaxHealth = 15000,
+        MaxHealth = 20000,
         RegenRate = 0,
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
@@ -79,6 +80,9 @@ UnitBlueprint {
         UniformScale = 0.08,
     },
     Economy = {
+        BuildCostEnergy = 72000,
+        BuildCostMass = 8000,
+        BuildTime = 160000,
         NaturalProducer = true,
         ProductionPerSecondEnergy = 20,
         ProductionPerSecondMass = 1,

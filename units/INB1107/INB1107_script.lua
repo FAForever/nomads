@@ -1,7 +1,7 @@
 -- hydro power plant
 
-local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
-local NEnergyCreationUnit = import('/lua/nomadunits.lua').NEnergyCreationUnit
+local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
+local NEnergyCreationUnit = import('/lua/nomadsunits.lua').NEnergyCreationUnit
 
 INB1107 = Class(NEnergyCreationUnit) {
 
@@ -15,13 +15,13 @@ INB1107 = Class(NEnergyCreationUnit) {
     PlayActiveEffects = function(self)
         -- adding additional effects on top of the regular active effects
 
-        local effectTemplate = NomadEffectTemplate.T1HydroPowerPlantSurface2
+        local effectTemplate = NomadsEffectTemplate.T1HydroPowerPlantSurface2
         local bones = { 'exhaust.002', 'exhaust.003', 'exhaust.004', 'exhaust.005', }
 
         -- different effects when we're under water
         if self:GetCurrentLayer() == 'Seabed' then
             self.ActiveEffectTemplateName = 'T1HydroPowerPlantSubmerged1'
-            effectTemplate = NomadEffectTemplate.T1HydroPowerPlantSubmerged2
+            effectTemplate = NomadsEffectTemplate.T1HydroPowerPlantSubmerged2
         end
 
         -- create the emitters

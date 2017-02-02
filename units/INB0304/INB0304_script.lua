@@ -1,9 +1,9 @@
 -- T3 SCU factory
 
-local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
-local AddLights = import('/lua/nomadutils.lua').AddLights
+local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
+local AddLights = import('/lua/nomadsutils.lua').AddLights
 local Entity = import('/lua/sim/Entity.lua').Entity
-local NSCUFactoryUnit = import('/lua/nomadunits.lua').NSCUFactoryUnit
+local NSCUFactoryUnit = import('/lua/nomadsunits.lua').NSCUFactoryUnit
 
 NSCUFactoryUnit = AddLights(NSCUFactoryUnit)
 
@@ -186,18 +186,18 @@ INB0304 = Class(NSCUFactoryUnit) {
     CreateTractorBeamFx = function(self)
         local army = self:GetArmy()
 
-        self.TractorBeamBag:Add( AttachBeamEntityToEntity(self, 'Tractor1', self, 'TractorFocus', army, NomadEffectTemplate.SCUFactoryBeam) )
-        self.TractorBeamBag:Add( AttachBeamEntityToEntity(self, 'Tractor2', self, 'TractorFocus', army, NomadEffectTemplate.SCUFactoryBeam) )
-        self.TractorBeamBag:Add( AttachBeamEntityToEntity(self, 'Tractor3', self, 'TractorFocus', army, NomadEffectTemplate.SCUFactoryBeam) )
-        self.TractorBeamBag:Add( AttachBeamEntityToEntity(self, 'Tractor4', self, 'TractorFocus', army, NomadEffectTemplate.SCUFactoryBeam) )
+        self.TractorBeamBag:Add( AttachBeamEntityToEntity(self, 'Tractor1', self, 'TractorFocus', army, NomadsEffectTemplate.SCUFactoryBeam) )
+        self.TractorBeamBag:Add( AttachBeamEntityToEntity(self, 'Tractor2', self, 'TractorFocus', army, NomadsEffectTemplate.SCUFactoryBeam) )
+        self.TractorBeamBag:Add( AttachBeamEntityToEntity(self, 'Tractor3', self, 'TractorFocus', army, NomadsEffectTemplate.SCUFactoryBeam) )
+        self.TractorBeamBag:Add( AttachBeamEntityToEntity(self, 'Tractor4', self, 'TractorFocus', army, NomadsEffectTemplate.SCUFactoryBeam) )
 
-        for k, v in NomadEffectTemplate.SCUFactoryBeamOrigin do
+        for k, v in NomadsEffectTemplate.SCUFactoryBeamOrigin do
             self.TractorBeamBag:Add( CreateEmitterAtBone(self, 'Tractor1', army, v) )
             self.TractorBeamBag:Add( CreateEmitterAtBone(self, 'Tractor2', army, v) )
             self.TractorBeamBag:Add( CreateEmitterAtBone(self, 'Tractor3', army, v) )
             self.TractorBeamBag:Add( CreateEmitterAtBone(self, 'Tractor4', army, v) )
         end
-        for k, v in NomadEffectTemplate.SCUFactoryBeamEnd do
+        for k, v in NomadsEffectTemplate.SCUFactoryBeamEnd do
             self.TractorBeamBag:Add( CreateEmitterAtBone(self, 'TractorFocus', army, v) )
         end
     end,

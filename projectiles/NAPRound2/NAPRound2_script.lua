@@ -1,6 +1,6 @@
-local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
-local APRoundCap = import('/lua/nomadprojectiles.lua').APRoundCap
-local NomadExplosions = import('/lua/nomadexplosions.lua')
+local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
+local APRoundCap = import('/lua/nomadsprojectiles.lua').APRoundCap
+local NomadsExplosions = import('/lua/nomadsexplosions.lua')
 
 NAPRound2 = Class(APRoundCap) {}
 

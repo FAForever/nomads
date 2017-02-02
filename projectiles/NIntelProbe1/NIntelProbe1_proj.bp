@@ -17,7 +17,7 @@ ProjectileBlueprint {
         },
     },
     Categories = {
-        'NOMAD',
+        'NOMADS',
         'PROJECTILE',
         'INDIRECTFIRE',
         'TACTICAL',
@@ -52,7 +52,7 @@ ProjectileBlueprint {
     General = {
         Category = 'Direct Fire',
         EntityCategory = {
-            'NOMAD',
+            'NOMADS',
             'PROJECTILE',
             'INDIRECTFIRE',
             'TACTICAL',
@@ -61,7 +61,7 @@ ProjectileBlueprint {
             'BUOY',
             'PROBE',
         },
-        Faction = 'Nomad',
+        Faction = 'Nomads',
         Weapon = 'IntelProbe',
     },
     Interface = {

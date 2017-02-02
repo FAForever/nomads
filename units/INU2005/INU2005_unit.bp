@@ -1,3 +1,5 @@
+--T2 tank Brute
+
 UnitBlueprint {
     Abilities = {
         ArtillerySupport = {
@@ -59,7 +61,7 @@ UnitBlueprint {
         'SELECTABLE',
         'BUILTBYTIER2FACTORY',
         'BUILTBYTIER3FACTORY',
-        'NOMAD',
+        'NOMADS',
         'MOBILE',
         'LAND',
         'TECH2',
@@ -74,8 +76,8 @@ UnitBlueprint {
         AirThreatLevel = 0,
         ArmorType = 'Normal',
         EconomyThreatLevel = 0,
-        Health = 1650,
-        MaxHealth = 1650,
+        Health = 1250,
+        MaxHealth = 1250,
         RegenRate = 0,
         SubThreatLevel = 0,
         SurfaceThreatLevel = 4,
@@ -168,7 +170,7 @@ UnitBlueprint {
         VisionRadius = 20,
     },
     Interface = {
-        HelpText = '<LOC inu2005_help>Heavy tank, good armor and powerful weapons.',
+        HelpText = '<LOC inu2005_help>Heavy tank, with powerful weapons.',
     },
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.5,
@@ -184,11 +186,11 @@ UnitBlueprint {
             LAYER_Water = false,
         },
         DragCoefficient = 0.2,
-        MaxAcceleration = 3.1,
-        MaxBrake = 3.1,
-        MaxSpeed = 3.1,
+        MaxAcceleration = 3.2,
+        MaxBrake = 3.2,
+        MaxSpeed = 3.2,
         MaxSpeedReverse = 0,
-        MaxSteerForce = 3.1,
+        MaxSteerForce = 3.2,
         MeshExtentsX = 0.75,
         MeshExtentsY = 0.45,
         MeshExtentsZ = 1.25,

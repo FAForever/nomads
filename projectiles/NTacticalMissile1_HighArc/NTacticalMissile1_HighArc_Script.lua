@@ -1,4 +1,4 @@
-local ArcingTacticalMissile = import('/lua/nomadprojectiles.lua').ArcingTacticalMissile
+local ArcingTacticalMissile = import('/lua/nomadsprojectiles.lua').ArcingTacticalMissile
 
 NTacticalMissile1_HighArc = Class(ArcingTacticalMissile) {}
 

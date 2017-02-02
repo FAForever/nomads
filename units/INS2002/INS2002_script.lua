@@ -1,9 +1,9 @@
 -- T2 cruiser
 
-local AddNavalLights = import('/lua/nomadutils.lua').AddNavalLights
-local NSeaUnit = import('/lua/nomadunits.lua').NSeaUnit
-local RocketWeapon1 = import('/lua/nomadweapons.lua').RocketWeapon1
-local EMPGun = import('/lua/nomadweapons.lua').EMPGun
+local AddNavalLights = import('/lua/nomadsutils.lua').AddNavalLights
+local NSeaUnit = import('/lua/nomadsunits.lua').NSeaUnit
+local RocketWeapon1 = import('/lua/nomadsweapons.lua').RocketWeapon1
+local EMPGun = import('/lua/nomadsweapons.lua').EMPGun
 
 NSeaUnit = AddNavalLights(NSeaUnit)
 

@@ -1,6 +1,6 @@
 -- T3 shield generator
 
-local NShieldStructureUnit = import('/lua/nomadunits.lua').NShieldStructureUnit
+local NShieldStructureUnit = import('/lua/nomadsunits.lua').NShieldStructureUnit
 
 INB4301 = Class(NShieldStructureUnit) {
 

@@ -17,7 +17,7 @@ ProjectileBlueprint {
         },
     },
     Categories = {
-        'NOMAD',
+        'NOMADS',
         'PROJECTILE',
         'DIRECTFIRE',
     },
@@ -32,7 +32,7 @@ ProjectileBlueprint {
     },
     General = {
         Category = 'Direct Fire',
-        Weapon = 'Nomad Gatling Gun',
+        Weapon = 'Nomads Gatling Gun',
     },
     Interface = {
         HelpText = 0,

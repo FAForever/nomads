@@ -17,7 +17,7 @@ ProjectileBlueprint {
         },
     },
     Categories = {
-        'NOMAD',
+        'NOMADS',
         'PROJECTILE',
         'INDIRECTFIRE',
         'DEPTHCHARGEBOMB',
@@ -43,12 +43,12 @@ ProjectileBlueprint {
     General = {
         Category = 'Artillery',
         EntityCategory = {
-            'NOMAD',
+            'NOMADS',
             'PROJECTILE',
             'INDIRECTFIRE',
             'DEPTHCHARGEBOMB',
         },
-        Faction = 'NOMAD',
+        Faction = 'NOMADS',
         TechLevel = 1,
         Weapon = 'Depth Charge Bomb',
     },

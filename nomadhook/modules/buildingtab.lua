@@ -11,7 +11,7 @@ buildingTab = {
   "ual0301",
   "uel0301",
   "xsl0301",
-  "inu3001",
+  "inu0301",
 },
 
 ["Sensors"] = {
@@ -146,7 +146,7 @@ buildingTab = {
   "T3_Sniper_Bot",
   "url0303", -- Loyalist
   "uel0303", -- Titan
-  "inu3007", -- Nomad Superheavy tank
+  "inu3007", -- Nomads Superheavy tank
 
   "T3_Spy_Plane",
   
@@ -163,7 +163,7 @@ buildingTab = {
   "xrl0305", -- Brick
   "xel0305", -- Percival
   "xsl0303", -- Seraphim Tank  
-  "inu3002", -- Nomad T3 Hover Tank
+  "inu3002", -- Nomads T3 Hover Tank
   
   "T3_Air_Superiority_Fighter",
   
@@ -192,7 +192,7 @@ buildingTab = {
   
   "T3_Heavy_Gunship",
   "T3_AA_Gunship",
-  "inu3008", -- Nomad T3 Mobile Missile Defense
+  "inu3008", -- Nomads T3 Mobile Missile Defense
   
   "T3_Missile_Ship",
 },
@@ -327,7 +327,7 @@ buildingTab = {
 "urb1106",
 "ueb1106",
 "uab1106",
-"inb1108",
+"inb1106",
 },
 ["Point_Defense"] = {
 "xsb2301",

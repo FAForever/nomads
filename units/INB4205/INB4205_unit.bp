@@ -1,3 +1,5 @@
+-- T2 stealth shield
+
 UnitBlueprint {
     Audio = {
         Destroyed = Sound {
@@ -29,7 +31,7 @@ UnitBlueprint {
     BuildIconSortPriority = 160,
     Categories = {
         'SELECTABLE',
-        'NOMAD',
+        'NOMADS',
         'STRUCTURE',
         'DEFENSE',
         'TECH2',
@@ -62,7 +64,7 @@ UnitBlueprint {
             ShieldMaxHealth = 8000,
             ShieldRechargeTime = 16,
             ShieldRegenRate = 115,
-            ShieldRegenStartTime = 1,
+            ShieldRegenStartTime = 3,
             ShieldSize = 27,   -- keep shield size equal to stealth field size
             ShieldVerticalOffset = -3, --0, -- TODO: I'm sure we can do without offset. Add ring on ground?
         },
@@ -93,11 +95,11 @@ UnitBlueprint {
         SpawnRandomRotation = true,
         Tarmacs = {
             {
-                Albedo = 'Tarmacs/Tar8x_nomad_01_albedo',
+                Albedo = 'Tarmacs/Tar8x_nomads_01_albedo',
                 DeathLifetime = 300,
                 FadeOut = 150,
                 Length = 8,
-                Normal = 'Tarmacs/Tar8x_nomad_01_normals',
+                Normal = 'Tarmacs/Tar8x_nomads_01_normals',
                 Orientations = {
                     0,
                 },
@@ -110,7 +112,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 3000,
         BuildCostMass = 150,
-        BuildTime = 300,
+        BuildTime = 420,
         MaintenanceConsumptionPerSecondEnergy = 275,
         RebuildBonusIds = {
             'inb4205',
@@ -156,8 +158,8 @@ UnitBlueprint {
         UpgradesFrom = 'inb4202',
     },
     Intel = {
-        RadarStealthFieldRadius = 16,
-        SonarStealthFieldRadius = 16,
+        RadarStealthFieldRadius = 27,
+        SonarStealthFieldRadius = 27,
         VisionRadius = 20,
     },
     Interface = {

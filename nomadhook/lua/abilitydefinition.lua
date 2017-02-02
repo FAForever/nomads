@@ -96,7 +96,7 @@ abilities = table.merged( abilities, {
         UserVerifyFile = '/lua/user/tasks/Tasks.lua',
     },
 
-    NomadIntelOvercharge = {
+    NomadsIntelOvercharge = {
         UIBitmapId = 'radar-boost',
         cursor = 'RULEUCC_Script',
         enabled = true,
@@ -105,7 +105,7 @@ abilities = table.merged( abilities, {
         },
         UIHelpText = 'specabil_intelovercharge',
         UISlot = 3,
-        script = 'NomadIntelOvercharge',
+        script = 'NomadsIntelOvercharge',
         usage = 'Valid',
 
         UIBehaviorSingleClick = {
@@ -130,12 +130,12 @@ abilities = table.merged( abilities, {
 
         GetAllUnitsFile = '/lua/user/tasks/Tasks.lua',
         GetRangeCheckUnitsFile = '/lua/user/tasks/Tasks.lua',
-        MapReticulesToUnitIdsFile = '/lua/user/tasks/NomadIntelOvercharge.lua',
+        MapReticulesToUnitIdsFile = '/lua/user/tasks/NomadsIntelOvercharge.lua',
         UserProcessFile = '/lua/user/tasks/Tasks.lua',
         UserVerifyFile = '/lua/user/tasks/Tasks.lua',
     },
 
-    NomadAreaBombardment = {
+    NomadsAreaBombardment = {
         UIBitmapId = 'area-assist',
         cursor = 'RULEUCC_SpecialAction',
         enabled = true,
@@ -146,7 +146,7 @@ abilities = table.merged( abilities, {
         },
         UIHelpText = 'specabil_areabombardment',
         UISlot = 5,
-        script = 'NomadAreaBombardment',
+        script = 'NomadsAreaBombardment',
         usage = 'Event',
 
         UIBehaviorSingleClick = {
@@ -170,7 +170,7 @@ abilities = table.merged( abilities, {
         UserVerifyFile = '/lua/user/tasks/Tasks.lua',
     },
 
-    NomadIntelProbe = {
+    NomadsIntelProbe = {
         UIBitmapId = 'intelprobe',
         cursor = 'SPECABIL_Eye',
         enabled = true,
@@ -195,7 +195,7 @@ abilities = table.merged( abilities, {
             enabled = false,
         },
         UISlot = 4,
-        script = 'NomadIntelProbe',
+        script = 'NomadsIntelProbe',
         usage = 'Event',
 
         SoundReady = 'IntelProbeReady',
@@ -217,7 +217,7 @@ abilities = table.merged( abilities, {
         UserVerifyFile = '/lua/user/tasks/Tasks.lua',
     },
 
-    NomadIntelProbeAdvanced = {
+    NomadsIntelProbeAdvanced = {
         UIBitmapId = 'intelprobe',
         cursor = 'SPECABIL_Eye',
         enabled = true,
@@ -242,7 +242,7 @@ abilities = table.merged( abilities, {
             enabled = false,
         },
         UISlot = 4,
-        script = 'NomadIntelProbeAdvanced',
+        script = 'NomadsIntelProbeAdvanced',
         usage = 'Event',
 
 -- TODO: Perhaps these sound vars should be in an Audio section to conform to for example units?

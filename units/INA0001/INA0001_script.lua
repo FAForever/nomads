@@ -1,10 +1,10 @@
-local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
+local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local Unit = import('/lua/sim/Unit.lua').Unit
 
 INA0001 = Class(Unit) {
 
-    CoverLaunchFx = NomadEffectTemplate.ACUMeteorCoverLaunch,
-    CoverOpenFx = NomadEffectTemplate.ACUMeteorCoverOpen,
+    CoverLaunchFx = NomadsEffectTemplate.ACUMeteorCoverLaunch,
+    CoverOpenFx = NomadsEffectTemplate.ACUMeteorCoverOpen,
 
     OnCreate = function(self)
         Unit.OnCreate(self)
@@ -44,7 +44,7 @@ INA0001 = Class(Unit) {
             WaitFor(self.OpenAnimManip)
 
             local CoverPos = self:GetPosition('Cover')
-            local Cover = self:CreateProjectile('/effects/Entities/NomadACUDropPodCover/NomadACUDropPodCover_proj.bp')
+            local Cover = self:CreateProjectile('/effects/Entities/NomadsACUDropPodCover/NomadsACUDropPodCover_proj.bp')
             self.Trash:Add(Cover)
             Warp(Cover, CoverPos)
             Cover:Launch()

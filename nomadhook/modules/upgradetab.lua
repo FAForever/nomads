@@ -1,4 +1,6 @@
-upgradeTab =
+do
+
+local nomadupgrades =
 {
     -- nomads
     ['inb0101'] = {'inb0211', 'inb0201'},
@@ -19,3 +21,7 @@ upgradeTab =
     ['inb1102']  = 'inb1202',   -- mex
     ['inb1202']  = 'inb1302',
 }
+
+upgradeTab = table.merged(upgradeTab, nomadupgrades)
+
+end

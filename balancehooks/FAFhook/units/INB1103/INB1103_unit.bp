@@ -1,7 +1,0 @@
-UnitBlueprint {
-    Merge = true,
-    BlueprintId = "inb1103", -- T2 mass fab
-    Economy = {
-        BuildTime = 500,
-    },
-}

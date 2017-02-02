@@ -1,3 +1,5 @@
+--T3 Air Factory HQ
+
 UnitBlueprint {
     AI = {
         TargetBones = {
@@ -43,7 +45,7 @@ UnitBlueprint {
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2FACTORY',
-        'NOMAD',
+        'NOMADS',
         'STRUCTURE',
         'AIR',
         'TECH3',
@@ -70,7 +72,7 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
     },
-    Description = '<LOC inb0302_desc>Air Factory',
+    Description = '<LOC inb0302faf_desc>Air Factory (HQ)',
     Display = {
         AnimationFinishBuildLand = '/units/inb0302/inb0302_alift.sca',
         --BlinkingLights = {
@@ -106,11 +108,11 @@ UnitBlueprint {
         SpawnRandomRotation = true,
         Tarmacs = {
             {
-                Albedo = 'Tarmacs/Tar12x_nomad_01_albedo',
+                Albedo = 'Tarmacs/Tar12x_nomads_01_albedo',
                 DeathLifetime = 300,
                 FadeOut = 150,
                 Length = 12.8,
-                Normal = 'Tarmacs/Tar12x_nomad_01_normals',
+                Normal = 'Tarmacs/Tar12x_nomads_01_normals',
                 Orientations = {
                     0,
                 },
@@ -121,15 +123,17 @@ UnitBlueprint {
         UniformScale = 0.42,
     },
     Economy = {
-        BuildCostEnergy = 105000,
-        BuildCostMass = 3150,
-        BuildRate = 60,
-        BuildTime = 8400,
+        BuildCostEnergy = 99400,
+        BuildCostMass = 4090,
+        BuildRate = 120,
+        BuildTime = 10400,
+        DifferentialUpgradeCostCalculation = true, 
         BuildableCategory = {
-            'BUILTBYTIER3FACTORY NOMAD MOBILE CONSTRUCTION',
-            'BUILTBYTIER3FACTORY NOMAD STRUCTURE AIR',
-            'BUILTBYTIER3FACTORY NOMAD MOBILE AIR',
-            'TRANSPORTBUILTBYTIER3FACTORY NOMAD MOBILE AIR',
+            'BUILTBYTIER3FACTORY NOMADS MOBILE CONSTRUCTION',
+            'BUILTBYTIER3FACTORY NOMADS STRUCTURE AIR',
+            'BUILTBYTIER3FACTORY NOMADS MOBILE AIR',
+            'TRANSPORTBUILTBYTIER3FACTORY NOMADS MOBILE AIR',
+            'FIELDENGINEER NOMADS MOBILE LAND',
         },
         StorageEnergy = 0,
         StorageMass = 0,
@@ -175,12 +179,13 @@ UnitBlueprint {
         TechLevel = 'RULEUTL_Secret',
         UnitWeight = 1,
         UpgradesFrom = 'inb0202',
+        UpgradesFromBase = 'inb0102',
     },
     Intel = {
         VisionRadius = 20,
     },
     Interface = {
-        HelpText = '<LOC inb0302_help>Air Factory',
+        HelpText = '<LOC inb0302faf_help>Air Factory (HQ)',
     },
     LifeBarHeight = 0.075,
     LifeBarOffset = 2.15,

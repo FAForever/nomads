@@ -1,0 +1,12 @@
+TrailEmitterBlueprint {
+	BlueprintId = 'nomads_blackbolt_polytrail_03',
+	Lifetime = -1.00,
+    TrailLength = 2,
+    Size = 0.05,
+    SortOrder = 0,
+    BlendMode = 1,
+    TextureRepeatRate = 1,
+    LODCutoff = 160,
+	RampTexture = [[/textures/particles/blackbolt_munition_03.dds]],
+	RepeatTexture = [[/textures/particles/ramp_phalanx_munition_01.dds]],
+}

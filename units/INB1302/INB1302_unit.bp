@@ -1,3 +1,5 @@
+-- T3 mex
+
 UnitBlueprint {
     Adjacency = 'T3MassExtractorAdjacencyBuffs',
     Audio = {
@@ -27,7 +29,7 @@ UnitBlueprint {
         'SELECTABLE',
         'BUILTBYTIER3ENGINEER',
         'BUILTBYTIER3COMMANDER',
-        'NOMAD',
+        'NOMADS',
         'STRUCTURE',
         'ECONOMIC',
         'TECH3',
@@ -70,11 +72,11 @@ UnitBlueprint {
         SpawnRandomRotation = true,
         Tarmacs = {
             {
-                Albedo = 'Tarmacs/Tar6x_nomad_01_albedo',
+                Albedo = 'Tarmacs/Tar6x_nomads_01_albedo',
                 DeathLifetime = 300,
                 FadeOut = 150,
                 Length = 7.4,
-                Normal = 'Tarmacs/Tar6x_nomad_01_normals',
+                Normal = 'Tarmacs/Tar6x_nomads_01_normals',
                 Orientations = {
                     0,
                 },
@@ -87,7 +89,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 31625,
         BuildCostMass = 4600,
-        BuildTime = 2700,
+        BuildTime = 3944,
         MaintenanceConsumptionPerSecondEnergy = 54,
         ProductionPerSecondMass = 18,
         RebuildBonusIds = {
@@ -117,9 +119,9 @@ UnitBlueprint {
             RULEUCC_Transport = false,
         },
         FactionName = 'Nomads',
-        Icon = 'land',
+        Icon = 'amph',
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Secret',
+        TechLevel = 'RULEUTL_Advanced',
         ToggleCaps = {
             RULEUTC_ProductionToggle = true,
         },
@@ -168,7 +170,7 @@ UnitBlueprint {
     SizeY = 2,
     SizeZ = 1.4,
     StrategicIconName = 'icon_structure3_mass',
-    StrategicIconSortPriority = 245,
+    StrategicIconSortPriority = 64,
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
@@ -178,7 +180,7 @@ UnitBlueprint {
         WreckageLayers = {
             Air = false,
             Land = true,
-            Seabed = false,
+            Seabed = true,
             Sub = false,
             Water = false,
         },

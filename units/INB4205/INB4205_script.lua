@@ -1,6 +1,6 @@
 -- T2 shield generator + stealth field generator
 
-local NShieldStructureUnit = import('/lua/nomadunits.lua').NShieldStructureUnit
+local NShieldStructureUnit = import('/lua/nomadsunits.lua').NShieldStructureUnit
 
 INB4205 = Class(NShieldStructureUnit) {
 

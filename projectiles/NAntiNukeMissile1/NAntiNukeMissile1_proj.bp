@@ -17,7 +17,7 @@ ProjectileBlueprint {
         },
     },
     Categories = {
-        'NOMAD',
+        'NOMADS',
         'PROJECTILE',
         'NOSPLASHDAMAGE',
         'ANTIMISSILE',
@@ -44,11 +44,11 @@ ProjectileBlueprint {
     General = {
         Category = 'Defense',
         EntityCategory = {
-            'NOMAD',
+            'NOMADS',
             'PROJECTILE',
             'MISSILE',
         },
-        Faction = 'Nomad',
+        Faction = 'Nomads',
     },
     Interface = {
         HelpText = 0,

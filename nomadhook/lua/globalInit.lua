@@ -1,1 +1,1 @@
-import( '/lua/nomadbuffs.lua')
+import( '/lua/nomadsbuffs.lua')

@@ -1,7 +1,7 @@
--- Nomad black hole
+-- Nomads black hole
 
 local NullShell = import('/lua/sim/defaultprojectiles.lua').NullShell
-local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
+local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 local EffectUtilities = import('/lua/EffectUtilities.lua')
 local Util = import('/lua/utilities.lua')
@@ -11,14 +11,14 @@ local VizMarker = import('/lua/sim/VizMarker.lua').VizMarker
 
 NBlackhole = Class(NullShell) {
 
-    BlackholeCoreFx = NomadEffectTemplate.NukeBlackholeCore,
-    BlackholeDissipatingFx = NomadEffectTemplate.NukeBlackholeDissipating,
-    DissipatedFx = NomadEffectTemplate.NukeBlackholeDissipated,
-    FlashFx = NomadEffectTemplate.NukeBlackholeFlash,
-    GenericFx = NomadEffectTemplate.NukeBlackholeGeneric,
-    RadiationBeams = NomadEffectTemplate.NukeBlackholeRadiationBeams,
-    RadiationBeamLengths = NomadEffectTemplate.NukeBlackholeRadiationBeamLengths,
-    RadiationBeamThickness = NomadEffectTemplate.NukeBlackholeRadiationBeamThickness,
+    BlackholeCoreFx = NomadsEffectTemplate.NukeBlackholeCore,
+    BlackholeDissipatingFx = NomadsEffectTemplate.NukeBlackholeDissipating,
+    DissipatedFx = NomadsEffectTemplate.NukeBlackholeDissipated,
+    FlashFx = NomadsEffectTemplate.NukeBlackholeFlash,
+    GenericFx = NomadsEffectTemplate.NukeBlackholeGeneric,
+    RadiationBeams = NomadsEffectTemplate.NukeBlackholeRadiationBeams,
+    RadiationBeamLengths = NomadsEffectTemplate.NukeBlackholeRadiationBeamLengths,
+    RadiationBeamThickness = NomadsEffectTemplate.NukeBlackholeRadiationBeamThickness,
     logo = false,
 
     OnCreate = function(self)
@@ -43,10 +43,10 @@ NBlackhole = Class(NullShell) {
 
         if EntityCategoryContains( categories.COMMAND, parent ) then
             -- adjust effects for the ACU
-            self.BlackholeCoreFx = NomadEffectTemplate.ACUDeathBlackholeCore
-            self.DissipatedFx = NomadEffectTemplate.ACUDeathBlackholeDissipated
-            self.FlashFx = NomadEffectTemplate.ACUDeathBlackholeFlash
-            self.GenericFx = NomadEffectTemplate.ACUDeathBlackholeGeneric
+            self.BlackholeCoreFx = NomadsEffectTemplate.ACUDeathBlackholeCore
+            self.DissipatedFx = NomadsEffectTemplate.ACUDeathBlackholeDissipated
+            self.FlashFx = NomadsEffectTemplate.ACUDeathBlackholeFlash
+            self.GenericFx = NomadsEffectTemplate.ACUDeathBlackholeGeneric
             self.IsAcuDeathNuke = true
         end
     end,
@@ -475,8 +475,8 @@ NBlackhole = Class(NullShell) {
     LightningThread = function(self, bag, lifetime)
         -- Creates a random lightning
 
-        local beamBps = { NomadEffectTemplate.NukeBlackholeEnergyBeam1, NomadEffectTemplate.NukeBlackholeEnergyBeam2, NomadEffectTemplate.NukeBlackholeEnergyBeam3, }
-        local fxBp = NomadEffectTemplate.NukeBlackholeEnergyBeamEnd
+        local beamBps = { NomadsEffectTemplate.NukeBlackholeEnergyBeam1, NomadsEffectTemplate.NukeBlackholeEnergyBeam2, NomadsEffectTemplate.NukeBlackholeEnergyBeam3, }
+        local fxBp = NomadsEffectTemplate.NukeBlackholeEnergyBeamEnd
 
         local num = Random( 4, 8 )
         local chance = 65
@@ -557,7 +557,7 @@ NBlackhole = Class(NullShell) {
             entity:SetOrientation( OrientFromDir( Vector(-vector.x,-vector.y,-vector.z)), true)
             bag:Add( entity )
             self.Trash:Add( entity )
-            for k, v in NomadEffectTemplate.BlackholePropEffects do
+            for k, v in NomadsEffectTemplate.BlackholePropEffects do
                 local lt = RandomFloat( 0.2, 1 ) * lifetime * 10
                 local emit = CreateEmitterAtBone( entity, -1, -1, v ):SetEmitterParam('LIFETIME', lt)
                 bag:Add( emit )
@@ -721,10 +721,10 @@ NBlackhole = Class(NullShell) {
         wreck:SetCanTakeDamage(false)
 
         -- fire effect blueprints. The first is the close to the center so this should be a large effect. The last one is far away and should be smallish
-        local FireArmTempl = { NomadEffectTemplate.NukeBlackholeFireArmSegment1, NomadEffectTemplate.NukeBlackholeFireArmSegment2, 
-                               NomadEffectTemplate.NukeBlackholeFireArmSegment3, NomadEffectTemplate.NukeBlackholeFireArmSegment4, 
-                               NomadEffectTemplate.NukeBlackholeFireArmSegment5, }
-        local FireCntrTempl =  NomadEffectTemplate.NukeBlackholeFireArmCenter1
+        local FireArmTempl = { NomadsEffectTemplate.NukeBlackholeFireArmSegment1, NomadsEffectTemplate.NukeBlackholeFireArmSegment2, 
+                               NomadsEffectTemplate.NukeBlackholeFireArmSegment3, NomadsEffectTemplate.NukeBlackholeFireArmSegment4, 
+                               NomadsEffectTemplate.NukeBlackholeFireArmSegment5, }
+        local FireCntrTempl =  NomadsEffectTemplate.NukeBlackholeFireArmCenter1
 
         -- Length is the length of the fire 'arms'. The effect emitters don't grow so if changed don't forget to update the emitters aswell
         local maxLength = 16
@@ -780,13 +780,13 @@ NBlackhole = Class(NullShell) {
     end,
 
     AftermathFireArmsLogo = function(self, bag, lifetime, wreck)
-        -- creates the nomad logo in fire
+        -- creates the nomads logo in fire
 
         wreck:SetCanTakeDamage(false)
 
-        local FireArmTempl = { NomadEffectTemplate.NukeBlackholeFireArmSegment4, NomadEffectTemplate.NukeBlackholeFireArmSegment4,
-                               NomadEffectTemplate.NukeBlackholeFireArmSegment4, NomadEffectTemplate.NukeBlackholeFireArmSegment4,
-                               NomadEffectTemplate.NukeBlackholeFireArmCenter2, }
+        local FireArmTempl = { NomadsEffectTemplate.NukeBlackholeFireArmSegment4, NomadsEffectTemplate.NukeBlackholeFireArmSegment4,
+                               NomadsEffectTemplate.NukeBlackholeFireArmSegment4, NomadsEffectTemplate.NukeBlackholeFireArmSegment4,
+                               NomadsEffectTemplate.NukeBlackholeFireArmCenter2, }
         local maxLength = 13
         local arms = 6
 

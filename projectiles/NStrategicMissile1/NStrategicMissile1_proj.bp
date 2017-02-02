@@ -22,7 +22,7 @@ ProjectileBlueprint {
         },
     },
     Categories = {
-        'NOMAD',
+        'NOMADS',
         'PROJECTILE',
         'INDIRECTFIRE',
         'STRATEGIC',
@@ -59,17 +59,17 @@ ProjectileBlueprint {
     General = {
         Category = 'Missile',
         EntityCategory = {
-            'NOMAD',
+            'NOMADS',
             'PROJECTILE',
             'INDIRECTFIRE',
             'STRATEGIC',
             'MISSILE',
             'NOSPLASHDAMAGE',
         },
-        Faction = 'NOMAD',
+        Faction = 'NOMADS',
     },
     Interface = {
-        HelpText = 'NOMAD Nuclear Missile',
+        HelpText = 'NOMADS Nuclear Missile',
     },
     Physics = {
         Acceleration = 3,

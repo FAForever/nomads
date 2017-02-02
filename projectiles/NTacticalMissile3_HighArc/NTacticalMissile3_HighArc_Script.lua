@@ -1,19 +1,19 @@
-local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
-local ArcingTacticalMissile = import('/lua/nomadprojectiles.lua').ArcingTacticalMissile
-local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
+local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
+local ArcingTacticalMissile = import('/lua/nomadsprojectiles.lua').ArcingTacticalMissile
+local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local util = import('/lua/utilities.lua')
 local GetRandomFloat = util.GetRandomFloat
 
 NTacticalMissile3_HighArc = Class(ArcingTacticalMissile) {
-    FxImpactAirUnit = NomadEffectTemplate.ArcingTacticalMissileHitAirUnit2,
-    FxImpactLand = NomadEffectTemplate.ArcingTacticalMissileHitLand2,
-    FxImpactNone = NomadEffectTemplate.ArcingTacticalMissileHitNone2,
-    FxImpactProp = NomadEffectTemplate.ArcingTacticalMissileHitProp2,
-    FxImpactShield = NomadEffectTemplate.ArcingTacticalMissileHitShield2,
-    FxImpactUnit = NomadEffectTemplate.ArcingTacticalMissileHitUnit2,
-    FxImpactWater = NomadEffectTemplate.ArcingTacticalMissileHitWater2,
-    FxImpactProjectile = NomadEffectTemplate.ArcingTacticalMissileHitProjectile2,
-    FxImpactUnderWater = NomadEffectTemplate.ArcingTacticalMissileHitUnderWater2,
+    FxImpactAirUnit = NomadsEffectTemplate.ArcingTacticalMissileHitAirUnit2,
+    FxImpactLand = NomadsEffectTemplate.ArcingTacticalMissileHitLand2,
+    FxImpactNone = NomadsEffectTemplate.ArcingTacticalMissileHitNone2,
+    FxImpactProp = NomadsEffectTemplate.ArcingTacticalMissileHitProp2,
+    FxImpactShield = NomadsEffectTemplate.ArcingTacticalMissileHitShield2,
+    FxImpactUnit = NomadsEffectTemplate.ArcingTacticalMissileHitUnit2,
+    FxImpactWater = NomadsEffectTemplate.ArcingTacticalMissileHitWater2,
+    FxImpactProjectile = NomadsEffectTemplate.ArcingTacticalMissileHitProjectile2,
+    FxImpactUnderWater = NomadsEffectTemplate.ArcingTacticalMissileHitUnderWater2,
 
     -- To accomodate the Aeon TMD that uses flares to distract and redirect tactical missiles some additional code is added here.
     -- It makes missiles not speed up if flared by the Aeon TMD but missiles that have sped up do not react to the TMD (this is
@@ -48,7 +48,7 @@ NTacticalMissile3_HighArc = Class(ArcingTacticalMissile) {
         child.OnFlare_SetTrackTarget = false
 
         -- Split effects
-        for k, v in NomadEffectTemplate.ArcingTacticalMissileSpeedupFlash do
+        for k, v in NomadsEffectTemplate.ArcingTacticalMissileSpeedupFlash do
             CreateEmitterAtEntity( self, self:GetArmy(), v )
         end
 

@@ -1,7 +1,7 @@
 -- T2 pgen
 
-local NomadEffectTemplate = import('/lua/nomadeffecttemplate.lua')
-local NEnergyCreationUnit = import('/lua/nomadunits.lua').NEnergyCreationUnit
+local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
+local NEnergyCreationUnit = import('/lua/nomadsunits.lua').NEnergyCreationUnit
 
 INB1201 = Class(NEnergyCreationUnit) {
 
@@ -37,22 +37,22 @@ INB1201 = Class(NEnergyCreationUnit) {
     OnStopBeingBuilt = function(self, builder, layer)
         -- antennae lights
         local army, emit = self:GetArmy()
-        for k, v in NomadEffectTemplate.AntennaeLights1 do
+        for k, v in NomadsEffectTemplate.AntennaeLights1 do
             self.Trash:Add( CreateAttachedEmitter(self, 'blinklight.001', army, v) )
         end
-        for k, v in NomadEffectTemplate.AntennaeLights4 do
+        for k, v in NomadsEffectTemplate.AntennaeLights4 do
             self.Trash:Add( CreateAttachedEmitter(self, 'blinklight.002', army, v) )
         end
-        for k, v in NomadEffectTemplate.AntennaeLights7 do
+        for k, v in NomadsEffectTemplate.AntennaeLights7 do
             self.Trash:Add( CreateAttachedEmitter(self, 'blinklight.003', army, v) )
         end
-        for k, v in NomadEffectTemplate.AntennaeLights1 do
+        for k, v in NomadsEffectTemplate.AntennaeLights1 do
             self.Trash:Add( CreateAttachedEmitter(self, 'blinklight.004', army, v) )
         end
-        for k, v in NomadEffectTemplate.AntennaeLights4 do
+        for k, v in NomadsEffectTemplate.AntennaeLights4 do
             self.Trash:Add( CreateAttachedEmitter(self, 'blinklight.005', army, v) )
         end
-        for k, v in NomadEffectTemplate.AntennaeLights7 do
+        for k, v in NomadsEffectTemplate.AntennaeLights7 do
             self.Trash:Add( CreateAttachedEmitter(self, 'blinklight.006', army, v) )
         end
 
@@ -100,7 +100,7 @@ INB1201 = Class(NEnergyCreationUnit) {
     RandomDischarges = function(self, bone, delay)
         WaitTicks( delay )
         local army, emit = self:GetArmy()
-        for k, v in NomadEffectTemplate.T2PGAmbient do
+        for k, v in NomadsEffectTemplate.T2PGAmbient do
             emit = CreateAttachedEmitter(self, bone, army, v)
             self.ActiveEffectsBag:Add( emit )
             self.Trash:Add( emit )
@@ -134,7 +134,7 @@ INB1201 = Class(NEnergyCreationUnit) {
             end
 
             -- create beam
-            beam = CreateBeamEntityToEntity( self, bone1, self, bone2, army, NomadEffectTemplate.T2PGAmbientDischargeBeam )
+            beam = CreateBeamEntityToEntity( self, bone1, self, bone2, army, NomadsEffectTemplate.T2PGAmbientDischargeBeam )
             self.ActiveEffectsBag:Add( beam )
             self.Trash:Add( beam )
 
