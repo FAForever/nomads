@@ -61,22 +61,6 @@ Projectile = Class(oldProjectile) {
         end
     end,
 
-    DoDamage = function(self, instigator, DamageData, targetEntity)
-        -- handles 'initial damage'. Basically copy-pasted from the projectiles DoDamage function
-        local damage = DamageData.InitialDamageAmount or 0
-        if self.CanDoInitialDamage and damage > 0 then
-            local radius = DamageData.DamageRadius or 0
-            if radius > 0 then
-                DamageArea(instigator, self:GetPosition(), radius, damage, DamageData.DamageType, DamageData.DamageFriendly, DamageData.DamageSelf or false)
-            elseif targetEntity then
-                Damage(instigator, self:GetPosition(), targetEntity, damage, DamageData.DamageType)
-            end
-        end
-
-        -- handles the DoT damage
-        oldProjectile.DoDamage(self, instigator, DamageData, targetEntity)
-    end,
-
     DoShieldDamage = function(self, shield)
         if self.DamageData.DamageToShields and self.DamageData.DamageToShields > 0 and shield then
             local damage = math.min( self.DamageData.DamageToShields, shield:GetHealth() )
