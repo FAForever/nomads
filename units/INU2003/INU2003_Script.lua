@@ -7,12 +7,12 @@ local NAmphibiousUnit = import('/lua/nomadsunits.lua').NAmphibiousUnit
 local TacticalMissileWeapon1 = import('/lua/nomadsweapons.lua').TacticalMissileWeapon1
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local EffectUtilities = import('/lua/EffectUtilities.lua')
-local SlowHover = import('/lua/nomadsunits.lua').SlowHoverLandUnit
+local SlowHover = import('/lua/defaultunits.lua').SlowHoverLandUnit
 
 NAmphibiousUnit = AddAnchorAbilty(NAmphibiousUnit)
 TacticalMissileWeapon1 = SupportedArtilleryWeapon( TacticalMissileWeapon1 )
 
-INU2003 = Class(NAmphibiousUnit) {
+INU2003 = Class(NAmphibiousUnit, SlowHover) {
     Weapons = {
         MainGun = Class(TacticalMissileWeapon1) {
 
