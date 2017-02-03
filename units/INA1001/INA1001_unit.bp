@@ -99,6 +99,10 @@ UnitBlueprint {
     },
     Description = '<LOC ina1001_desc>Air Scout',
     Display = {
+        Abilities = {
+            '<LOC ability_radar>Radar',
+            '<LOC ability_sonar>Sonar',
+        },
         BuildEffect = {
             ExtendsFront = 0.1,
             ExtendsRear = -0.02,
