@@ -115,6 +115,7 @@ INO2302 = Class(NOrbitUnit) {
         elseif targetPos and targetPos ~= nil then
             MyGun:SetTargetGround( targetPos )
         else
+            WARN('reseting target')
             MyGun:OnLostTarget()
             MyGun:ResetTarget()
         end
