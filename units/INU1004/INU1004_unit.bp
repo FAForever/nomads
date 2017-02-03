@@ -237,7 +237,7 @@ UnitBlueprint {
         MotionType = 'RULEUMT_Hover',
         RotateBodyWhileMoving = true,
         RotateOnSpot = true,
-        WaterSpeedMultiplier = 0.9
+        WaterSpeedMultiplier = 0.9,
         TurnFacingRate = 120,
         TurnRadius = 0,
         TurnRate = 85,
