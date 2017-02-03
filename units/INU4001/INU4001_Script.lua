@@ -14,6 +14,7 @@ local explosion = import('/lua/defaultexplosions.lua')
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 local GetRandomInt = import('/lua/utilities.lua').GetRandomInt
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
+local SlowHover = import('/lua/nomadsunits.lua').SlowHoverLandUnit
 
 NExperimentalHoverLandUnit = AddBombardModeToUnit(AddLights(NExperimentalHoverLandUnit))
 
