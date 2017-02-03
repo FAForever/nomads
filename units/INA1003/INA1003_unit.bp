@@ -107,7 +107,6 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
         'SHOWATTACKRETICLE',
-        'OVERLAYRADAR',
     },
     CollisionOffsetZ = -0.15,
     Defense = {
@@ -122,9 +121,6 @@ UnitBlueprint {
     },
     Description = '<LOC ina1003_desc>Attack Bomber',
     Display = {
-        Abilities = {
-            '<LOC ability_radar>Radar',
-        },
         BuildEffect = {
             ExtendsTop = 0.1,
         },
