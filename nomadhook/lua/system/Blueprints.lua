@@ -131,7 +131,16 @@ end
 
 -- hook this to inject new units into the blueprint loader. Necessary for f.e. FAFhook to add the support factories.
 function GetNewUnitLocations()
-    return {}
+    t = table.cat( t, {
+        -- adding all Nomads support factories to the game
+        '/units/INB0211',
+        '/units/INB0212',
+        '/units/INB0213',
+        '/units/INB0311',
+        '/units/INB0312',
+        '/units/INB0313',
+    })
+    return t
 end
 
 
