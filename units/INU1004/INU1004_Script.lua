@@ -2,9 +2,9 @@
 
 local NHoverLandUnit = import('/lua/nomadsunits.lua').NHoverLandUnit
 local ParticleBlaster1 = import('/lua/nomadsweapons.lua').ParticleBlaster1
-local SlowHover = import('/lua/nomadsunits.lua').SlowHoverLandUnit
+local SlowHover = import('/lua/defaultunits.lua').SlowHoverLandUnit
 
-INU1004 = Class(NHoverLandUnit) {
+INU1004 = Class(NHoverLandUnit, SlowHover) {
     Weapons = {
         MainGun = Class(ParticleBlaster1) {},
     },
