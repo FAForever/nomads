@@ -1,9 +1,0 @@
-UnitBlueprint {
-    Merge = true,
-    BlueprintId = "inu2005", --T2 heavy tank
-    Physics = {
-        MaxAcceleration = 3,
-        MaxBrake = 3,
-        MaxSpeed = 3,
-    },
-}

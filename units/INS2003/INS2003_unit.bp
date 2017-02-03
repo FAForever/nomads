@@ -1,3 +1,5 @@
+-- rail gun boat
+
 UnitBlueprint {
     AI = {
         AttackAngle = 30,
@@ -499,6 +501,20 @@ UnitBlueprint {
             WeaponCategory = 'Defense',
             WeaponRepackTimeout = 1,
             WeaponUnpacks = true,
+        },
+    },
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = false,
+            Seabed = true,
+            Sub = true,
+            Water = true,
         },
     },
 }
