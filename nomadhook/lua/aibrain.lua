@@ -586,6 +586,23 @@ AIBrain = Class(oldAIBrain) {
         if self:IsNomadsFaction() and not ArmyIsCivilian(army) and not ArmyIsOutOfGame(army) then
             self:CreateOrbitalUnit( self )
         end
+
+        -- set tech 2 and 3 not available for for all tech levels and all factions (remember that Cybran players can command Aeon units by capturing them).
+        -- wish the game would allow me to simply declare the table i'm making below. Instead it forces me to use several for loops. Sorry for
+        -- the ugly sollution to that problem. Civilians get all tech for free by the way, that's what defaultVal and the civilian army check is for.
+        self.ResearchLevels = {}  -- [faction][type][techlevel] => available
+        local defaultVal = ArmyIsCivilian(self:GetArmyIndex())
+
+        for k, fact in Factions do
+            self.ResearchLevels[ fact.Category ] = {}
+            for _, type in { 'LAND', 'AIR', 'NAVAL', 'ENGINEERSTATION', 'GATE', 'SCUFACTORY', } do
+                self.ResearchLevels[ fact.Category ][ type ] = {}
+                for tl = 1, 4 do
+                    self.ResearchLevels[ fact.Category ][ type ][ tl ] = defaultVal
+                end
+            end
+        end
+        --LOG('*DEBUG: self.ResearchLevels = '..repr(self.ResearchLevels))        
     end,
 
     OnDefeat = function(self)
