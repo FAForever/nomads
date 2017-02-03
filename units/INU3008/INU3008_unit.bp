@@ -330,7 +330,6 @@ UnitBlueprint {
         MeshExtentsZ = 1.25,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Hover',
-        OnWaterBuff = 'OnWaterSpeed80',
         RotateBodyWhileMoving = true,
         RotateOnSpot = true,
         RotateOnSpotThreshold = 0.5,
