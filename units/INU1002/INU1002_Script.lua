@@ -3,10 +3,11 @@
 local AddAnchorAbilty = import('/lua/nomadsutils.lua').AddAnchorAbilty
 local NHoverLandUnit = import('/lua/nomadsunits.lua').NHoverLandUnit
 local DarkMatterWeapon1 = import('/lua/nomadsweapons.lua').DarkMatterWeapon1
+local SlowHover = import('/lua/defaultunits.lua').SlowHoverLandUnit
 
 NHoverLandUnit = AddAnchorAbilty(NHoverLandUnit)
 
-INU1002 = Class(NHoverLandUnit) {
+INU1002 = Class(NHoverLandUnit, SlowHover) {
     Weapons = {
         MainGun = Class(DarkMatterWeapon1) {},
     },

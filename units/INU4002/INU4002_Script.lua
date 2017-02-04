@@ -11,10 +11,11 @@ local explosion = import('/lua/defaultexplosions.lua')
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 local GetRandomInt = import('/lua/utilities.lua').GetRandomInt
 local Utilities = import('/lua/utilities.lua')
+local SlowHover = import('/lua/defaultunits.lua').SlowHoverLandUnit
 
 NExperimentalHoverLandUnit = AddBombardModeToUnit( NExperimentalHoverLandUnit )
 
-INU4002 = Class(NExperimentalHoverLandUnit) {
+INU4002 = Class(NExperimentalHoverLandUnit, SlowHover) {
 
     Weapons = {
         FrontGun = Class(AnnihilatorCannon1) {
