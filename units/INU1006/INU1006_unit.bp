@@ -1,4 +1,10 @@
+-- t1 AA/Artilery
+
 UnitBlueprint {
+    AI = {
+        BombardModeCheckRadius = 8,
+        BombardModeCheckUnits = 4,
+    },
     Audio = {
         AmbientMove = Sound {
             Bank = 'UEL',
@@ -69,6 +75,7 @@ UnitBlueprint {
         Abilities = {
             '<LOC ability_aa>Anti-Air',
             '<LOC ability_artillery>Artillery',
+            '<LOC ability_bombardarea>Area bombardment',
         },
         BuildEffect = {
             ExtendsFront = 0.02,
@@ -147,8 +154,8 @@ UnitBlueprint {
         Icon = 'land',
         OrderOverrides = {
             RULEUTC_WeaponToggle = {
-                bitmapId = 'toggle-weapon-no-air',
-                helpText = 'toggle_weapon_no_air',
+                bitmapId = 'toggle-bombardmode',
+                helpText = 'toggle_bombardmode',
             },
         },
         TechLevel = 'RULEUTL_Basic',
@@ -178,9 +185,9 @@ UnitBlueprint {
             LAYER_Water = false,
         },
         DragCoefficient = 0.2,
-        MaxAcceleration = 3.6,
-        MaxBrake = 3.6,
-        MaxSpeed = 3.6,
+        MaxAcceleration = 3,
+        MaxBrake = 3,
+        MaxSpeed = 3,
         MaxSpeedReverse = 0,
         MaxSteerForce = 10,
         MeshExtentsX = 0.4,
@@ -225,7 +232,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
-            Damage = 28,
+            Damage = 25,    --31,25dps
             DamageType = 'Normal',
             DisplayName = 'Rocket (AA)',
             EffectiveRadius = 0,
@@ -268,7 +275,6 @@ UnitBlueprint {
             TargetCheckInterval = 0.3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'EXPERIMENTAL',
                 'AIR MOBILE HIGHPRIAIR',
                 'AIR MOBILE TECH3 BOMBER',
                 'AIR MOBILE BOMBER',
@@ -298,8 +304,78 @@ UnitBlueprint {
             WeaponUnpacks = false,
         },
         {
+            AimsStraightOnDisable = true,
+            AlwaysRecheckTarget = true,
+            BallisticArc = 'RULEUBA_None',
+            CannotAttackGround = true,
+            BeamCollisionDelay = 0.2,
+            BeamLifetime = 0,
+            CollideFriendly = false,
+            ContinuousBeam = true,
+            Damage = 0,
+            DamageFriendly = false,
+            DamageType = 'Normal',
+            DisplayName = 'Targeting Laser',
+            FireTargetLayerCapsTable = {
+                Land = 'Air',
+            },
+            Label = 'TargetPainter',
+            MaxRadius = 30,
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            PreferPrimaryWeaponTarget = true,
+            ProjectileLifetimeUsesMultiplier = 1.15,
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'muzzle.001',
+                    },
+                    RackBone = 'barrel',
+                },
+            },
+            RackFireTogether = false,
+            RackRecoilDistance = 0,
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+            RateOfFire = 10,
+            ReTargetOnMiss = true,
+            TargetCheckInterval = 0.1,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'AIR MOBILE HIGHPRIAIR',
+                'AIR MOBILE TECH3 BOMBER',
+                'AIR MOBILE BOMBER',
+                'AIR MOBILE GROUNDATTACK',
+                'AIR MOBILE TRANSPORTATION',
+                'AIR MOBILE',
+                'SPECIALLOWPRI',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 1.4,
+            TurretBoneMuzzle = 'muzzle.001',
+            TurretBonePitch = 'barrel',
+            TurretBoneYaw = 'turret',
+            TurretDualManipulators = false,
+            TurretPitch = 0,
+            TurretPitchRange = 180,
+            TurretPitchSpeed = 180,
+            TurretYaw = 0,
+            TurretYawRange = 180,
+            TurretYawSpeed = 180,
+            Turreted = true,
+            UseFiringSolutionInsteadOfAimBone = true,
+            WeaponCategory = 'Anti Air',
+        },
+        {
             AboveWaterTargetsOnly = true,
             ArtilleryShieldBlocks = true,
+            BombardParticipant = true,
+            BombardSwingTurret = true,
+            BombardTurretRotationSpeed = 1,
             Audio = {
                 Fire = Sound {
                     Bank = 'URLWeapon',
