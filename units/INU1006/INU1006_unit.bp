@@ -1,4 +1,4 @@
---t1 AA/Artilery
+-- t1 AA/Artilery
 
 UnitBlueprint {
     AI = {
@@ -373,12 +373,9 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             ArtilleryShieldBlocks = true,
-            
             BombardParticipant = true,
             BombardSwingTurret = true,
-            BombardTurretRotationSpeed = 5,
-            
-           
+            BombardTurretRotationSpeed = 1,
             Audio = {
                 Fire = Sound {
                     Bank = 'URLWeapon',

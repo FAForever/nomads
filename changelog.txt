@@ -89,11 +89,12 @@ T1 lab
 T1 AA/Arty
 - 280hp (140)
 - 55m 275e 220bt (34m)
-- speed 3,6 (2,8)
-- AA dmg 28 (14)=35dps
+- speed 3 (2,8)
+- AA dmg 25 (14)=31,25dps
 - GF 50dmg (30)
 -- GF 30r (32)
 -- GF rof 0,15 (0,145) = 6,6s =>30dps
+-- add bombard mode (rof +-1, 45dps)
 
 T1 Tank destroyer
 - 20intel (18)
