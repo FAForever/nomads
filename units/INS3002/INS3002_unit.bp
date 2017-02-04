@@ -99,7 +99,7 @@ UnitBlueprint {
             '<LOC ability_submergedsurfaceattack>Attacks from under water',
             '<LOC ability_torpedo>Torpedoes',
         },
-        AnimationDeath = {
+--[[        AnimationDeath = {
             {
                 Animation = '/units/INS3002/INS3002_ADeath01.sca',
                 Weight = 100,
@@ -160,7 +160,7 @@ UnitBlueprint {
                 Weight = 100,
                 Rate = 0.05,
             },
-        },
+        },]]
         IdleEffects = {
             Sub = {
                 Effects = {
