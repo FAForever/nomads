@@ -79,18 +79,6 @@ UnitBlueprint {
             '<LOC ability_radar>Radar',
             '<LOC ability_sonar>Sonar',
         },
-        AnimationDeath = {
-            {
-                Animation = '/units/ins1002/ins1002_ADeath01.sca',
-                Rate = 0.1,
-                Weight = 100,
-            },
-            {
-                Animation = '/units/ins1002/ins1002_ADeath02.sca',
-                Rate = 0.1,
-                Weight = 100,
-            },
-        },
         IdleEffects = {
             Water = {
                 Effects = {
