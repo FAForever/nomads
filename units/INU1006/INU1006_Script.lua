@@ -15,6 +15,10 @@ INU1006 = Class(NLandUnit) {
                 if not self.AA then
                     self.unit:SetWeaponEnabledByLabel('ArtilleryGun', false)
                     self.unit:SetWeaponEnabledByLabel('AAGun', true)
+                    if(self.unit.active_bombardment) then
+                        self.unit:SetBombardmentMode(false, false)
+                        self.unit.reactivate_bombardment = true
+                    end
                     self.unit:GetWeaponManipulatorByLabel('AAGun'):SetHeadingPitch(self.unit:GetWeaponManipulatorByLabel('ArtilleryGun'):GetHeadingPitch())
                     self.AA = true
                 end
@@ -24,6 +28,10 @@ INU1006 = Class(NLandUnit) {
             IdleState = State(TargetingLaser.IdleState) {
                 -- Start with the AA gun off to reduce twitching of ground fire
                 Main = function(self)
+                    if self.unit.reactivate_bombardment then
+                        self.unit:SetBombardmentMode(true, false)
+                        self.unit.reactivate_bombardment = false
+                    end
                     self.unit:SetWeaponEnabledByLabel('ArtilleryGun', true)
                     self.unit:SetWeaponEnabledByLabel('AAGun', false)
                     self.unit:GetWeaponManipulatorByLabel('ArtilleryGun'):SetHeadingPitch(self.unit:GetWeaponManipulatorByLabel('AAGun'):GetHeadingPitch())
@@ -44,14 +52,16 @@ INU1006 = Class(NLandUnit) {
     OnScriptBitSet = function(self, bit)
         NLandUnit.OnScriptBitSet(self, bit)
         if bit == 1 then 
-            NLandUnit.SetBombardmentMode(self, true, false)
+            self.SetBombardmentMode(self, true, false)
+            self.active_bombardment = true
         end
     end,
 
     OnScriptBitClear = function(self, bit)
         NLandUnit.OnScriptBitClear(self, bit)
         if bit == 1 then 
-            NLandUnit.SetBombardmentMode(self, false, false)
+            self.SetBombardmentMode(self, false, false)
+            self.active_bombardment = false
         end
     end,
 }
