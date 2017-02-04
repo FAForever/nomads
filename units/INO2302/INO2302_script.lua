@@ -87,13 +87,16 @@ INO2302 = Class(NOrbitUnit) {
         if cb then
             cb( self.parent, unitKilled )
         end
+        NOrbitUnit.OnKilledUnit(self, unitKilled)
     end,
 
     OnParentKilled = function(self)
         self:EnableWeapon(false)
         self.parentCallbacks[ 'OnWeaponFired' ] = false
         self.parentCallbacks[ 'OnKilledUnit' ] = false
-
+        if self.xp then
+            self:AddXP(-self.xp)
+        end
         -- TODO: maybe some effects stop? lights, I dont know..
     end,
 
