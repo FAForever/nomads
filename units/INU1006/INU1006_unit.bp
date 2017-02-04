@@ -328,9 +328,9 @@ UnitBlueprint {
             RackBones = {
                 {
                     MuzzleBones = {
-                        'AttachPoint',
+                        'muzzle.001',
                     },
-                    RackBone = 'AttachPoint',
+                    RackBone = 'barrel',
                 },
             },
             RackFireTogether = false,
@@ -356,9 +356,9 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.4,
-            TurretBoneMuzzle = 'AttachPoint',
-            TurretBonePitch = 'AttachPoint',
-            TurretBoneYaw = 'AttachPoint',
+            TurretBoneMuzzle = 'muzzle.001',
+            TurretBonePitch = 'barrel',
+            TurretBoneYaw = 'turret',
             TurretDualManipulators = false,
             TurretPitch = 0,
             TurretPitchRange = 180,

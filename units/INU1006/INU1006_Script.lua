@@ -5,9 +5,11 @@ local NLandUnit = import('/lua/nomadsunits.lua').NLandUnit
 local RocketWeapon1 = import('/lua/nomadsweapons.lua').RocketWeapon1
 local TargetingLaser = import('/lua/kirvesweapons.lua').TargetingLaserInvisible
 
+NLandUnit = AddBombardModeToUnit(NLandUnit)
+
 INU1006 = Class(NLandUnit) {
     Weapons = {
-    TargetPainter = Class(TargetingLaser) {
+        TargetPainter = Class(TargetingLaser) {
             -- Unit in range. Cease ground fire and turn on AA
             OnWeaponFired = function(self)
                 if not self.AA then
@@ -30,8 +32,8 @@ INU1006 = Class(NLandUnit) {
                 end,
             },
         },
-	AAGun = Class(RocketWeapon1) {},
-	ArtilleryGun = Class(RocketWeapon1) {},
+        AAGun = Class(RocketWeapon1) {},
+        ArtilleryGun = Class(RocketWeapon1) {},
     },
     
     SetBombardmentMode = function(self, enable, changedByTransport)
