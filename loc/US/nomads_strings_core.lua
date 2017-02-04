@@ -377,7 +377,7 @@ ina1003_name = "Phoenix"
 -- T1 gunship
 ina1004_desc = "Light Gunship"
 ina1004_help = "A low-end gunship designed to take out ground targets. Can pin-point targets for artillery units."
-ina1004_name = "Titmouse"
+ina1004_name = "Golem"
 
 -- T1 transport
 ina1005_desc = "Light Air Transport"

@@ -17,10 +17,15 @@ NOMADS
 -- add AboveWaterTargetsOnly = true,  
 
 - T1 Gunship
+-- remane to Golem (Titmouse)
 -- speed 10 (12)
+-- 450hp (400)
 -- 120m 3000e 800bt (150m 4050e 800bt)
 -- vision 32 (26)
--- dmg 6(8) = 30dps
+-- elevation 10 (8) -> to be able fire on other gunships
+-- dmg 7(8) = 35dps
+-- range 18 (16)
+
 
 - T1 transport
 -- speed 13 (12)
@@ -65,11 +70,11 @@ NOMADS
 
 -T3 gunship
 -- speed 12 (8)
---500hp (5100)
+--5000hp (5100)
 -- remove flares (super unfair for cybran)
---1260m 42000e 6300bt
---TransportClass 2 (3)
---damage radius 0 (0,3) -> small projectile
+-- 1260m 42000e 6300bt
+-- TransportClass 2 (3)
+-- damage radius 0 (0,3) -> small projectile
 -- damage 25 (20) -> small projectile
 
 - T4 transport
