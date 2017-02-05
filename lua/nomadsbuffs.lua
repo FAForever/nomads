@@ -22,7 +22,13 @@ BuffBlueprint {
             DeactivateDelay = 0,
         },
         MaxRadius = {
-            Add = 2,
+            Mult = 1.15,
+        },
+        RadarRadius = {
+            Mult = 1.15,
+        },
+        BuildRate = {
+            Mult = 1.3,
         },
     },
 }
