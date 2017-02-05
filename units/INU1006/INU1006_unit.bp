@@ -230,6 +230,8 @@ UnitBlueprint {
                 },
             },
             BallisticArc = 'RULEUBA_None',
+            BombardParticipant = false,
+            BombardSwingTurret = false,
             CannotAttackGround = true,
             CollideFriendly = false,
             Damage = 25,    --31,25dps
