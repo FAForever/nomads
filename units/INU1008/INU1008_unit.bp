@@ -1,3 +1,5 @@
+-- tank destroyer
+
 UnitBlueprint {
     Abilities = {
         Anchor = {
@@ -228,7 +230,6 @@ UnitBlueprint {
             FiringTolerance = 0,
             FiringToleranceWhileMoving = 0.5,
             Label = 'MainGun',
-            MaxRadius = 28,
             MinRadius = 5,
             MuzzleChargeDelay = 0.5,
             MuzzleSalvoDelay = 0,
