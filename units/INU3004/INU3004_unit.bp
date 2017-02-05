@@ -1,4 +1,9 @@
 UnitBlueprint {
+    Abilities = {
+        Anchor = {
+            Buff = 'AnchorModeImmobilizeAddRange',
+        },
+    },
     AI = {
         GuardScanRadius = 90,
         NeedUnpack = true,
@@ -74,6 +79,7 @@ UnitBlueprint {
         Abilities = {
             '<LOC ability_deploys>Deploys',
             '<LOC ability_supportedartillerygun>Supported Artillery Gun',
+            '<LOC ability_anchor>Anchor'
         },
         AnimationOpen = '/units/INU3004/INU3004_aunpack.sca',
         BuildEffect = {
@@ -161,7 +167,7 @@ UnitBlueprint {
         },
         TechLevel = 'RULEUTL_Secret',
         ToggleCaps = {
---            RULEUTC_SpecialToggle = true,
+            RULEUTC_SpecialToggle = true,
         },
         UnitName = '<LOC inu3004_name>Mauler',
         UnitWeight = 1,
