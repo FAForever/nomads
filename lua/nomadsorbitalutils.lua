@@ -34,7 +34,7 @@ function CreateOrbitalUnit( brain )
     local bp = 'INO0001'
     local army = brain:GetArmyIndex()
     local x, z = brain:GetArmyStartPos()
-    local y = 0 -- TODO: use surface instead
+    local y = GetSurfaceHeight(x,z)
     local unit = CreateUnitHPR( bp, army, x, y, z, 0, 0, 0)
     return unit
 end
