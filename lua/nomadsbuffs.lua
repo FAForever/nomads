@@ -19,7 +19,7 @@ BuffBlueprint {
     Duration = -1,
     Affects = {
         Immobilize = {
-            DeactivateDelay = 0,
+            DeactivateDelay = 1.5,
         },
         MaxRadius = {
             Mult = 1.15,
