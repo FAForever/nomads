@@ -63,7 +63,7 @@ NCameraBuoy = Class(Buoy) {
 }
 
 NOrbitalStrikeBuoy = Class(Buoy) {
-
+-- not used currently. Calls in an orbital strike from the frigate.
     ActiveFx = NomadsEffectTemplate.BuoyActive,
     DestroyedFx = NomadsEffectTemplate.BuoyDestroyed,
     LightsFx = NomadsEffectTemplate.BuoyLights,
@@ -71,9 +71,6 @@ NOrbitalStrikeBuoy = Class(Buoy) {
     ActiveThread = function(self)
         local aiBrain = self:GetBrain()
         brain:OrbitalStrikeTarget( self.spec.Pos )
--- TODO:
--- FIXME: This doesn't respect cooldown of the ACU ability. The database for managing targets and priorities has been removed. What is the
--- benefit of having this buoy since it "cheats" (no cooldown)?
     end,
 }
 
