@@ -124,7 +124,7 @@ UnitBlueprint {
     SizeX = 0.1,
     SizeY = 0.7,
     SizeZ = 0.15,
-    StrategicIconName = 'icon_artillerysupportprobe1.dds',
+    StrategicIconName = 'icon_artillerysupportprobe1',
     StrategicIconSortPriority = 235,
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
