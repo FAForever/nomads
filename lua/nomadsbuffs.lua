@@ -30,6 +30,9 @@ BuffBlueprint {
         BuildRate = {
             Mult = 1.3,
         },
+        VisionRadius = {
+            Mult = 1.15,
+        },
     },
 }
 
