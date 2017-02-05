@@ -1,4 +1,9 @@
 UnitBlueprint {
+    Abilities = {
+        Anchor = {
+            Buff = 'AnchorModeImmobilizeAddRange',
+        },
+    },
     Audio = {
         AmbientIdle = Sound {
             Bank = 'NomadsUnits',
@@ -133,6 +138,7 @@ UnitBlueprint {
             '<LOC ability_radar>Radar',
             '<LOC ability_sonar>Sonar',
             '<LOC ability_radarboost>Radar Boost',
+            '<LOC ability_anchor>Anchor'
         },
         BuildEffect = {
             ExtendsBottom = 0.1,
