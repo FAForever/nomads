@@ -70,6 +70,7 @@ UnitBlueprint {
         Abilities = {
             '<LOC ability_accuratewhenstill>Accurate weapon when still',
             '<LOC ability_inaccuratewhenmoving>Inaccurate weapon when moving',
+            '<LOC ability_anchor>Anchor'
         },
         Mesh = {
             IconFadeInZoom = 130,
