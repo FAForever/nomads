@@ -1,4 +1,11 @@
+-- T2 field enginer
+
 UnitBlueprint {
+    Abilities = {
+        Anchor = {
+            Buff = 'AnchorModeImmobilizeAddRange',
+        },
+    },
     Audio = {
         AmbientIdle = Sound {
             Bank = 'NomadsUnits',
@@ -133,6 +140,7 @@ UnitBlueprint {
             '<LOC ability_radar>Radar',
             '<LOC ability_sonar>Sonar',
             '<LOC ability_radarboost>Radar Boost',
+            '<LOC ability_anchor>Anchor'
         },
         BuildEffect = {
             ExtendsBottom = 0.1,
@@ -225,14 +233,14 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 1000,
         BuildCostMass = 225,
-        BuildRate = 15,
+        BuildRate = 15,     --19,5 with anchor
         BuildTime = 1000,
         BuildableCategory = {
             'BUILTBYTIER2ENGINEER DEFENSE NOMADS',
             'BUILTBYTIER2ENGINEER INDIRECTFIRE NOMADS',
         },
         MaintenanceConsumptionPerSecondEnergy = 0,
-        MaxBuildDistance = 10,
+        MaxBuildDistance = 12.5,    --from 10
         NeedToFaceTargetToBuild = false,
         TeleportEnergyMod = 0.15,
         TeleportMassMod = 1,

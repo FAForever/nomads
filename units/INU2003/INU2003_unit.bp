@@ -1,4 +1,9 @@
 UnitBlueprint {
+    Abilities = {
+        Anchor = {
+            Buff = 'AnchorModeImmobilizeAddRange',
+        },
+    },
     Audio = {
         AmbientMove = Sound {
             Bank = 'URL',
@@ -76,6 +81,7 @@ UnitBlueprint {
             '<LOC ability_amphibious>Amphibious',
             '<LOC ability_submergedsurfaceattack>Attacks from under water',
             '<LOC ability_supportedartillerygun>Supported Artillery Gun',
+            '<LOC ability_anchor>Anchor'
         },
         BuildEffect = {
             ExtendsFront = 0.05,

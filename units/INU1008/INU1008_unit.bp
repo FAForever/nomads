@@ -1,3 +1,5 @@
+-- tank destroyer
+
 UnitBlueprint {
     Abilities = {
         Anchor = {
@@ -70,6 +72,7 @@ UnitBlueprint {
         Abilities = {
             '<LOC ability_accuratewhenstill>Accurate weapon when still',
             '<LOC ability_inaccuratewhenmoving>Inaccurate weapon when moving',
+            '<LOC ability_anchor>Anchor'
         },
         Mesh = {
             IconFadeInZoom = 130,
@@ -227,7 +230,7 @@ UnitBlueprint {
             FiringTolerance = 0,
             FiringToleranceWhileMoving = 0.5,
             Label = 'MainGun',
-            MaxRadius = 28,
+            MaxRadius = 26,     --30r with anchor
             MinRadius = 5,
             MuzzleChargeDelay = 0.5,
             MuzzleSalvoDelay = 0,

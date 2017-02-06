@@ -1,4 +1,9 @@
 UnitBlueprint {
+    Abilities = {
+        Anchor = {
+            Buff = 'AnchorModeImmobilizeAddRange',
+        },
+    },
     Audio = {
         AmbientMove = Sound {
             Bank = 'UEL',
@@ -63,6 +68,7 @@ UnitBlueprint {
     Display = {
         Abilities = {
             '<LOC ability_aa>Anti-Air',
+            '<LOC ability_anchor>Anchor'
         },
         BuildEffect = {
             ExtendsFront = 0.1,
@@ -153,7 +159,16 @@ UnitBlueprint {
         },
         FactionName = 'Nomads',
         Icon = 'land',
+        OrderOverrides = {
+            RULEUTC_SpecialToggle = {
+                bitmapId = 'toggle-anchor',
+                helpText = 'toggle_anchor',
+            },
+        },
         TechLevel = 'RULEUTL_Secret',
+        ToggleCaps = {
+            RULEUTC_SpecialToggle = true,
+        },
         UnitName = '<LOC inu3007_name>Watchman',
         UnitWeight = 1,
     },
