@@ -252,7 +252,7 @@ UnitBlueprint {
         MeshExtentsZ = 0.65,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Hover',
-        OnWaterBuff = 'OnWaterSpeed80',
+        WaterSpeedMultiplier = 0.9,
         RotateBodyWhileMoving = true,
         TurnFacingRate = 90,
         TurnRadius = 5,
