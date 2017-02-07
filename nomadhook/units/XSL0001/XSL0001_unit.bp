@@ -3,6 +3,7 @@ UnitBlueprint {
     BlueprintId = "xsl0001", -- Seraphim ACU
     SpecialAbilities = {
         LaunchTacMissile = {
+            NoAutoEnable = true,
             MaxRadius = 256,
             MinRadius = 5,
         },

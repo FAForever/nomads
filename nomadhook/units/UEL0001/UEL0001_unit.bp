@@ -3,6 +3,7 @@ UnitBlueprint {
     BlueprintId = "uel0001", -- UEF ACU
     SpecialAbilities = {
         LaunchTacMissile = {
+            NoAutoEnable = true,
             MaxRadius = 256,
             MinRadius = 5,
         },
