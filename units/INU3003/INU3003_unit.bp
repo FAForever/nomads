@@ -61,8 +61,6 @@ UnitBlueprint {
         AirThreatLevel = 0,
         ArmorType = 'Normal',
         EconomyThreatLevel = 0,
-        Health = 2750,
-        MaxHealth = 2750,
 --        OrbitalStrikeOnCapturer = true,
         RegenRate = 0,
         SubThreatLevel = 0,
@@ -120,7 +118,6 @@ UnitBlueprint {
         },
         PlaceholderMeshName = 'UXL0001',
         SpawnRandomRotation = false,
-        UniformScale = 0.3,
     },
     Economy = {
         BuildCostEnergy = 1800,
@@ -228,7 +225,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             BombardParticipant = true,
             BombardSwingTurret = true,
-            BombardTurretRotationSpeed = 18,
+            BombardTurretRotationSpeed = 10,    --from18
             Buffs = {
                 {
                     Add = {

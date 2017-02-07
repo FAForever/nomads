@@ -183,8 +183,8 @@ UnitBlueprint {
         HelpText = '<LOC inu2003_help>Mobile Missile Launcher',
     },
     LifeBarHeight = 0.075,
-    LifeBarOffset = 0.25,
-    LifeBarSize = 0.5,
+    LifeBarOffset = 0.35,
+    LifeBarSize = 1,
     Physics = {
         BackUpDistance = 4,
         BankingSlope = 0,

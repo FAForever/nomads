@@ -138,8 +138,10 @@ T3 hover tank
 - veterancy 10 (9)
 
 T2 EMP tank
-- 2750hp (2000)
+- 3250hp (2000)
 - 360m 1800e 1600bt (297m 1500e 1320bt)
+- unifor scale 0,35 (0,3)
+-- bombard rotation speed 10 (18)
 
 T3 mobile artilery
 - muzzle velocity 24 (22)
