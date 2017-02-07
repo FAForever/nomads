@@ -1,11 +1,11 @@
 -- t3 arillery
 
-local AddAnchorAbilty = import('/lua/nomadsutils.lua').AddAnchorAbilty
+local AddBombardModeToUnit = import('/lua/nomadsutils.lua').AddBombardModeToUnit
 local SupportedArtilleryWeapon = import('/lua/nomadsutils.lua').SupportedArtilleryWeapon
 local NLandUnit = import('/lua/nomadsunits.lua').NLandUnit
 local ArtilleryWeapon = import('/lua/nomadsweapons.lua').ArtilleryWeapon
 
-NLandUnit = AddAnchorAbilty(NLandUnit)
+NLandUnit = AddBombardModeToUnit(NLandUnit)
 ArtilleryWeapon = SupportedArtilleryWeapon( ArtilleryWeapon )
 
 INU3004 = Class(NLandUnit) {
@@ -13,12 +13,23 @@ INU3004 = Class(NLandUnit) {
         MainGun = Class(ArtilleryWeapon) {},
     },
 
-    EnableSpecialToggle = function(self)
-        self:EnableAnchor(self)
+    SetBombardmentMode = function(self, enable, changedByTransport)
+        NLandUnit.SetBombardmentMode(self, enable, changedByTransport)
+        self:SetScriptBit('RULEUTC_WeaponToggle', enable)
     end,
 
-    DisableSpecialToggle = function(self)
-        self:DisableAnchor(self)
+    OnScriptBitSet = function(self, bit)
+        NLandUnit.OnScriptBitSet(self, bit)
+        if bit == 1 then 
+            self.SetBombardmentMode(self, true, false)
+        end
+    end,
+
+    OnScriptBitClear = function(self, bit)
+        NLandUnit.OnScriptBitClear(self, bit)
+        if bit == 1 then 
+            self.SetBombardmentMode(self, false, false)
+        end
     end,
 }
 

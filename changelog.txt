@@ -127,6 +127,8 @@ T2 tank (Brute)
 -- range 20 (26)
 -- rof 0,5 (0,667) = 2s =>75dps
 
+T2 field enginer
+- build range 12,5 (10)
 
 T3 engiener
 - 640hp 
@@ -141,6 +143,7 @@ T2 EMP tank
 
 T3 mobile artilery
 - muzzle velocity 24 (22)
+- add bomard ability (120dps and very big randomnes)
 
 T3 tank
 - 5000hp (7000)
