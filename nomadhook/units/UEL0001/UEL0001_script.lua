@@ -7,9 +7,7 @@ UEL0001 = Class(oldUEL0001) {
 	if enh =='TacticalMissile' then
 		self:GetBlueprint().SpecialAbilities.LaunchTacMissile.NoAutoEnable = false
 		self:RegisterSpecialAbilities()
-        elseif enh == 'TacticalNukeMissile' then
-		self:RegisterSpecialAbilities()
-	elseif enh == 'TacticalMissileRemove' or enh == 'TacticalNukeMissileRemove' then
+	elseif enh == 'TacticalMissileRemove' then
 		self:GetBlueprint().SpecialAbilities.LaunchTacMissile.NoAutoEnable = true
 		self:UnregisterSpecialAbilities()
         end
