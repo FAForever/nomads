@@ -1,3 +1,5 @@
+--T2 EMP tank
+
 UnitBlueprint {
     AI = {
         BombardModeCheckRadius = 8,
