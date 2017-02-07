@@ -61,6 +61,8 @@ UnitBlueprint {
         AirThreatLevel = 0,
         ArmorType = 'Normal',
         EconomyThreatLevel = 0,
+        Health = 3000,
+        MaxHealth = 3000,
 --        OrbitalStrikeOnCapturer = true,
         RegenRate = 0,
         SubThreatLevel = 0,
@@ -118,6 +120,7 @@ UnitBlueprint {
         },
         PlaceholderMeshName = 'UXL0001',
         SpawnRandomRotation = false,
+        UniformScale = 0.33,
     },
     Economy = {
         BuildCostEnergy = 1800,
