@@ -1,3 +1,5 @@
+--T3 Air Factory support
+
 UnitBlueprint {
     AI = {
         TargetBones = {
