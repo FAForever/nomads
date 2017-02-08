@@ -1,4 +1,4 @@
--- T2 mobile TMD
+-- T2 field enginer
 
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local AddAnchorAbilty = import('/lua/nomadsutils.lua').AddAnchorAbilty
