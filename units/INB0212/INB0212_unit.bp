@@ -1,3 +1,5 @@
+-- T2 Air factory support
+
 UnitBlueprint {
     AI = {
         TargetBones = {
@@ -61,14 +63,14 @@ UnitBlueprint {
         'SHOWQUEUE',
         'SORTCONSTRUCTION',
         'CONSTRUCTIONSORTDOWN',
-	'SUPPORTFACTORY', --
+        'SUPPORTFACTORY', --
     },
     Defense = {
         AirThreatLevel = 0,
         ArmorType = 'Structure',
         EconomyThreatLevel = 16,
-        Health = 4000, --
-        MaxHealth = 4000, --
+        Health = 3100, --
+        MaxHealth = 3100, --
         RegenRate = 0,
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,

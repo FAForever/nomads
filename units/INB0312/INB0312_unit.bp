@@ -68,8 +68,8 @@ UnitBlueprint {
         AirThreatLevel = 0,
         ArmorType = 'Structure',
         EconomyThreatLevel = 34,
-        Health = 9750, --
-        MaxHealth = 9750, --
+        Health = 6200, --
+        MaxHealth = 6200, --
         RegenRate = 0,
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
