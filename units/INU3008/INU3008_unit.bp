@@ -134,12 +134,13 @@ UnitBlueprint {
     Description = '<LOC inu3008_desc>Field Engineer',
     Display = {
         Abilities = {
-            '<LOC ability_anchor>Anchor'
-            '<LOC ability_engineeringsuite>Engineering Suite',
+            '<LOC ability_tacmissiledef>Tactical Missile Defense',
             '<LOC ability_hover>Hover',
+            '<LOC ability_engineeringsuite>Engineering Suite',
             '<LOC ability_radar>Radar',
             '<LOC ability_sonar>Sonar',
-            '<LOC ability_tacmissiledef>Tactical Missile Defense',
+            '<LOC ability_radarboost>Radar Boost',
+            '<LOC ability_anchor>Anchor'
         },
         BuildEffect = {
             ExtendsBottom = 0.1,
@@ -283,17 +284,27 @@ UnitBlueprint {
                 bitmapId = 'toggle-anchor',
                 helpText = 'toggle_anchor',
             },
+            RULEUTC_WeaponToggle = {
+                bitmapId = 'toggle-radar-boost',
+                helpText = 'toggle_radar_boost',
+            },
         },
         SelectionPriority = 2,
         TechLevel = 'RULEUTL_Advanced',
         ToggleCaps = {
             RULEUTC_IntelToggle = true,
+            RULEUTC_SpecialToggle = true,
             RULEUTC_WeaponToggle = true,
         },
         UnitName = '<LOC inu3008_name>Scarab',
         UnitWeight = 1,
     },
     Intel = {
+        OverchargeDamageMulti = 3,
+        OverchargeEnergyCost = 500,
+        OverchargeEnergyDrainPerSecond = 50,
+        OverchargeTime = 15,
+        OverchargeType = 'Radar',
         VisionRadius = 25,
         RadarRadius = 50,
         ShowIntelOnSelect = true,
@@ -343,6 +354,12 @@ UnitBlueprint {
     SizeX = 0.9,
     SizeY = 0.3,
     SizeZ = 0.9,
+    SpecialAbilities = {
+        NomadsIntelOvercharge = {
+            AreaOfEffect = 5,
+            MaxRadius = 50,
+        },
+    },
     StrategicIconName = 'icon_land2_antimissile',
     StrategicIconSortPriority = 200,
     Transport = {
