@@ -1,3 +1,5 @@
+--T3 Land Factory support
+
 UnitBlueprint {
     AI = {
         TargetBones = {
@@ -56,7 +58,7 @@ UnitBlueprint {
         'SHOWQUEUE',
         'SORTCONSTRUCTION',
         'CONSTRUCTIONSORTDOWN',
-	'SUPPORTFACTORY', --
+        'SUPPORTFACTORY', --
     },
     CollisionOffsetZ = 0.2,
     Defense = {
@@ -187,7 +189,7 @@ UnitBlueprint {
         TechLevel = 'RULEUTL_Secret',
         UnitWeight = 1,
         UpgradesFrom = 'inb0211', --
-	UpgradesFromBase = 'inb0101', --
+        UpgradesFromBase = 'inb0101', --
     },
     Intel = {
         VisionRadius = 20,

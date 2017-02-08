@@ -1,3 +1,5 @@
+--T2 naval factory support
+
 UnitBlueprint {
     AI = {
         TargetBones = {
@@ -58,7 +60,7 @@ UnitBlueprint {
         'SHOWQUEUE',
         'SORTCONSTRUCTION',
         'CONSTRUCTIONSORTDOWN',
-	'SUPPORTFACTORY', --
+        'SUPPORTFACTORY', --
     },
     CollisionOffsetY = -1,
     CollisionOffsetZ = 0,
