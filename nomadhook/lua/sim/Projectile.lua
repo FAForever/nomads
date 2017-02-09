@@ -5,9 +5,6 @@ local oldProjectile = Projectile
 
 Projectile = Class(oldProjectile) {
 
-    -- TODO: remove this var after FAF integration.
-    CanDoInitialDamage = true,  -- used to prevent doing initialdamage twice in FAF games. This is set to false in FAF balance path.
-
     OnCreate = function(self, inWater)
         -- if not self:GetLauncher().ColourIndex then 
             -- WARN('projectile could not get colour index from launcher! something is wrong!')
@@ -58,6 +55,10 @@ Projectile = Class(oldProjectile) {
         oldProjectile.OnImpact(self, targetType, targetEntity)
         if targetType == 'Shield' then
             self:DoShieldDamage( targetEntity )
+        elseif targetType == 'Unit' and targetEntity.MyShield ~= nil then
+            if targetEntity:ShieldIsOn() then
+                self:DoShieldDamage( targetEntity )
+            end
         end
     end,
 

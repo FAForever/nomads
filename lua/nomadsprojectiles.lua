@@ -563,7 +563,7 @@ EmpShell = Class(SinglePolyTrailProjectile) {
             elseif targetType == 'Projectile' then
                 ImpactEffectScale = self.FxProjectileHitScale
             elseif targetType == 'ProjectileUnderwater' then
-                ImpactEffectScale = self.FxProjectileUnderWaterHitScale			
+                ImpactEffectScale = self.FxProjectileUnderWaterHitScale
             elseif targetType == 'Prop' then
                 ImpactEffectScale = self.FxPropHitScale
             elseif targetType == 'Shield' then

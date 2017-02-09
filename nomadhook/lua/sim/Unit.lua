@@ -435,7 +435,7 @@ Unit = Class(oldUnit) {
     ShieldIsPersonalShield = function(self)
         -- returns true if the shield on the unit is a personal shield, no otherwise (also when no shield used)
         if self.MyShield then
-            return self.MyShield.IsPersonalShield or false
+            return self.MyShield.ShieldType == 'Personal' or false
         end
         return false
     end,
