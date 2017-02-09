@@ -1,7 +1,7 @@
 UnitBlueprint {
     AI = {
         TargetBones = {
-            'INB0203',
+            'INB0213',
         },
     },
     Audio = {
@@ -77,7 +77,7 @@ UnitBlueprint {
         Abilities = {
             '<LOC ability_upgradable>Upgradeable',
         },
-        AnimationUpgrade = '/units/INB0203/INB0203_AUpgrade.sca',
+        AnimationUpgrade = '/units/INB0213/INB0213_AUpgrade.sca',
         BuildAttachBone = 'Attachpoint',
         BuildEffect = {
             Emitter = 'Stretched',
@@ -92,7 +92,7 @@ UnitBlueprint {
                 Effects = {
                     {
                         Bones = {
-                            'INB0203',
+                            'INB0213',
                         },
                         Scale = 3,
                         Type = 'SeaIdle01',
@@ -104,12 +104,12 @@ UnitBlueprint {
             IconFadeInZoom = 130,
             LODs = {
                 {
-                    AlbedoName = '/units/INB0203/INB0203_Albedo.dds', --
+                    AlbedoName = '/units/INB0213/INB0213_Albedo.dds', --
                     LODCutoff = 500,
-                    MeshName = '/units/INB0203/INB0203_Lod0.scm', --
-                    NormalsName = '/units/INB0203/INB0203_NormalsTS.dds', --
+                    MeshName = '/units/INB0213/INB0213_Lod0.scm', --
+                    NormalsName = '/units/INB0213/INB0213_NormalsTS.dds', --
                     ShaderName = 'NomadUnit',
-                    SpecularName = '/units/INB0203/INB0203_SpecTeam.dds', --
+                    SpecularName = '/units/INB0213/INB0213_SpecTeam.dds', --
                 },
             },
         },
