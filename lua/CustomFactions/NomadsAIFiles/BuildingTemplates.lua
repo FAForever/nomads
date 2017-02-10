@@ -94,7 +94,7 @@ BuildingTemplates = {
         -- Storage Structures
         {
             'MassStorage',
-            'inb1108',
+            'inb1106',
         },
         {
             'EnergyStorage',
