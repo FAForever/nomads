@@ -431,9 +431,9 @@ inb1105_help = "Stores Energy. Construct next to power generators for adjacency 
 inb1105_name = "Energy Storage"
 
 -- mass storage
-inb1106_desc = "Mass Storage"
-inb1106_help = "Stores Mass. Construct next to extractors or fabricators for adjacency bonus."
-inb1106_name = "Mass Storage"
+inb1108_desc = "Mass Storage"
+inb1108_help = "Stores Mass. Construct next to extractors or fabricators for adjacency bonus."
+inb1108_name = "Mass Storage"
 
 -- hydrocarbon power plant
 inb1107_desc = "Hydrocarbon Power Plant"
