@@ -127,6 +127,8 @@ T2 tank (Brute)
 -- range 20 (26)
 -- rof 0,5 (0,667) = 2s =>75dps
 
+T2 field enginer
+- build range 12,5 (10)
 
 T3 engiener
 - 640hp 
@@ -136,11 +138,14 @@ T3 hover tank
 - veterancy 10 (9)
 
 T2 EMP tank
-- 2750hp (2000)
+- 30000hp (2000)
 - 360m 1800e 1600bt (297m 1500e 1320bt)
+- unifor scale 0,33 (0,3)
+-- bombard rotation speed 10 (18)
 
 T3 mobile artilery
 - muzzle velocity 24 (22)
+- add bomard ability (120dps and very big randomnes)
 
 T3 tank
 - 5000hp (7000)

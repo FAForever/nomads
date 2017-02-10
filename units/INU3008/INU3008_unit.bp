@@ -134,13 +134,13 @@ UnitBlueprint {
     Description = '<LOC inu3008_desc>Field Engineer',
     Display = {
         Abilities = {
-            '<LOC ability_tacmissiledef>Tactical Missile Defense',
-            '<LOC ability_hover>Hover',
-            '<LOC ability_engineeringsuite>Engineering Suite',
-            '<LOC ability_radar>Radar',
-            '<LOC ability_sonar>Sonar',
-            '<LOC ability_radarboost>Radar Boost',
             '<LOC ability_anchor>Anchor'
+            '<LOC ability_engineeringsuite>Engineering Suite',
+            '<LOC ability_hover>Hover',
+            '<LOC ability_radar>Radar',
+            '<LOC ability_radarboost>Radar Boost',
+            '<LOC ability_sonar>Sonar',
+            '<LOC ability_tacmissiledef>Tactical Missile Defense',
         },
         BuildEffect = {
             ExtendsBottom = 0.1,
@@ -239,7 +239,7 @@ UnitBlueprint {
             'BUILTBYTIER2ENGINEER DEFENSE NOMADS',
             'BUILTBYTIER2ENGINEER INDIRECTFIRE NOMADS',
         },
-        MaintenanceConsumptionPerSecondEnergy = 0,
+        MaintenanceConsumptionPerSecondEnergy = 10,
         MaxBuildDistance = 12.5,    --from 10
         NeedToFaceTargetToBuild = false,
         TeleportEnergyMod = 0.15,

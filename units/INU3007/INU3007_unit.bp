@@ -1,3 +1,5 @@
+-- T3 mobile AA
+
 UnitBlueprint {
     Abilities = {
         Anchor = {
@@ -58,8 +60,8 @@ UnitBlueprint {
         AirThreatLevel = 15,
         ArmorType = 'Normal',
         EconomyThreatLevel = 0,
-        Health = 2200,
-        MaxHealth = 2200,
+        Health = 1800,
+        MaxHealth = 1800,
         RegenRate = 0,
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
@@ -133,7 +135,7 @@ UnitBlueprint {
         UniformScale = 0.05,
     },
     Economy = {
-        BuildCostEnergy = 6400,
+        BuildCostEnergy = 8000,
         BuildCostMass = 640,
         BuildTime = 3200,
         TeleportEnergyMod = 0.15,
@@ -192,9 +194,9 @@ UnitBlueprint {
             LAYER_Water = false,
         },
         DragCoefficient = 0.2,
-        MaxAcceleration = 3,
-        MaxBrake = 3,
-        MaxSpeed = 3,
+        MaxAcceleration = 3.2,
+        MaxBrake = 3.2,
+        MaxSpeed = 3.2,
         MaxSpeedReverse = 0,
         MaxSteerForce = 5,
         MeshExtentsX = 0.9,
@@ -239,7 +241,7 @@ UnitBlueprint {
             CannotAttackGround = true,
             CollideFriendly = false,
             Damage = 200,
-            DamageRadius = 0,
+            DamageRadius = 1.5,
             DamageType = 'Normal',
             DisplayName = 'Missile (AA)',
             EffectiveRadius = 0,
@@ -272,7 +274,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
             RangeCategory = 'UWRC_AntiAir',
-            RateOfFire = 1.25,
+            RateOfFire = 1,
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
