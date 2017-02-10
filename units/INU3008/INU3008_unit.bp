@@ -134,7 +134,7 @@ UnitBlueprint {
     Description = '<LOC inu3008_desc>Field Engineer',
     Display = {
         Abilities = {
-            '<LOC ability_anchor>Anchor'
+            '<LOC ability_anchor>Anchor',
             '<LOC ability_engineeringsuite>Engineering Suite',
             '<LOC ability_hover>Hover',
             '<LOC ability_radar>Radar',
