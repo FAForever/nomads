@@ -1,64 +1,64 @@
 EmitterBlueprint {
-	BlueprintId = 'nomads_apcannon_hit_05',
-	Lifetime = 1.00,
-	Repeattime = 1.00,
+	BlueprintId = 'DarkMatterWeapon_hit_01',
+	Lifetime = 1.5,
+	Repeattime = 1.5,
 	TextureFramecount = 1.00,
 	Blendmode = 3.00,
 	LocalVelocity = true,
 	LocalAcceleration = true,
-	Gravity = false,
-	AlignRotation = false,
+	Gravity = true,
+	AlignRotation = true,
 	AlignToBone = false,
-	Flat = true,
-	LODCutoff = 300.00,
+	Flat = false,
+	LODCutoff = 150.00,
 	EmitIfVisible = true,
 	CatchupEmit = true,
-	CreateIfVisible = false,
+	CreateIfVisible = true,
 	SnapToWaterline = true,
 	OnlyEmitOnWater = false,
 	ParticleResistance = false,
 	InterpolateEmission = true,
 	TextureStripcount = 1.00,
 	SortOrder = 0.00,
-	LowFidelity = false,
+	LowFidelity = true,
 	MedFidelity = true,
 	HighFidelity = true,
-	Texture = [[/textures/particles/ring_13_air.dds]],
+	Texture = [[/textures/particles/blackbolt_munition_spark_01.dds]],
 	RampTexture = [[/textures/particles/ramp_transparency_fade_to_red_inverted_bright.dds]],
 	XDirectionCurve = {
 		XRange = 3.00,
 		Keys = {
-			{ x=1.500,y=0.000,z=0.000 },
+			{ x=0.803,y=0.000,z=0.500 },
 		},
 	},
 	YDirectionCurve = {
 		XRange = 3.00,
 		Keys = {
-			{ x=1.500,y=0.000,z=0.000 },
+			{ x=1.582,y=0.000,z=0.500 },
 		},
 	},
 	ZDirectionCurve = {
 		XRange = 3.00,
 		Keys = {
-			{ x=1.650,y=0.000,z=0.000 },
+			{ x=0.776,y=0.000,z=0.500 },
 		},
 	},
 	EmitRateCurve = {
 		XRange = 3.00,
 		Keys = {
-			{ x=0.000,y=3.000,z=0.000 },
+			{ x=3.00,y=30.000/2,z=0.000 },
 		},
 	},
 	LifetimeCurve = {
 		XRange = 3.00,
 		Keys = {
-			{ x=0.226,y=3.150,z=2.250 },
+			{ x=1.639,y=1.000,z=0.500 },
 		},
 	},
 	VelocityCurve = {
 		XRange = 3.00,
 		Keys = {
-			{ x=1.500,y=0.000,z=0.000 },
+			{ x=1.500,y=2.450,z=0.500 },
 		},
 	},
 	XAccelCurve = {
@@ -88,43 +88,43 @@ EmitterBlueprint {
 	SizeCurve = {
 		XRange = 3.00,
 		Keys = {
-			{ x=1.500,y=0.000,z=0.000 },
+			{ x=1.646,y=0.300,z=0.000 },
 		},
 	},
 	XPosCurve = {
 		XRange = 3.00,
 		Keys = {
-			{ x=1.530,y=0.000,z=0.000 },
+			{ x=1.500,y=0.000,z=0.000 },
 		},
 	},
 	YPosCurve = {
 		XRange = 3.00,
 		Keys = {
-			{ x=1.500,y=0.300,z=0.300 },
+			{ x=1.500,y=0.000,z=0.000 },
 		},
 	},
 	ZPosCurve = {
 		XRange = 3.00,
 		Keys = {
-			{ x=1.530,y=0.000,z=0.000 },
+			{ x=1.500,y=0.000,z=0.000 },
 		},
 	},
 	StartSizeCurve = {
 		XRange = 3.00,
 		Keys = {
-			{ x=0.716,y=0.100,z=0.250 },
+			{ x=1.500,y=0.380,z=0.030 },
 		},
 	},
 	EndSizeCurve = {
 		XRange = 3.00,
 		Keys = {
-			{ x=1.470,y=1.350,z=0.500 },
+			{ x=1.500,y=0.100,z=0.000 },
 		},
 	},
 	InitialRotationCurve = {
 		XRange = 3.00,
 		Keys = {
-			{ x=1.590,y=180.000,z=360.000 },
+			{ x=1.500,y=180.000,z=360.000 },
 		},
 	},
 	RotationRateCurve = {
@@ -136,19 +136,19 @@ EmitterBlueprint {
 	FrameRateCurve = {
 		XRange = 3.00,
 		Keys = {
-			{ x=1.500,y=0.000,z=0.000 },
+			{ x=1.500,y=1.000,z=0.000 },
 		},
 	},
 	TextureSelectionCurve = {
 		XRange = 3.00,
 		Keys = {
-			{ x=1.470,y=0.000,z=0.000 },
+			{ x=1.500,y=0.000,z=0.000 },
 		},
 	},
 	RampSelectionCurve = {
 		XRange = 3.00,
 		Keys = {
-			{ x=0.894,y=1.000,z=0.000 },
+			{ x=1.500,y=0.000,z=0.000 },
 		},
 	},
 }

@@ -175,6 +175,7 @@ DarkMatterWeaponMuzzleFlash = {
 }
 
 DarkMatterWeaponTrail = {}
+
 DarkMatterWeaponPolyTrails = {
     EmtBpPathNomads .. 'nomads_DarkMatterWeapon_polytrail_01_emit.bp',
     EmtBpPathNomads .. 'nomads_DarkMatterWeapon_polytrail_02_emit.bp',
@@ -223,6 +224,42 @@ DarkMatterWeaponHitProjectile2 = DarkMatterWeaponHitUnit2
 DarkMatterWeaponHitProp2 = DarkMatterWeaponHitUnit2
 DarkMatterWeaponHitWater2 = DarkMatterWeaponHitLand2
 DarkMatterWeaponHitUnderWater2 = DarkMatterWeaponHitNone2
+
+-- T1 inty weapon
+
+DarkMatterAirWeaponMuzzleFlash = {
+	EmtBpPath .. 'nomads_DarkMatterWeapon_muzzle_flash_01_emit_air.bp',
+	EmtBpPath .. 'nomads_DarkMatterWeapon_muzzle_flash_02_emit_air.bp',
+	EmtBpPath .. 'nomads_DarkMatterWeapon_muzzle_flash_03_emit_air.bp',
+}
+
+DarkMatterAirWeaponTrail = {}
+
+DarkMatterAirWeaponPolyTrails = {
+    EmtBpPathNomads .. 'nomads_DarkMatterWeapon_polytrail_01_emit_air.bp',
+    EmtBpPathNomads .. 'nomads_DarkMatterWeapon_polytrail_02_emit_air.bp',
+    EmtBpPathNomads .. 'nomads_DarkMatterWeapon_polytrail_03_emit_air.bp',
+}
+
+DarkMatterAirWeaponHitNone1 = {
+    EmtBpPathNomads .. 'nomads_DarkMatterWeapon_hit_01_emit_air.bp', -- idk
+    EmtBpPathNomads .. 'nomads_DarkMatterWeapon_hit_02_emit_air.bp', -- explosions
+	EmtBpPathNomads .. 'nomads_DarkMatterWeapon_hit_03_emit_air.bp', -- idk
+}
+
+DarkMatterAirWeaponHitLand1 = TableCat( DarkMatterAirWeaponHitNone1, {
+})
+
+DarkMatterAirWeaponHitUnit1 = TableCat( DarkMatterAirWeaponHitNone1, {
+    EmtBpPath .. 'destruction_unit_hit_shrapnel_01_emit.bp',
+})
+
+DarkMatterAirWeaponHitAirUnit1 = DarkMatterAirWeaponHitNone1
+DarkMatterAirWeaponHitShield1 = DarkMatterAirWeaponHitNone1
+DarkMatterAirWeaponHitProjectile1 = DarkMatterAirWeaponHitUnit1
+DarkMatterAirWeaponHitProp1 = DarkMatterAirWeaponHitUnit1
+DarkMatterAirWeaponHitWater1 = DarkMatterAirWeaponHitLand1
+DarkMatterAirWeaponHitUnderWater1 = DarkMatterAirWeaponHitNone1
 
 --------------------------------------------------------------------------
 --  Nomads Ion blast
@@ -964,7 +1001,7 @@ RocketHitProjectile1 = RocketHitNone1
 RocketHitProp1 = RocketHitUnit1
 RocketHitUnderWater1 = RocketHitUnit1
 
--- longer lasting effect and shaky trail
+-- longer lasting effect and shaky trail------------------------------------------------
 RocketHitNone2 = {
     EmtBpPathNomads .. 'nomads_rocket_hit_01_emit.bp',  -- flash
     EmtBpPathNomads .. 'nomads_rocket_hit_12_emit.bp',  -- white->red electricity
@@ -1013,33 +1050,43 @@ RocketMuzzleFx2 = {
     EmtBpPath .. 'terran_sam_launch_smoke2_emit.bp', -- smoke out back
 }
 
--- Slightly different visuals
+-- Slightly different visuals------------------------------------------------ used by t1 bomber
 
 RocketBeam3 = EmtBpPathNomads .. 'nomads_rocket_beam03_emit.bp'
+
+BomberRocketMuzzleFx = {
+    EmtBpPathNomads .. 'nomads_rocket_launch01_emit.bp',  -- smoke that launches forward
+	EmtBpPathNomads .. 'nomads_rocket_launch02_emit.bp',  -- smoke that lingers
+	EmtBpPathNomads .. 'nomads_rocket_launch03_emit.bp',  -- smoke that launches backward
+	EmtBpPathNomads .. 'nomads_small_lense_flare_single_emit.bp',
+}
+
 RocketTrail3 = {
+	EmtBpPathNomads .. 'nomads_small_lense_flare_emit_02.bp',
     EmtBpPathNomads .. 'nomads_rocket_trail03_emit.bp',
 }
 RocketPolyTrail3 = EmtBpPath .. 'nomads_rocket_polytrail_03_emit.bp'
 
 RocketHitNone3 = {
-    EmtBpPathNomads .. 'nomads_rocket_hit_08_emit.bp',  -- flash
-    EmtBpPathNomads .. 'nomads_rocket_hit_09_emit.bp',  -- star effect on ground
+    EmtBpPathNomads .. 'nomads_rocket_hit_08_emit.bp',  
+    EmtBpPathNomads .. 'nomads_rocket_hit_09_emit.bp',  
+	EmtBpPathNomads .. 'smoke_white_small_02.bp',  
 }
 
 RocketHitLand3 = TableCat( RocketHitNone3, {
-    EmtBpPathNomads .. 'nomads_rocket_hit_05_emit.bp',  -- dark smoke
-    EmtBpPathNomads .. 'nomads_rocket_hit_04_emit.bp',  -- shockwave ring
-    EmtBpPath .. 'destruction_explosion_debris_06_emit.bp',
+    --EmtBpPathNomads .. 'nomads_rocket_hit_05_emit.bp',  -- dark smoke
+    --EmtBpPathNomads .. 'nomads_rocket_hit_04_emit.bp',  -- shockwave ring
+    --EmtBpPath .. 'destruction_explosion_debris_06_emit.bp',
 })
 
 RocketHitWater3 = TableCat( RocketHitNone3, {
-    EmtBpPathNomads .. 'nomads_rocket_hit_05_emit.bp',  -- dark smoke
-    EmtBpPathNomads .. 'nomads_rocket_hit_04_emit.bp',  -- shockwave ring
+    --EmtBpPathNomads .. 'nomads_rocket_hit_05_emit.bp',  -- dark smoke
+    --EmtBpPathNomads .. 'nomads_rocket_hit_04_emit.bp',  -- shockwave ring
     EmtBpPath .. 'water_splash_ripples_ring_01_emit.bp',
 })
 
 RocketHitUnit3 = TableCat( RocketHitNone3, {
-    EmtBpPathNomads .. 'nomads_rocket_hit_05_emit.bp',  -- dark smoke
+    --EmtBpPathNomads .. 'nomads_rocket_hit_05_emit.bp',  -- dark smoke
     EmtBpPath .. 'destruction_unit_hit_shrapnel_01_emit.bp',
 })
 
@@ -1052,7 +1099,7 @@ RocketHitProjectile3 = RocketHitNone3
 RocketHitProp3 = RocketHitUnit3
 RocketHitUnderWater3 = RocketHitUnit3
 
--- again, different visuals, this time for a DoT effect
+-- again, different visuals, this time for a DoT effect ------------------------------------------------
 
 RocketBeam4 = EmtBpPathNomads .. 'nomads_rocket_beam04_emit.bp'
 RocketTrail4 = {

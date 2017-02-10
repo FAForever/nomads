@@ -384,35 +384,89 @@ SplittingArtilleryShell = Class(SinglePolyTrailProjectile) {
 }
 
 DarkMatterProj = Class(MultiPolyTrailProjectile) {
-    FxImpactAirUnit = NomadsEffectTemplate.DarkMatterWeaponHitAirUnit1,
-    FxImpactLand = NomadsEffectTemplate.DarkMatterWeaponHitLand1,
-    FxImpactNone = NomadsEffectTemplate.DarkMatterWeaponHitNone1,
-    FxImpactProp = NomadsEffectTemplate.DarkMatterWeaponHitProp1,
-    FxImpactShield = NomadsEffectTemplate.DarkMatterWeaponHitShield1,
-    FxImpactUnit = NomadsEffectTemplate.DarkMatterWeaponHitUnit1,
-    FxImpactWater = NomadsEffectTemplate.DarkMatterWeaponHitWater1,
-    FxImpactProjectile = NomadsEffectTemplate.DarkMatterWeaponHitProjectile1,
-    FxImpactUnderWater = NomadsEffectTemplate.DarkMatterWeaponHitUnderWater1,
+	--As a test to unify all the ugly DarkMatter weapons, this is commented out. If necessary, will make separate versions if the unified look does not fit particular weapons
+	
+    --FxImpactAirUnit = NomadsEffectTemplate.DarkMatterWeaponHitAirUnit1,
+    --FxImpactLand = NomadsEffectTemplate.DarkMatterWeaponHitLand1,
+    --FxImpactNone = NomadsEffectTemplate.DarkMatterWeaponHitNone1,
+    --FxImpactProp = NomadsEffectTemplate.DarkMatterWeaponHitProp1,
+    --FxImpactShield = NomadsEffectTemplate.DarkMatterWeaponHitShield1,
+    --FxImpactUnit = NomadsEffectTemplate.DarkMatterWeaponHitUnit1,
+    --FxImpactWater = NomadsEffectTemplate.DarkMatterWeaponHitWater1,
+    --FxImpactProjectile = NomadsEffectTemplate.DarkMatterWeaponHitProjectile1,
+    --FxImpactUnderWater = NomadsEffectTemplate.DarkMatterWeaponHitUnderWater1,
 
-    FxTrails = NomadsEffectTemplate.DarkMatterWeaponTrail,
+    --FxTrails = NomadsEffectTemplate.DarkMatterWeaponTrail,
 
-    PolyTrails = NomadsEffectTemplate.DarkMatterWeaponPolyTrails,
+    --PolyTrails = NomadsEffectTemplate.DarkMatterWeaponPolyTrails,
+    --PolyTrailOffset = {0,0,0,0,},
+    --RandomPolyTrails = 1,
+	
+	FxImpactAirUnit = NomadsEffectTemplate.DarkMatterAirWeaponHitAirUnit1,
+    FxImpactLand = NomadsEffectTemplate.DarkMatterAirWeaponHitLand1,
+    FxImpactNone = NomadsEffectTemplate.DarkMatterAirWeaponHitNone1,
+    FxImpactProp = NomadsEffectTemplate.DarkMatterAirWeaponHitProp1,
+    FxImpactShield = NomadsEffectTemplate.DarkMatterAirWeaponHitShield1,
+    FxImpactUnit = NomadsEffectTemplate.DarkMatterAirWeaponHitUnit1,
+    FxImpactWater = NomadsEffectTemplate.DarkMatterAirWeaponHitWater1,
+    FxImpactProjectile = NomadsEffectTemplate.DarkMatterAirWeaponHitProjectile1,
+    FxImpactUnderWater = NomadsEffectTemplate.DarkMatterAirWeaponHitUnderWater1,
+
+    FxTrails = NomadsEffectTemplate.DarkMatterAirWeaponTrail,
+
+    PolyTrails = NomadsEffectTemplate.DarkMatterAirWeaponPolyTrails,
     PolyTrailOffset = {0,0,0,0,},
     RandomPolyTrails = 1,
 }
 
-DarkMatterProj2 = Class(SingleBeamProjectile) {
-    BeamName = NomadsEffectTemplate.DarkMatterWeaponBeam2,
+DarkMatterProj2 = Class(MultiPolyTrailProjectile) {
+	--As a test to unify all the ugly DarkMatter weapons, this is commented out. If necessary, will make separate versions if the unified look does not fit particular weapons
+	
+    --BeamName = NomadsEffectTemplate.DarkMatterWeaponBeam2,
 
-    FxImpactAirUnit = NomadsEffectTemplate.DarkMatterWeaponHitAirUnit2,
-    FxImpactLand = NomadsEffectTemplate.DarkMatterWeaponHitLand2,
-    FxImpactNone = NomadsEffectTemplate.DarkMatterWeaponHitNone2,
-    FxImpactProp = NomadsEffectTemplate.DarkMatterWeaponHitProp2,
-    FxImpactShield = NomadsEffectTemplate.DarkMatterWeaponHitShield2,
-    FxImpactUnit = NomadsEffectTemplate.DarkMatterWeaponHitUnit2,
-    FxImpactWater = NomadsEffectTemplate.DarkMatterWeaponHitWater2,
-    FxImpactProjectile = NomadsEffectTemplate.DarkMatterWeaponHitProjectile2,
-    FxImpactUnderWater = NomadsEffectTemplate.DarkMatterWeaponHitUnderWater2,
+    --FxImpactAirUnit = NomadsEffectTemplate.DarkMatterWeaponHitAirUnit2,
+    --FxImpactLand = NomadsEffectTemplate.DarkMatterWeaponHitLand2,
+    --FxImpactNone = NomadsEffectTemplate.DarkMatterWeaponHitNone2,
+    --FxImpactProp = NomadsEffectTemplate.DarkMatterWeaponHitProp2,
+    --FxImpactShield = NomadsEffectTemplate.DarkMatterWeaponHitShield2,
+    --FxImpactUnit = NomadsEffectTemplate.DarkMatterWeaponHitUnit2,
+    --FxImpactWater = NomadsEffectTemplate.DarkMatterWeaponHitWater2,
+    --FxImpactProjectile = NomadsEffectTemplate.DarkMatterWeaponHitProjectile2,
+    --FxImpactUnderWater = NomadsEffectTemplate.DarkMatterWeaponHitUnderWater2,
+	
+	FxImpactAirUnit = NomadsEffectTemplate.DarkMatterAirWeaponHitAirUnit1,
+    FxImpactLand = NomadsEffectTemplate.DarkMatterAirWeaponHitLand1,
+    FxImpactNone = NomadsEffectTemplate.DarkMatterAirWeaponHitNone1,
+    FxImpactProp = NomadsEffectTemplate.DarkMatterAirWeaponHitProp1,
+    FxImpactShield = NomadsEffectTemplate.DarkMatterAirWeaponHitShield1,
+    FxImpactUnit = NomadsEffectTemplate.DarkMatterAirWeaponHitUnit1,
+    FxImpactWater = NomadsEffectTemplate.DarkMatterAirWeaponHitWater1,
+    FxImpactProjectile = NomadsEffectTemplate.DarkMatterAirWeaponHitProjectile1,
+    FxImpactUnderWater = NomadsEffectTemplate.DarkMatterAirWeaponHitUnderWater1,
+
+    FxTrails = NomadsEffectTemplate.DarkMatterAirWeaponTrail,
+
+    PolyTrails = NomadsEffectTemplate.DarkMatterAirWeaponPolyTrails,
+    PolyTrailOffset = {0,0,0,0,},
+    RandomPolyTrails = 1,
+}
+
+DarkMatterProjAir = Class(MultiPolyTrailProjectile) {
+    FxImpactAirUnit = NomadsEffectTemplate.DarkMatterAirWeaponHitAirUnit1,
+    FxImpactLand = NomadsEffectTemplate.DarkMatterAirWeaponHitLand1,
+    FxImpactNone = NomadsEffectTemplate.DarkMatterAirWeaponHitNone1,
+    FxImpactProp = NomadsEffectTemplate.DarkMatterAirWeaponHitProp1,
+    FxImpactShield = NomadsEffectTemplate.DarkMatterAirWeaponHitShield1,
+    FxImpactUnit = NomadsEffectTemplate.DarkMatterAirWeaponHitUnit1,
+    FxImpactWater = NomadsEffectTemplate.DarkMatterAirWeaponHitWater1,
+    FxImpactProjectile = NomadsEffectTemplate.DarkMatterAirWeaponHitProjectile1,
+    FxImpactUnderWater = NomadsEffectTemplate.DarkMatterAirWeaponHitUnderWater1,
+
+    FxTrails = NomadsEffectTemplate.DarkMatterAirWeaponTrail,
+
+    PolyTrails = NomadsEffectTemplate.DarkMatterAirWeaponPolyTrails,
+    PolyTrailOffset = {0,0,0,0,},
+    RandomPolyTrails = 1,
 }
 
 IonBlast = Class(SinglePolyTrailProjectile) {
@@ -1373,7 +1427,14 @@ Rocket3 = Class(SingleCompositeEmitterProjectile) {
     FxImpactWater = NomadsEffectTemplate.RocketHitWater3,
     FxImpactProjectile = NomadsEffectTemplate.RocketHitProjectile3,
     FxImpactUnderWater = NomadsEffectTemplate.RocketHitUnderWater3,
-
+	
+	OnImpact = function(self, targetType, targetEntity)
+        -- create flash
+        local army = self:GetArmy()
+			NomadsExplosions.CreateFlashCustom( self, -2, army, 1, 5, 'glow_06_red', 'ramp_transparency_flash_dark_2' )
+        SinglePolyTrailProjectile.OnImpact( self, targetType, targetEntity )
+    end,
+	
     FxTrails = NomadsEffectTemplate.RocketTrail3,
     PolyTrail = NomadsEffectTemplate.RocketPolyTrail3,
 }
