@@ -299,14 +299,14 @@ INA2001 = Class(NAirTransportUnit) {
                 local bp = self:GetBlueprint()
                 local scale = bp.Display.UniformScale or 1
                 self:SetCollisionShape( 'Box', bp.CollisionOffsetX or 0, (bp.CollisionOffsetY + (bp.SizeY*1.0)) or 0, bp.CollisionOffsetZ or 0, bp.SizeX * scale, bp.SizeY * scale, bp.SizeZ * scale )
-                self.UnfoldAnim:SetRate(1)
+                self.UnfoldAnim:SetRate(0.5)
 
             elseif (FoldState == 'unfolded' or FoldState == 'unfolding') and ShouldFold then
                 --LOG('*DEBUG: folding')
                 local bp = self:GetBlueprint()
                 local scale = bp.Display.UniformScale or 1
                 self:SetCollisionShape( 'Box', bp.CollisionOffsetX or 0, (bp.CollisionOffsetY + (bp.SizeYContracted*1.0)) or 0, bp.CollisionOffsetZ or 0, bp.SizeXContracted * scale, bp.SizeYContracted * scale, bp.SizeZContracted * scale )
-                self.UnfoldAnim:SetRate(-1)
+                self.UnfoldAnim:SetRate(-0.5)
             end
 
         end
