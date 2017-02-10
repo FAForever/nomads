@@ -6,7 +6,7 @@ UnitBlueprint {
             'Target01',
             'Target02',
             'Target03',
-            'INB0302',
+            'INB0312',
         },
     },
     Audio = {
@@ -87,12 +87,12 @@ UnitBlueprint {
             IconFadeInZoom = 130,
             LODs = {
                 {
-                    AlbedoName = '/units/INB0302/INB0302_Albedo.dds',
+                    AlbedoName = '/units/INB0312/INB0312_Albedo.dds',
                     LODCutoff = 500,
-                    MeshName = '/units/INB0302/INB0302_Lod0.scm',
-                    NormalsName = '/units/INB0302/INB0302_NormalsTS.dds',
+                    MeshName = '/units/INB0312/INB0312_Lod0.scm',
+                    NormalsName = '/units/INB0312/INB0312_NormalsTS.dds',
                     ShaderName = 'NomadUnit',
-                    SpecularName = '/units/INB0302/INB0302_SpecTeam.dds',
+                    SpecularName = '/units/INB0312/INB0312_SpecTeam.dds',
                 },
             },
         },
