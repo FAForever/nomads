@@ -23,7 +23,7 @@ INA2001 = Class(NAirTransportUnit) {
         self.ThrusterEffectsBag = TrashBag()
         self.ThrusterBurnEffectsBag = TrashBag()
 
-        self.UnfoldAnim = CreateAnimator(self):PlayAnim('/units/INA2001/INA2001_Unfold02.sca'):SetRate(0)
+        self.UnfoldAnim = CreateAnimator(self):PlayAnim('/units/INA2001/INA2001_Unfold.sca'):SetRate(0)
         self.UnfoldAnim:SetAnimationFraction(0)
         self.Trash:Add(self.UnfoldAnim)
 
