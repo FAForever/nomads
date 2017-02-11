@@ -134,7 +134,7 @@ UnitBlueprint {
     Description = '<LOC inu3008_desc>Field Engineer',
     Display = {
         Abilities = {
-            '<LOC ability_anchor>Anchor'
+            '<LOC ability_anchor>Anchor',
             '<LOC ability_engineeringsuite>Engineering Suite',
             '<LOC ability_hover>Hover',
             '<LOC ability_radar>Radar',
@@ -375,32 +375,33 @@ UnitBlueprint {
     },
     Weapon = {
         {
-            AboveWaterTargetsOnly = true,
             AimsStraightOnDisable = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'URSWeapon',
-                    Cue = 'URS0202_Nano_Dart',
+                FireSpecial = Sound {
+                    Bank = 'NomadsWeapons',
+                    Cue = 'DarkMatterCannon2_Muzzle',
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
             BallisticArc = 'RULEUBA_None',
+            BeamCollisionDelay = 0.1,
+            BeamLifetime = 0.1,
             CollideFriendly = false,
-            Damage = 1,
+            Damage = 0.21,
             DamageType = 'Normal',
-            DisplayName = 'Missile interceptor',
+            DisplayName = 'Super sonic flak Launcher',
             FireTargetLayerCapsTable = {
                 Land = 'Air',
                 Water = 'Air',
             },
             FiringTolerance = 0,
+            FiringRandomness = 0,
             Label = 'MainGun',
+            MaximumBeamLength = 40,
             MaxRadius = 25,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 60,
-            ProjectileId = '/projectiles/NAntiMissileProj1/NAntiMissileProj1_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 2,
+            NeedPrep = true,
             ProjectilesPerOnFire = 1,
             RackBones = {
                 {
@@ -429,8 +430,8 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RangeCategory = 'UWRC_Countermeasure',
-            RateOfFire = 0.3,
-            TargetCheckInterval = 0.5,
+            RateOfFire = 10,
+            TargetCheckInterval = 0.1,
             TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'TACTICAL MISSILE',
             TargetType = 'RULEWTT_Projectile',
@@ -440,15 +441,19 @@ UnitBlueprint {
             TurretBoneYaw = 'TMD_Yaw',
             TurretDualManipulators = false,
             TurretPitch = 35,
-            TurretPitchRange = 80,
+            TurretPitchRange = 90,
             TurretPitchSpeed = 180,
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 180,
+            TurretYawSpeed = 720,
             Turreted = true,
             WeaponCategory = 'Defense',
+            WeaponRepackTimeout = 1,
+            WeaponUnpacks = false,
         },
     },
+
+
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

@@ -6,7 +6,7 @@ UnitBlueprint {
             'Target01',
             'Target02',
             'Target03',
-            'INB0202',
+            'INB0212',
         },
     },
     Audio = {
@@ -80,19 +80,19 @@ UnitBlueprint {
         Abilities = {
             '<LOC ability_upgradable>Upgradeable',
         },
-        AnimationFinishBuildLand = '/units/inb0202/inb0202_alift.sca',
-        AnimationUpgrade = '/units/inb0202/inb0202_aupgrade.sca',
+        AnimationFinishBuildLand = '/units/INB0212/INB0212_alift.sca',
+        AnimationUpgrade = '/units/INB0212/INB0212_aupgrade.sca',
         BuildAttachBone = 'Attachpoint',
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
                 {
-                    AlbedoName = '/units/INB0202/INB0202_Albedo.dds',
+                    AlbedoName = '/units/INB0212/INB0212_Albedo.dds',
                     LODCutoff = 500,
-                    MeshName = '/units/INB0202/INB0202_Lod0.scm',
-                    NormalsName = '/units/INB0202/INB0202_NormalsTS.dds',
+                    MeshName = '/units/INB0212/INB0212_Lod0.scm',
+                    NormalsName = '/units/INB0212/INB0212_NormalsTS.dds',
                     ShaderName = 'NomadUnit',
-                    SpecularName = '/units/INB0202/INB0202_SpecTeam.dds',
+                    SpecularName = '/units/INB0212/INB0212_SpecTeam.dds',
                 },
             },
         },

@@ -429,17 +429,19 @@ UnitBlueprint {
         {
             AimsStraightOnDisable = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'URSWeapon',
-                    Cue = 'URS0202_Nano_Dart',
+                FireSpecial = Sound {
+                    Bank = 'NomadsWeapons',
+                    Cue = 'DarkMatterCannon2_Muzzle',
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
             BallisticArc = 'RULEUBA_None',
+            BeamCollisionDelay = 0.1,
+            BeamLifetime = 0.1,
             CollideFriendly = false,
-            Damage = 1,
+            Damage = 0.21,
             DamageType = 'Normal',
-            DisplayName = 'Missile interceptor',
+            DisplayName = 'Super sonic flak Launcher',
             FireTargetLayerCapsTable = {
                 Land = 'Air',
                 Water = 'Air',
@@ -447,12 +449,11 @@ UnitBlueprint {
             FiringTolerance = 0,
             FiringRandomness = 0,
             Label = 'TMD',
-            MaxRadius = 55,
+            MaximumBeamLength = 60,
+            MaxRadius = 50,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 100,
-            ProjectileId = '/projectiles/NAntiMissileProj1/NAntiMissileProj1_proj.bp',
-            ProjectileLifetimeUsesMultiplier = 2,
+            NeedPrep = true,
             ProjectilesPerOnFire = 1,
             RackBones = {
                 {
@@ -481,8 +482,8 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RangeCategory = 'UWRC_Countermeasure',
-            RateOfFire = 0.5,
-            TargetCheckInterval = 0.5,
+            RateOfFire = 10,
+            TargetCheckInterval = 0.1,
             TargetRestrictDisallow = 'UNTARGETABLE',
             TargetRestrictOnlyAllow = 'TACTICAL MISSILE',
             TargetType = 'RULEWTT_Projectile',
