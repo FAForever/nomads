@@ -1,15 +1,6 @@
 -- T3 hover tank
 
 UnitBlueprint {
-    Abilities = {
-        ArtillerySupport = {
-            LockoutDuration = 1,
-            MaxSimultaniousArtillerySupport = -1,
-            Range = 26,
-            SupportGroundTargetting = true,
-            TargetCategory = 'ALLUNITS',
-        },
-    },
     Audio = {
         AmbientIdle = Sound {
             Bank = 'NomadsUnits',
@@ -46,11 +37,6 @@ UnitBlueprint {
             Cue = 'UAL0101_Move_Stop',
             LodCutoff = 'UnitMove_LodCutoff',
         },
-        SupportingArtilleryPing = Sound {
-            Bank = 'NomadsMisc',
-            Cue = 'ArtillerySupportPinger',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
         UISelection = Sound {
             Bank = 'NomadsInterface',
             Cue = 'Nomads_Select_HoverVehicle',
@@ -80,7 +66,6 @@ UnitBlueprint {
         'RECLAIMABLE',
         'TANK',
         'OVERLAYDIRECTFIRE',
-        'ARTILLERYSUPPORT',
     },
     Defense = {
         AirThreatLevel = 0,
@@ -95,7 +80,6 @@ UnitBlueprint {
     Description = '<LOC inu3002_desc>Heavy Hover Tank',
     Display = {
         Abilities = {
-            '<LOC ability_artillerysupport>Artillery Support',
             '<LOC ability_hover>Hover',
         },
         BuildEffect = {
