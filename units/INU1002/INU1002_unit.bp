@@ -3,6 +3,13 @@ UnitBlueprint {
         Anchor = {
             Buff = 'AnchorModeImmobilizeAddRange',
         },
+        ArtillerySupport = {
+            LockoutDuration = 1,
+            MaxSimultaniousArtillerySupport = -1,
+            Range = 18,
+            SupportGroundTargetting = true,
+            TargetCategory = 'ALLUNITS',
+        },
     },
     Audio = {
         AmbientIdle = Sound {
@@ -45,6 +52,11 @@ UnitBlueprint {
             Cue = 'Nomads_Select_Vehicle',
             LodCutoff = 'UnitMove_LodCutoff',
         },
+        SupportingArtilleryPing = Sound {
+            Bank = 'NomadsMisc',
+            Cue = 'ArtillerySupportPinger',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
     },
     Buffs = {
         Regen = {
@@ -74,6 +86,7 @@ UnitBlueprint {
         'HOVER',
         'OVERLAYDIRECTFIRE',
         'OVERLAYRADAR',
+        'ARTILLERYSUPPORT',
     },
     CollisionOffsetZ = -0.02,
     Defense = {
@@ -91,7 +104,8 @@ UnitBlueprint {
         Abilities = {
             '<LOC ability_hover>Hover',
             '<LOC ability_radar>Radar',
-            '<LOC ability_anchor>Anchor'
+            '<LOC ability_anchor>Anchor',
+            '<LOC ability_artillerysupport>Artillery Support',
         },
         BuildEffect = {
             ExtendsFront = 0.1,

@@ -1,4 +1,13 @@
 UnitBlueprint {
+    Abilities = {
+        ArtillerySupport = {
+            LockoutDuration = 1,
+            MaxSimultaniousArtillerySupport = -1,
+            Range = 18,
+            SupportGroundTargetting = true,
+            TargetCategory = 'ALLUNITS',
+        },
+    },
     Air = {
         AutoLandTime = 1,
         BankFactor = 2,
@@ -68,6 +77,11 @@ UnitBlueprint {
             Cue = 'Nomads_Select_Air',
             LodCutoff = 'UnitMove_LodCutoff',
         },
+        SupportingArtilleryPing = Sound {
+            Bank = 'NomadsMisc',
+            Cue = 'ArtillerySupportPinger',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
     },
     BuildIconSortPriority = 20,
     Categories = {
@@ -85,7 +99,8 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
         'OVERLAYRADAR',
-		'OVERLAYSONAR',
+        'OVERLAYSONAR',
+        'ARTILLERYSUPPORT',
     },
     Defense = {
         AirThreatLevel = 0.1,
@@ -102,6 +117,7 @@ UnitBlueprint {
         Abilities = {
             '<LOC ability_radar>Radar',
             '<LOC ability_sonar>Sonar',
+            '<LOC ability_artillerysupport>Artillery Support',
         },
         BuildEffect = {
             ExtendsFront = 0.1,

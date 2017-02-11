@@ -499,7 +499,7 @@ inu2004_name = "Skyshell"
 
 -- T2 heavy tank
 inu2005_desc = "Heavy Tank"
-inu2005_help = "Heavy tank, good armor and powerful weapons. Additionally, it can pin-point targets for artillery units."
+inu2005_help = "Heavy tank, good armor and powerful weapons."
 inu2005_name = "Brute"
 
 -- T2 assault bot
