@@ -4,7 +4,6 @@ local AddBombardModeToUnit = import('/lua/nomadsutils.lua').AddBombardModeToUnit
 local NLandUnit = import('/lua/nomadsunits.lua').NLandUnit
 local RocketWeapon1 = import('/lua/nomadsweapons.lua').RocketWeapon1
 local TargetingLaser = import('/lua/kirvesweapons.lua').TargetingLaserInvisible
-local SupportedArtilleryWeapon = import('/lua/nomadsutils.lua').SupportedArtilleryWeapon
 
 NLandUnit = AddBombardModeToUnit(NLandUnit)
 
@@ -34,7 +33,7 @@ INU1006 = Class(NLandUnit) {
             },
         },
         AAGun = Class(RocketWeapon1) {},
-        ArtilleryGun = Class(SupportedArtilleryWeapon(RocketWeapon1)) {},
+        ArtilleryGun = Class(RocketWeapon1) {},
     },
     
     SetBombardmentMode = function(self, enable, changedByTransport)
