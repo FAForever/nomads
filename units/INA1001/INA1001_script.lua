@@ -1,8 +1,9 @@
 -- t1 air scout
 
 local NAirUnit = import('/lua/nomadsunits.lua').NAirUnit
+local SupportingArtilleryAbility = import('/lua/nomadsutils.lua').SupportingArtilleryAbility
 
-INA1001 = Class(NAirUnit) {
+INA1001 = Class(SupportingArtilleryAbility(NAirUnit)) {
     DestructionPartsLowToss = {'INA1001'},
     DestroySeconds = 7.5,
 }
