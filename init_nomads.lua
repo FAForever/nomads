@@ -9,7 +9,7 @@
 local DevPath = ''
 
 # Nomads datafile name + extension (in case we're not using DevPath)
-local File = '*.nmd'
+local File = 'nomads.nmd'
 
 #################################################################################################
 ## DO NOT EDIT
