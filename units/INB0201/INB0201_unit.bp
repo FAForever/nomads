@@ -1,4 +1,4 @@
---T2 Land Factory
+--T2 Land Factory HQ
 
 UnitBlueprint {
     AI = {
@@ -63,13 +63,13 @@ UnitBlueprint {
         AirThreatLevel = 0,
         ArmorType = 'Structure',
         EconomyThreatLevel = 11,
-        Health = 8000,
-        MaxHealth = 8000,
+        Health = 6200,
+        MaxHealth = 6200,
         RegenRate = 0,
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
     },
-    Description = '<LOC inb0201_desc>Land Factory',
+    Description = '<LOC inb0201_desc>Land Factory (HQ)',
     Display = {
         Abilities = {
             '<LOC ability_upgradable>Upgradeable',

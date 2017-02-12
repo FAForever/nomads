@@ -1,15 +1,6 @@
 --T2 tank Brute
 
 UnitBlueprint {
-    Abilities = {
-        ArtillerySupport = {
-            LockoutDuration = 1,
-            MaxSimultaniousArtillerySupport = -1,
-            Range = 26,
-            SupportGroundTargetting = true,
-            TargetCategory = 'ALLUNITS',
-        },
-    },
     AI = {
         TargetBones = {
             'Turret',
@@ -34,11 +25,6 @@ UnitBlueprint {
         StopMove = Sound {
             Bank = 'UEL',
             Cue = 'UEL0202_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        SupportingArtilleryPing = Sound {
-            Bank = 'NomadsMisc',
-            Cue = 'ArtillerySupportPinger',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         UISelection = Sound {
@@ -70,7 +56,6 @@ UnitBlueprint {
         'RECLAIMABLE',
         'TANK',
         'OVERLAYDIRECTFIRE',
-        'ARTILLERYSUPPORT',
     },
     Defense = {
         AirThreatLevel = 0,
@@ -84,9 +69,6 @@ UnitBlueprint {
     },
     Description = '<LOC inu2005_desc>Heavy Tank',
     Display = {
-        Abilities = {
-            '<LOC ability_artillerysupport>Artillery Support',
-        },
         BuildEffect = {
             ExtendsFront = 0.15,
             ExtendsRear = 0.1,

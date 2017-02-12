@@ -1,3 +1,5 @@
+-- T3 heavy mobile artilery
+
 UnitBlueprint {
     AI = {
         GuardScanRadius = 90,
@@ -74,6 +76,7 @@ UnitBlueprint {
         Abilities = {
             '<LOC ability_deploys>Deploys',
             '<LOC ability_supportedartillerygun>Supported Artillery Gun',
+            '<LOC ability_bombardarea>Area bombardment',
         },
         AnimationOpen = '/units/INU3004/INU3004_aunpack.sca',
         BuildEffect = {
@@ -154,14 +157,14 @@ UnitBlueprint {
         FactionName = 'Nomads',
         Icon = 'land',
         OrderOverrides = {
-            RULEUTC_SpecialToggle = {
-                bitmapId = 'toggle-anchor',
-                helpText = 'toggle_anchor',
+            RULEUTC_WeaponToggle = {
+                bitmapId = 'toggle-bombardmode',
+                helpText = 'toggle_bombardmode',
             },
         },
         TechLevel = 'RULEUTL_Secret',
         ToggleCaps = {
---            RULEUTC_SpecialToggle = true,
+            RULEUTC_WeaponToggle = true,
         },
         UnitName = '<LOC inu3004_name>Mauler',
         UnitWeight = 1,
@@ -186,9 +189,9 @@ UnitBlueprint {
             LAYER_Water = false,
         },
         DragCoefficient = 0.2,
-        MaxAcceleration = 2.3,
-        MaxBrake = 2.3,
-        MaxSpeed = 2.3,
+        MaxAcceleration = 2.5,
+        MaxBrake = 2.5,
+        MaxSpeed = 2.5,
         MaxSpeedReverse = 0,
         MaxSteerForce = 10,
         MeshExtentsX = 0.9,
@@ -234,8 +237,11 @@ UnitBlueprint {
                 },
             },
             BallisticArc = 'RULEUBA_HighArc',
+            BombardParticipant = true,
+            BombardSwingTurret = true,
+            BombardTurretRotationSpeed = 3,
             CollideFriendly = false,
-            Damage = 600,
+            Damage = 600,       --90dps // 120dps with bombardment
             DamageFriendly = true,
             DamageRadius = 5,
             DamageType = 'Normal',

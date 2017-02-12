@@ -1,43 +1,84 @@
--- T2 mobile TMD
+-- T2 field enginer
 
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local AddAnchorAbilty = import('/lua/nomadsutils.lua').AddAnchorAbilty
 local AddIntelOvercharge = import('/lua/nomadsutils.lua').AddIntelOvercharge
 local NConstructionUnit = import('/lua/nomadsunits.lua').NConstructionUnit
-local MissileWeapon1 = import('/lua/nomadsweapons.lua').MissileWeapon1
+local HVFlakWeapon = import('/lua/nomadsweapons.lua').HVFlakWeapon
 
 NConstructionUnit = AddAnchorAbilty( AddIntelOvercharge( NConstructionUnit ))
 
 INU3008 = Class(NConstructionUnit) {
     Weapons = {
-        MainGun = Class(MissileWeapon1) {
-
-            IdleState = State(MissileWeapon1.IdleState) {
+        MainGun = Class(HVFlakWeapon) {
+            IdleState = State(HVFlakWeapon.IdleState) {
                 Main = function(self)
-                    MissileWeapon1.IdleState.Main(self)
+                    HVFlakWeapon.IdleState.Main(self)
                     self.unit:OnTargetLost()
+                    if self.IdleReloadThread then
+                        KillThread(self.IdleReloadThread)
+                    end
+                    self.IdleReloadThread = self:ForkThread(self.ReloadThread)
+                end,
+                
+                
+                ReloadThread = function(self)
+                    --WARN('waiting in idle reload')
+                    WaitSeconds(1.4)
+                    if not self.PlayingTAEffects then
+                        --WARN('idle reload time elapsed successfully')
+                        self.counter = 0
+                    else
+                        --WARN('idle reload time reset with counter: '..self.counter)
+                    end
+                    --self.RackSalvoFireReadyState.Main(self)
                 end,
             },
 
-            RackSalvoReloadState = State(MissileWeapon1.RackSalvoReloadState) {
+            RackSalvoReloadState = State(HVFlakWeapon.RackSalvoReloadState) {
                 Main = function(self)
-                    MissileWeapon1.RackSalvoReloadState.Main(self)
-                    self.unit:OnTargetLost()
+                    ForkThread(function()
+                        --WARN("reloading")
+                        WaitSeconds(1.4)
+                        --WARN('wait time elapsed')
+                        HVFlakWeapon.RackSalvoReloadState.Main(self)
+                        self.unit:OnTargetLost()
+                    end)
                 end,
             },
 
-            RackSalvoFireReadyState = State(MissileWeapon1.RackSalvoFireReadyState ) {
+            RackSalvoFireReadyState = State(HVFlakWeapon.RackSalvoFireReadyState ) {
                 Main = function(self)
-                    MissileWeapon1.RackSalvoFireReadyState.Main(self)
+                    HVFlakWeapon.RackSalvoFireReadyState.Main(self)
                     self.unit:OnTargetAcquired()
                 end,
             },
 
-            RackSalvoFiringState = State(MissileWeapon1.RackSalvoFiringState ) {
+            RackSalvoFiringState = State(HVFlakWeapon.RackSalvoFiringState ) {
                 Main = function(self)
-                    MissileWeapon1.RackSalvoFiringState.Main(self)
-                    self.unit:OnTargetAcquired()
+                    if not self.counter then
+                        self.counter = 0
+                    end
+                    self.counter = self.counter + 1
+                    if self.counter > 5 then
+                        --WARN("reseting counter from: "..self.counter)
+                        self.counter = 0
+                        self.RackSalvoReloadState.Main(self)
+                    else
+                        self:PlaySound(self.Audio.FireSpecial)
+                        --WARN('fire counter: '..self.counter)
+                        HVFlakWeapon.RackSalvoFiringState.Main(self)
+                        self.unit:OnTargetAcquired()
+                    end
                 end,
+                
+                Audio = {
+                    FireSpecial = Sound {
+                        Bank = 'NomadsWeapons',
+                        Cue = 'DarkMatterCannon2_Muzzle',
+                        LodCutoff = 'Weapon_LodCutoff',
+                    },
+                },
             },
         },
     },

@@ -340,7 +340,6 @@ NExperimentalHoverLandUnit = Class(NHoverLandUnit) {
         DamageArea(self, pos, bpDamage.Radius, bpDamage.Amount, bpDamage.Type, bpDamage.DamageFriendly )
     end,
 }
-
 ---------------------------------------------------------------
 --  SEA UNITS
 ---------------------------------------------------------------

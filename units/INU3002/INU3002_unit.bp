@@ -1,13 +1,6 @@
+-- T3 hover tank
+
 UnitBlueprint {
-    Abilities = {
-        ArtillerySupport = {
-            LockoutDuration = 1,
-            MaxSimultaniousArtillerySupport = -1,
-            Range = 26,
-            SupportGroundTargetting = true,
-            TargetCategory = 'ALLUNITS',
-        },
-    },
     Audio = {
         AmbientIdle = Sound {
             Bank = 'NomadsUnits',
@@ -44,11 +37,6 @@ UnitBlueprint {
             Cue = 'UAL0101_Move_Stop',
             LodCutoff = 'UnitMove_LodCutoff',
         },
-        SupportingArtilleryPing = Sound {
-            Bank = 'NomadsMisc',
-            Cue = 'ArtillerySupportPinger',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
         UISelection = Sound {
             Bank = 'NomadsInterface',
             Cue = 'Nomads_Select_HoverVehicle',
@@ -78,7 +66,6 @@ UnitBlueprint {
         'RECLAIMABLE',
         'TANK',
         'OVERLAYDIRECTFIRE',
-        'ARTILLERYSUPPORT',
     },
     Defense = {
         AirThreatLevel = 0,
@@ -93,7 +80,6 @@ UnitBlueprint {
     Description = '<LOC inu3002_desc>Heavy Hover Tank',
     Display = {
         Abilities = {
-            '<LOC ability_artillerysupport>Artillery Support',
             '<LOC ability_hover>Hover',
         },
         BuildEffect = {
@@ -237,17 +223,17 @@ UnitBlueprint {
         },
         DragCoefficient = 0.2,
         Elevation = 0.3,
-        MaxAcceleration = 3.75,
+        MaxAcceleration = 3.2,
         MaxBrake = 0,
-        MaxSpeed = 3.75,
-        MaxSpeedReverse = 3.75,
-        MaxSteerForce = 3.75,
+        MaxSpeed = 3.2,
+        MaxSpeedReverse = 3.2,
+        MaxSteerForce = 3.2,
         MeshExtentsX = 0.8,
         MeshExtentsY = 0.65,
         MeshExtentsZ = 1.25,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Hover',
-        OnWaterBuff = 'OnWaterSpeed80',
+        WaterSpeedMultiplier = 0.9,
         RotateBodyWhileMoving = true,
         RotateOnSpot = false,
         TurnFacingRate = 120,
@@ -287,7 +273,7 @@ UnitBlueprint {
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
-            Damage = 50,
+            Damage = 100,
             DamageFriendly = false,
             DamageType = 'Normal',
             DisplayName = 'Rocket',
@@ -298,7 +284,7 @@ UnitBlueprint {
             FiringRandomness = 0.05,
             FiringTolerance = 1,
             Label = 'Rocket',
-            MaxRadius = 22,
+            MaxRadius = 23,
             MuzzleSalvoDelay = 0.05,
             MuzzleSalvoSize = 4,
             MuzzleVelocity = 30,
@@ -335,7 +321,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
             RangeCategory = 'UWRC_DirectFire',
-            RateOfFire = 0.5,
+            RateOfFire = 0.25,
             SlavedToBody = true,
             SlavedToBodyArcRange = 20,
             TargetCheckInterval = 0.5,
@@ -373,8 +359,7 @@ UnitBlueprint {
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
-            Damage = 250,
-            DamageRadius = 0.5,
+            Damage = 300,
             DamageFriendly = false,
             DamageType = 'Normal',
             DisplayName = 'Annihilator Cannon',
@@ -409,7 +394,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
             RangeCategory = 'UWRC_IndirectFire',
-            RateOfFire = 0.6667,
+            RateOfFire = 0.5,
             RenderFireClock = false,
             SlavedToBody = true,
             SlavedToBodyArcRange = 20,

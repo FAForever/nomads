@@ -1,3 +1,5 @@
+--T2 EMP tank
+
 UnitBlueprint {
     AI = {
         BombardModeCheckRadius = 8,
@@ -59,8 +61,8 @@ UnitBlueprint {
         AirThreatLevel = 0,
         ArmorType = 'Normal',
         EconomyThreatLevel = 0,
-        Health = 2750,
-        MaxHealth = 2750,
+        Health = 3000,
+        MaxHealth = 3000,
 --        OrbitalStrikeOnCapturer = true,
         RegenRate = 0,
         SubThreatLevel = 0,
@@ -118,7 +120,7 @@ UnitBlueprint {
         },
         PlaceholderMeshName = 'UXL0001',
         SpawnRandomRotation = false,
-        UniformScale = 0.3,
+        UniformScale = 0.33,
     },
     Economy = {
         BuildCostEnergy = 1800,
@@ -226,7 +228,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             BombardParticipant = true,
             BombardSwingTurret = true,
-            BombardTurretRotationSpeed = 18,
+            BombardTurretRotationSpeed = 10,    --from18
             Buffs = {
                 {
                     Add = {

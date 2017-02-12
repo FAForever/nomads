@@ -1,3 +1,5 @@
+--T3 Land Factory support
+
 UnitBlueprint {
     AI = {
         TargetBones = {
@@ -56,22 +58,22 @@ UnitBlueprint {
         'SHOWQUEUE',
         'SORTCONSTRUCTION',
         'CONSTRUCTIONSORTDOWN',
-	'SUPPORTFACTORY', --
+        'SUPPORTFACTORY', --
     },
     CollisionOffsetZ = 0.2,
     Defense = {
         AirThreatLevel = 0,
         ArmorType = 'Structure',
         EconomyThreatLevel = 11,
-        Health = 9750, --
-        MaxHealth = 9750, --
+        Health = 6200, --
+        MaxHealth = 6200, --
         RegenRate = 0,
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
     },
     Description = '<LOC inb0311_desc>Land Factory', --
     Display = {
-	SequenceAnimation = '/units/INB0301/NB0301_Asequence.sca',
+	SequenceAnimation = '/units/INB0311/NB0301_Asequence.sca',
         BlinkingLights = {
             {
                 BLBone = 0,
@@ -104,12 +106,12 @@ UnitBlueprint {
             IconFadeInZoom = 130,
             LODs = {
                 {
-                    AlbedoName = '/units/INB0301/INB0301_Albedo.dds', --
+                    AlbedoName = '/units/INB0311/INB0311_Albedo.dds', --
                     LODCutoff = 500,
-                    MeshName = '/units/INB0301/INB0301_Lod0.scm', --
-                    NormalsName = '/units/INB0301/INB0301_NormalsTS.dds', --
+                    MeshName = '/units/INB0311/INB0311_Lod0.scm', --
+                    NormalsName = '/units/INB0311/INB0311_NormalsTS.dds', --
                     ShaderName = 'NomadUnit',
-                    SpecularName = '/units/INB0301/INB0301_SpecTeam.dds', --
+                    SpecularName = '/units/INB0311/INB0311_SpecTeam.dds', --
                 },
             },
         },
@@ -187,7 +189,7 @@ UnitBlueprint {
         TechLevel = 'RULEUTL_Secret',
         UnitWeight = 1,
         UpgradesFrom = 'inb0211', --
-	UpgradesFromBase = 'inb0101', --
+        UpgradesFromBase = 'inb0101', --
     },
     Intel = {
         VisionRadius = 20,

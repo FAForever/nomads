@@ -5,9 +5,6 @@ local oldProjectile = Projectile
 
 Projectile = Class(oldProjectile) {
 
-    -- TODO: remove this var after FAF integration.
-    CanDoInitialDamage = true,  -- used to prevent doing initialdamage twice in FAF games. This is set to false in FAF balance path.
-
     OnCreate = function(self, inWater)
         -- if not self:GetLauncher().ColourIndex then 
             -- WARN('projectile could not get colour index from launcher! something is wrong!')
@@ -58,23 +55,11 @@ Projectile = Class(oldProjectile) {
         oldProjectile.OnImpact(self, targetType, targetEntity)
         if targetType == 'Shield' then
             self:DoShieldDamage( targetEntity )
-        end
-    end,
-
-    DoDamage = function(self, instigator, DamageData, targetEntity)
-        -- handles 'initial damage'. Basically copy-pasted from the projectiles DoDamage function
-        local damage = DamageData.InitialDamageAmount or 0
-        if self.CanDoInitialDamage and damage > 0 then
-            local radius = DamageData.DamageRadius or 0
-            if radius > 0 then
-                DamageArea(instigator, self:GetPosition(), radius, damage, DamageData.DamageType, DamageData.DamageFriendly, DamageData.DamageSelf or false)
-            elseif targetEntity then
-                Damage(instigator, self:GetPosition(), targetEntity, damage, DamageData.DamageType)
+        elseif targetType == 'Unit' and targetEntity.MyShield ~= nil then
+            if targetEntity:ShieldIsOn() then
+                self:DoShieldDamage( targetEntity )
             end
         end
-
-        -- handles the DoT damage
-        oldProjectile.DoDamage(self, instigator, DamageData, targetEntity)
     end,
 
     DoShieldDamage = function(self, shield)

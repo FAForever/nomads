@@ -107,7 +107,6 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
         'SHOWATTACKRETICLE',
-        'OVERLAYRADAR',
     },
     CollisionOffsetZ = -0.15,
     Defense = {
@@ -122,9 +121,6 @@ UnitBlueprint {
     },
     Description = '<LOC ina1003_desc>Attack Bomber',
     Display = {
-        Abilities = {
-            '<LOC ability_radar>Radar',
-        },
         BuildEffect = {
             ExtendsTop = 0.1,
         },
@@ -186,7 +182,7 @@ UnitBlueprint {
         },
         PlaceholderMeshName = 'UXA0002',
         SpawnRandomRotation = true,
-        UniformScale = 0.125,
+        UniformScale = 0.093-- from 0.125,
     },
     Economy = {
         BuildCostEnergy = 2400,

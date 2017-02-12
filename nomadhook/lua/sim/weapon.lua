@@ -138,7 +138,6 @@ Weapon = Class(oldWeapon) {
                 end
 
                 if bp.TurretBoneDualYaw then ------ dual turret - individual targeting
-
                     self.AimControl = CreateAimController(self, 'Torso', yawBone)
                     self.AimRight = CreateAimController(self, 'Right', yawBone, pitchBone, muzzleBone)
                     self.AimLeft = CreateAimController(self, 'Left', yawBone2, pitchBone2, muzzleBone2)
@@ -273,7 +272,6 @@ Weapon = Class(oldWeapon) {
             local rack = bp.RackBones[ self:GetNextRackSalvoNumber() ]
             local switchTo = rack.TurretBoneDualManip
             local delay = rack.TurretBoneDualManipSwitchDelay or (0.2 * (1 / self:GetRateOfFire())) -- switch when half way to next salvo, calculate in real time to include buffs and alike
-
             self.AlternateDualAimCtrlThread = self:ForkThread( self.SwitchAimControllerThread, switchTo, delay )
         end
     end,
@@ -281,10 +279,9 @@ Weapon = Class(oldWeapon) {
     SwitchAimControllerThread = function(self, switchTo, delay)
         local bp = self:GetBlueprint()
         local precedence = bp.AimControlPrecedence or 10
-
         if delay >= 0.1 then  -- if delay is less than 0 don't wait at all
             WaitSeconds(delay)
-            if self and self.unit and not self.unit:IsDead() then
+            if self and self.unit and self.unit:IsDead() then
                 return
             end
         end

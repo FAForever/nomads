@@ -1,3 +1,5 @@
+-- T1 tank bandit
+
 UnitBlueprint {
     Audio = {
         AmbientIdle = Sound {
@@ -235,9 +237,9 @@ UnitBlueprint {
         MeshExtentsZ = 0.8,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Hover',
-        OnWaterBuff = 'OnWaterSpeed80',
         RotateBodyWhileMoving = true,
         RotateOnSpot = true,
+        WaterSpeedMultiplier = 0.9,
         TurnFacingRate = 120,
         TurnRadius = 0,
         TurnRate = 85,

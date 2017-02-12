@@ -1,9 +1,11 @@
+-- T1 gunship
+
 UnitBlueprint {
     Abilities = {
 	    ArtillerySupport = {
             LockoutDuration = 1,
             MaxSimultaniousArtillerySupport = -1,
-            Range = 16,  -- keeping range equal to weapons range so we have a nice ring overlay. Alternative: use a dummy weapon
+            Range = 18,  -- keeping range equal to weapons range so we have a nice ring overlay. Alternative: use a dummy weapon
             SupportGroundTargetting = true,
             TargetCategory = 'ALLUNITS',
         },
@@ -120,8 +122,8 @@ UnitBlueprint {
         AirThreatLevel = 0,
         ArmorType = 'Light',
         EconomyThreatLevel = 0,
-        Health = 400,
-        MaxHealth = 400,
+        Health = 450,
+        MaxHealth = 450,
         RegenRate = 0,
         SubThreatLevel = 0,
         SurfaceThreatLevel = 2,
@@ -219,7 +221,7 @@ UnitBlueprint {
         FactionName = 'Nomads',
         Icon = 'air',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = '<LOC ina1004_name>Titmouse',
+        UnitName = '<LOC ina1004_name>Golem',
         UnitWeight = 1,
     },
     Intel = {
@@ -240,7 +242,7 @@ UnitBlueprint {
             LAYER_Sub = false,
             LAYER_Water = false,
         },
-        Elevation = 8,
+        Elevation = 10,
         FuelRechargeRate = 5,
         FuelUseTime = 300,
         GroundCollisionOffset = 1.2,
@@ -284,7 +286,7 @@ UnitBlueprint {
             AutoInitiateAttackCommand = true,
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
-            Damage = 6,
+            Damage = 7,
             DamageRadius = 0,
             DamageType = 'Normal',
             DisplayName = 'Dark matter gun',
@@ -294,7 +296,7 @@ UnitBlueprint {
             },
             FiringTolerance = 1,
             Label = 'Gun1',
-            MaxRadius = 16,
+            MaxRadius = 18,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 40,
@@ -353,7 +355,7 @@ UnitBlueprint {
             AutoInitiateAttackCommand = true,
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
-            Damage = 6,
+            Damage = 7,
             DamageRadius = 0,
             DamageType = 'Normal',
             DisplayName = 'Dark matter gun',
@@ -363,7 +365,7 @@ UnitBlueprint {
             },
             FiringTolerance = 1,
             Label = 'Gun2',
-            MaxRadius = 16,
+            MaxRadius = 18,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 40,

@@ -19,10 +19,19 @@ BuffBlueprint {
     Duration = -1,
     Affects = {
         Immobilize = {
-            DeactivateDelay = 0,
+            DeactivateDelay = 1.5,
         },
         MaxRadius = {
-            Add = 2,
+            Mult = 1.15,
+        },
+        RadarRadius = {
+            Mult = 1.15,
+        },
+        BuildRate = {
+            Mult = 1.3,
+        },
+        VisionRadius = {
+            Mult = 1.15,
         },
     },
 }

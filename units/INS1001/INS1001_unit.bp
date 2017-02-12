@@ -1,3 +1,5 @@
+-- T1 sub
+
 UnitBlueprint {
     AI = {
         GuardReturnRadius = 130,
@@ -78,8 +80,6 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
         'T1SUBMARINE',
-        'INTELLIGENCE',
-        'SONAR',
         'OVERLAYSONAR',
         'OVERLAYANTINAVY',
     },
@@ -102,7 +102,7 @@ UnitBlueprint {
             '<LOC ability_submersible>Submersible',
             '<LOC ability_torpedo>Torpedoes',
         },
-        AnimationDeath = {
+--[[        AnimationDeath = {
             {
                 Animation = '/units/INS1001/INS1001_asink01.sca',
                 Weight = 100,
@@ -113,7 +113,7 @@ UnitBlueprint {
                 Weight = 100,
                 Rate = 0.1,
             },
-        },
+        },]]
         IdleEffects = {
             Sub = {
                 Effects = {
@@ -375,6 +375,20 @@ UnitBlueprint {
             WeaponCategory = 'Anti Navy',
             WeaponRepackTimeout = 0,
             WeaponUnpacks = false,
+        },
+    },
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = false,
+            Seabed = true,
+            Sub = true,
+            Water = true,
         },
     },
 }

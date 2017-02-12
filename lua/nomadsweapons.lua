@@ -47,7 +47,7 @@ ArtilleryWeapon = Class(DefaultProjectileWeapon) {
 }
 
 DarkMatterWeapon1 = Class(DefaultProjectileWeapon) {
-    FxMuzzleFlash = NomadsEffectTemplate.DarkMatterWeaponMuzzleFlash,
+    FxMuzzleFlash = NomadsEffectTemplate.DarkMatterAirWeaponMuzzleFlash,
 }
 
 EMPGun = Class(DefaultProjectileWeapon) {
@@ -206,6 +206,10 @@ RocketWeapon1 = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = NomadsEffectTemplate.RocketMuzzleFx,
 }
 
+RocketWeapon1Bomber = Class(DefaultProjectileWeapon) {
+    FxMuzzleFlash = NomadsEffectTemplate.BomberRocketMuzzleFx,
+}
+
 RocketWeapon4 = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = NomadsEffectTemplate.RocketMuzzleFx,
 }
@@ -331,7 +335,7 @@ DroppedTorpedoWeapon1 = Class(DefaultProjectileWeapon) {
 }
 
 AirToAirGun1 = Class(DefaultProjectileWeapon) {
-    FxMuzzleFlash = EffectTemplate.SThunderStormCannonMuzzleFlash,
+    FxMuzzleFlash = NomadsEffectTemplate.DarkMatterAirWeaponMuzzleFlash,
 }
 
 OrbitalStrikeBuoy = Class(DefaultProjectileWeapon) {

@@ -364,7 +364,7 @@ UnitBlueprint {
         MeshExtentsZ = 10.5, --1.25,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Hover',
---        OnWaterBuff = 'OnWaterSpeed80',
+        WaterSpeedMultiplier = 0.9,
         RotateBodyWhileMoving = false,   -- disabled because it is annoying
         SkirtOffsetX = -0.5,
         SkirtOffsetZ = -4,

@@ -61,15 +61,6 @@ INO2302 = Class(NOrbitUnit) {
         self.parentCallbacks[ 'OnWeaponFired' ] = cbWepFired or false
         self.parentCallbacks[ 'OnKilledUnit' ] = cbKilledUnit or false
 
-        -- quick check of unit blueprints
-        local myBp, theirBp = self:GetBlueprint(), parent:GetBlueprint()
-        if (theirBp.Buffs and not myBp.Buffs) or (not theirBp.Buffs and myBp.Buffs) or (theirBp.Buffs and myBp.Buffs and not table.equal( myBp.Buffs.Regen, theirBp.Buffs.Regen)) then
-            WARN('INO2302: Buffs sections in parent and slave unit blueprints do not match')
-        end
-        if (theirBp.Veteran and not myBp.Veteran) or (not theirBp.Veteran and myBp.Veteran) or (theirBp.Veteran and myBp.Veteran and not table.equal( myBp.Veteran, theirBp.Veteran)) then
-            WARN('INO2302: Veteran sections in parent and slave unit blueprints do not match')
-        end
-
         -- set my gun equal to what the parent has set in terms of range and damage, etc. This way we can balance the artillery
         -- by adjusting the base unit only.
         local TheirGun = parent:GetWeaponByLabel('TargetFinder')
@@ -81,8 +72,6 @@ INO2302 = Class(NOrbitUnit) {
             MyGun:ChangeRateOfFire ( gbp.RateOfFire or 1)
             MyGun:SetFiringRandomness( gbp.FiringRandomness or 0)
             MyGun:MasterWeaponBlueprint( gbp)
-        else
-            WARN('INO2302: Cant find target finder weapon on parent unit')
         end
     end,
 
@@ -98,13 +87,16 @@ INO2302 = Class(NOrbitUnit) {
         if cb then
             cb( self.parent, unitKilled )
         end
+        NOrbitUnit.OnKilledUnit(self, unitKilled)
     end,
 
     OnParentKilled = function(self)
         self:EnableWeapon(false)
         self.parentCallbacks[ 'OnWeaponFired' ] = false
         self.parentCallbacks[ 'OnKilledUnit' ] = false
-
+        if self.xp then
+            self:AddXP(-self.xp)
+        end
         -- TODO: maybe some effects stop? lights, I dont know..
     end,
 
