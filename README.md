@@ -98,3 +98,14 @@ WARNING: Error running OnFrame script in CScriptObject at 10043640: void CLobby.
              "\documents\github\fa\lua\ui\lobby\lobby.lua(6310): in function `HostGame'
 ```
 Make sure you are using a copy of `init_devnomads.lua` from this repository and not the outdated `init_nomads.lua`
+
+
+Implementing Nomads in FAF (update the current version)
+----------------------------------------
+1) extract the nomads loading video from *movies/* and put it in the *FAForever/movies/* folder
+
+2) replace the *init_nomads.lua* file in the *FAForever/bin/* folder with the version from this repository
+
+3) zip the rest of the repository (except the movie/ folder) and rename the zip to *nomads.nmd*
+
+4) place the *nomads.nmd* file in the *FAForever/gamedata/* folder
