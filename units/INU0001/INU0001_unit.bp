@@ -162,8 +162,8 @@ UnitBlueprint {
         AirThreatLevel = 0,
         ArmorType = 'Commander',
         EconomyThreatLevel = 5,
-        Health = 9500,
-        MaxHealth = 9500,
+        Health = 10500,
+        MaxHealth = 10500,
         RegenRate = 15,
         SubThreatLevel = 0,
         SurfaceThreatLevel = 75,
@@ -631,15 +631,15 @@ UnitBlueprint {
             Slot = 'Back',
         },
         ResourceAllocation = {
-            BuildCostEnergy = 150000,
+            BuildCostEnergy = 175000,
             BuildCostMass = 5000,
-            BuildTime = 1000,
+            BuildTime = 2800,
             CapacitorNewChargeTime = 20,
             CapacitorNewEnergyDrainPerSecond = 100,
             Icon = 'isb',
             Name = '<LOC enhancements_0045>Resource Allocation System',
-            ProductionPerSecondEnergy = 2800,
-            ProductionPerSecondMass = 17,
+            ProductionPerSecondEnergy = 1400,
+            ProductionPerSecondMass = 20,
             ShowBones = {
                 'upgrade_back',
             },
@@ -882,10 +882,10 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
             RangeCategory = 'UWRC_DirectFire',
-            RateOfFire = 0.666, -- =1,5s 100dps
+            RateOfFire = 0.6, -- =1,7s 88dps
             ReceiveROFBuff = true,
             SlavedToBody = false,
-            TargetCheckInterval = 0.5,
+            TargetCheckInterval = 0.6,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'MOBILE',
@@ -965,7 +965,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
             RangeCategory = 'UWRC_DirectFire',
-            RateOfFire = 0.3,
+            RateOfFire = 0.25,
             SlavedToBody = false,
             TargetCheckInterval = 0.1,
             TargetPriorities = {
@@ -1053,7 +1053,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
             RangeCategory = 'UWRC_DirectFire',
-            RateOfFire = 0.3,
+            RateOfFire = 0.25,
             SlavedToBody = false,
             TargetCheckInterval = 0.1,
             TargetPriorities = {
