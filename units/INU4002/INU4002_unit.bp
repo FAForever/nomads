@@ -1,3 +1,5 @@
+-- Bullfrog
+
 UnitBlueprint {
     AI = {
         AttackAngle = 1,
@@ -58,11 +60,11 @@ UnitBlueprint {
     },
     Buffs = {
         Regen = {
-            Level1 = 12,
-            Level2 = 24,
-            Level3 = 36,
-            Level4 = 48,
-            Level5 = 60,
+            Level1 = 10,
+            Level2 = 20,
+            Level3 = 30,
+            Level4 = 40,
+            Level5 = 50,
         },
     },
     BuildIconSortPriority = 20,
@@ -96,7 +98,7 @@ UnitBlueprint {
         EconomyThreatLevel = 200,
         Health = 78000,
         MaxHealth = 78000,
-        RegenRate = 12,
+        RegenRate = 15,
         SubThreatLevel = 0,
         SurfaceThreatLevel = 450,
     },
@@ -475,7 +477,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             BombardParticipant = true,
             BombardSwingTurret = true,
-            BombardTurretYawRange = 20,
+            BombardTurretYawRange = 5,
             CollideFriendly = false,
             Damage = 300,
             DamageRadius = 0.5,

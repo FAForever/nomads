@@ -864,7 +864,7 @@ inu2007_help = "Light and fast experimental unit. Uses a single beam weapon. Des
 inu2007_name = "Beamer"
 
 -- experimental tank
-inu4002_desc = "Experimental Ultraheavy Tank"
+inu4002_desc = "Experimental Heavy Tank"
 inu4002_help = "Hover tank experimental equipped with a large cannon, a gattling cannon, a set of smaller guns and two AA guns. Designed to engage all surface threats."
 inu4002_name = "Bullfrog"
 
