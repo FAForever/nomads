@@ -58,7 +58,8 @@ clear_cache()
 local oldPath = path
 path = {}
 mount_dir(InitFileDir..'\\..\\gamedata\\'..File, '/')
-mount_dir(InitFileDir..'\\..\\gamedata\\nomadsmovie','/')
+mount_dir(InitFileDir..'\\..\\movies', '/')
+
 for k, v in oldPath do
     table.insert(path, v)
 end
