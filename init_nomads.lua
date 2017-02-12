@@ -48,7 +48,6 @@ dofile(InitFileDir..'\\SupComDataPath.lua')
 # Add our own hook to the list. Used to make our files overwrite existing files to ensure flawless operation.
 table.insert(hook, '/nomadhook')
 table.insert(hook, '/sounds')
-table.insert(hook, '/movies')
 
 # Clear the shader
 clear_cache()
@@ -59,7 +58,7 @@ clear_cache()
 local oldPath = path
 path = {}
 mount_dir(InitFileDir..'\\..\\gamedata\\'..File, '/')
-
+mount_dir(InitFileDir..'\\..\\gamedata\\nomadsmovie','/')
 for k, v in oldPath do
     table.insert(path, v)
 end
