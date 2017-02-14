@@ -198,7 +198,7 @@ UnitBlueprint {
             RangeCategory = 'UWRC_IndirectFire',
             RateOfFire = 0.08,
             RenderFireClock = true,
-            TargetCheckInterval = 50000,
+            TargetCheckInterval = 40,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'SPECIALLOWPRI',
