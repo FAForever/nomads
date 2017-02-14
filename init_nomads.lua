@@ -37,8 +37,17 @@ clear_cache()
 # there are issues).
 local oldPath = path
 path = {}
-mount_dir(InitFileDir..'\\..\\gamedata\\nomads.nmd', '/')
 mount_dir(InitFileDir..'\\..\\movies', '/')
+mount_dir(InitFileDir..'\\..\\gamedata\\units.nmd', '/')
+mount_dir(InitFileDir..'\\..\\gamedata\\textures.nmd', '/')
+mount_dir(InitFileDir..'\\..\\gamedata\\sounds.nmd', '/')
+mount_dir(InitFileDir..'\\..\\gamedata\\effects.nmd', '/')
+mount_dir(InitFileDir..'\\..\\gamedata\\env.nmd', '/')
+mount_dir(InitFileDir..'\\..\\gamedata\\nomadhook.nmd', '/')
+mount_dir(InitFileDir..'\\..\\gamedata\\lua.nmd', '/')
+mount_dir(InitFileDir..'\\..\\gamedata\\projectiles.nmd', '/')
+mount_dir(InitFileDir..'\\..\\gamedata\\nomads.nmd', '/')
+mount_dir(InitFileDir..'\\..\\gamedata\\loc.nmd', '/')
 
 for k, v in oldPath do
     table.insert(path, v)
