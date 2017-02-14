@@ -1,21 +1,3 @@
-#################################################################################################
-## VARIABLES
-#################################################################################################
-
-# Edit these where needed.
-
-# Where can the uncompressed nomads files be found? Specify full path, with drive letter. Escape each \ with another \ . So for
-# each \ in the path there should be 2. Example: C:\\games\\Nomads mod\\files
-local DevPath = ''
-
-# Nomads datafile name + extension (in case we're not using DevPath)
-local File = 'nomads.nmd'
-
-#################################################################################################
-## DO NOT EDIT
-#################################################################################################
-
-# Some functions
 local function mount_dir(dir, mountpoint)
     table.insert(path, { dir = dir, mountpoint = mountpoint })
 end
@@ -41,8 +23,6 @@ local function clear_cache()
     end
 end
 
-########
-
 # Start, do original datapath file
 dofile(InitFileDir..'\\SupComDataPath.lua')
 # Add our own hook to the list. Used to make our files overwrite existing files to ensure flawless operation.
@@ -57,7 +37,7 @@ clear_cache()
 # there are issues).
 local oldPath = path
 path = {}
-mount_dir(InitFileDir..'\\..\\gamedata\\'..File, '/')
+mount_dir(InitFileDir..'\\..\\gamedata\\nomads.nmd', '/')
 mount_dir(InitFileDir..'\\..\\movies', '/')
 
 for k, v in oldPath do
