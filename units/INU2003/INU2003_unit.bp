@@ -62,6 +62,7 @@ UnitBlueprint {
         'LAND',
         'TECH2',
         'INDIRECTFIRE',
+        'SILO',
         'ARTILLERY',
         'VISIBLETORECON',
         'RECLAIMABLE',
