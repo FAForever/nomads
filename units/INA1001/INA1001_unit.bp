@@ -1,9 +1,11 @@
+-- T1 air scout
+
 UnitBlueprint {
     Abilities = {
         ArtillerySupport = {
             LockoutDuration = 1,
             MaxSimultaniousArtillerySupport = -1,
-            Range = 18,
+            Range = 20,
             SupportGroundTargetting = true,
             TargetCategory = 'ALLUNITS',
         },

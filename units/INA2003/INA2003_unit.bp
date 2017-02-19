@@ -1,3 +1,5 @@
+-- T2 torpedo gunship
+
 UnitBlueprint {
     Abilities = {
         ArtillerySupport = {

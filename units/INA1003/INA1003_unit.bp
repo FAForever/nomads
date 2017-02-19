@@ -1,3 +1,5 @@
+-- T1 bomber
+
 UnitBlueprint {
     AI = {
         GuardReturnRadius = 120,

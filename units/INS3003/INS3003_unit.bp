@@ -1,4 +1,4 @@
--- Aircraft carrier
+-- T3 Aircraft carrier
 
 UnitBlueprint {
     AI = {

@@ -1,4 +1,4 @@
---Hydrocarbon power plant
+-- Hydrocarbon power plant
 
 UnitBlueprint {
     Adjacency = 'HydrocarbonAdjacencyBuffs',

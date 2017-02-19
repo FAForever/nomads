@@ -1,4 +1,4 @@
--- tank destroyer
+-- Tank destroyer
 
 UnitBlueprint {
     Abilities = {

@@ -1,4 +1,4 @@
--- frigate
+-- T1 Frigate
 
 UnitBlueprint {
     Audio = {

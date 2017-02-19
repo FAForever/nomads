@@ -1,4 +1,4 @@
---T2 tank Brute
+-- T2 tank Brute
 
 UnitBlueprint {
     AI = {

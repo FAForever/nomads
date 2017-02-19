@@ -1,4 +1,4 @@
--- T2 main tank
+-- T2 tank Brute
 
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local NLandUnit = import('/lua/nomadsunits.lua').NLandUnit
