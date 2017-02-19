@@ -1,4 +1,4 @@
--- tank destroyer
+-- Tank destroyer
 
 UnitBlueprint {
     Abilities = {
@@ -70,9 +70,8 @@ UnitBlueprint {
     Description = '<LOC inu1008_desc>Tank Destroyer',
     Display = {
         Abilities = {
-            '<LOC ability_accuratewhenstill>Accurate weapon when still',
+            '<LOC ability_anchor>Anchor',
             '<LOC ability_inaccuratewhenmoving>Inaccurate weapon when moving',
-            '<LOC ability_anchor>Anchor'
         },
         Mesh = {
             IconFadeInZoom = 130,
@@ -218,7 +217,7 @@ UnitBlueprint {
             CollideFriendly = false,
             Damage = 300,
             DamageFriendly = false,
-            DamageRadius = 1.5,
+            DamageRadius = 1,
             DamageType = 'Normal',
             DisplayName = 'Kinetic cannon',
             FireTargetLayerCapsTable = {
@@ -230,7 +229,7 @@ UnitBlueprint {
             FiringTolerance = 0,
             FiringToleranceWhileMoving = 0.5,
             Label = 'MainGun',
-            MaxRadius = 26,     --30r with anchor
+            MaxRadius = 23,     --30r with anchor
             MinRadius = 5,
             MuzzleChargeDelay = 0.5,
             MuzzleSalvoDelay = 0,
