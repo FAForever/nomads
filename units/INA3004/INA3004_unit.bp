@@ -1,3 +1,5 @@
+-- T3 strategic bomber 
+
 UnitBlueprint {
     AI = {
         GuardReturnRadius = 125,
@@ -294,7 +296,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             BombDropThreshold = 3.5,
             CollideFriendly = false,
-            Damage = 75,
+            Damage = 150,
             DamageFriendly = true,
             DamageRadius = 8,
             DamageType = 'Normal',
