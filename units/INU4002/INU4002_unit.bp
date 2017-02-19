@@ -1,4 +1,4 @@
--- Bullfrog
+-- T4 Bullfrog experimental
 
 UnitBlueprint {
     AI = {
@@ -85,11 +85,6 @@ UnitBlueprint {
         'OVERLAYDIRECTFIRE',
         'NEEDMOBILEBUILD',
         'OVERLAYANTIAIR',
---        'OVERLAYMISC',
-        'OVERLAYRADAR',
-        'UNSTUNABLE',
-        'INTELLIGENCE',
-        'RADAR',
     },
     CollisionOffsetZ = -0.75,
     Defense = {
@@ -108,9 +103,7 @@ UnitBlueprint {
             '<LOC ability_aa>Anti-Air',
             '<LOC ability_bombardarea>Area bombardment',
             '<LOC ability_hover>Hover',
-            '<LOC ability_unstunable>Immune to EMP',
             '<LOC ability_massive>Massive',
-            '<LOC ability_radar>Radar',
             '<LOC ability_deathaoe>Volatile',
         },
         IdleEffects = {
@@ -276,9 +269,9 @@ UnitBlueprint {
         UniformScale = 0.35,
     },
     Economy = {
-        BuildCostEnergy = 360000,
-        BuildCostMass = 28500,
-        BuildTime = 21000,
+        BuildCostEnergy = 380000,
+        BuildCostMass = 30000,
+        BuildTime = 22000,
     },
     General = {
         Category = 'Experimental',
@@ -313,7 +306,6 @@ UnitBlueprint {
         UnitWeight = 1,
     },
     Intel = {
-        RadarRadius = 65,
         VisionRadius = 40,
     },
     Interface = {
@@ -385,9 +377,9 @@ UnitBlueprint {
             },
             BallisticArc = 'RULEUBA_LowArc',
             BombardParticipant = true,
-            BombardSwingTurret = true,
+            BombardSwingTurret = false,
             CollideFriendly = false,
-            Damage = 2250,
+            Damage = 2250,  --1500dps/2250dps with bombard
             DamageRadius = 2,
             DamageType = 'Normal',
             DisplayName = 'Plasma cannon',
@@ -395,7 +387,7 @@ UnitBlueprint {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
-            FiringRandomness = 0.2,
+            FiringRandomness = 0.25,
             FiringTolerance = 2,
             Label = 'MainGun',
             MaxRadius = 65,
@@ -476,10 +468,9 @@ UnitBlueprint {
             },
             BallisticArc = 'RULEUBA_LowArc',
             BombardParticipant = true,
-            BombardSwingTurret = true,
-            BombardTurretYawRange = 5,
+            BombardSwingTurret = false,
             CollideFriendly = false,
-            Damage = 300,
+            Damage = 250,   --1250dps/1875dps with bombard
             DamageRadius = 0.5,
             DamageType = 'Normal',
             DisplayName = 'Annihilator Gattling Cannon',
@@ -487,7 +478,7 @@ UnitBlueprint {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
-            FiringRandomness = 0.35,
+            FiringRandomness = 0.5,
             FiringTolerance = 30,
             HeadingArcCenter = 0,
             HeadingArcRange = 30,
