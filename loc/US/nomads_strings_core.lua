@@ -68,7 +68,7 @@ tooltip_lobby_unit_restriction_nonomads_desc = ""
 tooltip_radar_boost_title = "Radar Boost Toggle"
 tooltip_radar_boost_desc = "Starts/stops charging radar boosting for the selection units. When finished charging up radar boost initiates automatically. Charging up requires energy."
 tooltip_bombardmode_title = "Bombard Mode Toggle"
-tooltip_bombardmode_desc = "bombard mode decrese reload time by 50% but increse firing randomnes"
+tooltip_bombardmode_desc = "Bombardment mode decreases the reload time by 50% but increases the fireing randomness."
 tooltip_no_air_title = "Anti-Air Toggle"
 tooltip_no_air_desc ="Turn the selection units anti-air attack on/off"
 tooltip_snipermode_title = "Sniper Mode Toggle"
@@ -76,7 +76,7 @@ tooltip_snipermode_desc = "Turn sniper mode on/off"
 tooltip_usecapacitor_title = "Capacitor Toggle"
 tooltip_usecapacitor_desc = "Boost unit temporarily (firepower, build power, regeneration) using the capacitor ability"
 tooltip_anchor_title = "Anchor Toggle"
-tooltip_anchor_desc = "Immobilizes the unit and increse weapon range, vision, radar and build rate by 30%"
+tooltip_anchor_desc = "Immobilizes the unit and increases weapon range, vision, radar and build rate by 30%."
 tooltip_stealthshield_title = "Stealth Shield Toggle"
 tooltip_stealthshield_desc = "Turn the select units shield and stealth field on/off"
 
@@ -688,12 +688,12 @@ inu3007_name = "Watchman"
 
 -- T2 mobile missile defense
 inu3008_desc = "Field Engineer"
-inu3008_help = "Hover unit equipped with engineering capabilities and a tactical missile defense installation. Have anchor option for higer intel and build capacity."
+inu3008_help = "Hover unit equipped with engineering capabilities and a tactical missile defense installation. Has anchor option to increase intel and tmd range as well as the build capacity."
 inu3008_name = "Scarab"
 
 -- T3 tracked tank
 inu3009_desc = "Armored Assault Tank"
-inu3009_help = "Tank that carries dual cannons and heavy armor. Have anchor option for defensive use."
+inu3009_help = "Tank that carries dual cannons and heavy armor. Has anchor option for defensive use."
 inu3009_name = "Slugger"
 
 
