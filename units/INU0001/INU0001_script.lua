@@ -88,7 +88,7 @@ INU0001 = Class(ACUUnit) {
     -- CREATION AND FIRST SECONDS OF GAMEPLAY
 
     CapFxBones = { 'torso_thingy_left', 'torso_thingy_right', },
-
+    
     OnCreate = function(self)
         ACUUnit.OnCreate(self)
 
@@ -123,6 +123,7 @@ INU0001 = Class(ACUUnit) {
         self:SetRapidRepairParams( 'NomadsACURapidRepair', bp.Enhancements.RapidRepair.RepairDelay, bp.Enhancements.RapidRepair.InterruptRapidRepairByWeaponFired)
 
         self.Sync.Abilities = self:GetBlueprint().Abilities
+        self:HasCapacitorAbility(false)
     end,
 
     OnStopBeingBuilt = function(self, builder, layer)
@@ -245,11 +246,6 @@ INU0001 = Class(ACUUnit) {
         end
 
         self.CapDoPlayFx = true
-        if self:CapIsFull() then
-            self:CapPlayFx('Full')
-        else
-            self:CapPlayFx('Charging')
-        end
 
         WaitTicks(5)
 
@@ -263,9 +259,6 @@ INU0001 = Class(ACUUnit) {
         self:SetUnSelectable(false)
         self:SetBusy(false)
         self:SetBlockCommandQueue(false)
-
---self:CreateEnhancement('OrbitalBombardment')
---self:CreateEnhancement('IntelProbe')
     end,
 
     PlayCommanderWarpInEffect = function(self)  -- part of initial dropship animation
@@ -507,6 +500,16 @@ INU0001 = Class(ACUUnit) {
             self.UseRunWalkAnim = false
 
         -- ---------------------------------------------------------------------------------------
+        -- CAPACITOR UPGRADE
+        -- ---------------------------------------------------------------------------------------
+
+        elseif enh == 'Capacitor' then
+            self:HasCapacitorAbility(true)
+
+        elseif enh == 'CapacitorRemove' then
+            self:HasCapacitorAbility(false)
+
+        -- ---------------------------------------------------------------------------------------
         -- RESOURCE ALLOCATION
         -- ---------------------------------------------------------------------------------------
 
@@ -516,35 +519,11 @@ INU0001 = Class(ACUUnit) {
             self:SetProductionPerSecondEnergy(bp.ProductionPerSecondEnergy + bpEcon.ProductionPerSecondEnergy or 0)
             self:SetProductionPerSecondMass(bp.ProductionPerSecondMass + bpEcon.ProductionPerSecondMass or 0)
 
-            -- capacitor upgrades
-            if bp.CapacitorNewEnergyDrainPerSecond then
-                self:CapSetEnergyDrainPerSecond(bp.CapacitorNewEnergyDrainPerSecond)
-            end
-            if bp.CapacitorNewDuration then
-                self:CapSetDuration(bp.CapacitorNewDuration)
-            end
-            if bp.CapacitorNewChargeTime then
-                self:CapSetChargeTime(bp.CapacitorNewChargeTime)
-            end
-
         elseif enh == 'ResourceAllocationRemove' then
 
             local bpEcon = self:GetBlueprint().Economy
             self:SetProductionPerSecondEnergy(bpEcon.ProductionPerSecondEnergy or 0)
             self:SetProductionPerSecondMass(bpEcon.ProductionPerSecondMass or 0)
-
-            -- removing capacitor upgrades
-            local orgBp = self:GetBlueprint()
-            local obp = orgBp.Enhancements.ResourceAllocation
-            if obp.CapacitorNewEnergyDrainPerSecond then
-                self:CapSetEnergyDrainPerSecond(orgBp.Capacitor.EnergyDrainPerSecond)
-            end
-            if obp.CapacitorNewDuration then
-                self:CapSetDuration(orgBp.Capacitor.Duration)
-            end
-            if obp.CapacitorNewChargeTime then
-                self:CapSetChargeTime(orgBp.Capacitor.ChargeTime)
-            end
 
         -- ---------------------------------------------------------------------------------------
         -- RAPID REPAIR
