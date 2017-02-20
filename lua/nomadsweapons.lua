@@ -248,6 +248,10 @@ TacticalMissileWeapon1 = Class(DefaultProjectileWeapon) {
     end,
 }
 
+TacticalMissileWeapon2 = Class(DefaultProjectileWeapon) {
+    FxMuzzleFlash = NomadsEffectTemplate.TacticalMissileMuzzleFx,
+}
+
 DroppedMissileWeapon =  Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = {'/effects/emitters/antiair_muzzle_fire_02_emit.bp', },
 }

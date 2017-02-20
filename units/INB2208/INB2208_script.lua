@@ -1,7 +1,7 @@
 -- T2 TML
 
 local NStructureUnit = import('/lua/nomadsunits.lua').NStructureUnit
-local TacticalMissileWeapon1 = import('/lua/nomadsweapons.lua').TacticalMissileWeapon1
+local TacticalMissileWeapon1 = import('/lua/nomadsweapons.lua').TacticalMissileWeapon2
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 
 INB2208 = Class(NStructureUnit) {
