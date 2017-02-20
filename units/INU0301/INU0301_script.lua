@@ -142,6 +142,8 @@ inu0301 = Class(NWalkingLandUnit) {
         self.HasLeftArm = false
         self.HasRightArm = false
         self:SetRapidRepairParams( 'NomadsSCURapidRepair', bp.Enhancements.RapidRepair.RepairDelay, bp.Enhancements.RapidRepair.InterruptRapidRepairByWeaponFired)
+    
+        self:HasCapacitorAbility(false)
     end,
 
     OnStartBeingBuilt = function(self, builder, layer)
@@ -652,31 +654,41 @@ inu0301 = Class(NWalkingLandUnit) {
             end
 
         -- ---------------------------------------------------------------------------------------
-        -- ADDITIONAL CAPACITOR
+        -- CAPACITOR
         -- ---------------------------------------------------------------------------------------
 
+        elseif enh == 'Capacitor' then
+            self:HasCapacitorAbility(true)
+        elseif enh == 'CapacitorRemove' then
+            self:HasCapacitorAbility(false)
+
+        -- ---------------------------------------------------------------------------------------
+        -- ADDITIONAL CAPACITOR
+        -- ---------------------------------------------------------------------------------------
+        
         elseif enh == 'AdditionalCapacitor' then
-            if bp.CapacitorNewEnergyDrainPerSecond then
-                self:CapSetEnergyDrainPerSecond(bp.CapacitorNewEnergyDrainPerSecond)
+            if bp.CapacitorNewCost then
+                self:SetCapacitorEnergyCost(bp.CapacitorNewCost)
             end
             if bp.CapacitorNewDuration then
-                self:CapSetDuration(bp.CapacitorNewDuration)
+                self:SetCapacitorDuration(bp.CapacitorNewDuration)
             end
-            if bp.CapacitorNewChargeTime then
-                self:CapSetChargeTime(bp.CapacitorNewChargeTime)
+            if bp.CapacitorNewCooldown then
+                self:SetCapacitorCooldown(bp.CapacitorNewCooldown)
             end
-
+            
         elseif enh == 'AdditionalCapacitorRemove' then
+            self:HasCapacitorAbility(false)
             local orgBp = self:GetBlueprint()
             local obp = orgBp.Enhancements.AdditionalCapacitor
-            if obp.CapacitorNewEnergyDrainPerSecond then
-                self:CapSetEnergyDrainPerSecond(orgBp.Abilities.Capacitor.EnergyDrainPerSecond)
+            if obp.CapacitorNewCost then
+                self:SetCapacitorEnergyCost(orgBp.Abilities.Capacitor.EnergyCost)
             end
             if obp.CapacitorNewDuration then
-                self:CapSetDuration(orgBp.Abilities.Capacitor.Duration)
+                self:SetCapacitorDuration(orgBp.Abilities.Capacitor.Duration)
             end
-            if obp.CapacitorNewChargeTime then
-                self:CapSetChargeTime(orgBp.Abilities.Capacitor.ChargeTime)
+            if obp.CapacitorNewCooldown then
+                self:SetCapacitorCooldown(orgBp.Abilities.Capacitor.Cooldown)
             end
 
         -- ---------------------------------------------------------------------------------------
@@ -716,38 +728,14 @@ inu0301 = Class(NWalkingLandUnit) {
             local bpEcon = self:GetBlueprint().Economy
             self:SetProductionPerSecondEnergy(bp.ProductionPerSecondEnergy + bpEcon.ProductionPerSecondEnergy or 0)
             self:SetProductionPerSecondMass(bp.ProductionPerSecondMass + bpEcon.ProductionPerSecondMass or 0)
-
-            -- capacitor upgrades
-            if bp.CapacitorNewEnergyDrainPerSecond then
-                self:CapSetEnergyDrainPerSecond(bp.CapacitorNewEnergyDrainPerSecond)
-            end
-            if bp.CapacitorNewDuration then
-                self:CapSetDuration(bp.CapacitorNewDuration)
-            end
-            if bp.CapacitorNewChargeTime then
-                self:CapSetChargeTime(bp.CapacitorNewChargeTime)
-            end			
-			
+            
             -- TODO: show effect on bones Backpack_Fx1 and 2
 
         elseif enh == 'ResourceAllocationRemove' then
             local bpEcon = self:GetBlueprint().Economy
             self:SetProductionPerSecondEnergy(bpEcon.ProductionPerSecondEnergy or 0)
             self:SetProductionPerSecondMass(bpEcon.ProductionPerSecondMass or 0)
-
-            -- removing capacitor upgrades
-            local orgBp = self:GetBlueprint()
-            local obp = orgBp.Enhancements.ResourceAllocation
-            if obp.CapacitorNewEnergyDrainPerSecond then
-                self:CapSetEnergyDrainPerSecond(orgBp.Capacitor.EnergyDrainPerSecond)
-            end
-            if obp.CapacitorNewDuration then
-                self:CapSetDuration(orgBp.Capacitor.Duration)
-            end
-            if obp.CapacitorNewChargeTime then
-                self:CapSetChargeTime(orgBp.Capacitor.ChargeTime)
-            end
-
+            
         -- ---------------------------------------------------------------------------------------
         -- RAPID REPAIR
         -- ---------------------------------------------------------------------------------------

@@ -305,6 +305,52 @@ abilities = table.merged( abilities, {
         UserProcessFile = '/lua/user/tasks/Tasks.lua',
         UserVerifyFile = '/lua/user/tasks/Tasks.lua',
     },
+    
+    Capacitor = {
+        preferredSlot = 7,
+        onframe = function (self, deltaTime)
+            
+            local available = false
+            local capCost = nil
+            local unit
+            for i,unit in import('/lua/ui/game/orders.lua').GetCurrentSelection() do
+                if not unit or unit:IsDead() then continue end
+                
+                local hasCap = UnitData[unit:GetEntityId()].HasCapacitorAbility
+                local inCooldown = UnitData[unit:GetEntityId()].CooldownTimer > 0
+                
+                if hasCap and not inCooldown then 
+                    available = true
+                    if not capCost then
+                        capCost = UnitData[unit:GetEntityId()].CapacitorEnergyCost
+                    else
+                        capCost = math.min(capCost, UnitData[unit:GetEntityId()].CapacitorEnergyCost)
+                    end
+                end
+            end
+            
+            local econData = GetEconomyTotals()
+            if capCost and econData["stored"]["ENERGY"] >= capCost and available then
+                if self:IsDisabled() then
+                    self:Enable()
+                    import('/lua/ui/game/voiceovers.lua').VOUIEvent('CapacitorFull')
+                end
+            else
+                if not self:IsDisabled() then
+                    self:Disable()
+                end
+            end
+        end,
+        
+        behavior = function(self, modifiers)
+            local cb = { Func = 'ActivateCapacitor'}
+            SimCallback(cb, true)
+        end,
+        
+        AbilityRequirement = function(unit)
+            return UnitData[unit:GetEntityId()].HasCapacitorAbility
+        end,
+    }
 })
 
 end
