@@ -129,44 +129,12 @@ UnitBlueprint {
             '<LOC ability_transport>Transport',
             '<LOC ability_flares>Flares',
         },
---        AnimationLand = '/units/INA2001/INA2001_atakeoff01.sca',
+
         BuildEffect = {
             ExtendsFront = 0,
             ExtendsRear = 0,
         },
---        LayerChangeEffects = {
---            AirLand = {
---                Effects = {
---                    {
---                        Bones = {
---                            'Front_Right_Exhaust',
---                            'Front_Left_Exhaust',
---                            'Back_Right_Exhaust',
---                            'Back_Left_Exhaust',
---                        },
---                        Offset = {
---                            0,
---                            0,
---                            0,
---                        },
---                        Type = 'Landing01',
---                    },
---                },
---            },
---            LandAir = {
---                Effects = {
---                   {
---                        Bones = {
---                            'Front_Right_Exhaust',
---                            'Front_Left_Exhaust',
---                            'Back_Right_Exhaust',
---                            'Back_Left_Exhaust',
---                        },
---                        Type = 'TakeOff01',
---                    },
---                },
---            },
---        },
+
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -176,18 +144,6 @@ UnitBlueprint {
                 },
             },
         },
---        MovementEffects = {
---            BeamExhaust = {
---                Bones = {
---                    'Front_Right_Exhaust',
---                    'Front_Left_Exhaust',
---                    'Back_Right_Exhaust',
---                    'Back_Left_Exhaust',
---                },
---                Cruise = true,
---                Idle = true,
---            },
---        },
         PlaceholderMeshName = 'UXB0000',
         SpawnRandomRotation = false,
         UniformScale = 0.7,  -- don't play with this too much, transported units might do bumper cars when set down
