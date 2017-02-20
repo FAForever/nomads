@@ -1,8 +1,12 @@
 -- T2 main tank
 
+local AddAnchorAbilty = import('/lua/nomadsutils.lua').AddAnchorAbilty
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local NLandUnit = import('/lua/nomadsunits.lua').NLandUnit
 local ParticleBlaster1 = import('/lua/nomadsweapons.lua').ParticleBlaster1
+
+NLandUnit = AddAnchorAbilty(NLandUnit)
+
 
 INU2005 = Class(NLandUnit) {
     Weapons = {
@@ -35,6 +39,14 @@ INU2005 = Class(NLandUnit) {
             emit = CreateAttachedEmitter(self, bone, army, v)
             self.Trash:Add(emit)
         end
+    end,
+    
+    EnableSpecialToggle = function(self)
+        self:EnableAnchor(self)
+    end,
+
+    DisableSpecialToggle = function(self)
+        self:DisableAnchor(self)
     end,
 }
 
