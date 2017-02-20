@@ -1,4 +1,4 @@
--- T2 mass fab
+-- T2 mass fabricator
 
 UnitBlueprint {
     Adjacency = 'T1MassFabricatorAdjacencyBuffs',

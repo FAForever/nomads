@@ -1,4 +1,4 @@
---T2 naval factory support
+-- T2 naval factory support
 
 UnitBlueprint {
     AI = {

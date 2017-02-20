@@ -1,4 +1,4 @@
---Mass storage
+-- Mass storage
 
 UnitBlueprint {
     Adjacency = 'T1MassStorageAdjacencyBuffs',

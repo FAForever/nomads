@@ -1,3 +1,5 @@
+-- Tactical missile launcher
+
 UnitBlueprint {
     AI = {
         InitialAutoMode = true,

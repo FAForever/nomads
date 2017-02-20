@@ -1,3 +1,5 @@
+-- T3 spy plane
+
 UnitBlueprint {
     Air = {
         AutoLandTime = 1,

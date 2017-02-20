@@ -1,4 +1,4 @@
--- T2 main tank
+-- T2 tank Brute
 
 local AddAnchorAbilty = import('/lua/nomadsutils.lua').AddAnchorAbilty
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')

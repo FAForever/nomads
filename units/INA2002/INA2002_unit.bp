@@ -1,3 +1,5 @@
+-- T2 fighter/bomber
+
 UnitBlueprint {
     AI = {
         GuardReturnRadius = 100,

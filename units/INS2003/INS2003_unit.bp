@@ -1,4 +1,4 @@
--- rail gun boat
+-- T2 Rail gun boat
 
 UnitBlueprint {
     AI = {

@@ -1,4 +1,4 @@
--- t1 air scout
+-- T1 Air scout
 
 local NAirUnit = import('/lua/nomadsunits.lua').NAirUnit
 local SupportingArtilleryAbility = import('/lua/nomadsutils.lua').SupportingArtilleryAbility
