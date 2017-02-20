@@ -65,6 +65,7 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
         'OVERLAYINDIRECTFIRE',
+        'SILO',
     },
     Defense = {
         AirThreatLevel = 0,
