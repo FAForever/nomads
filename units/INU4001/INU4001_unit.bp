@@ -1,3 +1,5 @@
+-- T4 missile tank
+
 UnitBlueprint {
     Abilities = {
         BombardMode = {
@@ -93,10 +95,6 @@ UnitBlueprint {
         'OVERLAYDIRECTFIRE',
         'NEEDMOBILEBUILD',
         'OVERLAYANTIAIR',
-        'OVERLAYRADAR',
-        'UNSTUNABLE',
-        'RADAR',
-        'INTELLIGENCE',
         'TRANSPORTABLEEXP',
     },
     CollisionOffsetZ = -0.2,
@@ -114,13 +112,11 @@ UnitBlueprint {
     Display = {
 	Abilities = {
             '<LOC ability_aa>Anti-Air',
-            '<LOC ability_stun>EMP',
-            '<LOC ability_lessdmgvsexp>Reduced damage versus experimentals',
-            '<LOC ability_hover>Hover',
-            '<LOC ability_massive>Massive',
-            '<LOC ability_unstunable>Immune to EMP',
             '<LOC ability_bombardarea>Area bombardment',
-            '<LOC ability_radar>Radar',
+            '<LOC ability_deploy>Deploys',
+            '<LOC ability_stun>EMP',
+            '<LOC ability_hover>Hover',
+            '<LOC ability_massive>Massive',            
             '<LOC ability_transportable>Transportable',
             '<LOC ability_deathaoe>Volatile',
         },
@@ -333,7 +329,6 @@ UnitBlueprint {
     },
     Intel = {
         VisionRadius = 50,
-        RadarRadius = 150,
     },
     Interface = {
         HelpText = '<LOC inu4001_help>Experimental Hover Tank',
@@ -392,11 +387,11 @@ UnitBlueprint {
         TransportClass = 4,
     },
     Veteran = {
-        Level1 = 40,
-        Level2 = 80,
-        Level3 = 120,
-        Level4 = 160,
-        Level5 = 200,
+        Level1 = 50,
+        Level2 = 100,
+        Level3 = 150,
+        Level4 = 200,
+        Level5 = 250,
     },
     Weapon = {
         {
@@ -503,24 +498,10 @@ UnitBlueprint {
                     },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
-                    Duration = 4,
-                    Radius = 4,
+                    Duration = 3,
+                    Radius = 3,
                     TargetAllow = 'TECH1,TECH2,TECH3,SHIELD',
                     TargetDisallow = 'UNSTUNABLE,EXPERIMENTAL,COMMAND,WALL',
-                },
-                {
-                    Add = {
-                        ImpactTypeDisallow = {
-                            'Shield',
-                        },
-                        OnImpact = true,
-                    },
-                    AppliedToTarget = true,
-                    BuffType = 'STUN',
-                    Duration = 0.2,
-                    Radius = 4,
-                    TargetAllow = 'EXPERIMENTAL',
-                    TargetDisallow = 'UNSTUNABLE,TECH1,TECH2,TECH3,SHIELD,COMMAND,WALL',
                 },
             },
             BombardDisable = true,
@@ -529,7 +510,7 @@ UnitBlueprint {
             DamageFriendly = false,
             DamageRadius = 3,
             DamageToShields = 100,
-            DamageType = 'EMPMissile',
+            DamageType = 'Normal',
             DisplayName = 'EMP missile',
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
@@ -537,7 +518,7 @@ UnitBlueprint {
             },
             FiringTolerance = 180,
             Label = 'MainGun',
-            MaxRadius = 110,
+            MaxRadius = 100,
             MinRadius = 5,
             MuzzleSalvoDelay = 0.5,
             MuzzleSalvoSize = 12,
@@ -632,24 +613,10 @@ UnitBlueprint {
                     },
                     AppliedToTarget = true,
                     BuffType = 'STUN',
-                    Duration = 4,
-                    Radius = 4,
+                    Duration = 3,
+                    Radius = 3,
                     TargetAllow = 'TECH1,TECH2,TECH3,SHIELD',
                     TargetDisallow = 'UNSTUNABLE,EXPERIMENTAL,COMMAND,WALL',
-                },
-                {
-                    Add = {
-                        ImpactTypeDisallow = {
-                            'Shield',
-                        },
-                        OnImpact = true,
-                    },
-                    AppliedToTarget = true,
-                    BuffType = 'STUN',
-                    Duration = 0.2,
-                    Radius = 4,
-                    TargetAllow = 'EXPERIMENTAL',
-                    TargetDisallow = 'UNSTUNABLE,TECH1,TECH2,TECH3,SHIELD,COMMAND,WALL',
                 },
             },
             CollideFriendly = false,
@@ -657,7 +624,7 @@ UnitBlueprint {
             DamageFriendly = false,
             DamageRadius = 3,
             DamageToShields = 100,
-            DamageType = 'EMPMissile',
+            DamageType = 'Normal',
             DisplayName = 'EMP missile',
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
@@ -665,7 +632,7 @@ UnitBlueprint {
             },
             FiringTolerance = 180,
             Label = 'MainGun_BombardmentMode',
-            MaxRadius = 150,
+            MaxRadius = 100,
             MinRadius = 5,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 12,
@@ -717,7 +684,7 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 2,
             RackSlavedToTurret = true,
-            RangeCategory = 'UWRC_IndirectFire',
+            RangeCategory = 'UWRC_DirectFire',
             RateOfFire = 0.0834, 
             SlavedToBody = false,
             TargetCheckInterval = 0.5,
