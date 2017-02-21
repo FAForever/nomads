@@ -590,9 +590,9 @@ inb1202_help = "Mid-level Mass extractor. Must be constructed on Mass deposits. 
 inb1202_name = "Mass Extractor"
 
 -- mass fabricator
-inb1103_desc = "Mass Fabricator"
-inb1103_help = "Creates Mass. Requires large amounts of Energy. Construct next to other structures for adjacency bonus. Explodes violently when destroyed, this can cause chain reactions."
-inb1103_name = "Mass Fabricator"
+inb1104_desc = "Mass Fabricator"
+inb1104_help = "Creates Mass. Requires large amounts of Energy. Construct next to other structures for adjacency bonus. Explodes violently when destroyed, this can cause chain reactions."
+inb1104_name = "Mass Fabricator"
 
 -- point defense
 inb2201_desc = "Point Defense"

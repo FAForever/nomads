@@ -312,7 +312,7 @@ buildingTab = {
 "ueb1104",
 "uab1303",
 "uab1104",
-"inb1103",
+"inb1104",
 "inb1303",
 },
 ["Energy_Storage"] = {
