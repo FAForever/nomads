@@ -1,11 +1,14 @@
 -- The surface support vehicle that's in orbit
 
 local NCivilianStructureUnit = import('/lua/nomadsunits.lua').NCivilianStructureUnit
+local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 
 INC0001 = Class(NCivilianStructureUnit) {
     
     OnCreate = function(self)
         self.BuildEffectsBag = TrashBag()
+        self.ThrusterEffectsBag = TrashBag()
+        
         NCivilianStructureUnit.OnCreate(self)
         
         if self:GetBlueprint().Physics.Elevation then
@@ -60,6 +63,26 @@ INC0001 = Class(NCivilianStructureUnit) {
             self.Trash:Add( self.RotatorManipulator2 )
         end
     end,
+    
+    
+    
+    ThrusterBurnBones = { 'P_Flaps', 'S_Flaps', 'T_Flap', 'B_Flap'},
+    
+    BurnEngines = function(self)
+        local army, emit = self:GetArmy()
+        for k, v in NomadsEffectTemplate.T2TransportThrusters do
+            for _, bone in self.ThrusterBurnBones do
+                emit = CreateAttachedEmitter( self, bone, army, v )
+                self.ThrusterEffectsBag:Add( emit )
+                self.Trash:Add( emit )
+            end
+        end
+    end,
+    
+    StopEngines = function(self)
+        self.ThrusterEffectsBag:Destroy()
+    end,
+    
 }
 
 TypeClass = INC0001
