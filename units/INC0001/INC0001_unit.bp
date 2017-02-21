@@ -24,7 +24,6 @@ UnitBlueprint {
         'SELECTABLE',
         'AIR',
         'VISIBLETORECON',
-        'RECLAIMABLE',
         'SIZE20'
     },
     CollisionOffsetX = 0,
