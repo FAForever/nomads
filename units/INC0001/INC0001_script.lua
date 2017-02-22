@@ -19,6 +19,7 @@ INC0001 = Class(NCivilianStructureUnit) {
         else
             self:RotatingAngle()
         end
+        self:BurnEngines()
     end,
     
     Hover = function(self)
@@ -66,7 +67,7 @@ INC0001 = Class(NCivilianStructureUnit) {
     
     
     
-    ThrusterBurnBones = { 'P_Flaps', 'S_Flaps', 'T_Flap', 'B_Flap'},
+    ThrusterBurnBones = { 'Exhaust_Top', 'Exhaust_Centre', 'Exhaust_Bottom'},
     
     BurnEngines = function(self)
         local army, emit = self:GetArmy()
