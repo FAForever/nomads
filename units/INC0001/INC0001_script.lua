@@ -2,6 +2,7 @@
 
 local NCivilianStructureUnit = import('/lua/nomadsunits.lua').NCivilianStructureUnit
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
+local CreateNomadsBuildSliceBeams = import('/lua/nomadseffectutilities.lua').CreateNomadsBuildSliceBeams
 
 INC0001 = Class(NCivilianStructureUnit) {
     
@@ -20,6 +21,12 @@ INC0001 = Class(NCivilianStructureUnit) {
             self:RotatingAngle()
         end
         --self:BurnEngines()
+        
+        --[[for _, army in ListArmies() do
+            if not IsEnemy(army, self:GetArmy()) then
+                self:AddToConstructionQueue('inu1001', army)
+            end
+        end]]
     end,
     
     Hover = function(self)
@@ -118,6 +125,80 @@ INC0001 = Class(NCivilianStructureUnit) {
         end)
     end,
     
+    
+    
+    
+    
+    BuildQueue = {
+    --   { unitType = 'xxx', },
+    },
+    ConstructingThreadHandle = nil,
+    BuildBones ={0},
+    AddToConstructionQueue = function(self, unitType , army)
+        if unitType and type(unitType) == 'string' then
+            table.insert( self.BuildQueue, { unitType = unitType, army = army} )
+            self:MaybeStartConstruction()
+            return true
+        else
+            WARN('INO0001: AddToConstructionQueue(): Passed unit type is not a string.')
+        end
+        return false
+    end,
+
+    OnConstructionFinished = function(self, unit)
+    end,
+
+    MaybeStartConstruction = function(self)
+        if table.getn( self.BuildQueue ) > 0 then
+            local keys = table.keys( self.BuildQueue )
+            local queueKey = keys[1]
+            self.ConstructingThreadHandle = self:ForkThread( self.StartConstruction, queueKey)
+            self.Trash:Add( self.ConstructingThreadHandle )
+        end
+    end,
+    
+
+    StartConstruction = function( self, queueKey)
+        local attachBone = 0
+        local unitBp = self.BuildQueue[ queueKey ].unitType
+        local army = self.BuildQueue[ queueKey ].army
+        table.remove( self.BuildQueue, queueKey )
+
+        if self.ConstructionArmAnimManip then
+            self.ConstructionArmAnimManip:SetRate(1)
+            WaitFor( self.ConstructionArmAnimManip )
+        end
+
+        local x, y, z =  unpack(self:GetPosition( attachBone ))
+        WARN(army)
+        local unit = CreateUnitHPR( unitBp, army, x + 5+ Random(3), y, z+ Random(3), 0, 0, 0 )
+
+        self.UnitBeingBuilt = unit
+        unit:SetIsValidTarget(false)
+        unit:SetImmobile(true)
+
+        -- build effects
+        if unit:GetBlueprint().Display.BuildMeshBlueprint then
+            unit:SetMesh(unit:GetBlueprint().Display.BuildMeshBlueprint, true)
+        end
+        local layer = self:GetCurrentLayer()
+        unit:StartBeingBuiltEffects( self, layer)
+        local effectThread = ForkThread( CreateNomadsBuildSliceBeams, self, unit, self.BuildBones, self.BuildEffectsBag )
+
+        WaitTicks(math.ceil( unit:GetBlueprint().Economy.BuildTime or 10000 ) / 10)
+
+        -- construction done!
+        unit:DetachFrom()
+        unit:SetIsValidTarget(true)
+        unit:SetImmobile(false)
+
+        -- remove building effects
+        if unit:GetBlueprint().Display.BuildMeshBlueprint then
+            unit:SetMesh(unit:GetBlueprint().Display.MeshBlueprint, true)
+        end
+        KillThread(effectThread)
+        self:StopBuildingEffects()
+    end,
 }
 
 TypeClass = INC0001
