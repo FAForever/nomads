@@ -19,7 +19,7 @@ INC0001 = Class(NCivilianStructureUnit) {
         else
             self:RotatingAngle()
         end
-        self:BurnEngines()
+        --self:BurnEngines()
     end,
     
     Hover = function(self)
@@ -67,21 +67,55 @@ INC0001 = Class(NCivilianStructureUnit) {
     
     
     
-    ThrusterBurnBones = { 'Exhaust_Top', 'Exhaust_Centre', 'Exhaust_Bottom'},
+    ThrusterBurnBones = {'Exhaust_Centre', 'Exhaust_Top', 'Exhaust_Bottom'},
     
     BurnEngines = function(self)
         local army, emit = self:GetArmy()
-        for k, v in NomadsEffectTemplate.T2TransportThrusters do
+        local ThrusterEffects = {
+            '/effects/emitters/nomads_orbital_frigate_thruster04_emit.bp',
+            '/effects/emitters/nomads_orbital_frigate_thruster05_emit.bp',
+            '/effects/emitters/nomads_orbital_frigate_thruster01_emit.bp',
+            '/effects/emitters/nomads_orbital_frigate_thruster02_emit.bp',
+        }
+        ForkThread( function()
+            for i = 1, 4 do
+                for _, bone in self.ThrusterBurnBones do
+                    emit = CreateAttachedEmitter( self, bone, army, ThrusterEffects[i] )
+                    self.ThrusterEffectsBag:Add( emit )
+                    self.Trash:Add( emit )
+                    WaitSeconds(0.2)
+                end
+                WaitSeconds(1.5)
+            end
+        end)
+    end,
+        
+    StopEngines = function(self)
+        self.ThrusterEffectsBag:Destroy()
+        local army, emit = self:GetArmy()
+        local ThrusterEffects = {
+            '/effects/emitters/nomads_orbital_frigate_thruster03_emit.bp',
+            '/effects/emitters/nomads_orbital_frigate_thruster04_emit.bp',
+        }
+        ForkThread( function()
+            for i = 1, 2 do
+                for _, bone in self.ThrusterBurnBones do
+                    emit = CreateAttachedEmitter( self, bone, army, ThrusterEffects[i] )
+                    self.ThrusterEffectsBag:Add( emit )
+                    self.Trash:Add( emit )
+                    WaitSeconds(0.2)
+                end
+            end
+            WaitSeconds(1)
+            self.ThrusterEffectsBag:Destroy()
             for _, bone in self.ThrusterBurnBones do
-                emit = CreateAttachedEmitter( self, bone, army, v )
+                emit = CreateAttachedEmitter( self, bone, army, ThrusterEffects[2] )
                 self.ThrusterEffectsBag:Add( emit )
                 self.Trash:Add( emit )
             end
-        end
-    end,
-    
-    StopEngines = function(self)
-        self.ThrusterEffectsBag:Destroy()
+            WaitSeconds(5)
+            self.ThrusterEffectsBag:Destroy()
+        end)
     end,
     
 }
