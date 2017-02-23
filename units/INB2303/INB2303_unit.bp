@@ -45,6 +45,7 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
         'OVERLAYINDIRECTFIRE',
+        'SHOWATTACKRETICLE',
         'SORTSTRATEGIC',
     },
     Defense = {
@@ -254,6 +255,7 @@ UnitBlueprint {
             TurretYawRange = 180,
             TurretYawSpeed = 6,
             Turreted = true,
+            UseFiringSolutionInsteadOfAimBone = true,
             WeaponCategory = 'Artillery',
         },
     },
