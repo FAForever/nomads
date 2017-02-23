@@ -170,7 +170,6 @@ INC0001 = Class(NCivilianStructureUnit) {
         end
 
         local x, y, z =  unpack(self:GetPosition( attachBone ))
-        WARN(army)
         local unit = CreateUnitHPR( unitBp, army, x + 5+ Random(3), y, z+ Random(3), 0, 0, 0 )
 
         self.UnitBeingBuilt = unit
