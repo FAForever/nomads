@@ -396,6 +396,7 @@ inu0301 = Class(NWalkingLandUnit) {
         else
             self:AddBuildRestriction( categories.BUILTBYTIER1ENGINEER + categories.BUILTBYTIER2ENGINEER + categories.BUILTBYTIER3ENGINEER )
         end
+        NWalkingLandUnit.updateBuildRestrictions(self)
     end,
 
     CreateEnhancement = function(self, enh)
