@@ -204,7 +204,7 @@ UnitBlueprint {
             FiringRandomness = 0.7,
             FiringTolerance = 360,
             Label = 'TargetFinder',
-            MaxRadius = 750,
+            MaxRadius = 700,
             MinRadius = 150,
             MuzzleSalvoDelay = 0.5,
             MuzzleSalvoSize = 5,
@@ -229,7 +229,7 @@ UnitBlueprint {
             RackSlavedToTurret = false,
             RangeCategory = 'UWRC_IndirectFire',
             RateOfFire = 0.08,
-            TargetCheckInterval = 8,
+            TargetCheckInterval = 60,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'STRUCTURE',
