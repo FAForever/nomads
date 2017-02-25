@@ -280,7 +280,7 @@ UnitBlueprint {
     },
     Transport = {
         AirClass = true,
-        TransportClass = 3,
+        TransportClass = 2,
     },
     Weapon = {
         {
