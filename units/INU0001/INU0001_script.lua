@@ -335,11 +335,19 @@ INU0001 = Class(ACUUnit) {
     SetOrbitalBombardEnabled = function(self, enable)
         local brain = self:GetAIBrain()
         brain:EnableSpecialAbility( 'NomadsAreaBombardment', (enable == true) )
+        if enable then
+            brain.NomadsMothership:ReturnToStartLocation()
+        else
+            if not self:HasEnhancement( 'IntelProbe' ) and not self:HasEnhancement( 'IntelProbe' ) then
+                brain.NomadsMothership:MoveAway()
+            end
+        end
     end,
 
     SetIntelProbeEnabled = function(self, adv, enable)
         local brain = self:GetAIBrain()
         if enable then
+            brain.NomadsMothership:ReturnToStartLocation()
             local EnAbil, DisAbil = 'NomadsIntelProbe', 'NomadsIntelProbeAdvanced'
             if adv then
                 EnAbil = 'NomadsIntelProbeAdvanced'
@@ -348,6 +356,7 @@ INU0001 = Class(ACUUnit) {
             brain:EnableSpecialAbility( DisAbil, false )
             brain:EnableSpecialAbility( EnAbil, true )
         else
+            if not self:HasEnhancement( 'OrbitalBombardment' ) then brain.NomadsMothership:MoveAway() end
             brain:EnableSpecialAbility( 'NomadsIntelProbeAdvanced', false )
             brain:EnableSpecialAbility( 'NomadsIntelProbe', false )
         end

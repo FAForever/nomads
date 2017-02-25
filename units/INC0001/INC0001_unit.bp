@@ -24,7 +24,7 @@ UnitBlueprint {
         'SELECTABLE',
         'AIR',
         'VISIBLETORECON',
-        'RECLAIMABLE',
+        'SIZE20'
     },
     CollisionOffsetX = 0,
     CollisionOffsetY = -1.5,
@@ -88,6 +88,10 @@ UnitBlueprint {
         ProductionPerSecondMass = 1,
         StorageEnergy = 4000,
         StorageMass = 650,
+    },
+    Footprint = {
+        SizeX = 16,
+        SizeZ = 28,
     },
     General = {
         CapCost = 0,
