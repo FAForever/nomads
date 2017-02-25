@@ -122,8 +122,6 @@ UnitBlueprint {
             'FIELDENGINEER NOMADS MOBILE LAND',
         },
         RebuildBonusIds = {
-            'INB0103',
-            'INB0203',
             'INB0303',
         },
         InitialRallyX = 0,
