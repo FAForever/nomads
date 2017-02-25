@@ -3,7 +3,7 @@
 UnitBlueprint {
     AI = {
         TargetBones = {
-            'INB0213',
+            'INB0203',
         },
     },
     Audio = {
@@ -94,7 +94,7 @@ UnitBlueprint {
                 Effects = {
                     {
                         Bones = {
-                            'INB0213',
+                            'INB0203',
                         },
                         Scale = 3,
                         Type = 'SeaIdle01',
