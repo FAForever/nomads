@@ -2728,7 +2728,7 @@ MeteorSmokeRing = {
 }
 
 MeteorTrail = {
-    EmtBpPathNomads .. 'MeteorTrail01.bp',  -- thick dark smoke
+--    EmtBpPathNomads .. 'MeteorTrail01.bp',  -- thick dark smoke
     EmtBpPathNomads .. 'MeteorTrail02.bp',  -- fireball
     EmtBpPathNomads .. 'MeteorTrail03.bp',  -- grey smoke
 --    EmtBpPathNomads .. 'MeteorTrail04.bp',  -- blueish smoke
