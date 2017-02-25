@@ -261,11 +261,8 @@ NBlackhole = Class(NullShell) {
         -- start effect threads
         threads:Add( self:ForkThread( self.AftermathExplosion, bag, lifetime, wreck ) )
         threads:Add( self:ForkThread( self.AftermathFireBalls, bag, lifetime, wreck ) )
-        if self.logo then
-            threads:Add( self:ForkThread( self.AftermathFireArmsLogo, bag, lifetime, wreck ) )
-        else
-            threads:Add( self:ForkThread( self.AftermathFireArmsRandom, bag, lifetime, wreck ) )
-        end
+        threads:Add( self:ForkThread( self.AftermathFireArmsRandom, bag, lifetime, wreck ) )
+
 
         WaitSeconds( lifetime )
         bag:Destroy()
