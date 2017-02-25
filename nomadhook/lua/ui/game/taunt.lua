@@ -4,7 +4,7 @@
 
 taunts = table.cat( taunts, {
 
-    {text = '<LOC NTaunts_MP1_010_010>[{i Nicols}]: You will never escape, I will make you suffer!', bank = 'NTaunts', cue = 'NTaunt_Nicols_001'},
+    {text = '<LOC NTaunts_MP1_010_010>[{i Nicols}]: You will never escape, I will make you suffer!', bank = 'NomadsInterface', cue = 'Nomads_Select_Commander'},
     {text = '<LOC NTaunts_MP1_010_011>[{i Nicols}]: Your resistance is futile, you will be destroyed!', bank = 'NTaunts', cue = 'NTaunt_Nicols_002'},
     {text = '<LOC NTaunts_MP1_010_012>[{i Nicols}]: Orbital strike initiated, goodbye.', bank = 'NTaunts', cue = 'NTaunt_Nicols_003'},
     {text = '<LOC NTaunts_MP1_010_013>[{i Nicols}]: We are back. It\'s time for you to die.', bank = 'NTaunts', cue = 'NTaunt_Nicols_004'},
