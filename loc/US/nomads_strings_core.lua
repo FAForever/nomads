@@ -905,6 +905,7 @@ inu9002_name = "NC1001B"
 --------------------------------------------------------
 ---- TAUNTS
 --------------------------------------------------------
+Nicols = "Nicols"
 NTaunts_MP1_010_010 = '[{i Nicols}]: You will never escape, I will make you suffer!'
 NTaunts_MP1_010_011 = '[{i Nicols}]: Your resistance is futile, you will be destroyed!'
 NTaunts_MP1_010_012 = '[{i Nicols}]: Orbital strike initiated, goodbye.'
