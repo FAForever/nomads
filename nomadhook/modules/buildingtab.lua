@@ -509,7 +509,8 @@ buildingTab = {
 ["T2_Fighter/Bomber"] = {
 "dea0202",
 "dra0202",
-"xsa0202",},
+"xsa0202",
+"ina2002",},
 ["T2_Gatling_Bot"] = {
 "del0204",},
 ["T2_Rocket_Bot"] = {
