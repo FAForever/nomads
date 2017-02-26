@@ -897,3 +897,23 @@ inu9001_name = "NC1001A"
 inb9002_desc = "Nomads Structure"
 inb9002_help = "Nomads Structure"
 inu9002_name = "NC1001B"
+
+
+
+
+
+--------------------------------------------------------
+---- TAUNTS
+--------------------------------------------------------
+Nicols = "Nicols"
+NTaunts_MP1_010_010 = '[{i Nicols}]: You will never escape, I will make you suffer!'
+NTaunts_MP1_010_011 = '[{i Nicols}]: Your resistance is futile, you will be destroyed!'
+NTaunts_MP1_010_012 = '[{i Nicols}]: Orbital strike initiated, goodbye.'
+NTaunts_MP1_010_013 = '[{i Nicols}]: We are back. It\'s time for you to die.'
+NTaunts_MP1_010_014 = '[{i Nicols}]: Once we were lost, but now we will reign supreme.'
+NTaunts_MP1_010_015 = '[{i Nicols}]: You have what we call a very terrestrial mindset.'
+NTaunts_MP1_010_016 = '[{i Nicols}]: I think the space between your ears is best left unexplored!'
+NTaunts_MP1_010_017 = '[{i Nicols}]: You can\'t hope to contain the vastness of the nomad fleet.'
+NTaunts_MP1_010_018 = '[{i Nicols}]: I\'m afraid, we\'re out of mercy today. How would you like an ass kicking instead?'
+NTaunts_MP1_010_019 = '[{i Nicols}]: It is amazing that you made it this far without hurting yourself.'
+
