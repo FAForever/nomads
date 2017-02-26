@@ -123,8 +123,8 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
         UISelection = Sound {
-            Bank = 'NTaunts',
-            Cue = 'NTaunt_Nicols_003',
+            Bank = 'NomadsInterface',
+            Cue = 'Nomads_Select_Commander',
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
