@@ -201,12 +201,12 @@ UnitBlueprint {
             DoTTime = 3,
             DisplayName = 'Energy Cannon',
             EnergyDrainPerSecond = 100,
-            EnergyRequired = 750,
+            EnergyRequired = 1000,
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
-            FiringRandomness = 1.2,
+            FiringRandomness = 1.25,
             FiringTolerance = 1,
             InitialDamage = 500,
             Label = 'MainGun',
@@ -215,7 +215,7 @@ UnitBlueprint {
             MuzzleChargeDelay = 0.7,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 40,
+            MuzzleVelocity = 26.13,
             ProjectileId = '/projectiles/NEnergyProj1/NEnergyProj1_proj.bp',
             ProjectilesPerOnFire = 1,
             RackBones = {
