@@ -1,6 +1,8 @@
 local NomadsOrbitalUtils = import('/lua/nomadsorbitalutils.lua')
 local Factions = import('/lua/factions.lua').Factions
 local AbilityDefinition = import('/lua/abilitydefinition.lua').abilities
+local Util = import('/lua/utilities.lua')
+local RandomFloat = Util.GetRandomFloat
 
 
 local oldAIBrain = AIBrain
@@ -537,6 +539,18 @@ AIBrain = Class(oldAIBrain) {
         local army = self:GetArmyIndex()
         local x, z = self:GetArmyStartPos()
         local y = GetSurfaceHeight(x,z)
+        local initialHeight =__blueprints[bp].Physics.Elevation or 100
+        
+        local maxOffsetXZ = 0.4
+        local offsetX = maxOffsetXZ * RandomFloat(-1, 1)
+        local offsetZ = maxOffsetXZ * RandomFloat(-1, 1)
+        self.DirVector = Vector( -offsetX, -1, -offsetZ )
+        
+        y = GetTerrainHeight(x,z) + initialHeight
+        x = x + (offsetX * initialHeight)
+        z = z + (offsetZ * initialHeight)
+        
+        self.startingPositionWithOffset = {x, y, z}
         self.NomadsMothership = CreateUnitHPR( bp, army, x, y, z, 0, 0, 0)
         return self.NomadsMothership
     end,
