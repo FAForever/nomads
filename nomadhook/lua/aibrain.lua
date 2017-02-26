@@ -545,6 +545,7 @@ AIBrain = Class(oldAIBrain) {
         local offsetX = maxOffsetXZ * RandomFloat(-1, 1)
         local offsetZ = maxOffsetXZ * RandomFloat(-1, 1)
         self.DirVector = Vector( -offsetX, -1, -offsetZ )
+        self.ACULaunched = true
         
         y = GetTerrainHeight(x,z) + initialHeight
         x = x + (offsetX * initialHeight)

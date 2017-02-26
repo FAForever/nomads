@@ -12,7 +12,8 @@ Meteor = Class(NullShell) {
     Damage = 10000,
     DamageFriendly = true,
     DamageRadius = 10,
-
+    InitialHeight = 300,
+    
     FxScale = 1,
     ImpactLandFx = NomadsEffectTemplate.MeteorLandImpact,
     ImpactSeabedFx = NomadsEffectTemplate.MeteorSeabedImpact,
@@ -72,12 +73,30 @@ Meteor = Class(NullShell) {
     end,
 
     SetPosAndVelocity = function(self, ImpactPos, Time)
-        local x,y,z = unpack(GetArmyBrain( self:GetArmy() ).startingPositionWithOffset)
-        local speed = ( y - GetTerrainHeight(x,z) ) / Time
+    
+        local dirVector
+        local x,y,z
+        
+        if GetArmyBrain( self:GetArmy() ).ACULaunched then
+            dirVector = GetArmyBrain( self:GetArmy() ).DirVector
+            x,y,z = unpack(GetArmyBrain( self:GetArmy() ).startingPositionWithOffset)
+            GetArmyBrain( self:GetArmy() ).ACULaunched = nil
+        else
+            local maxOffsetXZ = 0.25
+            local offsetX = maxOffsetXZ * RandomFloat(-1, 1)
+            local offsetZ = maxOffsetXZ * RandomFloat(-1, 1)
+            dirVector = Vector( -offsetX, -1, -offsetZ )
 
+            x, y, z = unpack( ImpactPos )
+            y = GetTerrainHeight(x,z) + self.InitialHeight
+            x = x + (offsetX * self.InitialHeight)
+            z = z + (offsetZ * self.InitialHeight)
+        end
+        
+        local speed = ( y - GetTerrainHeight(x,z) ) / Time
         self:SetPosition( Vector(x,y,z), true)
-        self:SetOrientation( OrientFromDir(Util.GetDirectionVector(ImpactPos, GetArmyBrain( self:GetArmy() ).DirVector)), true)
-        self:SetVelocity(unpack(GetArmyBrain( self:GetArmy() ).DirVector))
+        self:SetOrientation( OrientFromDir(Util.GetDirectionVector(ImpactPos, dirVector)), true)
+        self:SetVelocity(unpack(dirVector))
         self:SetVelocity(speed)
     end,
 
