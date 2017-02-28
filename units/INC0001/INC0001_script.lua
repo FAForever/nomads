@@ -20,6 +20,10 @@ INC0001 = Class(NCivilianStructureUnit) {
         else
             self:RotatingAngle()
         end
+        
+        self:TakeOff()
+        
+       -- self:Landing()
         --self:BurnEngines()
         
         --[[for _, army in ListArmies() do
@@ -90,9 +94,9 @@ INC0001 = Class(NCivilianStructureUnit) {
                     emit = CreateAttachedEmitter( self, bone, army, ThrusterEffects[i] )
                     self.ThrusterEffectsBag:Add( emit )
                     self.Trash:Add( emit )
-                    WaitSeconds(0.2)
+                    WaitSeconds(0.3)
                 end
-                WaitSeconds(1.5)
+                WaitSeconds(2)
             end
         end)
     end,
@@ -125,7 +129,25 @@ INC0001 = Class(NCivilianStructureUnit) {
         end)
     end,
     
+    TakeOff = function (self)
+        self.LaunchAnim = CreateAnimator(self):PlayAnim('/units/INO0001/INO0001_Launch.sca')
+        self.LaunchAnim:SetAnimationFraction(1)
+        self.LaunchAnim:SetRate(-0.05)
+        self.Trash:Add(self.LaunchAnim)
+        ForkThread(
+            function()
+                WaitSeconds(1.4)
+                self:BurnEngines()
+            end
+        )
+    end,
     
+    Landing = function (self)
+        self.LaunchAnim = CreateAnimator(self):PlayAnim('/units/INO0001/INO0001_Launch.sca')
+        self.LaunchAnim:SetAnimationFraction(0)
+        self.LaunchAnim:SetRate(0.05)
+        self.Trash:Add(self.LaunchAnim)
+    end,    
     
     
     
