@@ -98,7 +98,6 @@ UnitBlueprint {
         'RECLAIMABLE',
         'TRANSPORTFOCUS',
         'CANNOTUSEAIRSTAGING',
-        'CANTRANSPORTCOMMANDER',
     },
     CollisionOffsetY = -0.1,
     Defense = {
