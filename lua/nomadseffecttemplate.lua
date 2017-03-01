@@ -1961,7 +1961,7 @@ NukeBlackholeDissipating = {
 NukeBlackholeDissipated = {  -- used when the black hole effects are removed
     EmtBpPathNomads .. 'nomads_blackhole_11_emit.bp',  -- shockwave ring
     EmtBpPathNomads .. 'nomads_blackhole_12_emit.bp',  -- smoke cloud
-    EmtBpPathNomads .. 'nomads_blackhole_13_emit.bp',  -- large barely visible smoke cloud
+    --EmtBpPathNomads .. 'nomads_blackhole_13_emit.bp',  -- large barely visible smoke cloud
     EmtBpPathNomads .. 'nomads_blackhole_14_emit.bp',  -- flash
     EmtBpPathNomads .. 'nomads_blackhole_15_emit.bp',  -- circle
 --    EmtBpPathNomads .. 'nomads_blackhole_20_emit.bp',  -- rotating cloud rings inward
