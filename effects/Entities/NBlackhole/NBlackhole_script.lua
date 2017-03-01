@@ -183,6 +183,9 @@ NBlackhole = Class(NullShell) {
         local pos = self:GetPosition()
         local surface = GetTerrainHeight(pos[1], pos[3]) + GetTerrainTypeOffset(pos[1], pos[3])
         pos[2] = surface + (wreckScale * 0.4)
+        
+        if self.WreckageResources['m'] < 500 then return end
+        
         local prop = CreateProp( pos, wreckBp )
 
         prop:SetScale( wreckScale )
