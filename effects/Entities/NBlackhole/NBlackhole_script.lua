@@ -264,6 +264,7 @@ NBlackhole = Class(NullShell) {
         local wreck = self:CreateWreckage()
         if wreck ~= nil then
             -- start effect threads
+            --threads:Add( self:ForkThread( self.AftermathExplosion, bag, lifetime, wreck ) )
             threads:Add( self:ForkThread( self.AftermathFireBalls, bag, lifetime, wreck ) )
             threads:Add( self:ForkThread( self.AftermathFireArmsRandom, bag, lifetime, wreck ) )
         end
