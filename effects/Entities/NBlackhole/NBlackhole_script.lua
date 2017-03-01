@@ -183,8 +183,10 @@ NBlackhole = Class(NullShell) {
         local pos = self:GetPosition()
         local surface = GetTerrainHeight(pos[1], pos[3]) + GetTerrainTypeOffset(pos[1], pos[3])
         pos[2] = surface + (wreckScale * 0.4)
-        
-        if self.WreckageResources['m'] < 500 then return end
+
+        if self.WreckageResources['m'] < 500 then 
+            return nil
+        end
         
         local prop = CreateProp( pos, wreckBp )
 
@@ -260,12 +262,11 @@ NBlackhole = Class(NullShell) {
 
         -- leave a wreckage to reclaim the sucked in mass (and energy)
         local wreck = self:CreateWreckage()
-
-        -- start effect threads
-        threads:Add( self:ForkThread( self.AftermathExplosion, bag, lifetime, wreck ) )
-        threads:Add( self:ForkThread( self.AftermathFireBalls, bag, lifetime, wreck ) )
-        threads:Add( self:ForkThread( self.AftermathFireArmsRandom, bag, lifetime, wreck ) )
-
+        if wreck ~= nil then
+            -- start effect threads
+            threads:Add( self:ForkThread( self.AftermathFireBalls, bag, lifetime, wreck ) )
+            threads:Add( self:ForkThread( self.AftermathFireArmsRandom, bag, lifetime, wreck ) )
+        end
 
         WaitSeconds( lifetime )
         bag:Destroy()
