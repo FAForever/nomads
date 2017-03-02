@@ -1,5 +1,5 @@
 name = "nomads"
-version = 61
+version = 62
 copyright = "brute51"
 description = "adds a new faction to the game"
 author = "CookieNoob, Exotic_Retard, Brute51, original nomads team"
