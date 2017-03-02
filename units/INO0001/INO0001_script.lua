@@ -55,15 +55,21 @@ INO0001 = Class(NOrbitUnit) {
     CreateSpinners = function(self)
         -- spinner 1
         if not self.RotatorManipulator1 then
-            self.RotatorManipulator1 = CreateRotator( self, 'Primary_Spinner', 'z' )
+            self.RotatorManipulator1 = CreateRotator( self, 'Spinner1', 'z' )
             self.RotatorManipulator1:SetAccel( 5 )
             self.RotatorManipulator1:SetTargetSpeed( 30 )
             self.Trash:Add( self.RotatorManipulator1 )
         end
+        if not self.RotatorManipulator3 then
+            self.RotatorManipulator3 = CreateRotator( self, 'Spinner3', 'z' )
+            self.RotatorManipulator3:SetAccel( 5 )
+            self.RotatorManipulator3:SetTargetSpeed( 30 )
+            self.Trash:Add( self.RotatorManipulator3 )
+        end
 
         -- spinner 2
         if not self.RotatorManipulator2 then
-            self.RotatorManipulator2 = CreateRotator( self, 'Secondary_Spinner', 'z' )
+            self.RotatorManipulator2 = CreateRotator( self, 'Spinner2', 'z' )
             self.RotatorManipulator2:SetAccel( -5 )
             self.RotatorManipulator2:SetTargetSpeed( -60 )
             self.Trash:Add( self.RotatorManipulator2 )
@@ -260,7 +266,7 @@ INO0001 = Class(NOrbitUnit) {
     
     
 -- engines
-    ThrusterBurnBones = {'Exhaust_Centre', 'Exhaust_Top', 'Exhaust_Bottom'},
+    ThrusterBurnBones = {'ExhaustBig', 'ExhaustSmallRight', 'ExhaustSmallLeft', 'ExhaustSmallTop'},
 
     BurnEngines = function(self)
         local army, emit = self:GetArmy()
@@ -296,7 +302,6 @@ INO0001 = Class(NOrbitUnit) {
                     emit = CreateAttachedEmitter( self, bone, army, ThrusterEffects[i] )
                     self.ThrusterEffectsBag:Add( emit )
                     self.Trash:Add( emit )
-                    WaitSeconds(0.2)
                 end
             end
             WaitSeconds(1)
@@ -325,15 +330,15 @@ INO0001 = Class(NOrbitUnit) {
         
         if math.abs(distanceX) < math.abs(distanceY) then
             if distanceY < 0 then 
-                targetCoordinates = Vector(positionX + Random(mapsizeX/5)-mapsizeX/10, positionZ, mapsizeY - 1)
+                targetCoordinates = Vector(positionX + Random(mapsizeX/5)-mapsizeX/10, positionZ, mapsizeY - 2)
             else 
-                targetCoordinates = Vector(positionX + Random(mapsizeX/5)-mapsizeX/10, positionZ, 1)
+                targetCoordinates = Vector(positionX + Random(mapsizeX/5)-mapsizeX/10, positionZ, 2)
             end
         else
             if distanceX < 0 then 
-                targetCoordinates = Vector(mapsizeX - 1, positionZ, positionY + Random(mapsizeY/5)-mapsizeY/10)
+                targetCoordinates = Vector(mapsizeX - 2, positionZ, positionY + Random(mapsizeY/5)-mapsizeY/10)
             else 
-                targetCoordinates = Vector(1, positionZ, positionY + Random(mapsizeY/5)-mapsizeY/10) 
+                targetCoordinates = Vector(2, positionZ, positionY + Random(mapsizeY/5)-mapsizeY/10) 
             end
         end
         

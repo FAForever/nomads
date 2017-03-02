@@ -23,7 +23,7 @@ INC0001 = Class(NCivilianStructureUnit) {
         
         --self:TakeOff()
         
-       -- self:Landing()
+        --self:Landing()
         --self:BurnEngines()
         
         --[[for _, army in ListArmies() do
@@ -42,17 +42,23 @@ INC0001 = Class(NCivilianStructureUnit) {
     end,
     
     RotatingAngle = function(self)
-        -- spinner 1
+        -- spinner 1 and 3
         if not self.RotatorManipulator1 then
-            self.RotatorManipulator1 = CreateRotator( self, 'Primary_Spinner', 'z' )
+            self.RotatorManipulator1 = CreateRotator( self, 'Spinner1', 'z' )
             self.RotatorManipulator1:SetAccel( self:GetBlueprint().Rotators.PrimaryAccel ) 
             self.RotatorManipulator1:SetTargetSpeed( self:GetBlueprint().Rotators.PrimarySpeed ) 
             self.Trash:Add( self.RotatorManipulator1 )
         end
+        if not self.RotatorManipulator3 then
+            self.RotatorManipulator3 = CreateRotator( self, 'Spinner3', 'z' )
+            self.RotatorManipulator3:SetAccel( 5 )
+            self.RotatorManipulator3:SetTargetSpeed( 30 )
+            self.Trash:Add( self.RotatorManipulator3 )
+        end
 
         -- spinner 2
         if not self.RotatorManipulator2 then
-            self.RotatorManipulator2 = CreateRotator( self, 'Secondary_Spinner', 'z' )
+            self.RotatorManipulator2 = CreateRotator( self, 'Spinner2', 'z' )
             self.RotatorManipulator2:SetAccel( self:GetBlueprint().Rotators.SecondaryAccel ) 
             self.RotatorManipulator2:SetTargetSpeed( self:GetBlueprint().Rotators.SecondarySpeed ) 
             self.Trash:Add( self.RotatorManipulator2 )
@@ -61,16 +67,21 @@ INC0001 = Class(NCivilianStructureUnit) {
     end,
     
     StationaryAngle = function(self)
-        -- spinner 1
+        -- spinner 1 and 3
         if not self.RotatorManipulator1 then
-            self.RotatorManipulator1 = CreateRotator( self, 'Primary_Spinner', 'z' )
+            self.RotatorManipulator1 = CreateRotator( self, 'Spinner1', 'z' )
             self.RotatorManipulator1:SetCurrentAngle( self:GetBlueprint().Rotators.PrimaryAngle )
             self.Trash:Add( self.RotatorManipulator1 )
+        end
+        if not self.RotatorManipulator3 then
+            self.RotatorManipulator3 = CreateRotator( self, 'Spinner3', 'z' )
+            self.RotatorManipulator3:SetCurrentAngle( self:GetBlueprint().Rotators.PrimaryAngle )
+            self.Trash:Add( self.RotatorManipulator3 )
         end
 
         -- spinner 2
         if not self.RotatorManipulator2 then
-            self.RotatorManipulator2 = CreateRotator( self, 'Secondary_Spinner', 'z' )
+            self.RotatorManipulator2 = CreateRotator( self, 'Spinner2', 'z' )
             self.RotatorManipulator2:SetCurrentAngle( self:GetBlueprint().Rotators.SecondaryAngle )
             self.Trash:Add( self.RotatorManipulator2 )
         end
@@ -78,7 +89,7 @@ INC0001 = Class(NCivilianStructureUnit) {
     
     
     
-    ThrusterBurnBones = {'Exhaust_Centre', 'Exhaust_Top', 'Exhaust_Bottom'},
+    EngineBurnBones = {'ExhaustBig', 'ExhaustSmallRight', 'ExhaustSmallLeft', 'ExhaustSmallTop'},
     
     BurnEngines = function(self)
         local army, emit = self:GetArmy()
@@ -90,7 +101,7 @@ INC0001 = Class(NCivilianStructureUnit) {
         }
         ForkThread( function()
             for i = 1, 4 do
-                for _, bone in self.ThrusterBurnBones do
+                for _, bone in self.EngineBurnBones do
                     emit = CreateAttachedEmitter( self, bone, army, ThrusterEffects[i] )
                     self.ThrusterEffectsBag:Add( emit )
                     self.Trash:Add( emit )
@@ -110,16 +121,15 @@ INC0001 = Class(NCivilianStructureUnit) {
         }
         ForkThread( function()
             for i = 1, 2 do
-                for _, bone in self.ThrusterBurnBones do
+                for _, bone in self.EngineBurnBones do
                     emit = CreateAttachedEmitter( self, bone, army, ThrusterEffects[i] )
                     self.ThrusterEffectsBag:Add( emit )
                     self.Trash:Add( emit )
-                    WaitSeconds(0.2)
                 end
             end
             WaitSeconds(1)
             self.ThrusterEffectsBag:Destroy()
-            for _, bone in self.ThrusterBurnBones do
+            for _, bone in self.EngineBurnBones do
                 emit = CreateAttachedEmitter( self, bone, army, ThrusterEffects[2] )
                 self.ThrusterEffectsBag:Add( emit )
                 self.Trash:Add( emit )
@@ -129,24 +139,47 @@ INC0001 = Class(NCivilianStructureUnit) {
         end)
     end,
     
+    
+    
+    ThrusterBurnBones = {'ThrusterFrontLeft', 'ThrusterFrontRight', 'ThrusterBackLeft', 'ThrusterBackRight'},
+    
     TakeOff = function (self)
-        self.LaunchAnim = CreateAnimator(self):PlayAnim('/units/INO0001/INO0001_Launch.sca')
-        self.LaunchAnim:SetAnimationFraction(1)
-        self.LaunchAnim:SetRate(-0.05)
+        self.LaunchAnim = CreateAnimator(self):PlayAnim('/units/INO0001/INO0001_launch.sca')
+        self.LaunchAnim:SetAnimationFraction(0)
+        self.LaunchAnim:SetRate(0.1)
         self.Trash:Add(self.LaunchAnim)
         ForkThread(
             function()
-                WaitSeconds(1.4)
+                WaitSeconds(0.3)
                 self:BurnEngines()
             end
         )
     end,
     
     Landing = function (self)
-        self.LaunchAnim = CreateAnimator(self):PlayAnim('/units/INO0001/INO0001_Launch.sca')
-        self.LaunchAnim:SetAnimationFraction(0)
-        self.LaunchAnim:SetRate(0.05)
+        local army, emit = self:GetArmy()
+        local ThrusterEffects = {
+            '/effects/emitters/nomads_orbital_frigate_thruster04_emit.bp',
+            '/effects/emitters/nomads_orbital_frigate_thruster05_emit.bp',
+            '/effects/emitters/nomads_orbital_frigate_thruster01_emit.bp',
+            '/effects/emitters/nomads_orbital_frigate_thruster02_emit.bp',
+        }
+        for i = 1, 4 do
+            for _, bone in self.EngineBurnBones do
+                emit = CreateAttachedEmitter( self, bone, army, ThrusterEffects[i] )
+                self.ThrusterEffectsBag:Add( emit )
+                self.Trash:Add( emit )
+            end
+        end
+        self.LaunchAnim = CreateAnimator(self):PlayAnim('/units/INO0001/INO0001_land.sca')
+        self.LaunchAnim:SetAnimationFraction(0.4)
+        self.LaunchAnim:SetRate(0.1)
         self.Trash:Add(self.LaunchAnim)
+        ForkThread(function()
+            WaitSeconds(3.3)
+            self:StopEngines()
+        end
+        )
     end,    
     
     

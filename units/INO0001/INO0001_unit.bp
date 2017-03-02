@@ -38,12 +38,12 @@ UnitBlueprint {
             IconFadeInZoom = 130,
             LODs = {
                 {
-                    LODCutoff = 100,
+                    LODCutoff = 10000,
                     Scrolling = true,
                     ShaderName = 'NomadUnit',
                 },
                 {
-                    LODCutoff = 1000,
+                    LODCutoff = 10000,
                     ShaderName = 'NomadUnit',
                 },
             },

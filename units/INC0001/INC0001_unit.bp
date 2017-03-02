@@ -46,7 +46,10 @@ UnitBlueprint {
                 Effects = {
                     {
                         Bones = {
-                            'T_Flap',
+                            'ThrusterFrontRight',
+                            'ThrusterFrontLeft',
+                            'ThrusterBackLeft',
+                            'ThrusterBackRight',
                         },
                         Type = 'AeonGroundFXT1Engineer',
                     },
@@ -58,18 +61,10 @@ UnitBlueprint {
             LODs = {
                 {
                     AlbedoName = '/units/ino0001/ino0001_albedo.dds',
-                    LODCutoff = 100,
+                    LODCutoff = 10000,
                     MeshName = '/units/ino0001/ino0001_lod0.scm',
                     NormalsName = '/units/ino0001/ino0001_normalsTS.dds',
                     Scrolling = true,
-                    ShaderName = 'NomadUnit',
-                    SpecularName = '/units/ino0001/ino0001_SpecTeam.dds',
-                },
-                {
-                    AlbedoName = '/units/ino0001/ino0001_albedo.dds',
-                    LODCutoff = 1000,
-                    MeshName = '/units/ino0001/ino0001_lod1.scm',
-                    NormalsName = '/units/ino0001/ino0001_normalsTS.dds',
                     ShaderName = 'NomadUnit',
                     SpecularName = '/units/ino0001/ino0001_SpecTeam.dds',
                 },
