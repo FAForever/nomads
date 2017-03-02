@@ -21,7 +21,7 @@ INC0001 = Class(NCivilianStructureUnit) {
             self:RotatingAngle()
         end
         
-        self:TakeOff()
+        --self:TakeOff()
         
        -- self:Landing()
         --self:BurnEngines()
