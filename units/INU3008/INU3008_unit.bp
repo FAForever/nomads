@@ -97,7 +97,7 @@ UnitBlueprint {
             Level5 = 10,
         },
     },
-    BuildIconSortPriority = 120,
+    BuildIconSortPriority = 15,
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2LANDFACTORY',
@@ -239,7 +239,7 @@ UnitBlueprint {
             'BUILTBYTIER2ENGINEER DEFENSE NOMADS',
             'BUILTBYTIER2ENGINEER INDIRECTFIRE NOMADS',
         },
-        MaintenanceConsumptionPerSecondEnergy = 10,
+        MaintenanceConsumptionPerSecondEnergy = 15,
         MaxBuildDistance = 12.5,    --from 10
         NeedToFaceTargetToBuild = false,
         TeleportEnergyMod = 0.15,
@@ -398,7 +398,7 @@ UnitBlueprint {
             FiringRandomness = 0,
             Label = 'MainGun',
             MaximumBeamLength = 40,
-            MaxRadius = 25,
+            MaxRadius = 23, --29,9 with anchor
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             NeedPrep = true,

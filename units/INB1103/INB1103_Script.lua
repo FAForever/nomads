@@ -3,7 +3,7 @@
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local NMassFabricationUnit = import('/lua/nomadsunits.lua').NMassFabricationUnit
 
-INB1103 = Class(NMassFabricationUnit) {
+INB1104 = Class(NMassFabricationUnit) {
 
     ActiveEffectsTemplate = NomadsEffectTemplate.T2MFAmbient,
 
@@ -58,4 +58,4 @@ INB1103 = Class(NMassFabricationUnit) {
     end,
 }
 
-TypeClass = INB1103
+TypeClass = INB1104

@@ -1,4 +1,4 @@
--- T1 tank bandit
+-- T1 tank Bandit
 
 UnitBlueprint {
     Audio = {

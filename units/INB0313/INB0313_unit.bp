@@ -1,9 +1,9 @@
---T3 naval factory support
+-- T3 naval factory support
 
 UnitBlueprint {
     AI = {
         TargetBones = {
-            'INB0103',
+            'INB0303',
             'Center_Deck',
             'Center_BottomDeck',
         },
@@ -90,7 +90,7 @@ UnitBlueprint {
                 Effects = {
                     {
                         Bones = {
-                            'INB0313',
+                            'INB0303',
                         },
                         Scale = 3,
                         Type = 'SeaIdle01',

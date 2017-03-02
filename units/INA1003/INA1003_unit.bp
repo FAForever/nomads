@@ -1,3 +1,5 @@
+-- T1 bomber
+
 UnitBlueprint {
     AI = {
         GuardReturnRadius = 120,
@@ -257,7 +259,7 @@ UnitBlueprint {
     StrategicIconSortPriority = 75,
     Transport = {
         AirClass = true,
-        TransportClass = 2,
+        TransportClass = 1,
     },
     Veteran = {
         Level1 = 3,

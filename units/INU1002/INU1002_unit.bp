@@ -1,14 +1,9 @@
+-- T1 land scout
+
 UnitBlueprint {
     Abilities = {
         Anchor = {
             Buff = 'AnchorModeImmobilizeAddRange',
-        },
-        ArtillerySupport = {
-            LockoutDuration = 1,
-            MaxSimultaniousArtillerySupport = -1,
-            Range = 18,
-            SupportGroundTargetting = true,
-            TargetCategory = 'ALLUNITS',
         },
     },
     Audio = {
@@ -52,11 +47,6 @@ UnitBlueprint {
             Cue = 'Nomads_Select_Vehicle',
             LodCutoff = 'UnitMove_LodCutoff',
         },
-        SupportingArtilleryPing = Sound {
-            Bank = 'NomadsMisc',
-            Cue = 'ArtillerySupportPinger',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
     },
     Buffs = {
         Regen = {
@@ -86,7 +76,6 @@ UnitBlueprint {
         'HOVER',
         'OVERLAYDIRECTFIRE',
         'OVERLAYRADAR',
-        'ARTILLERYSUPPORT',
     },
     CollisionOffsetZ = -0.02,
     Defense = {
@@ -102,10 +91,9 @@ UnitBlueprint {
     Description = '<LOC inu1002_desc>Land Scout',
     Display = {
         Abilities = {
+            '<LOC ability_anchor>Anchor',        
             '<LOC ability_hover>Hover',
             '<LOC ability_radar>Radar',
-            '<LOC ability_anchor>Anchor',
-            '<LOC ability_artillerysupport>Artillery Support',
         },
         BuildEffect = {
             ExtendsFront = 0.1,
@@ -240,8 +228,8 @@ UnitBlueprint {
         UnitWeight = 1,
     },
     Intel = {
-        RadarRadius = 45,
-        VisionRadius = 24,
+        RadarRadius = 40,   --52 with anchor
+        VisionRadius = 24,  --31,2 with anchor
     },
     Interface = {
         HelpText = '<LOC inu1002_help>Land Scout',
@@ -321,7 +309,7 @@ UnitBlueprint {
             },
             FiringTolerance = 2,
             Label = 'MainGun',
-            MaxRadius = 8,
+            MaxRadius = 23,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 35,

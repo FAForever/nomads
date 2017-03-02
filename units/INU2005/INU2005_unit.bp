@@ -1,6 +1,11 @@
---T2 tank Brute
+-- T2 tank Brute
 
 UnitBlueprint {
+    Abilities = {
+        Anchor = {
+            Buff = 'AnchorModeImmobilizeAddRange',
+        },
+    },
     AI = {
         TargetBones = {
             'Turret',
@@ -61,14 +66,17 @@ UnitBlueprint {
         AirThreatLevel = 0,
         ArmorType = 'Normal',
         EconomyThreatLevel = 0,
-        Health = 1250,
-        MaxHealth = 1250,
+        Health = 1750,
+        MaxHealth = 1750,
         RegenRate = 0,
         SubThreatLevel = 0,
         SurfaceThreatLevel = 4,
     },
     Description = '<LOC inu2005_desc>Heavy Tank',
     Display = {
+        Abilities = {
+            '<LOC ability_anchor>Anchor',
+        },
         BuildEffect = {
             ExtendsFront = 0.15,
             ExtendsRear = 0.1,
@@ -118,9 +126,9 @@ UnitBlueprint {
         UniformScale = 0.43,
     },
     Economy = {
-        BuildCostEnergy = 990,
-        BuildCostMass = 198,
-        BuildTime = 880,
+        BuildCostEnergy = 1500,
+        BuildCostMass = 297,
+        BuildTime = 1320,
         TeleportEnergyMod = 0.15,
         TeleportMassMod = 1,
         TeleportTimeMod = 0.01,
@@ -144,7 +152,16 @@ UnitBlueprint {
         },
         FactionName = 'Nomads',
         Icon = 'land',
+        OrderOverrides = {
+            RULEUTC_SpecialToggle = {
+                bitmapId = 'toggle-anchor',
+                helpText = 'toggle_anchor',
+            },
+        },
         TechLevel = 'RULEUTL_Advanced',
+        ToggleCaps = {
+            RULEUTC_SpecialToggle = true,
+        },
         UnitName = '<LOC inu2005_name>Brute',
         UnitWeight = 1,
     },
@@ -168,11 +185,11 @@ UnitBlueprint {
             LAYER_Water = false,
         },
         DragCoefficient = 0.2,
-        MaxAcceleration = 3.2,
-        MaxBrake = 3.2,
-        MaxSpeed = 3.2,
+        MaxAcceleration = 2.8,
+        MaxBrake = 2.8,
+        MaxSpeed = 2.8,
         MaxSpeedReverse = 0,
-        MaxSteerForce = 3.2,
+        MaxSteerForce = 2.8,
         MeshExtentsX = 0.75,
         MeshExtentsY = 0.45,
         MeshExtentsZ = 1.25,
@@ -195,11 +212,11 @@ UnitBlueprint {
         TransportClass = 2,
     },
     Veteran = {
-        Level1 = 6,
-        Level2 = 12,
-        Level3 = 18,
-        Level4 = 24,
-        Level5 = 30,
+        Level1 = 8,
+        Level2 = 16,
+        Level3 = 24,
+        Level4 = 32,
+        Level5 = 40,
     },
     Weapon = {
         {
@@ -214,7 +231,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             DamageFriendly = false,
             CollideFriendly = false,
-            Damage = 50,
+            Damage = 120,
             DamageType = 'Normal',
             DisplayName = 'Particle blaster',
             FireTargetLayerCapsTable = {
@@ -225,10 +242,10 @@ UnitBlueprint {
             LeadTarget = true,
             Label = 'MainGun',
             MaxRadius = 20,
-            MinRadius = 2,
+            MinRadius = 0,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 30,
+            MuzzleVelocity = 30  ,
             ProjectileId = '/projectiles/NParticleBlast1/NParticleBlast1_proj.bp',
             ProjectileLifetimeUsesMultiplier = 1.15,
             ProjectilesPerOnFire = 3,
@@ -260,7 +277,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
             RangeCategory = 'UWRC_DirectFire',
-            RateOfFire = 0.5,
+            RateOfFire = 0.25,
             TargetCheckInterval = 1,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -282,7 +299,7 @@ UnitBlueprint {
             TurretPitchSpeed = 60,
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 100,
+            TurretYawSpeed = 90,
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
             WeaponCategory = 'Direct Fire',

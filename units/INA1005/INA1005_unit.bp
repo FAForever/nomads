@@ -1,4 +1,4 @@
---T1 Transport
+-- T1 Transport
 
 UnitBlueprint {
     AI = {
@@ -98,7 +98,6 @@ UnitBlueprint {
         'RECLAIMABLE',
         'TRANSPORTFOCUS',
         'CANNOTUSEAIRSTAGING',
-        'CANTRANSPORTCOMMANDER',
     },
     CollisionOffsetY = -0.1,
     Defense = {

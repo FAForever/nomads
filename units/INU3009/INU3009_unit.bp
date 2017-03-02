@@ -1,6 +1,11 @@
 -- T3 tank Slugger
 
 UnitBlueprint {
+    Abilities = {
+        Anchor = {
+            Buff = 'AnchorModeImmobilizeAddRange',
+        },
+    },
     Audio = {
         AmbientMove = Sound {
             Bank = 'UEL',
@@ -55,14 +60,17 @@ UnitBlueprint {
         AirThreatLevel = 0,
         ArmorType = 'Normal',
         EconomyThreatLevel = 0,
-        Health = 6400,
-        MaxHealth = 6400,
+        Health = 6500,
+        MaxHealth = 6500,
         RegenRate = 0,
         SubThreatLevel = 0,
         SurfaceThreatLevel = 18,
     },
     Description = '<LOC inu3009_desc>Armored Assault Tank',
     Display = {
+        Abilities = {
+            '<LOC ability_anchor>Anchor',
+        },
         BuildEffect = {
             ExtendsFront = 0.1,
             ExtendsRear = 0.35,
@@ -134,7 +142,16 @@ UnitBlueprint {
         },
         FactionName = 'Nomads',
         Icon = 'land',
+        OrderOverrides = {
+            RULEUTC_SpecialToggle = {
+                bitmapId = 'toggle-anchor',
+                helpText = 'toggle_anchor',
+            },
+        },
         TechLevel = 'RULEUTL_Secret',
+        ToggleCaps = {
+            RULEUTC_SpecialToggle = true,
+        },
         UnitName = '<LOC inu3009_name>Slugger',
         UnitWeight = 1,
     },
@@ -159,11 +176,11 @@ UnitBlueprint {
         },
         DragCoefficient = 0.2,
         Elevation = 0,
-        MaxAcceleration = 3,
-        MaxBrake = 3,
-        MaxSpeed = 3,
-        MaxSpeedReverse = 3,
-        MaxSteerForce = 3,
+        MaxAcceleration = 2.8,
+        MaxBrake = 2.8,
+        MaxSpeed = 2.8,
+        MaxSpeedReverse = 2.8,
+        MaxSteerForce = 2.8,
         MeshExtentsX = 0.8,
         MeshExtentsY = 0.65,
         MeshExtentsZ = 1.25,
@@ -222,7 +239,7 @@ UnitBlueprint {
             MaxRadius = 28,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 45,
+            MuzzleVelocity = 35,
             NotExclusive = true,
             ProjectileId =  '/projectiles/NPlasmaProj1/NPlasmaProj1_proj.bp',
             ProjectilesPerOnFire = 1,

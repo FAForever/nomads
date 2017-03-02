@@ -1,4 +1,4 @@
---T1 Pgen
+-- T1 Pgen
 
 UnitBlueprint {
     Adjacency = 'T1PowerGeneratorAdjacencyBuffs',

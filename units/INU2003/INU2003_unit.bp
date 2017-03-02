@@ -1,10 +1,9 @@
---T2 mml Avalanche
+-- T2 mml Avalanche
 
 UnitBlueprint {
-    Abilities = {
-        Anchor = {
-            Buff = 'AnchorModeImmobilizeAddRange',
-        },
+    AI = {
+        BombardModeCheckRadius = 8,
+        BombardModeCheckUnits = 4,
     },
     Audio = {
         AmbientMove = Sound {
@@ -66,6 +65,7 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
         'OVERLAYINDIRECTFIRE',
+        'SILO',
     },
     Defense = {
         AirThreatLevel = 0,
@@ -82,8 +82,8 @@ UnitBlueprint {
         Abilities = {
             '<LOC ability_amphibious>Amphibious',
             '<LOC ability_submergedsurfaceattack>Attacks from under water',
+            '<LOC ability_bombardarea>Area bombardment',
             '<LOC ability_supportedartillerygun>Supported Artillery Gun',
-            '<LOC ability_anchor>Anchor'
         },
         BuildEffect = {
             ExtendsFront = 0.05,
@@ -164,14 +164,14 @@ UnitBlueprint {
         FactionName = 'Nomads',
         Icon = 'amph',
         OrderOverrides = {
-            RULEUTC_SpecialToggle = {
-                bitmapId = 'toggle-anchor',
-                helpText = 'toggle_anchor',
+            RULEUTC_WeaponToggle = {
+                bitmapId = 'toggle-bombardmode',
+                helpText = 'toggle_bombardmode',
             },
         },
         TechLevel = 'RULEUTL_Advanced',
         ToggleCaps = {
-            RULEUTC_SpecialToggle = true,
+            RULEUTC_WeaponToggle = true,
         },
         UnitName = '<LOC inu2003_name>Avalanche',
         UnitWeight = 1,
@@ -242,6 +242,10 @@ UnitBlueprint {
                 },
             },
             BallisticArc = 'RULEUBA_HighArc',
+            
+            BombardParticipant = true,
+            BombardSwingTurret = false,
+            
             CollideFriendly = false,
             Damage = 200,
             DamageFriendly = false,
@@ -254,8 +258,8 @@ UnitBlueprint {
                 Seabed = 'Land|Water',
                 Sub = 'Land|Water',
             },
-            FiringRandomness = 0.9,
-            FiringRandomnessWhileMoving = 1.1,
+            FiringRandomness = 0.5,
+            FiringRandomnessWhileMoving = 1,
             FiringTolerance = 1,
             Label = 'MainGun',
             MaxRadius = 60,

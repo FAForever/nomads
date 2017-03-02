@@ -74,9 +74,9 @@ UnitBlueprint {
     Description = '<LOC inu3004_desc>Mobile Heavy Artillery',
     Display = {
         Abilities = {
+            '<LOC ability_bombardarea>Area bombardment',        
             '<LOC ability_deploys>Deploys',
             '<LOC ability_supportedartillerygun>Supported Artillery Gun',
-            '<LOC ability_bombardarea>Area bombardment',
         },
         AnimationOpen = '/units/INU3004/INU3004_aunpack.sca',
         BuildEffect = {
@@ -238,10 +238,9 @@ UnitBlueprint {
             },
             BallisticArc = 'RULEUBA_HighArc',
             BombardParticipant = true,
-            BombardSwingTurret = true,
-            BombardTurretRotationSpeed = 3,
+            BombardSwingTurret = false,
             CollideFriendly = false,
-            Damage = 600,       --90dps // 120dps with bombardment
+            Damage = 500,       --66dps // 100dps with bombardment
             DamageFriendly = true,
             DamageRadius = 5,
             DamageType = 'Normal',

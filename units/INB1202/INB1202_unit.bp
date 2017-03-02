@@ -105,7 +105,6 @@ UnitBlueprint {
         ProductionPerSecondMass = 6,
         RebuildBonusIds = {
             'inb1202',
-            'inb1302',
         },
     },
     Footprint = {

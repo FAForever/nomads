@@ -68,7 +68,7 @@ tooltip_lobby_unit_restriction_nonomads_desc = ""
 tooltip_radar_boost_title = "Radar Boost Toggle"
 tooltip_radar_boost_desc = "Starts/stops charging radar boosting for the selection units. When finished charging up radar boost initiates automatically. Charging up requires energy."
 tooltip_bombardmode_title = "Bombard Mode Toggle"
-tooltip_bombardmode_desc = "Turn the selection units bombard mode on/off"
+tooltip_bombardmode_desc = "Bombardment mode decreases the reload time by 50% but increases the fireing randomness."
 tooltip_no_air_title = "Anti-Air Toggle"
 tooltip_no_air_desc ="Turn the selection units anti-air attack on/off"
 tooltip_snipermode_title = "Sniper Mode Toggle"
@@ -76,7 +76,7 @@ tooltip_snipermode_desc = "Turn sniper mode on/off"
 tooltip_usecapacitor_title = "Capacitor Toggle"
 tooltip_usecapacitor_desc = "Boost unit temporarily (firepower, build power, regeneration) using the capacitor ability"
 tooltip_anchor_title = "Anchor Toggle"
-tooltip_anchor_desc = "Immobilizes the unit"
+tooltip_anchor_desc = "Immobilizes the unit and increases weapon range, vision, radar and build rate by 30%."
 tooltip_stealthshield_title = "Stealth Shield Toggle"
 tooltip_stealthshield_desc = "Turn the select units shield and stealth field on/off"
 
@@ -499,7 +499,7 @@ inu2004_name = "Skyshell"
 
 -- T2 heavy tank
 inu2005_desc = "Heavy Tank"
-inu2005_help = "Heavy tank, good armor and powerful weapons."
+inu2005_help = "Heavy tank, powerful weapons with anchor option for defensive use."
 inu2005_name = "Brute"
 
 -- T2 assault bot
@@ -590,9 +590,9 @@ inb1202_help = "Mid-level Mass extractor. Must be constructed on Mass deposits. 
 inb1202_name = "Mass Extractor"
 
 -- mass fabricator
-inb1103_desc = "Mass Fabricator"
-inb1103_help = "Creates Mass. Requires large amounts of Energy. Construct next to other structures for adjacency bonus. Explodes violently when destroyed, this can cause chain reactions."
-inb1103_name = "Mass Fabricator"
+inb1104_desc = "Mass Fabricator"
+inb1104_help = "Creates Mass. Requires large amounts of Energy. Construct next to other structures for adjacency bonus. Explodes violently when destroyed, this can cause chain reactions."
+inb1104_name = "Mass Fabricator"
 
 -- point defense
 inb2201_desc = "Point Defense"
@@ -686,14 +686,14 @@ inu3007_desc = "Mobile Anti-Air Missile Launcher"
 inu3007_help = "Launches anti-air missiles at enemy aircraft."
 inu3007_name = "Watchman"
 
--- T3 mobile missile defense
+-- T2 mobile missile defense
 inu3008_desc = "Field Engineer"
-inu3008_help = "Hover unit equipped with limited engineering capabilities and a tactical missile defense installation. Can only construct offensive and defensive structures."
+inu3008_help = "Hover unit equipped with engineering capabilities and a tactical missile defense installation. Has anchor option to increase intel and tmd range as well as the build capacity."
 inu3008_name = "Scarab"
 
 -- T3 tracked tank
 inu3009_desc = "Armored Assault Tank"
-inu3009_help = "Tracked tank unit that carries dual plasma cannons and very heavy armor."
+inu3009_help = "Tank that carries dual cannons and heavy armor. Has anchor option for defensive use."
 inu3009_name = "Slugger"
 
 
@@ -897,3 +897,23 @@ inu9001_name = "NC1001A"
 inb9002_desc = "Nomads Structure"
 inb9002_help = "Nomads Structure"
 inu9002_name = "NC1001B"
+
+
+
+
+
+--------------------------------------------------------
+---- TAUNTS
+--------------------------------------------------------
+Nicols = "Nicols"
+NTaunts_MP1_010_010 = '[{i Nicols}]: You will never escape, I will make you suffer!'
+NTaunts_MP1_010_011 = '[{i Nicols}]: Your resistance is futile, you will be destroyed!'
+NTaunts_MP1_010_012 = '[{i Nicols}]: Orbital strike initiated, goodbye.'
+NTaunts_MP1_010_013 = '[{i Nicols}]: We are back. It\'s time for you to die.'
+NTaunts_MP1_010_014 = '[{i Nicols}]: Once we were lost, but now we will reign supreme.'
+NTaunts_MP1_010_015 = '[{i Nicols}]: You have what we call a very terrestrial mindset.'
+NTaunts_MP1_010_016 = '[{i Nicols}]: I think the space between your ears is best left unexplored!'
+NTaunts_MP1_010_017 = '[{i Nicols}]: You can\'t hope to contain the vastness of the nomad fleet.'
+NTaunts_MP1_010_018 = '[{i Nicols}]: I\'m afraid, we\'re out of mercy today. How would you like an ass kicking instead?'
+NTaunts_MP1_010_019 = '[{i Nicols}]: It is amazing that you made it this far without hurting yourself.'
+

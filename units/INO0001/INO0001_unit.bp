@@ -11,8 +11,8 @@ UnitBlueprint {
         KTurn = 1,
         KTurnDamping = 10,
         LiftFactor = 100,
-        MaxAirspeed = 4,
-        StartTurnDistance = 250,
+        MaxAirspeed = 2,
+        StartTurnDistance = 5,
     },
     BuildIconSortPriority = 90,
     Categories = {
@@ -38,12 +38,12 @@ UnitBlueprint {
             IconFadeInZoom = 130,
             LODs = {
                 {
-                    LODCutoff = 100,
+                    LODCutoff = 10000,
                     Scrolling = true,
                     ShaderName = 'NomadUnit',
                 },
                 {
-                    LODCutoff = 1000,
+                    LODCutoff = 10000,
                     ShaderName = 'NomadUnit',
                 },
             },
@@ -100,7 +100,7 @@ UnitBlueprint {
         FuelRechargeRate = 150,
         FuelUseTime = 0,
         MaxAcceleration = 100,
-        MaxSpeed = 10,
+        MaxSpeed = 3,
         MaxSteerForce = 10,
         MeshExtentsX = 0.9,
         MeshExtentsY = 0.55,

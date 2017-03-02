@@ -25,7 +25,7 @@ BuildingTemplates = {
         },
         {
             'T1MassCreation',
-            'inb1103',
+            'inb1104',
         },
         {
             'T2Resource',

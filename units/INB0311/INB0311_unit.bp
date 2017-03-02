@@ -1,9 +1,9 @@
---T3 Land Factory support
+-- T3 Land Factory support
 
 UnitBlueprint {
     AI = {
         TargetBones = {
-            'INB0201',
+            'INB0301',
         },
     },
     Audio = {

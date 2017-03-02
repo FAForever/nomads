@@ -1,4 +1,4 @@
---T3 Naval Factory HQ
+-- T3 Naval Factory HQ
 
 UnitBlueprint {
     AI = {
@@ -122,8 +122,6 @@ UnitBlueprint {
             'FIELDENGINEER NOMADS MOBILE LAND',
         },
         RebuildBonusIds = {
-            'INB0103',
-            'INB0203',
             'INB0303',
         },
         InitialRallyX = 0,

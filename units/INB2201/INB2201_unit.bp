@@ -1,4 +1,4 @@
--- T2 point defense
+-- T2 Point defense
 
 UnitBlueprint {
     AI = {

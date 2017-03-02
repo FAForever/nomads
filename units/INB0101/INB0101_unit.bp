@@ -1,4 +1,4 @@
---T1 Land Factory
+-- T1 Land Factory
 
 UnitBlueprint {
     AI = {
@@ -176,11 +176,7 @@ UnitBlueprint {
             'BUILTBYTIER1FACTORY NOMADS MOBILE LAND',
         },
         RebuildBonusIds = {
--- TODO: think if this is right. in the CBFP mexes got their higher tiers removed from this list since it costs more mass than it
--- yields, with this bonus. If you reclaim the wreck you might get more mass than what it takes to get the factory at 50%.
             'inb0101',
-            'inb0201',
-            'inb0301',
         },
         StorageEnergy = 0,
         StorageMass = 0,

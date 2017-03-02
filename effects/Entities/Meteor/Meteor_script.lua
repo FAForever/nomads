@@ -13,7 +13,7 @@ Meteor = Class(NullShell) {
     DamageFriendly = true,
     DamageRadius = 10,
     InitialHeight = 300,
-
+    
     FxScale = 1,
     ImpactLandFx = NomadsEffectTemplate.MeteorLandImpact,
     ImpactSeabedFx = NomadsEffectTemplate.MeteorSeabedImpact,
@@ -24,7 +24,7 @@ Meteor = Class(NullShell) {
     TrailFx = NomadsEffectTemplate.MeteorTrail,
     TrailUnderwaterFx = NomadsEffectTemplate.MeteorUnderWaterTrail,
 
-    DecalLifetime = 60,
+    DecalLifetime = 20,
 
     OnCreate = function(self)
         NullShell.OnCreate(self)
@@ -73,22 +73,30 @@ Meteor = Class(NullShell) {
     end,
 
     SetPosAndVelocity = function(self, ImpactPos, Time)
-        local maxOffsetXZ = 0.25
+    
+        local dirVector
+        local x,y,z
+        
+        if GetArmyBrain( self:GetArmy() ).ACULaunched then
+            dirVector = GetArmyBrain( self:GetArmy() ).DirVector
+            x,y,z = unpack(GetArmyBrain( self:GetArmy() ).startingPositionWithOffset)
+            GetArmyBrain( self:GetArmy() ).ACULaunched = nil
+        else
+            local maxOffsetXZ = 0.25
+            local offsetX = maxOffsetXZ * RandomFloat(-1, 1)
+            local offsetZ = maxOffsetXZ * RandomFloat(-1, 1)
+            dirVector = Vector( -offsetX, -1, -offsetZ )
 
-        local offsetX = maxOffsetXZ * RandomFloat(-1, 1)
-        local offsetZ = maxOffsetXZ * RandomFloat(-1, 1)
-        local DirVect = Vector( -offsetX, -1, -offsetZ )
-
-        local x, y, z = unpack( ImpactPos )
-        y = GetTerrainHeight(x,z) + self.InitialHeight
-        x = x + (offsetX * self.InitialHeight)
-        z = z + (offsetZ * self.InitialHeight)
-
-        local speed = self.InitialHeight / Time
-
+            x, y, z = unpack( ImpactPos )
+            y = GetTerrainHeight(x,z) + self.InitialHeight
+            x = x + (offsetX * self.InitialHeight)
+            z = z + (offsetZ * self.InitialHeight)
+        end
+        
+        local speed = ( y - GetTerrainHeight(x,z) ) / Time
         self:SetPosition( Vector(x,y,z), true)
-        self:SetOrientation( OrientFromDir(Util.GetDirectionVector(ImpactPos, DirVect)), true)
-        self:SetVelocity(unpack(DirVect))
+        self:SetOrientation( OrientFromDir(Util.GetDirectionVector(ImpactPos, dirVector)), true)
+        self:SetVelocity(unpack(dirVector))
         self:SetVelocity(speed)
     end,
 

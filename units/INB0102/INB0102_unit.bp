@@ -120,10 +120,7 @@ UnitBlueprint {
             'TRANSPORTBUILTBYTIER1FACTORY NOMADS MOBILE AIR',
         },
         RebuildBonusIds = {
--- TODO: think about this. See T1 land factory for more info
             'inb0102',
-            'inb0202',
-            'inb0202',
         },
         StorageEnergy = 0,
         StorageMass = 0,

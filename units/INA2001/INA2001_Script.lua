@@ -192,12 +192,13 @@ INA2001 = Class(NAirTransportUnit) {
                             emitTempl = NomadsEffectTemplate.T2TransportThrusterBurnSurfaceEffect
                         end
 
-
-                        for k, v in emitTempl do
-                            emit = CreateAttachedEmitter( self, bone, army, v )
-                            table.insert( emits[ boneN ], emit )
-                            self.ThrusterBurnEffectsBag:Add( emit )
-                            self.Trash:Add( emit )
+                        if self:GetFoldState() == 'folded' and bone == 'Engine2' or self:GetFoldState() == 'unfolded' then
+                            for k, v in emitTempl do
+                                emit = CreateAttachedEmitter( self, bone, army, v )
+                                table.insert( emits[ boneN ], emit )
+                                self.ThrusterBurnEffectsBag:Add( emit )
+                                self.Trash:Add( emit )
+                            end
                         end
                     end
 

@@ -1,4 +1,4 @@
---T3 Air Factory support
+-- T3 Air Factory support
 
 UnitBlueprint {
     AI = {
@@ -6,7 +6,7 @@ UnitBlueprint {
             'Target01',
             'Target02',
             'Target03',
-            'INB0312',
+            'INB0302',
         },
     },
     Audio = {

@@ -1,4 +1,4 @@
---T2 EMP tank
+-- T2 EMP tank
 
 UnitBlueprint {
     AI = {
@@ -227,8 +227,7 @@ UnitBlueprint {
             },
             BallisticArc = 'RULEUBA_LowArc',
             BombardParticipant = true,
-            BombardSwingTurret = true,
-            BombardTurretRotationSpeed = 10,    --from18
+            BombardSwingTurret = false,
             Buffs = {
                 {
                     Add = {
@@ -276,13 +275,13 @@ UnitBlueprint {
             CollideFriendly = false,
             Damage = 20,
             DamageRadius = 1.3,
-            DamageToShields = 140,
+            DamageToShields = 150,
             DamageType = 'Normal',
             DisplayName = 'EMPactor',
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
             },
-            FiringRandomness = 0.4,
+            FiringRandomness = 0.5,
             FiringTolerance = 1,
             Label = 'MainGun',
             MaxRadius = 35,

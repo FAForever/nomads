@@ -106,7 +106,7 @@ UnitBlueprint {
         Category = 'Defense',
         Classification = 'RULEUC_Weapon',
         CommandCaps = {
-            RULEUCC_Attack = false,
+            RULEUCC_Attack = true,
             RULEUCC_CallTransport = false,
             RULEUCC_Capture = false,
             RULEUCC_Guard = false,
