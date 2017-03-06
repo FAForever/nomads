@@ -2031,6 +2031,7 @@ BlackholeLeftoverPerm = {
     EmtBpPathNomads .. 'nomads_blackhole_leftover_01_emit.bp',  -- fog
     EmtBpPathNomads .. 'nomads_blackhole_leftover_02_emit.bp',  -- ball
     EmtBpPathNomads .. 'nomads_blackhole_leftover_03_emit.bp',  -- ambient fire
+	EmtBpPathNomads .. 'nomads_blackhole_leftover_04_emit.bp',  -- ambient fire upward
 }
 
 BlackholePropEffects = {
