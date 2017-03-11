@@ -1,6 +1,6 @@
 EmitterBlueprint {
 	BlueprintId = '',
-	Lifetime = 200.00,
+	Lifetime = 10.00,
 	Repeattime = 300.00,
 	TextureFramecount = 1.00,
 	Blendmode = 3.00,

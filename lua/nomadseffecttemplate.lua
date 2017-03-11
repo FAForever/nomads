@@ -2686,7 +2686,7 @@ MeteorLandImpact = {
     EmtBpPathNomads .. 'MeteorImpact05.bp',  -- expelled stars
 --    EmtBpPathNomads .. 'MeteorImpact06.bp',  -- expelled dirt chunks
     EmtBpPathNomads .. 'MeteorImpact10.bp',  -- residual smoke plumes
-    EmtBpPathNomads .. 'MeteorImpact11.bp',  -- residual smoke / brightish afterglow
+--    EmtBpPathNomads .. 'MeteorImpact11.bp',  -- residual smoke / brightish afterglow
     EmtBpPathNomads .. 'MeteorImpact12.bp',  -- residual smoke upwards (like other ACUs have)
 }
 
