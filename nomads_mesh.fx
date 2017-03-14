@@ -5,7 +5,7 @@
 ///
 /// Summary  :  Effect file for mesh rendering.
 ///
-/// Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
+/// Copyright Â© 2006 Gas Powered Games, Inc.  All rights reserved.
 ///////////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////
@@ -4827,6 +4827,70 @@ technique NomadUnit_MedFidelity
 technique NomadUnit_LowFidelity
 <
     string abstractTechnique = "NomadUnit";
+    int fidelity = FIDELITY_LOW;
+
+    string cartographicTechnique = "CartographicUnit";    
+    string depthTechnique = "Depth";
+    int renderStage = STAGE_DEPTH + STAGE_REFLECTION + STAGE_PREWATER + STAGE_PREEFFECT;
+    int parameter = PARAM_FRACTIONCOMPLETE;
+>
+{
+    pass P0
+    {
+		AlphaState( AlphaBlend_Disable_Write_RGB )
+        RasterizerState( Rasterizer_Cull_CW )
+        
+        VertexShader = compile vs_1_1 VertexNormalVS();
+        PixelShader = compile ps_2_0 ColorMaskPS_LowFidelity();
+    }
+}
+
+/// NomadPowerArmor
+/// use the same technique as the NomadUnit shader
+///
+technique NomadPowerArmor_HighFidelity
+<
+    string abstractTechnique = "NomadPowerArmor";
+    int fidelity = FIDELITY_HIGH;
+
+    string cartographicTechnique = "CartographicUnit";    
+    string depthTechnique = "Depth";
+    int renderStage = STAGE_DEPTH + STAGE_REFLECTION + STAGE_PREWATER + STAGE_PREEFFECT;
+    int parameter = PARAM_FRACTIONCOMPLETE;
+>
+{
+    pass P0
+    {
+        RasterizerState( Rasterizer_Cull_CW )
+        
+        VertexShader = compile vs_1_1 NormalMappedVS();
+        PixelShader = compile ps_2_a AeonPS(true);
+    }
+}
+
+technique NomadPowerArmor_MedFidelity
+<
+    string abstractTechnique = "NomadPowerArmor";
+    int fidelity = FIDELITY_MEDIUM;
+
+    string cartographicTechnique = "CartographicUnit";    
+    string depthTechnique = "Depth";
+    int renderStage = STAGE_DEPTH + STAGE_REFLECTION + STAGE_PREWATER + STAGE_PREEFFECT;
+    int parameter = PARAM_FRACTIONCOMPLETE;
+>
+{
+    pass P0
+    {
+        RasterizerState( Rasterizer_Cull_CW )
+        
+        VertexShader = compile vs_1_1 NormalMappedVS();
+        PixelShader = compile ps_2_0 AeonPS(false);
+    }
+}
+
+technique NomadPowerArmor_LowFidelity
+<
+    string abstractTechnique = "NomadPowerArmor";
     int fidelity = FIDELITY_LOW;
 
     string cartographicTechnique = "CartographicUnit";    
