@@ -1952,7 +1952,15 @@ function AddCapacitorAbility( SuperClass )
             -- TODO: create dedicated bar for capacitor? Seeing unitview_mini.lua (look for fuel bar) this coul be possible
 --            self:SetFuelRatio( math.max(self:CapGetCapacity(), 0.0001) )
 -- fuel bar overwrites the work progress bar. That's not good, using shield bar instead, until fixed
-            self:SetShieldRatio( self:CapGetCapacityFrac() )
+            local capFraction = self:CapGetCapacityFrac()
+            self:SetShieldRatio( capFraction )
+            if self.CapSliders then
+                for number,slider in self.CapSliders do
+                    slider:SetGoal(0, capFraction-1, 0 )
+                    slider:SetSpeed(1)
+                end
+            end
+            
         end,
 
         CapPlayFx = function(self, state)

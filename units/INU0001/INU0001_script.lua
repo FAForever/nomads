@@ -75,11 +75,20 @@ INU0001 = Class(ACUUnit) {
     -- =====================================================================================================================
     -- CREATION AND FIRST SECONDS OF GAMEPLAY
 
-    CapFxBones = { 'CapacitorL', 'CapacitorR', },
+    CapFxBones2 = { 'CapacitorL', 'CapacitorR', },
 
     OnCreate = function(self)
         ACUUnit.OnCreate(self)
-
+        
+        --create capacitor sliders:
+        self.CapSliders = {}
+        table.insert(self.CapSliders, CreateSlider(self, 'CapacitorL'))
+        table.insert(self.CapSliders, CreateSlider(self, 'CapacitorR'))
+        for number,slider in self.CapSliders do
+            slider:SetGoal(0, -1, 0 )
+            slider:SetSpeed(1)
+        end
+        
         local bp = self:GetBlueprint()
 
         -- vars
@@ -764,11 +773,11 @@ INU0001 = Class(ACUUnit) {
 
         elseif enh == 'OrbitalBombardment' then
             self:SetOrbitalBombardEnabled(true)
-            self:AddEnhancementEmitterToBone( true, 'left_shoulder_pod' )
+            self:AddEnhancementEmitterToBone( true, 'Orbital Bombardment' )
 
         elseif enh == 'OrbitalBombardmentRemove' then
             self:SetOrbitalBombardEnabled(false)
-            self:AddEnhancementEmitterToBone( false, 'left_shoulder_pod' )
+            self:AddEnhancementEmitterToBone( false, 'Orbital Bombardment' )
 
         else
             WARN('Enhancement '..repr(enh)..' has no script support.')
