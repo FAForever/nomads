@@ -350,12 +350,13 @@ UnitBlueprint {
             },
             Slot = 'LCH',
             UpgradeEffectBones = {
-                'Muzzle2',
-                'Muzzle1',
-                'ElbowL',
+                'BuildBeam1',
+                'BuildBeam2',
+                'BuildBeam3',
+                'ElbowR',
             },
             UpgradeUnitAmbientBones = {
-                'INU0001',
+                'Abb1',
             },
         },
         AdvancedEngineeringRemove = {
@@ -397,7 +398,7 @@ UnitBlueprint {
                 'Muzzle2',
             },
             UpgradeUnitAmbientBones = {
-                'INU0001',
+                'Abb1',
             },
         },
         DoubleGunsRemove = {
@@ -433,12 +434,12 @@ UnitBlueprint {
             RateOfFireMulti = 2,
             Slot = 'RCH',
             UpgradeEffectBones = {
-                'Gun2',
-                'Rack2',
-                'Muzzle2',
+                'ElbowR',
+                'Rack1',
+                'Muzzle1',
             },
             UpgradeUnitAmbientBones = {
-                'INU0001',
+                'Abb1',
             },
         },
         GunUpgradeRemove = {
@@ -460,20 +461,28 @@ UnitBlueprint {
             BuildTime = 600,
             Icon = 'ip',
             Name = '<LOC NomadsACUEnh_IntelProbe_Help>Intel Probe',
+            ShowBones = {
+                'IntelProbe1',
+            },
             Slot = 'RCH',
             UpgradeEffectBones = {
                 'ShoulderR',
                 'ElbowPBR',
                 'ElbowPTR',
+                'IntelProbe1',
             },
             UpgradeUnitAmbientBones = {
-                'INU0001',
+                'Abb1',
             },
         },
         IntelProbeRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
+            HideBones = {
+                'IntelProbe1',
+                'IntelProbe2',
+            },
             Icon = 'ip',
             Name = '<LOC NomadsACUEnh_IntelProbe_Remove>Remove Intel Probe',
             Prerequisite = 'IntelProbe',
@@ -490,20 +499,27 @@ UnitBlueprint {
             Icon = 'ip2',
             Name = '<LOC NomadsACUEnh_IntelProbeAdv_Help>Advanced Intel Probe',
             Prerequisite = 'IntelProbe',
+            ShowBones = {
+                'IntelProbe2',
+            },
             Slot = 'RCH',
             UpgradeEffectBones = {
                 'ShoulderR',
-                'ElbowPBR',
-                'ElbowPTR',
+                'IntelProbe1',
+                'IntelProbe2',
             },
             UpgradeUnitAmbientBones = {
-                'INU0001',
+                'Abb1',
             },
         },
         IntelProbeAdvRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
+            HideBones = {
+                'IntelProbe1',
+                'IntelProbe2',
+            },
             Icon = 'ip2',
             Name = '<LOC NomadsACUEnh_IntelProbe_Remove>Remove Advanced Intel Probe',
             Prerequisite = 'IntelProbeAdv',
@@ -520,16 +536,27 @@ UnitBlueprint {
             BuildTime = 900,
             Icon = 'il',
             Name = '<LOC NomadsACUEnh_MovementSpeedIncrease_Help>',
+            ShowBones = {
+                'Locomotion',
+            },
             SpeedMulti = 1.5,
             Slot = 'Back',
+            UpgradeEffectBones = {
+                'Chest',
+                'Locomotion',
+                'Neck',
+            },
             UpgradeUnitAmbientBones = {
-                'INU0001',
+                'Abb1',
             },
         },
         MovementSpeedIncreaseRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
+            HideBones = {
+                'Locomotion',
+            },
             Icon = 'il',
             Name = '<LOC NomadsACUEnh_MovementSpeedIncrease_Remove>',
             Prerequisite = 'MovementSpeedIncrease',
@@ -548,11 +575,11 @@ UnitBlueprint {
             Slot = 'LCH',
             UpgradeEffectBones = {
                 'ShoulderL',
-                'ElbowPBL',
                 'ElbowPTL',
+                'Orbital Bombardment',
             },
             UpgradeUnitAmbientBones = {
-                'INU0001',
+                'Abb1',
             },
         },
         OrbitalBombardmentRemove = {
@@ -580,12 +607,17 @@ UnitBlueprint {
             Mesh = '/units/INU0001/INU0001_PowerArmor_Mesh',
             Name = '<LOC NomadsACUEnh_PowerArmor_Help>Powered Armor',
             Prerequisite = 'RapidRepair',
+            ShowBones = {
+                'PowerArmor',
+            },
             Slot = 'Back',
             UpgradeEffectBones = {
-                'upgrade_back',
+                'Chest',
+                'Locomotion',
+                'Neck',
             },
             UpgradeUnitAmbientBones = {
-                'INU0001',
+                'Abb1',
             },
         },
         PowerArmorRemove = {
@@ -593,7 +625,7 @@ UnitBlueprint {
             BuildCostMass = 1,
             BuildTime = 0.1,
             HideBones = {
-                'Chest',
+                'PowerArmor',
             },
             Icon = 'sepa',
             Name = '<LOC NomadsACUEnh_PowerArmor_Remove>Remove Powered Armor',
@@ -614,18 +646,26 @@ UnitBlueprint {
             Name = '<LOC NomadsACUEnh_RapidRepair_Help>',
             RepairDelay = 15,
             RepairRate = 70,
+            ShowBones = {
+                'PowerArmor',
+            },
             Slot = 'Back',
             UpgradeEffectBones = {
                 'Chest',
+                'Locomotion',
+                'Neck',
             },
             UpgradeUnitAmbientBones = {
-                'INU0001',
+                'Abb1',
             },
         },
         RapidRepairRemove = {
             BuildCostEnergy = 1,
             BuildCostMass = 1,
             BuildTime = 0.1,
+            HideBones = {
+                'PowerArmor',
+            },
             Icon = 'se',
             Name = '<LOC NomadsACUEnh_RapidRepair_Remove>',
             Prerequisite = 'RapidRepair',
@@ -646,14 +686,16 @@ UnitBlueprint {
             ProductionPerSecondEnergy = 2800,
             ProductionPerSecondMass = 17,
             ShowBones = {
-                'PowerArmor',
+                'Locomotion',
             },
             Slot = 'Back',
             UpgradeEffectBones = {
-                'PowerArmor',
+                'Chest',
+                'Locomotion',
+                'Neck',
             },
             UpgradeUnitAmbientBones = {
-                'INU0001',
+                'Abb1',
             },
         },
         ResourceAllocationRemove = {
@@ -661,7 +703,7 @@ UnitBlueprint {
             BuildCostMass = 1,
             BuildTime = 0.1,
             HideBones = {
-                'PowerArmor',
+                'Locomotion',
             },
             Icon = 'isb',
             Name = '<LOC enhancements_0046>Remove Resource Allocation System',
@@ -710,7 +752,7 @@ UnitBlueprint {
                 'BuildArm2',
             },
             UpgradeUnitAmbientBones = {
-                'INU0001',
+                'Abb1',
             },
         },
         T3EngineeringRemove = {
