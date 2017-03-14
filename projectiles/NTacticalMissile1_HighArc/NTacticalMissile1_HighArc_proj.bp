@@ -25,6 +25,8 @@ ProjectileBlueprint {
         MaxHealth = 1,
     },
     Display = {
+        CameraFollowTimeout = 5,
+        CameraFollowsProjectile = true,
         ImpactEffects = {
             Type = 'Medium01',
         },
