@@ -157,9 +157,13 @@ function AddSpecialAbility(data)
     local ability = SpecialAbilities[AbilityName] or false
     local AddAbility = true
 
-    for k,v in availableOrders do
-        if v == AbilityName then 
-            AddAbility = false
+    if not controls.orderButtonGrid then
+        AddAbility = false
+    else
+        for k,v in availableOrders do
+            if v == AbilityName then 
+                AddAbility = false
+            end
         end
     end
 
