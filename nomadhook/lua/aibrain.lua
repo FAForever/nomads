@@ -452,8 +452,8 @@ AIBrain = Class(oldAIBrain) {
                 self:ConstructUnitInOrbit( bpId, cb )
             else
                 local pos = requester:GetPosition()
-                local artysatellite = CreateUnitHPR( bpId, army, pos[1], GetSurfaceHeight(pos[1],pos[3])+__blueprints[bpId].Physics.Elevation, pos[3], 0, 0, 0)
-                self:GetAIBrain():AssignUnitToParent(artysatellite , false )
+                local artysatellite = CreateUnitHPR( bpId, self:GetArmyIndex(), pos[1], GetSurfaceHeight(pos[1],pos[3])+__blueprints[bpId].Physics.Elevation, pos[3], 0, 0, 0)
+                self:AssignUnitToParent(artysatellite , false )
             end
         end
     end,
