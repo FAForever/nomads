@@ -70,7 +70,7 @@ local ButtonParams = {}
 -- called from gamemain to create control
 function SetupOrdersControl(parent)
     controls.parent = parent
-	savedParent = parent
+    savedParent = parent
 
     -- create our copy of orders table
     standardOrdersTable = table.deepcopy(defaultOrdersTable)
@@ -86,9 +86,9 @@ function SetupOrdersControl(parent)
             end
         end
     )
-	
-	local oldSelection = GetSelectedUnits()
-	
+
+local oldSelection = GetSelectedUnits()
+
     import('/lua/ui/game/commandmode.lua').AddEndBehavior(
         function(commandMode, data)
             local orderCheckbox = orderCheckboxMap[data]
@@ -110,35 +110,35 @@ function SetLayout(layout)
 
     CreateControls()
     import('/lua/ui/ability_panel/layout/abilities_mini.lua').SetLayout()
-	
-	--trigger this, just incase an order is added from the ui or sim on game start
-	SetAvailableOrders()
+
+    --trigger this, just incase an order is added from the ui or sim on game start
+    SetAvailableOrders()
 end
 
 function CreateControls()
-	--clear any mouse displays we have
+    --clear any mouse displays we have
     if controls.mouseoverDisplay then
         controls.mouseoverDisplay:Destroy()
         controls.mouseoverDisplay = false
     end
-	
-	controls.collapseArrow = Checkbox(savedParent)
+
+    controls.collapseArrow = Checkbox(savedParent)
     Tooltip.AddCheckboxTooltip(controls.collapseArrow, 'mfd_collapse')
-	controls.collapseArrow.OnCheck = function(self, checked)
+    controls.collapseArrow.OnCheck = function(self, checked)
         ToggleAbilityPanel()
     end
-	
+
     if not controls.bg then
         controls.bg = Group(savedParent)
     end
-	    
+
     controls.bg.panel = Bitmap(controls.bg)
     controls.bg.leftBrace = Bitmap(controls.bg)
     controls.bg.leftGlow = Bitmap(controls.bg)
     controls.bg.rightGlowTop = Bitmap(controls.bg)
     controls.bg.rightGlowMiddle = Bitmap(controls.bg)
     controls.bg.rightGlowBottom = Bitmap(controls.bg)
-   	
+
     --if not controls.orderButtonGrid then
         CreateOrderButtonGrid()
     --end
@@ -148,7 +148,7 @@ end
 function CreateOrderButtonGrid()
     controls.orderButtonGrid = Grid(controls.bg, GameCommon.iconWidth, GameCommon.iconHeight)
     controls.orderButtonGrid:SetName("Orders Grid")
-	controls.orderButtonGrid:DeleteAll()
+    controls.orderButtonGrid:DeleteAll()
 end
 
 --add an ability
@@ -178,29 +178,29 @@ function AddSpecialAbility(data)
         if AbilityDefinition[AbilityName] and AbilityDefinition[AbilityName].SoundReady then
             VoiceOvers.VOUIEvent( AbilityDefinition[AbilityName].SoundReady )
         end
-    end	
+    end
 end
 
 --remove an ability
 function RemoveSpecialAbility(data)
-	local AbilityName = data.AbilityName
-	local ability = SpecialAbilities[AbilityName] or false
-	local RemoveAbility = false
-	local id = false
-	
-	for k,v in availableOrders do
-		if v == AbilityName then 
-			RemoveAbility = true
-			id = k
-		end
-	end
-	
-	if RemoveAbility then 
-		table.remove(availableOrders, id)
-		defaultOrdersTable[AbilityName] = nil
-		ButtonParams[AbilityName] = nil
-		SetAvailableOrders()
-	end
+    local AbilityName = data.AbilityName
+    local ability = SpecialAbilities[AbilityName] or false
+    local RemoveAbility = false
+    local id = false
+    
+    for k,v in availableOrders do
+        if v == AbilityName then 
+            RemoveAbility = true
+            id = k
+        end
+    end
+    
+    if RemoveAbility then 
+        table.remove(availableOrders, id)
+        defaultOrdersTable[AbilityName] = nil
+        ButtonParams[AbilityName] = nil
+        SetAvailableOrders()
+    end
 end
 
 --enable an ability button on ability panel
@@ -219,38 +219,38 @@ end
 
 --disable an ability button on ability panel
 function DisableSpecialAbility(data)
-	local AbilityName = data.AbilityName
-	if orderCheckboxMap[AbilityName] then 
-		orderCheckboxMap[AbilityName]:Disable()
-		ButtonParams[AbilityName].Enabled = false
-		
-		if glowThread[AbilityName] then 
-			KillThread(glowThread[AbilityName])
-		end
-		
-		if controls.NewButtonGlows[AbilityName] then 
-			controls.NewButtonGlows[AbilityName]:SetNeedsFrameUpdate(false)
-			controls.NewButtonGlows[AbilityName]:Destroy()
-			controls.NewButtonGlows[AbilityName] = false
-		end
-	
-		NewGlowThread[AbilityName] = false
-	end
+    local AbilityName = data.AbilityName
+    if orderCheckboxMap[AbilityName] then 
+        orderCheckboxMap[AbilityName]:Disable()
+        ButtonParams[AbilityName].Enabled = false
+        
+        if glowThread[AbilityName] then 
+            KillThread(glowThread[AbilityName])
+        end
+        
+        if controls.NewButtonGlows[AbilityName] then 
+            controls.NewButtonGlows[AbilityName]:SetNeedsFrameUpdate(false)
+            controls.NewButtonGlows[AbilityName]:Destroy()
+            controls.NewButtonGlows[AbilityName] = false
+        end
+    
+        NewGlowThread[AbilityName] = false
+    end
 end
 
 --set available orders on the abilities panel
 function SetAvailableOrders()
 
     -- clear existing buttons
-	KillTimers()
+    KillTimers()
     orderCheckboxMap = {}
-	if controls.orderButtonGrid then 
-		controls.orderButtonGrid:DestroyAllItems(true)
-	end
+    if controls.orderButtonGrid then 
+        controls.orderButtonGrid:DestroyAllItems(true)
+    end
 
     -- create our copy of orders table
     standardOrdersTable = table.deepcopy(defaultOrdersTable)
-	
+    
     --count our buttons
     local numValidOrders = 0
     for i, v in availableOrders do
@@ -258,21 +258,21 @@ function SetAvailableOrders()
             numValidOrders = numValidOrders + 1
         end
     end
-	    
+        
     if numValidOrders ~= 0 and numValidOrders <= numSlots then
         CreateAltOrders()
     end
     
-	if controls.orderButtonGrid then 
-		controls.orderButtonGrid:EndBatch()
-	end
-	
-	--if no buttons on the panel hide it.
+    if controls.orderButtonGrid then 
+        controls.orderButtonGrid:EndBatch()
+    end
+    
+    --if no buttons on the panel hide it.
     if numValidOrders == 0 and controls.bg.Mini then
-	   HideAll()
+       HideAll()
     elseif controls.bg.Mini then
-	   ShowAll()
-	   RestartTimers()
+       ShowAll()
+       RestartTimers()
     end
 end
 
@@ -281,7 +281,7 @@ end
 --THIS MEANS IF 2 BUTTONS ARE SENT TO THE PANEL AND THEY BOTH HAVE THE SAME SLOT NUMBER THEY WILL BE PLACED IN SLOTS 1 AND 2
 --IF THE 2 BUTTONS ARE SENT IN DIFFERENT GAME TICKS AND THEY BOTH WANT TO GO INTO THE SAME SLOT THEN THE BUTTON IN THE SLOT IS REPLACED BY BUTTON 2.
 function CreateAltOrders()
-		    
+            
     -- determine what slots to put abilities into
     -- we first want a table of slots we want to fill, and what orders want to fill them
     local desiredSlot = {}
@@ -338,18 +338,18 @@ function CreateAltOrders()
     for index, availOrder in availableOrders do
         if not standardOrdersTable[availOrder] then continue end   -- skip any orders we don't have in our table
 
-		local orderInfo = standardOrdersTable[availOrder] or AbilityInformation[availOrder]
-		local orderCheckbox = AddOrder(orderInfo, slotForOrder[availOrder], true)
+        local orderInfo = standardOrdersTable[availOrder] or AbilityInformation[availOrder]
+        local orderCheckbox = AddOrder(orderInfo, slotForOrder[availOrder], true)
 
-		orderCheckbox._order = availOrder
+        orderCheckbox._order = availOrder
             
---		if standardOrdersTable[availOrder].script then
-		if standardOrdersTable[availOrder].Name then
-			orderCheckbox._script = standardOrdersTable[availOrder].script
-			orderCheckbox._Name = standardOrdersTable[availOrder].Name
-		end
+--        if standardOrdersTable[availOrder].script then
+        if standardOrdersTable[availOrder].Name then
+            orderCheckbox._script = standardOrdersTable[availOrder].script
+            orderCheckbox._Name = standardOrdersTable[availOrder].Name
+        end
  
-		orderCheckboxMap[availOrder] = orderCheckbox
+        orderCheckboxMap[availOrder] = orderCheckbox
     end
 end
 
@@ -358,9 +358,9 @@ function AddOrder(orderInfo, slot, batchMode)
     batchMode = batchMode or false
     
     local checkbox = Checkbox(controls.orderButtonGrid, GetOrderBitmapNames(orderInfo.UIBitmapId))
---	local button = orderInfo.script
-	local button = orderInfo.Name
-	
+--    local button = orderInfo.script
+    local button = orderInfo.Name
+    
 
     -- set the info in to the data member for retrieval
     checkbox._data = orderInfo
@@ -412,7 +412,7 @@ function AddOrder(orderInfo, slot, batchMode)
             Checkbox.OnDisable(self)
         end
     end
-	
+    
     if orderInfo.ExtraInfo.CoolDownTime and orderInfo.ExtraInfo.CoolDownTime > 0 then 
         checkbox.buttonText = UIUtil.CreateText(checkbox, '', 18, UIUtil.bodyFont)
         checkbox.buttonText:SetColor('ffffffff')
@@ -431,8 +431,8 @@ function AddOrder(orderInfo, slot, batchMode)
         checkbox:Disable()
     end
     
-	--ok if the button fires a counted projectile weapon (silo).. we can use this to update the number of projectiles
-	--you will have to add the function to the orderinfo.ButtonTextFunc in this file.
+    --ok if the button fires a counted projectile weapon (silo).. we can use this to update the number of projectiles
+    --you will have to add the function to the orderinfo.ButtonTextFunc in this file.
     if orderInfo.ButtonTextFunc then
         checkbox.buttonText = UIUtil.CreateText(checkbox, '', 18, UIUtil.bodyFont)
         checkbox.buttonText:SetText(orderInfo.ButtonTextFunc(checkbox))
@@ -476,24 +476,24 @@ function AddOrder(orderInfo, slot, batchMode)
     local col = math.mod(slot - 1, cols) + 1
     controls.orderButtonGrid:DestroyItem(col, row, batchMode)
     controls.orderButtonGrid:SetItem(checkbox, col, row, batchMode)
-	
-	if ButtonParams[button].Enabled then 
-		ForkThread(newOrderGlow, checkbox)
-	end
-	
+    
+    if ButtonParams[button].Enabled then 
+        ForkThread(newOrderGlow, checkbox)
+    end
+    
     return checkbox
 end
 
 --mouse over glow
 function CreateOrderGlow(parent)
 
---	local button = parent._data.script
-	local button = parent._data.Name
-	if controls.NewButtonGlows[button] then 
-		controls.NewButtonGlows[button]:Destroy()
-		controls.NewButtonGlows[button] = false
-	end
-	
+--    local button = parent._data.script
+    local button = parent._data.Name
+    if controls.NewButtonGlows[button] then 
+        controls.NewButtonGlows[button]:Destroy()
+        controls.NewButtonGlows[button] = false
+    end
+    
     controls.orderGlow[button] = Bitmap(parent, UIUtil.UIFile('/game/orders/glow-02_bmp.dds'))
     LayoutHelpers.AtCenterIn(controls.orderGlow[button], parent)
     controls.orderGlow[button]:SetAlpha(0.0)
@@ -523,8 +523,8 @@ end
 
 --when a new button is added OR enabled make it glow for a while..
 function CreateNewAbilityGlow(parent)
---	local button = parent._data.script
-	local button = parent._data.Name
+--    local button = parent._data.script
+    local button = parent._data.Name
     controls.NewButtonGlows[button] = Bitmap(parent, UIUtil.UIFile('/game/orders/glow-02_bmp.dds'))
     LayoutHelpers.AtCenterIn(controls.NewButtonGlows[button], parent)
     controls.NewButtonGlows[button]:SetAlpha(0.0)
@@ -532,13 +532,13 @@ function CreateNewAbilityGlow(parent)
     controls.NewButtonGlows[button]:SetNeedsFrameUpdate(true)
     local alpha = 0.0
     local incriment = true
-	local StartTime = GetGameTimeSeconds()
+    local StartTime = GetGameTimeSeconds()
     controls.NewButtonGlows[button].OnFrame = function(self, deltaTime)
-	
-		if (GetGameTimeSeconds() - StartTime) > FlashTime then 
-			controls.NewButtonGlows[button]:SetNeedsFrameUpdate(false)
-		end
-		
+    
+        if (GetGameTimeSeconds() - StartTime) > FlashTime then 
+            controls.NewButtonGlows[button]:SetNeedsFrameUpdate(false)
+        end
+        
         if incriment then
             alpha = alpha + (deltaTime * 1.2)
         else
@@ -558,18 +558,18 @@ end
 
 --when a new button is added to our panel, make it flash for a few seconds.. 
 function newOrderGlow(parent)
---	local button = parent._data.script
-	local button = parent._data.Name
-	NewGlowThread[button] = CreateNewAbilityGlow(parent)
-	WaitSeconds(FlashTime)
-	
-	if controls.NewButtonGlows[button] then 
-		controls.NewButtonGlows[button]:Destroy()
-		controls.NewButtonGlows[button] = false
-	end
-	
-	--KillThread(NewGlowThread[button])
-	NewGlowThread[button] = false
+--    local button = parent._data.script
+    local button = parent._data.Name
+    NewGlowThread[button] = CreateNewAbilityGlow(parent)
+    WaitSeconds(FlashTime)
+    
+    if controls.NewButtonGlows[button] then 
+        controls.NewButtonGlows[button]:Destroy()
+        controls.NewButtonGlows[button] = false
+    end
+    
+    --KillThread(NewGlowThread[button])
+    NewGlowThread[button] = false
 end
 
 --mouse over text we can use the loc system or just plain text.
@@ -718,7 +718,7 @@ end
 function StartCoolDownTimer(buttonName)
     if orderCheckboxMap[buttonName] then 
         local button = orderCheckboxMap[buttonName]
-	
+    
         local Timer = ButtonParams[buttonName].CoolDownTimerValue or 0
         local CountDown = ButtonParams[buttonName].CoolDownTime or button._data.ExtraInfo.CoolDownTime
         local curTime = ButtonParams[buttonName].CurrCoolDownTime or button._data.ExtraInfo.CoolDownTime
@@ -742,7 +742,7 @@ function StartCoolDownTimer(buttonName)
                 UpdateTime(self)
             else
                 CooldownTimerExpired(buttonName)
-            end	
+            end    
         end
     end
 end
@@ -770,37 +770,37 @@ end
 
 --enable the ability button and kill the cooldown timer
 function EnableButtonStopCoolDown(buttonName)
-	local data = {}
-	data.AbilityName = buttonName
-	EnableSpecialAbility(data)
-	StopCoolDownTimer(buttonName)
+    local data = {}
+    data.AbilityName = buttonName
+    EnableSpecialAbility(data)
+    StopCoolDownTimer(buttonName)
 end
 
 --disable the button and start the cooldown timer
 function DisableButtonStartCoolDown(buttonName)
-	local data = {}
-	data.AbilityName = buttonName
-	DisableSpecialAbility(data)
-	StartCoolDownTimer(buttonName)
+    local data = {}
+    data.AbilityName = buttonName
+    DisableSpecialAbility(data)
+    StartCoolDownTimer(buttonName)
 end
 
 --kill button timers. (cooldowns)
 function KillTimers()
-	for k,v in ButtonParams do
-		if ButtonParams[k].CoolDownEnabled then 
-			local button = orderCheckboxMap[k]
-			button.buttonText:SetNeedsFrameUpdate(false)
-		end
-	end
+    for k,v in ButtonParams do
+        if ButtonParams[k].CoolDownEnabled then 
+            local button = orderCheckboxMap[k]
+            button.buttonText:SetNeedsFrameUpdate(false)
+        end
+    end
 end
 
 --restart buttons that have timers on them (cooldowns)
 function RestartTimers()
-	for k,v in ButtonParams do
-		if ButtonParams[k].CoolDownEnabled then 
-			StartCoolDownTimer(k)
-		end
-	end
+    for k,v in ButtonParams do
+        if ButtonParams[k].CoolDownEnabled then 
+            StartCoolDownTimer(k)
+        end
+    end
 end
 
 --controls when the user clicks the toggle to show the ability panel.
@@ -849,58 +849,58 @@ end
 
 --open the abilities panel directly
 function Open_Panel()
-	controls.bg:Show()
-	controls.bg:SetNeedsFrameUpdate(true)
-	controls.bg.OnFrame = function(self, delta)
-		local newLeft = self.Left() + (1000*delta)
-		if newLeft > savedParent.Left()+15 then
-			newLeft = savedParent.Left()+15
-			self:SetNeedsFrameUpdate(false)
-		end
-		self.Left:Set(newLeft)
-	end
-	controls.collapseArrow:SetCheck(false, true)
-	Panel_State = 'open'
+    controls.bg:Show()
+    controls.bg:SetNeedsFrameUpdate(true)
+    controls.bg.OnFrame = function(self, delta)
+        local newLeft = self.Left() + (1000*delta)
+        if newLeft > savedParent.Left()+15 then
+            newLeft = savedParent.Left()+15
+            self:SetNeedsFrameUpdate(false)
+        end
+        self.Left:Set(newLeft)
+    end
+    controls.collapseArrow:SetCheck(false, true)
+    Panel_State = 'open'
 end
 
 --close the abilities panel directly
 function Close_Panel()
-	controls.bg:Show()
-	controls.bg:SetNeedsFrameUpdate(true)
-	controls.bg.OnFrame = function(self, delta)
-		local newLeft = self.Left() - (1000*delta)
-		if newLeft < savedParent.Left()-self.Width() - 10 then
-			newLeft = savedParent.Left()-self.Width() - 10
-			self:SetNeedsFrameUpdate(false)
-			self:Hide()
-		end
-		self.Left:Set(newLeft)
-	end
-	
+    controls.bg:Show()
+    controls.bg:SetNeedsFrameUpdate(true)
+    controls.bg.OnFrame = function(self, delta)
+        local newLeft = self.Left() - (1000*delta)
+        if newLeft < savedParent.Left()-self.Width() - 10 then
+            newLeft = savedParent.Left()-self.Width() - 10
+            self:SetNeedsFrameUpdate(false)
+            self:Hide()
+        end
+        self.Left:Set(newLeft)
+    end
+
     controls.collapseArrow:SetCheck(true, true)
-	Panel_State = 'closed'
+    Panel_State = 'closed'
 end
 
 --helper function to open the panel 
 function ShowAll()
-	ForkThread(ShowAllThread)
+    ForkThread(ShowAllThread)
 end
 
 function ShowAllThread()
-	Open_Panel()
-	WaitSeconds(0.2)
-	controls.collapseArrow:Show()
+    Open_Panel()
+    WaitSeconds(0.2)
+    controls.collapseArrow:Show()
 end
 
 --helper function to hide the panel.
 function HideAll()
-	ForkThread(HideAllThread)
+    ForkThread(HideAllThread)
 end
 
 function HideAllThread()
-	Close_Panel()
-	WaitSeconds(0.2)
-	controls.collapseArrow:SetHidden(true)
+    Close_Panel()
+    WaitSeconds(0.2)
+    controls.collapseArrow:SetHidden(true)
 end
 
 --not used.
@@ -918,5 +918,5 @@ function InitialAnimation()
     end
     controls.collapseArrow:Show()
     controls.collapseArrow:SetCheck(false, true)
-	Panel_State = 'open'
+    Panel_State = 'open'
 end
