@@ -448,7 +448,13 @@ AIBrain = Class(oldAIBrain) {
             local cb = function(self)
                 self:GetAIBrain():AssignUnitToParent( self, false )    -- 'self' in this case is the newly created unit
             end
-            self:ConstructUnitInOrbit( bpId, cb )
+            if self.NomadsMothership ~= nil then
+                self:ConstructUnitInOrbit( bpId, cb )
+            else
+                local pos = requester:GetPosition()
+                local artysatellite = CreateUnitHPR( bpId, self:GetArmyIndex(), pos[1], GetSurfaceHeight(pos[1],pos[3])+__blueprints[bpId].Physics.Elevation, pos[3], 0, 0, 0)
+                self:AssignUnitToParent(artysatellite , false )
+            end
         end
     end,
 
