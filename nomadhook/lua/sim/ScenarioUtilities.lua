@@ -13,10 +13,6 @@ local conversionTable = {
 }
 
 local oldFactionConvert = FactionConvert
-
-function FactionConvert(template, factionIndex)
-    LOG("HELLO!")
-
     template = oldFactionConvert(template, factionIndex)
     local i = 3
     while i <= table.getn(template) do
