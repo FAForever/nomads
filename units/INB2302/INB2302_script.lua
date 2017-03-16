@@ -76,8 +76,13 @@ INB2302 = Class(NStructureUnit) {
 
         -- in case we haven't asked for a slave unit, do it now
         if not self.ArtilleryUnitRequested then
-            self.ArtilleryUnitRequested = true
-            self:GetAIBrain():RequestUnitAssignedToParent(self, 'ino2302', self.OnArtilleryUnitAssigned)
+            ForkThread(function()
+                WaitSeconds(5)
+                if not self.ArtilleryUnitRequested then
+                    self.ArtilleryUnitRequested = true
+                    self:GetAIBrain():RequestUnitAssignedToParent(self, 'ino2302', self.OnArtilleryUnitAssigned)
+                end
+            end)
         end
 
         -- enable dummy weapon if there's a slave unit assigned to us, if not, wait for it
@@ -147,6 +152,28 @@ INB2302 = Class(NStructureUnit) {
     OnArtilleryUnitKilledUnit = function(self, unitKilled)
         -- called each time the gun kills a unit
         self:OnKilledUnit(unitKilled)
+    end,
+    
+    OnGiven = function(self, newUnit)
+        if self.ArtilleryUnit ~= nil then
+            newUnit.ArtilleryUnitRequested = true
+            local pos = self.ArtilleryUnit:GetPosition()
+            ChangeUnitArmy(self.ArtilleryUnit, (newUnit:GetAIBrain()):GetArmyIndex() )
+            for _ , unit in GetUnitsInRect( Rect(pos[1]-0.5, pos[3]-0.5, pos[1]+0.5, pos[3]+0.5) ) do
+                if string.find(unit:GetBlueprint().BlueprintId, 'ino2302') then
+                    newUnit:OnArtilleryUnitAssigned(unit)
+                    return
+                end
+            end
+        else
+            self.ArtilleryUnitRequested = true
+            newUnit.ArtilleryUnitRequested = false
+            local requestqueue = self:GetAIBrain().RequestUnitQueue['ino2302']
+            if requestqueue then
+                requestqueue[1] = nil
+                table.removeByValue(requestqueue, 1)
+            end
+        end
     end,
 }
 

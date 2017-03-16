@@ -477,14 +477,21 @@ AIBrain = Class(oldAIBrain) {
         else
             -- using table.keys as the easiest method to get the first key. When we have it we can determine parent and callback
             queueKey = table.keys( self.RequestUnitQueue[bpId] )[1]
-            parent = self.RequestUnitQueue[bpId][queueKey].requester
-            callback = self.RequestUnitQueue[bpId][queueKey].callback
+            if queueKey ~= nil then
+                parent = self.RequestUnitQueue[bpId][queueKey].requester
+                callback = self.RequestUnitQueue[bpId][queueKey].callback
+            end
         end
 
         -- remove requester from requesters table so we don't assign another unit to the requester
         self.RequestUnitQueue[bpId][queueKey] = nil
         table.removeByValue(self.RequestUnitQueue[bpId], queueKey)
 
+        if not parent then
+            unit:Destroy()
+            return false 
+        end
+        
         -- add the unit to the pool of requested units, for possible future reference
         local unitEntityId = unit:GetEntityId()
         local parentEntityId = parent:GetEntityId()
