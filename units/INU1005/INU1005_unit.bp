@@ -139,7 +139,7 @@ UnitBlueprint {
                         },
                         Offset = {
                             0,
-                            -0.42,
+                            -0.39,
                             0,
                         },
                         Scale = 0.4,
@@ -156,7 +156,7 @@ UnitBlueprint {
                         },
                         Offset = {
                             0,
-                            -0.42,
+                            -0.39,
                             0,
                         },
                         Scale = 0.4,
@@ -190,7 +190,7 @@ UnitBlueprint {
                         },
                         Offset = {
                             0,
-                            -0.42,
+                            -0.39,
                             0,
                         },
                         Scale = 0.4,
@@ -207,7 +207,7 @@ UnitBlueprint {
                         },
                         Offset = {
                             0,
-                            -0.42,
+                            -0.39,
                             0,
                         },
                         Scale = 0.4,
