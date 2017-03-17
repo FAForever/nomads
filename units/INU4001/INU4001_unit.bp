@@ -135,6 +135,7 @@ UnitBlueprint {
                         },
                         Scale = 3.5,
                         Type = 'NomadsHoverGroundFx1',
+                        Recolour = true,
                     },
                     {
                         Bones = {
@@ -147,6 +148,7 @@ UnitBlueprint {
                         },
                         Scale = 3.5,
                         Type = 'NomadsHoverGroundFx1',
+                        Recolour = true,
                     },
                 },
             },
@@ -163,6 +165,7 @@ UnitBlueprint {
                         },
                         Scale = 3.5,
                         Type = 'NomadsHoverGroundFx1',
+                        Recolour = true,
                     },
                     {
                         Bones = {
@@ -175,6 +178,7 @@ UnitBlueprint {
                         },
                         Scale = 3.5,
                         Type = 'NomadsHoverGroundFx1',
+                        Recolour = true,
                     },
                 },
             },
