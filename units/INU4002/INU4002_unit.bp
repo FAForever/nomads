@@ -121,6 +121,7 @@ UnitBlueprint {
                         },
                         Scale = 1.2,
                         Type = 'NomadsHoverGroundFx1',
+                        Recolour = true,
                     },
                     {
                         Bones = {
@@ -134,6 +135,7 @@ UnitBlueprint {
                         },
                         Scale = 1,
                         Type = 'NomadsHoverGroundFx1',
+                        Recolour = true,
                     },
                 },
             },
@@ -151,6 +153,7 @@ UnitBlueprint {
                         },
                         Scale = 1.2,
                         Type = 'NomadsHoverGroundFx1',
+                        Recolour = true,
                     },
                     {
                         Bones = {
@@ -164,6 +167,7 @@ UnitBlueprint {
                         },
                         Scale = 1,
                         Type = 'NomadsHoverGroundFx1',
+                        Recolour = true,
                     },
                 },
             },
@@ -182,8 +186,9 @@ UnitBlueprint {
                             0,
                             0.32,
                         },
-                        Scale = 1.2,
+                        Scale = 1.4,
                         Type = 'NomadsHoverGroundFx1',
+                        Recolour = true,
                     },
                     {
                         Bones = {
@@ -195,8 +200,9 @@ UnitBlueprint {
                             0,
                             0.32,
                         },
-                        Scale = 1,
+                        Scale = 1.2,
                         Type = 'NomadsHoverGroundFx1',
+                        Recolour = true,
                     },
                 },
             },
@@ -233,6 +239,7 @@ UnitBlueprint {
                         },
                         Scale = 1.2,
                         Type = 'NomadsHoverGroundFx1',
+                        Recolour = true,
                     },
                     {
                         Bones = {
@@ -246,11 +253,12 @@ UnitBlueprint {
                         },
                         Scale = 1,
                         Type = 'NomadsHoverGroundFx1',
+                        Recolour = true,
                     },
                 },
             },
         },
-	Mesh = {
+        Mesh = {
             IconFadeInZoom = 130,
             LODs = {
                 {
