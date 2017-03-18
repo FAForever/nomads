@@ -84,7 +84,7 @@ SpecAbil_LaunchNuke_title = "Quick nuke launch"
 SpecAbil_LaunchNuke_desc = "Launch a nuke. Single click to launch a nuke from 1 launcher, double click to launch a nuke from all available launchers in a wide spread pattern. The attack can be adjusted by clicking the middle mouse button."
 
 SpecAbil_LaunchTacMissile_title = "Quick tactical missile launch"
-SpecAbil_LaunchTacMissile_desc = "Launch a tactical missile. Single click to launch a missile from 1 launcher, double click to launch a nuke from all available launchers. The attack can be adjusted by clicking the middle mouse button."
+SpecAbil_LaunchTacMissile_desc = "Launch a tactical missile. Single click to launch a missile from 1 launcher, double click to launch a tactical missile from all available launchers. The attack can be adjusted by clicking the middle mouse button."
 
 SpecAbil_IntelOvercharge_title = "Intel Boost"
 SpecAbil_IntelOvercharge_desc = "Start intel boost. Single click to start intel boost on the radar or sonar nearest to the specified position, double click to have all available radars and sonars in range of the specified position start intel boost."
