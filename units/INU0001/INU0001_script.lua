@@ -16,6 +16,7 @@ local NWeapons = import('/lua/nomadsweapons.lua')
 local APCannon1 = NWeapons.APCannon1
 local APCannon1_Overcharge = NWeapons.APCannon1_Overcharge
 local DeathNuke = NWeapons.DeathNuke
+local TacticalMissileWeapon2 = import('/lua/nomadsweapons.lua').TacticalMissileWeapon2
 
 APCannon1 = AddCapacitorAbilityToWeapon(APCannon1)
 APCannon1_Overcharge = AddCapacitorAbilityToWeapon(APCannon1_Overcharge)
@@ -43,6 +44,7 @@ INU0001 = Class(ACUUnit) {
                 end
             end,
         },
+        
         AutoOverCharge = Class(AddRapidRepairToWeapon(APCannon1_Overcharge)) {
             PlayFxMuzzleSequence = function(self, muzzle)
                 APCannon1_Overcharge.PlayFxMuzzleSequence(self, muzzle)
@@ -54,6 +56,7 @@ INU0001 = Class(ACUUnit) {
                 end
             end,
         },
+        
         OverCharge = Class(AddRapidRepairToWeapon(APCannon1_Overcharge)) {
             PlayFxMuzzleSequence = function(self, muzzle)
                 APCannon1_Overcharge.PlayFxMuzzleSequence(self, muzzle)
@@ -65,9 +68,35 @@ INU0001 = Class(ACUUnit) {
                 end
             end,
         },
+        
         DeathWeapon = Class(DeathNuke) {},
-    },
+        
+        TargetFinder = Class(TacticalMissileWeapon2) {
 
+            CreateProjectileForWeapon = function(self, bone)
+            end,
+
+            CreateProjectileAtMuzzle = function(self, muzzle)
+            end,
+
+            OnLostTarget = function(self)
+                --self.unit:SetArtilleryUnitTarget( nil, nil )
+            end,
+
+            OnGotTarget = function(self)
+                --self.unit:SetArtilleryUnitTarget( self:GetCurrentTarget(), self:GetCurrentTargetPos() )
+            end,
+
+            OnStartTracking = function(self, label)
+                --self.unit:SetArtilleryUnitTarget( self:GetCurrentTarget(), self:GetCurrentTargetPos() )
+            end,
+
+            OnStopTracking = function(self, label)
+                --self.unit:SetArtilleryUnitTarget( nil, nil )
+            end,
+        },
+    },
+    
     __init = function(self)
         ACUUnit.__init(self, 'MainGun')
     end,
@@ -80,6 +109,8 @@ INU0001 = Class(ACUUnit) {
     OnCreate = function(self)
         ACUUnit.OnCreate(self)
 
+        self:GetAIBrain().OrbitalBombardmentInitiator = self
+        
         local bp = self:GetBlueprint()
 
         -- vars
@@ -114,6 +145,7 @@ INU0001 = Class(ACUUnit) {
     OnStopBeingBuilt = function(self, builder, layer)
         ACUUnit.OnStopBeingBuilt(self, builder, layer)
         self:SetWeaponEnabledByLabel('MainGun', true)
+        self:SetWeaponEnabledByLabel('TargetFinder', false)
         self:ForkThread(self.GiveInitialResources)
         self:ForkThread(self.HeadRotationThread)
 
@@ -744,14 +776,39 @@ INU0001 = Class(ACUUnit) {
         elseif enh == 'OrbitalBombardment' then
             self:SetOrbitalBombardEnabled(true)
             self:AddEnhancementEmitterToBone( true, 'left_shoulder_pod' )
-
+            -- self:AddCommandCap('RULEUCC_Tactical')
+            self:AddCommandCap('RULEUCC_SiloBuildTactical')
+            self:SetWeaponEnabledByLabel('TargetFinder', true)
+            self:MonitorOrbitalStrikeAvailable()
+            
         elseif enh == 'OrbitalBombardmentRemove' then
             self:SetOrbitalBombardEnabled(false)
             self:AddEnhancementEmitterToBone( false, 'left_shoulder_pod' )
-
+            -- self:RemoveCommandCap('RULEUCC_Tactical')
+            self:RemoveCommandCap('RULEUCC_SiloBuildTactical')
+            self:SetWeaponEnabledByLabel('TargetFinder', false)
+            local amt = self:GetTacticalSiloAmmoCount()
+            self:RemoveTacticalSiloAmmo(amt or 0)
+            self:StopSiloBuild()
+            
         else
             WARN('Enhancement '..repr(enh)..' has no script support.')
-	end
+        end
+    end,
+    
+    MonitorOrbitalStrikeAvailable = function(self)
+        local brain = self:GetAIBrain()
+        if self:GetTacticalSiloAmmoCount() > 0 then
+            self:RemoveTacticalSiloAmmo(1)
+        end
+        ForkThread(function()
+            WaitTicks(2)
+            brain:EnableSpecialAbility( 'NomadsAreaBombardment', false)
+            while (self:GetTacticalSiloAmmoCount() == 0) do
+                WaitSeconds(0.2)
+            end
+            brain:EnableSpecialAbility( 'NomadsAreaBombardment', true )
+        end)
     end,
 }
 

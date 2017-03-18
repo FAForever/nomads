@@ -17,10 +17,11 @@ NomadsAreaBombardment = Class(ScriptTask) {
         for k, loc in locations do
             brain:OrbitalStrikeTarget( loc )
         end
+        brain.OrbitalBombardmentInitiator:MonitorOrbitalStrikeAvailable()
         self:SetAIResult(AIRESULT.Success)
         self.ScriptIsDone = true
     end,
-	  
+
     TaskTick = function(self)
         if self.ScriptIsDone then
             return TASKSTATUS.Done

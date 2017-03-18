@@ -140,7 +140,6 @@ abilities = table.merged( abilities, {
         cursor = 'RULEUCC_SpecialAction',
         enabled = true,
         ExtraInfo = {
-            CoolDownTime = 60,
             DoRangeCheck = true,
             NumReticules = 10,
         },
@@ -160,8 +159,8 @@ abilities = table.merged( abilities, {
             UseSelected = false,
         },
 
-        SoundReady = 'OrbitalStrikeReady',
-        SoundLaunched = 'OrbitalStrikeLaunched',
+--        SoundReady = 'OrbitalStrikeReady',
+--        SoundLaunched = 'OrbitalStrikeLaunched',
 
         GetAllUnitsFile = '/lua/user/tasks/Tasks.lua',
         GetRangeCheckUnitsFile = '/lua/user/tasks/Tasks.lua',
