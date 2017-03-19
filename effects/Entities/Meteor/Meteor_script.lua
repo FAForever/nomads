@@ -24,7 +24,7 @@ Meteor = Class(NullShell) {
     TrailFx = NomadsEffectTemplate.MeteorTrail,
     TrailUnderwaterFx = NomadsEffectTemplate.MeteorUnderWaterTrail,
 
-    DecalLifetime = 20,
+    DecalLifetime = 240,
 
     OnCreate = function(self)
         NullShell.OnCreate(self)
