@@ -71,7 +71,7 @@ INU0001 = Class(ACUUnit) {
     __init = function(self)
         ACUUnit.__init(self, 'MainGun')
     end,
-    
+
     -- =====================================================================================================================
     -- CREATION AND FIRST SECONDS OF GAMEPLAY
 
@@ -146,7 +146,7 @@ INU0001 = Class(ACUUnit) {
             if (order == 'Repair' and not unitBeingBuilt:IsBeingBuilt()) or (UpgradesFrom and UpgradesFrom ~= 'none' and self:IsUnitState('Guarding')) or (order == 'Repair'  and self:IsUnitState('Guarding') and not unitBeingBuilt:IsBeingBuilt()) then
                 self:ForkThread( NomadsEffectUtil.CreateRepairBuildBeams, unitBeingBuilt, self.BuildBones, self.BuildEffectsBag )
             else
-                self:ForkThread( NomadsEffectUtil.CreateNomadsBuildSliceBeams, unitBeingBuilt, self.BuildBones, self.BuildEffectsBag )   
+                self:ForkThread( NomadsEffectUtil.CreateNomadsBuildSliceBeams, unitBeingBuilt, self.BuildBones, self.BuildEffectsBag )
             end
         end
 
@@ -157,25 +157,25 @@ INU0001 = Class(ACUUnit) {
         if bp.General.UpgradesTo and unitBeingBuilt:GetUnitId() == bp.General.UpgradesTo and order == 'Upgrade' then
             unitBeingBuilt.DisallowCollisions = true
         end
-        
+
         if unitBeingBuilt:GetBlueprint().Physics.FlattenSkirt and not unitBeingBuilt:HasTarmac() then
             if self.TarmacBag and self:HasTarmac() then
                 unitBeingBuilt:CreateTarmac(true, true, true, self.TarmacBag.Orientation, self.TarmacBag.CurrentBP )
             else
                 unitBeingBuilt:CreateTarmac(true, true, true, false, false)
             end
-        end           
+        end
 
         self.UnitBeingBuilt = unitBeingBuilt
         self.UnitBuildOrder = order
         self.BuildingUnit = true
     end,
-    
+
     -- use our own reclaim animation
     CreateReclaimEffects = function( self, target )
         NomadsEffectUtil.PlayNomadsReclaimEffects( self, target, self:GetBlueprint().General.BuildBones.BuildEffectBones or {0,}, self.ReclaimEffectsBag )
     end,
-    
+
     -- =====================================================================================================================
     -- GENERIC
 
@@ -366,7 +366,7 @@ INU0001 = Class(ACUUnit) {
     -- ENHANCEMENTS
 
     CreateEnhancement = function(self, enh)
-        
+
         ACUUnit.CreateEnhancement(self, enh)
 
         local bp = self:GetBlueprint().Enhancements[enh]
@@ -669,7 +669,7 @@ INU0001 = Class(ACUUnit) {
                     },
                 }
             end
-      
+
             Buff.ApplyBuff(self, 'NOMADSACUT2BuildRate')
             self:updateBuildRestrictions()
         elseif enh =='AdvancedEngineeringRemove' then
@@ -684,7 +684,7 @@ INU0001 = Class(ACUUnit) {
 
             -- restore build restrictions
             self:RestoreBuildRestrictions()
-      
+
             self:AddBuildRestriction( categories.NOMADS * (categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER) )
             self:updateBuildRestrictions()
 
@@ -751,7 +751,7 @@ INU0001 = Class(ACUUnit) {
 
         else
             WARN('Enhancement '..repr(enh)..' has no script support.')
-	end
+        end
     end,
 }
 
