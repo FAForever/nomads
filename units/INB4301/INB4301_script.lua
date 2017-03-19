@@ -3,6 +3,9 @@
 local NShieldStructureUnit = import('/lua/nomadsunits.lua').NShieldStructureUnit
 
 INB4301 = Class(NShieldStructureUnit) {
+    ShieldEffects = {
+        '/effects/Entities/Shield05/Shield05c_emit.bp',
+    },
 
     RotationSpeed = 18,
 
@@ -11,8 +14,31 @@ INB4301 = Class(NShieldStructureUnit) {
         self.UpgrAnim = CreateAnimator(self):PlayAnim('/units/INB4301/INB4301_UpgradeFromT2Std.sca')
         self.UpgrAnim:SetRate(0):SetAnimationFraction(1)
         self.Trash:Add(self.UpgrAnim)
+        self.ShieldEffectsBag = {}
     end,
 
+    OnShieldEnabled = function(self)
+        if self.ShieldEffectsBag then
+            for k, v in self.ShieldEffectsBag do
+                v:Destroy()
+            end
+            self.ShieldEffectsBag = {}
+        end
+        for k, v in self.ShieldEffects do
+            table.insert( self.ShieldEffectsBag, CreateAttachedEmitter( self, 'shield', self:GetArmy(), v ):ScaleEmitter(0.75) )
+        end
+    end,
+
+    OnShieldDisabled = function(self)
+        NShieldStructureUnit.OnShieldDisabled(self)
+        if self.ShieldEffectsBag then
+            for k, v in self.ShieldEffectsBag do
+                v:Destroy()
+            end
+            self.ShieldEffectsBag = {}
+        end
+    end,
+    
     UpgradingState = State(NShieldStructureUnit.UpgradingState) {
         -- having 2 animations manipulating the arms is no good. Disabling the above anim if we're upgrading to stealth.
 

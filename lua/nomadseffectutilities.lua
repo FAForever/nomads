@@ -246,14 +246,14 @@ function CreateBuildCubeThread( unitBeingBuilt, builder, OnBeingBuiltEffectsBag,
     local y = bp.Physics.MeshExtentsY or (0.5 + (x + z) * 0.1)
 
 -- TODO: create multiple effects for larger units
-    if not noFlashing then
+--[[    if not noFlashing then
         local emitters = import('/lua/EffectUtilities.lua').CreateEffects(unitBeingBuilt, unitBeingBuilt:GetArmy(), NomadsEffectTemplate.ConstructionPulsingFlash)
         for k, emit in emitters do
             emit:ScaleEmitter( math.min(x or 1, z or 1) )
             OnBeingBuiltEffectsBag:Add( emit )
             unitBeingBuilt.Trash:Add( emit )
         end
-    end
+    end]]
 
     WaitSeconds(0.1)
 

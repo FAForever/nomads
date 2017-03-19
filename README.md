@@ -65,6 +65,8 @@ When making a pull request, you should follow these guidelines:
 - Give a nice description of the changes *(where/when/what/how)*
 - Reference all issues related to this pull request
 
+If something doesn't work: https://xkcd.com/1597/
+
 
 
 Map Editor

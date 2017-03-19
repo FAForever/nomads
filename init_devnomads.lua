@@ -37,6 +37,8 @@ mount_contents(InitFileDir .. '\\..\\user\\My Games\\Gas Powered Games\\Supreme 
 mount_contents(InitFileDir .. '\\..\\user\\My Games\\Gas Powered Games\\Supreme Commander Forged Alliance\\maps', '/maps')
 mount_dir(dev_path, '/')
 mount_dir(dev_pathnomads, '/')
+mount_dir(dev_pathnomads .. '\\movies', '/')
+
 -- these are using the newly generated path from the dofile() statement at the beginning of this script
 mount_dir(fa_path .. '\\gamedata\\*.scd', '/')
 mount_dir(fa_path, '/')

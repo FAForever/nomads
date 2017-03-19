@@ -448,7 +448,13 @@ AIBrain = Class(oldAIBrain) {
             local cb = function(self)
                 self:GetAIBrain():AssignUnitToParent( self, false )    -- 'self' in this case is the newly created unit
             end
-            self:ConstructUnitInOrbit( bpId, cb )
+            if self.NomadsMothership ~= nil then
+                self:ConstructUnitInOrbit( bpId, cb )
+            else
+                local pos = requester:GetPosition()
+                local artysatellite = CreateUnitHPR( bpId, self:GetArmyIndex(), pos[1], GetSurfaceHeight(pos[1],pos[3])+__blueprints[bpId].Physics.Elevation, pos[3], 0, 0, 0)
+                self:AssignUnitToParent(artysatellite , false )
+            end
         end
     end,
 
@@ -471,14 +477,21 @@ AIBrain = Class(oldAIBrain) {
         else
             -- using table.keys as the easiest method to get the first key. When we have it we can determine parent and callback
             queueKey = table.keys( self.RequestUnitQueue[bpId] )[1]
-            parent = self.RequestUnitQueue[bpId][queueKey].requester
-            callback = self.RequestUnitQueue[bpId][queueKey].callback
+            if queueKey ~= nil then
+                parent = self.RequestUnitQueue[bpId][queueKey].requester
+                callback = self.RequestUnitQueue[bpId][queueKey].callback
+            end
         end
 
         -- remove requester from requesters table so we don't assign another unit to the requester
         self.RequestUnitQueue[bpId][queueKey] = nil
         table.removeByValue(self.RequestUnitQueue[bpId], queueKey)
 
+        if not parent then
+            unit:Destroy()
+            return false 
+        end
+        
         -- add the unit to the pool of requested units, for possible future reference
         local unitEntityId = unit:GetEntityId()
         local parentEntityId = parent:GetEntityId()

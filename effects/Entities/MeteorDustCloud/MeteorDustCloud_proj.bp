@@ -8,7 +8,7 @@ ProjectileBlueprint {
         DestroyOnWater = false,
         InitialSpeed = 10,
         InitialSpeedRange = 0,
-        Lifetime = 60,
+        Lifetime = 3,
         MaxSpeed = 100,
         RotationalVelocity = 0,
         RotationalVelocityRange = 0.5,

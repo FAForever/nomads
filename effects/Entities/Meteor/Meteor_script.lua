@@ -32,7 +32,7 @@ Meteor = Class(NullShell) {
     end,
 
     Start = function(self, ImpactPos, Time)
-        self:SetVisuals()
+        --self:SetVisuals()
         self:SetAudio()
         self:SetPosAndVelocity(ImpactPos, Time)
         self:DescentEffects()
@@ -67,7 +67,7 @@ Meteor = Class(NullShell) {
         local snd = bp.Audio.ExistLoop
         if snd then
             self.SndEntDescent = Entity()
-            self.SndEntDescent:AttachTo(self, 0)
+            self.SndEntDescent:AttachTo(self, -2)
             self.SndEntDescent:SetAmbientSound(snd, nil)
         end
     end,
@@ -217,12 +217,17 @@ Meteor = Class(NullShell) {
 
         -- Create ground decals
         local orientation = RandomFloat( 0, 2 * math.pi )
-        CreateDecal(position, orientation, 'Crater01_albedo', '', 'Albedo', (30 * scale), (30 * scale), self.DecalLifetime, 0, army)
-        CreateDecal(position, orientation, 'Crater01_normals', '', 'Normals', (30 * scale), (30 * scale), self.DecalLifetime, 0, army)
-        CreateDecal(position, orientation, 'nuke_scorch_003_albedo', '', 'Albedo', (30 * scale), (30 * scale), self.DecalLifetime, 0, army)
-
+        if scale == 1 then
+            CreateDecal(position, orientation, 'Crater01_albedo', '', 'Albedo', (30 * scale), (30 * scale), self.DecalLifetime, 800, army)
+            CreateDecal(position, orientation, 'Crater01_normals', '', 'Normals', (30 * scale), (30 * scale), self.DecalLifetime, 800, army)
+            CreateDecal(position, orientation, 'nuke_scorch_003_albedo', '', 'Albedo', (30 * scale), (30 * scale), self.DecalLifetime, 800, army)
+        else
+            CreateDecal(position, orientation, 'Crater01_albedo', '', 'Albedo', (10 * scale), (10 * scale), self.DecalLifetime, 800, army)
+            CreateDecal(position, orientation, 'Crater01_normals', '', 'Normals', (10 * scale), (10 * scale), self.DecalLifetime, 800, army)
+            CreateDecal(position, orientation, 'nuke_scorch_003_albedo', '', 'Albedo', (10 * scale), (10 * scale), self.DecalLifetime, 800, army)
+        end
         -- Impact effects
-        CreateLightParticleIntel(self, -1, army, (20 * scale), 10, 'glow_03', 'ramp_yellow_02')
+        CreateLightParticleIntel(self, -1, army, (5 * scale), 10, 'glow_03', 'ramp_yellow_02')
 
         self.SndEntDescent:Destroy()
 
@@ -239,6 +244,9 @@ Meteor = Class(NullShell) {
                 emit = CreateEmitterAtEntity(self, army, v)
                 table.insert(emitters, emit)
                 emit:ScaleEmitter(scale)
+                if (k == 2 or k == 4) and scale ~= 1 then
+                    emit:ScaleEmitter(scale/3)
+                end
             end
 
             -- Knockdown force rings
@@ -247,8 +255,8 @@ Meteor = Class(NullShell) {
             DamageRing(self, position, 0.1, (15 * scale), 1, 'Force', true)
 
             -- Additional effects
-            self:CreateOuterRingWaveSmokeRing(scale)
-            self:ResidualSmokeEffects(self:GetPosition(), scale)
+           -- self:CreateOuterRingWaveSmokeRing(scale*0.1)
+           -- self:ResidualSmokeEffects(self:GetPosition(), scale)
 
         else
 
@@ -272,8 +280,8 @@ Meteor = Class(NullShell) {
     CreateOuterRingWaveSmokeRing = function(self, scale)
 
         local sides = 24
-        local velocity = 8
-        local offset = 8 * scale
+        local velocity = 4
+        local offset = 4 * scale
         local angle = (2*math.pi) / sides
 
         local projectiles = {}

@@ -130,11 +130,12 @@ UnitBlueprint {
                         },
                         Offset = {
                             0,
-                            -0.32,
+                            -0.29,
                             2.75,
                         },
                         Scale = 3.5,
                         Type = 'NomadsHoverGroundFx1',
+                        Recolour = true,
                     },
                     {
                         Bones = {
@@ -142,11 +143,12 @@ UnitBlueprint {
                         },
                         Offset = {
                             0,
-                            -0.32,
+                            -0.29,
                             -2.75,
                         },
                         Scale = 3.5,
                         Type = 'NomadsHoverGroundFx1',
+                        Recolour = true,
                     },
                 },
             },
@@ -158,11 +160,12 @@ UnitBlueprint {
                         },
                         Offset = {
                             0,
-                            -0.32,
+                            -0.29,
                             2.75,
                         },
                         Scale = 3.5,
                         Type = 'NomadsHoverGroundFx1',
+                        Recolour = true,
                     },
                     {
                         Bones = {
@@ -170,11 +173,12 @@ UnitBlueprint {
                         },
                         Offset = {
                             0,
-                            -0.32,
+                            -0.29,
                             -2.75,
                         },
                         Scale = 3.5,
                         Type = 'NomadsHoverGroundFx1',
+                        Recolour = true,
                     },
                 },
             },
@@ -188,11 +192,12 @@ UnitBlueprint {
                         },
                         Offset = {
                             0,
-                            -0.32,
+                            -0.29,
                             2.75,
                         },
                         Scale = 3.5,
                         Type = 'NomadsHoverGroundFx1',
+                        Recolour = true,
                     },
                     {
                         Bones = {
@@ -200,11 +205,12 @@ UnitBlueprint {
                         },
                         Offset = {
                             0,
-                            -0.32,
+                            -0.29,
                             -2.75,
                         },
                         Scale = 3.5,
                         Type = 'NomadsHoverGroundFx1',
+                        Recolour = true,
                     },
                 },
             },
@@ -243,11 +249,12 @@ UnitBlueprint {
                         },
                         Offset = {
                             0,
-                            -0.32,
+                            -0.29,
                             2.75,
                         },
                         Scale = 3.5,
                         Type = 'NomadsHoverGroundFx1',
+                        Recolour = true,
                     },
                     {
                         Bones = {
@@ -255,11 +262,12 @@ UnitBlueprint {
                         },
                         Offset = {
                             0,
-                            -0.32,
+                            -0.29,
                             -2.75,
                         },
                         Scale = 3.5,
                         Type = 'NomadsHoverGroundFx1',
+                        Recolour = true,
                     },
                 },
             },

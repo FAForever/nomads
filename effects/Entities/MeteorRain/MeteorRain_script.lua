@@ -6,7 +6,7 @@ local NullShell = import('/lua/sim/defaultprojectiles.lua').NullShell
 MeteorRain = Class(NullShell) {
 
     AvgMeteorsPerMin = 20,
-    AvgScale = 1,
+    AvgScale = 0.2,
     MaxDmgPerMeteor = 15000,
     MinDmgPerMeteor = 5000,
     MapRect = {x1=0,z1=0,x2=0,z2=0},

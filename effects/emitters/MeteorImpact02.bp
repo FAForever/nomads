@@ -1,6 +1,6 @@
 EmitterBlueprint {
 	BlueprintId = '',
-	Lifetime = 1.40,
+	Lifetime = 1.4,
 	Repeattime = 3.00,
 	TextureFramecount = 1.00,
 	Blendmode = 3.00,
@@ -103,7 +103,7 @@ EmitterBlueprint {
 	YPosCurve = {
 		XRange = 3.00,
 		Keys = {
-			{ x=1.500,y=0.500,z=0.000 },
+			{ x=1.500,y=3.500,z=0.000 },
 		},
 	},
 	ZPosCurve = {

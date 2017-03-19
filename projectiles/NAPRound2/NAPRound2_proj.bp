@@ -23,7 +23,7 @@ ProjectileBlueprint {
     },
     Display = {
         CameraFollowTimeout = 5,
-        CameraFollowsProjectile = true,
+        CameraFollowsProjectile = false,
         ImpactEffects = {
             Type = 'Small01',
         },

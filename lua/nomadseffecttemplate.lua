@@ -2031,6 +2031,7 @@ BlackholeLeftoverPerm = {
     EmtBpPathNomads .. 'nomads_blackhole_leftover_01_emit.bp',  -- fog
     EmtBpPathNomads .. 'nomads_blackhole_leftover_02_emit.bp',  -- ball
     EmtBpPathNomads .. 'nomads_blackhole_leftover_03_emit.bp',  -- ambient fire
+	EmtBpPathNomads .. 'nomads_blackhole_leftover_04_emit.bp',  -- ambient fire upward
 }
 
 BlackholePropEffects = {
@@ -2685,7 +2686,7 @@ MeteorLandImpact = {
     EmtBpPathNomads .. 'MeteorImpact05.bp',  -- expelled stars
 --    EmtBpPathNomads .. 'MeteorImpact06.bp',  -- expelled dirt chunks
     EmtBpPathNomads .. 'MeteorImpact10.bp',  -- residual smoke plumes
-    EmtBpPathNomads .. 'MeteorImpact11.bp',  -- residual smoke / brightish afterglow
+--    EmtBpPathNomads .. 'MeteorImpact11.bp',  -- residual smoke / brightish afterglow
     EmtBpPathNomads .. 'MeteorImpact12.bp',  -- residual smoke upwards (like other ACUs have)
 }
 
