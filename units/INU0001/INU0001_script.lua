@@ -281,7 +281,7 @@ INU0001 = Class(ACUUnit) {
         self:SetBusy(false)
         self:SetBlockCommandQueue(false)
 
---self:CreateEnhancement('OrbitalBombardment')
+self:CreateEnhancement('OrbitalBombardment')
 --self:CreateEnhancement('IntelProbe')
     end,
 
@@ -779,7 +779,7 @@ INU0001 = Class(ACUUnit) {
             -- self:AddCommandCap('RULEUCC_Tactical')
             self:AddCommandCap('RULEUCC_SiloBuildTactical')
             self:SetWeaponEnabledByLabel('TargetFinder', true)
-            self:MonitorOrbitalStrikeAvailable()
+            self:GetAIBrain():MonitorOrbitalStrikeAvailable()
             
         elseif enh == 'OrbitalBombardmentRemove' then
             self:SetOrbitalBombardEnabled(false)
@@ -796,20 +796,14 @@ INU0001 = Class(ACUUnit) {
         end
     end,
     
-    MonitorOrbitalStrikeAvailable = function(self)
-        local brain = self:GetAIBrain()
-        if self:GetTacticalSiloAmmoCount() > 0 then
-            self:RemoveTacticalSiloAmmo(1)
-        end
-        ForkThread(function()
-            WaitTicks(2)
-            brain:EnableSpecialAbility( 'NomadsAreaBombardment', false)
-            while (self:GetTacticalSiloAmmoCount() == 0) do
-                WaitSeconds(0.2)
-            end
-            brain:EnableSpecialAbility( 'NomadsAreaBombardment', true )
-        end)
+    OnAmmoCountDecreased = function(self, amount)
+        self:GetAIBrain():EnableSpecialAbility( 'NomadsAreaBombardment', false)
     end,
+    
+    OnAmmoCountIncreased = function(self, amount)
+        self:GetAIBrain():EnableSpecialAbility( 'NomadsAreaBombardment', true)
+    end,
+    
 }
 
 TypeClass = INU0001
