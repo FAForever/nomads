@@ -281,7 +281,7 @@ INU0001 = Class(ACUUnit) {
         self:SetBusy(false)
         self:SetBlockCommandQueue(false)
 
-self:CreateEnhancement('OrbitalBombardment')
+--self:CreateEnhancement('OrbitalBombardment')
 --self:CreateEnhancement('IntelProbe')
     end,
 
@@ -779,7 +779,7 @@ self:CreateEnhancement('OrbitalBombardment')
             -- self:AddCommandCap('RULEUCC_Tactical')
             self:AddCommandCap('RULEUCC_SiloBuildTactical')
             self:SetWeaponEnabledByLabel('TargetFinder', true)
-            self:GetAIBrain():MonitorOrbitalStrikeAvailable()
+            self:GetAIBrain():EnableSpecialAbility( 'NomadsAreaBombardment', false)
             
         elseif enh == 'OrbitalBombardmentRemove' then
             self:SetOrbitalBombardEnabled(false)
