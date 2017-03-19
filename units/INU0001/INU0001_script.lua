@@ -72,27 +72,10 @@ INU0001 = Class(ACUUnit) {
         DeathWeapon = Class(DeathNuke) {},
         
         TargetFinder = Class(TacticalMissileWeapon2) {
-
             CreateProjectileForWeapon = function(self, bone)
             end,
 
             CreateProjectileAtMuzzle = function(self, muzzle)
-            end,
-
-            OnLostTarget = function(self)
-                --self.unit:SetArtilleryUnitTarget( nil, nil )
-            end,
-
-            OnGotTarget = function(self)
-                --self.unit:SetArtilleryUnitTarget( self:GetCurrentTarget(), self:GetCurrentTargetPos() )
-            end,
-
-            OnStartTracking = function(self, label)
-                --self.unit:SetArtilleryUnitTarget( self:GetCurrentTarget(), self:GetCurrentTargetPos() )
-            end,
-
-            OnStopTracking = function(self, label)
-                --self.unit:SetArtilleryUnitTarget( nil, nil )
             end,
         },
     },
