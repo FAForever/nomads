@@ -58,7 +58,7 @@ UnitBlueprint {
         'SORTCONSTRUCTION',
         'RESEARCH',
     },
-    CollisionOffsetY = -1,
+    CollisionOffsetY = -1.8,
     CollisionOffsetZ = 0,
     Defense = {
         AirThreatLevel = 0,
@@ -109,7 +109,7 @@ UnitBlueprint {
         },
         PlaceholderMeshName = 'UXB0005',
         SpawnRandomRotation = false,
-        UniformScale = 0.4,
+        UniformScale = 0.32,
     },
     Economy = {
         BuildCostEnergy = 10000,
@@ -123,8 +123,8 @@ UnitBlueprint {
             'FIELDENGINEER NOMADS MOBILE LAND',
         },
         DifferentialUpgradeCostCalculation = true,
-        InitialRallyX = 0,
-        InitialRallyZ = 10,
+        InitialRallyX = 4,
+        InitialRallyZ = 15,
         StorageEnergy = 0,
         StorageMass = 160,
     },
@@ -198,15 +198,21 @@ UnitBlueprint {
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_None',
         RollOffPoints = {
-            
             {
                 UnitSpin = 0,
-                X = 2,
+                X = 4,
                 Y = 0,
-                Z = 12,
+
+                Z = 15,
+            },
+            {
+                UnitSpin = 180,
+                X = 4,
+                Y = 0,
+                Z = - 15,
             },
         },
-        SkirtOffsetX = -2,
+        SkirtOffsetX = -7,
         SkirtOffsetZ = -2,
         SkirtSizeX = 12,
         SkirtSizeZ = 19,
@@ -219,7 +225,7 @@ UnitBlueprint {
     SelectionSizeZ = 6.9,
     SelectionThickness = 0.26,
     SizeX = 4,
-    SizeY = 3,
+    SizeY = 2,
     SizeZ = 10,
     StrategicIconName = 'icon_factoryhq2_naval',
     StrategicIconSortPriority = 215,
