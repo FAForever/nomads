@@ -4,6 +4,7 @@ UnitBlueprint {
     AI = {
         TargetBones = {
             'INB0203',
+            'B.002',
         },
     },
     Audio = {
@@ -58,6 +59,7 @@ UnitBlueprint {
         'SORTCONSTRUCTION',
         'RESEARCH',
     },
+    CollisionOffsetX = -3,
     CollisionOffsetY = -1.8,
     CollisionOffsetZ = 0,
     Defense = {
@@ -123,20 +125,20 @@ UnitBlueprint {
             'FIELDENGINEER NOMADS MOBILE LAND',
         },
         DifferentialUpgradeCostCalculation = true,
-        InitialRallyX = 4,
-        InitialRallyZ = 15,
+        InitialRallyX = 2,
+        InitialRallyZ = 12,
         StorageEnergy = 0,
         StorageMass = 160,
     },
     Footprint = {
-        SizeX = 6,
-        SizeZ = 15,
+        SizeX = 2,
+        SizeZ = 12,
         MinWaterDepth = 1.5,
     },
     General = {
-		BuildEffectScaleX = 0.4,
-		BuildEffectScaleY = 0.75,
-		BuildEffectScaleZ = 0.55,
+        BuildEffectScaleX = 0.4,
+        BuildEffectScaleY = 0.75,
+        BuildEffectScaleZ = 0.55,
         BuildBones = {
             BuildEffectBones = {
                 'muzzle.001',
@@ -178,7 +180,7 @@ UnitBlueprint {
     },
     LifeBarHeight = 0.075,
     LifeBarOffset = 4.75,
-    LifeBarSize = 4.5,
+    LifeBarSize = 4,
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -200,19 +202,18 @@ UnitBlueprint {
         RollOffPoints = {
             {
                 UnitSpin = 0,
-                X = 4,
+                X = 2,
                 Y = 0,
-
-                Z = 15,
+                Z = 12,
             },
             {
                 UnitSpin = 180,
-                X = 4,
+                X = 2,
                 Y = 0,
-                Z = - 15,
+                Z = - 12,
             },
         },
-        SkirtOffsetX = -7,
+        SkirtOffsetX = -3,
         SkirtOffsetZ = -2,
         SkirtSizeX = 12,
         SkirtSizeZ = 19,
@@ -226,7 +227,7 @@ UnitBlueprint {
     SelectionThickness = 0.26,
     SizeX = 4,
     SizeY = 2,
-    SizeZ = 10,
+    SizeZ = 12,
     StrategicIconName = 'icon_factoryhq2_naval',
     StrategicIconSortPriority = 215,
     Wreckage = {
