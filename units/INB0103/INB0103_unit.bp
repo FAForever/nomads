@@ -4,8 +4,6 @@ UnitBlueprint {
     AI = {
         TargetBones = {
             'INB0103',
-            'Center_Deck',
-            'Center_BottomDeck',
         },
     },
     Audio = {
