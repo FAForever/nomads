@@ -4,6 +4,7 @@ UnitBlueprint {
     AI = {
         TargetBones = {
             'INB0203',
+            'B.002',
         },
     },
     Audio = {
@@ -58,7 +59,8 @@ UnitBlueprint {
         'SORTCONSTRUCTION',
         'RESEARCH',
     },
-    CollisionOffsetY = -1,
+    CollisionOffsetX = -3,
+    CollisionOffsetY = -1.8,
     CollisionOffsetZ = 0,
     Defense = {
         AirThreatLevel = 0,
@@ -109,7 +111,7 @@ UnitBlueprint {
         },
         PlaceholderMeshName = 'UXB0005',
         SpawnRandomRotation = false,
-        UniformScale = 0.4,
+        UniformScale = 0.32,
     },
     Economy = {
         BuildCostEnergy = 10000,
@@ -123,20 +125,20 @@ UnitBlueprint {
             'FIELDENGINEER NOMADS MOBILE LAND',
         },
         DifferentialUpgradeCostCalculation = true,
-        InitialRallyX = 0,
-        InitialRallyZ = 10,
+        InitialRallyX = 2,
+        InitialRallyZ = 12,
         StorageEnergy = 0,
         StorageMass = 160,
     },
     Footprint = {
-        SizeX = 6,
-        SizeZ = 15,
+        SizeX = 2,
+        SizeZ = 12,
         MinWaterDepth = 1.5,
     },
     General = {
-		BuildEffectScaleX = 0.4,
-		BuildEffectScaleY = 0.75,
-		BuildEffectScaleZ = 0.55,
+        BuildEffectScaleX = 0.4,
+        BuildEffectScaleY = 0.75,
+        BuildEffectScaleZ = 0.55,
         BuildBones = {
             BuildEffectBones = {
                 'muzzle.001',
@@ -178,7 +180,7 @@ UnitBlueprint {
     },
     LifeBarHeight = 0.075,
     LifeBarOffset = 4.75,
-    LifeBarSize = 4.5,
+    LifeBarSize = 4,
     Physics = {
         BankingSlope = 0,
         BuildOnLayerCaps = {
@@ -198,26 +200,34 @@ UnitBlueprint {
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_None',
         RollOffPoints = {
-            
             {
                 UnitSpin = 0,
                 X = 2,
                 Y = 0,
                 Z = 12,
             },
+            {
+                UnitSpin = 180,
+                X = 2,
+                Y = 0,
+                Z = - 12,
+            },
         },
-        SkirtOffsetX = -2,
+        SkirtOffsetX = -3,
         SkirtOffsetZ = -2,
         SkirtSizeX = 12,
         SkirtSizeZ = 19,
         TurnRate = 0,
     },
-    SelectionSizeX = 4.5,
-    SelectionSizeZ = 8.8,
-    SelectionThickness = 0.35,
+    SelectionMeshScaleX = 0.3,
+    SelectionMeshScaleZ = 0.4,
+    SelectionMeshUseTopAmount = 0.15,
+    SelectionSizeX = 2.2,
+    SelectionSizeZ = 6.9,
+    SelectionThickness = 0.26,
     SizeX = 4,
-    SizeY = 3,
-    SizeZ = 10,
+    SizeY = 2,
+    SizeZ = 12,
     StrategicIconName = 'icon_factoryhq2_naval',
     StrategicIconSortPriority = 215,
     Wreckage = {
