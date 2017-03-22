@@ -28,7 +28,7 @@ INU0001 = Class(ACUUnit) {
         MainGun = Class(AddRapidRepairToWeapon(APCannon1)) {
             CreateProjectileAtMuzzle = function(self, muzzle)
                 if self.unit.DoubleBarrels then
-                    APCannon1.CreateProjectileAtMuzzle(self, 'right_arm_upgrade_muzzle')
+                    APCannon1.CreateProjectileAtMuzzle(self, 'Muzzle2')
                 end
                 return APCannon1.CreateProjectileAtMuzzle(self, muzzle)
             end,
@@ -71,15 +71,24 @@ INU0001 = Class(ACUUnit) {
     __init = function(self)
         ACUUnit.__init(self, 'MainGun')
     end,
-
+    
     -- =====================================================================================================================
     -- CREATION AND FIRST SECONDS OF GAMEPLAY
 
-    CapFxBones = { 'torso_thingy_left', 'torso_thingy_right', },
+    CapFxBones2 = { 'CapacitorL', 'CapacitorR', },
 
     OnCreate = function(self)
         ACUUnit.OnCreate(self)
-
+        
+        --create capacitor sliders:
+        self.CapSliders = {}
+        table.insert(self.CapSliders, CreateSlider(self, 'CapacitorL'))
+        table.insert(self.CapSliders, CreateSlider(self, 'CapacitorR'))
+        for number,slider in self.CapSliders do
+            slider:SetGoal(0, -1, 0 )
+            slider:SetSpeed(1)
+        end
+        
         local bp = self:GetBlueprint()
 
         -- vars
@@ -92,11 +101,14 @@ INU0001 = Class(ACUUnit) {
         self.UseRunWalkAnim = false
 
         -- model
-        self:HideBone('right_arm_upgrade_muzzle', true)
-        self:HideBone('left_arm_upgrade_muzzle', true)
-        self:HideBone('upgrade_back', true)
+        self:HideBone('IntelProbe1', true)
+        self:HideBone('IntelProbe2', true)
+        self:HideBone('Gun2', true)
+        self:HideBone('PowerArmor', true)
+        self:HideBone('Locomotion', true)
+        self:HideBone('Orbital Bombardment', true)
 
-        self.HeadRotManip = CreateRotator(self, 'head', 'y', nil):SetCurrentAngle(0)
+        self.HeadRotManip = CreateRotator(self, 'Head', 'y', nil):SetCurrentAngle(0)
         self.Trash:Add(self.HeadRotManip)
 
         -- properties
@@ -170,12 +182,12 @@ INU0001 = Class(ACUUnit) {
         self.UnitBuildOrder = order
         self.BuildingUnit = true
     end,
-
+    
     -- use our own reclaim animation
     CreateReclaimEffects = function( self, target )
         NomadsEffectUtil.PlayNomadsReclaimEffects( self, target, self:GetBlueprint().General.BuildBones.BuildEffectBones or {0,}, self.ReclaimEffectsBag )
     end,
-
+    
     -- =====================================================================================================================
     -- GENERIC
 
@@ -217,9 +229,12 @@ INU0001 = Class(ACUUnit) {
         WaitTicks(35) -- time before meteor opens
 
         self:ShowBone(0, true)
-        self:HideBone('right_arm_upgrade_muzzle', true)
-        self:HideBone('left_arm_upgrade_muzzle', true)
-        self:HideBone('upgrade_back', true)
+        self:HideBone('IntelProbe1', true)
+        self:HideBone('IntelProbe2', true)
+        self:HideBone('Gun2', true)
+        self:HideBone('PowerArmor', true)
+        self:HideBone('Locomotion', true)
+        self:HideBone('Orbital Bombardment', true)
 
         local totalBones = self:GetBoneCount() - 1
         local army = self:GetArmy()
@@ -290,7 +305,7 @@ INU0001 = Class(ACUUnit) {
             target.x = target.x - MyPos.x
             target.z = target.z - MyPos.z
             target = Utilities.NormalizeVector(target)
-            torsoX, torsoY, torsoZ = self:GetBoneDirection('torso')
+            torsoX, torsoY, torsoZ = self:GetBoneDirection('Hip')
             torsoDir = Utilities.NormalizeVector( Vector( torsoX, 0, torsoZ) )
             GoalAngle = ( math.atan2( target.x, target.z ) - math.atan2( torsoDir.x, torsoDir.z ) ) * 180 / math.pi
 
@@ -329,6 +344,30 @@ INU0001 = Class(ACUUnit) {
         ACUUnit.UpdateMovementEffectsOnMotionEventChange( self, new, old )
     end,
 
+    -------- TRANSPORT ANIM --------
+    OnStartTransportBeamUp = function(self, transport, bone)
+        local slot = transport.slots[bone]
+        if slot then
+            self:GetAIBrain():OnTransportFull()
+            IssueClearCommands({self})
+            return
+        end
+        self:DestroyIdleEffects()
+        self:DestroyMovementEffects()
+        local army =  self:GetArmy()
+        table.insert( self.TransportBeamEffectsBag, AttachBeamEntityToEntity(self, -1, transport, bone, army, EffectTemplate.TTransportBeam01))
+        table.insert( self.TransportBeamEffectsBag, AttachBeamEntityToEntity( transport, bone, self, -1, army, EffectTemplate.TTransportBeam02))
+        table.insert( self.TransportBeamEffectsBag, CreateEmitterAtBone( transport, bone, army, EffectTemplate.TTransportGlow01) )
+        self:TransportAnimation(1)
+    end,
+    
+    OnDetachedFromTransport = function(self, transport, bone)
+        self:MarkWeaponsOnTransport(false)
+        self:EnableShield()
+        self:EnableDefaultToggleCaps()
+        self:TransportAnimation(-0.7)
+        self:DoUnitCallbacks( 'OnDetachedFromTransport', transport, bone)
+    end,
     -- =====================================================================================================================
     -- ORBITAL ENHANCEMENTS
 
@@ -377,11 +416,11 @@ INU0001 = Class(ACUUnit) {
         -- ---------------------------------------------------------------------------------------
 
         if enh == 'IntelProbe' then
-            self:AddEnhancementEmitterToBone( true, 'right_shoulder_pod' )
+            self:AddEnhancementEmitterToBone( true, 'IntelProbe1' )
             self:SetIntelProbeEnabled( false, true )
 
         elseif enh == 'IntelProbeRemove' then
-            self:AddEnhancementEmitterToBone( false, 'right_shoulder_pod' )
+            self:AddEnhancementEmitterToBone( false, 'IntelProbe1' )
             self:SetIntelProbeEnabled( false, false )
 
         -- ---------------------------------------------------------------------------------------
@@ -389,11 +428,11 @@ INU0001 = Class(ACUUnit) {
         -- ---------------------------------------------------------------------------------------
 
         elseif enh == 'IntelProbeAdv' then
---            self:AddEnhancementEmitterToBone( true, 'right_shoulder_pod' )
+--            self:AddEnhancementEmitterToBone( true, 'IntelProbe1' )
             self:SetIntelProbeEnabled( true, true )
 
         elseif enh == 'IntelProbeAdvRemove' then
-            self:AddEnhancementEmitterToBone( false, 'right_shoulder_pod' )
+            self:AddEnhancementEmitterToBone( false, 'IntelProbe1' )
             self:SetIntelProbeEnabled( true, false )
 
         -- ---------------------------------------------------------------------------------------
@@ -743,11 +782,11 @@ INU0001 = Class(ACUUnit) {
 
         elseif enh == 'OrbitalBombardment' then
             self:SetOrbitalBombardEnabled(true)
-            self:AddEnhancementEmitterToBone( true, 'left_shoulder_pod' )
+            self:AddEnhancementEmitterToBone( true, 'Orbital Bombardment' )
 
         elseif enh == 'OrbitalBombardmentRemove' then
             self:SetOrbitalBombardEnabled(false)
-            self:AddEnhancementEmitterToBone( false, 'left_shoulder_pod' )
+            self:AddEnhancementEmitterToBone( false, 'Orbital Bombardment' )
 
         else
             WARN('Enhancement '..repr(enh)..' has no script support.')
