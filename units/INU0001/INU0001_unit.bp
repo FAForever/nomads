@@ -609,7 +609,7 @@ UnitBlueprint {
             BuildTime = 1000,
             Icon = 'se',
             Name = '<LOC NomadsACUEnh_RapidRepair_Help>',
-            RepairDelay = 15,
+            RepairDelay = 10,
             RepairRate = 70,
             Slot = 'Back',
             UpgradeEffectBones = {
