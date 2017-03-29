@@ -517,7 +517,7 @@ UnitBlueprint {
             Icon = 'il',
             Name = '<LOC NomadsACUEnh_MovementSpeedIncrease_Help>',
             SpeedMulti = 1.5,
-            Slot = 'Back',
+            Slot = 'LCH',
             UpgradeUnitAmbientBones = {
                 'INU0001',
             },
@@ -533,7 +533,7 @@ UnitBlueprint {
                 'MovementSpeedIncrease',
                 'MovementSpeedIncreaseRemove',
             },
-            Slot = 'Back',
+            Slot = 'LCH',
         },
         OrbitalBombardment = {
             BuildCostEnergy = 75000,
@@ -541,7 +541,7 @@ UnitBlueprint {
             BuildTime = 1500,
             Icon = 'heo',
             Name = '<LOC NomadsACUEnh_OrbitalBombardment_Help>',
-            Slot = 'LCH',
+            Slot = 'Back',
             UpgradeEffectBones = {
                 'left_shoulder_pod',
                 'left_arm_upgrade_muzzle',
@@ -565,7 +565,7 @@ UnitBlueprint {
                  'OrbitalBombardment',
                  'OrbitalBombardmentRemove',
             },
-            Slot = 'LCH',
+            Slot = 'Back',
         },
         PowerArmor = {
             AddHealth = 20000,
