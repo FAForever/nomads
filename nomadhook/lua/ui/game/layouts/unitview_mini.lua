@@ -1,7 +1,7 @@
 local UIUtil = import('/lua/ui/uiutil.lua')
 local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
 
-table.insert(iconPositions, {Left = 130, Top = 80}) -- position capacitor icon at shield position
+table.insert(iconPositions, {Left = 188, Top = 80}) -- position capacitor icon at shield position
 table.insert(iconTextures, UIUtil.UIFile('/game/unit_view_icons/capacitor.dds'))
 
 local oldSetLayout = SetLayout
