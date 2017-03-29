@@ -20,7 +20,7 @@ NomadsAreaBombardment = Class(ScriptTask) {
         self:SetAIResult(AIRESULT.Success)
         self.ScriptIsDone = true
     end,
-	  
+
     TaskTick = function(self)
         if self.ScriptIsDone then
             return TASKSTATUS.Done
