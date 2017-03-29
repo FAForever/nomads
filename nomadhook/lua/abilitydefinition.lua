@@ -307,7 +307,7 @@ abilities = table.merged( abilities, {
     },
     
     Capacitor = {
-        preferredSlot = 7,
+        preferredSlot = 8,
         onframe = function (self, deltaTime)
             
             local available = false
