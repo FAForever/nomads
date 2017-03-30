@@ -48,6 +48,7 @@ mount_dir(InitFileDir..'\\..\\gamedata\\lua.nmd', '/')
 mount_dir(InitFileDir..'\\..\\gamedata\\projectiles.nmd', '/')
 mount_dir(InitFileDir..'\\..\\gamedata\\nomads.nmd', '/')
 mount_dir(InitFileDir..'\\..\\gamedata\\loc.nmd', '/')
+mount_dir(InitFileDir..'\\..\\gamedata\\meshes.nmd', '/')
 
 for k, v in oldPath do
     table.insert(path, v)
