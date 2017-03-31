@@ -678,7 +678,7 @@ INU0001 = Class(ACUUnit) {
         elseif enh =='AdvancedEngineering' then
 
             -- new build FX bone available
-            table.insert( self.BuildBones, 'left_arm_upgrade_muzzle' )
+            table.insert( self.BuildBones, 'BuildBeam2' )
 
             -- make new structures available
             local cat = ParseEntityCategory(bp.BuildableCategoryAdds)
@@ -714,7 +714,7 @@ INU0001 = Class(ACUUnit) {
         elseif enh =='AdvancedEngineeringRemove' then
 
             -- remove extra build bone
-            table.removeByValue( self.BuildBones, 'left_arm_upgrade_muzzle' )
+            table.removeByValue( self.BuildBones, 'BuildBeam2' )
 
             -- buffs
             if Buff.HasBuff( self, 'NOMADSACUT2BuildRate' ) then
