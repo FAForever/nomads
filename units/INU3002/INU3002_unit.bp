@@ -115,10 +115,32 @@ UnitBlueprint {
         MovementEffects = {
             Land = {
                 Effects = {
+                    {
+                        Bones = {
+                            'exhaust_big.006',
+                            'exhaust_big.001',
+                            'exhaust_big.002',
+                            'exhaust_big.007',
+                        },
+                        Type = 'GroundKickup01',
+                    },
                 },
-            },
-            Water = {
-                Effects = {
+                Treads = {
+                    ScrollTreads = false,
+                    TreadMarks = {
+                        {
+                            BoneName = 'INU3002',
+                            TreadMarks = 'tank_treads_albedo',
+                            TreadMarksInterval = 0.1,
+                            TreadMarksSizeX = 0.75,
+                            TreadMarksSizeZ = 1.1,
+                            TreadOffset = {
+                                0,
+                                0,
+                                0,
+                            },
+                        },
+                    },
                 },
             },
         },
