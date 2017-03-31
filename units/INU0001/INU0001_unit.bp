@@ -631,6 +631,13 @@ UnitBlueprint {
                 'PowerArmor',
             },
             Icon = 'sepa',
+            Mesh = {
+                LODs = {
+                    {
+                        ShaderName = 'NomadUnit',
+                    },
+                },
+            },
             Name = '<LOC NomadsACUEnh_PowerArmor_Remove>Remove Powered Armor',
             Prerequisite = 'PowerArmor',
             RemoveEnhancements = {
