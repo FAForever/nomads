@@ -73,7 +73,7 @@ UnitBlueprint {
             '<LOC ability_upgradable>Upgradeable',
             '<LOC ability_deathaoe>Volatile',
         },
-        --AnimationUpgrade = '/units/uab3202/uab3202_aopen.sca',
+        AnimationUpgrade = '/units/INB3202/INB3202_AUpgrade.sca',
         IdleEffects = {
             Water = {
                 Effects = {
@@ -104,7 +104,7 @@ UnitBlueprint {
         },
         PlaceholderMeshName = 'UXB0019',
         SpawnRandomRotation = true,
-        UniformScale = 0.1,
+        UniformScale = 0.3,
     },
     Economy = {
         BuildCostEnergy = 3600,
