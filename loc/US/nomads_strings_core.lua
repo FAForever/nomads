@@ -667,8 +667,8 @@ inu2001_help = "Tech 3 amphibious construction, repair, capture and reclamation 
 inu2001_name = "Engineer"
 
 -- T3 tank
-inu3002_desc = "Heavy Hover Tank"
-inu3002_help = "Heavy hover tank. Equipped with heavy armor, a rocket launcher and a single siege cannon. Designed to deal with any surface threat. Additionally, it can pin-point targets for artillery units."
+inu3002_desc = "Heavy Amphibious Tank"
+inu3002_help = "Heavy amphibious tank. Equipped with heavy armor, a rocket launcher and a single siege cannon. Designed to deal with any surface threat."
 inu3002_name = "Nova"
 
 -- T3 artillery

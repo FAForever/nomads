@@ -21,7 +21,7 @@ ProjectileBlueprint {
         'PROJECTILE',
         'TACTICAL',
         'MISSILE',
-	'DIRECTFIRE',
+        'DIRECTFIRE',
         'NOSPLASHDAMAGE',
     },
     Defense = {
@@ -49,6 +49,11 @@ ProjectileBlueprint {
             Effect = 'OrbitalStrikeMissile_AtmosphereTrail',
         },
         UniformScale = 0.8,
+    },
+    Economy = {
+        BuildCostEnergy = 3600,
+        BuildCostMass = 180,
+        BuildTime = 300,
     },
     General = {
         Category = 'Direct Fire',
