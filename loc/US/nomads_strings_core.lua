@@ -917,6 +917,7 @@ NTaunts_MP1_010_017 = '[{i Nicols}]: You can\'t hope to contain the vastness of 
 NTaunts_MP1_010_018 = '[{i Nicols}]: I\'m afraid, we\'re out of mercy today. How would you like an ass kicking instead?'
 NTaunts_MP1_010_019 = '[{i Nicols}]: It is amazing that you made it this far without hurting yourself.'
 
+Benson = "Benson"
 NTaunts_MP1_011_010 = '[{i Benson}]: Even my ships docking sensors have better aim than your gun.'
 NTaunts_MP1_011_011 = '[{i Benson}]: When we came back to the earth empire space we expected an advanced civilization, but you merely progressed beyond bow and arrow.'
 NTaunts_MP1_011_012 = '[{i Benson}]: A 5 year old kid would design more sophisticated war machines than those you call \'experimentals\'.'
