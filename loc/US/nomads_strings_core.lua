@@ -345,7 +345,7 @@ inu1007_name = "Asator"
 -- T1 medium tank
 inu1004_desc = "Medium tank"
 inu1004_help = "Armored hover tank. Armed with a single cannon, useful against lower tier units."
-inu1004_name = "Bandit"
+inu1004_name = "Orbis"
 
 -- T1 AA gun / artillery
 inu1006_desc = "Mobile Anti-Air Gun / Artillery"
@@ -667,8 +667,8 @@ inu2001_help = "Tech 3 amphibious construction, repair, capture and reclamation 
 inu2001_name = "Engineer"
 
 -- T3 tank
-inu3002_desc = "Heavy Hover Tank"
-inu3002_help = "Heavy hover tank. Equipped with heavy armor, a rocket launcher and a single siege cannon. Designed to deal with any surface threat. Additionally, it can pin-point targets for artillery units."
+inu3002_desc = "Heavy Amphibious Tank"
+inu3002_help = "Heavy amphibious tank. Equipped with heavy armor, a rocket launcher and a single siege cannon. Designed to deal with any surface threat."
 inu3002_name = "Nova"
 
 -- T3 artillery
@@ -917,3 +917,12 @@ NTaunts_MP1_010_017 = '[{i Nicols}]: You can\'t hope to contain the vastness of 
 NTaunts_MP1_010_018 = '[{i Nicols}]: I\'m afraid, we\'re out of mercy today. How would you like an ass kicking instead?'
 NTaunts_MP1_010_019 = '[{i Nicols}]: It is amazing that you made it this far without hurting yourself.'
 
+Benson = "Benson"
+NTaunts_MP1_011_010 = '[{i Benson}]: Even my ships docking sensors have better aim than your gun.'
+NTaunts_MP1_011_011 = '[{i Benson}]: When we came back to the earth empire space we expected an advanced civilization, but you merely progressed beyond bow and arrow.'
+NTaunts_MP1_011_012 = '[{i Benson}]: A 5 year old kid would design more sophisticated war machines than those you call \'experimentals\'.'
+NTaunts_MP1_011_013 = '[{i Benson}]: You had 1000 years to develop a war machine and THIS is what you\'ve come up with?'
+NTaunts_MP1_011_014 = '[{i Benson}]: How many mountainsides have you managed to gate into so far?'
+NTaunts_MP1_011_015 = '[{i Benson}]: You really need to leave the air superiority to those who are actually superior.'
+NTaunts_MP1_011_016 = '[{i Benson}]: I would encourage you to broaden your horizon - except that you won\'t live to see another one.'
+NTaunts_MP1_011_017 = '[{i Benson}]: Your strategy is as primitive as your tech.'

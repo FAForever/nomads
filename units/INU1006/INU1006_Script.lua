@@ -35,6 +35,11 @@ INU1006 = Class(NLandUnit) {
         AAGun = Class(RocketWeapon1) {},
         ArtilleryGun = Class(RocketWeapon1) {},
     },
+
+    OnCreate = function(self)
+        NLandUnit.OnCreate(self)
+        self:SetScriptBit('RULEUTC_SpecialToggle', false)
+    end,
     
     SetBombardmentMode = function(self, enable, changedByTransport)
         NLandUnit.SetBombardmentMode(self, enable, changedByTransport)
@@ -43,16 +48,26 @@ INU1006 = Class(NLandUnit) {
 
     OnScriptBitSet = function(self, bit)
         NLandUnit.OnScriptBitSet(self, bit)
-        if bit == 1 then 
+        if bit == 1 then
             self.SetBombardmentMode(self, true, false)
         end
     end,
 
     OnScriptBitClear = function(self, bit)
         NLandUnit.OnScriptBitClear(self, bit)
-        if bit == 1 then 
+        if bit == 1 then
             self.SetBombardmentMode(self, false, false)
         end
+    end,
+
+    DisableSpecialToggle = function(self)
+        self:SetWeaponEnabledByLabel('TargetPainter', true)
+    end,
+
+    EnableSpecialToggle = function(self)
+        self:SetWeaponEnabledByLabel('TargetPainter', false)
+        self:SetWeaponEnabledByLabel('ArtilleryGun', true)
+        self:SetWeaponEnabledByLabel('AAGun', false)
     end,
 }
 

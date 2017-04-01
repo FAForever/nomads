@@ -240,7 +240,7 @@ UnitBlueprint {
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Hover',
         RotateBodyWhileMoving = false,
-        TurnFacingRate = 90,
+        TurnFacingRate = 180,
         TurnRadius = 1,
         TurnRate = 45,
         WaterSpeedMultiplier = 0.9,

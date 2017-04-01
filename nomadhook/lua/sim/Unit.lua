@@ -44,8 +44,8 @@ Unit = Class(oldUnit) {
                         end
                         if vTypeGroup.Recolour then
                             --WARN('Trying to recolour emitter (make sure it has a ramp compatible with this feature): '..vEffect)
-                            emit:SetEmitterCurveParam('RAMPSELECTION_CURVE', 1-((self.ColourIndex)*(1/32)), 0)
-                            --WARN('recolouring emitter'..(self.ColourIndex)*(1/32)..' with index of: '..self.ColourIndex)
+                            emit:SetEmitterCurveParam('RAMPSELECTION_CURVE', 1-((self.ColourIndex)*(1/18))+1/36, 0)
+                            --WARN('recolouring emitter'..(self.ColourIndex)*(1/18)..' with index of: '..self.ColourIndex)
                         end
                         if EffectBag then
                             table.insert( EffectBag, emit )
@@ -62,7 +62,6 @@ Unit = Class(oldUnit) {
         local tblArmy = ListArmies()
         local army = self:GetArmy()
         self.ColourIndex = ScenarioInfo.ArmySetup[tblArmy[army]].ArmyColor
-        --WARN('colour index: '..self.ColourIndex)
     end,
     
     

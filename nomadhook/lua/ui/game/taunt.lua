@@ -15,6 +15,15 @@ taunts = table.cat( taunts, {
     {text = '<LOC NTaunts_MP1_010_018>[{i Nicols}]: I\'m afraid, we\'re out of mercy today. How would you like an ass kicking instead?', bank = 'NTaunts', cue = 'NTaunt_Nicols_009'},
     {text = '<LOC NTaunts_MP1_010_019>[{i Nicols}]: It is amazing that you made it this far without hurting yourself.', bank = 'NTaunts', cue = 'NTaunt_Nicols_010'},
 
+    {text = '<LOC NTaunts_MP1_011_010>[{i Benson}]: Even my ships docking sensors have better aim than your gun.', bank = 'NTaunts', cue = 'NTaunt_Benson_001'},
+    {text = '<LOC NTaunts_MP1_011_011>[{i Benson}]: When we came back to the earth empire space we expected an advanced civilization, but you merely progressed beyond bow and arrow.', bank = 'NTaunts', cue = 'NTaunt_Benson_002'},
+    {text = '<LOC NTaunts_MP1_011_012>[{i Benson}]: A 5 year old kid would design more sophisticated war machines than those you call \'experimentals\'.', bank = 'NTaunts', cue = 'NTaunt_Benson_003'},
+    {text = '<LOC NTaunts_MP1_011_013>[{i Benson}]: You had 1000 years to develop a war machine and THIS is what you\'ve come up with?', bank = 'NTaunts', cue = 'NTaunt_Benson_004'},
+    {text = '<LOC NTaunts_MP1_011_014>[{i Benson}]: How many mountainsides have you managed to gate into so far?', bank = 'NTaunts', cue = 'NTaunt_Benson_005'},
+    {text = '<LOC NTaunts_MP1_011_015>[{i Benson}]: You really need to leave the air superiority to those who are actually superior.', bank = 'NTaunts', cue = 'NTaunt_Benson_006'},
+    {text = '<LOC NTaunts_MP1_011_016>[{i Benson}]: I would encourage you to broaden your horizon - except that you won\'t live to see another one.', bank = 'NTaunts', cue = 'NTaunt_Benson_007'},
+    {text = '<LOC NTaunts_MP1_011_017>[{i Benson}]: Your strategy is as primitive as your tech.', bank = 'NTaunts', cue = 'NTaunt_Benson_008'},
+    
 } )
 
 end

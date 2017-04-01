@@ -583,6 +583,9 @@ AIBrain = Class(oldAIBrain) {
     OrbitalStrikeTarget = function(self, targetPosition)
         if self.NomadsMothership then
             self.NomadsMothership:OnGivenNewTarget(targetPosition)
+            if self.OrbitalBombardmentInitiator:GetTacticalSiloAmmoCount() > 0 then
+                self.OrbitalBombardmentInitiator:RemoveTacticalSiloAmmo(1)
+            end
         end
     end,
 

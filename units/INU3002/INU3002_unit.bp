@@ -1,45 +1,45 @@
--- T3 hover tank
+-- T3 amphibious tank
 
 UnitBlueprint {
     Audio = {
-        AmbientIdle = Sound {
-            Bank = 'NomadsUnits',
-            Cue = 'HoverIdle',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        AmbientMoveLand = Sound {
-            Bank = 'NomadsUnits',
-            Cue = 'HoverMoving',
+        AmbientMove = Sound {
+            Bank = 'UEL',
+            Cue = 'UEL0202_Move_Loop',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         AmbientMoveWater = Sound {
-            Bank = 'NomadsUnits',
-            Cue = 'HoverMovingOnWater',
+            Bank = 'UEL',
+            Cue = 'UEL0203_Move_Water_Lp',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         Destroyed = Sound {
-            Bank = 'NomadsDestroy',
-            Cue = 'Destroy_Land',
+            Bank = 'UELDestroy',
+            Cue = 'UEL_Destroy_Med_Land',
             LodCutoff = 'UnitMove_LodCutoff',
         },
-        HoverKilledOnWater = Sound {
-            Bank = 'Explosions',
-            Cue = 'Expl_Water_Lrg_01',
+        EnterWater = Sound {
+            Bank = 'UEL',
+            Cue = 'UEL0203_Into_Water',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         StartMove = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0101_Move_Start',
+            Bank = 'UEL',
+            Cue = 'UEL0202_Move_Start',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         StopMove = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0101_Move_Stop',
+            Bank = 'UEL',
+            Cue = 'UEL0202_Move_Stop',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        TransitionWater = Sound {
+            Bank = 'UEL',
+            Cue = 'UEL0203_Into_Water',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         UISelection = Sound {
             Bank = 'NomadsInterface',
-            Cue = 'Nomads_Select_HoverVehicle',
+            Cue = 'Nomads_Select_Tank',
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
@@ -77,10 +77,10 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 18,
     },
-    Description = '<LOC inu3002_desc>Heavy Hover Tank',
+    Description = '<LOC inu3002_desc>Heavy Amphibious Tank',
     Display = {
         Abilities = {
-            '<LOC ability_hover>Hover',
+            '<LOC ability_amphibious>Amphibious',
         },
         BuildEffect = {
             ExtendsFront = 0.1,
@@ -89,36 +89,10 @@ UnitBlueprint {
         IdleEffects = {
             Land = {
                 Effects = {
-                    {
-                        Bones = {
-                            'INU3002',
-                        },
-                        Offset = {
-                            0,
-                            -0.19,
-                            0,
-                        },
-                        Scale = 1.1,
-                        Type = 'NomadsHoverGroundFx1',
-                        Recolour = true,
-                    },
                 },
             },
             Water = {
                 Effects = {
-                    {
-                        Bones = {
-                            'INU3002',
-                        },
-                        Offset = {
-                            0,
-                            -0.19,
-                            0,
-                        },
-                        Scale = 1.1,
-                        Type = 'NomadsHoverGroundFx1',
-                        Recolour = true,
-                    },
                 },
             },
         },
@@ -143,33 +117,29 @@ UnitBlueprint {
                 Effects = {
                     {
                         Bones = {
-                            'INU3002',
+                            'exhaust_big.006',
+                            'exhaust_big.001',
+                            'exhaust_big.002',
+                            'exhaust_big.007',
                         },
-                        Offset = {
-                            0,
-                            -0.19,
-                            0,
-                        },
-                        Scale = 1.1,
-                        Type = 'NomadsHoverGroundFx1',
-                        Recolour = true,
+                        Type = 'GroundKickup01',
                     },
                 },
-            },
-            Water = {
-                Effects = {
-                    {
-                        Bones = {
-                           'INU3002',
+                Treads = {
+                    ScrollTreads = false,
+                    TreadMarks = {
+                        {
+                            BoneName = 'INU3002',
+                            TreadMarks = 'tank_treads_albedo',
+                            TreadMarksInterval = 0.1,
+                            TreadMarksSizeX = 0.75,
+                            TreadMarksSizeZ = 1.1,
+                            TreadOffset = {
+                                0,
+                                0,
+                                0,
+                            },
                         },
-                        Offset = {
-                            0,
-                            -0.19,
-                            0,
-                        },
-                        Scale = 1.1,
-                        Type = 'NomadsHoverGroundFx1',
-                        Recolour = true,
                     },
                 },
             },
@@ -210,7 +180,7 @@ UnitBlueprint {
         VisionRadius = 26,
     },
     Interface = {
-        HelpText = '<LOC inu3002_help>Heavy Hover Tank',
+        HelpText = '<LOC inu3002_help>Heavy Amphibious Tank',
     },
     LifeBarHeight = 0.08,
     LifeBarOffset = 0.5,
@@ -236,13 +206,12 @@ UnitBlueprint {
         MeshExtentsY = 0.65,
         MeshExtentsZ = 1.25,
         MinSpeedPercent = 0,
-        MotionType = 'RULEUMT_Hover',
+        MotionType = 'RULEUMT_Amphibious',
         WaterSpeedMultiplier = 0.9,
         RotateBodyWhileMoving = true,
-        RotateOnSpot = false,
-        TurnFacingRate = 120,
+        RotateOnSpot = true,
         TurnRadius = 4,
-        TurnRate = 310,
+        TurnRate = 90,
     },
     SelectionCenterOffsetY = -0.1,
     SelectionCenterOffsetZ = 0.1,
@@ -442,4 +411,3 @@ UnitBlueprint {
         },
     },
 }
-
