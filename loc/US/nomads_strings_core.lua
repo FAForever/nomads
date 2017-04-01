@@ -345,7 +345,7 @@ inu1007_name = "Asator"
 -- T1 medium tank
 inu1004_desc = "Medium tank"
 inu1004_help = "Armored hover tank. Armed with a single cannon, useful against lower tier units."
-inu1004_name = "Marauder"
+inu1004_name = "Orbis"
 
 -- T1 AA gun / artillery
 inu1006_desc = "Mobile Anti-Air Gun / Artillery"

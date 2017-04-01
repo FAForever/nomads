@@ -1,4 +1,4 @@
--- T1 tank Marauder
+-- T1 tank Orbis
 
 UnitBlueprint {
     Audio = {
@@ -206,7 +206,7 @@ UnitBlueprint {
         FactionName = 'Nomads',
         Icon = 'amph',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = '<LOC inu1004_name>Marauder',
+        UnitName = '<LOC inu1004_name>Orbis',
         UnitWeight = 1,
     },
     Intel = {
