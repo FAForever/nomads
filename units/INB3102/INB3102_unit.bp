@@ -72,6 +72,7 @@ UnitBlueprint {
             '<LOC ability_sonarboost>Sonar Boost',
             '<LOC ability_upgradable>Upgradeable',
         },
+        AnimationUpgrade = '/units/INB3102/inb3102_lod0Action.sca',
         IdleEffects = {
             Water = {
                 Effects = {
@@ -99,7 +100,7 @@ UnitBlueprint {
                 },
             },
         },
-        UniformScale = 0.05,
+        UniformScale = 0.3,
     },
     Economy = {
         BuildCostEnergy = 544,
