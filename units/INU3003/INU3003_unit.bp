@@ -269,7 +269,7 @@ UnitBlueprint {
                     Duration = 0.5,
                     Radius = 1.3,
                     TargetAllow = 'TECH3',
-                    TargetDisallow = 'UNSTUNABLE,TECH1,TECH2,EXPERIMENTAL,COMMAND,SHIELD,WALL',
+                    TargetDisallow = 'UNSTUNABLE,TECH1,TECH2,EXPERIMENTAL,COMMAND,WALL',
                 },
             },
             CollideFriendly = false,
