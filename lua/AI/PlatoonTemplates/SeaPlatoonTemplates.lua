@@ -17,6 +17,14 @@ PlatoonTemplate {
 }
 
 PlatoonTemplate {
+    Name = 'SeaNuke',
+    Plan = 'NavalForceAI',
+    GlobalSquads = {
+        { categories.NAVAL * categories.NUKE, 1, 1, 'Attack', 'none' }
+    },
+}
+
+PlatoonTemplate {
     Name = 'T4ExperimentalSea',
     Plan = 'NavalForceAI',
     FactionSquads = {

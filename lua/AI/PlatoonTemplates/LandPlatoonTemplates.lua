@@ -46,6 +46,23 @@ PlatoonTemplate {
         { categories.MOBILE * categories.LAND - categories.EXPERIMENTAL - categories.ENGINEER, 15, 25, 'Attack', 'none' }
     },
 }
+
+PlatoonTemplate {
+    Name = 'LABAttack',
+    Plan = 'HuntAI', 
+    GlobalSquads = {
+        { categories.MOBILE * categories.LAND * categories.TECH1 * categories.BOT - categories.REPAIR + (categories.SERAPHIM * categories.SCOUT), 5, 50, 'Attack', 'none' }
+    },
+}
+#DUNCAN - Added
+PlatoonTemplate {
+    Name = 'GhettoMarines',
+    Plan = 'GhettoAI', 
+    GlobalSquads = {
+		#DUNCAN - the REPAIR is to remove the mantis. Added in Selen too.
+        { categories.MOBILE * categories.LAND * categories.TECH1 * categories.BOT - categories.REPAIR + (categories.SERAPHIM * categories.SCOUT), 6, 6, 'Attack', 'none' }
+    },
+}
 PlatoonTemplate {
     Name = 'HuntAttackSmall',
     Plan = 'HuntAI',
@@ -149,6 +166,14 @@ PlatoonTemplate {
 }
 
 PlatoonTemplate {
+	Name = 'T4ExperimentalLandGroup',
+	Plan = 'ExperimentalAIHub',
+	GlobalSquads = {
+        { categories.EXPERIMENTAL * categories.LAND * categories.MOBILE, 2, 3, 'attack', 'none' }
+    },
+}
+
+PlatoonTemplate {
     Name = 'T1EngineerGuard',
     Plan = 'None',
     GlobalSquads = {
@@ -156,6 +181,13 @@ PlatoonTemplate {
     },
 }
 
+PlatoonTemplate {
+    Name = 'T3ExperimentalGuard',
+    Plan = 'GuardUnit',
+    GlobalSquads = {
+        { categories.DIRECTFIRE * (categories.TECH3 + categories.TECH2) * categories.LAND * categories.MOBILE - categories.SCOUT - categories.ENGINEER, 1, 20, 'guard', 'None' }
+    },
+}
 
 -- ==== Factional Templates ==== --
 

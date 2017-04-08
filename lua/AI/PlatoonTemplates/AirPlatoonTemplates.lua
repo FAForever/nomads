@@ -36,10 +36,10 @@ PlatoonTemplate {
 
 PlatoonTemplate {
     Name = 'GunshipAttack',
-    Plan = 'HuntAI',
+    Plan = 'GunshipHuntAI',
     GlobalSquads = {
         { categories.MOBILE * categories.AIR * categories.GROUNDATTACK - categories.EXPERIMENTAL - categories.TRANSPORTFOCUS, 1, 100, 'Attack', 'GrowthFormation' },
-        { categories.MOBILE * categories.AIR * categories.ANTIAIR - categories.EXPERIMENTAL - categories.BOMBER - categories.TRANSPORTFOCUS, 0, 10, 'Attack', 'GrowthFormation' },
+        #{ categories.MOBILE * categories.AIR * categories.ANTIAIR - categories.EXPERIMENTAL - categories.BOMBER - categories.TRANSPORTFOCUS, 0, 10, 'Attack', 'GrowthFormation' },
     }
 }
 
@@ -69,7 +69,7 @@ PlatoonTemplate {
 
 PlatoonTemplate {
     Name = 'AntiAirHunt',
-    Plan = 'HuntAI',
+    Plan = 'InterceptorAI',
     GlobalSquads = {
         { categories.AIR * categories.MOBILE * categories.ANTIAIR * ( categories.TECH1 + categories.TECH2 + categories.TECH3 ) - categories.BOMBER - categories.TRANSPORTFOCUS - categories.EXPERIMENTAL, 1, 100, 'attack', 'none' },
     }
@@ -103,8 +103,26 @@ PlatoonTemplate {
     Name = 'T4ExperimentalAir',
     Plan = 'ExperimentalAIHub', 
     GlobalSquads = {
-        { categories.AIR * categories.EXPERIMENTAL * categories.MOBILE, 1, 1, 'attack', 'none' },
+        #DUNCAN - exclude novax
+        { categories.AIR * categories.EXPERIMENTAL * categories.MOBILE - categories.SATELLITE, 1, 1, 'attack', 'none' },
     },
+}
+
+PlatoonTemplate {
+    Name = 'T4ExperimentalAirGroup',
+    Plan = 'ExperimentalAIHub', 
+    GlobalSquads = {
+        #DUNCAN - exclude novax
+        { categories.AIR * categories.EXPERIMENTAL * categories.MOBILE - categories.SATELLITE, 2, 3, 'attack', 'none' },
+    },
+}
+
+PlatoonTemplate {
+    Name = 'AirEscort',
+    Plan = 'GuardUnit',
+    GlobalSquads = {
+        { categories.AIR * categories.MOBILE * categories.ANTIAIR * ( categories.TECH1 + categories.TECH2 + categories.TECH3 ) - categories.BOMBER - categories.TRANSPORTFOCUS - categories.EXPERIMENTAL, 5, 100, 'attack', 'none' },
+    }
 }
 
 -- ==== Faction Build Platoons ==== --
