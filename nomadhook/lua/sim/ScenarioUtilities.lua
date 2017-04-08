@@ -10,6 +10,8 @@ local conversionTable = {
     uel0309 = 'inu2001',
     uel0001 = 'inu0001',
     uel0301 = 'inu0301',
+    uel0103 = 'inu1006',
+    uel0104 = 'inu1006',
 }
 
 local oldFactionConvert = FactionConvert
@@ -25,7 +27,7 @@ function FactionConvert(template, factionIndex)
                 local old = template[i][1]
                 template[i][1] = string.gsub(template[i][1], 'ue', 'in')
                 template[i][1] = string.gsub(template[i][1], 'inl', 'inu')
-                WARN('Coulndt find a conversion so we tried : ' .. old .. ' => ' .. template[i][1])
+                WARN('Could not find a conversion so we tried : ' .. old .. ' => ' .. template[i][1])
             end
         end
         i = i + 1
