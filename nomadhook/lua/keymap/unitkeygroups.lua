@@ -1,5 +1,5 @@
 --list of blueprint id's used for each category
-buildingTab = {
+unitkeygroups = {
 
 ["Builders"] = {
   "Land_Factory",
