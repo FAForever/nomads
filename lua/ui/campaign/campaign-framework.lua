@@ -57,7 +57,7 @@ function CreateDefaultUI()
     GUI.parent.OnDestroy = function(self)
         StopSound(ambientSounds)
     end
-    
+
     GUI.background = CreateBackground(GUI.parent)
     GUI.foreground = CreateForeground(GUI.parent)
 
@@ -97,9 +97,9 @@ function CreateDefaultUI()
     GUI.launchBtn.OnClick = function(self)
         if _SelectedMissionInfo then
             StartMission(
-               campaignInfo.location .. '/scenario/' .. _SelectedMissionInfo.scenarioFile, 
-               currentFaction, 
-               _SelectedMissionInfo.key, 
+               campaignInfo.location .. '/scenario/' .. _SelectedMissionInfo.scenarioFile,
+               currentFaction,
+               _SelectedMissionInfo.key,
                curDifficulty,
                campaignInfo.UID
             )
@@ -149,10 +149,10 @@ function CreateDefaultUI()
 
     LayoutHelpers.AtRightTopIn(GUI.missionlist, GUI.foreground, 78, 124)
     UIUtil.CreateVertScrollbarFor(GUI.missionlist)
-    
+
     GUI.missionlist.controlList = {}
     GUI.missionlist.top = 1
-    
+
     GUI.missionlist.GetScrollValues = function(self, axis)
         return 1, table.getn(self.controlList), self.top, math.min(self.top + numMissionsPerPage - 1, table.getn(GUI.missionlist.controlList))
     end
@@ -175,7 +175,7 @@ function CreateDefaultUI()
     GUI.missionlist.IsScrollable = function(self, axis)
         return true
     end
-    
+
     GUI.missionlist.CalcVisible = function(self)
         local top = self.top
         local bottom = self.top + numMissionsPerPage
@@ -452,10 +452,10 @@ function StartMission(ScenName, faction, missionNum, difficulty, campaignUID)
             local factionToIndex = import('/lua/factions.lua').FactionIndexMap
             LaunchSinglePlayerSession(
                 SetupCampaignSession(
-                    scenario, 
-                    difficulty, 
-                    factionToIndex[faction], 
-                    { 
+                    scenario,
+                    difficulty,
+                    factionToIndex[faction],
+                    {
                         faction = faction,
                         missionNum = missionNum,
                         difficulty = difficulty,
@@ -516,7 +516,7 @@ function CreateBackground(parent, forFactionSelect)
         table.bgfmv:Play()
         LayoutHelpers.FillParent(table.bgfmv, parent)
     end
-    
+
     return table
 end
 
@@ -718,9 +718,9 @@ LOG('1 campaignInfo = '..repr(campaignInfo))
     if isTutorial and (isTutorial == true) then
         sessionInfo.scenarioInfo.tutorial = true
     end
-    
+
     Prefs.SetToCurrentProfile('LoadingFaction', faction)
-    
+
     sessionInfo.scenarioMods = import('/lua/mods.lua').GetCampaignMods(sessionInfo.scenarioInfo)
     LOG('sessioninfo: ', repr(sessionInfo.teamInfo))
     return sessionInfo

@@ -6,7 +6,7 @@ local oldProjectile = Projectile
 Projectile = Class(oldProjectile) {
 
     OnCreate = function(self, inWater)
-        -- if not self:GetLauncher().ColourIndex then 
+        -- if not self:GetLauncher().ColourIndex then
             -- WARN('projectile could not get colour index from launcher! something is wrong!')
             -- --debug for warning on projectiles - note: a bunch of those are created as debris on death which dont have an army so it can be a false alarm
         -- end
@@ -16,7 +16,7 @@ Projectile = Class(oldProjectile) {
         oldProjectile.OnCreate(self, inWater)
         self.ImpactOnType = "Unknown"
     end,
-    
+
     -- FXRecolour = {
         -- FxImpactAirUnit = {},
         -- FxImpactLand = {},
@@ -30,9 +30,9 @@ Projectile = Class(oldProjectile) {
         -- FxImpactProjectileUnderWater = {},
         -- FxOnKilled = {},
     -- }
-    
+
     -- RecolourEffects = function(index, effects)
-    
+
     -- end,
 
     PassDamageData = function(self, DamageData)

@@ -40,7 +40,7 @@ INU2005 = Class(NLandUnit) {
             self.Trash:Add(emit)
         end
     end,
-    
+
     EnableSpecialToggle = function(self)
         self:EnableAnchor(self)
     end,

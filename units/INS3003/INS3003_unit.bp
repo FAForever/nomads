@@ -201,7 +201,6 @@ UnitBlueprint {
             IconFadeInZoom = 130,
             LODs = {
                 {
-
                     LODCutoff = 600,
                     ShaderName = 'NomadUnit',
                 },

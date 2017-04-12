@@ -6,9 +6,9 @@ function CreateAdjacencyBeams( unit, adjacentUnit, AdjacencyBeamsBag )
         Unit = adjacentUnit,
         Trash = TrashBag(),
     }
-    
+
     table.insert(AdjacencyBeamsBag, info)
-    
+
     local uBp = unit:GetBlueprint()
     local aBp = adjacentUnit:GetBlueprint()
     local army = unit:GetArmy()
@@ -17,7 +17,7 @@ function CreateAdjacencyBeams( unit, adjacentUnit, AdjacencyBeamsBag )
     -- Determine which effects we will be using
     local nodeMesh = nil
     local beamEffect = nil
-    local emitterNodeEffects = {}  
+    local emitterNodeEffects = {}
     local numNodes = 2
     local nodeList = {}
     local validAdjacency = true
@@ -39,7 +39,7 @@ function CreateAdjacencyBeams( unit, adjacentUnit, AdjacencyBeamsBag )
     local spec = {
         Owner = unit,
     }
-   
+
     if faction == 'Aeon' then
         nodeMesh = '/effects/entities/aeonadjacencynode/aeonadjacencynode_mesh'
         beamEffect = '/effects/emitters/adjacency_aeon_beam_0' .. util.GetRandomInt(1,3) .. '_emit.bp'
@@ -49,13 +49,13 @@ function CreateAdjacencyBeams( unit, adjacentUnit, AdjacencyBeamsBag )
         beamEffect = '/effects/emitters/adjacency_cybran_beam_01_emit.bp'
     elseif faction == 'UEF' then
         nodeMesh = '/effects/entities/uefadjacencynode/uefadjacencynode_mesh'
-        beamEffect = '/effects/emitters/adjacency_uef_beam_01_emit.bp'	
+        beamEffect = '/effects/emitters/adjacency_uef_beam_01_emit.bp'
 
 
     elseif faction == 'Nomads' then
 --        nodeMesh = '/effects/entities/uefadjacencynode/uefadjacencynode_mesh'
         nodeMesh = '/effects/Entities/NomadsAdjacencyNode/NmdAdjacencyNode_mesh'
-        beamEffect = '/effects/emitters/nomads_adjacency_beam.bp'	
+        beamEffect = '/effects/emitters/nomads_adjacency_beam.bp'
 
 
     elseif faction == 'Seraphim' then
@@ -68,7 +68,7 @@ function CreateAdjacencyBeams( unit, adjacentUnit, AdjacencyBeamsBag )
             table.insert( emitterNodeEffects, EffectTemplate.SAdjacencyAmbient02 )
             table.insert( emitterNodeEffects, EffectTemplate.SAdjacencyAmbient03 )
         end
-    end    
+    end
 
     for i = 1, numNodes do
 		local node =
@@ -94,7 +94,7 @@ function CreateAdjacencyBeams( unit, adjacentUnit, AdjacencyBeamsBag )
 	local uBpSkirtX = uBp.Physics.SkirtSizeX * 0.5
 	local uBpSkirtZ = uBp.Physics.SkirtSizeZ * 0.5
 	local aBpSkirtX = aBp.Physics.SkirtSizeX * 0.5
-	local aBpSkirtZ = aBp.Physics.SkirtSizeZ * 0.5	
+	local aBpSkirtZ = aBp.Physics.SkirtSizeZ * 0.5
 
 	-- Get edge corner positions, { TOP, LEFT, BOTTOM, RIGHT }
 	local unitSkirtBounds = {
@@ -115,79 +115,79 @@ function CreateAdjacencyBeams( unit, adjacentUnit, AdjacencyBeamsBag )
 
 	-- Unit bottom or top skirt is aligned to adjacent unit
 	if (unitSkirtBounds[3] == adjacentSkirtBounds[1]) or (unitSkirtBounds[1] == adjacentSkirtBounds[3]) then
-	
+
 		local sharedSkirtLower = unitSkirtBounds[4] - (unitSkirtBounds[4] - adjacentSkirtBounds[2])
 		local sharedSkirtUpper = unitSkirtBounds[4] - (unitSkirtBounds[4] - adjacentSkirtBounds[4])
 		local sharedSkirtLen = sharedSkirtUpper - sharedSkirtLower
-    	
+
 		-- Depending on shared skirt bounds, determine the position of unit hub
 		-- Find out how many times the shared skirt fits into the unit hub shared skirt
 		local numAdjSkirtsOnUnitSkirt = (uBpSkirtX * 2) / sharedSkirtLen
 		local numUnitSkirtsOnAdjSkirt = (aBpSkirtX * 2) / sharedSkirtLen
- 		
+
  		-- Z-offset, offset adjacency hub positions the proper direction
 		if unitSkirtBounds[3] == adjacentSkirtBounds[1] then
-			unitHub.pos[3] = unitHub.pos[3] + uBpSizeZ														 
+			unitHub.pos[3] = unitHub.pos[3] + uBpSizeZ														
 			adjacentHub.pos[3] = adjacentHub.pos[3] - aBpSizeZ
 		else -- unitSkirtBounds[1] == adjacentSkirtBounds[3]
 			unitHub.pos[3] = unitHub.pos[3] - uBpSizeZ
-			adjacentHub.pos[3] = adjacentHub.pos[3] + aBpSizeZ			
-		end    
-		
-		-- X-offset, Find the shared adjacent x position range			
-		-- If we have more than skirt on this section, then we need to adjust the x position of the unit hub 
+			adjacentHub.pos[3] = adjacentHub.pos[3] + aBpSizeZ
+		end
+
+		-- X-offset, Find the shared adjacent x position range
+		-- If we have more than skirt on this section, then we need to adjust the x position of the unit hub
 		if numAdjSkirtsOnUnitSkirt > 1 or numUnitSkirtsOnAdjSkirt < 1 then
-			local uSkirtLen = (unitSkirtBounds[4] - unitSkirtBounds[2]) * 0.5           -- Unit skirt length			
+			local uSkirtLen = (unitSkirtBounds[4] - unitSkirtBounds[2]) * 0.5           -- Unit skirt length
 			local uGridUnitSize = (uBpSizeX * 2) / uSkirtLen                            -- Determine one grid of adjacency along that length
 			local xoffset = math.abs(unitSkirtBounds[2] - adjacentSkirtBounds[2]) * 0.5 -- Get offset of the unit along the skirt
 			unitHub.pos[1] = (unitHub.pos[1] - uBpSizeX) + (xoffset * uGridUnitSize) + (uGridUnitSize * 0.5) -- Now offset the position of adjacent point
 		end
-		
-		-- If we have more than skirt on this section, then we need to adjust the x position of the adjacent hub 
+
+		-- If we have more than skirt on this section, then we need to adjust the x position of the adjacent hub
 		if numUnitSkirtsOnAdjSkirt > 1  or numAdjSkirtsOnUnitSkirt < 1 then
-			local aSkirtLen = (adjacentSkirtBounds[4] - adjacentSkirtBounds[2]) * 0.5   -- Adjacent unit skirt length			
+			local aSkirtLen = (adjacentSkirtBounds[4] - adjacentSkirtBounds[2]) * 0.5   -- Adjacent unit skirt length
 			local aGridUnitSize = (aBpSizeX * 2) / aSkirtLen                            -- Determine one grid of adjacency along that length ??
 			local xoffset = math.abs(adjacentSkirtBounds[2] - unitSkirtBounds[2]) * 0.5	-- Get offset of the unit along the adjacent unit
 			adjacentHub.pos[1] = (adjacentHub.pos[1] - aBpSizeX) + (xoffset * aGridUnitSize) + (aGridUnitSize * 0.5) -- Now offset the position of adjacent point
-        end			
+        end
 
 	-- Unit right or top left is aligned to adjacent unit
 	elseif (unitSkirtBounds[4] == adjacentSkirtBounds[2]) or (unitSkirtBounds[2] == adjacentSkirtBounds[4]) then
-	
+
 		local sharedSkirtLower = unitSkirtBounds[3] - (unitSkirtBounds[3] - adjacentSkirtBounds[1])
 		local sharedSkirtUpper = unitSkirtBounds[3] - (unitSkirtBounds[3] - adjacentSkirtBounds[3])
 		local sharedSkirtLen = sharedSkirtUpper - sharedSkirtLower
-   	
+
 		-- Depending on shared skirt bounds, determine the position of unit hub
 		-- Find out how many times the shared skirt fits into the unit hub shared skirt
 		local numAdjSkirtsOnUnitSkirt = (uBpSkirtX * 2) / sharedSkirtLen
 		local numUnitSkirtsOnAdjSkirt = (aBpSkirtX * 2) / sharedSkirtLen
-		    	
+		
 		-- X-offset
 		if (unitSkirtBounds[4] == adjacentSkirtBounds[2]) then
 			unitHub.pos[1] = unitHub.pos[1] + uBpSizeX
 			adjacentHub.pos[1] = adjacentHub.pos[1] - aBpSizeX
-		else -- unitSkirtBounds[2] == adjacentSkirtBounds[4]   
+		else -- unitSkirtBounds[2] == adjacentSkirtBounds[4]
 			unitHub.pos[1] = unitHub.pos[1] - uBpSizeX
 			adjacentHub.pos[1] = adjacentHub.pos[1] + aBpSizeX
 		end
-		
-		-- Z-offset, Find the shared adjacent x position range			
-		-- If we have more than skirt on this section, then we need to adjust the x position of the unit hub 
+
+		-- Z-offset, Find the shared adjacent x position range
+		-- If we have more than skirt on this section, then we need to adjust the x position of the unit hub
 		if numAdjSkirtsOnUnitSkirt > 1 or numUnitSkirtsOnAdjSkirt < 1 then
-			local uSkirtLen = (unitSkirtBounds[3] - unitSkirtBounds[1]) * 0.5           -- Unit skirt length			
+			local uSkirtLen = (unitSkirtBounds[3] - unitSkirtBounds[1]) * 0.5           -- Unit skirt length
 			local uGridUnitSize = (uBpSizeZ * 2) / uSkirtLen                            -- Determine one grid of adjacency along that length
 			local zoffset = math.abs(unitSkirtBounds[1] - adjacentSkirtBounds[1]) * 0.5 -- Get offset of the unit along the skirt
 			unitHub.pos[3] = (unitHub.pos[3] - uBpSizeZ) + (zoffset * uGridUnitSize) + (uGridUnitSize * 0.5) -- Now offset the position of adjacent point
 		end
-		
-		-- If we have more than skirt on this section, then we need to adjust the x position of the adjacent hub 
+
+		-- If we have more than skirt on this section, then we need to adjust the x position of the adjacent hub
 		if numUnitSkirtsOnAdjSkirt > 1 or numAdjSkirtsOnUnitSkirt < 1 then
-			local aSkirtLen = (adjacentSkirtBounds[3] - adjacentSkirtBounds[1]) * 0.5   -- Adjacent unit skirt length			
+			local aSkirtLen = (adjacentSkirtBounds[3] - adjacentSkirtBounds[1]) * 0.5   -- Adjacent unit skirt length
 			local aGridUnitSize = (aBpSizeZ * 2) / aSkirtLen                            -- Determine one grid of adjacency along that length ??
 			local zoffset = math.abs(adjacentSkirtBounds[1] - unitSkirtBounds[1]) * 0.5	-- Get offset of the unit along the adjacent unit
 			adjacentHub.pos[3] = (adjacentHub.pos[3] - aBpSizeZ) + (zoffset * aGridUnitSize) + (aGridUnitSize * 0.5) -- Now offset the position of adjacent point
-        end				
+        end
     end
 
 	-- Setup our midpoint positions
@@ -271,7 +271,7 @@ function CreateAdjacencyBeams( unit, adjacentUnit, AdjacencyBeamsBag )
                 nodeList[1].pos[3] = unitHub.pos[3]
                 nodeList[2].pos[3] = adjacentHub.pos[3]
             else
-                validAdjacency = false				
+                validAdjacency = false
             end
         end
     elseif faction == 'UEF' or faction == 'Nomads' then
@@ -328,7 +328,7 @@ function CreateAdjacencyBeams( unit, adjacentUnit, AdjacencyBeamsBag )
 
         unitHub.pos[2] = GetTerrainHeight(unitHub.pos[1], unitHub.pos[3]) + verticalOffset
         adjacentHub.pos[2] = GetTerrainHeight(adjacentHub.pos[1], adjacentHub.pos[3]) + verticalOffset
-        
+
         -- Set the mesh of the entity and attach any node effects
         for i = 1, numNodes do
             nodeList[i].entity:SetMesh(nodeMesh, false)

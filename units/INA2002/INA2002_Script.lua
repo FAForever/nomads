@@ -12,7 +12,7 @@ INA2002 = Class(NAirUnit) {
                 OnGotTarget = function(self)
                     self.unit:ChangeSpeedFor('GroundAttack')
                     ConcussionBombWeapon.IdleState.OnGotTarget(self)
-                end,            
+                end,
             },
 
             -- Ideally RackSalvoFiringState should be hooked here but that creates errors in the log for some unknown reason. This function
@@ -20,12 +20,12 @@ INA2002 = Class(NAirUnit) {
             DestroyRecoilManips = function(self)
                 ConcussionBombWeapon.DestroyRecoilManips(self)
             end,
-        
+
             OnGotTarget = function(self)
                 self.unit:ChangeSpeedFor('GroundAttack')
                 ConcussionBombWeapon.OnGotTarget(self)
             end,
-        
+
             OnLostTarget = function(self)
                 self.unit:ChangeSpeedFor('AirAttack')
                 ConcussionBombWeapon.OnLostTarget(self)
@@ -50,8 +50,8 @@ INA2002 = Class(NAirUnit) {
             self:SetSpeedMult(1.0 * self:GetSpeedModifier())
         end
     end,
-    
-    
+
+
     OnCreate = function(self)
         NAirUnit.OnCreate(self)
         self.Rack2Manip = CreateSlaver(self, 'barrel.002', 'barrel.001')

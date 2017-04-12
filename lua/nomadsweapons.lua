@@ -171,12 +171,12 @@ HVFlakWeapon = Class(DefaultBeamWeapon) {
     FxMuzzleFlash = {
         '/effects/emitters/cannon_muzzle_fire_01_emit.bp',
         --'/effects/emitters/cannon_muzzle_smoke_03_emit.bp',
-        '/effects/emitters/cannon_muzzle_smoke_04_emit.bp',   
+        '/effects/emitters/cannon_muzzle_smoke_04_emit.bp',
         '/effects/emitters/cannon_muzzle_water_shock_01_emit.bp',
-        '/effects/emitters/cannon_muzzle_flash_09_emit.bp',    
-        '/effects/emitters/cannon_muzzle_flash_08_emit.bp',  
+        '/effects/emitters/cannon_muzzle_flash_09_emit.bp',
+        '/effects/emitters/cannon_muzzle_flash_08_emit.bp',
     },
-    
+
     OnCreate = function(self)
         DefaultBeamWeapon.OnCreate(self)
 

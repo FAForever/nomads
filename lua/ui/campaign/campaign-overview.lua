@@ -48,12 +48,12 @@ function CreateUI(parent, exitBehavior)
     -- -------------------------------------------------------------------------------------------
 
     -- default campaigns
-    local ChkDefCmpgn = Checkbox(panel, 
-        UIUtil.UIFile('/dialogs/check-box_btn/radio-d_btn_up.dds'), 
-        UIUtil.UIFile('/dialogs/check-box_btn/radio-s_btn_up.dds'), 
-        UIUtil.UIFile('/dialogs/check-box_btn/radio-d_btn_over.dds'), 
-        UIUtil.UIFile('/dialogs/check-box_btn/radio-s_btn_over.dds'), 
-        UIUtil.UIFile('/dialogs/check-box_btn/radio-d_btn_dis.dds'), 
+    local ChkDefCmpgn = Checkbox(panel,
+        UIUtil.UIFile('/dialogs/check-box_btn/radio-d_btn_up.dds'),
+        UIUtil.UIFile('/dialogs/check-box_btn/radio-s_btn_up.dds'),
+        UIUtil.UIFile('/dialogs/check-box_btn/radio-d_btn_over.dds'),
+        UIUtil.UIFile('/dialogs/check-box_btn/radio-s_btn_over.dds'),
+        UIUtil.UIFile('/dialogs/check-box_btn/radio-d_btn_dis.dds'),
         UIUtil.UIFile('/dialogs/check-box_btn/radio-s_btn_dis.dds'))
     LayoutHelpers.AtLeftIn(ChkDefCmpgn, panel, 100)
     LayoutHelpers.AtTopIn(ChkDefCmpgn, panel, 77)
@@ -62,12 +62,12 @@ function CreateUI(parent, exitBehavior)
     lblDefCmpgn.Top:Set(lblDefCmpgn.Top() + 4)
 
     -- downloaded campaigns
-    local ChkDwnldCmpgn = Checkbox(panel, 
-        UIUtil.UIFile('/dialogs/check-box_btn/radio-d_btn_up.dds'), 
-        UIUtil.UIFile('/dialogs/check-box_btn/radio-s_btn_up.dds'), 
-        UIUtil.UIFile('/dialogs/check-box_btn/radio-d_btn_over.dds'), 
-        UIUtil.UIFile('/dialogs/check-box_btn/radio-s_btn_over.dds'), 
-        UIUtil.UIFile('/dialogs/check-box_btn/radio-d_btn_dis.dds'), 
+    local ChkDwnldCmpgn = Checkbox(panel,
+        UIUtil.UIFile('/dialogs/check-box_btn/radio-d_btn_up.dds'),
+        UIUtil.UIFile('/dialogs/check-box_btn/radio-s_btn_up.dds'),
+        UIUtil.UIFile('/dialogs/check-box_btn/radio-d_btn_over.dds'),
+        UIUtil.UIFile('/dialogs/check-box_btn/radio-s_btn_over.dds'),
+        UIUtil.UIFile('/dialogs/check-box_btn/radio-d_btn_dis.dds'),
         UIUtil.UIFile('/dialogs/check-box_btn/radio-s_btn_dis.dds'))
     LayoutHelpers.AtLeftIn(ChkDwnldCmpgn, panel, 275)
     LayoutHelpers.AtTopIn(ChkDwnldCmpgn, panel, 77)
@@ -76,12 +76,12 @@ function CreateUI(parent, exitBehavior)
     lblDwnldCmpgn.Top:Set(lblDwnldCmpgn.Top() + 4)
 
     -- tutorial campaigns
-    local ChkTutCmpgn = Checkbox(panel, 
-        UIUtil.UIFile('/dialogs/check-box_btn/radio-d_btn_up.dds'), 
-        UIUtil.UIFile('/dialogs/check-box_btn/radio-s_btn_up.dds'), 
-        UIUtil.UIFile('/dialogs/check-box_btn/radio-d_btn_over.dds'), 
-        UIUtil.UIFile('/dialogs/check-box_btn/radio-s_btn_over.dds'), 
-        UIUtil.UIFile('/dialogs/check-box_btn/radio-d_btn_dis.dds'), 
+    local ChkTutCmpgn = Checkbox(panel,
+        UIUtil.UIFile('/dialogs/check-box_btn/radio-d_btn_up.dds'),
+        UIUtil.UIFile('/dialogs/check-box_btn/radio-s_btn_up.dds'),
+        UIUtil.UIFile('/dialogs/check-box_btn/radio-d_btn_over.dds'),
+        UIUtil.UIFile('/dialogs/check-box_btn/radio-s_btn_over.dds'),
+        UIUtil.UIFile('/dialogs/check-box_btn/radio-d_btn_dis.dds'),
         UIUtil.UIFile('/dialogs/check-box_btn/radio-s_btn_dis.dds'))
     LayoutHelpers.AtLeftIn(ChkTutCmpgn, panel, 450)
     LayoutHelpers.AtTopIn(ChkTutCmpgn, panel, 77)
@@ -90,12 +90,12 @@ function CreateUI(parent, exitBehavior)
     lblTutCmpgn.Top:Set(lblTutCmpgn.Top() + 4)
 
     -- sort
-    local ChkSort = Checkbox(panel, 
-        UIUtil.UIFile('/dialogs/check-box_btn/radio-d_btn_up.dds'), 
-        UIUtil.UIFile('/dialogs/check-box_btn/radio-s_btn_up.dds'), 
-        UIUtil.UIFile('/dialogs/check-box_btn/radio-d_btn_over.dds'), 
-        UIUtil.UIFile('/dialogs/check-box_btn/radio-s_btn_over.dds'), 
-        UIUtil.UIFile('/dialogs/check-box_btn/radio-d_btn_dis.dds'), 
+    local ChkSort = Checkbox(panel,
+        UIUtil.UIFile('/dialogs/check-box_btn/radio-d_btn_up.dds'),
+        UIUtil.UIFile('/dialogs/check-box_btn/radio-s_btn_up.dds'),
+        UIUtil.UIFile('/dialogs/check-box_btn/radio-d_btn_over.dds'),
+        UIUtil.UIFile('/dialogs/check-box_btn/radio-s_btn_over.dds'),
+        UIUtil.UIFile('/dialogs/check-box_btn/radio-d_btn_dis.dds'),
         UIUtil.UIFile('/dialogs/check-box_btn/radio-s_btn_dis.dds'))
     LayoutHelpers.AtLeftIn(ChkSort, panel, 700)
     LayoutHelpers.AtTopIn(ChkSort, panel, 77)
@@ -118,19 +118,19 @@ function CreateUI(parent, exitBehavior)
     end
 
     -- init oncheck events
-    ChkDefCmpgn.OnCheck = function(self, checked) 
+    ChkDefCmpgn.OnCheck = function(self, checked)
         SetPreference('campaign_overview.NotChkDefCmpgnChecked', not checked)
         ShowDefault(checked)
     end
-    ChkDwnldCmpgn.OnCheck = function(self, checked) 
+    ChkDwnldCmpgn.OnCheck = function(self, checked)
         SetPreference('campaign_overview.NotChkDwnldCmpgnChecked', not checked)
         ShowDownloaded(checked)
     end
-    ChkTutCmpgn.OnCheck = function(self, checked) 
+    ChkTutCmpgn.OnCheck = function(self, checked)
         SetPreference('campaign_overview.NotChkTutCmpgnChecked', not checked)
         ShowTutorials(checked)
     end
-    ChkSort.OnCheck = function(self, checked) 
+    ChkSort.OnCheck = function(self, checked)
         SetPreference('campaign_overview.NotChkSortChecked', not checked)
         SortCampaigns(checked)
     end
@@ -186,10 +186,10 @@ function CreateUI(parent, exitBehavior)
 
     local scrollbar = UIUtil.CreateVertScrollbarFor(scrollGroup)
     -- Why not use a horizontal scrollbar? I would have if horizontal scrollbars in FA would actually work
-    
+
     scrollGroup.controlList = {}
     scrollGroup.top = 1
-    
+
     scrollGroup.GetScrollValues = function(self, axis)
         return 1, table.getn(self.controlList), self.top, math.min(self.top + numElementsPerPage - 1, table.getn(scrollGroup.controlList))
     end
@@ -253,7 +253,7 @@ function CreateUI(parent, exitBehavior)
 
         bg.parent = parent
         bg.campaignInfo = campaignInfo
-                
+
         local name = UIUtil.CreateText(bg, LOC(campaignInfo.name), 18, UIUtil.bodyFont)
         LayoutHelpers.AtTopIn(name, bg, 12)
         LayoutHelpers.AtHorizontalCenterIn(name, bg)
@@ -300,7 +300,7 @@ function CreateUI(parent, exitBehavior)
             n = n + 1
             if not table.find(campaignInfo.factions, f) then
                 factionIcons[f]:SetAlpha(0.33)
-            end 
+            end
         end
 
         local desc = MultiLineText(bg, UIUtil.bodyFont, 14, UIUtil.fontColor)
@@ -434,7 +434,7 @@ function CreateUI(parent, exitBehavior)
         local lastPlayedCampaign = Campaigns.GetLastStartedCampaign()
         for k, campaign in allCampaigns do
 
-            if (not campaign.downloaded and not def) or (campaign.downloaded and not dwnld) 
+            if (not campaign.downloaded and not def) or (campaign.downloaded and not dwnld)
                     or (campaign.istutorial and not tut) or campaign.selectable == false then
                 -- skip campaigns we don't want to see
                 continue

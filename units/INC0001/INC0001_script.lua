@@ -5,13 +5,13 @@ local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local CreateNomadsBuildSliceBeams = import('/lua/nomadseffectutilities.lua').CreateNomadsBuildSliceBeams
 
 INC0001 = Class(NCivilianStructureUnit) {
-    
+
     OnCreate = function(self)
         self.BuildEffectsBag = TrashBag()
         self.ThrusterEffectsBag = TrashBag()
-        
+
         NCivilianStructureUnit.OnCreate(self)
-        
+
         if self:GetBlueprint().Physics.Elevation then
             self:Hover()
         end
@@ -20,19 +20,19 @@ INC0001 = Class(NCivilianStructureUnit) {
         else
             self:RotatingAngle()
         end
-        
+
         --self:TakeOff()
-        
+
         --self:Landing()
         --self:BurnEngines()
-        
+
         --[[for _, army in ListArmies() do
             if not IsEnemy(army, self:GetArmy()) then
                 self:AddToConstructionQueue('inu1001', army)
             end
         end]]
     end,
-    
+
     Hover = function(self)
         local pos = self:GetPosition()
         local surface = GetSurfaceHeight(pos[1], pos[3]) + GetTerrainTypeOffset(pos[1], pos[3])
@@ -40,13 +40,13 @@ INC0001 = Class(NCivilianStructureUnit) {
         pos[2] = surface + elevation
         self:SetPosition( pos, true)
     end,
-    
+
     RotatingAngle = function(self)
         -- spinner 1 and 3
         if not self.RotatorManipulator1 then
             self.RotatorManipulator1 = CreateRotator( self, 'Spinner1', 'z' )
-            self.RotatorManipulator1:SetAccel( self:GetBlueprint().Rotators.PrimaryAccel ) 
-            self.RotatorManipulator1:SetTargetSpeed( self:GetBlueprint().Rotators.PrimarySpeed ) 
+            self.RotatorManipulator1:SetAccel( self:GetBlueprint().Rotators.PrimaryAccel )
+            self.RotatorManipulator1:SetTargetSpeed( self:GetBlueprint().Rotators.PrimarySpeed )
             self.Trash:Add( self.RotatorManipulator1 )
         end
         if not self.RotatorManipulator3 then
@@ -59,13 +59,13 @@ INC0001 = Class(NCivilianStructureUnit) {
         -- spinner 2
         if not self.RotatorManipulator2 then
             self.RotatorManipulator2 = CreateRotator( self, 'Spinner2', 'z' )
-            self.RotatorManipulator2:SetAccel( self:GetBlueprint().Rotators.SecondaryAccel ) 
-            self.RotatorManipulator2:SetTargetSpeed( self:GetBlueprint().Rotators.SecondarySpeed ) 
+            self.RotatorManipulator2:SetAccel( self:GetBlueprint().Rotators.SecondaryAccel )
+            self.RotatorManipulator2:SetTargetSpeed( self:GetBlueprint().Rotators.SecondarySpeed )
             self.Trash:Add( self.RotatorManipulator2 )
         end
-        
+
     end,
-    
+
     StationaryAngle = function(self)
         -- spinner 1 and 3
         if not self.RotatorManipulator1 then
@@ -86,11 +86,11 @@ INC0001 = Class(NCivilianStructureUnit) {
             self.Trash:Add( self.RotatorManipulator2 )
         end
     end,
-    
-    
-    
+
+
+
     EngineBurnBones = {'ExhaustBig', 'ExhaustSmallRight', 'ExhaustSmallLeft', 'ExhaustSmallTop'},
-    
+
     BurnEngines = function(self)
         local army, emit = self:GetArmy()
         local ThrusterEffects = {
@@ -111,7 +111,7 @@ INC0001 = Class(NCivilianStructureUnit) {
             end
         end)
     end,
-        
+
     StopEngines = function(self)
         self.ThrusterEffectsBag:Destroy()
         local army, emit = self:GetArmy()
@@ -138,11 +138,11 @@ INC0001 = Class(NCivilianStructureUnit) {
             self.ThrusterEffectsBag:Destroy()
         end)
     end,
-    
-    
-    
+
+
+
     ThrusterBurnBones = {'ThrusterFrontLeft', 'ThrusterFrontRight', 'ThrusterBackLeft', 'ThrusterBackRight'},
-    
+
     TakeOff = function (self)
         self.LaunchAnim = CreateAnimator(self):PlayAnim('/units/INO0001/INO0001_launch.sca')
         self.LaunchAnim:SetAnimationFraction(0)
@@ -155,7 +155,7 @@ INC0001 = Class(NCivilianStructureUnit) {
             end
         )
     end,
-    
+
     Landing = function (self)
         local army, emit = self:GetArmy()
         local ThrusterEffects = {
@@ -180,10 +180,10 @@ INC0001 = Class(NCivilianStructureUnit) {
             self:StopEngines()
         end
         )
-    end,    
-    
-    
-    
+    end,
+
+
+
     BuildQueue = {
     --   { unitType = 'xxx', },
     },
@@ -211,7 +211,7 @@ INC0001 = Class(NCivilianStructureUnit) {
             self.Trash:Add( self.ConstructingThreadHandle )
         end
     end,
-    
+
 
     StartConstruction = function( self, queueKey)
         local attachBone = 0

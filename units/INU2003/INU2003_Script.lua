@@ -84,18 +84,18 @@ INU2003 = Class(NAmphibiousUnit, SlowHover) {
 
     OnScriptBitSet = function(self, bit)
         NAmphibiousUnit.OnScriptBitSet(self, bit)
-        if bit == 1 then 
+        if bit == 1 then
             self.SetBombardmentMode(self, true, false)
         end
     end,
 
     OnScriptBitClear = function(self, bit)
         NAmphibiousUnit.OnScriptBitClear(self, bit)
-        if bit == 1 then 
+        if bit == 1 then
             self.SetBombardmentMode(self, false, false)
         end
     end,
-    
+
 }
 
 TypeClass = INU2003

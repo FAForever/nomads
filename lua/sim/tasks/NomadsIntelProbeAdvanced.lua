@@ -40,7 +40,7 @@ NomadsIntelProbeAdvanced = Class(ScriptTask) {
             self:SetAIResult(AIRESULT.Fail)
         end
     end,
-	  
+	
     TaskTick = function(self)
         if self.IntelProbeProjectile and not self.IntelProbeProjectile:BeenDestroyed() then
             return TASKSTATUS.Wait

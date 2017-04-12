@@ -58,7 +58,7 @@ function CreateBeamEntities( builder, unitBeingBuilt, BuildEffectBones, BuildEff
 
                 local BeamEndEntity = Entity()
                 BeamEndEntity.counter = 0
-                Warp( BeamEndEntity, Vector(ox, oy, oz))   
+                Warp( BeamEndEntity, Vector(ox, oy, oz))
                 table.insert(endEntityTable, BeamEndEntity)
                 BuildEffectsBag:Add( BeamEndEntity )
 
@@ -238,7 +238,7 @@ function CreateBuildCubeThread( unitBeingBuilt, builder, OnBeingBuiltEffectsBag,
         emit:ScaleEmitter(scale)
         OnBeingBuiltEffectsBag:Add( emit )
     end
-	
+
     -- Create a quick glow effect at location where unit is goig to be built
     local mul = 1.15
     local x = bp.Physics.MeshExtentsX or (bp.Footprint.SizeX * mul)

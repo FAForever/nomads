@@ -247,90 +247,64 @@ UnitBlueprint {
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_None',
         RaisedPlatforms = {
-
             -- Platform 1
             -- TopLeft Offset From Center
             -1.875, ---1.5,
-
             -- x
             -5, ---4,
-
             -- z
             0.8125, --0.65,
-
             -- height
             -- TopRight Offset From Center
             1.875, --1.5,
-
             -- x
             5, ---4,
-
             -- z
             0.8125, --0.65,
-
             -- height
             -- BottomLeft Offset From Center
             -1.875, ---1.5,
-
             -- x
             1.625, --1.3,
-
             -- z
             0.8125, --0.65,
-
             -- height
             -- BottomRight Offset From Center
             1.875, --1.5,
-
             -- x
             1.625, --1.3,
-
             -- z
             0.8125, --0.65,
-
             -- height
             -- Platform 2
             -- TopLeft Offset From Center
             -1.875, ---1.5,
-
             -- x
             1.625, --1.3,
-
             -- z
             0.8125, --0.65,
-
             -- height
             -- TopRight Offset From Center
             1.875, --1.5,
-
             -- x
             1.625, --1.3,
-
             -- z
             0.8125, --0.65,
-
             -- height
             -- BottomLeft Offset From Center
             1.875, ---1.5,
-
             -- x
             3.625, --2.9,
-
             -- z
             0,
-
             -- height
             -- BottomRight Offset From Center
             1.875, --1.5,
-
             -- x
             3.625, --2.9,
-
             -- z
             0,
-
             -- height
-            
         },
         RollOffPoints = {
             {
@@ -340,7 +314,6 @@ UnitBlueprint {
                 Z = 3,
             },
         },
-
         -- height
         SkirtOffsetX = -1.5,
         SkirtOffsetZ = -1.5,

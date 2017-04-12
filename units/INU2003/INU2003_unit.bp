@@ -242,10 +242,8 @@ UnitBlueprint {
                 },
             },
             BallisticArc = 'RULEUBA_HighArc',
-            
             BombardParticipant = true,
             BombardSwingTurret = false,
-            
             CollideFriendly = false,
             Damage = 200,
             DamageFriendly = false,

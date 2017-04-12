@@ -50,8 +50,8 @@ INS3003 = Class(NSeaUnit) {
                     end
                     self.IdleReloadThread = self:ForkThread(self.ReloadThread)
                 end,
-                
-                
+
+
                 ReloadThread = function(self)
                     --WARN('waiting in idle reload')
                     WaitSeconds(1)
@@ -101,7 +101,7 @@ INS3003 = Class(NSeaUnit) {
                         self.unit:OnTargetAcquired()
                     end
                 end,
-                
+
                 Audio = {
                     FireSpecial = Sound {
                         Bank = 'NomadsWeapons',
@@ -121,8 +121,8 @@ INS3003 = Class(NSeaUnit) {
                     end
                     self.IdleReloadThread = self:ForkThread(self.ReloadThread)
                 end,
-                
-                
+
+
                 ReloadThread = function(self)
                     --WARN('waiting in idle reload')
                     WaitSeconds(1.2)
@@ -172,7 +172,7 @@ INS3003 = Class(NSeaUnit) {
                         self.unit:OnTargetAcquired()
                     end
                 end,
-                
+
                 Audio = {
                     FireSpecial = Sound {
                         Bank = 'NomadsWeapons',
@@ -185,10 +185,10 @@ INS3003 = Class(NSeaUnit) {
     },
 
     BuildAttachBone = 'INS3003',
-    DestructionPartsLowToss = { 'Pad1_1', 'Pad1_2', 'Pad1_3', 'Pad1_4', 'Pad1_5', 'Pad1_6', 
+    DestructionPartsLowToss = { 'Pad1_1', 'Pad1_2', 'Pad1_3', 'Pad1_4', 'Pad1_5', 'Pad1_6',
                                 'Pad2_1', 'Pad2_2', 'Pad2_3', 'Pad2_4', 'Pad2_5', 'Pad2_6',
                                 'Pad3_1', 'Pad3_2', 'Pad3_3', 'Pad3_4', 'Pad3_5', 'Pad3_6',
-                                'AAGun1', 'AAGun2', 'AAGun3', 'AAGun4', 'TMD1', 'TMD2', 
+                                'AAGun1', 'AAGun2', 'AAGun3', 'AAGun4', 'TMD1', 'TMD2',
     },
 --    LightBone_Left = 'Light_03',
 --    LightBone_Right = 'Light_02',

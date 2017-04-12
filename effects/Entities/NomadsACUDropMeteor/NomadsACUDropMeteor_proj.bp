@@ -40,7 +40,7 @@ ProjectileBlueprint {
         CollideEntity = false,
         CollideSurface = true,
         DestroyOnWater = false,
-        Lifetime = 10,        
+        Lifetime = 10,
         RealisticOrdinance = false,
         RotationalVelocity = 0,
         RotationalVelocityRange = 0,

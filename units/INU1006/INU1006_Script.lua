@@ -40,7 +40,7 @@ INU1006 = Class(NLandUnit) {
         NLandUnit.OnCreate(self)
         self:SetScriptBit('RULEUTC_SpecialToggle', false)
     end,
-    
+
     SetBombardmentMode = function(self, enable, changedByTransport)
         NLandUnit.SetBombardmentMode(self, enable, changedByTransport)
         self:SetScriptBit('RULEUTC_WeaponToggle', enable)

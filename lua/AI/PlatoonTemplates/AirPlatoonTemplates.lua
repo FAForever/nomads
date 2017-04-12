@@ -101,7 +101,7 @@ PlatoonTemplate {
 
 PlatoonTemplate {
     Name = 'T4ExperimentalAir',
-    Plan = 'ExperimentalAIHub', 
+    Plan = 'ExperimentalAIHub',
     GlobalSquads = {
         #DUNCAN - exclude novax
         { categories.AIR * categories.EXPERIMENTAL * categories.MOBILE - categories.SATELLITE, 1, 1, 'attack', 'none' },
@@ -110,7 +110,7 @@ PlatoonTemplate {
 
 PlatoonTemplate {
     Name = 'T4ExperimentalAirGroup',
-    Plan = 'ExperimentalAIHub', 
+    Plan = 'ExperimentalAIHub',
     GlobalSquads = {
         #DUNCAN - exclude novax
         { categories.AIR * categories.EXPERIMENTAL * categories.MOBILE - categories.SATELLITE, 2, 3, 'attack', 'none' },

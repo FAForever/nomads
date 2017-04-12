@@ -7,7 +7,7 @@ local FactionInUnitBpToKey = import('/lua/factions.lua').FactionInUnitBpToKey
 
 function buildActionTemplate(modifier)
   local options = Prefs.GetFromCurrentProfile('options')
-  -- Reset everything that could be fading or running  
+  -- Reset everything that could be fading or running
   -- LOG("BAT")
   hideCycleMap()
 
@@ -19,7 +19,7 @@ function buildActionTemplate(modifier)
   if (not allTemplates) or table.getsize(allTemplates) == 0 then
     return
   end
-  
+
   local selection = GetSelectedUnits()
   local availableOrders,  availableToggles, buildableCategories = GetUnitCommandData(selection)
   local buildableUnits = EntityCategoryGetUnitList(buildableCategories)
@@ -104,12 +104,12 @@ function buildActionTemplate(modifier)
       end
     end
   end
-  
+
   local maxPos = table.getsize(effectiveTemplates)
   if (maxPos == 0) then
     return
   end
-  
+
   -- Check if the selection/key has changed
   if ((cycleLastName == '_templates') and (cycleLastMaxPos == maxPos)) then
     cyclePos = cyclePos + 1
@@ -122,8 +122,8 @@ function buildActionTemplate(modifier)
     cycleLastName = '_templates'
     cycleLastMaxPos = maxPos
   end
-  
-  
+
+
   if (options.hotbuild_cycle_preview == 1) then
     -- Highlight the active button
     for i, button in cycleButtons do
@@ -133,13 +133,13 @@ function buildActionTemplate(modifier)
         button:SetAlpha(0.4, true)
       end
     end
-  
+
     cycleMap:Show()
-    -- Start the fading thread  
+    -- Start the fading thread
     cycleThread = ForkThread(function()
 		stayTime = options.hotbuild_cycle_reset_time / 2000.0;
 		fadeTime = options.hotbuild_cycle_reset_time / 2000.0;
-		
+
         WaitSeconds(stayTime)
         if (not cycleMap:IsHidden()) then
           Effect.FadeOut(cycleMap, fadeTime, 0.6, 0.1)
@@ -153,7 +153,7 @@ function buildActionTemplate(modifier)
         cyclePos = 0
       end)
   end
-    
+
   local template = effectiveTemplates[cyclePos]
   local cmd = template.templateData[3][1]
 

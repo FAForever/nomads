@@ -3,7 +3,7 @@ do
 
 local oldDefaultProjectileWeapon = DefaultProjectileWeapon
 
-DefaultProjectileWeapon = Class(oldDefaultProjectileWeapon) {		
+DefaultProjectileWeapon = Class(oldDefaultProjectileWeapon) {
 
 -- Another way to disable a weapon below, use SuspendWeaponFire(). This is less invasive and doesn't disable the aiming manip, etc.
 -- Had to change the RackSalvoFireReadyState for this though

@@ -78,7 +78,7 @@ Description = table.merged( Description, {
     ['inb0302'] = "<LOC inb0302_help>Constructs Tech 3 air units. Highest tech level available.",
     ['inb0303'] = "<LOC inb0303_help>Constructs Tech 3 naval units. Highest tech level available.",
     ['inb0304'] = "<LOC inb0304_help>Constructs Support command units.",
-    
+
     -- NOMADS SUPPORT FACTORIES (FAF SPECIFIC)
     ['inb0211'] = "<LOC inb0211_help>Constructs Tech 2 land units. Upgradeable.",
     ['inb0212'] = "<LOC inb0212_help>Constructs Tech 2 air units. Upgradeable.",
@@ -183,9 +183,9 @@ Description = table.merged( Description, {
     ['ina3003'] = "<LOC ina3003_help>Air-Superiority Fighter",
     ['ina3004'] = "<LOC ina3004_help>Strategic Bomber",
     ['ina3006'] = "<LOC ina3006_help>Heavy Gunship",
-    
+
     ['ina4001'] = "<LOC ina4001_help>Experimental transport unit. Can also transport the Beamer (can fire from transport) and single naval units.",
-    
+
 
     -- NOMADS SEA UNITS
     ['ins1001'] = "<LOC ins1001_help>Attack Submarine",

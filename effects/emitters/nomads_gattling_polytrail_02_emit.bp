@@ -10,4 +10,3 @@ TrailEmitterBlueprint {
 	RepeatTexture = [[/textures/particles/railgun_trail_01.dds]],
 	RampTexture = [[/textures/particles/ramp_red_11.dds]],
 }
-

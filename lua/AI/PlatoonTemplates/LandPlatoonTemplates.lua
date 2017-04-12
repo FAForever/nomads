@@ -49,7 +49,7 @@ PlatoonTemplate {
 
 PlatoonTemplate {
     Name = 'LABAttack',
-    Plan = 'HuntAI', 
+    Plan = 'HuntAI',
     GlobalSquads = {
         { categories.MOBILE * categories.LAND * categories.TECH1 * categories.BOT - categories.REPAIR + (categories.SERAPHIM * categories.SCOUT), 5, 50, 'Attack', 'none' }
     },
@@ -57,7 +57,7 @@ PlatoonTemplate {
 #DUNCAN - Added
 PlatoonTemplate {
     Name = 'GhettoMarines',
-    Plan = 'GhettoAI', 
+    Plan = 'GhettoAI',
     GlobalSquads = {
 		#DUNCAN - the REPAIR is to remove the mantis. Added in Selen too.
         { categories.MOBILE * categories.LAND * categories.TECH1 * categories.BOT - categories.REPAIR + (categories.SERAPHIM * categories.SCOUT), 6, 6, 'Attack', 'none' }
@@ -111,8 +111,8 @@ PlatoonTemplate {
 
 PlatoonTemplate {
     Name = 'T1MassHuntersCategory',
-    --Plan = 'AttackForceAI',    
-    Plan = 'GuardMarker',    
+    --Plan = 'AttackForceAI',
+    Plan = 'GuardMarker',
     GlobalSquads = {
         { categories.TECH1 * categories.LAND * categories.MOBILE * categories.DIRECTFIRE * categories.BOT - categories.SCOUT - categories.ENGINEER - categories.EXPERIMENTAL, 3, 15, 'attack', 'none' },
         { categories.LAND * categories.SCOUT, 0, 1, 'attack', 'none' },
@@ -121,8 +121,8 @@ PlatoonTemplate {
 
 PlatoonTemplate {
     Name = 'T2MassHuntersCategory',
-    --Plan = 'AttackForceAI',    
-    Plan = 'GuardMarker',    
+    --Plan = 'AttackForceAI',
+    Plan = 'GuardMarker',
     GlobalSquads = {
         { categories.TECH1 * categories.LAND * categories.MOBILE * categories.DIRECTFIRE * categories.BOT - categories.SCOUT - categories.ENGINEER - categories.EXPERIMENTAL, 10, 25, 'attack', 'none' },
         { categories.LAND * categories.SCOUT, 0, 1, 'attack', 'none' },
@@ -130,8 +130,8 @@ PlatoonTemplate {
 }
 PlatoonTemplate {
     Name = 'T2MassHuntersCategory',
-    --Plan = 'AttackForceAI',    
-    Plan = 'GuardMarker',    
+    --Plan = 'AttackForceAI',
+    Plan = 'GuardMarker',
     GlobalSquads = {
         { categories.TECH1 * categories.LAND * categories.MOBILE * categories.DIRECTFIRE * categories.BOT - categories.SCOUT - categories.ENGINEER - categories.EXPERIMENTAL, 3, 15, 'attack', 'none' },
         { categories.LAND * categories.SCOUT, 0, 1, 'attack', 'none' },
@@ -159,7 +159,7 @@ PlatoonTemplate {
 
 PlatoonTemplate {
     Name = 'T4ExperimentalLand',
-    Plan = 'ExperimentalAIHub',   
+    Plan = 'ExperimentalAIHub',
     GlobalSquads = {
         { categories.EXPERIMENTAL * categories.LAND * categories.MOBILE, 1, 1, 'attack', 'none' }
     },
@@ -249,7 +249,7 @@ PlatoonTemplate {
         },
         Seraphim = {
             { 'xsl0201', 1, 1, 'attack', 'None' }
-        },        
+        },
         Nomads = {
             { 'inu1007', 1, 1, 'Attack', 'none' }
         },

@@ -14,7 +14,7 @@ UnitBlueprint {
             'Jet_LeftRear',
             'Jet_RightRear',
         },
-        GuardScanRadius = 125, 
+        GuardScanRadius = 125,
     },
     Audio = {
         AmbientIdle = Sound {

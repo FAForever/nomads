@@ -225,7 +225,7 @@ AIBrain = Class(oldAIBrain) {
     -- ================================================================================================================
 
     CapacitorRegisterUnit = function(self, unit)
-        -- a unit with the capacitor ability registers itself in the brain. Used so that we can monitor energy surplus 
+        -- a unit with the capacitor ability registers itself in the brain. Used so that we can monitor energy surplus
         -- versus demand and adjust recharge speed for each capacitor unit.
         if unit then
             if unit.OnBrainNotifiesOfChargeFraction then
@@ -489,9 +489,9 @@ AIBrain = Class(oldAIBrain) {
 
         if not parent then
             unit:Destroy()
-            return false 
+            return false
         end
-        
+
         -- add the unit to the pool of requested units, for possible future reference
         local unitEntityId = unit:GetEntityId()
         local parentEntityId = parent:GetEntityId()
@@ -553,17 +553,17 @@ AIBrain = Class(oldAIBrain) {
         local x, z = self:GetArmyStartPos()
         local y = GetSurfaceHeight(x,z)
         local initialHeight =__blueprints[bp].Physics.Elevation or 100
-        
+
         local maxOffsetXZ = 0.4
         local offsetX = maxOffsetXZ * RandomFloat(-1, 1)
         local offsetZ = maxOffsetXZ * RandomFloat(-1, 1)
         self.DirVector = Vector( -offsetX, -1, -offsetZ )
         self.ACULaunched = true
-        
+
         y = GetTerrainHeight(x,z) + initialHeight
         x = x + (offsetX * initialHeight)
         z = z + (offsetZ * initialHeight)
-        
+
         self.startingPositionWithOffset = {x, y, z}
         self.NomadsMothership = CreateUnitHPR( bp, army, x, y, z, 0, 0, 0)
         return self.NomadsMothership
@@ -633,14 +633,14 @@ AIBrain = Class(oldAIBrain) {
                 end
             end
         end
-        --LOG('*DEBUG: self.ResearchLevels = '..repr(self.ResearchLevels))        
+        --LOG('*DEBUG: self.ResearchLevels = '..repr(self.ResearchLevels))
     end,
 
     GetResearchLevelsForUnit = function(self, unit)
         local faction, type, techlevel = self:GetUnitFactionAndTypeAndTechlevel(unit)
         --LOG('*DEBUG: GetResearchLevelsForUnit '..repr(self.ResearchLevels[ faction ]))
         return self.ResearchLevels[ faction ] or {}
-    end,    
+    end,
 
 
     OnResearchStationConstructed = function(self, unit)
@@ -795,7 +795,7 @@ AIBrain = Class(oldAIBrain) {
 
         --LOG('*DEBUG: NOT available! Requested: tech level '..repr(techlevel)..' in '..repr(type)..' of faction '..repr(faction))
         return false
-    end,    
+    end,
 
     OnDefeat = function(self)
         self:RemoveOrbitalUnit()

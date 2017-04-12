@@ -29,7 +29,7 @@ function GetConstructEconomyModel(builder, targetData, upgradeBaseData)  -- MIND
             logdata['ID'] = 'unknown'
             logdata['Task'] = 'unknown'
         end
-        
+
         WARN('*NOMADS DEBUG: assisting a construct that lacks GetConstructEconomyModel data. Log data: '..repr(logdata))
     end
     return oldGetConstructEconomyModel(builder, targetData, upgradeBaseData)

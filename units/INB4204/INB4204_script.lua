@@ -11,7 +11,7 @@ NStructureUnit = AddLights(NStructureUnit)
 INB4204 = Class(NStructureUnit) {
     Weapons = {
         Turret01 = Class(HVFlakWeapon) {
-        
+
 
             IdleState = State(HVFlakWeapon.IdleState) {
                 Main = function(self)
@@ -22,8 +22,8 @@ INB4204 = Class(NStructureUnit) {
                     end
                     self.IdleReloadThread = self:ForkThread(self.ReloadThread)
                 end,
-                
-                
+
+
                 ReloadThread = function(self)
                     --WARN('waiting in idle reload')
                     WaitSeconds(1.4)
@@ -73,7 +73,7 @@ INB4204 = Class(NStructureUnit) {
                         self.unit:OnTargetAcquired()
                     end
                 end,
-                
+
                 Audio = {
                     FireSpecial = Sound {
                         Bank = 'NomadsWeapons',

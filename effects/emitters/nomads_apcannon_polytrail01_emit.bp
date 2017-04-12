@@ -10,4 +10,3 @@ TrailEmitterBlueprint {
     RepeatTexture = [[/textures/particles/nomads_apcannon_polytrail01.dds]],
     RampTexture = [[/textures/particles/ramp_transparency_fade_to_red_inverted_bright.dds]],
 }
-

@@ -6,9 +6,9 @@ local EffectUtils = import('/lua/effectutilities.lua')
 local Effects = import('/lua/effecttemplates.lua')
 
 INB2101 = Class(NStructureUnit) {
-    Weapons = { 
-        MainGun = Class(GattlingWeapon1) { 
-            FxMuzzleScale = 2.25, 
+    Weapons = {
+        MainGun = Class(GattlingWeapon1) {
+            FxMuzzleScale = 2.25,
         },
     },
 }

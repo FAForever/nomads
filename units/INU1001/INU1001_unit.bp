@@ -165,7 +165,6 @@ UnitBlueprint {
                         Type = 'NomadsHoverGroundFx1',
                         Recolour = true,
                     },
-
                 },
             },
         },
@@ -220,7 +219,6 @@ UnitBlueprint {
                     },
                 },
             },
-            
         },
         PlaceholderMeshName = 'UXB0000',
         SpawnRandomRotation = false,

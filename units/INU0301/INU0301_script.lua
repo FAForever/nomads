@@ -29,7 +29,7 @@ RocketWeapon1 = AddCapacitorAbilityToWeapon(RocketWeapon1)
 
 
 inu0301 = Class(NWalkingLandUnit) {
-    
+
     Weapons = {
         GunLeft = Class(AddRapidRepairToWeapon(APCannon1)) {
 
@@ -280,7 +280,7 @@ inu0301 = Class(NWalkingLandUnit) {
     OnStartBuild = function(self, unitBeingBuilt, order)
         self.UnitBeingBuilt = unitBeingBuilt
         self.UnitBuildOrder = order
-        self.BuildingUnit = true        
+        self.BuildingUnit = true
         NWalkingLandUnit.OnStartBuild(self, unitBeingBuilt, order)
     end,
 
@@ -288,7 +288,7 @@ inu0301 = Class(NWalkingLandUnit) {
         NWalkingLandUnit.OnStopBuild(self, unitBeingBuilt)
         self.UnitBeingBuilt = nil
         self.UnitBuildOrder = nil
-        self.BuildingUnit = false      
+        self.BuildingUnit = false
         self:ForBuildEnableWeapons(true)
         self:GetWeaponManipulatorByLabel('GunLeft'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
     end,
@@ -308,7 +308,7 @@ inu0301 = Class(NWalkingLandUnit) {
         if (order == 'Repair' and not unitBeingBuilt:IsBeingBuilt()) or (UpgradesFrom and UpgradesFrom ~= 'none' and self:IsUnitState('Guarding'))then
             NomadsEffectUtil.CreateRepairBuildBeams( self, unitBeingBuilt, bones, self.BuildEffectsBag )
         else
-            NomadsEffectUtil.CreateNomadsBuildSliceBeams( self, unitBeingBuilt, bones, self.BuildEffectsBag )        
+            NomadsEffectUtil.CreateNomadsBuildSliceBeams( self, unitBeingBuilt, bones, self.BuildEffectsBag )
         end
     end,
 
@@ -347,7 +347,7 @@ inu0301 = Class(NWalkingLandUnit) {
         -- a known engine limitation or bug where a single variable is used for all units of the same type is causing problems with the build bones.
         -- to remedy this I'm dynamically determining what bones to use by checking what enhancements are available.
         local bones = table.deepcopy( self:GetBlueprint().General.BuildBones.BuildEffectBones )
-        if self:HasEnhancement('EngineeringRight') then 
+        if self:HasEnhancement('EngineeringRight') then
             table.insert( bones, 'Engi_R_Muzzle')
             table.insert( bones, 'Engi_R_Muzzle.001')
             table.insert( bones, 'Engi_R_Muzzle.002')
@@ -501,7 +501,7 @@ inu0301 = Class(NWalkingLandUnit) {
             self:GetWeaponByLabel('GunLeft'):SetMuzzleOverride(true)
             if bp.EnableWeapon then
                 self:SetWeaponEnabledByLabel( bp.EnableWeapon, true )
-                self:AddCommandCap('RULEUCC_Attack') 
+                self:AddCommandCap('RULEUCC_Attack')
                 self:AddCommandCap('RULEUCC_RetaliateToggle')
             end
 
@@ -569,7 +569,7 @@ inu0301 = Class(NWalkingLandUnit) {
             if ubp.Enhancements.GunLeft.EnableWeapon then
                 self:SetWeaponEnabledByLabel( ubp.Enhancements.GunLeft.EnableWeapon, false )
                 if not self:HasEnhancement('GunRight') and not self:HasEnhancement('GunRightUpgrade') and not self:HasEnhancement('RightRocket') then
-                    self:RemoveCommandCap('RULEUCC_Attack') 
+                    self:RemoveCommandCap('RULEUCC_Attack')
                     self:RemoveCommandCap('RULEUCC_RetaliateToggle')
                 end
             end
@@ -616,7 +616,7 @@ inu0301 = Class(NWalkingLandUnit) {
         elseif enh == 'LeftRocket' then
             if bp.EnableWeapon then
                 self:SetWeaponEnabledByLabel( bp.EnableWeapon, true )
-                self:AddCommandCap('RULEUCC_Attack') 
+                self:AddCommandCap('RULEUCC_Attack')
                 self:AddCommandCap('RULEUCC_RetaliateToggle')
             end
 
@@ -637,7 +637,7 @@ inu0301 = Class(NWalkingLandUnit) {
         elseif enh == 'Railgun' then
             if bp.EnableWeapon then
                 self:SetWeaponEnabledByLabel( bp.EnableWeapon, true )
-                self:AddCommandCap('RULEUCC_Attack') 
+                self:AddCommandCap('RULEUCC_Attack')
                 self:AddCommandCap('RULEUCC_RetaliateToggle')
             end
 
@@ -726,8 +726,8 @@ inu0301 = Class(NWalkingLandUnit) {
             end
             if bp.CapacitorNewChargeTime then
                 self:CapSetChargeTime(bp.CapacitorNewChargeTime)
-            end			
-			
+            end
+
             -- TODO: show effect on bones Backpack_Fx1 and 2
 
         elseif enh == 'ResourceAllocationRemove' then
@@ -855,7 +855,7 @@ inu0301 = Class(NWalkingLandUnit) {
         elseif enh == 'GunRight' then
             if bp.EnableWeapon then
                 self:SetWeaponEnabledByLabel( bp.EnableWeapon, true )
-                self:AddCommandCap('RULEUCC_Attack') 
+                self:AddCommandCap('RULEUCC_Attack')
                 self:AddCommandCap('RULEUCC_RetaliateToggle')
             end
 
@@ -864,7 +864,7 @@ inu0301 = Class(NWalkingLandUnit) {
             if ubp.Enhancements.GunRight.EnableWeapon then
                 self:SetWeaponEnabledByLabel( ubp.Enhancements.GunRight.EnableWeapon, false )
                 if not self:HasEnhancement('GunLeft') and not self:HasEnhancement('GunLeftUpgrade') and not self:HasEnhancement('LeftRocket') and not self:HasEnhancement('Railgun') then
-                    self:RemoveCommandCap('RULEUCC_Attack') 
+                    self:RemoveCommandCap('RULEUCC_Attack')
                     self:RemoveCommandCap('RULEUCC_RetaliateToggle')
                 end
             end
@@ -889,7 +889,7 @@ LOG('Todo: SCU right arm upgrade')
             if ubp.Enhancements.GunRight.EnableWeapon then
                 self:SetWeaponEnabledByLabel( ubp.Enhancements.GunRight.EnableWeapon, false )
                 if not self:HasEnhancement('GunLeft') and not self:HasEnhancement('GunLeftUpgrade') and not self:HasEnhancement('LeftRocket') and not self:HasEnhancement('Railgun') then
-                    self:RemoveCommandCap('RULEUCC_Attack') 
+                    self:RemoveCommandCap('RULEUCC_Attack')
                     self:RemoveCommandCap('RULEUCC_RetaliateToggle')
                 end
             end
@@ -936,7 +936,7 @@ LOG('Todo: SCU right arm upgrade')
         elseif enh == 'RightRocket' then
             if bp.EnableWeapon then
                 self:SetWeaponEnabledByLabel( bp.EnableWeapon, true )
-                self:AddCommandCap('RULEUCC_Attack') 
+                self:AddCommandCap('RULEUCC_Attack')
                 self:AddCommandCap('RULEUCC_RetaliateToggle')
             end
 

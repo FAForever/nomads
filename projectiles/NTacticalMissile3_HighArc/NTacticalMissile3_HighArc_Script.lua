@@ -18,7 +18,7 @@ NTacticalMissile3_HighArc = Class(ArcingTacticalMissile) {
     -- To accomodate the Aeon TMD that uses flares to distract and redirect tactical missiles some additional code is added here.
     -- It makes missiles not speed up if flared by the Aeon TMD but missiles that have sped up do not react to the TMD (this is
     -- handled in the defaultantimissile.lua file).
-	
+
     OnImpact = function(self, targetType, targetEntity)
         if targetType == 'Air' and not targetEntity then
             if self:IsFlared() then

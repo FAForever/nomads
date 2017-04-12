@@ -453,7 +453,6 @@ UnitBlueprint {
                     },
                 },
             },
-            
         },
         PlaceholderMeshName = 'UXB0000',
         SpawnRandomRotation = true,
@@ -1092,7 +1091,7 @@ UnitBlueprint {
             BuildIconSortPriority = 70,
             Description = '<LOC inu0301_amphibious_desc>Support Armored Command Unit (Preset: Amphibious)',
             Enhancements = {
-                'GunRight', 
+                'GunRight',
                 'MovementSpeedIncrease',
                 'Railgun',
             },
@@ -1177,7 +1176,7 @@ UnitBlueprint {
             Enhancements = {
                 'GunLeft',
                 'GunLeftUpgrade',
-                'GunRight',  
+                'GunRight',
                 'RapidRepair',
             },
             HelpText = '<LOC inu0301_heavytrooper_help>Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or combination. Enhanced during construction with an upgraded gun on the left arm, a machine gun and a rapid repair system.',

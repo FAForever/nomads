@@ -153,7 +153,7 @@ INB2302 = Class(NStructureUnit) {
         -- called each time the gun kills a unit
         self:OnKilledUnit(unitKilled)
     end,
-    
+
     OnGiven = function(self, newUnit)
         if self.ArtilleryUnit ~= nil then
             newUnit.ArtilleryUnitRequested = true

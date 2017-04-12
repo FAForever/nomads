@@ -16,7 +16,7 @@ INB2208 = Class(NStructureUnit) {
         if bp.Display.AnimationPermOpenAlt then
             self.PermOpenAnimManipulator = CreateAnimator(self):PlayAnim(bp.Display.AnimationPermOpenAlt):SetRate(0)
             self.Trash:Add(self.PermOpenAnimManipulator)
-        end        
+        end
         NStructureUnit.OnStartBeingBuilt(self, builder, layer)
     end,
 

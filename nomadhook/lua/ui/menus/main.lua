@@ -25,7 +25,7 @@ function CreateBackMovie(parent)
 --        { path .. 'X04_Dostya_M02_04014.sfd', },
 --        { path .. 'X05_Amalia_M03_04055.sfd', },
 --        { path .. 'X01_Graham_M02_04003.sfd', },
---        { path .. 'X05_Brackman_B01_04026.sfd', },    
+--        { path .. 'X05_Brackman_B01_04026.sfd', },
     }
 
     for k, v in Sequences do

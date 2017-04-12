@@ -8,8 +8,8 @@ INB2202 = Class(NStructureUnit) {
     Weapons = {
         AAGun = Class(ParticleBlaster1) {
 
-            OnWeaponFired = function(self) 
-                ParticleBlaster1.OnWeaponFired(self) 
+            OnWeaponFired = function(self)
+                ParticleBlaster1.OnWeaponFired(self)
 
                 -- set timer and start the watch thread if it is not running yet
                 local yep = (not self.Timer or self.Timer <= 0)
@@ -19,7 +19,7 @@ INB2202 = Class(NStructureUnit) {
                 end
 
                 self.unit:GoSpinners(true)
-            end, 
+            end,
 
             WatchThread = function(self)
                 -- keeps decreasing the counter until it reaches 0, then stops the spinners.
@@ -33,7 +33,7 @@ INB2202 = Class(NStructureUnit) {
                 end
 
                 self.WaitThreadHandle = nil
-            end, 
+            end,
         },
     },
 
@@ -57,11 +57,11 @@ INB2202 = Class(NStructureUnit) {
         go = (go == true)
         if go and not self.Spinning then
             for k, v in self.Spinners do
-                v:SetTargetSpeed(700) 
+                v:SetTargetSpeed(700)
             end
         elseif not go and self.Spinning then
             for k, v in self.Spinners do
-                v:SetTargetSpeed(0) 
+                v:SetTargetSpeed(0)
             end
         end
         self.Spinning = go

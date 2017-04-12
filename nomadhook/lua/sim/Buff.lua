@@ -30,7 +30,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 
             if unit.BuffActivationThreads[atype] then KillThread(unit.BuffActivationThreads[atype]) end
             if unit.BuffDeactivationThreads[atype] then KillThread(unit.BuffDeactivationThreads[atype]) end
-            
+
             if (not afterRemove and actDelay > 0) or (afterRemove and deaDelay > 0) then
                 -- activate or deactivate immobility after a delay
                 local fn = function(unit, delay, bool)
@@ -160,7 +160,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
             else
                 unit:DisableIntel('Radar')
             end
-        
+
         elseif atype == 'OmniRadius' then
 
             -- checking for a value > 0 to avoid erroring out
@@ -218,7 +218,7 @@ function BuffCalculate(unit, buffName, affectType, initialVal, initialBool, init
 
     local highestCeil = false
     local lowestFloor = false
-    
+
     if unit.Buffs.Affects[affectType] then
         for k, v in unit.Buffs.Affects[affectType] do
             if v.Add and v.Add ~= 0 then

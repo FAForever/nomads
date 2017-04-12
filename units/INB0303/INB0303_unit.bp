@@ -111,7 +111,7 @@ UnitBlueprint {
         BuildCostMass = 9500,
         BuildRate = 150,
         BuildTime = 11250,
-        DifferentialUpgradeCostCalculation = true, 
+        DifferentialUpgradeCostCalculation = true,
         BuildableCategory = {
             'BUILTBYTIER3FACTORY NOMADS MOBILE CONSTRUCTION',
             'BUILTBYTIER3FACTORY NOMADS STRUCTURE NAVAL',

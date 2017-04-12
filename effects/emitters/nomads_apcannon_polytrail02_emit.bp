@@ -10,4 +10,3 @@ TrailEmitterBlueprint {
     RepeatTexture = [[/textures/particles/uef_plasma_trail_01.dds]],
     RampTexture = [[/textures/particles/ramp_fire_01.dds]],
 }
-
