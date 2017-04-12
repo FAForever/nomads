@@ -23,6 +23,7 @@ Description = table.merged( Description, {
     ['inu0001-ip'] = "<LOC NomadsACUEnh_IntelProbe_Description>Intel probes are used to reveal any area on the map for a short duration.",
     ['inu0001-ip2'] = "<LOC NomadsACUEnh_IntelProbeAdv_Description>Upgrades the intel probe enhanced sensors for better intelligence gathering.",
     ['inu0001-il'] = "<LOC NomadsACUEnh_MovementSpeedIncrease_Description>This enhancement improves the locomotor on the Support Commander so that it can move faster.",
+    ['inu0001-acap'] = "<LOC NomadsACUEnh_Capacitor_Description>Allows the acu to temporarily boost its stats with the capacitor ability for an appropriate energy cost.",
 
     ['inu0301-sre'] = "<LOC Unit_Description_0022>Greatly expands the range of the standard onboard SACU sensor systems.",
     ['inu0301-il'] = "<LOC NomadsSCUEnh_MovementSpeedIncrease_Description>This enhancement improves the locomotor on the Support Commander so that it can move faster.",
@@ -35,7 +36,8 @@ Description = table.merged( Description, {
     ['inu0301-acu2'] = "<LOC NomadsSCUEnh_RightArmGunUpgrade_Description>Upgrades the gattling cannon so it deals more damage.",
     ['inu0301-ses'] = "<LOC NomadsSCUEnh_LeftArmEngineering_Description>Enhances the SACU with an additional engineering tool. Also allows the SACU to construct all Nomads structures. When the capacitor ability is active the engineering functions are sped up.",
     ['inu0301-rae'] = "<LOC NomadsSCUEnh_RightArmEngineering_Description>Enhances the SACU with an additional engineering tool. Also allows the SACU to construct all Nomads structures. When the capacitor ability is active the engineering functions are sped up.",
-    ['inu0301-acap'] = "<LOC NomadsSCUEnh_AddCapacitor_Description>Enhances the SACU with an additional capacitor that increases the duration of the capacitor ability.",
+    ['inu0301-acap'] = "<LOC NomadsSCUEnh_Capacitor_Description>Allows the SACU to temporarily boost its stats with the capacitor ability for an appropriate energy cost.",
+    ['inu0301-acap2'] = "<LOC NomadsSCUEnh_AddCapacitor_Description>Enhances the SACU with an additional capacitor that increases the duration of the capacitor ability.",
     ['inu0301-lar'] = "<LOC NomadsSCUEnh_LeftArmRocket_Description>Enhances the SACU with a rocket launcher attached to the left shoulder that fires salvos of rockets against surface targets. When the capacitor ability is active the rockets gain a damage-over-time effect.",
     ['inu0301-rar'] = "<LOC NomadsSCUEnh_RightArmRocket_Description>Enhances the SACU with a rocket launcher attached to the right shoulder that fires salvos of rockets against surface targets. When the capacitor ability is active the rockets gain a damage-over-time effect.",
     ['inu0301-larg'] = "<LOC NomadsSCUEnh_LeftArmRailgun_Description>Enhances the SACU with an under water railgun. When the capacitor ability is active the railgun deals more damage per shot.",
