@@ -12,9 +12,9 @@ UnitBlueprint {
                 'CapacitorROFSCUGatling',
                 'CapacitorROFSCURailgun',
             },
-            Cooldown = 20,
             Duration = 15,
-            EnergyCost = 2000,
+            ChargeEnergyCost = 100,
+            ChargeTime = 30,
             bitmapId = 'toggle-capacitor',
             helpText = 'toggle_capacitor',
         },
@@ -537,8 +537,8 @@ UnitBlueprint {
             Name = '<LOC NomadsSCUEnh_AddCapacitor_Help>Additional Capacitor',
             Prerequisite = 'Capacitor',
             CapacitorNewDuration = 150,
-            CapacitorNewCooldown = 175,
-            CapacitorNewCost = 10000,
+            CapacitorNewChargeTime = 175,
+            CapacitorNewChargeEnergyCost = 500,
             ShowBones = {
                 'Capacitor'
             },

@@ -507,6 +507,7 @@ INU0001 = Class(ACUUnit) {
             self:HasCapacitorAbility(true)
 
         elseif enh == 'CapacitorRemove' then
+            self:ResetCapacitor()
             self:HasCapacitorAbility(false)
 
         -- ---------------------------------------------------------------------------------------

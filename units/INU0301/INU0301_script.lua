@@ -660,6 +660,7 @@ inu0301 = Class(NWalkingLandUnit) {
         elseif enh == 'Capacitor' then
             self:HasCapacitorAbility(true)
         elseif enh == 'CapacitorRemove' then
+            self:ResetCapacitor()
             self:HasCapacitorAbility(false)
 
         -- ---------------------------------------------------------------------------------------
@@ -667,28 +668,30 @@ inu0301 = Class(NWalkingLandUnit) {
         -- ---------------------------------------------------------------------------------------
         
         elseif enh == 'AdditionalCapacitor' then
-            if bp.CapacitorNewCost then
-                self:SetCapacitorEnergyCost(bp.CapacitorNewCost)
+            self:ResetCapacitor()
+            if bp.CapacitorNewChargeEnergyCost then
+                self:SetChargeEnergyCost(bp.CapacitorNewChargeEnergyCost)
             end
             if bp.CapacitorNewDuration then
                 self:SetCapacitorDuration(bp.CapacitorNewDuration)
             end
-            if bp.CapacitorNewCooldown then
-                self:SetCapacitorCooldown(bp.CapacitorNewCooldown)
+            if bp.CapacitorNewChargeTime then
+                self:SetCapChargeTime(bp.CapacitorNewChargeTime)
             end
             
         elseif enh == 'AdditionalCapacitorRemove' then
+            self:ResetCapacitor()
             self:HasCapacitorAbility(false)
             local orgBp = self:GetBlueprint()
             local obp = orgBp.Enhancements.AdditionalCapacitor
-            if obp.CapacitorNewCost then
-                self:SetCapacitorEnergyCost(orgBp.Abilities.Capacitor.EnergyCost)
+            if obp.CapacitorNewChargeEnergyCost then
+                self:SetChargeEnergyCost(orgBp.Abilities.Capacitor.ChargeEnergyCost)
             end
             if obp.CapacitorNewDuration then
                 self:SetCapacitorDuration(orgBp.Abilities.Capacitor.Duration)
             end
-            if obp.CapacitorNewCooldown then
-                self:SetCapacitorCooldown(orgBp.Abilities.Capacitor.Cooldown)
+            if obp.CapacitorNewChargeTime then
+                self:SetCapChargeTime(orgBp.Abilities.Capacitor.ChargeTime)
             end
 
         -- ---------------------------------------------------------------------------------------

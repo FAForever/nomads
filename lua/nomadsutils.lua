@@ -1563,12 +1563,15 @@ function AddCapacitorAbility( SuperClass )
             SuperClass.OnCreate(self)
             
             self:HasCapacitorAbility(true)
-            self.CapActive = false
+            self.Sync.CapacitorActive = false
+            self.Sync.AutoCapacitor = false
+            self.Sync.CapacitorFull = false
+            Sync.CapacitorCharging = false
             self.CapChargeWhenFull = 100
             self.CapCurCharge = 0
-            self:SetCapacitorCooldown(self:GetBlueprint().Abilities.Capacitor.Cooldown)
             self:SetCapacitorDuration(self:GetBlueprint().Abilities.Capacitor.Duration)
-            self:SetCapacitorEnergyCost(self:GetBlueprint().Abilities.Capacitor.EnergyCost)
+            self:SetChargeEnergyCost(self:GetBlueprint().Abilities.Capacitor.ChargeEnergyCost)
+            self:SetCapChargeTime(self:GetBlueprint().Abilities.Capacitor.ChargeTime)
             self.CapFxBag = TrashBag()
         end,
         
@@ -1579,6 +1582,9 @@ function AddCapacitorAbility( SuperClass )
         
         OnKilled = function(self, instigator, type, overkillRatio)
             SuperClass.OnKilled(self, instigator, type, overkillRatio)
+        end,
+        
+        OnCapacitorCharging = function(self, currentCharge)
         end,
         
         OnCapStartBeingUsed = function(self, duration)
@@ -1594,16 +1600,32 @@ function AddCapacitorAbility( SuperClass )
             self.Sync.HasCapacitorAbility = hasIt
         end,
         
-        SetCapacitorEnergyCost = function(self, energyCost)
-            self.Sync.CapacitorEnergyCost = energyCost
+        SetChargeEnergyCost = function(self, energyCost)
+            self.ChargeEnergyCost = energyCost
+        end,
+        
+        SetCapChargeTime = function(self, chargeTime)
+            self.CapChargeTime = chargeTime
         end,
         
         SetCapacitorDuration = function(self, duration)
             self.CapDuration = duration
         end,
         
-        SetCapacitorCooldown = function(self, cooldown)
-            self.CapCooldown = cooldown
+        ResetCapacitor = function(self)
+            self.Sync.CapacitorActive = false
+            self.Sync.AutoCapacitor = false
+            self.Sync.CapacitorFull = false
+            Sync.CapacitorCharging = false
+            self.CapCurCharge = 0
+            if self.Chargethread then
+                KillThread(self.Chargethread)
+                self.Chargethread = nil
+            end
+            if self.CapStateThreadHandle then
+                KillThread(self.CapStateThreadHandle)
+                self.CapStateThreadHandle = nil
+            end
         end,
         
         CapUpdateBar = function(self)
@@ -1611,33 +1633,94 @@ function AddCapacitorAbility( SuperClass )
         end,
         
         CapGetCapacityFrac = function(self)
-            if self.CapCurCharge < 0 then self.CapCurCharge = 0 end
+            if self.CapCurCharge < 0 then return 0 end
             if self.CapCurCharge == 0 or self.CapChargeWhenFull == 0 then
                 return 0
             end
             return (self.CapCurCharge / self.CapChargeWhenFull)
         end,
         
+        IsCapPaused = function(self)
+            return not self.Sync.CapacitorCharging
+        end,
+        
+        IsCapCharging = function(self)
+            return self.Sync.CapacitorCharging
+        end,
+        
+        IsCapCharged = function(self)
+            return self.CapCurCharge >= self.CapChargeWhenFull
+        end,
+        
+        IsCapActive = function(self)
+            return self.Sync.CapacitorActive
+        end,
+        
+        CapacitorIsAuto = function(self)
+            return self.Sync.AutoCapacitor
+        end,
+        
+        SetAutoCapacitor = function(self, autoCap)
+            self.Sync.AutoCapacitor = autoCap
+            if autoCap and not self.Sync.CapacitorCharging and not self.Sync.CapacitorActive then
+                WARN("StartCharge")
+                self:StartCharging()
+            end
+        end,
+        
+        StartCharging = function(self)
+            self.Sync.CapacitorCharging = true
+            self.Chargethread = ForkThread(
+            function()
+                while self.CapCurCharge < self.CapChargeWhenFull do
+                    self.CapChargeEvent = CreateEconomyEvent(self, self.ChargeEnergyCost, 0, 1)
+                    WaitFor(self.CapChargeEvent)
+                    self.CapCurCharge = self.CapCurCharge + (100 / self.CapChargeTime)
+                    WARN(self.CapCurCharge)
+                    self:CapUpdateBar()
+                    self:OnCapacitorCharging( self.CapCurCharge )
+                    RemoveEconomyEvent(self, self.CapChargeEvent)
+                    self.CapChargeEvent = nil
+                end
+                self:UpdateConsumptionValues()
+                self.Sync.CapacitorCharging = false
+                self:CapPlayFx('Full')
+                self.Sync.CapacitorFull = true
+            end)
+        end,
+        
+        PauseCharging = function(self)
+            self.Sync.CapacitorCharging = false
+            self.Sync.AutoCapacitor = false
+            if self.Chargethread then
+                KillThread(self.Chargethread)
+            end
+            if self.CapChargeEvent then
+                RemoveEconomyEvent(self, self.CapChargeEvent)
+                self.CapChargeEvent = nil
+                self:UpdateConsumptionValues()
+            end
+        end,
+        
         TryToActivateCapacitor = function(self)        
-            if self.CapActive then
+            if self.Sync.CapacitorActive then
                 WARN('Trying to use Capacitor while its already active!')
                 return
             end
-            
-            # Initial energy drain here - we drain resources instantly when capacitor is activated
-            local aiBrain = self:GetAIBrain()
-            local have = aiBrain:GetEconomyStored('ENERGY')
-            if not ( have > self.Sync.CapacitorEnergyCost ) then
+            if self.CapCurCharge < self.CapChargeWhenFull then
+                WARN('Trying to use Capacitor when its not fully charged yet!')
                 return
             end
             
-            # Drain economy here
-            aiBrain:TakeResource( 'ENERGY', self.Sync.CapacitorEnergyCost )
-            
+            --Can't be charging when activated
+            if self.Sync.CapacitorCharging then
+                self.Sync.CapacitorCharging = false
+            end
             self:ActivateCapacitor()
         end,
         
         ActivateCapacitor = function(self)
+            self.Sync.CapacitorFull = false
 
             while self:IsStunned() do  -- dont waste capacitor time being stunned
                 WaitTicks(1)
@@ -1664,15 +1747,13 @@ function AddCapacitorAbility( SuperClass )
 
             self:UpdateConsumptionValues()
             self:OnCapStartBeingUsed( duration )
-            self.CapActive = true
+            self.Sync.CapacitorActive = true
             if self.CapStateThreadHandle then KillThread( self.CapStateThreadHandle ) end
             self.CapStateThreadHandle = self:ForkThread( self.CapacitorMain )
-            self.CooldownThread = self:ForkThread( self.CooldownMain )
         end,
         
         CapacitorMain = function(self)
             local i = self.CapDuration
-            self.CapCurCharge = self.CapChargeWhenFull
             while self.CapCurCharge > 0 do
                 self.CapCurCharge = (i / self.CapDuration) * self.CapChargeWhenFull
                 self:CapUpdateBar()
@@ -1683,15 +1764,6 @@ function AddCapacitorAbility( SuperClass )
             self:CapUpdateBar()
             
             self:DeactivateCapacitor()
-        end,
-        
-        CooldownMain = function(self)
-            self.Sync.CooldownTimer = self.CapCooldown
-            
-            while(self.Sync.CooldownTimer > 0) do
-                WaitSeconds(1)
-                self.Sync.CooldownTimer = self.Sync.CooldownTimer - 1
-            end
         end,
         
         DeactivateCapacitor = function(self)
@@ -1714,9 +1786,11 @@ function AddCapacitorAbility( SuperClass )
             self:CapPlayFx('StopBeingUsed')
             self:UpdateConsumptionValues()
             self:OnCapStopBeingUsed()
-            self.CapActive = false
+            self.Sync.CapacitorActive = false
             
-            if self.CapStateThreadHandle then KillThread( self.CapStateThreadHandle ) end
+            if self.Sync.AutoCapacitor then
+                self:StartCharging()
+            end
         end,
         
         CapPlayFx = function(self, state)
