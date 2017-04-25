@@ -4,6 +4,7 @@ UnitBlueprint {
     AI = {
         BombardModeCheckRadius = 8,
         BombardModeCheckUnits = 4,
+        GuardScanRadius = 32,
     },
     Audio = {
         AmbientMove = Sound {
@@ -224,6 +225,37 @@ UnitBlueprint {
         Level5 = 10,
     },
     Weapon = {
+        { -- special dummy weapon to make the unit stop a certain distance away
+            AutoInitiateAttackCommand = false,
+            CannotAttackGround = false,
+            Damage = 0,
+            DamageFriendly = false,
+            DamageType = 'Normal',
+            DisplayName = 'Target Tracker',
+            FireTargetLayerCapsTable = { --what the unit will stop for
+                Land = 'Air|Land|Water',
+                Water = 'Air|Land|Water',
+            },
+            MaxRadius = 30, -- this is the range the unit will try to stop at. change GuardScanRadius as well.
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'muzzle.001',
+                    },
+                    RackBone = 'barrel',
+                },
+            },
+            RateOfFire = 0.5,
+            ReTargetOnMiss = false,
+            TargetCheckInterval = 0.1,
+            TargetPriorities = {
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            Turreted = false,
+            SlavedToBody = false,
+            WeaponCategory = 'Missile',
+        },
         {
             AlwaysRecheckTarget = true,
             Audio = {
@@ -326,7 +358,7 @@ UnitBlueprint {
                 Land = 'Air',
             },
             Label = 'TargetPainter',
-            MaxRadius = 30,
+            MaxRadius = 32,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             PreferPrimaryWeaponTarget = true,
