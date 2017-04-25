@@ -169,6 +169,10 @@ NomadsACUEnh_MovementSpeedIncrease_Description = "This enhancement improves the 
 NomadsACUEnh_MovementSpeedIncrease_Help = "Improved locomotor"
 NomadsACUEnh_MovementSpeedIncrease_Remove = "Remove improved locomotor"
 
+NomadsACUEnh_Capacitor_Description = "Allows the ACU to temporarily boost its stats with the capacitor ability for an appropriate energy cost."
+NomadsACUEnh_Capacitor_Help = "Capacitor"
+NomadsACUEnh_Capacitor_Remove = "Remove Capacitor"
+
 NomadsACUEnh_AddCapacitor_Description = "Enhances the ACU with an additional capacitor that increases the duration of the capacitor boost."
 NomadsACUEnh_AddCapacitor_Help = "Additional Capacitor"
 NomadsACUEnh_AddCapacitor_Remove = "Remove Additional Capacitor"
@@ -209,6 +213,10 @@ NomadsSCUEnh_LeftArmEngineering_Remove = "Remove Left Arm Engineering"
 NomadsSCUEnh_RightArmEngineering_Description = "Enhances the SACU with an additional engineering tool. Also allows the SACU to construct all Nomads structures. When the capacitor ability is active the engineering functions are sped up."
 NomadsSCUEnh_RightArmEngineering_Help = "Right Arm Engineering"
 NomadsSCUEnh_RightArmEngineering_Remove = "Remove Right Arm Engineering"
+
+NomadsSCUEnh_Capacitor_Description = "Allows the SACU to temporarily boost its stats with the capacitor ability for an appropriate energy cost."
+NomadsSCUEnh_Capacitor_Help = "Capacitor"
+NomadsSCUEnh_Capacitor_Remove = "Remove Capacitor"
 
 NomadsSCUEnh_AddCapacitor_Description = "Enhances the SACU with an additional capacitor that increases the duration of the capacitor ability."
 NomadsSCUEnh_AddCapacitor_Help = "Additional Capacitor"

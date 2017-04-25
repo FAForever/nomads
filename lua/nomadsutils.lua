@@ -1549,412 +1549,250 @@ end
 function AddCapacitorAbility( SuperClass )
     -- The capacitor ability boosts the unit for a short time. It doesn't work with shielded units because this
     -- ability uses the shield indicator on the unit for the capacity in the capacitor.
-
+        
     return Class(SuperClass) {
-
+    
         CapDoPlayFx = true,
         CapFxBones = nil,
         CapFxBeingUsedTemplate = NomadsEffectTemplate.CapacitorBeingUsed,
         CapFxChargingTemplate = NomadsEffectTemplate.CapacitorCharging,
         CapFxEmptyTemplate = NomadsEffectTemplate.CapacitorEmpty,
         CapFxFullTemplate = NomadsEffectTemplate.CapacitorFull,
-        HasCapacitorAbility = true,
-
+        
         OnCreate = function(self)
             SuperClass.OnCreate(self)
-
-            local bp = self:GetBlueprint().Abilities
-
-            self.CapChargeWhenFull = bp.Capacitor.ChargeTime or 100
-            self.CapCurCharge = math.min(1, math.max(0, bp.Capacitor.StartCapacityFraction or 0)) * self.CapChargeWhenFull
-            self.CapDuration = bp.Capacitor.Duration or 15
-            self.CapEnergyDrainPerSecond = bp.Capacitor.EnergyDrainPerSecond or 100
-            self.CapDissipationRate = bp.Capacitor.Dissipation or 0
-            self.CapDoAutoUse = not (bp.Capacitor.AutoUseWhenHealthLow == false)
-            self.CapDoCharge = true
-            self.CapState = 'None'
-            self.CapChargeSpeedMulti = 1
-            self.CapChargeFraction = 0
-            self.CapFxBag = TrashBag()
-            self.CapDoPlayFx = true
-        end,
-
-        OnStopBeingBuilt = function(self, builder, layer)
-            SuperClass.OnStopBeingBuilt(self, builder, layer)
-
-            local aiBrain = self:GetAIBrain()
-            aiBrain:CapacitorRegisterUnit(self)
-
-            self:CapUpdateBar()
-            --self:SetFuelUseTime( -1 )  -- not using fuel indicator anymore
-            self:SetScriptBit('RULEUTC_WeaponToggle', true)
-            self:CapStartCharging()
-        end,
-
-        OnKilled = function(self, instigator, type, overkillRatio)
-            local aiBrain = self:GetAIBrain()
-            aiBrain:CapacitorUnregisterUnit(self)
+            
+            self:HasCapacitorAbility(true)
+            self.Sync.CapacitorActive = false
+            self.Sync.AutoCapacitor = false
+            self.Sync.CapacitorFull = false
+            Sync.CapacitorCharging = false
+            self.CapChargeWhenFull = 100
             self.CapCurCharge = 0
-            self:CapUpdateBar()
-            if self.CapStateThreadHandle then KillThread( self.CapStateThreadHandle ) end
-            self:CapDestroyFx()
+            self:SetCapacitorDuration(self:GetBlueprint().Abilities.Capacitor.Duration)
+            self:SetChargeEnergyCost(self:GetBlueprint().Abilities.Capacitor.ChargeEnergyCost)
+            self:SetCapChargeTime(self:GetBlueprint().Abilities.Capacitor.ChargeTime)
+            self.CapFxBag = TrashBag()
+        end,
+        
+        OnStopBeingBuilt = function(self,builder,layer)
+            self.Sync.Abilities = self:GetBlueprint().Abilities
+            SuperClass.OnStopBeingBuilt(self,builder,layer)
+        end,
+        
+        OnKilled = function(self, instigator, type, overkillRatio)
             SuperClass.OnKilled(self, instigator, type, overkillRatio)
         end,
-
-        -- don't do shield things
-        EnableShield = function(self)
-            WARN('Shields disabled by capacitor ability...')
+        
+        OnCapacitorCharging = function(self, currentCharge)
         end,
-
-        DisableShield = function(self)
-            WARN('Shields disabled by capacitor ability...')
-        end,
-
-        OnScriptBitSet = function(self, bit)
--- TODO: create keyboard keymap so you can press a character on the keyboard and this happens.
-            SuperClass.OnScriptBitSet(self, bit)
-            if bit == 1 then -- cloak toggle
-                --LOG('*DEBUG: OnScriptBitSet')
-                if self:CapIsFull() then
-                    self:CapUse()
-                end
-            end
-        end,
-
-        OnScriptBitClear = function(self, bit)
--- TODO: this script makes sure the correct toggle button is shown. If the player clicks it when there's not enough charge yet the button
--- reverts to it's previous state. This can probably be handled better in the UI???
-            if bit == 1 then -- cloak toggle
-                --LOG('*DEBUG: OnScriptBitClear')
-                if not self:CapIsFull() then
-                    self:SetScriptBit('RULEUTC_WeaponToggle', true)
-                end
-            end
-        end,
-
-        OnHealthChanged = function(self, new, old)
-            --LOG('*DEBUG: OnHealthChanged( new = '..repr(new)..', old = '..repr(old)..')')
-            -- TODO: see if we can filter out small damages. No need to start the capacitor if we receive damage from a scout...
-            if self.CapDoAutoUse and new <= 0.25 and self:CapIsFull() then
-                self:CapUse()
-            end
-        end,
-
-        SetMaintenanceConsumptionActive = function(self)
-            --LOG('*DEBUG: SetMaintenanceConsumptionActive()')
-            self.CapDoCharge = true
-            self:CapStartCharging()
-            SuperClass.SetMaintenanceConsumptionActive(self)
-        end,
-
-        SetMaintenanceConsumptionInactive = function(self)
-            --LOG('*DEBUG: SetMaintenanceConsumptionInactive()')
-            self.CapDoCharge = false
-            self:CapStopCharging()
-            SuperClass.SetMaintenanceConsumptionInactive(self)
-        end,
-
-        OnBrainNotifiesOfChargeFraction = function(self, fraction)
-            --LOG('OnBrainNotifiesOfChargeFraction = '..repr(fraction))
-            self.CapChargeFraction = fraction
-        end,
-
-        OnBrainNotifiesOfSufficientEnergy = function(self)
-            --LOG('OnBrainNotifiesOfSufficientEnergy')
-            if not self:CapIsCharging() and not self:CapIsBeingUsed() and not self:CapIsFull() then
-                self:CapStartCharging()
-            end
-        end,
-
-        OnBrainNotifiesOfInsufficientEnergy = function(self)
-            --LOG('OnBrainNotifiesOfInsufficientEnergy')
-            if self:CapIsCharging() then
-                self:CapStopCharging()
-            end
-        end,
-
-        OnCapIsFull = function(self)
-            --LOG('*DEBUG: OnCapIsFull()')
-            self:SetScriptBit('RULEUTC_WeaponToggle', false)
-        end,
-
-        OnCapIsEmpty = function(self)
-            --LOG('*DEBUG: OnCapIsEmpty()')
-            self:SetScriptBit('RULEUTC_WeaponToggle', true)
-        end,
-
+        
         OnCapStartBeingUsed = function(self, duration)
-            --LOG('*DEBUG: OnCapStartBeingUsed( duration = '..repr(duration)..')')
-            self:SetScriptBit('RULEUTC_WeaponToggle', true)
         end,
-
+        
         OnCapStopBeingUsed = function(self)
-            --LOG('*DEBUG: OnCapStopBeingUsed()')
-            self:SetScriptBit('RULEUTC_WeaponToggle', true)
         end,
-
-        CapUse = function(self)
-            --LOG('*DEBUG: CapUse()')
-            if self:CapIsFull() then
-                self:CapBeingUsedState()
-                return true
-            end
-            return false
-        end,
-
-        CapStartCharging = function(self)
-            --LOG('*DEBUG: CapStartCharging()')
-            self:CapChargingState()
-            return true
-        end,
-
-        CapStopCharging = function(self)
-            --LOG('*DEBUG: CapStopCharging()')
-            if self:CapIsCharging() then
-                self:CapNotChargingState()
-            end
-            return true
-        end,
-
-        CapIsCharging = function(self)
-            --LOG('*DEBUG: CapIsCharging() = '..repr((self.CapState == 'CapChargingState')))
-            return (self.CapState == 'CapChargingState')
-        end,
-
-        CapIsFull = function(self)
-            --LOG('*DEBUG: CapIsFull()')
-            return (self.CapState == 'CapFullState')
-        end,
-
+        
         CapIsBeingUsed = function(self)
-            return (self.CapState == 'CapBeingUsedState')
         end,
-
-        CapGetChargeFraction = function(self)
-            return self.CapChargeFraction
+        
+        HasCapacitorAbility = function(self, hasIt)
+            self.Sync.HasCapacitorAbility = hasIt
         end,
-
-        CapGetDuration = function(self)
-            return self.CapDuration
+        
+        SetChargeEnergyCost = function(self, energyCost)
+            self.ChargeEnergyCost = energyCost
         end,
-
-        CapSetDuration = function(self, newDuration)
-            self.CapDuration = newDuration
+        
+        SetCapChargeTime = function(self, chargeTime)
+            self.CapChargeTime = chargeTime
         end,
-
-        CapGetEnergyDrainPerSecond = function(self)
-            return self.CapEnergyDrainPerSecond
+        
+        SetCapacitorDuration = function(self, duration)
+            self.CapDuration = duration
         end,
-
-        CapSetEnergyDrainPerSecond = function(self, newDrain)
-            self.CapEnergyDrainPerSecond = newDrain
-            self:GetAIBrain():OnCapacitorUnitNewEnergyDrain(self, newDrain)
+        
+        ResetCapacitor = function(self)
+            self.Sync.CapacitorActive = false
+            self.Sync.AutoCapacitor = false
+            self.Sync.CapacitorFull = false
+            Sync.CapacitorCharging = false
+            self.CapCurCharge = 0
+            if self.Chargethread then
+                KillThread(self.Chargethread)
+                self.Chargethread = nil
+            end
+            if self.CapStateThreadHandle then
+                KillThread(self.CapStateThreadHandle)
+                self.CapStateThreadHandle = nil
+            end
         end,
-
-        CapGetChargeSpeedMulti = function(self)
-            return self.CapChargeSpeedMulti
+        
+        CapUpdateBar = function(self)
+            self:SetShieldRatio( self:CapGetCapacityFrac() )
         end,
-
-        CapSetChargeSpeedMulti = function(self, multi)
-            -- used to buff charging of the capacitor
-            self.CapChargeSpeedMulti = multi
-        end,
-
-        CapGetDissipationRate = function(self)
-            return self.CapDissipationRate
-        end,
-
+        
         CapGetCapacityFrac = function(self)
-            --LOG('*DEBUG: CapGetCapacity() = '..repr((self.CapCurCharge / self.CapChargeWhenFull)))
-            if self.CapCurCharge < 0 then self.CapCurCharge = 0 end
+            if self.CapCurCharge < 0 then return 0 end
             if self.CapCurCharge == 0 or self.CapChargeWhenFull == 0 then
                 return 0
             end
             return (self.CapCurCharge / self.CapChargeWhenFull)
         end,
-
-        CapGetChargeTime = function(self)
-            return self.CapChargeWhenFull
+        
+        IsCapPaused = function(self)
+            return not self.Sync.CapacitorCharging
         end,
-
-        CapSetChargeTime = function(self, newChargeTime )
-            self.CapChargeWhenFull = newChargeTime
-            self.CapCurCharge = math.min( self.CapCurCharge, self.CapChargeWhenFull )
-            self:CapUpdateBar()
-            self:CapChargingState()
+        
+        IsCapCharging = function(self)
+            return self.Sync.CapacitorCharging
         end,
-
-        CapChargingState = function(self)
-            local Main = function(self)
-                --LOG('*DEBUG: CapChargingState()')
-
-                local capFrac = self:CapGetCapacityFrac()
-                if self:CapGetCapacityFrac() >= 1 then
-                    self:CapFullState()
-                elseif not self.CapDoCharge or not self:GetAIBrain():CapacitorIsEconomyOk() then
-                    self:CapNotChargingState()
-                end
-
-                self:GetAIBrain():OnCapacitorUnitChargingState(self, true)
-                self:CapPlayFx('Charging')
-
-                local waitSeconds = 0.1
+        
+        IsCapCharged = function(self)
+            return self.CapCurCharge >= self.CapChargeWhenFull
+        end,
+        
+        IsCapActive = function(self)
+            return self.Sync.CapacitorActive
+        end,
+        
+        CapacitorIsAuto = function(self)
+            return self.Sync.AutoCapacitor
+        end,
+        
+        SetAutoCapacitor = function(self, autoCap)
+            self.Sync.AutoCapacitor = autoCap
+            if autoCap and not self.Sync.CapacitorCharging and not self.Sync.CapacitorActive then
+                WARN("StartCharge")
+                self:StartCharging()
+            end
+        end,
+        
+        StartCharging = function(self)
+            self.Sync.CapacitorCharging = true
+            self.Chargethread = ForkThread(
+            function()
                 while self.CapCurCharge < self.CapChargeWhenFull do
-                    self.CapCurCharge = self.CapCurCharge + (waitSeconds * self:CapGetChargeFraction() * self:CapGetChargeSpeedMulti())
+                    self.CapChargeEvent = CreateEconomyEvent(self, self.ChargeEnergyCost, 0, 1)
+                    WaitFor(self.CapChargeEvent)
+                    self.CapCurCharge = self.CapCurCharge + (100 / self.CapChargeTime)
+                    WARN(self.CapCurCharge)
                     self:CapUpdateBar()
-                    WaitSeconds(waitSeconds)
+                    self:OnCapacitorCharging( self.CapCurCharge )
+                    RemoveEconomyEvent(self, self.CapChargeEvent)
+                    self.CapChargeEvent = nil
                 end
-                self.CapCurCharge = self.CapChargeWhenFull
-                self:CapUpdateBar()
-
-                self:CapFullState()
-            end
-
-            if self.CapStateThreadHandle then KillThread( self.CapStateThreadHandle ) end
-            self.CapState = 'CapChargingState'
-            self.CapStateThreadHandle = self:ForkThread( Main )
-        end,
-
-        CapNotChargingState = function(self)
-            local Main = function(self)
-                --LOG('*DEBUG: CapNotChargingState()')
-
-                local capFrac = self:CapGetCapacityFrac()
-                if self:CapGetCapacityFrac() >= 1 then
-                    self:CapFullState()
-                end
-
-                self:GetAIBrain():OnCapacitorUnitChargingState(self, false)
-
-                self:CapUpdateBar()
-
-                local dissip = self:CapGetDissipationRate()
-                if dissip > 0 then
-
-                    -- calculating how long to wait and how much to reduce the capacity with, each cycle. Can only wait multiples of tenths of seconds and not for example 0.3333 seconds
-                    -- The goal is to determine how long to wait to reduce the counter by 1. This is rounded up. Then find out how much to
-                    -- decrease the counter with, using the waiting time. Also, minimal waiting time is 0.1.
-                    local wait = math.ceil( math.max(1, 10 / dissip) ) / 10
-                    local step = math.max( 1, dissip / (1/wait) )
-
-                    while self.CapCurCharge > 0 do
-                        WaitSeconds(wait)
-                        self.CapCurCharge = self.CapCurCharge - step
-                        self:CapUpdateBar()
-                    end
-                    self.CapCurCharge = 0
-                    self:CapUpdateBar()
-
-                    self:CapPlayFx('Empty')
-                    self:OnCapIsEmpty()
-                end
-            end
-
-            if self.CapStateThreadHandle then KillThread( self.CapStateThreadHandle ) end
-            self.CapState = 'CapNotChargingState'
-            self.CapStateThreadHandle = self:ForkThread( Main )
-        end,
-
-        CapFullState = function(self)
--- TODO: show pulsating icon on ui panel when charging up (right now it's static), perhaps with a progress indicator (ring around it)
-            local Main = function(self)
-                --LOG('*DEBUG: CapFullState()')
-                self:GetAIBrain():OnCapacitorUnitChargingState(self, false)
+                self:UpdateConsumptionValues()
+                self.Sync.CapacitorCharging = false
                 self:CapPlayFx('Full')
-                self:CapUpdateBar()
-                self:OnCapIsFull()
+                self.Sync.CapacitorFull = true
+            end)
+        end,
+        
+        PauseCharging = function(self)
+            self.Sync.CapacitorCharging = false
+            self.Sync.AutoCapacitor = false
+            if self.Chargethread then
+                KillThread(self.Chargethread)
+            end
+            if self.CapChargeEvent then
+                RemoveEconomyEvent(self, self.CapChargeEvent)
+                self.CapChargeEvent = nil
+                self:UpdateConsumptionValues()
+            end
+        end,
+        
+        TryToActivateCapacitor = function(self)        
+            if self.Sync.CapacitorActive then
+                WARN('Trying to use Capacitor while its already active!')
+                return
+            end
+            if self.CapCurCharge < self.CapChargeWhenFull then
+                WARN('Trying to use Capacitor when its not fully charged yet!')
+                return
+            end
+            
+            --Can't be charging when activated
+            if self.Sync.CapacitorCharging then
+                self.Sync.CapacitorCharging = false
+            end
+            self:ActivateCapacitor()
+        end,
+        
+        ActivateCapacitor = function(self)
+            self.Sync.CapacitorFull = false
+
+            while self:IsStunned() do  -- dont waste capacitor time being stunned
+                WaitTicks(1)
             end
 
-            if self.CapStateThreadHandle then KillThread( self.CapStateThreadHandle ) end
-            self.CapState = 'CapFullState'
-            self.CapStateThreadHandle = self:ForkThread( Main )
-        end,
+            self:CapPlayFx('BeingUsed')
 
-        CapBeingUsedState = function(self)
--- TODO: show an icon on the unit when using capacitor, much like the "production paused" or the "stunned" strategic icons. This should be
--- possible, looking at file unitview.lua, where they also take care of fuel bars, etc. If not possible create a different visual on the
--- unit so it's clear it's being boosted by the capacitor.
-            local Main = function(self)
-                --LOG('*DEBUG: CapBeingUsedState()')
+            local bp = self:GetBlueprint().Abilities
+            local buffs = bp.Capacitor.Buffs or {}
+            local duration = bp.Duration
 
-                self:GetAIBrain():OnCapacitorUnitChargingState(self, false)
+            -- apply buffs
+            for k, buffName in buffs do
+                Buff.ApplyBuff( self, buffName )
+            end
 
-                while self:IsStunned() do  -- dont waste capacitor time being stunned
-                    WaitTicks(1)
-                end
-
-                self:CapPlayFx('BeingUsed')
-
-                local bp = self:GetBlueprint().Abilities
-                local buffs = bp.Capacitor.Buffs or {}
-                local duration = self:CapGetDuration()
-
-                -- apply buffs
-                for k, buffName in buffs do
-                    Buff.ApplyBuff( self, buffName )
-                end
-
-                -- notify weapons
-                for i = 1, self:GetWeaponCount() do
-                    local wep = self:GetWeapon(i)
-                    if wep.UseCapacitorBoost then
-                        wep:OnCapStartBeingUsed( duration )
-                    end
-                end
-
-                self:UpdateConsumptionValues()
-                self:OnCapStartBeingUsed( duration )
-
-                local i = duration
-                while self.CapCurCharge > 0 do
-                    self.CapCurCharge = (i / duration) * self.CapChargeWhenFull
-                    self:CapUpdateBar()
-                    i = i - 0.1
-                    WaitTicks(1)
-                end
-                self.CapCurCharge = 0
-                self:CapUpdateBar()
-
-                -- remove buffs
-                for k, buffName in buffs do
-                    Buff.RemoveBuff( self, buffName )
-                end
-
-                -- notify weapons again
-                for i = 1, self:GetWeaponCount() do
-                    local wep = self:GetWeapon(i)
-                    if wep.UseCapacitorBoost then
-                        wep:OnCapStopBeingUsed()
-                    end
-                end
-
-                self:CapPlayFx('StopBeingUsed')
-                self:CapPlayFx('Empty')
-                self:UpdateConsumptionValues()
-                self:OnCapStopBeingUsed()
-                self:OnCapIsEmpty()
-
-                local aiBrain = self:GetAIBrain()
-                if aiBrain:CapacitorIsEconomyOk() then
-                    self:CapChargingState()
-                else
-                    self:CapNotChargingState()
+            -- notify weapons
+            for i = 1, self:GetWeaponCount() do
+                local wep = self:GetWeapon(i)
+                if wep.UseCapacitorBoost then
+                    wep:OnCapStartBeingUsed( duration )
                 end
             end
 
+            self:UpdateConsumptionValues()
+            self:OnCapStartBeingUsed( duration )
+            self.Sync.CapacitorActive = true
             if self.CapStateThreadHandle then KillThread( self.CapStateThreadHandle ) end
-            self.CapState = 'CapBeingUsedState'
-            self.CapStateThreadHandle = self:ForkThread( Main )
+            self.CapStateThreadHandle = self:ForkThread( self.CapacitorMain )
         end,
-
-        CapUpdateBar = function(self)
-            -- update the fuel bar at the unit. We use it to display the charge of the capacitor
-            -- TODO: create dedicated bar for capacitor? Seeing unitview_mini.lua (look for fuel bar) this coul be possible
---            self:SetFuelRatio( math.max(self:CapGetCapacity(), 0.0001) )
--- fuel bar overwrites the work progress bar. That's not good, using shield bar instead, until fixed
-            self:SetShieldRatio( self:CapGetCapacityFrac() )
+        
+        CapacitorMain = function(self)
+            local i = self.CapDuration
+            while self.CapCurCharge > 0 do
+                self.CapCurCharge = (i / self.CapDuration) * self.CapChargeWhenFull
+                self:CapUpdateBar()
+                i = i - 0.1
+                WaitTicks(1)
+            end
+            self.CapCurCharge = 0
+            self:CapUpdateBar()
+            
+            self:DeactivateCapacitor()
         end,
+        
+        DeactivateCapacitor = function(self)
+            
+            local bp = self:GetBlueprint().Abilities
+            local buffs = bp.Capacitor.Buffs or {}
+            -- remove buffs
+            for k, buffName in buffs do
+                Buff.RemoveBuff( self, buffName )
+            end
 
+            -- notify weapons again
+            for i = 1, self:GetWeaponCount() do
+                local wep = self:GetWeapon(i)
+                if wep.UseCapacitorBoost then
+                    wep:OnCapStopBeingUsed()
+                end
+            end
+
+            self:CapPlayFx('StopBeingUsed')
+            self:UpdateConsumptionValues()
+            self:OnCapStopBeingUsed()
+            self.Sync.CapacitorActive = false
+            
+            if self.Sync.AutoCapacitor then
+                self:StartCharging()
+            end
+        end,
+        
         CapPlayFx = function(self, state)
             if self.CapFxBones and self.CapDoPlayFx then
                 local templ = {}
@@ -2000,6 +1838,15 @@ function AddCapacitorAbility( SuperClass )
 
         CapDestroyFx = function(self)
             self.CapFxBag:Destroy()
+        end,
+        
+        -- don't do shield things
+        EnableShield = function(self)
+            WARN('Shields disabled by capacitor ability...')
+        end,
+
+        DisableShield = function(self)
+            WARN('Shields disabled by capacitor ability...')
         end,
     }
 end
