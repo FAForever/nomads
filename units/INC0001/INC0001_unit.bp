@@ -85,7 +85,7 @@ UnitBlueprint {
         StorageMass = 650,
     },
     Footprint = {
-        SizeX = 16,
+        SizeX = 28,
         SizeZ = 28,
     },
     General = {
