@@ -19,7 +19,7 @@ INB3302 = Class(NRadarUnit) {
 
     OnScriptBitSet = function(self, bit)
         NRadarUnit.OnScriptBitSet(self, bit)
-        if bit == 1 then 
+        if bit == 1 then
             self:IntelOverchargeBeginCharging()
         end
     end,

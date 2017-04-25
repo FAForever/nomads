@@ -28,7 +28,7 @@ NBlackholeEffect02 = Class(NullShell) {
         for k, v in NomadsEffectTemplate.NukeBlackholeDustCloud02 do
             emit = CreateEmitterOnEntity(self, army, v )
             self.Trash:Add(emit)
-        end	
+        end
     end,
 }
 

@@ -13,10 +13,10 @@ Weapon = Class(oldWeapon) {
         oldWeapon.OnCreate(self)
         self:DetermineColourIndex()
     end,
-    
+
     DetermineColourIndex = function(self)
         --we determine the index once on create then save it in the entity table to save on sim slowdown
-        if not self.unit.ColourIndex then 
+        if not self.unit.ColourIndex then
             WARN('crazy unit is crazy - no colour index despite when its set OnPreCreate! blueprintID: ' .. self.unit:GetUnitId())
         end
         self.ColourIndex = self.unit.ColourIndex or 5
@@ -66,7 +66,7 @@ Weapon = Class(oldWeapon) {
         oldWeapon.OnWeaponFired(self)
         self:SwitchAimController()
     end,
-    
+
     CreateProjectileForWeapon = function(self, bone) --all this is to get the proj to be recoloured!
         local proj = self:CreateProjectile(bone)
         proj.colourIndex = self.colourIndex --pass our colour data to the proj
@@ -82,7 +82,7 @@ Weapon = Class(oldWeapon) {
                 proj.InnerRing:OnCreate(bp.NukeInnerRingDamage, bp.NukeInnerRingRadius, bp.NukeInnerRingTicks, bp.NukeInnerRingTotalTime)
                 proj.OuterRing = NukeDamage()
                 proj.OuterRing:OnCreate(bp.NukeOuterRingDamage, bp.NukeOuterRingRadius, bp.NukeOuterRingTicks, bp.NukeOuterRingTotalTime)
-                
+
                 -- Need to store these three for later, in case the missile lands after the launcher dies
                 proj.Launcher = self.unit
                 proj.Army = self.unit:GetArmy()
@@ -91,7 +91,7 @@ Weapon = Class(oldWeapon) {
         end
         return proj
     end,
-    
+
     SetOnTransport = function(self, transportstate)
         -- remember previous weapon state when going in transport and revert to that when going out of transport
         if not self.unit:GetBlueprint().Transport.CanFireFromTransport then
@@ -107,7 +107,7 @@ Weapon = Class(oldWeapon) {
                 local en = not (self.WeaponDisabledOnTransportWasEnabled == false)
                 self:SetWeaponEnabled(en)
             end
-        end        
+        end
     end,
 
     SetupTurret = function(self)

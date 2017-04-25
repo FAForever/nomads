@@ -210,7 +210,7 @@ function CapacitorToggleThread(unit)
                 --unit:CapUse()
             end
         end
-        
+
         WaitSeconds(5)
     end
 end
@@ -220,12 +220,12 @@ function BehemothCrushBehavior(self)
     -- Meant for experimentals that crush units such as Nomads hover experimentals.
 
     AssignExperimentalPriorities(self)
-    
+
     local experimental = GetExperimentalUnit(self)
     local targetUnit = false
     local lastBase = false
     local airUnit = EntityCategoryContains(categories.AIR, experimental)
-    
+
     --Find target loop
     while experimental and not experimental:IsDead() do
         if lastBase then
@@ -234,7 +234,7 @@ function BehemothCrushBehavior(self)
         if not lastBase then
             targetUnit, lastBase = FindExperimentalTarget(self)
         end
-        
+
         while not experimental:IsDead() and not experimental:IsIdleState() do
 
             local nearCommander = CommanderOverrideCheck(self)
@@ -249,7 +249,7 @@ function BehemothCrushBehavior(self)
 
             WaitSeconds(1)
         end
-    
+
         WaitSeconds(1)
     end
 end
@@ -621,7 +621,7 @@ function CommanderBombardThread(cdr, platoon)
                 targets[1] = {
                         ['Position'] = {location[1], location[2], location[3]},
 -- TODO: this. Create reticules here so human allies can see?
---                        ['ReticuleId'] = 
+--                        ['ReticuleId'] =
                         ['UnitId'] = UnitId,
                 }
                 for i = 2, NumTargets do
@@ -631,7 +631,7 @@ function CommanderBombardThread(cdr, platoon)
                     targets[i] = {
                         ['Position'] = {x, location[2], z},
 -- TODO: this. Create reticules here so human allies can see?
---                        ['ReticuleId'] = 
+--                        ['ReticuleId'] =
                         ['UnitId'] = UnitId,
                     }
                 end
@@ -647,7 +647,7 @@ function CommanderBombardThread(cdr, platoon)
                     targets[i] = {
                         ['Position'] = {x, location[2], z},
 -- TODO: this. Create reticules here so human allies can see?
---                        ['ReticuleId'] = 
+--                        ['ReticuleId'] =
                         ['UnitId'] = UnitId,
                     }
                 end
@@ -662,7 +662,7 @@ function CommanderBombardThread(cdr, platoon)
                 UnitIds = { UnitId, },
                 TaskName = AbilityName,
             }
- 
+
 
             -- launch bombardment at found location
             IssueScript( { brain.NomadsMothership, }, commandData )

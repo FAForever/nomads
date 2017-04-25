@@ -91,7 +91,7 @@ UnitBlueprint {
     Description = '<LOC inu1002_desc>Land Scout',
     Display = {
         Abilities = {
-            '<LOC ability_anchor>Anchor',        
+            '<LOC ability_anchor>Anchor',
             '<LOC ability_hover>Hover',
             '<LOC ability_radar>Radar',
         },
@@ -185,7 +185,7 @@ UnitBlueprint {
                         Recolour = true,
                     },
                 },
-            },      
+            },
         },
         PlaceholderMeshName = 'UXL0011',
         SpawnRandomRotation = true,

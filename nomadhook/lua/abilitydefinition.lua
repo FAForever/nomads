@@ -18,7 +18,7 @@ abilities = table.merged( abilities, {
         --mouse decal.
         --entering data into this table will show a decal on the mouse WHEN the ability is activated if decal = true.
         --we do not need to specify a full path to the texture IF its a default game decal, however
-        --if you want to use your own custom decal you will have to add this to your textures folder in the nomads.scd, 
+        --if you want to use your own custom decal you will have to add this to your textures folder in the nomads.scd,
         --dms will find textures in a mods folder.. so its not a problem for me.. nor you i suspect.
         MouseDecal = {
             decal = true,

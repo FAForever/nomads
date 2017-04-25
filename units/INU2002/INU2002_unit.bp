@@ -121,7 +121,6 @@ UnitBlueprint {
                         Type = 'NomadsHoverGroundFx1',
                         Recolour = true,
                     },
-                    
                 },
             },
         },
@@ -344,7 +343,7 @@ UnitBlueprint {
             UseFiringSolutionInsteadOfAimBone = true,
             WeaponCategory = 'Direct Fire',
         },
-    },	
+    },
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

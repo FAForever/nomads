@@ -27,7 +27,7 @@ NBlackholeLeftover = Class(Prop) {
     SetCanTakeDamage = function(self, bool)
         self.CanTakeDamage = bool
     end,
-    
+
     EffectThread = function(self)
         self.Emitters = EffectUtilities.CreateEffects( self, -1, self.PermanentFx )
         for k, emit in self.Emitters do

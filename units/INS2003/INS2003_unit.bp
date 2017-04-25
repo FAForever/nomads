@@ -77,7 +77,7 @@ UnitBlueprint {
             '<LOC ability_underwater_railgun>Submerged Railgun',
             '<LOC ability_tacmissiledef>Tactical Missile Defense',
         },
-        AnimationDeath = {
+--[[        AnimationDeath = {
             {
                 Animation = '/units/INS2003/INS2003_Asink01.sca',
                 Weight = 100,
@@ -138,7 +138,7 @@ UnitBlueprint {
                 Weight = 100,
                 Rate = 0.03,
             },
-        },
+        },]]
         IdleEffects = {
             Water = {
                 Effects = {

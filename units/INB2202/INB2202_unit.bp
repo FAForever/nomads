@@ -114,7 +114,7 @@ UnitBlueprint {
         BuildTime = 958,
         RebuildBonusIds = {
             'inb2202',
-        },        
+        },
     },
     Footprint = {
         MinWaterDepth = 1,

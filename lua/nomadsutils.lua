@@ -1251,7 +1251,7 @@ function AddAkimbo( SuperClass )
             -- The head is rotated to face (1) the target of weapon 1, (2) the target of weapon 2, or (3) the movement destination.
 
             -- TODO: implement [1] support for weapon HeadingArc parameters, [2] non-zero-based default torso yaw (so that it's relaxed
-            -- position is not rotation 0 but something else, specified in bp, [3] further optimizations (remove or combine calculations?), 
+            -- position is not rotation 0 but something else, specified in bp, [3] further optimizations (remove or combine calculations?),
             -- [4] support for third and fourth weapon???
 
             -- local functions, used to make the code below more readable
@@ -1395,7 +1395,7 @@ function AddAkimbo( SuperClass )
                     torsoRot = ( math.atan2( torsoDir.x, torsoDir.z ) - math.atan2( unitDir.x, unitDir.z ) ) * 180 / math.pi
 
                     if CurTargetAngleSum == 0 then  -- avoid dividing by 0 (see the else)
-                        torsoIntendRot = 0  -- if the target of both weapons is direct forward then no need for a rotation adjustment 
+                        torsoIntendRot = 0  -- if the target of both weapons is direct forward then no need for a rotation adjustment
 
                     else
 

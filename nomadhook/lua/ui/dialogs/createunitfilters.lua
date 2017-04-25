@@ -13,7 +13,7 @@ for _,filter in Filters do
             }
         table.insert(filter.choices, 5, nomads) -- after 'seraphim', but before 'operation'
     end
-    
+
     -- Take into account that nomads land units use 'u' instead of 'l' in their unitID
     if filter.key == 'type' then
         for _,typeChoice in filter.choices do

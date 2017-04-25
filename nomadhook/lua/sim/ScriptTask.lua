@@ -11,7 +11,7 @@ do
 --     Repeat = 0,
 --     Wait = 1,     -- Waiting for more than 1 tick: TASKSTATUS.Wait + 3 (wait 4 ticks)
 -- }
--- 
+--
 -- self:SetAIResult(AIRESULT.Fail)
 -- AIRESULT = {
 --     Unknown=0,    -- Command in progress; result has not been set yet
@@ -36,7 +36,7 @@ ScriptTask = Class(oldScriptTask) {
             for _, data in commandData.ExtraInfo.Targets do
                 if data.UnitId == unitId then
                     table.insert(self.TargetLocations, data.Position)
-                    table.insert(self.Targets, { 
+                    table.insert(self.Targets, {
                         Position = data.Position,
                         ReticuleId = data.ReticuleId,
                     })

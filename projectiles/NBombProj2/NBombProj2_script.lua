@@ -40,7 +40,7 @@ NBombProj2 = Class(ConcussionBomb) {
         for k, v in NomadsEffectTemplate.ConcussionBombSplit do
             CreateEmitterAtEntity( self, self:GetArmy(), v )
         end
-        
+
         local vx, vy, vz = self:GetVelocity()
         local velocity = 9
 
@@ -57,11 +57,11 @@ NBombProj2 = Class(ConcussionBomb) {
             -- Create several other projectiles in a dispersal pattern
             local angle = (2*math.pi) / numProjectiles
             local angleInitial = RandomFloat( 0, angle )
-        
+
             -- Randomization of the spread
             local angleVariation = angle * 0.75 -- Adjusts angle variance spread
             local spreadMul = self.FragmentSpread or 1 -- Adjusts the width of the dispersal
-        
+
             local xVec = vx
             local yVec = vy
             local zVec = vz
@@ -70,7 +70,7 @@ NBombProj2 = Class(ConcussionBomb) {
             -- child proj.
             for i = 0, (numProjectiles - 1) do
                 xVec = vx + (math.sin(angleInitial + (i*angle) + RandomFloat(-angleVariation, angleVariation))) * spreadMul
-                zVec = vz + (math.cos(angleInitial + (i*angle) + RandomFloat(-angleVariation, angleVariation))) * spreadMul 
+                zVec = vz + (math.cos(angleInitial + (i*angle) + RandomFloat(-angleVariation, angleVariation))) * spreadMul
                 local proj = self:CreateChildProjectile(ChildProjectileBP)
                 proj:SetVelocity(xVec,yVec,zVec)
                 proj:SetVelocity(velocity)

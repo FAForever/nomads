@@ -165,7 +165,7 @@ Buoy = Class(Entity) {
     SetCanTakeDamage = function(self, val)
         self.CanTakeDamage = val
     end,
-    
+
     SetCanBeKilled = function(self, val)
         self.CanBeKilled = val
     end,

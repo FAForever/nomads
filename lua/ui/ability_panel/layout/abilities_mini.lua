@@ -22,9 +22,9 @@ function SetLayout()
     UIUtil.SkinnableFile('/game/tab-l-btn/tab-open_btn_over.dds'),
     UIUtil.SkinnableFile('/game/tab-l-btn/tab-close_btn_dis.dds'),
     UIUtil.SkinnableFile('/game/tab-l-btn/tab-open_btn_dis.dds'))
-    
+
     controls.collapseArrow.Depth:Set(function() return controls.bg.leftBrace.Depth() + 1 end)
-    
+
     LayoutHelpers.Below(controls.bg, MFDControl, 5)
     if controls.collapseArrow:IsChecked() then
         LayoutHelpers.AtLeftIn(controls.bg, savedParent, -200)
@@ -33,14 +33,14 @@ function SetLayout()
     end
     controls.bg.Height:Set(controls.bg.panel.Height)
     controls.bg.Width:Set(controls.bg.panel.Width)
-    
+
     controls.bg.panel:SetTexture(UIUtil.SkinnableFile('/game/filter-ping-panel/filter-ping-panel02_bmp.dds'))
     controls.bg.leftBrace:SetTexture(UIUtil.SkinnableFile('/game/filter-ping-panel/bracket-left_bmp.dds'))
     controls.bg.leftGlow:SetTexture(UIUtil.SkinnableFile('/game/filter-ping-panel/bracket-energy-l_bmp.dds'))
     controls.bg.rightGlowTop:SetTexture(UIUtil.SkinnableFile('/game/bracket-right-energy/bracket_bmp_t.dds'))
     controls.bg.rightGlowMiddle:SetTexture(UIUtil.SkinnableFile('/game/bracket-right-energy/bracket_bmp_m.dds'))
     controls.bg.rightGlowBottom:SetTexture(UIUtil.SkinnableFile('/game/bracket-right-energy/bracket_bmp_b.dds'))
-        
+
     LayoutHelpers.AtLeftTopIn(controls.bg.panel, controls.bg, 2)
     controls.bg.leftBrace.Right:Set(function() return controls.bg.Left() + 11 end)
     controls.bg.leftBrace.Top:Set(function() return controls.bg.Top() + 2 end)
@@ -54,13 +54,13 @@ function SetLayout()
     controls.bg.rightGlowMiddle.Top:Set(controls.bg.rightGlowTop.Bottom)
     controls.bg.rightGlowMiddle.Bottom:Set(function() return math.max(controls.bg.rightGlowTop.Bottom(), controls.bg.rightGlowBottom.Top()) end)
     controls.bg.rightGlowMiddle.Right:Set(function() return controls.bg.rightGlowTop.Right() end)
-    
+
     controls.orderButtonGrid.Width:Set(GameCommon.iconWidth * horzCols)
     controls.orderButtonGrid.Height:Set(GameCommon.iconHeight * horzRows)
     LayoutHelpers.AtLeftTopIn(controls.orderButtonGrid, controls.bg, 11, 9)
     controls.orderButtonGrid:AppendRows(horzRows)
     controls.orderButtonGrid:AppendCols(horzCols)
-    
+
     controls.bg.Mini = function(state)
         controls.bg:SetHidden(state)
         controls.orderButtonGrid:SetHidden(state)

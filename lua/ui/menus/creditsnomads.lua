@@ -15,7 +15,7 @@ function CreateDialog(exitBehavior)
     local parent = Group(GetFrame(0))
     LayoutHelpers.FillParent(parent, GetFrame(0))
     parent.Depth:Set(GetFrame(0):GetTopmostDepth() + 10)
-    
+
     local worldCover = UIUtil.CreateWorldCover(parent)
 
 -- TODO: play nomads credits movie when we have one
@@ -38,9 +38,9 @@ function CreateDialog(exitBehavior)
     creditsMovie.OnFinished = function(self)
         ExitDialog()
     end
-    
+
     UIUtil.MakeInputModal(creditsMovie)
-    
+
     creditsMovie.HandleEvent = function(self, event)
         -- cancel movie playback on mouse click or key hit
         if event.Type == "ButtonPress" or event.Type == "KeyDown" then
@@ -49,7 +49,7 @@ function CreateDialog(exitBehavior)
                 else
                     return true
                 end
-            end 
+            end
             ExitDialog()
             return true
         end

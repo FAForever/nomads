@@ -38,7 +38,7 @@ INB4301 = Class(NShieldStructureUnit) {
             self.ShieldEffectsBag = {}
         end
     end,
-    
+
     UpgradingState = State(NShieldStructureUnit.UpgradingState) {
         -- having 2 animations manipulating the arms is no good. Disabling the above anim if we're upgrading to stealth.
 

@@ -241,11 +241,11 @@ BuildingTemplates = {
 
         -- UEF FA Specific
         {
-            'T2EngineerSupport', 
+            'T2EngineerSupport',
             'inb1005',
         },
         {
-            'T3GroundDefense', 
+            'T3GroundDefense',
             'inb3303',
         },
 }

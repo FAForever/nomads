@@ -44,7 +44,7 @@ INU0001 = Class(ACUUnit) {
                 end
             end,
         },
-        
+
         AutoOverCharge = Class(AddRapidRepairToWeapon(APCannon1_Overcharge)) {
             PlayFxMuzzleSequence = function(self, muzzle)
                 APCannon1_Overcharge.PlayFxMuzzleSequence(self, muzzle)
@@ -56,7 +56,7 @@ INU0001 = Class(ACUUnit) {
                 end
             end,
         },
-        
+
         OverCharge = Class(AddRapidRepairToWeapon(APCannon1_Overcharge)) {
             PlayFxMuzzleSequence = function(self, muzzle)
                 APCannon1_Overcharge.PlayFxMuzzleSequence(self, muzzle)
@@ -68,9 +68,9 @@ INU0001 = Class(ACUUnit) {
                 end
             end,
         },
-        
+
         DeathWeapon = Class(DeathNuke) {},
-        
+
         TargetFinder = Class(TacticalMissileWeapon2) {
             CreateProjectileForWeapon = function(self, bone)
             end,
@@ -79,7 +79,7 @@ INU0001 = Class(ACUUnit) {
             end,
         },
     },
-    
+
     __init = function(self)
         ACUUnit.__init(self, 'MainGun')
     end,
@@ -93,7 +93,7 @@ INU0001 = Class(ACUUnit) {
         ACUUnit.OnCreate(self)
 
         self:GetAIBrain().OrbitalBombardmentInitiator = self
-        
+
         local bp = self:GetBlueprint()
 
         -- vars
@@ -763,7 +763,7 @@ INU0001 = Class(ACUUnit) {
             self:AddCommandCap('RULEUCC_SiloBuildTactical')
             self:SetWeaponEnabledByLabel('TargetFinder', true)
             self:GetAIBrain():EnableSpecialAbility( 'NomadsAreaBombardment', false)
-            
+
         elseif enh == 'OrbitalBombardmentRemove' then
             self:SetOrbitalBombardEnabled(false)
             self:AddEnhancementEmitterToBone( false, 'left_shoulder_pod' )
@@ -773,20 +773,20 @@ INU0001 = Class(ACUUnit) {
             local amt = self:GetTacticalSiloAmmoCount()
             self:RemoveTacticalSiloAmmo(amt or 0)
             self:StopSiloBuild()
-            
+
         else
             WARN('Enhancement '..repr(enh)..' has no script support.')
         end
     end,
-    
+
     OnAmmoCountDecreased = function(self, amount)
         self:GetAIBrain():EnableSpecialAbility( 'NomadsAreaBombardment', false)
     end,
-    
+
     OnAmmoCountIncreased = function(self, amount)
         self:GetAIBrain():EnableSpecialAbility( 'NomadsAreaBombardment', true)
     end,
-    
+
 }
 
 TypeClass = INU0001

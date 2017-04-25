@@ -174,7 +174,6 @@ UnitBlueprint {
         SonarRadius = 200,
         VisionRadius = 25,
     },
-
     Interface = {
         HelpText = '<LOC inb3202_help>Sonar System',
     },

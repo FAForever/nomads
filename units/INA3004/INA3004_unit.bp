@@ -1,4 +1,4 @@
--- T3 strategic bomber 
+-- T3 strategic bomber
 
 UnitBlueprint {
     AI = {

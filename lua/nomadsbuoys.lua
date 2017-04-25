@@ -36,11 +36,11 @@ NCameraBuoy = Class(Buoy) {
             if self.Radar then
                 self:InitIntel(army, 'Radar', self.Radius)
                 self:EnableIntel('Radar')
-            end        
+            end
             if self.Sonar then
                 self:InitIntel(army, 'Sonar', self.Radius)
                 self:EnableIntel('Sonar')
-            end        
+            end
             if self.Vision then
                 self:InitIntel(army, 'Vision', self.Radius)
                 self:EnableIntel('Vision')

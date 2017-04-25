@@ -23,7 +23,7 @@ taunts = table.cat( taunts, {
     {text = '<LOC NTaunts_MP1_011_015>[{i Benson}]: You really need to leave the air superiority to those who are actually superior.', bank = 'NTaunts', cue = 'NTaunt_Benson_006'},
     {text = '<LOC NTaunts_MP1_011_016>[{i Benson}]: I would encourage you to broaden your horizon - except that you won\'t live to see another one.', bank = 'NTaunts', cue = 'NTaunt_Benson_007'},
     {text = '<LOC NTaunts_MP1_011_017>[{i Benson}]: Your strategy is as primitive as your tech.', bank = 'NTaunts', cue = 'NTaunt_Benson_008'},
-    
+
 } )
 
 end

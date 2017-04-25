@@ -37,9 +37,9 @@ NFlamerProjectile = Class(Flamer) {
         end
     end,
 
-    OnImpactDestroy = function( self, targetType, targetEntity ) 
-        if targetType == "Terrain" or targetType == "Shield" or targetType == "Air" then 
-            NapalmProjectile.OnImpactDestroy(self, targetType, targetEntity) 
+    OnImpactDestroy = function( self, targetType, targetEntity )
+        if targetType == "Terrain" or targetType == "Shield" or targetType == "Air" then
+            NapalmProjectile.OnImpactDestroy(self, targetType, targetEntity)
         end
     end,
 }

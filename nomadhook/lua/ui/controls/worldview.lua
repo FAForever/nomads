@@ -242,7 +242,7 @@ WorldView = Class(oldWorldView) {
     SetCursorImg = function(self, worldPos)
         local cursorWas = self.Cursor
         local inRange = self:CheckPosInRange(worldPos)
-        if not inRange then 
+        if not inRange then
             self.Cursor = {UIUtil.GetCursor('RULEUCC_Invalid')}
         else
             local cursor = self:GetAbilityData('cursor') or self:GetAbilityData('Name') or 'RULEUCC_Attack'

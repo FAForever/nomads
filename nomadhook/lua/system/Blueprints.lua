@@ -49,15 +49,15 @@
 -- unit only necessary for FAF and undesired in the other balances.
 function LoadBlueprints(pattern, directories, mods, skipGameFiles, skipExtraction, skipRegistration)
 
-    -- set default parameters if they are not provided  
+    -- set default parameters if they are not provided
     if not pattern then pattern = '*.bp' end
-    if not directories then 
+    if not directories then
         directories = {'/effects', '/env', '/meshes', '/projectiles', '/props', '/units'}
     end
 
     LOG('Blueprints Loading... \'' .. tostring(pattern) .. '\' files')
-    
-    if not mods then 
+
+    if not mods then
         mods = __active_mods or import('/lua/mods.lua').GetGameMods()
     end
     InitOriginalBlueprints()
@@ -104,12 +104,12 @@ function LoadBlueprints(pattern, directories, mods, skipGameFiles, skipExtractio
     PreModBlueprints(original_blueprints)
     ModBlueprints(original_blueprints)
     PostModBlueprints(original_blueprints)
-     
+
     stats.UnitsTotal = table.getsize(original_blueprints.Unit)
     stats.UnitsPreset = stats.UnitsTotal - stats.UnitsOrg - stats.UnitsMod
     if stats.UnitsTotal > 0 then
         LOG('Blueprints Loading... completed: ' .. stats.UnitsOrg .. ' original, '
-                                                .. stats.UnitsMod .. ' modded, and ' 
+                                                .. stats.UnitsMod .. ' modded, and '
                                                 .. stats.UnitsPreset .. ' preset units')
     end
     stats.ProjsTotal = table.getsize(original_blueprints.Projectile)
@@ -117,7 +117,7 @@ function LoadBlueprints(pattern, directories, mods, skipGameFiles, skipExtractio
         LOG('Blueprints Loading... completed: ' .. stats.ProjsOrg .. ' original and '
                                                 .. stats.ProjsMod .. ' modded projectiles')
     end
-     
+
     if not skipRegistration then
         BlueprintLoaderUpdateProgress()
         LOG('Blueprints Registering...')
@@ -386,7 +386,7 @@ function ExtractStunnedMeshBlueprint(bp)
         local meshbp = original_blueprints.Mesh[meshid]
         if not meshbp then return end
         local StunnedMeshBp = table.deepcopy(meshbp)
-        
+
         -- changing shadernames
         if StunnedMeshBp.LODs then
             for k, lod in StunnedMeshBp.LODs do
@@ -396,7 +396,7 @@ function ExtractStunnedMeshBlueprint(bp)
                 end
             end
         end
-	
+
         -- registering new mesh for future use
         StunnedMeshBp.BlueprintId = meshid .. '_stunned'
         bp.Display.MeshBlueprintStunned = StunnedMeshBp.BlueprintId
@@ -576,8 +576,8 @@ function DEBUG_UNIT_BP_CHECK(bps)
             WARN('*DEBUG: BP analyse: '..bp.BlueprintId..' Transport.AirClass not set')
         end
 
-        if (ENGINEER and not SUBCOMMANDER and not COMMAND and bp.General.Classification ~= 'RULEUC_Engineer') or 
-           (LAND and not ENGINEER and not SUBCOMMANDER and not COMMAND and bp.General.Classification ~= 'RULEUC_MilitaryVehicle') or 
+        if (ENGINEER and not SUBCOMMANDER and not COMMAND and bp.General.Classification ~= 'RULEUC_Engineer') or
+           (LAND and not ENGINEER and not SUBCOMMANDER and not COMMAND and bp.General.Classification ~= 'RULEUC_MilitaryVehicle') or
            (AIR and bp.General.Classification ~= 'RULEUC_MilitaryAircraft') or (FACTORY and STRUCTURE and bp.General.Classification ~= 'RULEUC_Factory') or
            (ENERGYPRODUCTION and STRUCTURE and bp.General.Classification ~= 'RULEUC_Resource') or (MASSPRODUCTION and STRUCTURE and bp.General.Classification ~= 'RULEUC_Resource') or
            (DEFENSE and STRUCTURE and bp.General.Classification ~= 'RULEUC_Weapon') or (INTELLIGENCE and STRUCTURE and not DEFENSE and bp.General.Classification ~= 'RULEUC_Sensor') or

@@ -96,7 +96,7 @@ local oldSelection = GetSelectedUnits()
                 orderCheckbox:SetCheck(false)
             end
         end
-    )    
+    )
 end
 
 function SetLayout(layout)
@@ -161,7 +161,7 @@ function AddSpecialAbility(data)
         AddAbility = false
     else
         for k,v in availableOrders do
-            if v == AbilityName then 
+            if v == AbilityName then
                 AddAbility = false
             end
         end
@@ -187,15 +187,15 @@ function RemoveSpecialAbility(data)
     local ability = SpecialAbilities[AbilityName] or false
     local RemoveAbility = false
     local id = false
-    
+
     for k,v in availableOrders do
-        if v == AbilityName then 
+        if v == AbilityName then
             RemoveAbility = true
             id = k
         end
     end
-    
-    if RemoveAbility then 
+
+    if RemoveAbility then
         table.remove(availableOrders, id)
         defaultOrdersTable[AbilityName] = nil
         ButtonParams[AbilityName] = nil
@@ -206,7 +206,7 @@ end
 --enable an ability button on ability panel
 function EnableSpecialAbility(data)
     local AbilityName = data.AbilityName
-    if orderCheckboxMap[AbilityName] then 
+    if orderCheckboxMap[AbilityName] then
         orderCheckboxMap[AbilityName]:Enable()
         ButtonParams[AbilityName].Enabled = true
         ForkThread(newOrderGlow, orderCheckboxMap[AbilityName])
@@ -220,20 +220,20 @@ end
 --disable an ability button on ability panel
 function DisableSpecialAbility(data)
     local AbilityName = data.AbilityName
-    if orderCheckboxMap[AbilityName] then 
+    if orderCheckboxMap[AbilityName] then
         orderCheckboxMap[AbilityName]:Disable()
         ButtonParams[AbilityName].Enabled = false
-        
-        if glowThread[AbilityName] then 
+
+        if glowThread[AbilityName] then
             KillThread(glowThread[AbilityName])
         end
-        
-        if controls.NewButtonGlows[AbilityName] then 
+
+        if controls.NewButtonGlows[AbilityName] then
             controls.NewButtonGlows[AbilityName]:SetNeedsFrameUpdate(false)
             controls.NewButtonGlows[AbilityName]:Destroy()
             controls.NewButtonGlows[AbilityName] = false
         end
-    
+
         NewGlowThread[AbilityName] = false
     end
 end
@@ -244,13 +244,13 @@ function SetAvailableOrders()
     -- clear existing buttons
     KillTimers()
     orderCheckboxMap = {}
-    if controls.orderButtonGrid then 
+    if controls.orderButtonGrid then
         controls.orderButtonGrid:DestroyAllItems(true)
     end
 
     -- create our copy of orders table
     standardOrdersTable = table.deepcopy(defaultOrdersTable)
-    
+
     --count our buttons
     local numValidOrders = 0
     for i, v in availableOrders do
@@ -258,15 +258,15 @@ function SetAvailableOrders()
             numValidOrders = numValidOrders + 1
         end
     end
-        
+
     if numValidOrders ~= 0 and numValidOrders <= numSlots then
         CreateAltOrders()
     end
-    
-    if controls.orderButtonGrid then 
+
+    if controls.orderButtonGrid then
         controls.orderButtonGrid:EndBatch()
     end
-    
+
     --if no buttons on the panel hide it.
     if numValidOrders == 0 and controls.bg.Mini then
        HideAll()
@@ -281,12 +281,12 @@ end
 --THIS MEANS IF 2 BUTTONS ARE SENT TO THE PANEL AND THEY BOTH HAVE THE SAME SLOT NUMBER THEY WILL BE PLACED IN SLOTS 1 AND 2
 --IF THE 2 BUTTONS ARE SENT IN DIFFERENT GAME TICKS AND THEY BOTH WANT TO GO INTO THE SAME SLOT THEN THE BUTTON IN THE SLOT IS REPLACED BY BUTTON 2.
 function CreateAltOrders()
-            
+
     -- determine what slots to put abilities into
     -- we first want a table of slots we want to fill, and what orders want to fill them
     local desiredSlot = {}
     for index, availOrder in availableOrders do
-        if standardOrdersTable[availOrder] then 
+        if standardOrdersTable[availOrder] then
             local UISlot = standardOrdersTable[availOrder].UISlot
             if not desiredSlot[UISlot] then
                 desiredSlot[UISlot] = {}
@@ -298,7 +298,7 @@ function CreateAltOrders()
     -- now go through that table and determine what doesn't fit and look for slots that are empty
     -- since this is only alt orders, just deal with slots 7-12
     local orderInSlot = {}
-    
+
     -- go through first time and add all the first entries to their preferred slot
     for slot = firstAltSlot, numSlots do
         if desiredSlot[slot] then
@@ -333,7 +333,7 @@ function CreateAltOrders()
     for slot, order in orderInSlot do
         slotForOrder[order] = slot
     end
-    
+
     -- create the alt order buttons
     for index, availOrder in availableOrders do
         if not standardOrdersTable[availOrder] then continue end   -- skip any orders we don't have in our table
@@ -342,13 +342,13 @@ function CreateAltOrders()
         local orderCheckbox = AddOrder(orderInfo, slotForOrder[availOrder], true)
 
         orderCheckbox._order = availOrder
-            
+
 --        if standardOrdersTable[availOrder].script then
         if standardOrdersTable[availOrder].Name then
             orderCheckbox._script = standardOrdersTable[availOrder].script
             orderCheckbox._Name = standardOrdersTable[availOrder].Name
         end
- 
+
         orderCheckboxMap[availOrder] = orderCheckbox
     end
 end
@@ -356,21 +356,21 @@ end
 --this function adds the order to the slot AND sets up all the events and effects for the button.
 function AddOrder(orderInfo, slot, batchMode)
     batchMode = batchMode or false
-    
+
     local checkbox = Checkbox(controls.orderButtonGrid, GetOrderBitmapNames(orderInfo.UIBitmapId))
 --    local button = orderInfo.script
     local button = orderInfo.Name
-    
+
 
     -- set the info in to the data member for retrieval
     checkbox._data = orderInfo
-    
+
     -- set up initial help text
     checkbox._curHelpText = orderInfo.UIHelpText
 
     -- set up click handler
     checkbox.OnClick = orderInfo.behavior
-    
+
     if orderInfo.onframe then
         checkbox.EnableEffect = Bitmap(checkbox, UIUtil.UIFile('/game/orders/glow-02_bmp.dds'))
         LayoutHelpers.AtCenterIn(checkbox.EnableEffect, checkbox)
@@ -412,8 +412,8 @@ function AddOrder(orderInfo, slot, batchMode)
             Checkbox.OnDisable(self)
         end
     end
-    
-    if orderInfo.ExtraInfo.CoolDownTime and orderInfo.ExtraInfo.CoolDownTime > 0 then 
+
+    if orderInfo.ExtraInfo.CoolDownTime and orderInfo.ExtraInfo.CoolDownTime > 0 then
         checkbox.buttonText = UIUtil.CreateText(checkbox, '', 18, UIUtil.bodyFont)
         checkbox.buttonText:SetColor('ffffffff')
         checkbox.buttonText:SetDropShadow(true)
@@ -423,14 +423,14 @@ function AddOrder(orderInfo, slot, batchMode)
         ButtonParams[button].CoolDownTime = orderInfo.ExtraInfo.CoolDownTime
     end
 
-    if ButtonParams[button].CoolDownEnabled then 
+    if ButtonParams[button].CoolDownEnabled then
         StartCoolDownTimer(button)
     end
 
-    if not ButtonParams[button].Enabled then 
+    if not ButtonParams[button].Enabled then
         checkbox:Disable()
     end
-    
+
     --ok if the button fires a counted projectile weapon (silo).. we can use this to update the number of projectiles
     --you will have to add the function to the orderinfo.ButtonTextFunc in this file.
     if orderInfo.ButtonTextFunc then
@@ -453,7 +453,7 @@ function AddOrder(orderInfo, slot, batchMode)
             if controls.orderGlow[button] then
                 controls.orderGlow[button]:Destroy()
                 controls.orderGlow[button] = false
-            end                
+            end
             CreateMouseoverDisplay(self, self._curHelpText, 1)
             glowThread[button] = CreateOrderGlow(self)
         elseif event.Type == 'MouseExit' then
@@ -476,11 +476,11 @@ function AddOrder(orderInfo, slot, batchMode)
     local col = math.mod(slot - 1, cols) + 1
     controls.orderButtonGrid:DestroyItem(col, row, batchMode)
     controls.orderButtonGrid:SetItem(checkbox, col, row, batchMode)
-    
-    if ButtonParams[button].Enabled then 
+
+    if ButtonParams[button].Enabled then
         ForkThread(newOrderGlow, checkbox)
     end
-    
+
     return checkbox
 end
 
@@ -489,11 +489,11 @@ function CreateOrderGlow(parent)
 
 --    local button = parent._data.script
     local button = parent._data.Name
-    if controls.NewButtonGlows[button] then 
+    if controls.NewButtonGlows[button] then
         controls.NewButtonGlows[button]:Destroy()
         controls.NewButtonGlows[button] = false
     end
-    
+
     controls.orderGlow[button] = Bitmap(parent, UIUtil.UIFile('/game/orders/glow-02_bmp.dds'))
     LayoutHelpers.AtCenterIn(controls.orderGlow[button], parent)
     controls.orderGlow[button]:SetAlpha(0.0)
@@ -518,7 +518,7 @@ function CreateOrderGlow(parent)
         if controls.orderGlow[button] and controls.orderGlow[button].SetAlpha then
             controls.orderGlow[button]:SetAlpha(alpha)
         end
-    end     
+    end
 end
 
 --when a new button is added OR enabled make it glow for a while..
@@ -534,11 +534,11 @@ function CreateNewAbilityGlow(parent)
     local incriment = true
     local StartTime = GetGameTimeSeconds()
     controls.NewButtonGlows[button].OnFrame = function(self, deltaTime)
-    
-        if (GetGameTimeSeconds() - StartTime) > FlashTime then 
+
+        if (GetGameTimeSeconds() - StartTime) > FlashTime then
             controls.NewButtonGlows[button]:SetNeedsFrameUpdate(false)
         end
-        
+
         if incriment then
             alpha = alpha + (deltaTime * 1.2)
         else
@@ -553,21 +553,21 @@ function CreateNewAbilityGlow(parent)
             incriment = false
         end
         controls.NewButtonGlows[button]:SetAlpha(alpha)
-    end   
+    end
 end
 
---when a new button is added to our panel, make it flash for a few seconds.. 
+--when a new button is added to our panel, make it flash for a few seconds..
 function newOrderGlow(parent)
 --    local button = parent._data.script
     local button = parent._data.Name
     NewGlowThread[button] = CreateNewAbilityGlow(parent)
     WaitSeconds(FlashTime)
-    
-    if controls.NewButtonGlows[button] then 
+
+    if controls.NewButtonGlows[button] then
         controls.NewButtonGlows[button]:Destroy()
         controls.NewButtonGlows[button] = false
     end
-    
+
     --KillThread(NewGlowThread[button])
     NewGlowThread[button] = false
 end
@@ -579,14 +579,14 @@ function CreateMouseoverDisplay(parent, ID)
         controls.mouseoverDisplay:Destroy()
         controls.mouseoverDisplay = false
     end
-    
+
     if not Prefs.GetOption('tooltips') then return end
-    
+
     local createDelay = Prefs.GetOption('tooltip_delay') or 0
-    
+
     local text = TooltipInfo['Tooltips'][ID]['title'] or ID
     local desc = TooltipInfo['Tooltips'][ID]['description'] or ID
-    
+
     if TooltipInfo['Tooltips'][ID]['keyID'] and TooltipInfo['Tooltips'][ID]['keyID'] ~= "" then
         for i, v in Keymapping do
             if v == TooltipInfo['Tooltips'][ID]['keyID'] then
@@ -596,7 +596,7 @@ function CreateMouseoverDisplay(parent, ID)
             end
         end
     end
-    
+
     if not text or not desc then
         return
     end
@@ -611,7 +611,7 @@ function CreateMouseoverDisplay(parent, ID)
     else
         LayoutHelpers.AtHorizontalCenterIn(controls.mouseoverDisplay, parent)
     end
-    
+
     local alpha = 0.0
     controls.mouseoverDisplay:SetAlpha(alpha, true)
     local mdThread = ForkThread(function()
@@ -624,7 +624,7 @@ function CreateMouseoverDisplay(parent, ID)
     end)
 
     controls.mouseoverDisplay.OnDestroy = function(self)
-        KillThread(mdThread)  
+        KillThread(mdThread)
     end
 end
 
@@ -635,7 +635,7 @@ function GetOrderBitmapNames(bitmapId)
         LOG("Error - nil bitmap passed to GetOrderBitmapNames")
         bitmapId = "basic-empty"    -- TODO do I really want to default it?
     end
-    
+
     local button_prefix = "/game/orders/" .. bitmapId .. "_btn_"
     return UIUtil.SkinnableFile(button_prefix .. "up.dds")
         ,  UIUtil.SkinnableFile(button_prefix .. "up_sel.dds")
@@ -695,7 +695,7 @@ function AbilityButtonBehavior(self, modifiers, ClickType, MouseButton)
             }
             CM.StartCommandMode("order", modeData)
             CM.EndCommandMode(false)
-  
+
 --    else
         if self:IsChecked() then
             CM.EndCommandMode(true)
@@ -716,9 +716,9 @@ function AbilityButtonBehavior(self, modifiers, ClickType, MouseButton)
 end
 
 function StartCoolDownTimer(buttonName)
-    if orderCheckboxMap[buttonName] then 
+    if orderCheckboxMap[buttonName] then
         local button = orderCheckboxMap[buttonName]
-    
+
         local Timer = ButtonParams[buttonName].CoolDownTimerValue or 0
         local CountDown = ButtonParams[buttonName].CoolDownTime or button._data.ExtraInfo.CoolDownTime
         local curTime = ButtonParams[buttonName].CurrCoolDownTime or button._data.ExtraInfo.CoolDownTime
@@ -742,15 +742,15 @@ function StartCoolDownTimer(buttonName)
                 UpdateTime(self)
             else
                 CooldownTimerExpired(buttonName)
-            end    
+            end
         end
     end
 end
 
---needs work.. the timer does not restart once its done.. 
+--needs work.. the timer does not restart once its done..
 --stop and destroy the cooldown timer.
 function StopCoolDownTimer(buttonName)
-    if orderCheckboxMap[buttonName] then 
+    if orderCheckboxMap[buttonName] then
         Button = orderCheckboxMap[buttonName]
         ButtonParams[buttonName].CoolDownEnabled = false
         ButtonParams[buttonName].CurrCoolDownTime = Button._data.ExtraInfo.CoolDownTime
@@ -787,7 +787,7 @@ end
 --kill button timers. (cooldowns)
 function KillTimers()
     for k,v in ButtonParams do
-        if ButtonParams[k].CoolDownEnabled then 
+        if ButtonParams[k].CoolDownEnabled then
             local button = orderCheckboxMap[k]
             button.buttonText:SetNeedsFrameUpdate(false)
         end
@@ -797,7 +797,7 @@ end
 --restart buttons that have timers on them (cooldowns)
 function RestartTimers()
     for k,v in ButtonParams do
-        if ButtonParams[k].CoolDownEnabled then 
+        if ButtonParams[k].CoolDownEnabled then
             StartCoolDownTimer(k)
         end
     end
@@ -881,7 +881,7 @@ function Close_Panel()
     Panel_State = 'closed'
 end
 
---helper function to open the panel 
+--helper function to open the panel
 function ShowAll()
     ForkThread(ShowAllThread)
 end

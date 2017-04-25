@@ -349,7 +349,7 @@ GattlingMuzzleFx1 = {
     EmtBpPath .. 'gauss_cannon_muzzle_flash_01_emit.bp',
     EmtBpPath .. 'gauss_cannon_muzzle_flash_02_emit.bp',
     EmtBpPath .. 'gauss_cannon_muzzle_smoke_02_emit.bp',
-    EmtBpPath .. 'cannon_muzzle_smoke_09_emit.bp', 
+    EmtBpPath .. 'cannon_muzzle_smoke_09_emit.bp',
 }
 
 GattlingTrail1 = {}
@@ -362,7 +362,7 @@ GattlingPolyTrails1 = {
 GattlingHitNone1 = {
     EmtBpPath .. 'gauss_cannon_hit_01_emit.bp',
     EmtBpPath .. 'gauss_cannon_hit_02_emit.bp',
-    EmtBpPath .. 'gauss_cannon_hit_03_emit.bp',    
+    EmtBpPath .. 'gauss_cannon_hit_03_emit.bp',
     EmtBpPath .. 'gauss_cannon_hit_04_emit.bp',
     EmtBpPath .. 'gauss_cannon_hit_05_emit.bp',
 }
@@ -387,7 +387,7 @@ GattlingMuzzleFx2 = {
     EmtBpPath .. 'gauss_cannon_muzzle_flash_01_emit.bp',
     EmtBpPath .. 'gauss_cannon_muzzle_flash_02_emit.bp',
     EmtBpPath .. 'gauss_cannon_muzzle_smoke_02_emit.bp',
-    EmtBpPath .. 'cannon_muzzle_smoke_09_emit.bp', 
+    EmtBpPath .. 'cannon_muzzle_smoke_09_emit.bp',
 }
 
 GattlingTrail2 = {}
@@ -850,7 +850,7 @@ FlareHitLand1 = TableCat(FlareHitNone1, {
 FlareHitWater1 = TableCat(FlareHitNone1, {
 })
 
-FlareHitProjectile1 = TableCat(FlareHitNone1, { 
+FlareHitProjectile1 = TableCat(FlareHitNone1, {
 -- TODO: the flare impacts with a missile projectile. Should be a little bigger eplosion
     EmtBpPathNomads .. 'nomads_aamflare_impact01_emit.bp',
 })
@@ -1068,9 +1068,9 @@ RocketTrail3 = {
 RocketPolyTrail3 = EmtBpPath .. 'nomads_rocket_polytrail_03_emit.bp'
 
 RocketHitNone3 = {
-    EmtBpPathNomads .. 'nomads_rocket_hit_08_emit.bp',  
-    EmtBpPathNomads .. 'nomads_rocket_hit_09_emit.bp',  
-	EmtBpPathNomads .. 'smoke_white_small_02.bp',  
+    EmtBpPathNomads .. 'nomads_rocket_hit_08_emit.bp',
+    EmtBpPathNomads .. 'nomads_rocket_hit_09_emit.bp',
+	EmtBpPathNomads .. 'smoke_white_small_02.bp',
 }
 
 RocketHitLand3 = TableCat( RocketHitNone3, {
@@ -1236,15 +1236,15 @@ EMPMissileTrail = {
 }
 
 EMPMissileHitNone1 = {
-    EmtBpPathNomads .. 'nomads_empmissile_hit05_emit.bp',  
-	EmtBpPathNomads .. 'nomads_empmissile_hit07_emit.bp',  
+    EmtBpPathNomads .. 'nomads_empmissile_hit05_emit.bp',
+	EmtBpPathNomads .. 'nomads_empmissile_hit07_emit.bp',
     -- EmtBpPath .. 'destruction_explosion_debris_04_emit.bp',
     -- EmtBpPath .. 'destruction_explosion_debris_07_emit.bp',
 }
 
 EMPMissileElectricityEffect = {
-    EmtBpPathNomads .. 'nomads_empmissile_hit03_emit.bp', 
-    EmtBpPathNomads .. 'nomads_empmissile_hit04_emit.bp',  
+    EmtBpPathNomads .. 'nomads_empmissile_hit03_emit.bp',
+    EmtBpPathNomads .. 'nomads_empmissile_hit04_emit.bp',
 }
 EMPMissileElectricityEffectDurationMulti = 0.5
 
@@ -1277,7 +1277,7 @@ TacticalMissileMuzzleFx = {
     EmtBpPathNomads .. 'nomads_tacticalmissilelaunch03_emit.bp',
 }
 
-TacticalMissileMuzzleFxUnderWaterAddon = { 
+TacticalMissileMuzzleFxUnderWaterAddon = {
     -- only use if unit is under water sufficiently, like 3 - 4 units under water, or you'll see air bubbles above the water
     EmtBpPath .. 'terran_cruise_missile_sublaunch_01_emit.bp',
 }
@@ -1427,7 +1427,7 @@ ArcingTacticalMissileSpeedupFlash = {
     EmtBpPathNomads .. 'nomads_tacticalmissile_speedup01_emit.bp',  -- flash
 	EmtBpPathNomads .. 'nomads_tacticalmissile_speedup02_emit.bp',  -- lense
 	EmtBpPathNomads .. 'smoke_white_small.bp',  -- smoke
-	EmtBpPathNomads .. 'split_shockwave.bp',  -- shockwave 
+	EmtBpPathNomads .. 'split_shockwave.bp',  -- shockwave
 }
 
 --------------------------------------------------------------------------
@@ -2866,5 +2866,5 @@ NPlasmaFlameThrowerHitWater01 = {
     EmtBpPath .. 'Plasmaflamethrower/plasmaflame_oilslick_emit.bp',
     EmtBpPath .. 'Plasmaflamethrower/plasmaflame_lines_emit.bp',
     EmtBpPath .. 'Plasmaflamethrower/plasmaflame_water_ripples_emit.bp',
-    EmtBpPath .. 'Plasmaflamethrower/plasmaflame_water_dots_emit.bp',    
+    EmtBpPath .. 'Plasmaflamethrower/plasmaflame_water_dots_emit.bp',
 }

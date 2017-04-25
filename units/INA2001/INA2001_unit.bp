@@ -129,12 +129,10 @@ UnitBlueprint {
             '<LOC ability_transport>Transport',
             '<LOC ability_flares>Flares',
         },
-
         BuildEffect = {
             ExtendsFront = 0,
             ExtendsRear = 0,
         },
-
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {

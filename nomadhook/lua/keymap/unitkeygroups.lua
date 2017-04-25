@@ -1,5 +1,5 @@
 --list of blueprint id's used for each category
-buildingTab = {
+unitkeygroups = {
 
 ["Builders"] = {
   "Land_Factory",
@@ -65,14 +65,14 @@ buildingTab = {
 
 ["MassFab"] = {
   "Mass_Fabricator",
-  
+
   "T2_Gatling_Bot",
   "T2_Rocket_Bot",
   "T2_Assault_Bot",
-  
+
   "T2_Fighter/Bomber",
   "T2_Combat_Fighter",
-  
+
   "T2_Submarine_Hunter",
   "T2_Torpedo_Boat",
   "T2_Submarine_Killer",
@@ -83,9 +83,9 @@ buildingTab = {
   "Hydrocarbon_Power_Plant",
 
   "T2_Heavy_Tank",
-  
+
   "T2_Torpedo_Bomber",
-  
+
   "T2_Destroyer",
 },
 
@@ -97,20 +97,20 @@ buildingTab = {
   "T2_Hover_Tank",
   "T2_Assault_Tank",
   "T2_Amphibious_Tank",
-  
+
   "T2_Gunship",
-  
+
   "T2_Cruiser",
 },
 
 ["EngyStations"] = {
   "Engineering_Station",
-  
+
   "T2_Mobile_Anti_Air_Cannon",
   "T2_Mobile_AA_Flak_Artillery",
-  
+
   "T2_Air_Transport",
-  
+
   "T2_Counter_Intelligence_Boat",
   "T2_Shield_Boat",
 },
@@ -135,7 +135,7 @@ buildingTab = {
   "Heavy_Point_Defense",
   "Point_Defense",
   "Wall_Section",
-  
+
   "T3_Engineer",
 },
 
@@ -149,7 +149,7 @@ buildingTab = {
   "inu3007", -- Nomads Superheavy tank
 
   "T3_Spy_Plane",
-  
+
   "T3_Strategic_Missile_Submarine",
   "T3_Submarine_Hunter",
 },
@@ -162,18 +162,18 @@ buildingTab = {
   "ual0303", -- Harbinger
   "xrl0305", -- Brick
   "xel0305", -- Percival
-  "xsl0303", -- Seraphim Tank  
+  "xsl0303", -- Seraphim Tank
   "inu3002", -- Nomads T3 Hover Tank
-  
+
   "T3_Air_Superiority_Fighter",
-  
+
   "T3_Battleship",
 },
 
 ["Arties"] = {
   "Artillery_Installation",
   "Heavy_Artillery_Installation",
-  
+
   "T3_Strategic_Bomber",
 
   "T3_Mobile_Heavy_Artillery",
@@ -189,11 +189,11 @@ buildingTab = {
   "T3_Mobile_Missile_Platform",
   "T3_Shield_Disruptor",
   "T3_Mobile_Shield_Generator",
-  
+
   "T3_Heavy_Gunship",
   "T3_AA_Gunship",
   "inu3008", -- Nomads T3 Mobile Missile Defense
-  
+
   "T3_Missile_Ship",
 },
 

@@ -55,7 +55,7 @@ ProxDetectEntity = Class(Entity) {
         self:SetVizToFocusPlayer('Never')
         self:SetVizToNeutrals('Never')
         self:SetDetectCategory(self.Category)
-        
+
         if self:IsEnabled() then
             self:Enable()
         end

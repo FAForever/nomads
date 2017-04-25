@@ -20,8 +20,8 @@ INU3008 = Class(NConstructionUnit) {
                     end
                     self.IdleReloadThread = self:ForkThread(self.ReloadThread)
                 end,
-                
-                
+
+
                 ReloadThread = function(self)
                     --WARN('waiting in idle reload')
                     WaitSeconds(1.4)
@@ -71,7 +71,7 @@ INU3008 = Class(NConstructionUnit) {
                         self.unit:OnTargetAcquired()
                     end
                 end,
-                
+
                 Audio = {
                     FireSpecial = Sound {
                         Bank = 'NomadsWeapons',
@@ -146,7 +146,7 @@ INU3008 = Class(NConstructionUnit) {
 
     OnScriptBitSet = function(self, bit)
         NConstructionUnit.OnScriptBitSet(self, bit)
-        if bit == 1 then 
+        if bit == 1 then
             self:IntelOverchargeBeginCharging()
         end
     end,

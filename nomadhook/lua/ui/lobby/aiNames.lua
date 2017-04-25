@@ -55,7 +55,7 @@ ainames = table.merged( ainames, {
         'Legion Darrath',
         'Pureon',
         'FightFear',
-        
+
         -- new team
         'CookieNoob',
         'Exotic_Retard',

@@ -29,7 +29,7 @@ Platoon = Class(oldPlatoon) {
     end,
 
     ExperimentalAIHubSorian = function(self)
-        -- trying to have Sorian support Nomads aswell. This is mostly copy-paste from Sorians code. Hooking doesn't work here 
+        -- trying to have Sorian support Nomads aswell. This is mostly copy-paste from Sorians code. Hooking doesn't work here
         -- because the function call seems to be terminated when one of the behaviours is returned. So by using hooking only the call to
         -- SOrians function is executed. Everything coming after (Nomads code) is neglected.
         --local ret = oldPlatoon.ExperimentalAIHubSorian(self)

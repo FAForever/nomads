@@ -117,7 +117,7 @@ UnitBlueprint {
             '<LOC ability_sonar>Sonar',
             '<LOC ability_tacmissiledef>Tactical Missile Defense',
         },
-        AnimationDeath = {
+--[[        AnimationDeath = {
             {
                 Animation = '/units/INS3003/INS3003_ADeath01.sca',
                 Weight = 100,
@@ -178,7 +178,7 @@ UnitBlueprint {
                 Weight = 100,
                 Rate = 0.03,
             },
-        },
+        },]]
         IdleEffects = {
             Water = {
                 Effects = {
@@ -201,7 +201,6 @@ UnitBlueprint {
             IconFadeInZoom = 130,
             LODs = {
                 {
-
                     LODCutoff = 600,
                     ShaderName = 'NomadUnit',
                 },
