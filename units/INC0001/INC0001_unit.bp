@@ -85,8 +85,8 @@ UnitBlueprint {
         StorageMass = 650,
     },
     Footprint = {
-        SizeX = 28,
-        SizeZ = 28,
+        SizeX = 14,
+        SizeZ = 14,
     },
     General = {
         CapCost = 0,
@@ -114,7 +114,7 @@ UnitBlueprint {
         UnitWeight = 1,
     },
     Intel = {
-        VisionRadius = 15,
+        VisionRadius = 23,
     },
     Interface = {
         HelpText = '<LOC inc0001_help>Orbital Support Spacecraft',

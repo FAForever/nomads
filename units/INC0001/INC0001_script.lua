@@ -12,18 +12,20 @@ INC0001 = Class(NCivilianStructureUnit) {
 
         NCivilianStructureUnit.OnCreate(self)
 
-        if self:GetBlueprint().Physics.Elevation then
-            self:Hover()
-        end
         if self:GetBlueprint().Rotators.Stationary then
             self:StationaryAngle()
         else
             self:RotatingAngle()
         end
-
+        --ForkThread(function()
+        --  WaitSeconds(2)
+        --  self:Landing()
+        --  WaitSeconds(10)
+        --  self:TakeOff()
+        --end
+        --)
+        
         --self:TakeOff()
-
-        --self:Landing()
         --self:BurnEngines()
 
         --[[for _, army in ListArmies() do
@@ -31,14 +33,6 @@ INC0001 = Class(NCivilianStructureUnit) {
                 self:AddToConstructionQueue('inu1001', army)
             end
         end]]
-    end,
-
-    Hover = function(self)
-        local pos = self:GetPosition()
-        local surface = GetSurfaceHeight(pos[1], pos[3]) + GetTerrainTypeOffset(pos[1], pos[3])
-        local elevation = self:GetBlueprint().Physics.Elevation
-        pos[2] = surface + elevation
-        self:SetPosition( pos, true)
     end,
 
     RotatingAngle = function(self)
@@ -172,11 +166,11 @@ INC0001 = Class(NCivilianStructureUnit) {
             end
         end
         self.LaunchAnim = CreateAnimator(self):PlayAnim('/units/INO0001/INO0001_land.sca')
-        self.LaunchAnim:SetAnimationFraction(0.4)
+        self.LaunchAnim:SetAnimationFraction(0.3)
         self.LaunchAnim:SetRate(0.1)
         self.Trash:Add(self.LaunchAnim)
         ForkThread(function()
-            WaitSeconds(3.3)
+            WaitSeconds(5.3)
             self:StopEngines()
         end
         )
