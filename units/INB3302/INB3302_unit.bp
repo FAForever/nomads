@@ -117,10 +117,10 @@ UnitBlueprint {
                     ShaderName = 'NomadUnit',
                 },
                 {
-                    AlbedoName = 'inb3302_lod1_albedo.dds',
+                    AlbedoName = 'INB3302_Albedo.dds',
                     LODCutoff = 215,
                     ShaderName = 'NomadUnit',
-                    SpecularName = 'inb3302_lod1_specteam.dds',
+                    SpecularName = 'INB3302_SpecTeam.dds',
                 },
             },
         },
