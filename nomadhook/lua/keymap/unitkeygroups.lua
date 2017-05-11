@@ -51,7 +51,7 @@ unitkeygroups = {
   "T1_Light_Air_Transport",
 },
 
-["Arty"] = {
+["Mobilearty"] = {
   "T1_Mobile_Light_Artillery",
   "T1_Light_Gunship",
 },
@@ -103,7 +103,7 @@ unitkeygroups = {
   "T2_Cruiser",
 },
 
-["EngyStations"] = {
+["EngyStation"] = {
   "Engineering_Station",
 
   "T2_Mobile_Anti_Air_Cannon",
@@ -120,7 +120,7 @@ unitkeygroups = {
   "T2_Guided_Missile",
 },
 
-["MobileShields"] = {
+["MobileShield"] = {
   "T2_Mobile_Shield_Generator",
   "T2_Mobile_Stealth_Field_System",
 },
@@ -131,7 +131,7 @@ unitkeygroups = {
 
 -- Row 3 XCVBNM
 
-["Defenses"] = {
+["Defense"] = {
   "Heavy_Point_Defense",
   "Point_Defense",
   "Wall_Section",
