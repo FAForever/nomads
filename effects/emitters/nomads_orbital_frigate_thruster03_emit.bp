@@ -1,5 +1,5 @@
 EmitterBlueprint {
-	BlueprintId = 'nomads_t2transport_thruster03',
+	BlueprintId = 'nomads_orbital_frigate_thruster03',
 	Lifetime = -1.00,
 	Repeattime = 1.00,
 	TextureFramecount = 1.00,

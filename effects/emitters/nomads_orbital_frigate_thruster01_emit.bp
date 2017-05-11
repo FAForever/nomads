@@ -1,5 +1,5 @@
 EmitterBlueprint {
-	BlueprintId = 'nomads_t2transport_thruster01',
+	BlueprintId = 'nomads_orbital_frigate_thruster01',
 	Lifetime = -1.00,
 	Repeattime = 1.00,
 	TextureFramecount = 1.00,
@@ -11,7 +11,7 @@ EmitterBlueprint {
 	AlignToBone = false,
 	Flat = false,
 	LODCutoff = 300.00,
-	EmitIfVisible = true,
+	EmitIfVisible = false,
 	CatchupEmit = true,
 	CreateIfVisible = false,
 	SnapToWaterline = false,
