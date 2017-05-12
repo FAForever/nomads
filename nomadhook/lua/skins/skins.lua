@@ -19,6 +19,7 @@ skins = table.merged( skins, {
         factionBackColor = "FFD68E00",
         fontOverColor = "FFFFFFFF",
         fontDownColor = "FF513923",
+        fontColor = "FFFFC32D",
         dialogCaptionColor = "FFD6C6BC",
         dialogColumnColor = "FFAD976E",
         dialogButtonColor = "FF4EAA7F",
