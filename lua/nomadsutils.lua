@@ -1663,7 +1663,6 @@ function AddCapacitorAbility( SuperClass )
         SetAutoCapacitor = function(self, autoCap)
             self.Sync.AutoCapacitor = autoCap
             if autoCap and not self.Sync.CapacitorCharging and not self.Sync.CapacitorActive then
-                WARN("StartCharge")
                 self:StartCharging()
             end
         end,
@@ -1676,7 +1675,6 @@ function AddCapacitorAbility( SuperClass )
                     self.CapChargeEvent = CreateEconomyEvent(self, self.ChargeEnergyCost, 0, 1)
                     WaitFor(self.CapChargeEvent)
                     self.CapCurCharge = self.CapCurCharge + (100 / self.CapChargeTime)
-                    WARN(self.CapCurCharge)
                     self:CapUpdateBar()
                     self:OnCapacitorCharging( self.CapCurCharge )
                     RemoveEconomyEvent(self, self.CapChargeEvent)
@@ -1704,11 +1702,9 @@ function AddCapacitorAbility( SuperClass )
         
         TryToActivateCapacitor = function(self)        
             if self.Sync.CapacitorActive then
-                WARN('Trying to use Capacitor while its already active!')
                 return
             end
             if self.CapCurCharge < self.CapChargeWhenFull then
-                WARN('Trying to use Capacitor when its not fully charged yet!')
                 return
             end
             
