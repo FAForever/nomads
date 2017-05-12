@@ -6,7 +6,7 @@ local nomadupgrades =
     ['inb0101'] = {'inb0211', 'inb0201'},
     ['inb0102'] = {'inb0212', 'inb0202'},
     ['inb0103'] = {'inb0213', 'inb0203'},
-    
+
     ['inb0201'] = 'inb0301',    -- HQs
     ['inb0202'] = 'inb0302',
     ['inb0203'] = 'inb0303',

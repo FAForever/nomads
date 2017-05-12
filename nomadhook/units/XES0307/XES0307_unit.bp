@@ -1,6 +1,6 @@
 UnitBlueprint {
     Merge = true,
-    BlueprintId = "xes0307", -- uef battlecruiser 
+    BlueprintId = "xes0307", -- uef battlecruiser
     Weapon = {
         {
             DoNotCollideList = {

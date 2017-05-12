@@ -24,20 +24,20 @@ INO0001 = Class(NOrbitUnit) {
     BuildEffectsBag = nil,
     ThrusterEffectsBag = nil,
     returnposition = nil,
-    
+
     OnPreCreate = function(self)
         --yes i know this is disgusting but it has to be done since the nomads orbital ship crashes the game
         --so it needs an exception FIXME: refactor nomads orbital frigate so its not so crazy.
-        
+
         self.ColourIndex = 5 --default nomads colour apparently. This makes it not call the DetermineColourIndex later on.
-        
+
         NOrbitUnit.OnPreCreate(self)
     end,
-    
+
     OnCreate = function(self)
         self.BuildEffectsBag = TrashBag()
         self.ThrusterEffectsBag = TrashBag()
-        
+
         NOrbitUnit.OnCreate(self)
 
         self:CreateSpinners()
@@ -263,8 +263,8 @@ INO0001 = Class(NOrbitUnit) {
         fz = bpP.Z + pz
         return spin, fx, fy, fz
     end,
-    
-    
+
+
 -- engines
     ThrusterBurnBones = {'ExhaustBig', 'ExhaustSmallRight', 'ExhaustSmallLeft', 'ExhaustSmallTop'},
 
@@ -314,47 +314,47 @@ INO0001 = Class(NOrbitUnit) {
             WaitSeconds(5)
             self.ThrusterEffectsBag:Destroy()
         end)
-    end,    
+    end,
 
 
 
 -- movement behavior
 
-    MoveAway = function(self)        
+    MoveAway = function(self)
         local positionX, positionZ, positionY = unpack(self:GetPosition())
-        local mapsizeX, mapsizeY = GetMapSize()        
+        local mapsizeX, mapsizeY = GetMapSize()
         local distanceX = mapsizeX/2 - positionX
         local distanceY = mapsizeY/2 - positionY
-        
+
         local targetCoordinates
-        
+
         if math.abs(distanceX) < math.abs(distanceY) then
-            if distanceY < 0 then 
+            if distanceY < 0 then
                 targetCoordinates = Vector(positionX + Random(mapsizeX/5)-mapsizeX/10, positionZ, mapsizeY - 2)
-            else 
+            else
                 targetCoordinates = Vector(positionX + Random(mapsizeX/5)-mapsizeX/10, positionZ, 2)
             end
         else
-            if distanceX < 0 then 
+            if distanceX < 0 then
                 targetCoordinates = Vector(mapsizeX - 2, positionZ, positionY + Random(mapsizeY/5)-mapsizeY/10)
-            else 
-                targetCoordinates = Vector(2, positionZ, positionY + Random(mapsizeY/5)-mapsizeY/10) 
+            else
+                targetCoordinates = Vector(2, positionZ, positionY + Random(mapsizeY/5)-mapsizeY/10)
             end
         end
-        
+
         self.MoveCommand = IssueMove({self}, targetCoordinates)
         self:BurnEngines()
-        
+
         self:CheckIfAtTarget(targetCoordinates)
     end,
-    
+
     ReturnToStartLocation = function(self)
         if self:GetPosition() == self.returnposition then return end
         self.MoveCommand = IssueMove({self}, self.returnposition)
         self:BurnEngines()
         self:CheckIfAtTarget(self.returnposition)
     end,
-    
+
     CheckIfAtTarget = function(self, targetCoordinates)
         ForkThread(function()
             local arrivedAtTarget = false
@@ -370,7 +370,7 @@ INO0001 = Class(NOrbitUnit) {
             end
         end)
     end,
-    
+
 }
 
 TypeClass = INO0001

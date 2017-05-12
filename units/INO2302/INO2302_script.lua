@@ -68,7 +68,7 @@ INO2302 = Class(NOrbitUnit) {
             local gbp = TheirGun:GetBlueprint()
             local MyGun = self:GetWeaponByLabel('MainGun')
             MyGun:ChangeMaxRadius( gbp.MaxRadius or 1)
-            MyGun:ChangeMinRadius( gbp.MinRadius or 0) 
+            MyGun:ChangeMinRadius( gbp.MinRadius or 0)
             MyGun:ChangeRateOfFire ( gbp.RateOfFire or 1)
             MyGun:SetFiringRandomness( gbp.FiringRandomness or 0)
             MyGun:MasterWeaponBlueprint( gbp)

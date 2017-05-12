@@ -4,9 +4,6 @@ local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local RandomFloat = import('/lua/utilities.lua').GetRandomFloat
 local Prop = import('/lua/sim/Prop.lua').Prop
 
-local RemoveDamagedTrees = false
-
-
 -- Redone the trees quite significantly. This may be a bit destructive but else I couldn't get the trees working like I wanted.
 
 local oldTree = Tree
@@ -28,6 +25,7 @@ Tree = Class(oldTree) {
 
     OnDamage = function(self, instigator, armormod, direction, type)
         self:CheckForBlackHoleDamage(instigator, type)
+        oldTree.OnDamage(self, instigator, armormod, direction, type)
     end,
 
     OnBlackHoleSuckingIn = function(self, blackhole)
@@ -91,10 +89,13 @@ Tree = Class(oldTree) {
             self.Fallen = true
             self.Burning = false
             self:DestroyFireEffects()
-            if RemoveDamagedTrees then
-                WaitSeconds(30)
-                self:Disappear()
-            end
+
+            -- Fixes trees not disappearing.
+            WaitSeconds(30)
+            self:SinkAway(-.1)
+            self.Motor = nil
+            WaitSeconds(10)
+            self:Destroy()
         end,
 
         OnDamage = function(self, instigator, armormod, direction, type)

@@ -130,7 +130,6 @@ UnitBlueprint {
                     LODCutoff = 450,
                     ShaderName = 'NomadUnit',
                 },
-                
             },
         },
         PlaceholderMeshName = 'UXB0023',

@@ -135,7 +135,7 @@ UnitBlueprint {
         BuildCostMass = 1520,
         BuildRate = 40,
         BuildTime = 2600,
-        DifferentialUpgradeCostCalculation = true, 
+        DifferentialUpgradeCostCalculation = true,
         BuildableCategory = {
             'BUILTBYTIER2FACTORY NOMADS MOBILE CONSTRUCTION',
             'BUILTBYTIER2FACTORY NOMADS STRUCTURE LAND',
@@ -211,90 +211,64 @@ UnitBlueprint {
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_None',
         RaisedPlatforms = {
-
             -- Platform 1
             -- TopLeft Offset From Center
             -1.875, ---1.5,
-
             -- x
             -2.5, ---2,
-
             -- z
             0.8125, --0.65,
-
             -- height
             -- TopRight Offset From Center
             1.875, --1.5,
-
             -- x
             -2.5, ---2,
-
             -- z
             0.8125, --0.65,
-
             -- height
             -- BottomLeft Offset From Center
             -1.875, ---1.5,
-
             -- x
             2.5, --2,
-
             -- z
             0.8125, --0.65,
-
             -- height
             -- BottomRight Offset From Center
             1.875, --1.5,
-
             -- x
             2.5, --2,
-
             -- z
             0.8125, --0.65,
-
             -- height
             -- Platform 2
             -- TopLeft Offset From Center
             -1.875, ---1.5,
-
             -- x
             2.5, --2,
-
             -- z
             0.8125, --0.65,
-
             -- height
             -- TopRight Offset From Center
             1.875, --1.5,
-
             -- x
             2.5, --2,
-
             -- z
             0.8125, --0.65,
-
             -- height
             -- BottomLeft Offset From Center
             1.875, ---1.5,
-
             -- x
             4.375, --3.5,
-
             -- z
             0,
-
             -- height
             -- BottomRight Offset From Center
             1.875, --1.5,
-
             -- x
             4.375, --3.5,
-
             -- z
             0,
-
             -- height
-            
         },
         RollOffPoints = {
             {

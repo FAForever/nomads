@@ -184,10 +184,10 @@ NBlackhole = Class(NullShell) {
         local surface = GetTerrainHeight(pos[1], pos[3]) + GetTerrainTypeOffset(pos[1], pos[3])
         pos[2] = surface + (wreckScale * 0.4)
 
-        if self.WreckageResources['m'] < 500 then 
+        if self.WreckageResources['m'] < 500 then
             return nil
         end
-        
+
         local prop = CreateProp( pos, wreckBp )
 
         prop:SetScale( wreckScale )
@@ -262,7 +262,7 @@ NBlackhole = Class(NullShell) {
 
         -- leave a wreckage to reclaim the sucked in mass (and energy)
         local wreck = self:CreateWreckage()
-        
+
         -- start effect threads
         threads:Add( self:ForkThread( self.AftermathExplosion, bag, lifetime, wreck ) )
         threads:Add( self:ForkThread( self.AftermathFireBalls, bag, lifetime, wreck ) )
@@ -437,7 +437,7 @@ NBlackhole = Class(NullShell) {
             end
             WaitSeconds( 0.1 )
         end
-    end, 
+    end,
 
     CloudsThread2 = function(self, bag, lifetime)
         -- creates the white clouds moving in the hole
@@ -471,7 +471,7 @@ NBlackhole = Class(NullShell) {
             end
             WaitSeconds( 0.1 )
         end
-    end, 
+    end,
 
     LightningThread = function(self, bag, lifetime)
         -- Creates a random lightning
@@ -721,10 +721,10 @@ NBlackhole = Class(NullShell) {
         if wreck ~= nil then
             wreck:SetCanTakeDamage(false)
         end
-        
+
         -- fire effect blueprints. The first is the close to the center so this should be a large effect. The last one is far away and should be smallish
-        local FireArmTempl = { NomadsEffectTemplate.NukeBlackholeFireArmSegment1, NomadsEffectTemplate.NukeBlackholeFireArmSegment2, 
-                               NomadsEffectTemplate.NukeBlackholeFireArmSegment3, NomadsEffectTemplate.NukeBlackholeFireArmSegment4, 
+        local FireArmTempl = { NomadsEffectTemplate.NukeBlackholeFireArmSegment1, NomadsEffectTemplate.NukeBlackholeFireArmSegment2,
+                               NomadsEffectTemplate.NukeBlackholeFireArmSegment3, NomadsEffectTemplate.NukeBlackholeFireArmSegment4,
                                NomadsEffectTemplate.NukeBlackholeFireArmSegment5, }
         local FireCntrTempl =  NomadsEffectTemplate.NukeBlackholeFireArmCenter1
 
@@ -788,7 +788,7 @@ NBlackhole = Class(NullShell) {
         if wreck ~= nil then
             wreck:SetCanTakeDamage(false)
         end
-        
+
         local FireArmTempl = { NomadsEffectTemplate.NukeBlackholeFireArmSegment4, NomadsEffectTemplate.NukeBlackholeFireArmSegment4,
                                NomadsEffectTemplate.NukeBlackholeFireArmSegment4, NomadsEffectTemplate.NukeBlackholeFireArmSegment4,
                                NomadsEffectTemplate.NukeBlackholeFireArmCenter2, }

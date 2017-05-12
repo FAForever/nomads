@@ -229,16 +229,16 @@ INU4001 = Class(NExperimentalHoverLandUnit, SlowHover) {
         self:SetScriptBit('RULEUTC_WeaponToggle', enable)
     end,
 
-    OnScriptBitSet = function(self, bit) 
+    OnScriptBitSet = function(self, bit)
         NExperimentalHoverLandUnit.OnScriptBitSet(self, bit)
-        if bit == 1 then 
+        if bit == 1 then
             NExperimentalHoverLandUnit.SetBombardmentMode(self, true, false)
         end
     end,
-	
+
     OnScriptBitClear = function(self, bit)
         NExperimentalHoverLandUnit.OnScriptBitClear(self, bit)
-        if bit == 1 then 
+        if bit == 1 then
             NExperimentalHoverLandUnit.SetBombardmentMode(self, false, false)
         end
     end,
@@ -259,7 +259,7 @@ INU4001 = Class(NExperimentalHoverLandUnit, SlowHover) {
         end
     end,
 
-    DeathThread = function( self, overkillRatio, instigator) 
+    DeathThread = function( self, overkillRatio, instigator)
         -- I'm concerned what happens if this unit dies while hover on the water surface. The unit should not leave a corpse.
         -- If WOF is available the unit cloud/should sink to the bottom under the WOF effect.
 
@@ -270,7 +270,7 @@ INU4001 = Class(NExperimentalHoverLandUnit, SlowHover) {
             local WOFavailble = ( self.WOF_DoSink ~= nil)
             if WOFavailble then
                 -- if WOF is available let it handle us sinking
-                NExperimentalHoverLandUnit.DeathThread( self, overkillRatio, instigator) 
+                NExperimentalHoverLandUnit.DeathThread( self, overkillRatio, instigator)
             else
                 -- else, get killed on water and don't leave a corpse
                 self:DeathExplosionsOnWaterThread( overkillRatio, instigator )

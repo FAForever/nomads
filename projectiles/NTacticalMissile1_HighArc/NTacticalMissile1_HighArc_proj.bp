@@ -39,7 +39,7 @@ ProjectileBlueprint {
                     ShaderName = 'TMeshAlpha',
                 },
             },
-        }, 
+        },
         StrategicIconSize = 2,
         UniformScale = 0.11,
     },

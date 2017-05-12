@@ -90,15 +90,10 @@ UnitBlueprint {
             IconFadeInZoom = 130,
             LODs = {
                 {
-                    LODCutoff = 100,
-                    Scrolling = true,
-                    ShaderName = 'NomadUnit',
-                },
-                {
-                    AlbedoName = 'inb3202_lod1_albedo.dds',
+                    AlbedoName = 'INB3202_Albedo.dds',
                     LODCutoff = 215,
                     ShaderName = 'NomadUnit',
-                    SpecularName = 'inb3202_lod1_specteam.dds',
+                    SpecularName = 'INB3202_SpecTeam.dds',
                 },
             },
         },
@@ -174,7 +169,6 @@ UnitBlueprint {
         SonarRadius = 200,
         VisionRadius = 25,
     },
-
     Interface = {
         HelpText = '<LOC inb3202_help>Sonar System',
     },

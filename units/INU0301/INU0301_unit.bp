@@ -3,7 +3,7 @@
 UnitBlueprint {
     Abilities = {
         Capacitor = {
-            AutoUseWhenHealthLow = false,
+            Active = true,
             Buffs = {
                 'CapacitorEngineering',
                 'CapacitorIntel',
@@ -12,11 +12,11 @@ UnitBlueprint {
                 'CapacitorROFSCUGatling',
                 'CapacitorROFSCURailgun',
             },
-            ChargeTime = 50,
-            Dissipation = 0.05,
             Duration = 15,
-            EnergyDrainPerSecond = 50,
-            StartCapacityFraction = 0.4,
+            ChargeEnergyCost = 100,
+            ChargeTime = 30,
+            bitmapId = 'toggle-capacitor',
+            helpText = 'toggle_capacitor',
         },
     },
     AI = {
@@ -317,6 +317,7 @@ UnitBlueprint {
         'OVERLAYOMNI',
         'INTELLIGENCE',
         'USEBUILDPRESETS',
+        'ABILITYBUTTON',
     },
     Defense = {
         AirThreatLevel = 0,
@@ -453,7 +454,6 @@ UnitBlueprint {
                     },
                 },
             },
-            
         },
         PlaceholderMeshName = 'UXB0000',
         SpawnRandomRotation = true,
@@ -484,10 +484,10 @@ UnitBlueprint {
         TeleportTimeMod = 0.0001,
     },
     Enhancements = {
-        AdditionalCapacitor = {
-            BuildCostEnergy = 21450,
-            BuildCostMass = 450,
-            BuildTime = 1450,
+        Capacitor = {
+            BuildCostEnergy = 1000,
+            BuildCostMass = 200,
+            BuildTime = 5,
             HideBones = {
                 'Bicep_R',
                 'Forearm_R',
@@ -495,8 +495,50 @@ UnitBlueprint {
                 'Gatling_R',
             },
             Icon = 'acap',
+            Name = '<LOC NomadsSCUEnh_Capacitor_Help> Capacitor',
+            ShowBones = {
+                'Capacitor'
+            },
+            Slot = 'RCH',
+            UpgradeEffectBones = {
+                'Capacitor'
+            },
+            UpgradeUnitAmbientBones = {
+                'Torso',
+            },
+        },
+        CapacitorRemove = {
+            BuildCostEnergy = 1,
+            BuildCostMass = 1,
+            BuildTime = 0.1,
+            HideBones = {
+                'Capacitor'
+            },
+            Icon = 'rae',
+            Name = '<LOC NomadsSCUEnh_Capacitor_Remove>Remove Capacitor',
+            Prerequisite = 'AdditionalCapacitor',
+            RemoveEnhancements = {
+                'AdditionalCapacitor',
+                'AdditionalCapacitorRemove',
+            },
+            Slot = 'RCH',
+        },
+        AdditionalCapacitor = {
+            BuildCostEnergy = 1000,
+            BuildCostMass = 100,
+            BuildTime = 5,
+            HideBones = {
+                'Bicep_R',
+                'Forearm_R',
+                'Engi_R',
+                'Gatling_R',
+            },
+            Icon = 'acap2',
             Name = '<LOC NomadsSCUEnh_AddCapacitor_Help>Additional Capacitor',
-            CapacitorNewDuration = 30,
+            Prerequisite = 'Capacitor',
+            CapacitorNewDuration = 150,
+            CapacitorNewChargeTime = 175,
+            CapacitorNewChargeEnergyCost = 500,
             ShowBones = {
                 'Capacitor'
             },
@@ -519,6 +561,7 @@ UnitBlueprint {
             Name = '<LOC NomadsSCUEnh_AddCapacitor_Remove>Remove Additional Capacitor',
             Prerequisite = 'AdditionalCapacitor',
             RemoveEnhancements = {
+                'Capacitor',
                 'AdditionalCapacitor',
                 'AdditionalCapacitorRemove',
             },
@@ -995,8 +1038,6 @@ UnitBlueprint {
             BuildCostEnergy = 60000,
             BuildCostMass = 1800,
             BuildTime = 7200,
-            CapacitorNewChargeTime = 20,
-            CapacitorNewEnergyDrainPerSecond = 100,
             Icon = 'isb',
             Name = '<LOC NomadsSCUEnh_ResourceAllocation_Help>Resource Generator',
             NewDeathWeapon = 'RASDeathWeapon',
@@ -1092,7 +1133,7 @@ UnitBlueprint {
             BuildIconSortPriority = 70,
             Description = '<LOC inu0301_amphibious_desc>Support Armored Command Unit (Preset: Amphibious)',
             Enhancements = {
-                'GunRight', 
+                'GunRight',
                 'MovementSpeedIncrease',
                 'Railgun',
             },
@@ -1108,6 +1149,7 @@ UnitBlueprint {
             BuildIconSortPriority = 65,
             Description = '<LOC inu0301_antinaval_desc>Support Armored Command Unit (Preset: Anti-Naval)',
             Enhancements = {
+                'Capacitor',
                 'AdditionalCapacitor',
                 'MovementSpeedIncrease',
                 'Railgun',
@@ -1159,6 +1201,7 @@ UnitBlueprint {
             BuildIconSortPriority = 35,
             Description = '<LOC inu0301_gunslinger_desc>Support Armored Command Unit (Preset: Gunslinger)',
             Enhancements = {
+                'Capacitor',
                 'AdditionalCapacitor',
                 'GunLeft',
                 'GunLeftUpgrade',
@@ -1177,7 +1220,7 @@ UnitBlueprint {
             Enhancements = {
                 'GunLeft',
                 'GunLeftUpgrade',
-                'GunRight',  
+                'GunRight',
                 'RapidRepair',
             },
             HelpText = '<LOC inu0301_heavytrooper_help>Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or combination. Enhanced during construction with an upgraded gun on the left arm, a machine gun and a rapid repair system.',
@@ -1276,17 +1319,10 @@ UnitBlueprint {
         ConstructionBar = true,
         FactionName = 'Nomads',
         Icon = 'amph',
-        OrderOverrides = {
-            RULEUTC_WeaponToggle = {
-                bitmapId = 'toggle-capacitor',
-                helpText = 'toggle_capacitor',
-            },
-        },
         SelectionPriority = 3,
         TechLevel = 'RULEUTL_Secret',
         ToggleCaps = {
             RULEUTC_SpecialToggle = true,
-            RULEUTC_WeaponToggle = true,
         },
         UnitName = '<LOC inu0301_name>Support Armored Command Unit',
         UnitWeight = 0,

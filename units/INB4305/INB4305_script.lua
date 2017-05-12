@@ -26,8 +26,8 @@ INB4305 = Class(NShieldStructureUnit) {
         self.Trash:Add(self.UpgrAnim)
         self.ShieldEffectsBag = {}
     end,
-    
-    
+
+
     OnShieldEnabled = function(self)
         if self.ShieldEffectsBag then
             for k, v in self.ShieldEffectsBag do

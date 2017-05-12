@@ -74,7 +74,7 @@ UnitBlueprint {
     Description = '<LOC inu3004_desc>Mobile Heavy Artillery',
     Display = {
         Abilities = {
-            '<LOC ability_bombardarea>Area bombardment',        
+            '<LOC ability_bombardarea>Area bombardment',
             '<LOC ability_deploys>Deploys',
             '<LOC ability_supportedartillerygun>Supported Artillery Gun',
         },

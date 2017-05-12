@@ -6,12 +6,12 @@ INB4202 = Class(NShieldStructureUnit) {
     ShieldEffects = {
         '/effects/Entities/Shield05/Shield05_emit.bp',
     },
-    
+
     OnStopBeingBuilt = function(self,builder,layer)
         NShieldStructureUnit.OnStopBeingBuilt(self,builder,layer)
         self.ShieldEffectsBag = {}
     end,
-    
+
     OnShieldEnabled = function(self)
         if self.ShieldEffectsBag then
             for k, v in self.ShieldEffectsBag do

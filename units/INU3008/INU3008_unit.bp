@@ -114,7 +114,7 @@ UnitBlueprint {
         'FIELDENGINEER',
         'ANTIMISSILE',
         'HOVER',
-        'PATROLHELPER', 
+        'PATROLHELPER',
         'VISIBLETORECON',
         'RECLAIMABLE',
         'OVERLAYDEFENSE',
@@ -456,8 +456,6 @@ UnitBlueprint {
             WeaponUnpacks = false,
         },
     },
-
-
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

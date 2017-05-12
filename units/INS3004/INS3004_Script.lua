@@ -61,14 +61,14 @@ INS3004 = Class(NSeaUnit) {
 
     OnScriptBitSet = function(self, bit)
         NSeaUnit.OnScriptBitSet(self, bit)
-        if bit == 1 then 
+        if bit == 1 then
             NSeaUnit.SetBombardmentMode(self, true, false)
         end
     end,
 
     OnScriptBitClear = function(self, bit)
         NSeaUnit.OnScriptBitClear(self, bit)
-        if bit == 1 then 
+        if bit == 1 then
             NSeaUnit.SetBombardmentMode(self, false, false)
         end
     end,

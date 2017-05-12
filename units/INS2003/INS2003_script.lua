@@ -23,8 +23,8 @@ INS2003 = Class(NSeaUnit) {
                     end
                     self.IdleReloadThread = self:ForkThread(self.ReloadThread)
                 end,
-                
-                
+
+
                 ReloadThread = function(self)
                     --WARN('waiting in idle reload')
                     WaitSeconds(1.2)
@@ -74,7 +74,7 @@ INS2003 = Class(NSeaUnit) {
                         self.unit:OnTargetAcquired()
                     end
                 end,
-                
+
                 Audio = {
                     FireSpecial = Sound {
                         Bank = 'NomadsWeapons',

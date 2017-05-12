@@ -32,7 +32,7 @@ NomadsPhaseRay = Class(CollisionBeam) {
     OnImpact = function(self, impactType, targetEntity)
         if impactType == 'Terrain' then
             if self.Scorching == nil then
-                self.Scorching = self:ForkThread( self.ScorchThread, impactType )   
+                self.Scorching = self:ForkThread( self.ScorchThread, impactType )
             end
         elseif not impactType == 'Unit' then
             KillThread(self.Scorching)
@@ -40,10 +40,10 @@ NomadsPhaseRay = Class(CollisionBeam) {
         end
         CollisionBeam.OnImpact(self, impactType, targetEntity)
     end,
-    
+
     OnDisable = function( self )
         KillThread(self.Scorching)
-        self.Scorching = nil   
+        self.Scorching = nil
         CollisionBeam.OnDisable(self)
     end,
 
@@ -95,7 +95,7 @@ HVFlakCollisionBeam = Class(SCCollisionBeam) {
         '/effects/emitters/targeting_beam_invisible.bp'
     },
     FxBeamEndPoint = NomadsEffectTemplate.MissileHitNone1,
-                       
+
     --FxImpactNone = NomadsEffectTemplate.MissileHitNone1,
 }
 

@@ -13,7 +13,7 @@ Meteor = Class(NullShell) {
     DamageFriendly = true,
     DamageRadius = 10,
     InitialHeight = 300,
-    
+
     FxScale = 1,
     ImpactLandFx = NomadsEffectTemplate.MeteorLandImpact,
     ImpactSeabedFx = NomadsEffectTemplate.MeteorSeabedImpact,
@@ -73,10 +73,10 @@ Meteor = Class(NullShell) {
     end,
 
     SetPosAndVelocity = function(self, ImpactPos, Time)
-    
+
         local dirVector
         local x,y,z
-        
+
         if GetArmyBrain( self:GetArmy() ).ACULaunched then
             dirVector = GetArmyBrain( self:GetArmy() ).DirVector
             x,y,z = unpack(GetArmyBrain( self:GetArmy() ).startingPositionWithOffset)
@@ -92,7 +92,7 @@ Meteor = Class(NullShell) {
             x = x + (offsetX * self.InitialHeight)
             z = z + (offsetZ * self.InitialHeight)
         end
-        
+
         local speed = ( y - GetTerrainHeight(x,z) ) / Time
         self:SetPosition( Vector(x,y,z), true)
         self:SetOrientation( OrientFromDir(Util.GetDirectionVector(ImpactPos, dirVector)), true)
@@ -293,7 +293,7 @@ Meteor = Class(NullShell) {
             proj = self:CreateProjectile('/effects/entities/MeteorDustCloud/MeteorDustCloud_proj.bp', x * offset , 2.5, z * offset, x, 0, z)
             proj:SetVelocity(velocity)
             table.insert( projectiles, proj )
-        end  
+        end
 
         local fn = function(self, projectiles)
             WaitSeconds( 1 )

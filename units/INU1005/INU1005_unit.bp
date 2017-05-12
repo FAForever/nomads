@@ -163,7 +163,6 @@ UnitBlueprint {
                         Type = 'NomadsHoverGroundFx1',
                         Recolour = true,
                     },
-
                 },
             },
         },

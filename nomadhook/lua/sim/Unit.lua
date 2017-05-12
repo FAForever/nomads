@@ -9,17 +9,17 @@ Unit = Class(oldUnit) {
     --we add the functionality to change the colour of emitters based on the units faction colour.
     --this is done via a specially made ramp texture containing all the faction colours,
     --and then using SetEmitterCurveParam to change the colour via script.
-    
+
     OnPreCreate = function(self)
         --yes i know this is disgusting but it has to be done since the nomads orbital ship crashes the game
         --so it needs an exception FIXME: refactor nomads orbital frigate so its not so crazy.
         if not self.ColourIndex then
             self:DetermineColourIndex()
         end
-        
+
         oldUnit.OnPreCreate(self)
     end,
-    
+
         CreateTerrainTypeEffects = function( self, effectTypeGroups, FxBlockType, FxBlockKey, TypeSuffix, EffectBag, TerrainType )
         local army = self:GetArmy()
         local pos = self:GetPosition()
@@ -55,7 +55,7 @@ Unit = Class(oldUnit) {
             end
         end
     end,
-    
+
     DetermineColourIndex = function(self)
         --we determine the index once on create then save it in the entity table to save on sim slowdown
         --WARN('setting colour index for blueprintID: ' .. self:GetUnitId())
@@ -63,11 +63,11 @@ Unit = Class(oldUnit) {
         local army = self:GetArmy()
         self.ColourIndex = ScenarioInfo.ArmySetup[tblArmy[army]].ArmyColor
     end,
-    
-    
-    
-    
-    
+
+
+
+
+
     OnCreate = function(self)
         oldUnit.OnCreate(self)
         self._IsSuckedInBlackHole = false
@@ -254,7 +254,7 @@ Unit = Class(oldUnit) {
         -- this unit.
 
         local bt = buffTable.BuffType
-        if bt and bt == 'STUN' and buffTable.Radius and buffTable.Radius > 0 then --and AOEtargetUnit and IsUnit(AOEtargetUnit) 
+        if bt and bt == 'STUN' and buffTable.Radius and buffTable.Radius > 0 then --and AOEtargetUnit and IsUnit(AOEtargetUnit)
 
             local targets = {}
             if PosEntity then
@@ -315,7 +315,7 @@ Unit = Class(oldUnit) {
 
     SetSpeedMult = function(self, val)
         -- Fixing a bug in the engine, the speed multi is multiplied with itself before applied to the unit, resuling in an excessive
-        -- speed multi (0.8 becomes 0.64,etc). This only happens when the multi is < 1. Fixing this by taking the square root of the passed 
+        -- speed multi (0.8 becomes 0.64,etc). This only happens when the multi is < 1. Fixing this by taking the square root of the passed
         -- value instead, if it is below 1. Test by having a Nomads hover unit with reduced speed on water through a buff and another hover
         -- unit. Move them over water and compare speeds.
         self.SpeedMulti = val
@@ -349,7 +349,7 @@ Unit = Class(oldUnit) {
             local fn = function(self, duration)
                 WaitSeconds( duration )
                 self._IsStunned = false
-                self:OnStunnedOver(self) 
+                self:OnStunnedOver(self)
             end
             if self.StunnedThread then  -- if unit it hit twice by stun weapon then this ensures the second hit prolongs the stun
                 KillThread( self.StunnedThread )
@@ -746,7 +746,7 @@ Unit = Class(oldUnit) {
             end
         end
     end,
-    
+
     --Updates build restrictions of any unit passed, used for support factories
     updateBuildRestrictions = function(self)
         local faction = false

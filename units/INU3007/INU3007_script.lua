@@ -17,7 +17,7 @@ INU3007 = Class(NLandUnit) {
             end,
         },
     },
-	
+
     OnStopBeingBuilt = function(self,builder,layer)
         NLandUnit.OnStopBeingBuilt(self,builder,layer)
 
@@ -35,10 +35,10 @@ INU3007 = Class(NLandUnit) {
         self.TreadBlock02 = CreateRotator(self, 'Wheel_RF', 'y', nil):SetCurrentAngle(0)
         self.TreadBlock03 = CreateRotator(self, 'Wheel_LB', 'y', nil):SetCurrentAngle(0)
         self.TreadBlock04 = CreateRotator(self, 'Wheel_RB', 'y', nil):SetCurrentAngle(0)
-        self.Trash:Add(self.TreadBlock01)  
-        self.Trash:Add(self.TreadBlock02) 
-        self.Trash:Add(self.TreadBlock03) 
-        self.Trash:Add(self.TreadBlock04) 
+        self.Trash:Add(self.TreadBlock01)
+        self.Trash:Add(self.TreadBlock02)
+        self.Trash:Add(self.TreadBlock03)
+        self.Trash:Add(self.TreadBlock04)
         self:ForkThread(self.TreadManipulationThread)
     end,
 
@@ -85,7 +85,7 @@ INU3007 = Class(NLandUnit) {
             WaitSeconds(0.2)
         end
     end,
-    
+
     EnableSpecialToggle = function(self)
         self:EnableAnchor(self)
     end,

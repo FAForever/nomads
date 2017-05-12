@@ -44,7 +44,7 @@ INU0001 = Class(ACUUnit) {
                 end
             end,
         },
-        
+
         AutoOverCharge = Class(AddRapidRepairToWeapon(APCannon1_Overcharge)) {
             PlayFxMuzzleSequence = function(self, muzzle)
                 APCannon1_Overcharge.PlayFxMuzzleSequence(self, muzzle)
@@ -56,7 +56,7 @@ INU0001 = Class(ACUUnit) {
                 end
             end,
         },
-        
+
         OverCharge = Class(AddRapidRepairToWeapon(APCannon1_Overcharge)) {
             PlayFxMuzzleSequence = function(self, muzzle)
                 APCannon1_Overcharge.PlayFxMuzzleSequence(self, muzzle)
@@ -68,9 +68,9 @@ INU0001 = Class(ACUUnit) {
                 end
             end,
         },
-        
+
         DeathWeapon = Class(DeathNuke) {},
-        
+
         TargetFinder = Class(TacticalMissileWeapon2) {
             CreateProjectileForWeapon = function(self, bone)
             end,
@@ -79,7 +79,7 @@ INU0001 = Class(ACUUnit) {
             end,
         },
     },
-    
+
     __init = function(self)
         ACUUnit.__init(self, 'MainGun')
     end,
@@ -88,12 +88,12 @@ INU0001 = Class(ACUUnit) {
     -- CREATION AND FIRST SECONDS OF GAMEPLAY
 
     CapFxBones = { 'torso_thingy_left', 'torso_thingy_right', },
-
+    
     OnCreate = function(self)
         ACUUnit.OnCreate(self)
 
         self:GetAIBrain().OrbitalBombardmentInitiator = self
-        
+
         local bp = self:GetBlueprint()
 
         -- vars
@@ -123,6 +123,7 @@ INU0001 = Class(ACUUnit) {
         self:SetRapidRepairParams( 'NomadsACURapidRepair', bp.Enhancements.RapidRepair.RepairDelay, bp.Enhancements.RapidRepair.InterruptRapidRepairByWeaponFired)
 
         self.Sync.Abilities = self:GetBlueprint().Abilities
+        self:HasCapacitorAbility(false)
     end,
 
     OnStopBeingBuilt = function(self, builder, layer)
@@ -245,11 +246,6 @@ INU0001 = Class(ACUUnit) {
         end
 
         self.CapDoPlayFx = true
-        if self:CapIsFull() then
-            self:CapPlayFx('Full')
-        else
-            self:CapPlayFx('Charging')
-        end
 
         WaitTicks(5)
 
@@ -263,9 +259,6 @@ INU0001 = Class(ACUUnit) {
         self:SetUnSelectable(false)
         self:SetBusy(false)
         self:SetBlockCommandQueue(false)
-
---self:CreateEnhancement('OrbitalBombardment')
---self:CreateEnhancement('IntelProbe')
     end,
 
     PlayCommanderWarpInEffect = function(self)  -- part of initial dropship animation
@@ -507,6 +500,17 @@ INU0001 = Class(ACUUnit) {
             self.UseRunWalkAnim = false
 
         -- ---------------------------------------------------------------------------------------
+        -- CAPACITOR UPGRADE
+        -- ---------------------------------------------------------------------------------------
+
+        elseif enh == 'Capacitor' then
+            self:HasCapacitorAbility(true)
+
+        elseif enh == 'CapacitorRemove' then
+            self:ResetCapacitor()
+            self:HasCapacitorAbility(false)
+
+        -- ---------------------------------------------------------------------------------------
         -- RESOURCE ALLOCATION
         -- ---------------------------------------------------------------------------------------
 
@@ -516,35 +520,11 @@ INU0001 = Class(ACUUnit) {
             self:SetProductionPerSecondEnergy(bp.ProductionPerSecondEnergy + bpEcon.ProductionPerSecondEnergy or 0)
             self:SetProductionPerSecondMass(bp.ProductionPerSecondMass + bpEcon.ProductionPerSecondMass or 0)
 
-            -- capacitor upgrades
-            if bp.CapacitorNewEnergyDrainPerSecond then
-                self:CapSetEnergyDrainPerSecond(bp.CapacitorNewEnergyDrainPerSecond)
-            end
-            if bp.CapacitorNewDuration then
-                self:CapSetDuration(bp.CapacitorNewDuration)
-            end
-            if bp.CapacitorNewChargeTime then
-                self:CapSetChargeTime(bp.CapacitorNewChargeTime)
-            end
-
         elseif enh == 'ResourceAllocationRemove' then
 
             local bpEcon = self:GetBlueprint().Economy
             self:SetProductionPerSecondEnergy(bpEcon.ProductionPerSecondEnergy or 0)
             self:SetProductionPerSecondMass(bpEcon.ProductionPerSecondMass or 0)
-
-            -- removing capacitor upgrades
-            local orgBp = self:GetBlueprint()
-            local obp = orgBp.Enhancements.ResourceAllocation
-            if obp.CapacitorNewEnergyDrainPerSecond then
-                self:CapSetEnergyDrainPerSecond(orgBp.Capacitor.EnergyDrainPerSecond)
-            end
-            if obp.CapacitorNewDuration then
-                self:CapSetDuration(orgBp.Capacitor.Duration)
-            end
-            if obp.CapacitorNewChargeTime then
-                self:CapSetChargeTime(orgBp.Capacitor.ChargeTime)
-            end
 
         -- ---------------------------------------------------------------------------------------
         -- RAPID REPAIR
@@ -763,7 +743,7 @@ INU0001 = Class(ACUUnit) {
             self:AddCommandCap('RULEUCC_SiloBuildTactical')
             self:SetWeaponEnabledByLabel('TargetFinder', true)
             self:GetAIBrain():EnableSpecialAbility( 'NomadsAreaBombardment', false)
-            
+
         elseif enh == 'OrbitalBombardmentRemove' then
             self:SetOrbitalBombardEnabled(false)
             self:AddEnhancementEmitterToBone( false, 'left_shoulder_pod' )
@@ -773,20 +753,20 @@ INU0001 = Class(ACUUnit) {
             local amt = self:GetTacticalSiloAmmoCount()
             self:RemoveTacticalSiloAmmo(amt or 0)
             self:StopSiloBuild()
-            
+
         else
             WARN('Enhancement '..repr(enh)..' has no script support.')
         end
     end,
-    
+
     OnAmmoCountDecreased = function(self, amount)
         self:GetAIBrain():EnableSpecialAbility( 'NomadsAreaBombardment', false)
     end,
-    
+
     OnAmmoCountIncreased = function(self, amount)
         self:GetAIBrain():EnableSpecialAbility( 'NomadsAreaBombardment', true)
     end,
-    
+
 }
 
 TypeClass = INU0001

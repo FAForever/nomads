@@ -91,7 +91,7 @@ UnitBlueprint {
             '<LOC ability_radar>Radar',
             '<LOC ability_sonar>Sonar',
         },
-        AnimationDeath = {
+--[[        AnimationDeath = {
             {
                 Animation = '/units/INS3004/INS3004_ADeath01.sca',
                 Rate = 0.03,
@@ -137,7 +137,7 @@ UnitBlueprint {
                 Rate = 0.05,
                 Weight = 100,
             },
-        },
+        },]]
         IdleEffects = {
             Water = {
                 Effects = {

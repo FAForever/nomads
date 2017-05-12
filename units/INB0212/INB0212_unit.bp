@@ -200,126 +200,90 @@ UnitBlueprint {
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_None',
         RaisedPlatforms = {
-
             -- Platform 1
             -- TopLeft Offset From Center
             -2.1, ---1.6,
-
             -- x
             -2.625, ---2,
-
             -- z
             0.23625, --0.18,
-
             -- height
             -- TopRight Offset From Center
             2,
-
             -- x
             -2.625, ---2,
-
             -- z
             0.23625, --0.18,
-
             -- height
             -- BottomLeft Offset From Center
             -2.1, ---1.6,
-
             -- x
             2.1, --1.6,
-
             -- z
             0.23625, --0.18,
-
             -- height
             -- BottomRight Offset From Center
             2.625, --2,
-
             -- x
             2.1, --1.6,
-
             -- z
             0.23625, --0.18,
-
             -- height
             -- Platform 2
             -- TopLeft Offset From Center
             2.296875, ---1.75,
-
             -- x
             -2.625, ---2,
-
             -- z
             0,
-
             -- height
             -- TopRight Offset From Center
             -2.1, ---1.6,
-
             -- x
             -2.625, ---2,
-
             -- z
             0.23625, --0.18,
-
             -- height
             -- BottomLeft Offset From Center
             -2.296875, ---1.75,
-
             -- x
             2.1, --1.6,
-
             -- z
             0,
-
             -- height
             -- BottomRight Offset From Center
             -2.1, ---1.6,
-
             -- x
             2.1, --1.6,
-
             -- z
             0.23625, --0.18,
-
             -- height
             -- Platform 3
             -- TopLeft Offset From Center
             -2.625, ---2,
-
             -- x
             2.1, --1.6,
-
             -- z
             0.23625, --0.18,
-
             -- height
             -- TopRight Offset From Center
             2.625, --2,
-
             -- x
             2.1, --1.6,
-
             -- z
             0.23625, --0.18,
-
             -- height
             -- BottomLeft Offset From Center
             -2.625, ---2,
-
             -- x
             2.296875, --1.75,
-
             -- z
             0,
-
             -- height
             -- BottomRight Offset From Center
             2.625, --2,
-
             -- x
             2.296875, --1.75,
-
             -- z
             0,
         },
@@ -346,7 +310,6 @@ UnitBlueprint {
     SelectionSizeX = 4.2,
     SelectionSizeZ = 4.07,
     SelectionThickness = 0.3,
-
     -- height
     SizeX = 5.25,
     SizeY = 1.84,

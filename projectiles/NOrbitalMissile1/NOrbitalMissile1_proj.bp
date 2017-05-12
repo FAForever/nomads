@@ -69,7 +69,6 @@ ProjectileBlueprint {
         HelpText = 0,
     },
     Physics = {
-
         Acceleration = 5,
         DestroyOnWater = true,
         MaxSpeed = 65,
@@ -82,34 +81,29 @@ ProjectileBlueprint {
         UseGravity = false,
         VelocityAlign = true,
         ZigZagFrequency = 1,
-
         -- stage 1: horizontal movement high in the air
         MaxSpeedS1 = 65,
         MaxZigZagS1 = 10,
         TurnRateS1 = 400,
         ZigZagFrequencyS1 = 1,
-
         -- stage 2: aim downwards towards target
         Stage2Distance = 250,  -- stage 2 activates when this far from being on top of the target
         MaxSpeedS2 = 42,
         MaxZigZagS2 = 8,
         TurnRateS2 = 300,
         ZigZagFrequencyS2 = 0.2,
-
         -- stage 3: during descent
         Stage3Distance = 150,
         MaxSpeedS3 = 32,
         MaxZigZagS3 = 6,
         TurnRateS3 = 60,
         ZigZagFrequencyS3 = 0.6,
-
         -- stage 4: approaching target
         Stage4Distance = 60,
         MaxSpeedS4 = 18,
         MaxZigZagS4 = 2,
         TurnRateS4 = 60,
         ZigZagFrequencyS4 = 1,
-
         -- stage 5: just before impact
         Stage5Distance = 5,
         MaxSpeedS5 = 18,

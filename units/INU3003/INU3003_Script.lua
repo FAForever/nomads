@@ -20,14 +20,14 @@ INU3003 = Class(NLandUnit) {
 
     OnScriptBitSet = function(self, bit)
         NLandUnit.OnScriptBitSet(self, bit)
-        if bit == 1 then 
+        if bit == 1 then
             NLandUnit.SetBombardmentMode(self, true, false)
         end
     end,
 
     OnScriptBitClear = function(self, bit)
         NLandUnit.OnScriptBitClear(self, bit)
-        if bit == 1 then 
+        if bit == 1 then
             NLandUnit.SetBombardmentMode(self, false, false)
         end
     end,

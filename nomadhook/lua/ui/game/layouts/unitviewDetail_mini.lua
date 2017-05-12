@@ -2,7 +2,7 @@
 local oldCreate = Create
 function Create(parent)
     oldCreate(parent)
-    
+
     local View = import('/lua/ui/game/unitviewDetail.lua').View
     -- Capacitor stat
     if not View.CapacitorStat then
@@ -13,7 +13,7 @@ end
 local oldSetLayout = SetLayout
 function SetLayout()
     oldSetLayout()
-    
+
     local control = import('/lua/ui/game/unitviewDetail.lua').View
     -- Capacitor stat
     LayoutHelpers.RightOf( control.CapacitorStat, control.UpkeepGroup, -2 )

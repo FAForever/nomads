@@ -87,8 +87,8 @@ BuffBlueprint {
     Duration = -1,
     Affects = {
         BuildRate = {
-            Add = 0,
-            Mult = 2,
+            Add = 30,
+            Mult = 1,
         },
     },
 }
@@ -124,8 +124,8 @@ BuffBlueprint {
     Duration = -1,
     Affects = {
         Regen = {
-            Add = 0,
-            Mult = 2,
+            Add = 100,
+            Mult = 1,
         },
     },
 }

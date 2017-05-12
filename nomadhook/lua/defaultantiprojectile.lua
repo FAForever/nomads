@@ -67,10 +67,10 @@ MissileRedirect = Class(MissileRedirect) {
 
             self:PlayRedirectFx()
 
-            if self.Enemy then   -- Set collision to friends active so that when the missile reaches its source it can deal damage. 
-                self.EnemyProj.DamageData.CollideFriendly = true         
-                self.EnemyProj.DamageData.DamageFriendly = true 
-                self.EnemyProj.DamageData.DamageSelf = true 
+            if self.Enemy then   -- Set collision to friends active so that when the missile reaches its source it can deal damage.
+                self.EnemyProj.DamageData.CollideFriendly = true
+                self.EnemyProj.DamageData.DamageFriendly = true
+                self.EnemyProj.DamageData.DamageSelf = true
             end
 
             if self.Enemy and not self.Enemy:BeenDestroyed() then  -- if target lives then return to sender, destroy missile otherwise
@@ -120,7 +120,7 @@ MissileRedirect = Class(MissileRedirect) {
         self:DestroyRedirectFx()
 
         local army = self:GetArmy()
-        for k, v in self.RedirectBeams do               
+        for k, v in self.RedirectBeams do
             self.EffectTrashBag:Add( AttachBeamEntityToEntity(self.EnemyProj, -1, self.Owner, self.AttachBone, army, v) )
         end
     end,

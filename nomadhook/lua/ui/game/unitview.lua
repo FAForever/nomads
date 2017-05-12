@@ -18,8 +18,8 @@ end)
 local oldUpdateWindow = UpdateWindow
 function UpdateWindow(info)
     oldUpdateWindow(info)
-    
-    
+
+
     controls.capacitorBar:Hide()
     if info.blueprintId ~= 'unknown' then
         local bp = __blueprints[info.blueprintId]
@@ -42,8 +42,8 @@ local oldCreateUI = CreateUI
 function CreateUI()
     oldCreateUI()
     controls.capacitorBar = StatusBar(controls.bg, 0, 1, false, false, nil, nil, true)
-    
-    
+
+
     controls.abilityBG = {}
     controls.abilityBG.TL = Bitmap(controls.abilities)
     controls.abilityBG.TR = Bitmap(controls.abilities)

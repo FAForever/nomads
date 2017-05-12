@@ -40,12 +40,12 @@ function CreateUI()
         EngineStartFrontEndUI()
         return
     end
-    
+
     GetCursor():Hide()
 
     local parent = UIUtil.CreateScreenGroup(GetFrame(0), "Splash ScreenGroup")
     AddInputCapture(parent)
-    
+
     local movie = Movie(parent)
     LayoutHelpers.FillParentPreserveAspectRatio(movie, parent)
     movie:DisableHitTest()    -- get clicks to parent group
@@ -83,7 +83,7 @@ function CreateUI()
                 else
                     return true
                 end
-            end 
+            end
             movie:Stop()
 
             if currentMovie < numLogos then
@@ -94,7 +94,7 @@ function CreateUI()
             else
                 StartMovie( currentMovie+1 )
             end
-            
+
             return true
         end
     end

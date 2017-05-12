@@ -10,7 +10,7 @@ UnitBlueprint {
         BombardModeCheckRadius = 12,
         BombardModeCheckUnits = 8,
         BombardModeCheckWeapon = 'MainGun_BombardmentMode',
-        GuardScanRadius = 125, 
+        GuardScanRadius = 125,
         TargetBones = {
             'INU4001',
             'gun',
@@ -116,7 +116,7 @@ UnitBlueprint {
             '<LOC ability_deploy>Deploys',
             '<LOC ability_stun>EMP',
             '<LOC ability_hover>Hover',
-            '<LOC ability_massive>Massive',            
+            '<LOC ability_massive>Massive',
             '<LOC ability_transportable>Transportable',
             '<LOC ability_deathaoe>Volatile',
         },
@@ -579,7 +579,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
             RangeCategory = 'UWRC_DirectFire',
-            RateOfFire = 0.1, 
+            RateOfFire = 0.1,
             SlavedToBody = false,
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -693,7 +693,7 @@ UnitBlueprint {
             RackSalvoSize = 2,
             RackSlavedToTurret = true,
             RangeCategory = 'UWRC_DirectFire',
-            RateOfFire = 0.0834, 
+            RateOfFire = 0.0834,
             SlavedToBody = false,
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -1189,7 +1189,7 @@ UnitBlueprint {
             TurretYawSpeed = 60,
             Turreted = true,
             WeaponCategory = 'Direct Fire',
-        },	
+        },
         {
             AlwaysRecheckTarget = true,
             Audio = {

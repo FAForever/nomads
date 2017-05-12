@@ -4,7 +4,7 @@ local AIRESULT = import('/lua/sim/ScriptTask.lua').AIRESULT
 local VoiceOvers = import('/lua/ui/game/voiceovers.lua')
 
 NomadsIntelOvercharge = Class(ScriptTask) {
-    
+
     StartTask = function(self)
         self:IfBrainAllowsRun( self.IntelOvercharge )
     end,
@@ -15,7 +15,7 @@ NomadsIntelOvercharge = Class(ScriptTask) {
             AddVOEvent(self, self.CommandData.SoundLaunched)
         end
     end,
-	  
+	
     TaskTick = function(self)
         self:SetAIResult(AIRESULT.Success)
         return TASKSTATUS.Done
