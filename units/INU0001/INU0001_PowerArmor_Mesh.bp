@@ -7,7 +7,7 @@ MeshBlueprint {
             NormalsName = 'inu0001_normalsTS.dds',
             SpecularName = 'inu0001_specteam.dds',
             LookupName = '/textures/effects/NomadPowerArmorLookup.dds',
-            ShaderName = 'NomadPowerArmor',
+            ShaderName = 'NomadsPowerArmor',
             LODCutoff = 300,
         },
     },

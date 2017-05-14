@@ -4781,12 +4781,12 @@ technique Insect_LowFidelity
 }
 
 
-/// NomadUnit
+/// NomadsUnit
 ///
 ///
-technique NomadUnit_HighFidelity
+technique NomadsUnit_HighFidelity
 <
-    string abstractTechnique = "NomadUnit";
+    string abstractTechnique = "NomadsUnit";
     int fidelity = FIDELITY_HIGH;
 
     string cartographicTechnique = "CartographicUnit";    
@@ -4804,9 +4804,9 @@ technique NomadUnit_HighFidelity
     }
 }
 
-technique NomadUnit_MedFidelity
+technique NomadsUnit_MedFidelity
 <
-    string abstractTechnique = "NomadUnit";
+    string abstractTechnique = "NomadsUnit";
     int fidelity = FIDELITY_MEDIUM;
 
     string cartographicTechnique = "CartographicUnit";    
@@ -4824,9 +4824,9 @@ technique NomadUnit_MedFidelity
     }
 }
 
-technique NomadUnit_LowFidelity
+technique NomadsUnit_LowFidelity
 <
-    string abstractTechnique = "NomadUnit";
+    string abstractTechnique = "NomadsUnit";
     int fidelity = FIDELITY_LOW;
 
     string cartographicTechnique = "CartographicUnit";    
@@ -4845,12 +4845,12 @@ technique NomadUnit_LowFidelity
     }
 }
 
-/// NomadPowerArmor
+/// NomadsPowerArmor
 /// use the same technique as the NomadUnit shader
 ///
-technique NomadPowerArmor_HighFidelity
+technique NomadsPowerArmor_HighFidelity
 <
-    string abstractTechnique = "NomadPowerArmor";
+    string abstractTechnique = "NomadsPowerArmor";
     int fidelity = FIDELITY_HIGH;
 
     string cartographicTechnique = "CartographicUnit";    
@@ -4868,9 +4868,9 @@ technique NomadPowerArmor_HighFidelity
     }
 }
 
-technique NomadPowerArmor_MedFidelity
+technique NomadsPowerArmor_MedFidelity
 <
-    string abstractTechnique = "NomadPowerArmor";
+    string abstractTechnique = "NomadsPowerArmor";
     int fidelity = FIDELITY_MEDIUM;
 
     string cartographicTechnique = "CartographicUnit";    
@@ -4888,9 +4888,9 @@ technique NomadPowerArmor_MedFidelity
     }
 }
 
-technique NomadPowerArmor_LowFidelity
+technique NomadsPowerArmor_LowFidelity
 <
-    string abstractTechnique = "NomadPowerArmor";
+    string abstractTechnique = "NomadsPowerArmor";
     int fidelity = FIDELITY_LOW;
 
     string cartographicTechnique = "CartographicUnit";    

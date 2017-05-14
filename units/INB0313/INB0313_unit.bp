@@ -103,7 +103,7 @@ UnitBlueprint {
                     LODCutoff = 500,
                     MeshName = '/units/INB0313/INB0313_Lod0.scm', --
                     NormalsName = '/units/INB0313/INB0313_NormalsTS.dds', --
-                    ShaderName = 'NomadUnit',
+                    ShaderName = 'NomadsUnit',
                     SpecularName = '/units/INB0313/INB0313_SpecTeam.dds', --
                 },
             },

@@ -65,7 +65,7 @@ UnitBlueprint {
                     MeshName = '/units/ino0001/ino0001_lod0.scm',
                     NormalsName = '/units/ino0001/ino0001_normalsTS.dds',
                     Scrolling = true,
-                    ShaderName = 'NomadUnit',
+                    ShaderName = 'NomadsUnit',
                     SpecularName = '/units/ino0001/ino0001_SpecTeam.dds',
                 },
             },
