@@ -69,10 +69,6 @@ UnitBlueprint {
             IconFadeInZoom = 130,
             LODs = {
                 {
-                    LODCutoff = 300,
-                    ShaderName = 'NomadsUnit',
-                },
-                {
                     AlbedoName = 'INB2302_lod1_albedo.dds',
                     LODCutoff = 500,
                     ShaderName = 'NomadsUnit',
