@@ -81,11 +81,11 @@ To run the Map Editor with nomads units you need to do the following steps:
 
 Some common issues and how to solve them
 ----------------------------------------
-#### 1. Unknown technique NomadUnit
+#### 1. Unknown technique NomadsUnit
 If you encounter an error like this: 
 ```
-WARNING: attempt to retrieve annotation from unknown technique NomadUnit
-WARNING: c:\work\rts\main\code\src\libs\gpggal\EffectD3D9.cpp(89) invalid effect technique requested: NomadUnit
+WARNING: attempt to retrieve annotation from unknown technique NomadsUnit
+WARNING: c:\work\rts\main\code\src\libs\gpggal\EffectD3D9.cpp(89) invalid effect technique requested: NomadsUnit
 ```
 Try to run the `shader_cleaner.bat` file to fix it.
 You can find this file inside your local copy of **Nomads-Project/nomads**.

@@ -6,7 +6,7 @@ MeshBlueprint {
             LODCutoff = 300,
             MeshName = '/units/INA0001/INA0001_Cover_Lod0.scm',
             NormalsName = '/units/INA0001/INA0001_NormalsTS.dds',
-            ShaderName = 'NomadUnit',
+            ShaderName = 'NomadsUnit',
             SpecularName = '/units/INA0001/INA0001_SpecTeam.dds',
         },
     },

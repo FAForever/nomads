@@ -267,7 +267,7 @@ UnitBlueprint {
                     LookupName = '/textures/effects/NomadPowerArmorLookup.dds',
                     MeshName = '/units/INU4002/INU4002_Lod0.scm',
                     NormalsName = '/units/INU4002/INU4002_NormalsTS.dds',
-                    ShaderName = 'NomadPowerArmor',
+                    ShaderName = 'NomadsPowerArmor',
                     SpecularName = '/units/INU4002/INU4002_SpecTeam.dds',
                 },
             },

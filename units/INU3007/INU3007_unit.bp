@@ -83,7 +83,7 @@ UnitBlueprint {
                 {
                     LODCutoff = 250,
                     Scrolling = true,
-                    ShaderName = 'NomadUnit',
+                    ShaderName = 'NomadsUnit',
                 },
             },
         },

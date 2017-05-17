@@ -136,7 +136,7 @@ UnitBlueprint {
             LODs = {
                 {
                     LODCutoff = 450,
-                    ShaderName = 'NomadUnit',
+                    ShaderName = 'NomadsUnit',
                 },
             },
         },
