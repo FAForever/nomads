@@ -332,6 +332,12 @@ INA2001 = Class(NAirTransportUnit) {
         end
         return bp.SizeX, bp.SizeY, bp.SizeZ
     end,
+    
+    CreateWreckage = function (self, overkillRatio)
+        local wreck = NAirTransportUnit.CreateWreckage(self, overkillRatio)
+        wreck.UnfoldAnim = CreateAnimator(wreck):PlayAnim('/units/INA2001/INA2001_Unfold.sca'):SetRate(0)
+        wreck.UnfoldAnim:SetAnimationFraction(self.UnfoldAnim:GetAnimationFraction())
+    end,
 }
 
 TypeClass = INA2001
