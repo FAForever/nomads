@@ -129,6 +129,14 @@ UnitBlueprint {
             '<LOC ability_transport>Transport',
             '<LOC ability_flares>Flares',
         },
+        AnimationDeath = {
+            {
+                Animation = '/units/INA2001/INA2001_Unfold.sca',
+                AnimationRateMax = 1.25,
+                AnimationRateMin = 0.75,
+                Weight = 100,
+            },
+        },
         BuildEffect = {
             ExtendsFront = 0,
             ExtendsRear = 0,
