@@ -95,7 +95,7 @@ UnitBlueprint {
                             BoneName = 'tracks',
                             TreadMarks = 'tank_treads_albedo',
                             TreadMarksInterval = 0.2,
-                            TreadMarksSizeX = 0.75,
+                            TreadMarksSizeX = 2.5,
                             TreadMarksSizeZ = 0.5,
                             TreadOffset = {
                                 0,
