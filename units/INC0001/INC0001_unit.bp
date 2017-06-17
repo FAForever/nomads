@@ -155,6 +155,7 @@ UnitBlueprint {
     SizeX = 2,
     SizeY = 3,
     SizeZ = 11.25,
+    CollisionOffsetY = 2.7,
     StrategicIconName = 'icon_structure_generic',
     StrategicIconSortPriority = 55,
     Wreckage = {
