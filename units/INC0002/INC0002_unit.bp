@@ -39,7 +39,7 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
     },
-    Description = '<LOC inc001_desc>Orbital Frigate',
+    Description = '<LOC inc002_desc>Orbital Cruiser',
     Display = {
         IdleEffects = {
             Land = {
@@ -72,7 +72,7 @@ UnitBlueprint {
         },
         PlaceholderMeshName = 'UXL0004',
         SpawnRandomRotation = true,
-        UniformScale = 0.08,
+        UniformScale = 0.16,
     },
     Economy = {
         BuildCostEnergy = 72000,
@@ -110,14 +110,14 @@ UnitBlueprint {
         Icon = 'air',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
-        UnitName = '<LOC inc0001>Planetary Operations Support Ship',
+        UnitName = '<LOC inc0002>Orbital Cruiser',
         UnitWeight = 1,
     },
     Intel = {
         VisionRadius = 23,
     },
     Interface = {
-        HelpText = '<LOC inc0001_help>Orbital Support Spacecraft',
+        HelpText = '<LOC inc0002_help>Orbital Cruiser',
     },
     LifeBarHeight = 0.15,
     LifeBarOffset = 7,
@@ -152,10 +152,10 @@ UnitBlueprint {
     SelectionSizeX = 3,
     SelectionSizeZ = 8,
     SelectionThickness = 0.15,
-    SizeX = 2,
-    SizeY = 3,
-    SizeZ = 11.25,
-    CollisionOffsetY = 2.7,
+    SizeX = 4,
+    SizeY = 6,
+    SizeZ = 22,
+    CollisionOffsetY = 5,
     StrategicIconName = 'icon_structure_generic',
     StrategicIconSortPriority = 55,
     Wreckage = {

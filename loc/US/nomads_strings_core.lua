@@ -253,6 +253,15 @@ ino0001_desc = "Surface Operations Support"
 ino0001_help = "Provides a number of services to the ACU."
 ino0001_name = "Surface Operations Support"
 
+inc0001_desc = "Orbital Frigate"
+inc0001_help = "Provides a number of services to the ACU."
+inc0001_name = "Planetary Operations Support Ship"
+
+inc0002_desc = "Orbital Cruiser"
+inc0002_help = "Heavily damaged orbital cruiser."
+inc0002_name = "Orbital Cruiser"
+
+
 -- orbital dropship
 ina0001_desc = "Drop pod"
 ina0001_help = "Transports units to the planets surface. Acts like a meteor."
