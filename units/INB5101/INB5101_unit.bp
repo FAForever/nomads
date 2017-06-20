@@ -160,7 +160,7 @@ UnitBlueprint {
         HealthMult = 0.2,
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
-        UseCustomMesh = true,
+        UseCustomMesh = false,
         WreckageLayers = {
             Air = false,
             Land = true,
