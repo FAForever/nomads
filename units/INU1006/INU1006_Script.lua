@@ -12,7 +12,7 @@ INU1006 = Class(NLandUnit) {
         TargetPainter = Class(TargetingLaser) {
             -- Unit in range. Cease ground fire and turn on AA
             OnWeaponFired = function(self)
-                if not self.AA then
+                if self.AA == false then
                     self.unit:SetWeaponEnabledByLabel('ArtilleryGun', false)
                     self.unit:SetWeaponEnabledByLabel('AAGun', true)
                     self.unit:GetWeaponManipulatorByLabel('AAGun'):SetHeadingPitch(self.unit:GetWeaponManipulatorByLabel('ArtilleryGun'):GetHeadingPitch())
@@ -24,10 +24,12 @@ INU1006 = Class(NLandUnit) {
             IdleState = State(TargetingLaser.IdleState) {
                 -- Start with the AA gun off to reduce twitching of ground fire
                 Main = function(self)
-                    self.unit:SetWeaponEnabledByLabel('ArtilleryGun', true)
-                    self.unit:SetWeaponEnabledByLabel('AAGun', false)
-                    self.unit:GetWeaponManipulatorByLabel('ArtilleryGun'):SetHeadingPitch(self.unit:GetWeaponManipulatorByLabel('AAGun'):GetHeadingPitch())
-                    self.AA = false
+                    if self.AA == true or self.AA == nil then
+                        self.unit:SetWeaponEnabledByLabel('ArtilleryGun', true)
+                        self.unit:SetWeaponEnabledByLabel('AAGun', false)
+                        self.unit:GetWeaponManipulatorByLabel('ArtilleryGun'):SetHeadingPitch(self.unit:GetWeaponManipulatorByLabel('AAGun'):GetHeadingPitch())
+                        self.AA = false
+                    end
                     TargetingLaser.IdleState.Main(self)
                 end,
             },
