@@ -933,7 +933,7 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
             Audio = {
                 Fire = Sound {
-                    Bank = 'NomadsWeapons',
+                    Bank = 'NomadsOverchargeWeapon',
                     Cue = 'APCannonOvercharge_Muzzle',
                     LodCutoff = 'Weapon_LodCutoff',
                 },
@@ -1021,7 +1021,7 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
             Audio = {
                 Fire = Sound {
-                    Bank = 'NomadsWeapons',
+                    Bank = 'NomadsOverchargeWeapon',
                     Cue = 'APCannonOvercharge_Muzzle',
                     LodCutoff = 'Weapon_LodCutoff',
                 },
