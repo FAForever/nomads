@@ -33,8 +33,41 @@ INC0001 = Class(NCivilianStructureUnit) {
                 self:AddToConstructionQueue('inu1001', army)
             end
         end]]
+        --[[ForkThread(function()
+            WaitSeconds(2)
+            WARN("stop now")
+            self:StopRotators()
+            WaitSeconds(4)
+            WARN("start now")
+            self:StartRotators()
+            end
+        )]]
     end,
 
+    StopRotators = function(self)
+        if self.RotatorManipulator1 then
+            self.RotatorManipulator1:SetTargetSpeed( 0 )
+        end
+        if self.RotatorManipulator2 then
+            self.RotatorManipulator2:SetTargetSpeed( 0 )
+        end
+        if self.RotatorManipulator3 then
+            self.RotatorManipulator3:SetTargetSpeed( 0 )
+        end        
+    end,
+    
+    StartRotators = function(self)
+        if self.RotatorManipulator1 then
+            self.RotatorManipulator1:SetTargetSpeed( self:GetBlueprint().Rotators.PrimarySpeed )
+        end
+        if self.RotatorManipulator2 then
+            self.RotatorManipulator2:SetTargetSpeed( self:GetBlueprint().Rotators.SecondarySpeed )
+        end
+        if self.RotatorManipulator3 then
+            self.RotatorManipulator3:SetTargetSpeed( self:GetBlueprint().Rotators.PrimarySpeed )
+        end
+    end,
+    
     RotatingAngle = function(self)
         -- spinner 1 and 3
         if not self.RotatorManipulator1 then
@@ -45,8 +78,8 @@ INC0001 = Class(NCivilianStructureUnit) {
         end
         if not self.RotatorManipulator3 then
             self.RotatorManipulator3 = CreateRotator( self, 'Spinner3', 'z' )
-            self.RotatorManipulator3:SetAccel( 5 )
-            self.RotatorManipulator3:SetTargetSpeed( 30 )
+            self.RotatorManipulator3:SetAccel( self:GetBlueprint().Rotators.PrimaryAccel )
+            self.RotatorManipulator3:SetTargetSpeed( self:GetBlueprint().Rotators.PrimarySpeed )
             self.Trash:Add( self.RotatorManipulator3 )
         end
 

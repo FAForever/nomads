@@ -785,7 +785,7 @@ EnergyProj = Class(SinglePolyTrailProjectile) {
         local pos = self:GetPosition()
         DamageArea(self, pos, (self.DamageData.DamageRadius or 1) * 1.2, 1, 'BigFire', true)  -- light trees on fire
         local army = self:GetArmy()
-        local ok = (targetType ~= 'Water' and targetType ~= 'Shield' and targetType ~= 'Air' and targetType ~= 'UnitAir' and targetType ~= 'UnitUnderwater')
+        local ok = (GetSurfaceHeight(pos[1],pos[3]) == GetTerrainHeight(pos[1],pos[3]) and targetType ~= 'Water' and targetType ~= 'Shield' and targetType ~= 'Air' and targetType ~= 'UnitAir' and targetType ~= 'UnitUnderwater')
         if ok then
             local rotation = RandomFloat(0,2*math.pi)
             local size = RandomFloat(8, 10)
@@ -1595,7 +1595,7 @@ Buoy1 = Class(SinglePolyTrailProjectile) {
 
     OnImpact = function(self, targetType, targetEntity)
         SinglePolyTrailProjectile.OnImpact(self, targetType, targetEntity)
-        local ok = (targetType ~= 'None' and targetType ~= 'Shield' and targetType ~= 'Air' and targetType ~= 'UnitAir')  -- removed water
+        local ok = (targetType ~= 'Water' and targetType ~= 'None' and targetType ~= 'Shield' and targetType ~= 'Air' and targetType ~= 'UnitAir')
         if ok then
             local spec = self:GetSpec( targetType, targetEntity )
             self:CreateBuoy( spec, targetType, targetEntity )

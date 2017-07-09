@@ -253,6 +253,15 @@ ino0001_desc = "Surface Operations Support"
 ino0001_help = "Provides a number of services to the ACU."
 ino0001_name = "Surface Operations Support"
 
+inc0001_desc = "Orbital Frigate"
+inc0001_help = "Provides a number of services to the ACU."
+inc0001_name = "Planetary Operations Support Ship"
+
+inc0002_desc = "Orbital Cruiser"
+inc0002_help = "Heavily damaged orbital cruiser."
+inc0002_name = "Orbital Cruiser"
+
+
 -- orbital dropship
 ina0001_desc = "Drop pod"
 ina0001_help = "Transports units to the planets surface. Acts like a meteor."
@@ -913,17 +922,17 @@ inu9002_name = "NC1001B"
 --------------------------------------------------------
 ---- TAUNTS
 --------------------------------------------------------
-Nicols = "Nicols"
-NTaunts_MP1_010_010 = '[{i Nicols}]: You will never escape, I will make you suffer!'
-NTaunts_MP1_010_011 = '[{i Nicols}]: Your resistance is futile, you will be destroyed!'
-NTaunts_MP1_010_012 = '[{i Nicols}]: Orbital strike initiated, goodbye.'
-NTaunts_MP1_010_013 = '[{i Nicols}]: We are back. It\'s time for you to die.'
-NTaunts_MP1_010_014 = '[{i Nicols}]: Once we were lost, but now we will reign supreme.'
-NTaunts_MP1_010_015 = '[{i Nicols}]: You have what we call a very terrestrial mindset.'
-NTaunts_MP1_010_016 = '[{i Nicols}]: I think the space between your ears is best left unexplored!'
-NTaunts_MP1_010_017 = '[{i Nicols}]: You can\'t hope to contain the vastness of the nomad fleet.'
-NTaunts_MP1_010_018 = '[{i Nicols}]: I\'m afraid, we\'re out of mercy today. How would you like an ass kicking instead?'
-NTaunts_MP1_010_019 = '[{i Nicols}]: It is amazing that you made it this far without hurting yourself.'
+Nichols = "Nichols"
+NTaunts_MP1_010_010 = '[{i Nichols}]: You will never escape, I will make you suffer!'
+NTaunts_MP1_010_011 = '[{i Nichols}]: Your resistance is futile, you will be destroyed!'
+NTaunts_MP1_010_012 = '[{i Nichols}]: Orbital strike initiated, goodbye.'
+NTaunts_MP1_010_013 = '[{i Nichols}]: We are back. It\'s time for you to die.'
+NTaunts_MP1_010_014 = '[{i Nichols}]: Once we were lost, but now we will reign supreme.'
+NTaunts_MP1_010_015 = '[{i Nichols}]: You have what we call a very terrestrial mindset.'
+NTaunts_MP1_010_016 = '[{i Nichols}]: I think the space between your ears is best left unexplored!'
+NTaunts_MP1_010_017 = '[{i Nichols}]: You can\'t hope to contain the vastness of the nomad fleet.'
+NTaunts_MP1_010_018 = '[{i Nichols}]: I\'m afraid, we\'re out of mercy today. How would you like an ass kicking instead?'
+NTaunts_MP1_010_019 = '[{i Nichols}]: It is amazing that you made it this far without hurting yourself.'
 
 Benson = "Benson"
 NTaunts_MP1_011_010 = '[{i Benson}]: Even my ships docking sensors have better aim than your gun.'
