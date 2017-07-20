@@ -147,6 +147,10 @@ INB2302 = Class(NStructureUnit) {
 
     OnArtilleryUnitFired = function(self)
         -- called each time the gun fires a projectile
+        if self.oldRoF ~= self.GetWeaponByLabel('TargetFinder').RateOfFire then
+            self.oldRoF = self.GetWeaponByLabel('TargetFinder').RateOfFire
+            self.ArtilleryUnit:GetWeaponByLabel('MainGun'):ChangeRateOfFire(oldRoF)
+        end
     end,
 
     OnArtilleryUnitKilledUnit = function(self, unitKilled)
