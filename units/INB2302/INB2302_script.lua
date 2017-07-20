@@ -145,11 +145,12 @@ INB2302 = Class(NStructureUnit) {
         self:ForkThread( self.WatchFireState )
     end,
 
+    --oldRoF = 0.05,
     OnArtilleryUnitFired = function(self)
         -- called each time the gun fires a projectile
-        if self.oldRoF ~= self.GetWeaponByLabel('TargetFinder').RateOfFire then
-            self.oldRoF = self.GetWeaponByLabel('TargetFinder').RateOfFire
-            self.ArtilleryUnit:GetWeaponByLabel('MainGun'):ChangeRateOfFire(oldRoF)
+        if self.oldRoF ~= self:GetWeaponByLabel('TargetFinder').RateOfFire then
+            self.oldRoF = self:GetWeaponByLabel('TargetFinder').RateOfFire
+            self.ArtilleryUnit:GetWeaponByLabel('MainGun'):ChangeRateOfFire(self.oldRoF)
         end
     end,
 
