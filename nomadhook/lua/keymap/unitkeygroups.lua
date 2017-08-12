@@ -172,6 +172,7 @@ unitkeygroups = {
 
 ["Arties"] = {
   "Artillery_Installation",
+  "inb3303", --Nomads t3 missile artillery
   "Heavy_Artillery_Installation",
 
   "T3_Strategic_Bomber",

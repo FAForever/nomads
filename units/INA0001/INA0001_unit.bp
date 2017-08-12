@@ -33,17 +33,16 @@ UnitBlueprint {
     Description = '<LOC ina0001_desc>Meteor Dropship',
     Display = {
         AnimationOpen = '/units/INA0001/INA0001_AOpen.sca',
-        AnimationSink = '/units/INA0001/INA0001_ASink.sca',
         Mesh = {
             IconFadeInZoom = 2000,
             LODs = {
                 {
-                    AlbedoName = '/Units/INA0001/INA0001_Albedo.dds',
+                    AlbedoName = '/units/INA0001/INA0001_Albedo.dds',
                     LODCutoff = 215,
-                    MeshName = '/Units/INA0001/INA0001_LOD0.scm',
-                    NormalsName = '/UNITS/INA0001/INA0001_NormalsTS.dds',
+                    MeshName = '/units/INA0001/INA0001_Lod0.scm',
+                    NormalsName = '/units/INA0001/INA0001_normalsTS.dds',
                     ShaderName = 'NomadsUnit',
-                    SpecularName = '/Units/INA0001/INA0001_SpecTeam.dds',
+                    SpecularName = '/units/INA0001/INA0001_SpecTeam.dds',
                 },
             },
         },
