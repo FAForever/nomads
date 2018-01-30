@@ -312,7 +312,7 @@ UnitBlueprint {
     },
     Economy = {
         BuildCostEnergy = 5000000,
-        BuildCostMass = 18000,
+        BuildCostMass = 2000,
         BuildRate = 10,
         BuildTime = 6000000,
         BuildableCategory = {
@@ -853,6 +853,14 @@ UnitBlueprint {
         Level4 = 90,
         Level5 = 120,
     },
+    VeteranHealingMult = { -- This table is used to override the vet instant heal multiplier per level
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+    },
+    VeteranMassMult = 0.5,
     Weapon = {
         {
             AboveWaterFireOnly = true,
