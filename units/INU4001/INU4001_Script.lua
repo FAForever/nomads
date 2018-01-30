@@ -335,7 +335,7 @@ INU4001 = Class(NExperimentalHoverLandUnit, SlowHover) {
     end,
 
     DeathExplosionsOnWaterThread = function( self, overkillRatio, instigator)
-        self:DeathExplosionsThread(overkillRatio, instigator, false )
+        self:DeathExplosionsThread(overkillRatio, instigator, true )
     end,
 
     CreateExplosionDebris = function( self, bone, army )
