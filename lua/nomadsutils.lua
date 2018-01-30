@@ -1626,6 +1626,7 @@ function AddCapacitorAbility( SuperClass )
                 KillThread(self.CapStateThreadHandle)
                 self.CapStateThreadHandle = nil
             end
+            self:CapDestroyFx()
         end,
         
         CapUpdateBar = function(self)
