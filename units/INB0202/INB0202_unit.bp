@@ -71,7 +71,7 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
     },
-    Description = '<LOC inb0202faf_desc>Air Factory (HQ)',
+    Description = '<LOC inb0202faf_desc>Air Factory HQ',
     Display = {
         Abilities = {
             '<LOC ability_upgradable>Upgradeable',
@@ -188,7 +188,7 @@ UnitBlueprint {
         VisionRadius = 20,
     },
     Interface = {
-        HelpText = '<LOC inb0202faf_help>Air Factory (HQ)',
+        HelpText = '<LOC inb0202faf_help>Air Factory HQ',
     },
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.65,
