@@ -69,7 +69,7 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
     },
-    Description = '<LOC inb0303faf_desc>Naval Factory (HQ)',
+    Description = '<LOC inb0303faf_desc>Naval Factory HQ',
     Display = {
         BuildAttachBone = 'Attachpoint',
         BuildEffect = {
