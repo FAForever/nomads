@@ -57,6 +57,7 @@ INA2001 = Class(NAirTransportUnit) {
         if self.UnfoldAnim then
             self.UnfoldAnim:SetRate(0)
         end
+        self:DestroyThrusterEffects()
         NAirTransportUnit.OnKilled(self, instigator, type, overkillRatio)
         self:TransportDetachAllUnits(true)
     end,

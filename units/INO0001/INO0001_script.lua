@@ -24,6 +24,7 @@ INO0001 = Class(NOrbitUnit) {
     BuildEffectsBag = nil,
     ThrusterEffectsBag = nil,
     returnposition = nil,
+    targetCoordinates = nil,
 
     OnPreCreate = function(self)
         --yes i know this is disgusting but it has to be done since the nomads orbital ship crashes the game
@@ -319,33 +320,30 @@ INO0001 = Class(NOrbitUnit) {
 
 
 -- movement behavior
-
     MoveAway = function(self)
         local positionX, positionZ, positionY = unpack(self:GetPosition())
         local mapsizeX, mapsizeY = GetMapSize()
         local distanceX = mapsizeX/2 - positionX
         local distanceY = mapsizeY/2 - positionY
 
-        local targetCoordinates
-
         if math.abs(distanceX) < math.abs(distanceY) then
             if distanceY < 0 then
-                targetCoordinates = Vector(positionX + Random(mapsizeX/5)-mapsizeX/10, positionZ, mapsizeY - 2)
+                self.targetCoordinates = Vector(positionX + Random(mapsizeX/5)-mapsizeX/10, positionZ, mapsizeY - 2)
             else
-                targetCoordinates = Vector(positionX + Random(mapsizeX/5)-mapsizeX/10, positionZ, 2)
+                self.targetCoordinates = Vector(positionX + Random(mapsizeX/5)-mapsizeX/10, positionZ, 2)
             end
         else
             if distanceX < 0 then
-                targetCoordinates = Vector(mapsizeX - 2, positionZ, positionY + Random(mapsizeY/5)-mapsizeY/10)
+                self.targetCoordinates = Vector(mapsizeX - 2, positionZ, positionY + Random(mapsizeY/5)-mapsizeY/10)
             else
-                targetCoordinates = Vector(2, positionZ, positionY + Random(mapsizeY/5)-mapsizeY/10)
+                self.targetCoordinates = Vector(2, positionZ, positionY + Random(mapsizeY/5)-mapsizeY/10)
             end
         end
 
-        self.MoveCommand = IssueMove({self}, targetCoordinates)
+        self.MoveCommand = IssueMove({self}, self.targetCoordinates)
         self:BurnEngines()
 
-        self:CheckIfAtTarget(targetCoordinates)
+        self:CheckIfAtTarget()
     end,
 
     ReturnToStartLocation = function(self)
@@ -355,18 +353,18 @@ INO0001 = Class(NOrbitUnit) {
         self:CheckIfAtTarget(self.returnposition)
     end,
 
-    CheckIfAtTarget = function(self, targetCoordinates)
+    CheckIfAtTarget = function(self)
         ForkThread(function()
             local arrivedAtTarget = false
-            WaitSeconds(10)
+            WaitSeconds(3)
 
             while not arrivedAtTarget do
-                if (self:GetPosition()[1]-targetCoordinates[1])^2 + (self:GetPosition()[3]-targetCoordinates[3])^2 < 10 then
+                if (self:GetPosition()[1]-self.targetCoordinates[1])^2 + (self:GetPosition()[3]-self.targetCoordinates[3])^2 < 10 then
                     arrivedAtTarget = true
                     self:StopEngines()
                     self.MoveCommand = nil
                 end
-                WaitSeconds(2)
+                WaitSeconds(1)
             end
         end)
     end,

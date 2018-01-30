@@ -65,7 +65,7 @@ UnitBlueprint {
                     MeshName = '/units/ino0001/ino0001_lod0.scm',
                     NormalsName = '/units/ino0001/ino0001_normalsTS.dds',
                     Scrolling = true,
-                    ShaderName = 'NomadUnit',
+                    ShaderName = 'NomadsUnit',
                     SpecularName = '/units/ino0001/ino0001_SpecTeam.dds',
                 },
             },
@@ -85,8 +85,8 @@ UnitBlueprint {
         StorageMass = 650,
     },
     Footprint = {
-        SizeX = 16,
-        SizeZ = 28,
+        SizeX = 14,
+        SizeZ = 14,
     },
     General = {
         CapCost = 0,
@@ -110,11 +110,11 @@ UnitBlueprint {
         Icon = 'air',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
-        UnitName = '<LOC inc0001>Planet operations support ship',
+        UnitName = '<LOC inc0001>Planetary Operations Support Ship',
         UnitWeight = 1,
     },
     Intel = {
-        VisionRadius = 15,
+        VisionRadius = 23,
     },
     Interface = {
         HelpText = '<LOC inc0001_help>Orbital Support Spacecraft',
@@ -155,6 +155,7 @@ UnitBlueprint {
     SizeX = 2,
     SizeY = 3,
     SizeZ = 11.25,
+    CollisionOffsetY = 2.7,
     StrategicIconName = 'icon_structure_generic',
     StrategicIconSortPriority = 55,
     Wreckage = {

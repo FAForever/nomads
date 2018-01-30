@@ -93,7 +93,7 @@ UnitBlueprint {
             Level5 = 10,
         },
     },
-    BuildIconSortPriority = 15,
+    BuildIconSortPriority = 16,
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER2FACTORY',
@@ -159,11 +159,11 @@ UnitBlueprint {
             LODs = {
                 {
                     LODCutoff = 60,
-                    ShaderName = 'NomadUnit',
+                    ShaderName = 'NomadsUnit',
                 },
                 {
                     LODCutoff = 215,
-                    ShaderName = 'NomadUnit',
+                    ShaderName = 'NomadsUnit',
                 },
             },
         },

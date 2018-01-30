@@ -109,7 +109,7 @@ UnitBlueprint {
                     LODCutoff = 500,
                     MeshName = '/units/INB0213/INB0213_Lod0.scm', --
                     NormalsName = '/units/INB0213/INB0213_NormalsTS.dds', --
-                    ShaderName = 'NomadUnit',
+                    ShaderName = 'NomadsUnit',
                     SpecularName = '/units/INB0213/INB0213_SpecTeam.dds', --
                 },
             },
@@ -227,8 +227,8 @@ UnitBlueprint {
         SkirtSizeZ = 19,
         TurnRate = 0,
     },
-    SelectionMeshScaleX = 0.3,
-    SelectionMeshScaleZ = 0.4,
+    SelectionMeshScaleX = 0.8,
+    SelectionMeshScaleZ = 0.8,
     SelectionMeshUseTopAmount = 0.15,
     SelectionSizeX = 2.2,
     SelectionSizeZ = 6.9,

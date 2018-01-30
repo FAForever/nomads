@@ -72,7 +72,7 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
     },
-    Description = '<LOC inb0302faf_desc>Air Factory (HQ)',
+    Description = '<LOC inb0302faf_desc>Air Factory HQ',
     Display = {
         AnimationFinishBuildLand = '/units/inb0302/inb0302_alift.sca',
         --BlinkingLights = {
@@ -101,7 +101,7 @@ UnitBlueprint {
             LODs = {
                 {
                     LODCutoff = 500,
-                    ShaderName = 'NomadUnit',
+                    ShaderName = 'NomadsUnit',
                 },
             },
         },
@@ -184,7 +184,7 @@ UnitBlueprint {
         VisionRadius = 20,
     },
     Interface = {
-        HelpText = '<LOC inb0302faf_help>Air Factory (HQ)',
+        HelpText = '<LOC inb0302faf_help>Air Factory HQ',
     },
     LifeBarHeight = 0.075,
     LifeBarOffset = 2.15,

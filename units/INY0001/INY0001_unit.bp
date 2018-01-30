@@ -48,7 +48,7 @@ UnitBlueprint {
                     AlbedoName = '/projectiles/CIFGrenade01/CIFGrenade01_Albedo.dds',
                     LODCutoff = 100,
                     MeshName = '/projectiles/CIFGrenade01/CIFGrenade01_lod0.scm',
-                    ShaderName = 'NomadUnit',
+                    ShaderName = 'NomadsUnit',
                     SpecularName = '/projectiles/CIFGrenade01/CIFGrenade01_SpecTeam.dds',
                 },
             },

@@ -69,7 +69,7 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
     },
-    Description = '<LOC inb0301faf_desc>Land Factory (HQ)',
+    Description = '<LOC inb0301faf_desc>Land Factory HQ',
     Display = {
 	SequenceAnimation = '/units/INB0301/NB0301_Asequence.sca',
         BlinkingLights = {
@@ -105,7 +105,7 @@ UnitBlueprint {
             LODs = {
                 {
                     LODCutoff = 500,
-                    ShaderName = 'NomadUnit',
+                    ShaderName = 'NomadsUnit',
                 },
             },
         },
@@ -186,7 +186,7 @@ UnitBlueprint {
         VisionRadius = 20,
     },
     Interface = {
-        HelpText = '<LOC inb0301faf_help>Land Factory (HQ)',
+        HelpText = '<LOC inb0301faf_help>Land Factory HQ',
     },
     LifeBarHeight = 0.075,
     LifeBarOffset = 2.5,

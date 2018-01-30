@@ -169,6 +169,10 @@ NomadsACUEnh_MovementSpeedIncrease_Description = "This enhancement improves the 
 NomadsACUEnh_MovementSpeedIncrease_Help = "Improved locomotor"
 NomadsACUEnh_MovementSpeedIncrease_Remove = "Remove improved locomotor"
 
+NomadsACUEnh_Capacitor_Description = "Allows the ACU to temporarily boost its stats with the capacitor ability for an appropriate energy cost."
+NomadsACUEnh_Capacitor_Help = "Capacitor"
+NomadsACUEnh_Capacitor_Remove = "Remove Capacitor"
+
 NomadsACUEnh_AddCapacitor_Description = "Enhances the ACU with an additional capacitor that increases the duration of the capacitor boost."
 NomadsACUEnh_AddCapacitor_Help = "Additional Capacitor"
 NomadsACUEnh_AddCapacitor_Remove = "Remove Additional Capacitor"
@@ -210,6 +214,10 @@ NomadsSCUEnh_RightArmEngineering_Description = "Enhances the SACU with an additi
 NomadsSCUEnh_RightArmEngineering_Help = "Right Arm Engineering"
 NomadsSCUEnh_RightArmEngineering_Remove = "Remove Right Arm Engineering"
 
+NomadsSCUEnh_Capacitor_Description = "Allows the SACU to temporarily boost its stats with the capacitor ability for an appropriate energy cost."
+NomadsSCUEnh_Capacitor_Help = "Capacitor"
+NomadsSCUEnh_Capacitor_Remove = "Remove Capacitor"
+
 NomadsSCUEnh_AddCapacitor_Description = "Enhances the SACU with an additional capacitor that increases the duration of the capacitor ability."
 NomadsSCUEnh_AddCapacitor_Help = "Additional Capacitor"
 NomadsSCUEnh_AddCapacitor_Remove = "Remove Additional Capacitor"
@@ -244,6 +252,15 @@ inu0001_name = "Armored Command Unit"
 ino0001_desc = "Surface Operations Support"
 ino0001_help = "Provides a number of services to the ACU."
 ino0001_name = "Surface Operations Support"
+
+inc0001_desc = "Orbital Frigate"
+inc0001_help = "Provides a number of services to the ACU."
+inc0001_name = "Planetary Operations Support Ship"
+
+inc0002_desc = "Orbital Cruiser"
+inc0002_help = "Heavily damaged orbital cruiser."
+inc0002_name = "Orbital Cruiser"
+
 
 -- orbital dropship
 ina0001_desc = "Drop pod"
@@ -550,34 +567,34 @@ ins2003_name = "Whaler Class"
 -- Structures
 
 -- land factory (HQ, FAF specific)
-inb0201_desc = "Land Factory (HQ)"
+inb0201_desc = "Land Factory HQ"
 inb0201_help = "Constructs Tech 2 land units. HQ factory, required to build same tier land units and same tier land support factories. Upgradeable."
-inb0201_name = "Land Factory (HQ)"
+inb0201_name = "Land Factory HQ"
 
 -- land factory (support, FAF specific)
-inb0211_desc = "Land Factory (Support)"
+inb0211_desc = "Land Factory"
 inb0211_help = "Constructs Tech 2 land units. Supporting factory, requires a land HQ factory to build same tier land units. Upgradeable once a land HQ factory is built."
-inb0211_name = "Land Factory (support)"
+inb0211_name = "Land Factory"
 
 -- air factory (HQ, FAF specific)
-inb0202_desc = "Air Factory (HQ)"
+inb0202_desc = "Air Factory HQ"
 inb0202_help = "Constructs Tech 2 air units. HQ factory, required to build same tier air units and same tier air support factories. Upgradeable."
-inb0202_name = "Air Factory (HQ)"
+inb0202_name = "Air Factory HQ"
 
 -- air factory (support, FAF specific)
-inb0212_desc = "Air Factory (Support)"
+inb0212_desc = "Air Factory"
 inb0212_help = "Constructs Tech 2 air units. Supporting factory, requires an air HQ factory to build same tier air units. Upgradeable once an air HQ factory is built."
-inb0212_name = "Air Factory (Support)"
+inb0212_name = "Air Factory"
 
 -- naval factory (HQ, FAF specific)
-inb0203_desc = "Naval Factory (HQ)"
+inb0203_desc = "Naval Factory HQ"
 inb0203_help = "Constructs Tech 2 naval units. HQ factory, required to build same tier naval units and same tier naval support factories. Upgradeable."
-inb0203_name = "Naval Factory (HQ)"
+inb0203_name = "Naval Factory HQ"
 
 -- naval factory (support, FAF specific)
-inb0213_desc = "Naval Factory (Support)"
+inb0213_desc = "Naval Factory"
 inb0213_help = "Constructs Tech 2 naval units. Supporting factory, requires a naval HQ factory to build same tier naval units. Upgradeable once a naval HQ factory is built."
-inb0213_name = "Naval Factory (Support)"
+inb0213_name = "Naval Factory"
 
 -- Power generator
 inb1201_desc = "Antimatter-Reactor"
@@ -744,34 +761,34 @@ ins3004_name = "Juggernaut Class"
 -- Structures
 
 -- land factory (HQ, FAF specific)
-inb0301_desc = "Land Factory (HQ)"
+inb0301_desc = "Land Factory HQ"
 inb0301_help = "Constructs Tech 3 land units. HQ factory, required to build same tier land units and same tier land support factories."
-inb0301_name = "Land Factory (HQ)"
+inb0301_name = "Land Factory HQ"
 
 -- land factory (support, FAF specific)
-inb0311_desc = "Land Factory (Support)"
+inb0311_desc = "Land Factory"
 inb0311_help = "Constructs Tech 3 land units. Supporting factory, requires a land HQ factory to build same tier land units."
-inb0311_name = "Land Factory (Support)"
+inb0311_name = "Land Factory"
 
 -- air factory (HQ, FAF specific)
-inb0302_desc = "Air Factory (HQ)"
+inb0302_desc = "Air Factory HQ"
 inb0302_help = "Constructs Tech 3 air units. HQ factory, required to build same tier air units and same tier air support factories."
-inb0302_name = "Air Factory (HQ)"
+inb0302_name = "Air Factory HQ"
 
 -- air factory (support, FAF specific)
-inb0312_desc = "Air Factory (Support)"
+inb0312_desc = "Air Factory"
 inb0312_help = "Constructs Tech 3 air units. Supporting factory, requires an air HQ factory to build same tier units."
-inb0312_name = "Air Factory (Support)"
+inb0312_name = "Air Factory"
 
 -- naval factory (HQ, FAF specific)
-inb0303_desc = "Naval Factory (HQ)"
+inb0303_desc = "Naval Factory HQ"
 inb0303_help = "Constructs Tech 3 naval units. HQ factory, required to build same tier naval units and same tier naval support factories."
-inb0303_name = "Naval Factory (HQ)"
+inb0303_name = "Naval Factory HQ"
 
 -- naval factory (support, FAF specific)
-inb0313_desc = "Naval Factory (Support)"
+inb0313_desc = "Naval Factory"
 inb0313_help = "Constructs Tech 3 naval units. Supporting factory, requires a naval HQ factory to build same tier naval units."
-inb0313_name = "Naval Factory (Support)"
+inb0313_name = "Naval Factory"
 
 -- T3 SCU factory
 inb0304_desc = "SACU Factory"
@@ -905,17 +922,17 @@ inu9002_name = "NC1001B"
 --------------------------------------------------------
 ---- TAUNTS
 --------------------------------------------------------
-Nicols = "Nicols"
-NTaunts_MP1_010_010 = '[{i Nicols}]: You will never escape, I will make you suffer!'
-NTaunts_MP1_010_011 = '[{i Nicols}]: Your resistance is futile, you will be destroyed!'
-NTaunts_MP1_010_012 = '[{i Nicols}]: Orbital strike initiated, goodbye.'
-NTaunts_MP1_010_013 = '[{i Nicols}]: We are back. It\'s time for you to die.'
-NTaunts_MP1_010_014 = '[{i Nicols}]: Once we were lost, but now we will reign supreme.'
-NTaunts_MP1_010_015 = '[{i Nicols}]: You have what we call a very terrestrial mindset.'
-NTaunts_MP1_010_016 = '[{i Nicols}]: I think the space between your ears is best left unexplored!'
-NTaunts_MP1_010_017 = '[{i Nicols}]: You can\'t hope to contain the vastness of the nomad fleet.'
-NTaunts_MP1_010_018 = '[{i Nicols}]: I\'m afraid, we\'re out of mercy today. How would you like an ass kicking instead?'
-NTaunts_MP1_010_019 = '[{i Nicols}]: It is amazing that you made it this far without hurting yourself.'
+Nichols = "Nichols"
+NTaunts_MP1_010_010 = '[{i Nichols}]: You will never escape, I will make you suffer!'
+NTaunts_MP1_010_011 = '[{i Nichols}]: Your resistance is futile, you will be destroyed!'
+NTaunts_MP1_010_012 = '[{i Nichols}]: Orbital strike initiated, goodbye.'
+NTaunts_MP1_010_013 = '[{i Nichols}]: We are back. It\'s time for you to die.'
+NTaunts_MP1_010_014 = '[{i Nichols}]: Once we were lost, but now we will reign supreme.'
+NTaunts_MP1_010_015 = '[{i Nichols}]: You have what we call a very terrestrial mindset.'
+NTaunts_MP1_010_016 = '[{i Nichols}]: I think the space between your ears is best left unexplored!'
+NTaunts_MP1_010_017 = '[{i Nichols}]: You can\'t hope to contain the vastness of the nomad fleet.'
+NTaunts_MP1_010_018 = '[{i Nichols}]: I\'m afraid, we\'re out of mercy today. How would you like an ass kicking instead?'
+NTaunts_MP1_010_019 = '[{i Nichols}]: It is amazing that you made it this far without hurting yourself.'
 
 Benson = "Benson"
 NTaunts_MP1_011_010 = '[{i Benson}]: Even my ships docking sensors have better aim than your gun.'

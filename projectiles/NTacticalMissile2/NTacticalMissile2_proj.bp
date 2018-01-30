@@ -72,7 +72,7 @@ ProjectileBlueprint {
         RotationalVelocityRange = 0,
         TrackTarget = true,
         TrackTargetGround = true,
-        TurnRate = 0,
+        TurnRate = 0.1,
         UseGravity = false,
         VelocityAlign = true,
 		ZigZagFrequency = 1.5,

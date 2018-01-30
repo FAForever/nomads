@@ -155,12 +155,12 @@ UnitBlueprint {
             LODs = {
                 {
                     LODCutoff = 140,
-                    ShaderName = 'NomadUnit',
+                    ShaderName = 'NomadsUnit',
                 },
                 {
                     AlbedoName = 'ina3004_lod1_albedo.dds',
                     LODCutoff = 215,
-                    ShaderName = 'NomadUnit',
+                    ShaderName = 'NomadsUnit',
                     SpecularName = 'ina3004_lod1_specteam.dds',
                 },
             },

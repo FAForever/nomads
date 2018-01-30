@@ -69,7 +69,7 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
     },
-    Description = '<LOC inb0203faf_desc>Naval Factory (HQ)',
+    Description = '<LOC inb0203faf_desc>Naval Factory HQ',
     Display = {
         Abilities = {
             '<LOC ability_upgradable>Upgradeable',
@@ -102,7 +102,7 @@ UnitBlueprint {
             LODs = {
                 {
                     LODCutoff = 500,
-                    ShaderName = 'NomadUnit',
+                    ShaderName = 'NomadsUnit',
                 },
             },
         },
@@ -173,7 +173,7 @@ UnitBlueprint {
         VisionRadius = 20,
     },
     Interface = {
-        HelpText = '<LOC inb0203faf_help>Naval Factory (HQ)',
+        HelpText = '<LOC inb0203faf_help>Naval Factory HQ',
     },
     LifeBarHeight = 0.075,
     LifeBarOffset = 4.75,
@@ -215,8 +215,8 @@ UnitBlueprint {
         SkirtSizeZ = 19,
         TurnRate = 0,
     },
-    SelectionMeshScaleX = 0.3,
-    SelectionMeshScaleZ = 0.4,
+    SelectionMeshScaleX = 0.8,
+    SelectionMeshScaleZ = 0.8,
     SelectionMeshUseTopAmount = 0.15,
     SelectionSizeX = 2.2,
     SelectionSizeZ = 6.9,

@@ -1,7 +1,7 @@
 MeshBlueprint {
     LODs = {
         {
-            ShaderName = 'NomadFactoryBuildRect',
+            ShaderName = 'NomadsFactoryBuildRect',
             LookupName = '/textures/effects/NomadsBuildNoiseLookup.dds',
             LODCutoff = 1000,
         },

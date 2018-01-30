@@ -12,18 +12,20 @@ INC0001 = Class(NCivilianStructureUnit) {
 
         NCivilianStructureUnit.OnCreate(self)
 
-        if self:GetBlueprint().Physics.Elevation then
-            self:Hover()
-        end
         if self:GetBlueprint().Rotators.Stationary then
             self:StationaryAngle()
         else
             self:RotatingAngle()
         end
-
+        --ForkThread(function()
+        --  WaitSeconds(2)
+        --  self:Landing()
+        --  WaitSeconds(10)
+        --  self:TakeOff()
+        --end
+        --)
+        
         --self:TakeOff()
-
-        --self:Landing()
         --self:BurnEngines()
 
         --[[for _, army in ListArmies() do
@@ -31,16 +33,41 @@ INC0001 = Class(NCivilianStructureUnit) {
                 self:AddToConstructionQueue('inu1001', army)
             end
         end]]
+        --[[ForkThread(function()
+            WaitSeconds(2)
+            WARN("stop now")
+            self:StopRotators()
+            WaitSeconds(4)
+            WARN("start now")
+            self:StartRotators()
+            end
+        )]]
     end,
 
-    Hover = function(self)
-        local pos = self:GetPosition()
-        local surface = GetSurfaceHeight(pos[1], pos[3]) + GetTerrainTypeOffset(pos[1], pos[3])
-        local elevation = self:GetBlueprint().Physics.Elevation
-        pos[2] = surface + elevation
-        self:SetPosition( pos, true)
+    StopRotators = function(self)
+        if self.RotatorManipulator1 then
+            self.RotatorManipulator1:SetTargetSpeed( 0 )
+        end
+        if self.RotatorManipulator2 then
+            self.RotatorManipulator2:SetTargetSpeed( 0 )
+        end
+        if self.RotatorManipulator3 then
+            self.RotatorManipulator3:SetTargetSpeed( 0 )
+        end        
     end,
-
+    
+    StartRotators = function(self)
+        if self.RotatorManipulator1 then
+            self.RotatorManipulator1:SetTargetSpeed( self:GetBlueprint().Rotators.PrimarySpeed )
+        end
+        if self.RotatorManipulator2 then
+            self.RotatorManipulator2:SetTargetSpeed( self:GetBlueprint().Rotators.SecondarySpeed )
+        end
+        if self.RotatorManipulator3 then
+            self.RotatorManipulator3:SetTargetSpeed( self:GetBlueprint().Rotators.PrimarySpeed )
+        end
+    end,
+    
     RotatingAngle = function(self)
         -- spinner 1 and 3
         if not self.RotatorManipulator1 then
@@ -51,8 +78,8 @@ INC0001 = Class(NCivilianStructureUnit) {
         end
         if not self.RotatorManipulator3 then
             self.RotatorManipulator3 = CreateRotator( self, 'Spinner3', 'z' )
-            self.RotatorManipulator3:SetAccel( 5 )
-            self.RotatorManipulator3:SetTargetSpeed( 30 )
+            self.RotatorManipulator3:SetAccel( self:GetBlueprint().Rotators.PrimaryAccel )
+            self.RotatorManipulator3:SetTargetSpeed( self:GetBlueprint().Rotators.PrimarySpeed )
             self.Trash:Add( self.RotatorManipulator3 )
         end
 
@@ -172,11 +199,11 @@ INC0001 = Class(NCivilianStructureUnit) {
             end
         end
         self.LaunchAnim = CreateAnimator(self):PlayAnim('/units/INO0001/INO0001_land.sca')
-        self.LaunchAnim:SetAnimationFraction(0.4)
+        self.LaunchAnim:SetAnimationFraction(0.3)
         self.LaunchAnim:SetRate(0.1)
         self.Trash:Add(self.LaunchAnim)
         ForkThread(function()
-            WaitSeconds(3.3)
+            WaitSeconds(5.3)
             self:StopEngines()
         end
         )

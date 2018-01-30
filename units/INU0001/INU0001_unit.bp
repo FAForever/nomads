@@ -3,18 +3,17 @@
 UnitBlueprint {
     Abilities = {
         Capacitor = {
-            Active = false,  -- do not remove or set to true. This does nothing but Fix an error in log caused by line 915 in /lua/ui/game/orders.lua
-            AutoUseWhenHealthLow = false,
+            Active = true,
             Buffs = {
                 'CapacitorEngineering',
                 'CapacitorIntel',
                 'CapacitorRegen',
             },
-            ChargeTime = 50,
-            Duration = 15,
-            EnergyDrainPerSecond = 50,
-            StartCapacityFraction = 0.4,
-            Dissipation = 0.05,
+            Duration = 20,
+            ChargeEnergyCost = 100,
+            ChargeTime = 60,
+            bitmapId = 'toggle-capacitor',
+            helpText = 'toggle_capacitor',
         },
     },
     AI = {
@@ -160,6 +159,7 @@ UnitBlueprint {
         'OVERLAYDIRECTFIRE',
         'OVERLAYINDIRECTFIRE',
         'OVERLAYOMNI',
+        'ABILITYBUTTON',
     },
     Defense = {
         AirThreatLevel = 0,
@@ -230,7 +230,7 @@ UnitBlueprint {
             IconFadeInZoom = 130,
             LODs = {
                 {
-                    ShaderName = 'NomadUnit',
+                    ShaderName = 'NomadsUnit',
                 },
             },
         },
@@ -536,6 +536,31 @@ UnitBlueprint {
             },
             Slot = 'LCH',
         },
+        Capacitor = {
+            BuildCostEnergy = 24000,
+            BuildCostMass = 800,
+            BuildTime = 800,
+            Icon = 'acap',
+            Name = '<LOC NomadsACUEnh_Capacitor_Help>',
+            SpeedMulti = 1.5,
+            Slot = 'Back',
+            UpgradeUnitAmbientBones = {
+                'INU0001',
+            },
+        },
+        CapacitorRemove = {
+            BuildCostEnergy = 1,
+            BuildCostMass = 1,
+            BuildTime = 0.1,
+            Icon = 'acap',
+            Name = '<LOC NomadsACUEnh_Capacitor_Remove>',
+            Prerequisite = 'Capacitor',
+            RemoveEnhancements = {
+                'Capacitor',
+                'CapacitorRemove',
+            },
+            Slot = 'Back',
+        },
         OrbitalBombardment = {
             BuildCostEnergy = 75000,
             BuildCostMass = 1500,
@@ -637,8 +662,6 @@ UnitBlueprint {
             BuildCostEnergy = 175000,
             BuildCostMass = 5000,
             BuildTime = 2800,
-            CapacitorNewChargeTime = 20,
-            CapacitorNewEnergyDrainPerSecond = 100,
             Icon = 'isb',
             Name = '<LOC enhancements_0045>Resource Allocation System',
             ProductionPerSecondEnergy = 1400,
@@ -757,21 +780,15 @@ UnitBlueprint {
             RULEUCC_Tactical = false,
             RULEUCC_Teleport = false,
             RULEUCC_Transport = false,
+            RULEUCC_Script = false,
         },
         FactionName = 'Nomads',
         Icon = 'amph',
-        OrderOverrides = {
-            RULEUTC_WeaponToggle = {
-                bitmapId = 'toggle-capacitor',
-                helpText = 'toggle_capacitor',
-            },
-        },
         QuickSelectPriority = 1,
         SelectionPriority = 3,
         TechLevel = 'RULEUTL_Experimental',
         ToggleCaps = {
             RULEUTC_SpecialToggle = true,
-            RULEUTC_WeaponToggle = true,
         },
         UnitWeight = 1,
     },
@@ -851,7 +868,7 @@ UnitBlueprint {
             CollideFriendly = false,
             Damage = 150,
             DamageDuringCapacitor = 50,
-            DamageRadiusDuringCapacitor = 1.25,
+            DamageRadiusDuringCapacitor = 1.5,
             DamageType = 'Normal',
             DisplayName = 'Kinetic cannon',
             DoTTimeDuringCapacitor = 1.5,
@@ -916,7 +933,7 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
             Audio = {
                 Fire = Sound {
-                    Bank = 'NomadsWeapons',
+                    Bank = 'NomadsOverchargeWeapon',
                     Cue = 'APCannonOvercharge_Muzzle',
                     LodCutoff = 'Weapon_LodCutoff',
                 },
@@ -1004,7 +1021,7 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
             Audio = {
                 Fire = Sound {
-                    Bank = 'NomadsWeapons',
+                    Bank = 'NomadsOverchargeWeapon',
                     Cue = 'APCannonOvercharge_Muzzle',
                     LodCutoff = 'Weapon_LodCutoff',
                 },

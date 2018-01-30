@@ -366,7 +366,7 @@ function ExtractBuildMeshBlueprint(bp)
         local buildmeshbp = table.deepcopy(meshbp)
         if buildmeshbp.LODs then
             for i, lod in buildmeshbp.LODs do
-                lod.ShaderName = 'NomadBuild'
+                lod.ShaderName = 'NomadsBuild'
                 lod.LookupName = '/textures/effects/NomadsBuildNoiseLookup.dds'  -- Nomads 3D build noise texture
             end
         end
@@ -391,7 +391,7 @@ function ExtractStunnedMeshBlueprint(bp)
         if StunnedMeshBp.LODs then
             for k, lod in StunnedMeshBp.LODs do
                 -- only change shadername if there actually is a stunned shader...
-                if lod.ShaderName == 'Unit' or lod.ShaderName == 'Aeon' or lod.ShaderName == 'Insect' or lod.ShaderName == 'Seraphim' or lod.ShaderName == 'NomadUnit' then
+                if lod.ShaderName == 'Unit' or lod.ShaderName == 'Aeon' or lod.ShaderName == 'Insect' or lod.ShaderName == 'Seraphim' or lod.ShaderName == 'NomadsUnit' then
                     lod.ShaderName = lod.ShaderName .. 'Stunned'
                 end
             end

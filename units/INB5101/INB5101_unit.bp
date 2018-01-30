@@ -62,7 +62,7 @@ UnitBlueprint {
                     LookupName = '/textures/effects/NomadPowerArmorLookup.dds',
                     MeshName = '/units/INB5101/INB5101_Lod0.scm',
                     NormalsName = '/units/INB5101/INB5101_NormalsTS.dds',
-                    ShaderName = 'NomadUnit',
+                    ShaderName = 'NomadsUnit',
                     SpecularName = '/units/INB5101/INB5101_SpecTeam.dds',
                 },
                 {
@@ -70,7 +70,7 @@ UnitBlueprint {
                     LODCutoff = 215,
                     MeshName = '/units/INB5101/INB5101_Lod1.scm',
                     NormalsName = '/units/INB5101/INB5101_NormalsTS.dds',
-                    ShaderName = 'NomadUnit',
+                    ShaderName = 'NomadsUnit',
                     SpecularName = '/units/INB5101/INB5101_lod1_SpecTeam.dds',
                 },
             },
@@ -160,7 +160,7 @@ UnitBlueprint {
         HealthMult = 0.2,
         MassMult = 0.9,
         ReclaimTimeMultiplier = 1,
-        UseCustomMesh = true,
+        UseCustomMesh = false,
         WreckageLayers = {
             Air = false,
             Land = true,

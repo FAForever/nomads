@@ -51,7 +51,7 @@ unitkeygroups = {
   "T1_Light_Air_Transport",
 },
 
-["Arty"] = {
+["Mobilearty"] = {
   "T1_Mobile_Light_Artillery",
   "T1_Light_Gunship",
 },
@@ -103,7 +103,7 @@ unitkeygroups = {
   "T2_Cruiser",
 },
 
-["EngyStations"] = {
+["EngyStation"] = {
   "Engineering_Station",
 
   "T2_Mobile_Anti_Air_Cannon",
@@ -120,7 +120,7 @@ unitkeygroups = {
   "T2_Guided_Missile",
 },
 
-["MobileShields"] = {
+["MobileShield"] = {
   "T2_Mobile_Shield_Generator",
   "T2_Mobile_Stealth_Field_System",
 },
@@ -131,7 +131,7 @@ unitkeygroups = {
 
 -- Row 3 XCVBNM
 
-["Defenses"] = {
+["Defense"] = {
   "Heavy_Point_Defense",
   "Point_Defense",
   "Wall_Section",
@@ -172,6 +172,7 @@ unitkeygroups = {
 
 ["Arties"] = {
   "Artillery_Installation",
+  "inb3303", --Nomads t3 missile artillery
   "Heavy_Artillery_Installation",
 
   "T3_Strategic_Bomber",
@@ -207,10 +208,11 @@ unitkeygroups = {
 
 ["Experimental"] = {
 -- Aeon
-"ual0401",
-"uaa0310",
-"uas0401",
-"xab1401",
+"ual0401", -- Galactic Colossus
+"uaa0310", -- Czar
+"uas0401", -- Tempest
+"xab1401", -- Paragon
+"xab2307", -- Salvation
 -- Cyb
 "url0402", -- Monkeylord
 "xrl0403", -- Megalith
@@ -486,10 +488,6 @@ unitkeygroups = {
 "inb3302",
 },
 
-["Rapid_Fire_Artillery_Installation"] = {
-"xab2307",
-"inb3303",  -- rocket artilleyr
-},
 ["Quantum_Optics_Facility"] = {
 "xab3301",},
 ["Engineering_Station"] = {

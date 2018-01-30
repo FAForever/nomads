@@ -305,6 +305,159 @@ abilities = table.merged( abilities, {
         UserProcessFile = '/lua/user/tasks/Tasks.lua',
         UserVerifyFile = '/lua/user/tasks/Tasks.lua',
     },
+    
+    Capacitor = {
+        preferredSlot = 8,
+        onframe = function (self, deltaTime)
+            local UIUtil = import('/lua/ui/uiutil.lua')
+            
+            local available = false
+            local capFull = true
+            local capCharg = true
+            local capCost = nil
+            local unit
+            for i,unit in import('/lua/ui/game/orders.lua').GetCurrentSelection() do
+                if not unit or unit:IsDead() then continue end
+                
+                local hasCap = UnitData[unit:GetEntityId()].HasCapacitorAbility
+                local capIsActive = UnitData[unit:GetEntityId()].CapacitorActive
+                local capIsFull = UnitData[unit:GetEntityId()].CapacitorFull
+                local capCharging = UnitData[unit:GetEntityId()].CapacitorCharging
+                
+                if hasCap and not capIsActive then 
+                    available = true
+                end
+                
+                if hasCap then
+                    capFull = capFull and capIsFull
+                end
+                
+                if hasCap then
+                    capCharg = capCharg and capCharging
+                end
+            end
+            
+            if available then
+                if self:IsDisabled() then
+                    self:Enable()
+                end
+            else
+                if not self:IsDisabled() then
+                    self:Disable()
+                end
+            end
+            
+            if capFull and not self._fullTextures then
+                local bitmapId = "production"
+                local button_prefix = "/game/orders/" .. bitmapId .. "_btn_"
+                self:SetNewTextures(
+                        UIUtil.SkinnableFile(button_prefix .. "up.dds", true),
+                        UIUtil.SkinnableFile(button_prefix .. "up_sel.dds", true),
+                        UIUtil.SkinnableFile(button_prefix .. "over.dds", true),
+                        UIUtil.SkinnableFile(button_prefix .. "over_sel.dds", true),
+                        UIUtil.SkinnableFile(button_prefix .. "dis.dds", true),
+                        UIUtil.SkinnableFile(button_prefix .. "dis_sel.dds", true))
+                self._fullTextures = true
+            end
+            if not capFull and self._fullTextures then
+                local bitmapId = "toggle-capacitor"
+                local button_prefix = "/game/orders/" .. bitmapId .. "_btn_"
+                self:SetNewTextures(
+                        UIUtil.SkinnableFile(button_prefix .. "up.dds", true),
+                        UIUtil.SkinnableFile(button_prefix .. "up_sel.dds", true),
+                        UIUtil.SkinnableFile(button_prefix .. "over.dds", true),
+                        UIUtil.SkinnableFile(button_prefix .. "over_sel.dds", true),
+                        UIUtil.SkinnableFile(button_prefix .. "dis.dds", true),
+                        UIUtil.SkinnableFile(button_prefix .. "dis_sel.dds", true))
+                self._fullTextures = false
+            end
+            if self._isAutoMode then
+                self.autoModeIcon:SetAlpha(1)
+            end
+            
+            self:SetCheck(capCharg and (not capFull))
+        end,
+        
+        behavior = function(self, modifiers)
+            local controls = import('/lua/ui/controls.lua').Get()
+            if modifiers.Left then
+                if self._isAutoMode and not self:IsDisabled() and not self._fullTextures then
+                    self.autoModeIcon:SetAlpha(0)
+                    self._isAutoMode = false
+                    if controls.mouseoverDisplay.text then
+                        controls.mouseoverDisplay.text:SetText(self._curHelpText)
+                    end
+                end
+                local cb = { Func = 'ActivateCapacitor'}
+                SimCallback(cb, true)
+            elseif modifiers.Right then
+                self._curHelpText = self._data.helpText
+                if self._isAutoMode then
+                    self.autoModeIcon:SetAlpha(0)
+                    self._isAutoMode = false
+                else
+                    self.autoModeIcon:SetAlpha(1)
+                    self._isAutoMode = true
+                end
+                
+                if controls.mouseoverDisplay.text then
+                    controls.mouseoverDisplay.text:SetText(self._curHelpText)
+                end
+                
+                local cb = { Func = 'AutoCapacitor', Args = { auto = self._isAutoMode == true }}
+                SimCallback(cb, true)
+            end
+        end,
+        
+        initialStateFunc = function(control, unitList)
+            local Bitmap = import('/lua/maui/bitmap.lua').Bitmap
+            local UIUtil = import('/lua/ui/uiutil.lua')
+            local LayoutHelpers = import('/lua/maui/layouthelpers.lua')
+            
+            if not control.autoModeIcon then
+                control.autoModeIcon = Bitmap(control, UIUtil.UIFile('/game/orders/autocast_green.dds'))
+                LayoutHelpers.AtCenterIn(control.autoModeIcon, control)
+                control.autoModeIcon:DisableHitTest()
+                control.autoModeIcon:SetAlpha(0)
+                control.autoModeIcon.OnHide = function(self, hidden)
+                    if not hidden and control:IsDisabled() then
+                        return true
+                    end
+                end
+            end
+
+            if not control.mixedModeIcon then
+                control.mixedModeIcon = Bitmap(control.autoModeIcon, UIUtil.UIFile('/game/orders-panel/question-mark_bmp.dds'))
+                LayoutHelpers.AtRightTopIn(control.mixedModeIcon, control)
+                control.mixedModeIcon:DisableHitTest()
+                control.mixedModeIcon:SetAlpha(0)
+                control.mixedModeIcon.OnHide = function(self, hidden)
+                    if not hidden and control:IsDisabled() then
+                        return true
+                    end
+                end
+            end
+
+            control._isAutoMode = UnitData[unitList[1]:GetEntityId()].AutoCapacitor == true
+
+            control._curHelpText = control._data.helpText
+            if control._isAutoMode then
+                control.autoModeIcon:SetAlpha(1)
+            else
+                control.autoModeIcon:SetAlpha(0)
+            end
+
+            -- needs to override this to prevent call to self:DisableHitTest()
+            control.Disable = function(self)
+                self._isDisabled = true
+                self:OnDisable()
+            end
+        end,
+        
+        AbilityRequirement = function(unit)
+            return UnitData[unit:GetEntityId()].HasCapacitorAbility
+        end,
+    }
 })
 
 end
