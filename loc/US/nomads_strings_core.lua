@@ -567,34 +567,34 @@ ins2003_name = "Whaler Class"
 -- Structures
 
 -- land factory (HQ, FAF specific)
-inb0201_desc = "Land Factory (HQ)"
+inb0201_desc = "Land Factory HQ"
 inb0201_help = "Constructs Tech 2 land units. HQ factory, required to build same tier land units and same tier land support factories. Upgradeable."
-inb0201_name = "Land Factory (HQ)"
+inb0201_name = "Land Factory HQ"
 
 -- land factory (support, FAF specific)
-inb0211_desc = "Land Factory (Support)"
+inb0211_desc = "Land Factory"
 inb0211_help = "Constructs Tech 2 land units. Supporting factory, requires a land HQ factory to build same tier land units. Upgradeable once a land HQ factory is built."
-inb0211_name = "Land Factory (support)"
+inb0211_name = "Land Factory"
 
 -- air factory (HQ, FAF specific)
-inb0202_desc = "Air Factory (HQ)"
+inb0202_desc = "Air Factory HQ"
 inb0202_help = "Constructs Tech 2 air units. HQ factory, required to build same tier air units and same tier air support factories. Upgradeable."
-inb0202_name = "Air Factory (HQ)"
+inb0202_name = "Air Factory HQ"
 
 -- air factory (support, FAF specific)
-inb0212_desc = "Air Factory (Support)"
+inb0212_desc = "Air Factory"
 inb0212_help = "Constructs Tech 2 air units. Supporting factory, requires an air HQ factory to build same tier air units. Upgradeable once an air HQ factory is built."
-inb0212_name = "Air Factory (Support)"
+inb0212_name = "Air Factory"
 
 -- naval factory (HQ, FAF specific)
-inb0203_desc = "Naval Factory (HQ)"
+inb0203_desc = "Naval Factory HQ"
 inb0203_help = "Constructs Tech 2 naval units. HQ factory, required to build same tier naval units and same tier naval support factories. Upgradeable."
-inb0203_name = "Naval Factory (HQ)"
+inb0203_name = "Naval Factory HQ"
 
 -- naval factory (support, FAF specific)
-inb0213_desc = "Naval Factory (Support)"
+inb0213_desc = "Naval Factory"
 inb0213_help = "Constructs Tech 2 naval units. Supporting factory, requires a naval HQ factory to build same tier naval units. Upgradeable once a naval HQ factory is built."
-inb0213_name = "Naval Factory (Support)"
+inb0213_name = "Naval Factory"
 
 -- Power generator
 inb1201_desc = "Antimatter-Reactor"
@@ -761,34 +761,34 @@ ins3004_name = "Juggernaut Class"
 -- Structures
 
 -- land factory (HQ, FAF specific)
-inb0301_desc = "Land Factory (HQ)"
+inb0301_desc = "Land Factory HQ"
 inb0301_help = "Constructs Tech 3 land units. HQ factory, required to build same tier land units and same tier land support factories."
-inb0301_name = "Land Factory (HQ)"
+inb0301_name = "Land Factory HQ"
 
 -- land factory (support, FAF specific)
-inb0311_desc = "Land Factory (Support)"
+inb0311_desc = "Land Factory"
 inb0311_help = "Constructs Tech 3 land units. Supporting factory, requires a land HQ factory to build same tier land units."
-inb0311_name = "Land Factory (Support)"
+inb0311_name = "Land Factory"
 
 -- air factory (HQ, FAF specific)
-inb0302_desc = "Air Factory (HQ)"
+inb0302_desc = "Air Factory HQ"
 inb0302_help = "Constructs Tech 3 air units. HQ factory, required to build same tier air units and same tier air support factories."
-inb0302_name = "Air Factory (HQ)"
+inb0302_name = "Air Factory HQ"
 
 -- air factory (support, FAF specific)
-inb0312_desc = "Air Factory (Support)"
+inb0312_desc = "Air Factory"
 inb0312_help = "Constructs Tech 3 air units. Supporting factory, requires an air HQ factory to build same tier units."
-inb0312_name = "Air Factory (Support)"
+inb0312_name = "Air Factory"
 
 -- naval factory (HQ, FAF specific)
-inb0303_desc = "Naval Factory (HQ)"
+inb0303_desc = "Naval Factory HQ"
 inb0303_help = "Constructs Tech 3 naval units. HQ factory, required to build same tier naval units and same tier naval support factories."
-inb0303_name = "Naval Factory (HQ)"
+inb0303_name = "Naval Factory HQ"
 
 -- naval factory (support, FAF specific)
-inb0313_desc = "Naval Factory (Support)"
+inb0313_desc = "Naval Factory"
 inb0313_help = "Constructs Tech 3 naval units. Supporting factory, requires a naval HQ factory to build same tier naval units."
-inb0313_name = "Naval Factory (Support)"
+inb0313_name = "Naval Factory"
 
 -- T3 SCU factory
 inb0304_desc = "SACU Factory"
