@@ -267,14 +267,9 @@ INU4001 = Class(NExperimentalHoverLandUnit, SlowHover) {
             -- We're not on water. Just explode a leave a wreck, no problemo
             self:DeathExplosionsThread( overkillRatio, instigator, true )
         else
-            local WOFavailble = ( self.WOF_DoSink ~= nil)
-            if WOFavailble then
-                -- if WOF is available let it handle us sinking
-                NExperimentalHoverLandUnit.DeathThread( self, overkillRatio, instigator)
-            else
-                -- else, get killed on water and don't leave a corpse
-                self:DeathExplosionsOnWaterThread( overkillRatio, instigator )
-            end
+            -- this should be more spectacular!
+            self:DeathExplosionsOnWaterThread( overkillRatio, instigator )
+            NExperimentalHoverLandUnit.DeathThread( self, overkillRatio, instigator)
         end
     end,
 
@@ -329,9 +324,8 @@ INU4001 = Class(NExperimentalHoverLandUnit, SlowHover) {
         -- create wreckage
         if leaveWreckage then
             self:CreateWreckage( overkillRatio )
+            self:Destroy()
         end
-
-        self:Destroy()
     end,
 
     DeathExplosionsOnWaterThread = function( self, overkillRatio, instigator)
