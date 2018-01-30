@@ -173,7 +173,7 @@ UnitBlueprint {
         VisionRadius = 20,
     },
     Interface = {
-        HelpText = '<LOC inb0203faf_help>Naval Factory (HQ)',
+        HelpText = '<LOC inb0203faf_help>Naval Factory HQ',
     },
     LifeBarHeight = 0.075,
     LifeBarOffset = 4.75,
