@@ -61,11 +61,11 @@ UnitBlueprint {
             MeshZ = '/effects/Entities/Shield05_stealth/Shield05_stealthz_mesh',
             RegenAssistMult = 60,
             ShieldEnergyDrainRechargeTime = 5,
-            ShieldMaxHealth = 8000,
+            ShieldMaxHealth = 9000,
             ShieldRechargeTime = 16,
-            ShieldRegenRate = 115,
+            ShieldRegenRate = 125,
             ShieldRegenStartTime = 3,
-            ShieldSize = 27,   -- keep shield size equal to stealth field size
+            ShieldSize = 30,   -- keep shield size equal to stealth field size
             ShieldVerticalOffset = -3, --0, -- TODO: I'm sure we can do without offset. Add ring on ground?
         },
         SubThreatLevel = 0,
@@ -158,8 +158,8 @@ UnitBlueprint {
         UpgradesFrom = 'inb4202',
     },
     Intel = {
-        RadarStealthFieldRadius = 27,
-        SonarStealthFieldRadius = 27,
+        RadarStealthFieldRadius = 30,
+        SonarStealthFieldRadius = 30,
         VisionRadius = 20,
     },
     Interface = {
