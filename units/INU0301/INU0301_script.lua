@@ -393,11 +393,6 @@ inu0301 = Class(NWalkingLandUnit) {
 -- =================================================================================================================
 
     UpdateBuildRestrictions = function(self)
-        if self:HasEnhancement('EngineeringRight') or self:HasEnhancement('EngineeringLeft') then
-            self:RemoveBuildRestriction( categories.BUILTBYTIER1ENGINEER + categories.BUILTBYTIER2ENGINEER + categories.BUILTBYTIER3ENGINEER )
-        else
-            self:AddBuildRestriction( categories.BUILTBYTIER1ENGINEER + categories.BUILTBYTIER2ENGINEER + categories.BUILTBYTIER3ENGINEER )
-        end
         NWalkingLandUnit.updateBuildRestrictions(self)
     end,
 
