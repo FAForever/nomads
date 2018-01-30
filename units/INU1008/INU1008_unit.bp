@@ -51,7 +51,7 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
         'OVERLAYDIRECTFIRE',
-    },	
+    },    
     Defense = {
         AirThreatLevel = 0,
         ArmorType = 'Normal',

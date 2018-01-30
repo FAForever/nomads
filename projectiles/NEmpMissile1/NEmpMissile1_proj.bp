@@ -68,7 +68,7 @@ ProjectileBlueprint {
         MaxSpeed = 21.5,
         MaxZigZag = 2,
         TrackTarget = true,
-		TrackTargetGround = true,
+        TrackTargetGround = true,
         TurnRate = 200,
         UseGravity = false,
         VelocityAlign = true,

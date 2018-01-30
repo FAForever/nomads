@@ -71,7 +71,7 @@ UnitBlueprint {
     },
     Description = '<LOC inb0301faf_desc>Land Factory HQ',
     Display = {
-	SequenceAnimation = '/units/INB0301/NB0301_Asequence.sca',
+    SequenceAnimation = '/units/INB0301/NB0301_Asequence.sca',
         BlinkingLights = {
             {
                 BLBone = 0,

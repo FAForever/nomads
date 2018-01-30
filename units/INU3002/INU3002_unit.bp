@@ -122,7 +122,7 @@ UnitBlueprint {
                 },
             },
         },
-		MovementEffects = {
+        MovementEffects = {
             Land = {
                 Effects = {
                     {
@@ -277,7 +277,7 @@ UnitBlueprint {
         MeshExtentsZ = 1.25,
         MinSpeedPercent = 0,
         MotionType = 'RULEUMT_Hover',
-		RotateBodyWhileMoving = true,		
+        RotateBodyWhileMoving = true,        
         WaterSpeedMultiplier = 0.9,
         TurnFacingRate = 90,
         TurnRadius = 5,

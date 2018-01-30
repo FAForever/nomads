@@ -59,7 +59,7 @@ PlatoonTemplate {
     Name = 'GhettoMarines',
     Plan = 'GhettoAI',
     GlobalSquads = {
-		#DUNCAN - the REPAIR is to remove the mantis. Added in Selen too.
+        #DUNCAN - the REPAIR is to remove the mantis. Added in Selen too.
         { categories.MOBILE * categories.LAND * categories.TECH1 * categories.BOT - categories.REPAIR + (categories.SERAPHIM * categories.SCOUT), 6, 6, 'Attack', 'none' }
     },
 }
@@ -166,9 +166,9 @@ PlatoonTemplate {
 }
 
 PlatoonTemplate {
-	Name = 'T4ExperimentalLandGroup',
-	Plan = 'ExperimentalAIHub',
-	GlobalSquads = {
+    Name = 'T4ExperimentalLandGroup',
+    Plan = 'ExperimentalAIHub',
+    GlobalSquads = {
         { categories.EXPERIMENTAL * categories.LAND * categories.MOBILE, 2, 3, 'attack', 'none' }
     },
 }

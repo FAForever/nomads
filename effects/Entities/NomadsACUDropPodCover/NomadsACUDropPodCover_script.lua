@@ -59,7 +59,7 @@ NomadsACUDropPodCover = Class(NullShell) {
             local size = RandomFloat(5, 6.5)
             local life = Random(40, 60)
             CreateDecal(self:GetPosition(), rotation, 'Scorch_010_albedo', '', 'Albedo', size, size, 300, life, self:GetArmy())
-        end	
+        end    
     end,
 
     IsUnderWater = function(self)

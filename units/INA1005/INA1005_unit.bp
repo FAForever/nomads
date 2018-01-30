@@ -157,16 +157,16 @@ UnitBlueprint {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
-				{
-				AlbedoName = '/units/INA1005/INA1005_albedo.dds',
-				LODCutoff = 200,
-				MeshName = '/units/INA1005/INA1005_lod0.scm',
-				NormalsName = '/units/INA1005/INA1005_NormalsTS.dds',
-				Scrolling = true,
-				ShaderName = 'NomadsUnit',
-				SpecularName = '/units/INA1005/INA1005_SpecTeam.dds',
-				},
-			},
+                {
+                AlbedoName = '/units/INA1005/INA1005_albedo.dds',
+                LODCutoff = 200,
+                MeshName = '/units/INA1005/INA1005_lod0.scm',
+                NormalsName = '/units/INA1005/INA1005_NormalsTS.dds',
+                Scrolling = true,
+                ShaderName = 'NomadsUnit',
+                SpecularName = '/units/INA1005/INA1005_SpecTeam.dds',
+                },
+            },
         },
         MovementEffects = {
             BeamExhaust = {

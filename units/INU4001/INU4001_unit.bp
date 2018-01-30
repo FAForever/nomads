@@ -110,7 +110,7 @@ UnitBlueprint {
     },
     Description = '<LOC inu4001_desc>Experimental Missile Tank',
     Display = {
-		Abilities = {
+        Abilities = {
             '<LOC ability_aa>Anti-Air',
             '<LOC ability_bombardarea>Area bombardment',
             '<LOC ability_deploy>Deploys',
@@ -272,7 +272,7 @@ UnitBlueprint {
                 },
             },
         },
-	Mesh = {
+    Mesh = {
             IconFadeInZoom = 130,
             LODs = {
                 {

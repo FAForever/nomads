@@ -77,7 +77,7 @@ function OnSync()
         end
     end
 
-	for k, v in Sync.VOEvents do
+    for k, v in Sync.VOEvents do
         local army = v.Army
         if army == GetFocusArmy() then
             import('/lua/ui/game/voiceovers.lua').VOUIEvent(v.Event)

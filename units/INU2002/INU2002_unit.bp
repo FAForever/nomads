@@ -80,7 +80,7 @@ UnitBlueprint {
     },
     Description = '<LOC inu2002_desc>Fast Assault Hovertank',
     Display = {
-	Abilities = {
+    Abilities = {
             '<LOC ability_hover>Hover',
         },
         BuildEffect = {
@@ -160,7 +160,7 @@ UnitBlueprint {
                 },
             },
         },
-	Mesh = {
+    Mesh = {
             IconFadeInZoom = 130,
             LODs = {
                 {

@@ -1,154 +1,154 @@
 EmitterBlueprint {
-	BlueprintId = 'nomads_DarkMatterWeapon_hit_03',
-	Lifetime = 2.00,
-	Repeattime = 2.00,
-	TextureFramecount = 1.00,
-	Blendmode = 3.00,
-	LocalVelocity = false,
-	LocalAcceleration = false,
-	Gravity = false,
-	AlignRotation = false,
-	AlignToBone = false,
-	Flat = false,
-	LODCutoff = 150.00,
-	EmitIfVisible = true,
-	CatchupEmit = true,
-	CreateIfVisible = true,
-	SnapToWaterline = true,
-	OnlyEmitOnWater = false,
-	ParticleResistance = false,
-	InterpolateEmission = true,
-	TextureStripcount = 1.00,
-	SortOrder = 1.00,
-	LowFidelity = false,
-	MedFidelity = true,
-	HighFidelity = true,
-	Texture = [[/textures/particles/cloud_smoke_alpha_white_transparent.dds]],
-	RampTexture = [[/textures/particles/ramp_transparency_fade_to_red_inverted_bright.dds]],
-	XDirectionCurve = {
-		XRange = 3.00,
-		Keys = {
-			{ x=1.500,y=0.000,z=0.100 },
-		},
-	},
-	YDirectionCurve = {
-		XRange = 3.00,
-		Keys = {
-			{ x=1.582,y=0.000,z=0.100 },
-		},
-	},
-	ZDirectionCurve = {
-		XRange = 3.00,
-		Keys = {
-			{ x=1.457,y=0.000,z=0.100 },
-		},
-	},
-	EmitRateCurve = {
-		XRange = 3.00,
-		Keys = {
-			{ x=0.056,y=3.579,z=0.000 },
-		},
-	},
-	LifetimeCurve = {
-		XRange = 3.00,
-		Keys = {
-			{ x=1.631,y=7.575,z=6.000 },
-		},
-	},
-	VelocityCurve = {
-		XRange = 3.00,
-		Keys = {
-			{ x=1.500,y=5.000/5,z=0.110/5 },
-		},
-	},
-	XAccelCurve = {
-		XRange = 3.00,
-		Keys = {
-			{ x=1.500,y=0.000,z=0.000 },
-		},
-	},
-	YAccelCurve = {
-		XRange = 3.00,
-		Keys = {
-			{ x=1.500,y=0.010,z=0.000 },
-		},
-	},
-	ZAccelCurve = {
-		XRange = 3.00,
-		Keys = {
-			{ x=1.500,y=0.000,z=0.000 },
-		},
-	},
-	ResistanceCurve = {
-		XRange = 3.00,
-		Keys = {
-			{ x=1.500,y=0.000,z=0.000 },
-		},
-	},
-	SizeCurve = {
-		XRange = 3.00,
-		Keys = {
-			{ x=0.724,y=1.500/5,z=0.000 },
-		},
-	},
-	XPosCurve = {
-		XRange = 3.00,
-		Keys = {
-			{ x=1.500,y=0.000,z=0.000 },
-		},
-	},
-	YPosCurve = {
-		XRange = 3.00,
-		Keys = {
-			{ x=0.602,y=0.200,z=0.200 },
-		},
-	},
-	ZPosCurve = {
-		XRange = 3.00,
-		Keys = {
-			{ x=1.500,y=0.000,z=0.000 },
-		},
-	},
-	StartSizeCurve = {
-		XRange = 3.00,
-		Keys = {
-			{ x=1.500,y=0.450/3,z=0.020 },
-		},
-	},
-	EndSizeCurve = {
-		XRange = 3.00,
-		Keys = {
-			{ x=1.500,y=0.750/3,z=0.000 },
-		},
-	},
-	InitialRotationCurve = {
-		XRange = 3.00,
-		Keys = {
-			{ x=1.500,y=180.000,z=360.000 },
-		},
-	},
-	RotationRateCurve = {
-		XRange = 3.00,
-		Keys = {
-			{ x=1.500,y=0.000,z=0.000 },
-		},
-	},
-	FrameRateCurve = {
-		XRange = 3.00,
-		Keys = {
-			{ x=1.500,y=1.000,z=0.000 },
-		},
-	},
-	TextureSelectionCurve = {
-		XRange = 3.00,
-		Keys = {
-			{ x=1.500,y=0.000,z=0.000 },
-		},
-	},
-	RampSelectionCurve = {
-		XRange = 3.00,
-		Keys = {
-			{ x=1.500,y=0.000,z=0.000 },
-		},
-	},
+    BlueprintId = 'nomads_DarkMatterWeapon_hit_03',
+    Lifetime = 2.00,
+    Repeattime = 2.00,
+    TextureFramecount = 1.00,
+    Blendmode = 3.00,
+    LocalVelocity = false,
+    LocalAcceleration = false,
+    Gravity = false,
+    AlignRotation = false,
+    AlignToBone = false,
+    Flat = false,
+    LODCutoff = 150.00,
+    EmitIfVisible = true,
+    CatchupEmit = true,
+    CreateIfVisible = true,
+    SnapToWaterline = true,
+    OnlyEmitOnWater = false,
+    ParticleResistance = false,
+    InterpolateEmission = true,
+    TextureStripcount = 1.00,
+    SortOrder = 1.00,
+    LowFidelity = false,
+    MedFidelity = true,
+    HighFidelity = true,
+    Texture = [[/textures/particles/cloud_smoke_alpha_white_transparent.dds]],
+    RampTexture = [[/textures/particles/ramp_transparency_fade_to_red_inverted_bright.dds]],
+    XDirectionCurve = {
+        XRange = 3.00,
+        Keys = {
+            { x=1.500,y=0.000,z=0.100 },
+        },
+    },
+    YDirectionCurve = {
+        XRange = 3.00,
+        Keys = {
+            { x=1.582,y=0.000,z=0.100 },
+        },
+    },
+    ZDirectionCurve = {
+        XRange = 3.00,
+        Keys = {
+            { x=1.457,y=0.000,z=0.100 },
+        },
+    },
+    EmitRateCurve = {
+        XRange = 3.00,
+        Keys = {
+            { x=0.056,y=3.579,z=0.000 },
+        },
+    },
+    LifetimeCurve = {
+        XRange = 3.00,
+        Keys = {
+            { x=1.631,y=7.575,z=6.000 },
+        },
+    },
+    VelocityCurve = {
+        XRange = 3.00,
+        Keys = {
+            { x=1.500,y=5.000/5,z=0.110/5 },
+        },
+    },
+    XAccelCurve = {
+        XRange = 3.00,
+        Keys = {
+            { x=1.500,y=0.000,z=0.000 },
+        },
+    },
+    YAccelCurve = {
+        XRange = 3.00,
+        Keys = {
+            { x=1.500,y=0.010,z=0.000 },
+        },
+    },
+    ZAccelCurve = {
+        XRange = 3.00,
+        Keys = {
+            { x=1.500,y=0.000,z=0.000 },
+        },
+    },
+    ResistanceCurve = {
+        XRange = 3.00,
+        Keys = {
+            { x=1.500,y=0.000,z=0.000 },
+        },
+    },
+    SizeCurve = {
+        XRange = 3.00,
+        Keys = {
+            { x=0.724,y=1.500/5,z=0.000 },
+        },
+    },
+    XPosCurve = {
+        XRange = 3.00,
+        Keys = {
+            { x=1.500,y=0.000,z=0.000 },
+        },
+    },
+    YPosCurve = {
+        XRange = 3.00,
+        Keys = {
+            { x=0.602,y=0.200,z=0.200 },
+        },
+    },
+    ZPosCurve = {
+        XRange = 3.00,
+        Keys = {
+            { x=1.500,y=0.000,z=0.000 },
+        },
+    },
+    StartSizeCurve = {
+        XRange = 3.00,
+        Keys = {
+            { x=1.500,y=0.450/3,z=0.020 },
+        },
+    },
+    EndSizeCurve = {
+        XRange = 3.00,
+        Keys = {
+            { x=1.500,y=0.750/3,z=0.000 },
+        },
+    },
+    InitialRotationCurve = {
+        XRange = 3.00,
+        Keys = {
+            { x=1.500,y=180.000,z=360.000 },
+        },
+    },
+    RotationRateCurve = {
+        XRange = 3.00,
+        Keys = {
+            { x=1.500,y=0.000,z=0.000 },
+        },
+    },
+    FrameRateCurve = {
+        XRange = 3.00,
+        Keys = {
+            { x=1.500,y=1.000,z=0.000 },
+        },
+    },
+    TextureSelectionCurve = {
+        XRange = 3.00,
+        Keys = {
+            { x=1.500,y=0.000,z=0.000 },
+        },
+    },
+    RampSelectionCurve = {
+        XRange = 3.00,
+        Keys = {
+            { x=1.500,y=0.000,z=0.000 },
+        },
+    },
 }

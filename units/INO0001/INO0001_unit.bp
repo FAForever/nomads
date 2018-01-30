@@ -38,7 +38,7 @@ UnitBlueprint {
             IconFadeInZoom = 130,
             LODs = {
                 {
-				
+                
                     AlbedoName = '/Units/INO0001/INO0001_albedo.dds',
                     LODCutoff = 10000,
                     MeshName = '/Units/INO0001/INO0001_LOD0.scm',

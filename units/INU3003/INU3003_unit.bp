@@ -73,7 +73,7 @@ UnitBlueprint {
         Abilities = {
             '<LOC ability_bombardarea>Area bombardment',
             '<LOC ability_stun>EMP',
---			'<LOC ability_orbitalprotection>Orbital protection',
+--            '<LOC ability_orbitalprotection>Orbital protection',
 --            '<LOC ability_orbitalstrikewreck>Orbital strike on wreck',
         },
         BuildEffect = {

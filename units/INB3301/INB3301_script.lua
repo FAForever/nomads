@@ -41,7 +41,7 @@ INB3301 = Class(NRadarUnit) {
             self.Rotator:SetGoal( goal )
             WaitTicks(1)
             WaitFor(self.Rotator)
-	end
+    end
     end,
 
     OnIntelDisabled = function(self)
