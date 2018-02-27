@@ -107,7 +107,7 @@ UnitBlueprint {
                 },
             },
         },
-	Mesh = {
+    Mesh = {
             IconFadeInZoom = 130,
             LODs = {
                 {

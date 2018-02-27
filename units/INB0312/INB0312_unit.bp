@@ -61,7 +61,7 @@ UnitBlueprint {
         'SHOWQUEUE',
         'SORTCONSTRUCTION',
         'CONSTRUCTIONSORTDOWN',
-	'SUPPORTFACTORY', --
+    'SUPPORTFACTORY', --
     },
     CollisionOffsetZ = -0.25,
     Defense = {
@@ -125,7 +125,7 @@ UnitBlueprint {
             'TRANSPORTBUILTBYTIER3FACTORY NOMADS MOBILE AIR',
             'FIELDENGINEER NOMADS MOBILE LAND',
         },
-	DifferentialUpgradeCostCalculation = true, --
+    DifferentialUpgradeCostCalculation = true, --
         RebuildBonusIds = {
             'inb0312',
         },
@@ -141,7 +141,7 @@ UnitBlueprint {
         BuildEffectScaleY = 0.4,
         BuildEffectScaleZ = 0.158,
         BuildBones = {
-			BuildEffectBones = {
+            BuildEffectBones = {
                 'muzzle.001',
                 'muzzle.002',
                 'muzzle.003',

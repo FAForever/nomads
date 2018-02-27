@@ -83,7 +83,7 @@ function buildActionTemplate(modifier)
         end
         template.templateID = templateIndex
         table.insert(effectiveTemplates, template)
-		  table.insert(effectiveIcons, template.icon)
+          table.insert(effectiveIcons, template.icon)
       end
     end
   else
@@ -100,7 +100,7 @@ function buildActionTemplate(modifier)
       if valid then
         template.templateID = templateIndex
         table.insert(effectiveTemplates, template)
-		    table.insert(effectiveIcons, template.icon)
+            table.insert(effectiveIcons, template.icon)
       end
     end
   end
@@ -137,8 +137,8 @@ function buildActionTemplate(modifier)
     cycleMap:Show()
     -- Start the fading thread
     cycleThread = ForkThread(function()
-		stayTime = options.hotbuild_cycle_reset_time / 2000.0;
-		fadeTime = options.hotbuild_cycle_reset_time / 2000.0;
+        stayTime = options.hotbuild_cycle_reset_time / 2000.0;
+        fadeTime = options.hotbuild_cycle_reset_time / 2000.0;
 
         WaitSeconds(stayTime)
         if (not cycleMap:IsHidden()) then
@@ -149,7 +149,7 @@ function buildActionTemplate(modifier)
       end)
   else
       cycleThread = ForkThread(function()
-		WaitSeconds(options.hotbuild_cycle_reset_time / 1000.0);
+        WaitSeconds(options.hotbuild_cycle_reset_time / 1000.0);
         cyclePos = 0
       end)
   end

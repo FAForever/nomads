@@ -105,8 +105,13 @@ UnitBlueprint {
             IconFadeInZoom = 130,
             LODs = {
                 {
+                    AlbedoName = '/units/INB3301/INB3301_Albedo.dds',
                     LODCutoff = 500,
+                    MeshName = '/units/INB3301/INB3301_LOD0.scm',
+                    NormalsName = '/units/INB3301/INB3301_normalsTS.dds',
+                    Scrolling = true,
                     ShaderName = 'NomadsUnit',
+                    SpecularName = '/units/INB3301/INB3301_SpecTeam.dds',
                 },
             },
         },
@@ -188,7 +193,7 @@ UnitBlueprint {
         OverchargeTime = 20,
         OverchargeType = 'Radar',
         OmniRadius = 200,
-        RadarRadius = 500,
+        RadarRadius = 600,
         ReactivateTime = 10,
         ShowIntelOnSelect = true,
         VisionRadius = 30,

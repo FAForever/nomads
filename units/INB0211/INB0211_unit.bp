@@ -149,7 +149,7 @@ UnitBlueprint {
             'BUILTBYTIER2FACTORY NOMADS MOBILE LAND',
             'FIELDENGINEER NOMADS MOBILE LAND',
         },
-	DifferentialUpgradeCostCalculation = true, --
+    DifferentialUpgradeCostCalculation = true, --
         RebuildBonusIds = { --
             'inb0211', --
         }, --

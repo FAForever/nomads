@@ -73,7 +73,7 @@ UnitBlueprint {
     },
     Description = '<LOC inb0311_desc>Land Factory', --
     Display = {
-	SequenceAnimation = '/units/INB0311/NB0301_Asequence.sca',
+    SequenceAnimation = '/units/INB0311/NB0301_Asequence.sca',
         BlinkingLights = {
             {
                 BLBone = 0,
@@ -136,7 +136,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 11550, --
         BuildCostMass = 1290, --
-	BuildRate = 90, --
+    BuildRate = 90, --
         BuildTime = 3000, --
         BuildableCategory = {
             'BUILTBYTIER3FACTORY NOMADS MOBILE CONSTRUCTION',
@@ -144,7 +144,7 @@ UnitBlueprint {
             'BUILTBYTIER3FACTORY NOMADS MOBILE LAND',
             'FIELDENGINEER NOMADS MOBILE LAND',
         },
-	DifferentialUpgradeCostCalculation = true, --
+    DifferentialUpgradeCostCalculation = true, --
         RebuildBonusIds = { --
             'inb0311', --
         }, --

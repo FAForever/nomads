@@ -86,8 +86,13 @@ UnitBlueprint {
             IconFadeInZoom = 130,
             LODs = {
                 {
+                    AlbedoName = '/units/INU2005/INU2005_Albedo.dds',
+                    LODCutoff = 215,
+                    MeshName = '/units/INU2005/INU2005_LOD0.scm',
+                    NormalsName = '/units/INU2005/INU2005_normalsTS.dds',
                     Scrolling = true,
                     ShaderName = 'NomadsUnit',
+                    SpecularName = '/units/INU2005/INU2005_SpecTeam.dds',
                 },
             },
         },
@@ -231,7 +236,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             DamageFriendly = false,
             CollideFriendly = false,
-            Damage = 120,
+            Damage = 100,
             DamageType = 'Normal',
             DisplayName = 'Particle blaster',
             FireTargetLayerCapsTable = {
@@ -241,7 +246,7 @@ UnitBlueprint {
             FiringTolerance = 2,
             LeadTarget = true,
             Label = 'MainGun',
-            MaxRadius = 20,
+            MaxRadius = 23,
             MinRadius = 0,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,

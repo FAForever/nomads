@@ -110,7 +110,7 @@ UnitBlueprint {
     },
     Description = '<LOC inu4001_desc>Experimental Missile Tank',
     Display = {
-	Abilities = {
+        Abilities = {
             '<LOC ability_aa>Anti-Air',
             '<LOC ability_bombardarea>Area bombardment',
             '<LOC ability_deploy>Deploys',
@@ -272,7 +272,7 @@ UnitBlueprint {
                 },
             },
         },
-	Mesh = {
+    Mesh = {
             IconFadeInZoom = 130,
             LODs = {
                 {
@@ -415,7 +415,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             BombardParticipant = true,
             CollideFriendly = false,
-            Damage = 1000,
+            Damage = 500,
             DamageFriendly = false,
             DamageRadius = 3,
             DamageType = 'Normal',
@@ -426,11 +426,11 @@ UnitBlueprint {
             },
             FiringTolerance = 180,
             Label = 'TMLGun',
-            MaxRadius = 175,
+            MaxRadius = 200,
             MinRadius = 10,
             MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0.7,
-            MuzzleSalvoSize = 6,
+            MuzzleSalvoDelay = 0.3,
+            MuzzleSalvoSize = 12,
             MuzzleVelocity = 3,
             NotExclusive = true,
             ProjectileId = '/projectiles/NTacticalMissile2/NTacticalMissile2_proj.bp',
@@ -526,7 +526,7 @@ UnitBlueprint {
             },
             FiringTolerance = 180,
             Label = 'MainGun',
-            MaxRadius = 100,
+            MaxRadius = 150,
             MinRadius = 5,
             MuzzleSalvoDelay = 0.5,
             MuzzleSalvoSize = 12,
@@ -597,7 +597,7 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.05,
             Turreted = false,
-            WeaponCategory = 'Artillery',
+            WeaponCategory = 'Missile',
         },
         {
             Audio = {
@@ -640,7 +640,7 @@ UnitBlueprint {
             },
             FiringTolerance = 180,
             Label = 'MainGun_BombardmentMode',
-            MaxRadius = 100,
+            MaxRadius = 150,
             MinRadius = 5,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 12,
@@ -711,7 +711,7 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.05,
             Turreted = false,
-            WeaponCategory = 'Artillery',
+            WeaponCategory = 'Missile',
         },
         {
             AboveWaterTargetsOnly = true,

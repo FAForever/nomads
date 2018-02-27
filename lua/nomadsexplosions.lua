@@ -15,5 +15,5 @@ local CreateRandomEffects = EfctUtil.CreateRandomEffects
 local ScaleEmittersParam = EfctUtil.ScaleEmittersParam
 
 function CreateFlashCustom( obj, bone, army, scale, duration, textureflash, rampflash )
-	CreateLightParticle( obj, bone, army, scale, duration, textureflash, rampflash )
+    CreateLightParticle( obj, bone, army, scale, duration, textureflash, rampflash )
 end

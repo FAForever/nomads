@@ -84,7 +84,7 @@ KineticCannonHitUnderWater2 = KineticCannonHitLand2
 
 APCannonMuzzleFlash = {
     EmtBpPath .. 'nomads_apcannon_muzzle_flash_01_emit.bp',
-	EmtBpPath .. 'nomads_apcannon_muzzle_flash_02_emit.bp',
+    EmtBpPath .. 'nomads_apcannon_muzzle_flash_02_emit.bp',
     EmtBpPath .. 'cannon_muzzle_smoke_07_emit.bp',
     EmtBpPath .. 'cannon_muzzle_smoke_10_emit.bp',
 }
@@ -228,9 +228,9 @@ DarkMatterWeaponHitUnderWater2 = DarkMatterWeaponHitNone2
 -- T1 inty weapon
 
 DarkMatterAirWeaponMuzzleFlash = {
-	EmtBpPath .. 'nomads_DarkMatterWeapon_muzzle_flash_01_emit_air.bp',
-	EmtBpPath .. 'nomads_DarkMatterWeapon_muzzle_flash_02_emit_air.bp',
-	EmtBpPath .. 'nomads_DarkMatterWeapon_muzzle_flash_03_emit_air.bp',
+    EmtBpPath .. 'nomads_DarkMatterWeapon_muzzle_flash_01_emit_air.bp',
+    EmtBpPath .. 'nomads_DarkMatterWeapon_muzzle_flash_02_emit_air.bp',
+    EmtBpPath .. 'nomads_DarkMatterWeapon_muzzle_flash_03_emit_air.bp',
 }
 
 DarkMatterAirWeaponTrail = {}
@@ -244,7 +244,7 @@ DarkMatterAirWeaponPolyTrails = {
 DarkMatterAirWeaponHitNone1 = {
     EmtBpPathNomads .. 'nomads_DarkMatterWeapon_hit_01_emit_air.bp', -- idk
     EmtBpPathNomads .. 'nomads_DarkMatterWeapon_hit_02_emit_air.bp', -- explosions
-	EmtBpPathNomads .. 'nomads_DarkMatterWeapon_hit_03_emit_air.bp', -- idk
+    EmtBpPathNomads .. 'nomads_DarkMatterWeapon_hit_03_emit_air.bp', -- idk
 }
 
 DarkMatterAirWeaponHitLand1 = TableCat( DarkMatterAirWeaponHitNone1, {
@@ -1056,13 +1056,13 @@ RocketBeam3 = EmtBpPathNomads .. 'nomads_rocket_beam03_emit.bp'
 
 BomberRocketMuzzleFx = {
     EmtBpPathNomads .. 'nomads_rocket_launch01_emit.bp',  -- smoke that launches forward
-	EmtBpPathNomads .. 'nomads_rocket_launch02_emit.bp',  -- smoke that lingers
-	EmtBpPathNomads .. 'nomads_rocket_launch03_emit.bp',  -- smoke that launches backward
-	EmtBpPathNomads .. 'nomads_small_lense_flare_single_emit.bp',
+    EmtBpPathNomads .. 'nomads_rocket_launch02_emit.bp',  -- smoke that lingers
+    EmtBpPathNomads .. 'nomads_rocket_launch03_emit.bp',  -- smoke that launches backward
+    EmtBpPathNomads .. 'nomads_small_lense_flare_single_emit.bp',
 }
 
 RocketTrail3 = {
-	EmtBpPathNomads .. 'nomads_small_lense_flare_emit_02.bp',
+    EmtBpPathNomads .. 'nomads_small_lense_flare_emit_02.bp',
     EmtBpPathNomads .. 'nomads_rocket_trail03_emit.bp',
 }
 RocketPolyTrail3 = EmtBpPath .. 'nomads_rocket_polytrail_03_emit.bp'
@@ -1070,7 +1070,7 @@ RocketPolyTrail3 = EmtBpPath .. 'nomads_rocket_polytrail_03_emit.bp'
 RocketHitNone3 = {
     EmtBpPathNomads .. 'nomads_rocket_hit_08_emit.bp',
     EmtBpPathNomads .. 'nomads_rocket_hit_09_emit.bp',
-	EmtBpPathNomads .. 'smoke_white_small_02.bp',
+    EmtBpPathNomads .. 'smoke_white_small_02.bp',
 }
 
 RocketHitLand3 = TableCat( RocketHitNone3, {
@@ -1237,7 +1237,7 @@ EMPMissileTrail = {
 
 EMPMissileHitNone1 = {
     EmtBpPathNomads .. 'nomads_empmissile_hit05_emit.bp',
-	EmtBpPathNomads .. 'nomads_empmissile_hit07_emit.bp',
+    EmtBpPathNomads .. 'nomads_empmissile_hit07_emit.bp',
     -- EmtBpPath .. 'destruction_explosion_debris_04_emit.bp',
     -- EmtBpPath .. 'destruction_explosion_debris_07_emit.bp',
 }
@@ -1285,7 +1285,7 @@ TacticalMissileMuzzleFxUnderWaterAddon = {
 TacticalMissileBeam = EmtBpPath .. 'nomads_missilebeam01_emit.bp'
 TacticalMissilePolyTrail = EmtBpPath .. 'nomads_missile_polytrail_01_emit.bp'
 TacticalMissileTrail = {
-	EmtBpPathNomads .. 'nomads_small_lense_flare_emit.bp',
+    EmtBpPathNomads .. 'nomads_small_lense_flare_emit.bp',
     EmtBpPathNomads .. 'nomads_tacticalmissile_trail01_emit.bp',
 }
 TacticalMissileTrailFxUnderWaterAddon = {
@@ -1294,9 +1294,9 @@ TacticalMissileTrailFxUnderWaterAddon = {
 }
 
 TacticalMissileHitNone1 = {
-	EmtBpPathNomads .. 'smoke_black_small.bp',  -- smoke
+    EmtBpPathNomads .. 'smoke_black_small.bp',  -- smoke
     EmtBpPathNomads .. 'nomads_tacticalmissile_hit01_emit.bp',  -- orange flames
-	EmtBpPathNomads .. 'nomads_tacticalmissile_hit02_emit.bp',  -- shockwave
+    EmtBpPathNomads .. 'nomads_tacticalmissile_hit02_emit.bp',  -- shockwave
     EmtBpPathNomads .. 'nomads_tacticalmissile_hit03_emit.bp',  -- red lightning
 }
 
@@ -1425,9 +1425,9 @@ ArcingTacticalMissileHitUnderWater2 = ArcingTacticalMissileHitNone2
 
 ArcingTacticalMissileSpeedupFlash = {
     EmtBpPathNomads .. 'nomads_tacticalmissile_speedup01_emit.bp',  -- flash
-	EmtBpPathNomads .. 'nomads_tacticalmissile_speedup02_emit.bp',  -- lense
-	EmtBpPathNomads .. 'smoke_white_small.bp',  -- smoke
-	EmtBpPathNomads .. 'split_shockwave.bp',  -- shockwave
+    EmtBpPathNomads .. 'nomads_tacticalmissile_speedup02_emit.bp',  -- lense
+    EmtBpPathNomads .. 'smoke_white_small.bp',  -- smoke
+    EmtBpPathNomads .. 'split_shockwave.bp',  -- shockwave
 }
 
 --------------------------------------------------------------------------
@@ -1632,10 +1632,10 @@ RcktArtyPlasmaBoltPolyTrail = EmtBpPath .. 'default_polytrail_04_emit.bp'
 
 RcktArtyPlasmaBoltHitNone1 = {
     -- EmtBpPathNomads .. 'nomads_plasmabolt_hit02_rcktarty.bp',  -- flash
-	EmtBpPathNomads .. 'nomads_plasmabolt_hit04_rcktarty.bp',  -- flames
+    EmtBpPathNomads .. 'nomads_plasmabolt_hit04_rcktarty.bp',  -- flames
     EmtBpPathNomads .. 'smoke_black_arty.bp',  -- smoke
-	EmtBpPathNomads .. 'nomads_plasmabolt_hit03_rcktarty.bp',  -- fountain
-	EmtBpPathNomads .. 'nomads_plasmabolt_hit01_rcktarty.bp',  -- shock wave
+    EmtBpPathNomads .. 'nomads_plasmabolt_hit03_rcktarty.bp',  -- fountain
+    EmtBpPathNomads .. 'nomads_plasmabolt_hit01_rcktarty.bp',  -- shock wave
 }
 
 RcktArtyPlasmaBoltHitLand1 = TableCat( RcktArtyPlasmaBoltHitNone1, {
@@ -1821,9 +1821,9 @@ EnergyProjHitNone2 = {
 EnergyProjHitLand2 = {
     EmtBpPathNomads .. 'nomads_energyproj_large_hit01_emit.bp',  -- slow flash
     EmtBpPathNomads .. 'nomads_energyproj_large_hit02_emit.bp',  -- short star effect large
-	EmtBpPathNomads .. 'nomads_energyproj_large_hit02_secondary_emit.bp',  -- even shorter star effect large, imitates flash
+    EmtBpPathNomads .. 'nomads_energyproj_large_hit02_secondary_emit.bp',  -- even shorter star effect large, imitates flash
     EmtBpPathNomads .. 'nomads_energyproj_large_hit02_tertiary_emit.bp',  -- longer star effect giving illusion of expansion
-	EmtBpPathNomads .. 'nomads_energyproj_large_hit03_emit.bp',  -- circular effect at ground
+    EmtBpPathNomads .. 'nomads_energyproj_large_hit03_emit.bp',  -- circular effect at ground
     EmtBpPathNomads .. 'nomads_energyproj_large_hit04_emit.bp',  -- sparks moving up
     EmtBpPathNomads .. 'nomads_energyproj_large_hit05_emit.bp',  -- flames
     EmtBpPathNomads .. 'nomads_energyproj_large_hit06_emit.bp',  -- flame refraction effect
@@ -2031,7 +2031,7 @@ BlackholeLeftoverPerm = {
     EmtBpPathNomads .. 'nomads_blackhole_leftover_01_emit.bp',  -- fog
     EmtBpPathNomads .. 'nomads_blackhole_leftover_02_emit.bp',  -- ball
     EmtBpPathNomads .. 'nomads_blackhole_leftover_03_emit.bp',  -- ambient fire
-	EmtBpPathNomads .. 'nomads_blackhole_leftover_04_emit.bp',  -- ambient fire upward
+    EmtBpPathNomads .. 'nomads_blackhole_leftover_04_emit.bp',  -- ambient fire upward
 }
 
 BlackholePropEffects = {

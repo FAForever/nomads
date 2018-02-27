@@ -89,10 +89,13 @@ UnitBlueprint {
             IconFadeInZoom = 130,
             LODs = {
                 {
-                    AlbedoName = 'INB3102_Albedo.dds',
-                    LODCutoff = 215,
+                    AlbedoName = '/units/INB3102/INB3102_Albedo.dds',
+                    LODCutoff = 130,
+                    MeshName = '/units/INB3102/INB3102_LOD0.scm',
+                    NormalsName = '/units/INB3102/INB3102_normalsTS.dds',
+                    Scrolling = true,
                     ShaderName = 'NomadsUnit',
-                    SpecularName = 'INB3102_SpecTeam.dds',
+                    SpecularName = '/units/INB3102/INB3102_SpecTeam.dds',
                 },
             },
         },
@@ -162,7 +165,7 @@ UnitBlueprint {
         OverchargeType = 'Sonar',
         ReactivateTime = 10,
         ShowIntelOnSelect = true,
-        SonarRadius = 100,
+        SonarRadius = 115,
         VisionRadius = 20,
     },
     Interface = {
