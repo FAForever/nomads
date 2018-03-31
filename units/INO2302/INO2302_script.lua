@@ -51,6 +51,8 @@ INO2302 = Class(NOrbitUnit) {
         if self.xp then
             self:AddXP(-self.xp)
         end
+        self:SetUnSelectable(true)
+        self:SetImmobile(false)
         -- TODO: maybe some effects stop? lights, I dont know..
     end,
 
