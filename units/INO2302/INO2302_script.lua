@@ -32,6 +32,7 @@ INO2302 = Class(NOrbitUnit) {
     end,
 
     OnSetParent = function(self, parent, cbKilledUnit)
+        self:SetImmobile(false)
         self.parent = parent
         self.parentCallbacks[ 'OnKilledUnit' ] = cbKilledUnit or false
     end,
@@ -48,9 +49,8 @@ INO2302 = Class(NOrbitUnit) {
         self:EnableWeapon(false)
         self.parentCallbacks[ 'OnWeaponFired' ] = false
         self.parentCallbacks[ 'OnKilledUnit' ] = false
-        if self.xp then
-            self:AddXP(-self.xp)
-        end
+        self:SetUnSelectable(true)
+        IssueClearCommands( {self} )
         -- TODO: maybe some effects stop? lights, I dont know..
     end,
 
