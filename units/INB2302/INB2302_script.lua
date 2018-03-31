@@ -62,10 +62,10 @@ INB2302 = Class(NStructureUnit) {
         gun:SetUnSelectable(true)
         gun:SetFireState(import('/lua/game.lua').FireState.GROUND_FIRE)
         IssueClearCommands( {gun} )
-        IssueMove( {gun}, self:GetPosition() )
 
         -- tell the gun unit we're it's parent
         gun:OnSetParent(self, self.OnArtilleryUnitKilledUnit )
+        IssueMove( {gun}, self:GetPosition() )
 
         ForkThread(function()
                 local stillMoving = true
