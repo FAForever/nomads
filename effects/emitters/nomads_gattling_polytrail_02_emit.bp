@@ -1,12 +1,12 @@
 TrailEmitterBlueprint {
-	BlueprintId = 'nomads_gattling_polytrail_01',
-	Lifetime = -1.00,
+    BlueprintId = 'nomads_gattling_polytrail_01',
+    Lifetime = -1.00,
     TrailLength = 0.45,
     Size = 0.35,
     SortOrder = 0,
     BlendMode = 3,
     TextureRepeatRate = 1,
     LODCutoff = 160,
-	RepeatTexture = [[/textures/particles/railgun_trail_01.dds]],
-	RampTexture = [[/textures/particles/ramp_red_11.dds]],
+    RepeatTexture = [[/textures/particles/railgun_trail_01.dds]],
+    RampTexture = [[/textures/particles/ramp_red_11.dds]],
 }

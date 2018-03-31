@@ -158,8 +158,13 @@ UnitBlueprint {
             IconFadeInZoom = 130,
             LODs = {
                 {
-                    LODCutoff = 275,
-                    ShaderName = 'NomadsUnit',
+                AlbedoName = '/units/INA1005/INA1005_albedo.dds',
+                LODCutoff = 200,
+                MeshName = '/units/INA1005/INA1005_lod0.scm',
+                NormalsName = '/units/INA1005/INA1005_NormalsTS.dds',
+                Scrolling = true,
+                ShaderName = 'NomadsUnit',
+                SpecularName = '/units/INA1005/INA1005_SpecTeam.dds',
                 },
             },
         },
@@ -185,8 +190,8 @@ UnitBlueprint {
         UniformScale = 1.8,
     },
     Economy = {
-        BuildCostEnergy = 4800,
-        BuildCostMass = 120,
+        BuildCostEnergy = 4000,
+        BuildCostMass = 80,
         BuildTime = 800,
     },
     Footprint = {

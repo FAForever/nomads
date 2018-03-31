@@ -9,8 +9,8 @@ NStructureUnit = AddLights(NStructureUnit)
 INB9001 = Class(NStructureUnit) {
     Weapons = {
         MainGun = Class(GattlingWeapon1) {
-		    Rotates = false,
-		},
+            Rotates = false,
+        },
     },
     LightBones = { {'Light1', 'Light2', }, {}, {}, {'Light3', 'Light4', }, },
 }

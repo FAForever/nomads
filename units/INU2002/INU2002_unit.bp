@@ -72,15 +72,15 @@ UnitBlueprint {
         AirThreatLevel = 0,
         ArmorType = 'Normal',
         EconomyThreatLevel = 0,
-        Health = 400,
-        MaxHealth = 400,
+        Health = 500,
+        MaxHealth = 500,
         RegenRate = 0,
         SubThreatLevel = 0,
         SurfaceThreatLevel = 3,
     },
     Description = '<LOC inu2002_desc>Fast Assault Hovertank',
     Display = {
-	Abilities = {
+    Abilities = {
             '<LOC ability_hover>Hover',
         },
         BuildEffect = {
@@ -160,19 +160,23 @@ UnitBlueprint {
                 },
             },
         },
-	Mesh = {
+    Mesh = {
             IconFadeInZoom = 130,
             LODs = {
                 {
-                    LODCutoff = 100,
+                    AlbedoName = '/units/INU2002/INU2002_Albedo.dds',
+                    LODCutoff = 130,
+                    MeshName = '/units/INU2002/INU2002_LOD0.scm',
+                    NormalsName = '/units/INU2002/INU2002_normalsTS.dds',
                     Scrolling = true,
                     ShaderName = 'NomadsUnit',
+                    SpecularName = '/units/INU2002/INU2002_SpecTeam.dds',
                 },
                 {
-                    AlbedoName = 'INU2002_Albedo.dds',
+                    AlbedoName = '/units/INU2002/INU2002_lod1_Albedo',
                     LODCutoff = 215,
                     ShaderName = 'NomadsUnit',
-                    SpecularName = 'INU2002_LOD1_SpecTeam.dds',
+                    SpecularName = '/units/INU2002/INU2002_lod1_SpecTeam.dds',
                 },
             },
         },

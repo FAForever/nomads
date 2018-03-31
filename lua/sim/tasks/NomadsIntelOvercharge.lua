@@ -15,7 +15,7 @@ NomadsIntelOvercharge = Class(ScriptTask) {
             AddVOEvent(self, self.CommandData.SoundLaunched)
         end
     end,
-	
+    
     TaskTick = function(self)
         self:SetAIResult(AIRESULT.Success)
         return TASKSTATUS.Done

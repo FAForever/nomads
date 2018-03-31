@@ -156,7 +156,7 @@ function CreateUI(parent, exitBehavior)
     LayoutHelpers.AtTopIn(backBtn, panel, 665)
     backBtn.OnClick = function(self)
         panel:Destroy()
-    	if exitBehavior then
+        if exitBehavior then
             exitBehavior()
         end
     end

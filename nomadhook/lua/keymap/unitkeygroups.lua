@@ -208,10 +208,11 @@ unitkeygroups = {
 
 ["Experimental"] = {
 -- Aeon
-"ual0401",
-"uaa0310",
-"uas0401",
-"xab1401",
+"ual0401", -- Galactic Colossus
+"uaa0310", -- Czar
+"uas0401", -- Tempest
+"xab1401", -- Paragon
+"xab2307", -- Salvation
 -- Cyb
 "url0402", -- Monkeylord
 "xrl0403", -- Megalith
@@ -487,10 +488,6 @@ unitkeygroups = {
 "inb3302",
 },
 
-["Rapid_Fire_Artillery_Installation"] = {
-"xab2307",
-"inb3303",  -- rocket artilleyr
-},
 ["Quantum_Optics_Facility"] = {
 "xab3301",},
 ["Engineering_Station"] = {

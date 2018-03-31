@@ -72,7 +72,7 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
     },
-    Description = '<LOC inb0302faf_desc>Air Factory (HQ)',
+    Description = '<LOC inb0302faf_desc>Air Factory HQ',
     Display = {
         AnimationFinishBuildLand = '/units/inb0302/inb0302_alift.sca',
         --BlinkingLights = {
@@ -147,7 +147,7 @@ UnitBlueprint {
         BuildEffectScaleY = 0.4,
         BuildEffectScaleZ = 0.158,
         BuildBones = {
-			BuildEffectBones = {
+            BuildEffectBones = {
                 'muzzle.001',
                 'muzzle.002',
                 'muzzle.003',
@@ -184,7 +184,7 @@ UnitBlueprint {
         VisionRadius = 20,
     },
     Interface = {
-        HelpText = '<LOC inb0302faf_help>Air Factory (HQ)',
+        HelpText = '<LOC inb0302faf_help>Air Factory HQ',
     },
     LifeBarHeight = 0.075,
     LifeBarOffset = 2.15,

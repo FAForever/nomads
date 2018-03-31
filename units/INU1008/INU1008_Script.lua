@@ -62,15 +62,6 @@ INU1008 = Class(NLandUnit) {
             self:GetWeapon(1):SetMovingAccuracy(moving)
         end
     end,
-
-    EnableSpecialToggle = function(self)
-        self:EnableAnchor(self)
-    end,
-
-    DisableSpecialToggle = function(self)
-        self:DisableAnchor(self)
-    end,
-
     PlayWeaponFiredEffects = function(self)
         if self.AnimManip then
             local fn = function(self)

@@ -1,11 +1,6 @@
 -- Tank destroyer
 
 UnitBlueprint {
-    Abilities = {
-        Anchor = {
-            Buff = 'AnchorModeImmobilizeAddRange',
-        },
-    },
     Audio = {
         AmbientMove = Sound {
             Bank = 'UEL',
@@ -56,7 +51,7 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
         'OVERLAYDIRECTFIRE',
-    },	
+    },    
     Defense = {
         AirThreatLevel = 0,
         ArmorType = 'Normal',
@@ -77,8 +72,13 @@ UnitBlueprint {
             IconFadeInZoom = 130,
             LODs = {
                 {
+                    AlbedoName = '/units/INU1008/INU1008_Albedo.dds',
                     LODCutoff = 215,
+                    MeshName = '/units/INU1008/INU1008_LOD0.scm',
+                    NormalsName = '/units/INU1008/INU1008_normalsTS.dds',
+                    Scrolling = true,
                     ShaderName = 'NomadsUnit',
+                    SpecularName = '/units/INU1008/INU1008_SpecTeam.dds',
                 },
             },
         },
@@ -139,16 +139,7 @@ UnitBlueprint {
         },
         FactionName = 'Nomads',
         Icon = 'land',
-        OrderOverrides = {
-            RULEUTC_SpecialToggle = {
-                bitmapId = 'toggle-anchor',
-                helpText = 'toggle_anchor',
-            },
-        },
         TechLevel = 'RULEUTL_Basic',
-        ToggleCaps = {
-            RULEUTC_SpecialToggle = true,
-        },
         UnitName = '<LOC inu1008_name>Assassin',
         UnitWeight = 1,
     },
@@ -229,7 +220,7 @@ UnitBlueprint {
             FiringTolerance = 0,
             FiringToleranceWhileMoving = 0.5,
             Label = 'MainGun',
-            MaxRadius = 23,     --30r with anchor
+            MaxRadius = 26,     --30r with anchor
             MinRadius = 5,
             MuzzleChargeDelay = 0.5,
             MuzzleSalvoDelay = 0,

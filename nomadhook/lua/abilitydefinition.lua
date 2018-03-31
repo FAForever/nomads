@@ -141,7 +141,7 @@ abilities = table.merged( abilities, {
         enabled = true,
         ExtraInfo = {
             DoRangeCheck = true,
-            NumReticules = 10,
+            NumReticules = 1,
         },
         UIHelpText = 'specabil_areabombardment',
         UISlot = 5,

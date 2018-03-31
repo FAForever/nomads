@@ -84,42 +84,42 @@ UnitBlueprint {
                 BLOffsetZ = 0,
                 BLScale = 1,
             },
-			{
+            {
                 BLBone = 'light.002',
                 BLOffsetX = 0,
                 BLOffsetY = 0,
                 BLOffsetZ = 0,
                 BLScale = 1,
             },
-			{
+            {
                 BLBone = 'light.003',
                 BLOffsetX = 0,
                 BLOffsetY = 0,
                 BLOffsetZ = 0,
                 BLScale = 1,
             },
-			{
+            {
                 BLBone = 'light.004',
                 BLOffsetX = 0,
                 BLOffsetY = 0,
                 BLOffsetZ = 0,
                 BLScale = 1,
             },
-			{
+            {
                 BLBone = 'light.005',
                 BLOffsetX = 0,
                 BLOffsetY = 0,
                 BLOffsetZ = 0,
                 BLScale = 1,
             },
-			{
+            {
                 BLBone = 'light.006',
                 BLOffsetX = 0,
                 BLOffsetY = 0,
                 BLOffsetZ = 0,
                 BLScale = 1,
             },
-			{
+            {
                 BLBone = 'light.007',
                 BLOffsetX = 0,
                 BLOffsetY = 0,

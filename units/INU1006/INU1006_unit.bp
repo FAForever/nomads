@@ -86,8 +86,13 @@ UnitBlueprint {
             IconFadeInZoom = 130,
             LODs = {
                 {
+                    AlbedoName = '/units/INU1006/INU1006_Albedo.dds',
+                    LODCutoff = 200,
+                    MeshName = '/units/INU1006/INU1006_LOD0.scm',
+                    NormalsName = '/units/INU1006/INU1006_normalsTS.dds',
                     Scrolling = true,
                     ShaderName = 'NomadsUnit',
+                    SpecularName = '/units/INU1006/INU1006_SpecTeam.dds',
                 },
             },
         },
@@ -241,7 +246,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_HighArc',
             CannotAttackGround = false,
             CollideFriendly = false,
-            Damage = 100,
+            Damage = 150,
             DamageFriendly = false,
             DamageRadius = 1.5,
             DamageType = 'Normal',

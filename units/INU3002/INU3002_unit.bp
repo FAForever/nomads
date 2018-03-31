@@ -1,45 +1,45 @@
--- T3 amphibious tank
+-- T3 hover tank
 
 UnitBlueprint {
     Audio = {
-        AmbientMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0202_Move_Loop',
+        AmbientIdle = Sound {
+            Bank = 'NomadsUnits',
+            Cue = 'HoverIdle',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        AmbientMoveLand = Sound {
+            Bank = 'NomadsUnits',
+            Cue = 'HoverMoving',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         AmbientMoveWater = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0203_Move_Water_Lp',
+            Bank = 'NomadsUnits',
+            Cue = 'HoverMovingOnWater',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         Destroyed = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEL_Destroy_Med_Land',
+            Bank = 'NomadsDestroy',
+            Cue = 'Destroy_Land',
             LodCutoff = 'UnitMove_LodCutoff',
         },
-        EnterWater = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0203_Into_Water',
+        HoverKilledOnWater = Sound {
+            Bank = 'Explosions',
+            Cue = 'Expl_Water_Lrg_01',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         StartMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0202_Move_Start',
+            Bank = 'UAL',
+            Cue = 'UAL0101_Move_Start',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         StopMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0202_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        TransitionWater = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0203_Into_Water',
+            Bank = 'UAL',
+            Cue = 'UAL0101_Move_Stop',
             LodCutoff = 'UnitMove_LodCutoff',
         },
         UISelection = Sound {
             Bank = 'NomadsInterface',
-            Cue = 'Nomads_Select_Tank',
+            Cue = 'Nomads_Select_HoverVehicle',
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
@@ -77,10 +77,10 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 18,
     },
-    Description = '<LOC inu3002_desc>Heavy Amphibious Tank',
+    Description = '<LOC inu3002_desc>Heavy Hover Tank',
     Display = {
         Abilities = {
-            '<LOC ability_amphibious>Amphibious',
+            '<LOC ability_hover>Hover',
         },
         BuildEffect = {
             ExtendsFront = 0.1,
@@ -89,26 +89,36 @@ UnitBlueprint {
         IdleEffects = {
             Land = {
                 Effects = {
+                    {
+                        Bones = {
+                            'INU3002',
+                        },
+                        Offset = {
+                            0,
+                            -0.12,
+                            0,
+                        },
+                        Scale = 1,
+                        Type = 'NomadsHoverGroundFx1',
+                        Recolour = true,
+                    },
                 },
             },
             Water = {
                 Effects = {
-                },
-            },
-        },
-        Mesh = {
-            IconFadeInZoom = 130,
-            LODs = {
-                {
-                    LODCutoff = 100,
-                    Scrolling = true,
-                    ShaderName = 'NomadsUnit',
-                },
-                {
-                    AlbedoName = 'INU3002_Albedo.dds',
-                    LODCutoff = 215,
-                    ShaderName = 'NomadsUnit',
-                    SpecularName = 'INU3002_LOD1_SpecTeam.dds',
+                    {
+                        Bones = {
+                            'INU3002',
+                        },
+                        Offset = {
+                            0,
+                            -0.12,
+                            0,
+                        },
+                        Scale = 1,
+                        Type = 'NomadsHoverGroundFx1',
+                        Recolour = true,
+                    },
                 },
             },
         },
@@ -117,36 +127,96 @@ UnitBlueprint {
                 Effects = {
                     {
                         Bones = {
-                            'exhaust_big.006',
-                            'exhaust_big.001',
-                            'exhaust_big.002',
-                            'exhaust_big.007',
+                            'INU3002',
                         },
-                        Type = 'GroundKickup01',
+                        Offset = {
+                            0,
+                            -0.12,
+                            0,
+                        },
+                        Scale = 1,
+                        Type = 'NomadsHoverGroundFx1',
+                        Recolour = true,
                     },
                 },
-                Treads = {
-                    ScrollTreads = false,
-                    TreadMarks = {
-                        {
-                            BoneName = 'INU3002',
-                            TreadMarks = 'tank_treads_albedo',
-                            TreadMarksInterval = 0.1,
-                            TreadMarksSizeX = 0.75,
-                            TreadMarksSizeZ = 1.1,
-                            TreadOffset = {
-                                0,
-                                0,
-                                0,
-                            },
+            },
+            Water = {
+                Effects = {
+                    {
+                        Bones = {
+                            'INU3002',
                         },
+                        Offset = {
+                            0,
+                            -0.12,
+                            0,
+                        },
+                        Scale = 1,
+                        Type = 'NomadsHoverGroundFx1',
+                        Recolour = true,
                     },
                 },
             },
         },
-        PlaceholderMeshName = 'UXL0001',
-        SpawnRandomRotation = false,
-        UniformScale = 0.14,
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    AlbedoName = '/units/INU3002/INU3002_Albedo.dds',
+                    LODCutoff = 130,
+                    MeshName = '/units/INU3002/INU3002_LOD0.scm',
+                    NormalsName = '/units/INU3002/INU3002_normalsTS.dds',
+                    Scrolling = true,
+                    ShaderName = 'NomadsUnit',
+                    SpecularName = '/units/INU3002/INU3002_SpecTeam.dds',
+                },
+                {
+                    AlbedoName = 'inu3002_lod1_Albedo.dds',
+                    LODCutoff = 215,
+                    ShaderName = 'NomadsUnit',
+                    SpecularName = 'inu3002_LOD1_SpecTeam.dds',
+                },
+            },
+        },
+        MovementEffects = {
+            Land = {
+                Effects = {
+                    {
+                        Bones = {
+                            'INU1002',
+                        },
+                        Offset = {
+                            0,
+                            -0.12,
+                            0,
+                        },
+                        Scale = 0.55,
+                        Type = 'NomadsHoverGroundFx1',
+                        Recolour = true,
+                    },
+                },
+            },
+            Water = {
+                Effects = {
+                    {
+                        Bones = {
+                            'INU1002',
+                        },
+                        Offset = {
+                            0,
+                            -0.12,
+                            0,
+                        },
+                        Scale = 0.55,
+                        Type = 'NomadsHoverGroundFx1',
+                        Recolour = true,
+                    },
+                },
+            },
+        },
+        PlaceholderMeshName = 'UXL0011',
+        SpawnRandomRotation = true,
+        UniformScale = 0.08,
     },
     Economy = {
         BuildCostEnergy = 8000,
@@ -180,7 +250,7 @@ UnitBlueprint {
         VisionRadius = 26,
     },
     Interface = {
-        HelpText = '<LOC inu3002_help>Heavy Amphibious Tank',
+        HelpText = '<LOC inu3002_help>Heavy Hover Tank',
     },
     LifeBarHeight = 0.08,
     LifeBarOffset = 0.5,
@@ -191,7 +261,7 @@ UnitBlueprint {
             LAYER_Air = false,
             LAYER_Land = true,
             LAYER_Orbit = false,
-            LAYER_Seabed = true,
+            LAYER_Seabed = false,
             LAYER_Sub = false,
             LAYER_Water = false,
         },
@@ -206,12 +276,15 @@ UnitBlueprint {
         MeshExtentsY = 0.65,
         MeshExtentsZ = 1.25,
         MinSpeedPercent = 0,
-        MotionType = 'RULEUMT_Amphibious',
+        MotionType = 'RULEUMT_Hover',
+        RotateBodyWhileMoving = true,        
         WaterSpeedMultiplier = 0.9,
-        RotateBodyWhileMoving = true,
-        RotateOnSpot = true,
-        TurnRadius = 4,
+        TurnFacingRate = 90,
+        TurnRadius = 5,
         TurnRate = 90,
+        WaterSpeedMultiplier = 0.9,
+        WobbleFactor = 0,
+        WobbleSpeed = 0,
     },
     SelectionCenterOffsetY = -0.1,
     SelectionCenterOffsetZ = 0.1,

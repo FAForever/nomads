@@ -24,8 +24,8 @@ ProjectileBlueprint {
         'NOSPLASHDAMAGE',
     },
     Defense = {
-        Health = 2,
-        MaxHealth = 2,
+        Health = 1,
+        MaxHealth = 1,
     },
     Display = {
         CameraFollowTimeout = 5,
@@ -70,6 +70,7 @@ ProjectileBlueprint {
         MaxSpeed = 14,
         MaxZigZag = 0,
         TrackTarget = true,
+        TrackTargetGround = true,
         TurnRate = 200,
         UseGravity = false,
         VelocityAlign = true,

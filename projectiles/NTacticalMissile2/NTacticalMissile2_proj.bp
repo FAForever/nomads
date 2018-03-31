@@ -67,7 +67,7 @@ ProjectileBlueprint {
         InitialSpeed = 0,
         LifeTime = 60,
         MaxSpeed = 15,
-		MaxZigZag = 1.85,
+        MaxZigZag = 1.85,
         RotationalVelocity = 0,
         RotationalVelocityRange = 0,
         TrackTarget = true,
@@ -75,6 +75,6 @@ ProjectileBlueprint {
         TurnRate = 0.1,
         UseGravity = false,
         VelocityAlign = true,
-		ZigZagFrequency = 1.5,
+        ZigZagFrequency = 1.5,
     },
 }

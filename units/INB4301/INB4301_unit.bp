@@ -63,7 +63,7 @@ UnitBlueprint {
             ShieldRechargeTime = 25,
             ShieldRegenRate = 130,
             ShieldRegenStartTime = 3,
-            ShieldSize = 42,
+            ShieldSize = 40,
             ShieldVerticalOffset = -4,
         },
         SubThreatLevel = 0,
@@ -80,8 +80,13 @@ UnitBlueprint {
             IconFadeInZoom = 130,
             LODs = {
                 {
+                    AlbedoName = '/units/INB4301/INB4301_Albedo.dds',
                     LODCutoff = 500,
+                    MeshName = '/units/INB4301/INB4301_LOD0.scm',
+                    NormalsName = '/units/INB4301/INB4301_normalsTS.dds',
+                    Scrolling = true,
                     ShaderName = 'NomadsUnit',
+                    SpecularName = '/units/INB4301/INB4301_SpecTeam.dds',
                 },
             },
         },
@@ -109,8 +114,8 @@ UnitBlueprint {
         BuildableCategory = {
             'inb4305',
         },
-        BuildCostEnergy = 48000,
-        BuildCostMass = 2800,
+        BuildCostEnergy = 40000,
+        BuildCostMass = 2000,
         BuildRate = 30,
         BuildTime = 4900,
         MaintenanceConsumptionPerSecondEnergy = 450,

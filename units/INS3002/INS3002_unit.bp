@@ -85,7 +85,7 @@ UnitBlueprint {
         AirThreatLevel = 0,
         ArmorType = 'Normal',
         EconomyThreatLevel = 0,
-        Health = 6000,
+        Health = 4000,
         MaxHealth = 6000,
         RegenRate = 0,
         SubThreatLevel = 60,
@@ -187,8 +187,13 @@ UnitBlueprint {
             IconFadeInZoom = 130,
             LODs = {
                 {
+                    AlbedoName = '/units/INS3002/INS3002_Albedo.dds',
                     LODCutoff = 450,
+                    MeshName = '/units/INS3002/INS3002_LOD0.scm',
+                    NormalsName = '/units/INS3002/INS3002_normalsTS.dds',
+                    Scrolling = true,
                     ShaderName = 'NomadsUnit',
+                    SpecularName = '/units/INS3002/INS3002_SpecTeam.dds',
                 },
             },
         },
@@ -257,8 +262,8 @@ UnitBlueprint {
         UniformScale = 0.3,
     },
     Economy = {
-        BuildCostEnergy = 36000,
-        BuildCostMass = 4800,
+        BuildCostEnergy = 50000,
+        BuildCostMass = 5000,
         BuildTime = 16000,
     },
     Footprint = {
@@ -425,7 +430,7 @@ UnitBlueprint {
             },
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
-            Damage = 160,
+            Damage = 200,
             DamageType = 'Normal',
             DisplayName = 'Torpedo',
             FireTargetLayerCapsTable = {
