@@ -29,7 +29,9 @@ DefaultProjectileWeapon = Class(oldDefaultProjectileWeapon) {
             if self.EconDrain then
                 self.WeaponCanFire = false
                 WaitFor(self.EconDrain)
-                RemoveEconomyEvent(self.unit, self.EconDrain)
+                if self.EconDrain then
+                    RemoveEconomyEvent(self.unit, self.EconDrain)
+                end
                 self.EconDrain = nil
                 self.WeaponCanFire = true
             end
