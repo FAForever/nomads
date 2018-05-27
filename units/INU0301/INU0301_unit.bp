@@ -570,7 +570,7 @@ UnitBlueprint {
         },
         EngineeringLeft = {
             AddBuildRate = 55,
-			AddMaxBuildDistance = 10,
+            AddMaxBuildDistance = 10,
             BuildCostEnergy = 18500,
             BuildCostMass = 450,
             BuildTime = 1800,
@@ -618,7 +618,7 @@ UnitBlueprint {
         },
         EngineeringRight = {
             AddBuildRate = 55,
-			AddMaxBuildDistance = 10,
+            AddMaxBuildDistance = 10,
             BuildCostEnergy = 18500,
             BuildCostMass = 450,
             BuildTime = 1800,
@@ -1251,7 +1251,7 @@ UnitBlueprint {
             },
             UnitName = '<LOC inu0301_naturalproducer_name>Support Armored Command Unit (Preset: Producer)',
         },
-		RAS = {
+        RAS = {
             BuildIconSortPriority = 20,
             Description = '<LOC inu0301_RAS_desc>Support Armored Command Unit (Preset: RAS)',
             Enhancements = {

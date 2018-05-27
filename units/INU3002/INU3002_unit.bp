@@ -172,7 +172,7 @@ UnitBlueprint {
                 },
                 {
                     AlbedoName = '/units/INU3002/inu3002_lod1_Albedo.dds',
-					MeshName = '/units/INU3002/inu3002_LOD1.scm',
+                    MeshName = '/units/INU3002/inu3002_LOD1.scm',
                     LODCutoff = 215,
                     ShaderName = 'NomadsUnit',
                     SpecularName = '/units/INU3002/inu3002_LOD1_SpecTeam.dds',

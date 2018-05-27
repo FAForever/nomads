@@ -96,8 +96,8 @@ UnitBlueprint {
         'NEEDMOBILEBUILD',
         'OVERLAYANTIAIR',
         'TRANSPORTABLEEXP',
-		'NUKE',
-		'SILO',
+        'NUKE',
+        'SILO',
         'SHOWATTACKRETICLE',
     },
     CollisionOffsetZ = -0.2,
@@ -113,7 +113,7 @@ UnitBlueprint {
     },
     Description = '<LOC inu4001_desc>Experimental Missile Tank',
     Display = {
-		Abilities = {			
+        Abilities = {            
             '<LOC ability_manuallaunch>Manual Launch',
             '<LOC ability_aa>Anti-Air',
             '<LOC ability_bombardarea>Area bombardment',
@@ -276,7 +276,7 @@ UnitBlueprint {
                 },
             },
         },
-	Mesh = {
+    Mesh = {
             IconFadeInZoom = 130,
             LODs = {
                 {
@@ -304,7 +304,7 @@ UnitBlueprint {
     },
     Economy = {
         BuildCostEnergy = 300000,
-        BuildCostMass = 16000,		
+        BuildCostMass = 16000,        
         BuildRate = 1080,
         BuildTime = 40000,
     },
@@ -423,7 +423,7 @@ UnitBlueprint {
             },
             AutoInitiateAttackCommand = false,
             BallisticArc = 'RULEUBA_None',
-            CollideFriendly = false,			
+            CollideFriendly = false,            
             CountedProjectile = true,
             Damage = 0,
             DamageType = 'BlackholeDamage',
@@ -432,17 +432,17 @@ UnitBlueprint {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
-            FiringTolerance = 180,			
+            FiringTolerance = 180,            
             InitialProjectileStorage = 0,
             Label = 'NukeMissiles',
-            MaxProjectileStorage = 6,			
+            MaxProjectileStorage = 6,            
             ManualFire = 1,
             MaxRadius = 410,
             MinRadius = 100,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 0,	
-			NukeBlackHoleMinDuration = 5,
+            MuzzleVelocity = 0,    
+            NukeBlackHoleMinDuration = 5,
             NukeBlackHoleFxLogo = true,
             NukeBlackHoleFxScale = 1,
             NukeInnerRingDamage = 40000,
@@ -463,36 +463,36 @@ UnitBlueprint {
                     },
                     RackBone = 'TML.001',
                 },
-				{
+                {
                     MuzzleBones = {
                         'TML.002',
                     },
                     RackBone = 'TML.002',
-				},
-				{
+                },
+                {
                     MuzzleBones = {
                         'TML.003',
                     },
                     RackBone = 'TML.003',
-				},
-				{
+                },
+                {
                     MuzzleBones = {
                         'TML.004',
                     },
                     RackBone = 'TML.004',
-				},
-				{
+                },
+                {
                     MuzzleBones = {
                         'TML.005',
                     },
                     RackBone = 'TML.005',
-				},
-				{
+                },
+                {
                     MuzzleBones = {
                         'TML.006',
                     },
                     RackBone = 'TML.006',
-				},
+                },
             },
             RackRecoilDistance = 0,
             RackFireTogether = false,

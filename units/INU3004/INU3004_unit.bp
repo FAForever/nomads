@@ -1,7 +1,7 @@
 -- T3 heavy mobile artilery
 
 UnitBlueprint {
-	Abilities = {
+    Abilities = {
         Anchor = {
             Buff = 'AnchorModeImmobilizeAddRange',
         },
@@ -74,7 +74,7 @@ UnitBlueprint {
     },
     Description = '<LOC inu3004_desc>Mobile Heavy Artillery',
     Display = {
-        Abilities = {		
+        Abilities = {        
             '<LOC ability_anchor>Anchor'
         },
         BuildEffect = {

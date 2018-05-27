@@ -13,8 +13,8 @@ INU3004 = Class(NLandUnit) {
     Weapons = {
         MainGun = Class(ArtilleryWeapon) {},
     },
-	
-	EnableSpecialToggle = function(self)
+    
+    EnableSpecialToggle = function(self)
         self:EnableAnchor(self)
     end,
 

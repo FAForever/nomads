@@ -366,7 +366,7 @@ UnitBlueprint {
             DamageFriendly = false,
             DamageRadius = 3,
             DamageType = 'Normal',
-			DetonatesAtTargetHeight = true,
+            DetonatesAtTargetHeight = true,
             DisplayName = 'Rocket flak',
             FireTargetLayerCapsTable = {
                 Water = 'Air',
@@ -452,7 +452,7 @@ UnitBlueprint {
             DamageFriendly = false,
             DamageRadius = 3,
             DamageType = 'Normal',
-			DetonatesAtTargetHeight = true,
+            DetonatesAtTargetHeight = true,
             DisplayName = 'Rocket flak',
             FireTargetLayerCapsTable = {
                 Water = 'Air',
@@ -539,7 +539,7 @@ UnitBlueprint {
             DamageFriendly = false,
             DamageRadius = 3,
             DamageType = 'Normal',
-			DetonatesAtTargetHeight = true,
+            DetonatesAtTargetHeight = true,
             DisplayName = 'Rocket flak',
             FireTargetLayerCapsTable = {
                 Water = 'Air',
@@ -626,7 +626,7 @@ UnitBlueprint {
             DamageFriendly = false,
             DamageRadius = 3,
             DamageType = 'Normal',
-			DetonatesAtTargetHeight = true,
+            DetonatesAtTargetHeight = true,
             DisplayName = 'Rocket flak',
             FireTargetLayerCapsTable = {
                 Water = 'Air',

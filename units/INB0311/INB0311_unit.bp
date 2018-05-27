@@ -136,7 +136,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 11600,
         BuildCostMass = 1440,
-		BuildRate = 90, --
+        BuildRate = 90, --
         BuildTime = 4000, --
         BuildableCategory = {
             'BUILTBYTIER3FACTORY NOMADS MOBILE CONSTRUCTION',

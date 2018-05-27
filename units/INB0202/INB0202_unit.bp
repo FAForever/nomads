@@ -104,12 +104,12 @@ UnitBlueprint {
             LODs = {
                 {
                 AlbedoName = '/units/INB0202/INB0202_albedo.dds',
-				LODCutoff = 500,
-				MeshName = '/units/INB0202/INB0202_lod0.scm',
-				NormalsName = '/units/INB0202/INB0202_NormalsTS.dds',
-				Scrolling = true,
-				ShaderName = 'NomadsUnit',
-				SpecularName = '/units/INB0202/INB0202_SpecTeam.dds',
+                LODCutoff = 500,
+                MeshName = '/units/INB0202/INB0202_lod0.scm',
+                NormalsName = '/units/INB0202/INB0202_NormalsTS.dds',
+                Scrolling = true,
+                ShaderName = 'NomadsUnit',
+                SpecularName = '/units/INB0202/INB0202_SpecTeam.dds',
                 },
             },
         },
