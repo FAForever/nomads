@@ -188,9 +188,11 @@ UnitBlueprint {
             IconFadeInZoom = 130,
             LODs = {
                 {
-                    AlbedoName = '/units/INU3008/inu3008_Albedo.dds',
+                    AlbedoName = '/units/INU3008/INU3008_Albedo.dds',
                     LODCutoff = 215,
                     MeshName = '/units/INU3008/INU3008_LOD0.scm',
+                    NormalsName = '/units/INU3008/INU3008_normalsTS.dds',
+                    Scrolling = true,
                     ShaderName = 'NomadsUnit',
                     SpecularName = '/units/INU3008/INU3008_SpecTeam.dds',
                 },
@@ -237,15 +239,17 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 1000,
         BuildCostMass = 225,
-        BuildRate = 15,     --19,5 with anchor
+        BuildRate = 17,
         BuildTime = 1000,
         BuildableCategory = {
             'BUILTBYTIER2ENGINEER DEFENSE NOMADS',
             'BUILTBYTIER2ENGINEER INDIRECTFIRE NOMADS',
         },
         MaintenanceConsumptionPerSecondEnergy = 15,
-        MaxBuildDistance = 12.5,    --from 10
+        MaxBuildDistance = 10,
         NeedToFaceTargetToBuild = false,
+        StorageEnergy = 200,
+        StorageMass = 30,
         TeleportEnergyMod = 0.15,
         TeleportMassMod = 1,
         TeleportTimeMod = 0.01,

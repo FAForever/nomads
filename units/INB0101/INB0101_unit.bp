@@ -142,8 +142,13 @@ UnitBlueprint {
             IconFadeInZoom = 130,
             LODs = {
                 {
-                    LODCutoff = 500,
-                    ShaderName = 'NomadsUnit',
+                AlbedoName = '/units/INB0101/INB0101_albedo.dds',
+                LODCutoff = 500,
+                MeshName = '/units/INB0101/INB0101_lod0.scm',
+                NormalsName = '/units/INB0101/INB0101_NormalsTS.dds',
+                Scrolling = true,
+                ShaderName = 'NomadsUnit',
+                SpecularName = '/units/INB0101/INB0101_SpecTeam.dds',
                 },
             },
         },
@@ -179,7 +184,7 @@ UnitBlueprint {
             'inb0101',
         },
         StorageEnergy = 0,
-        StorageMass = 0,
+        StorageMass = 80,
     },
     Footprint = {
         SizeX = 5,

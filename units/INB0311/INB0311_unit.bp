@@ -134,10 +134,10 @@ UnitBlueprint {
         UniformScale = 0.45,
     },
     Economy = {
-        BuildCostEnergy = 11550, --
-        BuildCostMass = 1290, --
-    BuildRate = 90, --
-        BuildTime = 3000, --
+        BuildCostEnergy = 11600,
+        BuildCostMass = 1440,
+        BuildRate = 90, --
+        BuildTime = 4000, --
         BuildableCategory = {
             'BUILTBYTIER3FACTORY NOMADS MOBILE CONSTRUCTION',
             'BUILTBYTIER3FACTORY NOMADS STRUCTURE LAND',
