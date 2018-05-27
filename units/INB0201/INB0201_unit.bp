@@ -107,8 +107,13 @@ UnitBlueprint {
             IconFadeInZoom = 130,
             LODs = {
                 {
-                    LODCutoff = 500,
-                    ShaderName = 'NomadsUnit',
+                AlbedoName = '/units/INB0201/INB0201_albedo.dds',
+				LODCutoff = 500,
+				MeshName = '/units/INB0201/INB0201_lod0.scm',
+				NormalsName = '/units/INB0201/INB0201_NormalsTS.dds',
+				Scrolling = true,
+				ShaderName = 'NomadsUnit',
+				SpecularName = '/units/INB0201/INB0201_SpecTeam.dds',
                 },
             },
         },
@@ -131,8 +136,8 @@ UnitBlueprint {
         UniformScale = 0.45,
     },
     Economy = {
-        BuildCostEnergy = 13300,
-        BuildCostMass = 1520,
+        BuildCostEnergy = 11200,
+        BuildCostMass = 1410,
         BuildRate = 40,
         BuildTime = 2600,
         DifferentialUpgradeCostCalculation = true,
@@ -143,7 +148,7 @@ UnitBlueprint {
             'FIELDENGINEER NOMADS MOBILE LAND',
         },
         StorageEnergy = 0,
-        StorageMass = 0,
+        StorageMass = 160,
     },
     Footprint = {
         SizeX = 5,

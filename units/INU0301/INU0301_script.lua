@@ -896,6 +896,10 @@ LOG('Todo: SCU right arm upgrade')
                     Affects = {
                         BuildRate = {
                             Add =  bp.AddBuildRate,
+                            Mult = 1,							
+                        },
+						MaxBuildDistance = {
+                            Add =  bp.MaxBuildDistance,
                             Mult = 1,
                         },
                     },

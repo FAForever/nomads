@@ -7,7 +7,7 @@ local NomadsWeaponsFile = import('/lua/nomadsweapons.lua')
 local EMPMissileWeapon = NomadsWeaponsFile.EMPMissileWeapon
 local MissileWeapon1 = NomadsWeaponsFile.MissileWeapon1
 local GattlingWeapon1 = NomadsWeaponsFile.GattlingWeapon1
-local TacticalMissileWeapon1 = NomadsWeaponsFile.TacticalMissileWeapon1
+local StrategicMissileWeapon = import('/lua/nomadsweapons.lua').StrategicMissileWeapon
 local ParticleBlaster1 = NomadsWeaponsFile.ParticleBlaster1
 
 local explosion = import('/lua/defaultexplosions.lua')
@@ -70,16 +70,16 @@ INU4001 = Class(NExperimentalHoverLandUnit, SlowHover) {
                 return dist
             end,
         },
-        TMLGun = Class(TacticalMissileWeapon1) {
+        NukeMissiles = Class(StrategicMissileWeapon) {
 
             OnCreate = function(self)
-                TacticalMissileWeapon1.OnCreate(self)
+                StrategicMissileWeapon.OnCreate(self)
                 self.CurrentROF = self:GetBlueprint().RateOfFire or 1
             end,
 
             OnWeaponFired = function(self)
                 self.HatchThreadHandle = self:ForkThread( self.HandleHatchThread )
-                TacticalMissileWeapon1.OnWeaponFired(self)
+                StrategicMissileWeapon.OnWeaponFired(self)
             end,
 
             HandleHatchThread = function(self)
@@ -99,12 +99,12 @@ INU4001 = Class(NExperimentalHoverLandUnit, SlowHover) {
 
             ChangeRateOfFire = function(self, value)
                 -- modified to store the rate of fire
-                TacticalMissileWeapon1.ChangeRateOfFire(self, value)
+                StrategicMissileWeapon.ChangeRateOfFire(self, value)
                 self.CurrentROF = value
             end,
 
             SetWeaponEnabled = function(self, enable)
-                TacticalMissileWeapon1.SetWeaponEnabled(self, enable)
+                StrategicMissileWeapon.SetWeaponEnabled(self, enable)
 
                 -- open or close the hatch based on whether we disable the weapon and make sure it stays that way by killing the
                 -- hatch thread.
@@ -171,19 +171,9 @@ INU4001 = Class(NExperimentalHoverLandUnit, SlowHover) {
 -- ANIMATIONS =====================
 
     OpenTMLHatch = function(self)
-        -- plays the opening hatch anim
-        if self.HatchAnimManip and self:GetFractionComplete() >= 1 then  -- only play anim if we're built
-            self.HatchAnimManip:SetRate(1)
-            return self.HatchAnimManip:GetAnimationTime()
-        end
     end,
 
     CloseTMLHatch = function(self)
-        -- plays the opening hatch anim
-        if self.HatchAnimManip then
-            self.HatchAnimManip:SetRate(-1)
-            return self.HatchAnimManip:GetAnimationTime()
-        end
     end,
 
 -- EFFECTS =====================
@@ -267,9 +257,14 @@ INU4001 = Class(NExperimentalHoverLandUnit, SlowHover) {
             -- We're not on water. Just explode a leave a wreck, no problemo
             self:DeathExplosionsThread( overkillRatio, instigator, true )
         else
-            -- this should be more spectacular!
-            self:DeathExplosionsOnWaterThread( overkillRatio, instigator )
-            NExperimentalHoverLandUnit.DeathThread( self, overkillRatio, instigator)
+            local WOFavailble = ( self.WOF_DoSink ~= nil)
+            if WOFavailble then
+                -- if WOF is available let it handle us sinking
+                NExperimentalHoverLandUnit.DeathThread( self, overkillRatio, instigator)
+            else
+                -- else, get killed on water and don't leave a corpse
+                self:DeathExplosionsOnWaterThread( overkillRatio, instigator )
+            end
         end
     end,
 
@@ -324,8 +319,9 @@ INU4001 = Class(NExperimentalHoverLandUnit, SlowHover) {
         -- create wreckage
         if leaveWreckage then
             self:CreateWreckage( overkillRatio )
-            self:Destroy()
         end
+
+        self:Destroy()
     end,
 
     DeathExplosionsOnWaterThread = function( self, overkillRatio, instigator)

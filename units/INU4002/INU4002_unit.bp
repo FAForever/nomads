@@ -279,7 +279,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 380000,
         BuildCostMass = 30000,
-        BuildTime = 22000,
+        BuildTime = 50000,
     },
     General = {
         Category = 'Experimental',
@@ -387,16 +387,19 @@ UnitBlueprint {
             BombardParticipant = true,
             BombardSwingTurret = false,
             CollideFriendly = false,
-            Damage = 2250,  --1500dps/2250dps with bombard
+            Damage = 30,
             DamageRadius = 2,
             DamageType = 'Normal',
-            DisplayName = 'Plasma cannon',
+            DisplayName = 'Energy Cannon',
+            DoTPulses = 10,
+            DoTTime = 2,
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
-            FiringRandomness = 0.25,
-            FiringTolerance = 2,
+            FiringRandomness = 0.3,
+            FiringTolerance = 2,			
+            InitialDamage = 1200,
             Label = 'MainGun',
             MaxRadius = 65,
             MinRadius = 8,
@@ -404,8 +407,8 @@ UnitBlueprint {
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 50,
             NotExclusive = true,
-            ProjectileId =  '/projectiles/NPlasmaProj1/NPlasmaProj1_proj.bp',
-            ProjectilesPerOnFire = 1,
+            ProjectileId =  '/projectiles/NEnergyProj2/NEnergyProj2_proj.bp',
+            ProjectilesPerOnFire = 2,
             RackBones = {
                 {
                     MuzzleBones = {
@@ -427,7 +430,7 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RangeCategory = 'UWRC_DirectFire',
-            RateOfFire = 0.333,
+            RateOfFire = 0.5,
             TargetCheckInterval = 1,
             TargetPriorities = {
                 'SPECIALHIGHPRI',

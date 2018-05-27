@@ -104,8 +104,13 @@ UnitBlueprint {
             IconFadeInZoom = 130,
             LODs = {
                 {
-                    LODCutoff = 500,
-                    ShaderName = 'NomadsUnit',
+                AlbedoName = '/units/INB0301/INB0301_albedo.dds',
+				LODCutoff = 500,
+				MeshName = '/units/INB0301/INB0301_lod0.scm',
+				NormalsName = '/units/INB0301/INB0301_NormalsTS.dds',
+				Scrolling = true,
+				ShaderName = 'NomadsUnit',
+				SpecularName = '/units/INB0301/INB0301_SpecTeam.dds',
                 },
             },
         },
@@ -128,10 +133,10 @@ UnitBlueprint {
         UniformScale = 0.45,
     },
     Economy = {
-        BuildCostEnergy = 43900,
-        BuildCostMass = 4920,
+        BuildCostEnergy = 47400,
+        BuildCostMass = 5220,
         BuildRate = 90,
-        BuildTime = 11000,
+        BuildTime = 12100,
         BuildableCategory = {
             'BUILTBYTIER3FACTORY NOMADS MOBILE CONSTRUCTION',
             'BUILTBYTIER3FACTORY NOMADS STRUCTURE LAND',
@@ -140,7 +145,7 @@ UnitBlueprint {
         },
         DifferentialUpgradeCostCalculation = true,
         StorageEnergy = 0,
-        StorageMass = 0,
+        StorageMass = 320,
     },
     Footprint = {
         SizeX = 5,
