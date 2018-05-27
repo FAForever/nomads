@@ -28,7 +28,7 @@ UnitBlueprint {
         KTurn = 0.8,
         KTurnDamping = 1.5,
         LiftFactor = 7,
-        MaxAirspeed = 12,
+        MaxAirspeed = 15,
         MinAirspeed = 3,
         StartTurnDistance = 5,
         Winged = false,
@@ -183,8 +183,13 @@ UnitBlueprint {
             IconFadeInZoom = 130,
             LODs = {
                 {
-                    LODCutoff = 215,
-                    ShaderName = 'NomadsUnit',
+                AlbedoName = '/units/INA2003/INA2003_albedo.dds',
+                LODCutoff = 215,
+                MeshName = '/units/INA2003/INA2003_lod0.scm',
+                NormalsName = '/units/INA2003/INA2003_NormalsTS.dds',
+                Scrolling = true,
+                ShaderName = 'NomadsUnit',
+                SpecularName = '/units/INA2003/INA2003_SpecTeam.dds',
                 },
             },
         },
@@ -389,7 +394,7 @@ UnitBlueprint {
             MuzzleVelocity = 0,
             NotExclusive = true,
             PrefersPrimaryWeaponTarget = true,
-            ProjectileId = '/projectiles/NTorpedo1/NTorpedo1_proj.bp',
+            ProjectileId = '/mods/nomad_fix/projectiles/NTorpedo2/NTorpedo2_proj.bp',
             ProjectileLifetime = 20,
             ProjectilesPerOnFire = 3,
             RackBones = {

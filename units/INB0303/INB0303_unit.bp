@@ -97,8 +97,13 @@ UnitBlueprint {
             IconFadeInZoom = 130,
             LODs = {
                 {
-                    LODCutoff = 500,
-                    ShaderName = 'NomadsUnit',
+                AlbedoName = '/units/INB0303/INB0303_albedo.dds',
+                LODCutoff = 500,
+                MeshName = '/units/INB0303/INB0303_lod0.scm',
+                NormalsName = '/units/INB0303/INB0303_NormalsTS.dds',
+                Scrolling = true,
+                ShaderName = 'NomadsUnit',
+                SpecularName = '/units/INB0303/INB0303_SpecTeam.dds',
                 },
             },
         },
@@ -107,8 +112,8 @@ UnitBlueprint {
         UniformScale = 0.32,
     },
     Economy = {
-        BuildCostEnergy = 45000,
-        BuildCostMass = 9500,
+        BuildCostEnergy = 35000,
+        BuildCostMass = 7500,
         BuildRate = 150,
         BuildTime = 11250,
         DifferentialUpgradeCostCalculation = true,

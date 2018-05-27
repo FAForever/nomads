@@ -1,9 +1,10 @@
 -- T3 heavy mobile artilery
 
 UnitBlueprint {
-    AI = {
-        GuardScanRadius = 90,
-        NeedUnpack = true,
+    Abilities = {
+        Anchor = {
+            Buff = 'AnchorModeImmobilizeAddRange',
+        },
     },
     Audio = {
         Activate = Sound {
@@ -65,20 +66,17 @@ UnitBlueprint {
         AirThreatLevel = 0,
         ArmorType = 'Normal',
         EconomyThreatLevel = 0,
-        Health = 1600,
-        MaxHealth = 1600,
+        Health = 900,
+        MaxHealth = 900,
         RegenRate = 0,
         SubThreatLevel = 0,
         SurfaceThreatLevel = 24,
     },
     Description = '<LOC inu3004_desc>Mobile Heavy Artillery',
     Display = {
-        Abilities = {
-            '<LOC ability_bombardarea>Area bombardment',
-            '<LOC ability_deploys>Deploys',
-            '<LOC ability_supportedartillerygun>Supported Artillery Gun',
+        Abilities = {        
+            '<LOC ability_anchor>Anchor'
         },
-        AnimationOpen = '/units/INU3004/INU3004_aunpack.sca',
         BuildEffect = {
             ExtendsFront = 0.27,
             ExtendsRear = 0.1,
@@ -88,8 +86,13 @@ UnitBlueprint {
             IconFadeInZoom = 130,
             LODs = {
                 {
+                    AlbedoName = '/units/INU3004/INU3004_Albedo.dds',
+                    LODCutoff = 300,
+                    MeshName = '/units/INU3004/INU3004_LOD0.scm',
+                    NormalsName = '/units/INU3004/INU3004_normalsTS.dds',
                     Scrolling = true,
                     ShaderName = 'NomadsUnit',
+                    SpecularName = '/units/INU3004/INU3004_SpecTeam.dds',
                 },
             },
         },
@@ -130,9 +133,9 @@ UnitBlueprint {
         UniformScale = 0.16,
     },
     Economy = {
-        BuildCostEnergy = 9600,
-        BuildCostMass = 960,
-        BuildTime = 5000,
+        BuildCostEnergy = 8000,
+        BuildCostMass = 800,
+        BuildTime = 4300,
         TeleportEnergyMod = 0.15,
         TeleportMassMod = 1,
         TeleportTimeMod = 0.01,
@@ -157,14 +160,14 @@ UnitBlueprint {
         FactionName = 'Nomads',
         Icon = 'land',
         OrderOverrides = {
-            RULEUTC_WeaponToggle = {
-                bitmapId = 'toggle-bombardmode',
-                helpText = 'toggle_bombardmode',
+            RULEUTC_SpecialToggle = {
+                bitmapId = 'toggle-anchor',
+                helpText = 'toggle_anchor',
             },
         },
         TechLevel = 'RULEUTL_Secret',
         ToggleCaps = {
-            RULEUTC_WeaponToggle = true,
+            RULEUTC_SpecialToggle = true,
         },
         UnitName = '<LOC inu3004_name>Mauler',
         UnitWeight = 1,
@@ -227,7 +230,6 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
-            AimsStraightOnDisable = true,
             ArtilleryShieldBlocks = true,
             Audio = {
                 Fire = Sound {
@@ -237,10 +239,8 @@ UnitBlueprint {
                 },
             },
             BallisticArc = 'RULEUBA_HighArc',
-            BombardParticipant = true,
-            BombardSwingTurret = false,
             CollideFriendly = false,
-            Damage = 500,       --66dps // 100dps with bombardment
+            Damage = 500,
             DamageFriendly = true,
             DamageRadius = 5,
             DamageType = 'Normal',
@@ -251,7 +251,7 @@ UnitBlueprint {
             FiringRandomness = 1.5,
             FiringTolerance = 1,
             Label = 'MainGun',
-            MaxRadius = 90,
+            MaxRadius = 80,
             MinRadius = 0,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
@@ -303,11 +303,6 @@ UnitBlueprint {
             TurretYawSpeed = 35,
             Turreted = true,
             WeaponCategory = 'Artillery',
-            WeaponRepackTimeout = 0,
-            WeaponUnpackAnimation = '/units/INU3004/INU3004_aunpack.sca',
-            WeaponUnpackAnimationRate = 1.6,
-            WeaponUnpackLocksMotion = true,
-            WeaponUnpacks = true,
         },
     },
     Wreckage = {

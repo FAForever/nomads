@@ -13,7 +13,7 @@ UnitBlueprint {
                 'CapacitorROFSCURailgun',
             },
             Duration = 15,
-            ChargeEnergyCost = 100,
+            ChargeEnergyCost = 200,
             ChargeTime = 30,
             bitmapId = 'toggle-capacitor',
             helpText = 'toggle_capacitor',
@@ -488,7 +488,7 @@ UnitBlueprint {
         Capacitor = {
             BuildCostEnergy = 1000,
             BuildCostMass = 200,
-            BuildTime = 5,
+            BuildTime = 100,
             HideBones = {
                 'Bicep_R',
                 'Forearm_R',
@@ -527,7 +527,7 @@ UnitBlueprint {
         AdditionalCapacitor = {
             BuildCostEnergy = 1000,
             BuildCostMass = 100,
-            BuildTime = 5,
+            BuildTime = 100,
             HideBones = {
                 'Bicep_R',
                 'Forearm_R',
@@ -537,9 +537,9 @@ UnitBlueprint {
             Icon = 'acap2',
             Name = '<LOC NomadsSCUEnh_AddCapacitor_Help>Additional Capacitor',
             Prerequisite = 'Capacitor',
-            CapacitorNewDuration = 150,
-            CapacitorNewChargeTime = 175,
-            CapacitorNewChargeEnergyCost = 500,
+            CapacitorNewDuration = 30,
+            CapacitorNewChargeTime = 45,
+            CapacitorNewChargeEnergyCost = 100,
             ShowBones = {
                 'Capacitor'
             },
@@ -570,6 +570,7 @@ UnitBlueprint {
         },
         EngineeringLeft = {
             AddBuildRate = 55,
+            AddMaxBuildDistance = 10,
             BuildCostEnergy = 18500,
             BuildCostMass = 450,
             BuildTime = 1800,
@@ -617,6 +618,7 @@ UnitBlueprint {
         },
         EngineeringRight = {
             AddBuildRate = 55,
+            AddMaxBuildDistance = 10,
             BuildCostEnergy = 18500,
             BuildCostMass = 450,
             BuildTime = 1800,
@@ -914,11 +916,11 @@ UnitBlueprint {
             Slot = 'Back',
         },
         PowerArmor = {
-            AddHealth = 22000,
+            AddHealth = 23000,
             AddRegenRate = 0,
-            BuildCostEnergy = 99000,
-            BuildCostMass = 2500,
-            BuildTime = 10300,
+            BuildCostEnergy = 75000,
+            BuildCostMass = 1500,
+            BuildTime = 5000,
             Icon = 'sepa',
             Mesh = '/units/inu0301/inu0301_PowerArmor_Mesh',
             Name = '<LOC NomadsSCUEnh_PowerArmor_Help>Powered Armor',
@@ -999,15 +1001,15 @@ UnitBlueprint {
             Slot = 'LCH',
         },
         RapidRepair = {
-            AddHealth = 6000,
-            BuildCostEnergy = 29600,
-            BuildCostMass = 1000,
-            BuildTime = 4200,
+            AddHealth = 2000,
+            BuildCostEnergy = 75000,
+            BuildCostMass = 1500,
+            BuildTime = 5000,
             Icon = 'se',
             InterruptRapidRepairByWeaponFired = false,
             Name = '<LOC NomadsSCUEnh_RapidRepair_Help>Rapid repair',
-            RepairDelay = 15,
-            RepairRate = 70,
+            RepairDelay = 10,
+            RepairRate = 600,
             ShowBones = {
                 'Nano_Chest',
             },
@@ -1191,8 +1193,9 @@ UnitBlueprint {
             BuildIconSortPriority = 30,
             Description = '<LOC inu0301_fastcombat_desc>Support Armored Command Unit (Preset: Fast Combat)',
             Enhancements = {
-                'GunLeft',
-                'GunRight',
+                'Capacitor',
+                'AdditionalCapacitor',
+                'LeftRocket',
                 'MovementSpeedIncrease',
             },
             HelpText = '<LOC inu0301_fastcombat_help>Houses a Nomads soldier. Can be Customised as a heavy combatant, --improved T3 engineer or combination. Enhanced during construction with a machine gun and improved locomotor.',
@@ -1243,10 +1246,26 @@ UnitBlueprint {
             HelpText = '<LOC inu0301_naturalproducer_help>Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or combination. Enhanced during construction with engineering capabilities on both arms and resource generator on its back.',
             SortCategory = 'SORTCONSTRUCTION',
             UIUnitViewOverrides = {
-                ProductionPerSecondEnergy = 500,
-                ProductionPerSecondMass = 4,
+                ProductionPerSecondEnergy = 1000,
+                ProductionPerSecondMass = 10,
             },
             UnitName = '<LOC inu0301_naturalproducer_name>Support Armored Command Unit (Preset: Producer)',
+        },
+        RAS = {
+            BuildIconSortPriority = 20,
+            Description = '<LOC inu0301_RAS_desc>Support Armored Command Unit (Preset: RAS)',
+            Enhancements = {
+                'EngineeringLeft',
+                'EngineeringRight',
+                'ResourceAllocation',
+            },
+            HelpText = '<LOC inu0301_RAS_help>Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or combination. Enhanced during construction with engineering capabilities on both arms and resource generator on its back.',
+            SortCategory = 'SORTCONSTRUCTION',
+            UIUnitViewOverrides = {
+                ProductionPerSecondEnergy = 1000,
+                ProductionPerSecondMass = 10,
+            },
+            UnitName = '<LOC inu0301_RAS_name>Support Armored Command Unit (Preset: RAS)',
         },
         Rambo = {
             BuildIconSortPriority = 50,
@@ -1272,7 +1291,8 @@ UnitBlueprint {
             Enhancements = {
                 'LeftRocket',
                 'RightRocket',
-                'MovementSpeedIncrease',
+                'RapidRepair',
+                'PowerArmor',
             },
             HelpText = '<LOC inu0301_rocket_help>Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or combination. Enhanced during construction with a rocket launcher on both shoulders and improved locomotor.',
             SelectionPriority = 1,
