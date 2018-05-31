@@ -124,6 +124,11 @@ INU0001 = Class(ACUUnit) {
 
         self.Sync.Abilities = self:GetBlueprint().Abilities
         self:HasCapacitorAbility(false)
+        
+        --TODO:set these to actual bp values like bp.Enhancements.ResourceAllocation.ProductionPerSecondEnergy
+        self.MassProduction = 30
+        self.EnergyProduction = 3000
+        
     end,
 
     OnStopBeingBuilt = function(self, builder, layer)
@@ -514,17 +519,15 @@ INU0001 = Class(ACUUnit) {
         -- RESOURCE ALLOCATION
         -- ---------------------------------------------------------------------------------------
 
-        elseif enh =='ResourceAllocation' then
-
-            local bpEcon = self:GetBlueprint().Economy
-            self:SetProductionPerSecondEnergy(bp.ProductionPerSecondEnergy + bpEcon.ProductionPerSecondEnergy or 0)
-            self:SetProductionPerSecondMass(bp.ProductionPerSecondMass + bpEcon.ProductionPerSecondMass or 0)
+        elseif enh =='ResourceAllocation' then            
+            self:AddToggleCap('RULEUTC_ProductionToggle')
+            self:SetProductionPerSecondEnergy(self.EnergyProduction)
+            
 
         elseif enh == 'ResourceAllocationRemove' then
-
-            local bpEcon = self:GetBlueprint().Economy
-            self:SetProductionPerSecondEnergy(bpEcon.ProductionPerSecondEnergy or 0)
-            self:SetProductionPerSecondMass(bpEcon.ProductionPerSecondMass or 0)
+            self:RemoveToggleCap('RULEUTC_ProductionToggle')
+            self:SetProductionPerSecondEnergy(20)
+            self:SetProductionPerSecondmass(1)
 
         -- ---------------------------------------------------------------------------------------
         -- RAPID REPAIR
@@ -765,6 +768,24 @@ INU0001 = Class(ACUUnit) {
 
     OnAmmoCountIncreased = function(self, amount)
         self:GetAIBrain():EnableSpecialAbility( 'NomadsAreaBombardment', true)
+    end,
+    
+    OnScriptBitSet = function(self, bit)
+        if bit == 4 then -- Production toggle
+            self:SetProductionPerSecondMass(self.MassProduction)
+            self:SetProductionPerSecondEnergy(20)
+        else
+            ACUUnit.OnScriptBitSet(self, bit)
+        end
+    end,
+
+    OnScriptBitClear = function(self, bit)
+        if bit == 4 then -- Production toggle
+            self:SetProductionPerSecondMass(1)
+            self:SetProductionPerSecondEnergy(self.EnergyProduction)
+        else
+            ACUUnit.OnScriptBitClear(self, bit)
+        end
     end,
 
 }
