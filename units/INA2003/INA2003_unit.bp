@@ -394,7 +394,7 @@ UnitBlueprint {
             MuzzleVelocity = 0,
             NotExclusive = true,
             PrefersPrimaryWeaponTarget = true,
-            ProjectileId = '/mods/nomad_fix/projectiles/NTorpedo2/NTorpedo2_proj.bp',
+            ProjectileId = '/projectiles/NTorpedo2/NTorpedo2_proj.bp',
             ProjectileLifetime = 20,
             ProjectilesPerOnFire = 3,
             RackBones = {
