@@ -1242,6 +1242,8 @@ UnitBlueprint {
             Description = '<LOC inu0301_naturalproducer_desc>Support Armored Command Unit (Preset: Producer)',
             Enhancements = {
                 'ResourceAllocation',
+                'EngineeringLeft',
+                'EngineeringRight',
             },
             HelpText = '<LOC inu0301_naturalproducer_help>Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or combination. Enhanced during construction with engineering capabilities on both arms and resource generator on its back.',
             SortCategory = 'SORTCONSTRUCTION',
@@ -1255,8 +1257,6 @@ UnitBlueprint {
             BuildIconSortPriority = 20,
             Description = '<LOC inu0301_RAS_desc>Support Armored Command Unit (Preset: RAS)',
             Enhancements = {
-                'EngineeringLeft',
-                'EngineeringRight',
                 'ResourceAllocation',
             },
             HelpText = '<LOC inu0301_RAS_help>Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or combination. Enhanced during construction with engineering capabilities on both arms and resource generator on its back.',
