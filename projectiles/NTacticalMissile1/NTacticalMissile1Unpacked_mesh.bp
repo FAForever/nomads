@@ -1,0 +1,10 @@
+MeshBlueprint {
+    LODs = {
+        {
+            MeshName = '/projectiles/NTacticalMissile1/NTacticalMissile1Unpacked_lod0.scm',
+            AlbedoName = '/projectiles/NTacticalMissile1/NTacticalMissile1_albedo.dds',
+            ShaderName = 'TMeshAlpha',
+            LODCutoff = 150,
+        },
+    },
+}

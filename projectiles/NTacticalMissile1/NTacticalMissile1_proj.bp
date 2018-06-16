@@ -22,11 +22,10 @@ ProjectileBlueprint {
         'INDIRECTFIRE',
         'TACTICAL',
         'MISSILE',
-        'NOSPLASHDAMAGE',
     },
     Defense = {
-        Health = 2,
-        MaxHealth = 2,
+        Health = 1,
+        MaxHealth = 1,
     },
     Display = {
         CameraFollowTimeout = 2,
@@ -37,12 +36,15 @@ ProjectileBlueprint {
         Mesh = {
             LODs = {
                 {
+                    LODCutoff = 150,
+                    AlbedoName = '/projectiles/NTacticalMissile1/NTacticalMissile1_albedo.dds',
+                    MeshName = '/projectiles/NTacticalMissile1/NTacticalMissile1_lod0.scm',
                     ShaderName = 'TMeshAlpha',
                 },
             },
         },
         StrategicIconSize = 3,
-        UniformScale = 0.15,
+        UniformScale = 0.1,
     },
     Economy = {
         BuildCostEnergy = 3600,
@@ -64,8 +66,8 @@ ProjectileBlueprint {
         HelpText = 0,
     },
     Physics = {
-        Acceleration = 3,
-        DestroyOnWater = true,
+        Acceleration = 2,
+        DestroyOnWater = false,
         InitialSpeed = 3,
         LifeTime = 30,
         MaxSpeed = 12,
@@ -73,7 +75,7 @@ ProjectileBlueprint {
         RotationalVelocityRange = 0,
         TrackTarget = true,
         TrackTargetGround = true,
-        TurnRate = 0,
+        TurnRate = 1,
         UseGravity = false,
         VelocityAlign = true,
     },
