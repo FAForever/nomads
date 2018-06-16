@@ -1,4 +1,9 @@
 UnitBlueprint {
+    AI = {
+        TargetBones = {
+            'Body',
+        },
+    },
     Audio = {
         DeathExplosion = Sound {
             Bank = 'UALDestroy',
