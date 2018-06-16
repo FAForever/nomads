@@ -1,14 +1,15 @@
--- T2 missile launcher
+-- T2 mobile missile launcher
 
-local Buff = import('/lua/sim/buff.lua')
-local SupportedArtilleryWeapon = import('/lua/nomadsutils.lua').SupportedArtilleryWeapon
+--local AddBombardModeToUnit = import('/lua/nomadsutils.lua').AddBombardModeToUnit
+--local SupportedArtilleryWeapon = import('/lua/nomadsutils.lua').SupportedArtilleryWeapon
 local NAmphibiousUnit = import('/lua/nomadsunits.lua').NAmphibiousUnit
 local TacticalMissileWeapon1 = import('/lua/nomadsweapons.lua').TacticalMissileWeapon1
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local EffectUtilities = import('/lua/EffectUtilities.lua')
-local SlowHover = import('/lua/defaultunits.lua').SlowHoverLandUnit
 
-TacticalMissileWeapon1 = SupportedArtilleryWeapon( TacticalMissileWeapon1 )
+--removed these for now since tracking projectiles dont have firing randomness, but in case we want to redo the bombard and arty support to change other things its nice to have a reminder of this here.
+--TacticalMissileWeapon1 = SupportedArtilleryWeapon( TacticalMissileWeapon1 )
+--NAmphibiousUnit = AddBombardModeToUnit(NAmphibiousUnit)
 
 INU2003 = Class(NAmphibiousUnit, SlowHover) {
     Weapons = {
@@ -28,50 +29,26 @@ INU2003 = Class(NAmphibiousUnit, SlowHover) {
     },
 
     OnCreate = function(self)
-        -- create buff used to reduce range under water
+        NAmphibiousUnit.OnCreate(self)
+        --save the modifier for max radius so we dont have to go into the blueprint every time.
+        local wep = self:GetWeaponByLabel('MainGun')
+        local bp = wep:GetBlueprint()
+        self.MissileMaxRadiusWater = bp.MaxRadiusUnderWater
+        self.MissileMaxRadius = bp.MaxRadius
+    end,
+    
+    OnLayerChange = function(self, new, old)
+        NAmphibiousUnit.OnLayerChange(self, new, old)
+        --change the range of the missiles when underwater, needs a catch because if spawned in it can call this before fully initialized
         local wep = self:GetWeaponByLabel('MainGun')
         if wep then
-            self.OnInWaterBuff = 'INU2003_OnWater'
-            local wbp = wep:GetBlueprint()
-            local MaxRadiusUnderWater = wbp.MaxRadiusUnderWater or wbp.MaxRadius
-            BuffBlueprint {
-                Name = self.OnInWaterBuff,
-                DisplayName = self.OnInWaterBuff,
-                BuffType = string.upper(self.OnInWaterBuff),
-                Stacks = 'REPLACE',
-                Duration = -1,
-                Affects = {
-                    MaxRadius = {
-                        Add = (MaxRadiusUnderWater - wbp.MaxRadius),
-                    },
-                },
-            }
-        else
-            self.OnInWaterBuff = nil
+            if new == 'Seabed' then
+                wep:ChangeMaxRadius(self.MissileMaxRadiusWater or 45)
+            else
+                wep:ChangeMaxRadius(self.MissileMaxRadius or 45)
+            end
         end
-
-        NAmphibiousUnit.OnCreate(self)
-    end,
-
-    OnInWater = function(self)
-        if self.OnInWaterBuff then
-            Buff.ApplyBuff(self, self.OnInWaterBuff)
-        end
-        return NAmphibiousUnit.OnInWater(self)
-    end,
-
-    OnWater = function(self)
-        if self.OnInWaterBuff then
-            Buff.RemoveBuff(self, self.OnInWaterBuff, true)
-        end
-        return NAmphibiousUnit.OnWater(self)
-    end,
-
-    OnLand = function(self)
-        if self.OnInWaterBuff then
-            Buff.RemoveBuff(self, self.OnInWaterBuff, true)
-        end
-        return NAmphibiousUnit.OnLand(self)
+        
     end,
 
 }
