@@ -527,7 +527,7 @@ INU0001 = Class(ACUUnit) {
         elseif enh == 'ResourceAllocationRemove' then
             self:RemoveToggleCap('RULEUTC_ProductionToggle')
             self:SetProductionPerSecondEnergy(20)
-            self:SetProductionPerSecondmass(1)
+            self:SetProductionPerSecondMass(1)
 
         -- ---------------------------------------------------------------------------------------
         -- RAPID REPAIR
