@@ -7,7 +7,7 @@ UnitBlueprint {
     },
     Air = {
         AutoLandTime = 1,
-        BankFactor = 5,
+        BankFactor = -1,
         BankForward = false,
         BreakOffDistance = 15,
         BreakOffTrigger = 20,
@@ -167,16 +167,18 @@ UnitBlueprint {
             Air = {
                 Contrails = {
                     Bones = {
-                        'trail.001',
-                        'trail.002',
+                        'Trail01',
+                        'Trail02',
                     },
                     ZOffset = 0,
                 },
                 Effects = {
                     {
                         Bones = {
-                            'exhaust.001',
-                            'exhaust.002',
+                            'Exhaust01',
+                            'Exhaust02',
+                            'Exhaust03',
+                            'Exhaust04',
                         },
                         Type = 'AirExhaust01',
                     },
@@ -184,8 +186,10 @@ UnitBlueprint {
             },
             BeamExhaust = {
                 Bones = {
-                            'exhaust.001',
-                            'exhaust.002',
+                            'Exhaust01',
+                            'Exhaust02',
+                            'Exhaust03',
+                            'Exhaust04',
                 },
                 Cruise = true,
                 Idle = false,
@@ -291,7 +295,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
-            Damage = 405,
+            Damage = 360,
             DamageFriendly = false,
             DamageRadius = 0,
             DamageType = 'Normal',
@@ -311,26 +315,20 @@ UnitBlueprint {
             RackBones = {
                 {
                     MuzzleBones = {
-                        'muzzle.001',
+                        'Muzzle01',
                     },
-                    RackBone = 'muzzle.001',
-                },
-                {
-                    MuzzleBones = {
-                        'muzzle.002',
-                    },
-                    RackBone = 'muzzle.002',
+                    RackBone = 'Muzzle01',
                 },
             },
             RackFireTogether = false,
-            RackRecoilDistance = 0,
+            RackRecoilDistance = -1,
             RackReloadTimeout = 10,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
             RangeCategory = 'UWRC_AntiAir',
-            RateOfFire = 1,
+            RateOfFire = 1.1,
             SlavedToBody = true,
             SlavedToBodyArcRange = 50,
             TargetCheckInterval = 0.5,
@@ -345,9 +343,9 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL',
             TargetRestrictOnlyAllow = 'AIR',
             TrackingRadius = 0,
-            TurretBoneMuzzle = 'muzzle.001',
-            TurretBonePitch = 'muzzle.001',
-            TurretBoneYaw = 'muzzle.001',
+            TurretBoneMuzzle = 'Muzzle01',
+            TurretBonePitch = 'TurretPitch01',
+            TurretBoneYaw = 'TurretYaw01',
             TurretDualManipulators = false,
             TurretPitch = 0,
             TurretPitchRange = 55,
@@ -356,7 +354,7 @@ UnitBlueprint {
             TurretYawRange = 55,
             TurretYawSpeed = 360,
             Turreted = true,
-            UseFiringSolutionInsteadOfAimBone = true,
+            UseFiringSolutionInsteadOfAimBone = false,
             WeaponCategory = 'Anti Air',
         },
         {
