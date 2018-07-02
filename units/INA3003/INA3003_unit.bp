@@ -147,17 +147,13 @@ UnitBlueprint {
             IconFadeInZoom = 130,
             LODs = {
                 {
-                    AlbedoName = '/units/INA3003/INA3003_Albedo.dds',
-                    LODCutoff = 140,
-                    MeshName = '/units/INA3003/INA3003_LOD0.scm',
-                    NormalsName = '/units/INA3003/INA3003_normalsTS.dds',
-                    Scrolling = true,
+                    LODCutoff = 100,
                     ShaderName = 'NomadsUnit',
                     SpecularName = '/units/INA3003/INA3003_SpecTeam.dds',
                 },
                 {
-                    AlbedoName = '/units/INA3003/INA3003_lod1_albedo.dds',
-                    LODCutoff = 215,
+                    AlbedoName = 'INA3003_lod1_albedo.dds',
+                    LODCutoff = 300,
                     ShaderName = 'NomadsUnit',
                     SpecularName = '/units/INA3003/INA3003_lod1_specteam.dds',
                 },
@@ -197,7 +193,7 @@ UnitBlueprint {
         },
         PlaceholderMeshName = 'UXA0001',
         SpawnRandomRotation = false,
-        UniformScale = 0.22,
+        UniformScale = 0.15,
     },
     Economy = {
         BuildCostEnergy = 40000,
