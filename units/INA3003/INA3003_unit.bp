@@ -121,6 +121,7 @@ UnitBlueprint {
         Abilities = {
             '<LOC ability_aa>Anti-Air',
         },
+        AnimationOpen = '/units/INA3003/INA3003_LOD0Action.sca',
         LayerChangeEffects = {
             AirLand = {
                 Effects = {
@@ -301,7 +302,7 @@ UnitBlueprint {
                 Land = 'Air|Land|Water',
             },
             FiringTolerance = 0,
-            Label = 'RightGun',
+            Label = 'MainGun',
             MaxRadius = 30,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
