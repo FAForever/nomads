@@ -7,7 +7,6 @@ local CreateNomadsBuildSliceBeams = import('/lua/nomadseffectutilities.lua').Cre
 INC0001 = Class(NCivilianStructureUnit) {
 
     OnCreate = function(self)
-        self.BuildEffectsBag = TrashBag()
         self.ThrusterEffectsBag = TrashBag()
 
         NCivilianStructureUnit.OnCreate(self)
