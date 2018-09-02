@@ -354,10 +354,10 @@ inu1002_desc = "Land scout"
 inu1002_help = "Fast, lightly armored reconnaissance vehicle. Armed with a very light gun and a state-of-the-art sensor suite."
 inu1002_name = "Silhouette"
 
--- T1 light tank
-inu1007_desc = "Light tank"
-inu1007_help = "Lightly armored hover tank. Provides direct-fire support against low-end units."
-inu1007_name = "Asator"
+-- T1 LAV
+inu1007_desc = "Light Assault Vehicle"
+inu1007_help = "Lightly armored hovering vehicle. Provides direct-fire support against low-end units. Can fire from transports."
+inu1007_name = "Grasshopper"
 
 -- T1 medium tank
 inu1004_desc = "Medium tank"
