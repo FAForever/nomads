@@ -110,8 +110,6 @@ UnitBlueprint {
         PlaceholderMeshName = 'UXL0003',
         SpawnRandomRotation = true,
         UniformScale = 0.15,
-        --UniformScale = 1.5,
-        WeaponExhaustAnimation = '/units/INU1008/INU1008_Recoil.sca',
         UnpackAnimation = '/units/INU1008/INU1008_Unpack.sca',
     },
     Economy = {
