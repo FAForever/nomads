@@ -87,8 +87,8 @@ UnitBlueprint {
                 Effects = {
                     {
                         Bones = {
-                            'right_Back_GroundFX',
-                            'left_Back_GroundFX',
+                            'GroundFXRight',
+                            'GroundFXLeft',
                         },
                         Type = 'GroundKickup01',
                     },
@@ -99,8 +99,8 @@ UnitBlueprint {
                         {
                             TreadMarks = 'tank_treads_albedo',
                             TreadMarksInterval = 0.1,
-                            TreadMarksSizeX = 0.75,
-                            TreadMarksSizeZ = 0.75,
+                            TreadMarksSizeX = 0.3,
+                            TreadMarksSizeZ = 0.3,
                             TreadOffset = { 0, 0, 0, },
                         },
                     },
@@ -109,8 +109,10 @@ UnitBlueprint {
         },
         PlaceholderMeshName = 'UXL0003',
         SpawnRandomRotation = true,
-        UniformScale = 0.04,
-        WeaponExhaustAnimation = '/units/INU1008/INU1008_Exhaust_Vent.sca',
+        UniformScale = 0.15,
+        --UniformScale = 1.5,
+        WeaponExhaustAnimation = '/units/INU1008/INU1008_Recoil.sca',
+        UnpackAnimation = '/units/INU1008/INU1008_Unpack.sca',
     },
     Economy = {
         BuildCostEnergy = 300,
@@ -139,7 +141,16 @@ UnitBlueprint {
         },
         FactionName = 'Nomads',
         Icon = 'land',
+        OrderOverrides = {
+            RULEUTC_SpecialToggle = {
+                bitmapId = 'toggle-anchor',
+                helpText = 'toggle_anchor',
+            },
+        },
         TechLevel = 'RULEUTL_Basic',
+        ToggleCaps = {
+            RULEUTC_SpecialToggle = true,
+        },
         UnitName = '<LOC inu1008_name>Assassin',
         UnitWeight = 1,
     },
@@ -232,14 +243,14 @@ UnitBlueprint {
             RackBones = {
                 {
                     MuzzleBones = {
-                        'turret_Muzzle',
+                        'Muzzle',
                     },
-                    RackBone = 'turret_Rack',
-                    TelescopeBone = 'turret_Telescope',
-                    TelescopeRecoilDistance = -2,
+                    RackBone = 'Muzzle',
+                    TelescopeBone = 'Recoil',
+                    TelescopeRecoilDistance = -0.5,
                 },
             },
-            RackRecoilDistance = -6,
+            RackRecoilDistance = -1,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
@@ -260,9 +271,9 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.2,
-            TurretBoneMuzzle = 'turret_Muzzle',
-            TurretBonePitch = 'turret_Pitch',
-            TurretBoneYaw = 'turret_Yaw',
+            TurretBoneMuzzle = 'Muzzle',
+            TurretBonePitch = 'TurretPitch',
+            TurretBoneYaw = 'TurretYaw',
             TurretDualManipulators = false,
             TurretPitch = 10,
             TurretPitchRange = 30,
