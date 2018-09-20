@@ -30,22 +30,21 @@ INU1008 = Class(NLandUnit) {
         },
     },
 
-    ExhaustAnimDelay = 1,
+    ExhaustAnimDelay = 0.2,
 
     OnCreate = function(self)
         NLandUnit.OnCreate(self)
         self.WeaponFiredEffectsBag = TrashBag()
-        local bp = self:GetBlueprint()
-        if bp.Display.WeaponExhaustAnimation then
-            self.AnimManip = CreateAnimator(self):PlayAnim(bp.Display.WeaponExhaustAnimation):SetRate(0)
+        
+        local bpAnim = self:GetBlueprint().Display.UnpackAnimation
+        if bpAnim then
+            self.AnimManip = CreateAnimator(self):PlayAnim(bpAnim):SetRate(0)
             self.Trash:Add(self.AnimManip)
-            local rof = self:GetWeaponByLabel('MainGun'):GetBlueprint().RateOfFire or 1
-            self.ExhaustAnimDelay = math.min( self.ExhaustAnimDelay, (0.8 / rof) )  -- making sure the exhausting happens before next shot (at least 80% before)
         end
     end,
 
     OnDestroy = function(self)
-        self:DestroyWeaponFiredEffects()
+        self.WeaponFiredEffectsBag:Destroy()
         NLandUnit.OnDestroy(self)
     end,
 
@@ -62,26 +61,33 @@ INU1008 = Class(NLandUnit) {
             self:GetWeapon(1):SetMovingAccuracy(moving)
         end
     end,
+
     PlayWeaponFiredEffects = function(self)
-        if self.AnimManip then
-            local fn = function(self)
-                WaitSeconds( self.ExhaustAnimDelay or 1 )
-                local army, emit = self:GetArmy()
-                for k, v in NomadsEffectTemplate.TankBusterWeaponFired do
-                    emit = CreateEmitterAtBone(self, 'turret_ExhaustFX', army, v)
-                    self.WeaponFiredEffectsBag:Add(emit)
-                    self.Trash:Add(emit)
-                end
-                self.AnimManip:SetRate(1)
-                WaitFor(self.AnimManip)
-                self.AnimManip:SetRate(0):SetAnimationFraction(0)
+        local fn = function(self)
+            WaitSeconds( self.ExhaustAnimDelay or 1 )
+            local army, emit = self:GetArmy()
+            for k, v in NomadsEffectTemplate.TankBusterWeaponFired do
+                emit = CreateEmitterAtBone(self, 'Exhaust', army, v)
+                self.WeaponFiredEffectsBag:Add(emit)
+                self.Trash:Add(emit)
             end
-            self.WeaponFiredEffectsBag:Add( self:ForkThread(fn) )
         end
+        self.WeaponFiredEffectsBag:Add( self:ForkThread(fn) )
+    end,
+    
+    EnableSpecialToggle = function(self)
+        self.AnimManip:SetRate(0.5)
+        self:EnableAnchor(self)
     end,
 
-    DestroyWeaponFiredEffects = function(self)
-        self.WeaponFiredEffectsBag:Destroy()
+    DisableSpecialToggle = function(self)
+        self:ForkThread(self.Repack)
+    end,
+    
+    Repack = function(self)
+        self.AnimManip:SetRate(-0.5)
+        WaitFor(self.AnimManip)
+        self:DisableAnchor(self)
     end,
 }
 
