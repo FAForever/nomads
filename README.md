@@ -11,6 +11,8 @@ We can use all the help we can get :
 - mission making
 - ...
 
+The work on this project happens with the consent of the original creators under the condition that all changes that are implemented are only for the purpose of fixing bugs or adjusting to the current balance of FAF. Changes that are only a matter of taste are explicitly not wanted.
+
 How do I start contributing?
 ----------------------------
 If you want to contribute, then you'll need to know how **git** works. 
