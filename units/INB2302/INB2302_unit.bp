@@ -70,7 +70,11 @@ UnitBlueprint {
             LODs = {
                 {
                     LODCutoff = 500,
+                    AlbedoName = '/units/INB2302/INB2302_Albedo.dds',
+                    MeshName = '/units/INB2302/INB2302_LOD0.scm',
+                    NormalsName = '/units/INB2302/INB2302_NormalsTS.dds',
                     ShaderName = 'NomadsUnit',
+                    SpecularName = '/Units/INB2302/INB2302_SpecTeam.dds',
                 },
             },
         },
@@ -93,8 +97,8 @@ UnitBlueprint {
         UniformScale = 0.48,
     },
     Economy = {
-        BuildCostEnergy = 900000,
-        BuildCostMass = 75000,
+        BuildCostEnergy = 1000000,
+        BuildCostMass = 82000,
         BuildTime = 32700,
         RebuildBonusIds = {
             'inb2302',

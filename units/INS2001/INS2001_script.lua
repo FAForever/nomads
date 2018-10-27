@@ -2,12 +2,10 @@
 
 local SupportedArtilleryWeapon = import('/lua/nomadsutils.lua').SupportedArtilleryWeapon
 local AddNavalLights = import('/lua/nomadsutils.lua').AddNavalLights
-local AddBombardModeToUnit = import('/lua/nomadsutils.lua').AddBombardModeToUnit
 local NSeaUnit = import('/lua/nomadsunits.lua').NSeaUnit
 local EnergyCannon1 = import('/lua/nomadsweapons.lua').EnergyCannon1
 local UnderwaterRailgunWeapon1 = import('/lua/nomadsweapons.lua').UnderwaterRailgunWeapon1
 
-NSeaUnit = AddBombardModeToUnit( NSeaUnit )
 NSeaUnit = AddNavalLights(NSeaUnit)
 
 EnergyCannon1 = SupportedArtilleryWeapon( EnergyCannon1 )
@@ -62,25 +60,6 @@ INS2001 = Class(NSeaUnit) {
         NSeaUnit.OnMotionHorzEventChange( self, new, old )
         if old == 'Stopped' then
             self:ContractMiniRailguns()
-        end
-    end,
-
-    SetBombardmentMode = function(self, enable, changedByTransport)
-        NSeaUnit.SetBombardmentMode(self, enable, changedByTransport)
-        self:SetScriptBit('RULEUTC_WeaponToggle', enable)
-    end,
-
-    OnScriptBitSet = function(self, bit)
-        NSeaUnit.OnScriptBitSet(self, bit)
-        if bit == 1 then
-            NSeaUnit.SetBombardmentMode(self, true, false)
-        end
-    end,
-
-    OnScriptBitClear = function(self, bit)
-        NSeaUnit.OnScriptBitClear(self, bit)
-        if bit == 1 then
-            NSeaUnit.SetBombardmentMode(self, false, false)
         end
     end,
 

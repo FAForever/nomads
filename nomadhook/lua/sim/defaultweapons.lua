@@ -5,54 +5,6 @@ local oldDefaultProjectileWeapon = DefaultProjectileWeapon
 
 DefaultProjectileWeapon = Class(oldDefaultProjectileWeapon) {
 
--- Another way to disable a weapon below, use SuspendWeaponFire(). This is less invasive and doesn't disable the aiming manip, etc.
--- Had to change the RackSalvoFireReadyState for this though
-
-    SuspendWeaponFire = function(self, bool)
-        self.WeaponSuspended = (bool == true)
-    end,
-
-    OnCreate = function(self)
-        oldDefaultProjectileWeapon.OnCreate(self)
-        self.WeaponSuspended = false
-    end,
-
-    RackSalvoFireReadyState = State (oldDefaultProjectileWeapon.RackSalvoFireReadyState) {
-        Main = function(self)
-            local bp = self:GetBlueprint()
-            if (bp.CountedProjectile == true and bp.WeaponUnpacks == true) then
-                self.unit:SetBusy(true)
-            else
-                self.unit:SetBusy(false)
-            end
-            self.WeaponCanFire = true
-            if self.EconDrain then
-                self.WeaponCanFire = false
-                WaitFor(self.EconDrain)
-                if self.EconDrain then
-                    RemoveEconomyEvent(self.unit, self.EconDrain)
-                end
-                self.EconDrain = nil
-                self.WeaponCanFire = true
-            end
-            if self.WeaponSuspended then  -- allowing weapons to be suspended
-                self.WeaponCanFire = false
-                while self.WeaponSuspended do
-                    WaitTicks(1)
-                end
-                self.WeaponCanFire = true
-            end
-            if bp.CountedProjectile == true  or bp.AnimationReload then
-                ChangeState(self, self.RackSalvoFiringState)
-            end
-        end,
-
-        OnFire = function(self)
-            oldDefaultProjectileWeapon.RackSalvoFireReadyState.OnFire(self)
-        end,
-    },
-
-
     OnWeaponFired = function(self)
         self:SwitchAimController()
         oldDefaultProjectileWeapon.OnWeaponFired(self)
