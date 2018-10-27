@@ -24,8 +24,8 @@ ProjectileBlueprint {
         'NOSPLASHDAMAGE',
     },
     Defense = {
-        Health = 1,
-        MaxHealth = 1,
+        Health = 2,
+        MaxHealth = 2,
     },
     Display = {
         CameraFollowTimeout = 5,
@@ -46,6 +46,11 @@ ProjectileBlueprint {
         StrategicIconSize = 2,
         UniformScale = 1,
     },
+    Economy = {
+        BuildCostEnergy = 3600,
+        BuildCostMass = 180,
+        BuildTime = 2400,
+	},
     General = {
         Category = 'Artillery',
         EntityCategory = {
@@ -71,7 +76,7 @@ ProjectileBlueprint {
         MaxZigZag = 0,
         TrackTarget = true,
         TrackTargetGround = true,
-        TurnRate = 200,
+        TurnRate = 100,
         UseGravity = false,
         VelocityAlign = true,
         ZigZagFrequency = 0,

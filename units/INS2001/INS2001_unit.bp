@@ -81,10 +81,8 @@ UnitBlueprint {
     Description = '<LOC ins2001_desc>Destroyer',
     Display = {
         Abilities = {
-            '<LOC ability_bombardarea>Area bombardment',
             '<LOC ability_radar>Radar',
             '<LOC ability_sonar>Sonar',
-            '<LOC ability_supportedartillerygun>Supported Artillery Gun',
         },
 --[[        AnimationDeath = {
             {
@@ -187,14 +185,9 @@ UnitBlueprint {
         FactionName = 'Nomads',
         Icon = 'sea',
         OrderOverrides = {
-            RULEUTC_WeaponToggle = {
-                bitmapId = 'toggle-bombardmode',
-                helpText = 'toggle_bombardmode',
-            },
         },
         TechLevel = 'RULEUTL_Advanced',
         ToggleCaps = {
-            RULEUTC_WeaponToggle = true,
         },
         UnitName = '<LOC ins2001_name>Firestorm',
         UnitWeight = 1,
@@ -268,9 +261,6 @@ UnitBlueprint {
                 },
             },
             BallisticArc = 'RULEUBA_LowArc',
-            BombardParticipant = true,
-            BombardSwingTurret = true,
-            BombardTurretRotationSpeed = 10,
             CollideFriendly = false,
             Damage = 5,
             DamageRadius = 1.5,
@@ -357,9 +347,6 @@ UnitBlueprint {
                 },
             },
             BallisticArc = 'RULEUBA_LowArc',
-            BombardParticipant = true,
-            BombardSwingTurret = true,
-            BombardTurretRotationSpeed = 10,
             CollideFriendly = false,
             Damage = 5,
             DamageRadius = 1.5,

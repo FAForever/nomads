@@ -2,8 +2,6 @@
 
 UnitBlueprint {
     AI = {
-        BombardModeCheckRadius = 8,
-        BombardModeCheckUnits = 4,
     },
     Audio = {
         AmbientMove = Sound {
@@ -82,7 +80,6 @@ UnitBlueprint {
         Abilities = {
             '<LOC ability_amphibious>Amphibious',
             '<LOC ability_submergedsurfaceattack>Attacks from under water',
-            '<LOC ability_bombardarea>Area bombardment',
             '<LOC ability_supportedartillerygun>Supported Artillery Gun',
         },
         BuildEffect = {
@@ -93,13 +90,20 @@ UnitBlueprint {
             IconFadeInZoom = 130,
             LODs = {
                 {
-                    LODCutoff = 100,
+                    AlbedoName = '/units/INU2003/INU2003_Albedo.dds',
+                    LODCutoff = 130,
+                    MeshName = '/units/INU2003/INU2003_LOD0.scm',
+                    NormalsName = '/units/INU2003/INU2003_normalsTS.dds',
                     Scrolling = true,
                     ShaderName = 'NomadsUnit',
+                    SpecularName = '/units/INU2003/INU2003_SpecTeam.dds',
                 },
                 {
+                    AlbedoName = '/units/INU2003/INU2003_lod1_Albedo.dds',
                     LODCutoff = 215,
+                    MeshName = '/units/INU2003/INU2003_LOD1.scm',
                     ShaderName = 'NomadsUnit',
+                    SpecularName = '/units/INU2003/INU2003_lod1_SpecTeam.dds',
                 },
             },
         },
@@ -164,14 +168,9 @@ UnitBlueprint {
         FactionName = 'Nomads',
         Icon = 'amph',
         OrderOverrides = {
-            RULEUTC_WeaponToggle = {
-                bitmapId = 'toggle-bombardmode',
-                helpText = 'toggle_bombardmode',
-            },
         },
         TechLevel = 'RULEUTL_Advanced',
         ToggleCaps = {
-            RULEUTC_WeaponToggle = true,
         },
         UnitName = '<LOC inu2003_name>Avalanche',
         UnitWeight = 1,
@@ -242,10 +241,8 @@ UnitBlueprint {
                 },
             },
             BallisticArc = 'RULEUBA_HighArc',
-            BombardParticipant = true,
-            BombardSwingTurret = false,
             CollideFriendly = false,
-            Damage = 200,
+            Damage = 150,
             DamageFriendly = false,
             DamageRadius = 1.75,
             DamageType = 'Normal',
@@ -262,13 +259,13 @@ UnitBlueprint {
             Label = 'MainGun',
             MaxRadius = 60,
             MaxRadiusUnderWater = 45,
-            MinRadius = 5,
+            MinRadius = 15,
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 2,
+            MuzzleSalvoSize = 4,
             MuzzleVelocity = 19,
             MuzzleVelocityReduceDistance = 1,
-            ProjectilesPerOnFire = 2,
+            ProjectilesPerOnFire = 4,
             ProjectileId = '/projectiles/NTacticalMissile1_HighArc/NTacticalMissile1_HighArc_proj.bp',
             ProjectileLifetime = 36,
             ProjectileLifetimeUsesMultiplier = 5,
@@ -277,15 +274,10 @@ UnitBlueprint {
                     MuzzleBones = {
                         'muzzle.001',
                         'muzzle.002',
-                    },
-                    RackBone = 'recoil.001',
-                },
-                {
-                    MuzzleBones = {
                         'muzzle.003',
                         'muzzle.004',
                     },
-                    RackBone = 'recoil.002',
+                    RackBone = 'recoil.001',
                 },
             },
             RackFireTogether = false,
@@ -296,7 +288,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
             RangeCategory = 'UWRC_IndirectFire',
-            RateOfFire = 0.125,
+            RateOfFire = 0.07,
             RenderFireClock = true,
             TargetCheckInterval = 1,
             TargetPriorities = {
@@ -310,7 +302,7 @@ UnitBlueprint {
             TurretBoneMuzzle = 'muzzle.001',
             TurretBonePitch = 'barrel',
             TurretBoneYaw = 'turret',
-            TurretPitch = 45,
+            TurretPitch = 120,
             TurretPitchRange = 100,
             TurretPitchSpeed = 70,
             TurretYaw = 0,
