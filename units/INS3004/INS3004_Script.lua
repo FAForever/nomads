@@ -2,7 +2,6 @@
 
 local SupportedArtilleryWeapon = import('/lua/nomadsutils.lua').SupportedArtilleryWeapon
 local AddNavalLights = import('/lua/nomadsutils.lua').AddNavalLights
-local AddBombardModeToUnit = import('/lua/nomadsutils.lua').AddBombardModeToUnit
 local NSeaUnit = import('/lua/nomadsunits.lua').NSeaUnit
 local AAGun = import('/lua/nomadsweapons.lua').AAGun
 local PlasmaCannon = import('/lua/nomadsweapons.lua').PlasmaCannon
@@ -11,7 +10,6 @@ local UnderwaterRailgunWeapon1 = import('/lua/nomadsweapons.lua').UnderwaterRail
 local RocketWeapon1 = import('/lua/nomadsweapons.lua').RocketWeapon1
 
 NSeaUnit = AddNavalLights(NSeaUnit)
-NSeaUnit = AddBombardModeToUnit( NSeaUnit )
 
 PlasmaCannon = SupportedArtilleryWeapon( PlasmaCannon )
 
@@ -52,25 +50,6 @@ INS3004 = Class(NSeaUnit) {
         end
 
         if self.HideTMD then self:HideBone('TMD', true) end
-    end,
-
-    SetBombardmentMode = function(self, enable, changedByTransport)
-        NSeaUnit.SetBombardmentMode(self, enable, changedByTransport)
-        self:SetScriptBit('RULEUTC_WeaponToggle', enable)
-    end,
-
-    OnScriptBitSet = function(self, bit)
-        NSeaUnit.OnScriptBitSet(self, bit)
-        if bit == 1 then
-            NSeaUnit.SetBombardmentMode(self, true, false)
-        end
-    end,
-
-    OnScriptBitClear = function(self, bit)
-        NSeaUnit.OnScriptBitClear(self, bit)
-        if bit == 1 then
-            NSeaUnit.SetBombardmentMode(self, false, false)
-        end
     end,
 
     RotateAAturretRevolver = function(self, revolver)
