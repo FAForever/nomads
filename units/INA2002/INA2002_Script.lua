@@ -31,7 +31,6 @@ INA2002 = Class(NAirUnit) {
                 ConcussionBombWeapon.OnLostTarget(self)
             end,
         },
-        AGRockets = Class(RocketWeapon1) {},
         AARockets = Class(RocketWeapon1) {},
     },
     ChangeSpeedFor = function(self, reason)

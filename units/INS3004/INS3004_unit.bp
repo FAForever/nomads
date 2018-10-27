@@ -2,7 +2,6 @@
 
 UnitBlueprint {
     AI = {
-        AttackAngle = 45,
         GuardReturnRadius = 130,
         TargetBones = {
             'INS3004',
@@ -182,6 +181,13 @@ UnitBlueprint {
                         Scale = 2.5,
                         Type = 'RightFrontWake',
                     },
+					{
+                        Bones = {
+                            'wake',
+                        },
+                        Scale = 1.5,
+                        Type = 'BackWake',
+                    },
                     {
                         Bones = {
                             'WakeBack',
@@ -225,14 +231,9 @@ UnitBlueprint {
         FactionName = 'Nomads',
         Icon = 'sea',
         OrderOverrides = {
-            RULEUTC_WeaponToggle = {
-                bitmapId = 'toggle-bombardmode',
-                helpText = 'toggle_bombardmode',
-            },
         },
         TechLevel = 'RULEUTL_Secret',
         ToggleCaps = {
-            RULEUTC_WeaponToggle = true,
         },
         UnitName = '<LOC ins3004_name>Juggernaut',
         UnitWeight = 1,
@@ -244,7 +245,7 @@ UnitBlueprint {
         WaterVisionRadius = 50,
     },
     Interface = {
-        HelpText = '<LOC ins3004_help>A more powerful version of the Destroyer. Has two long range cannons, two smaller cannons, AA defense and a submerged railgun.',
+        HelpText = '<LOC ins3004_help>This ship is a little bit thin in an armor, but carries great fire power of 2 heavy long range plasma turrets, two smaller stingray cannons, flak AA defense and a submerged railgun.',
     },
     LifeBarHeight = 0.075,
     LifeBarOffset = 6.5,
@@ -306,9 +307,6 @@ UnitBlueprint {
                 },
             },
             BallisticArc = 'RULEUBA_LowArc',
-            BombardParticipant = true,
-            BombardSwingTurret = true,
-            BombardTurretRotationSpeed = 5,
             CollideFriendly = false,
             Damage = 200,
             DamageRadius = 2,
@@ -356,7 +354,7 @@ UnitBlueprint {
             RangeCategory = 'UWRC_DirectFire',
             RateOfFire = 0.5,
             SlavedToBody = true,
-            SlavedToBodyArcRange = 100,
+            SlavedToBodyArcRange = 155,
             TargetCheckInterval = 3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -391,9 +389,6 @@ UnitBlueprint {
                 },
             },
             BallisticArc = 'RULEUBA_LowArc',
-            BombardParticipant = true,
-            BombardSwingTurret = true,
-            BombardTurretRotationSpeed = 5,
             CollideFriendly = false,
             Damage = 200,
             DamageRadius = 2,
@@ -442,7 +437,7 @@ UnitBlueprint {
             RangeCategory = 'UWRC_DirectFire',
             RateOfFire = 0.5,
             SlavedToBody = true,
-            SlavedToBodyArcRange = 100,
+            SlavedToBodyArcRange = 155,
             TargetCheckInterval = 3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',

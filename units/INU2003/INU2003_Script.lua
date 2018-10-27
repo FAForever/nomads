@@ -1,6 +1,5 @@
 -- T2 missile launcher
 
-local AddBombardModeToUnit = import('/lua/nomadsutils.lua').AddBombardModeToUnit
 local Buff = import('/lua/sim/buff.lua')
 local SupportedArtilleryWeapon = import('/lua/nomadsutils.lua').SupportedArtilleryWeapon
 local NAmphibiousUnit = import('/lua/nomadsunits.lua').NAmphibiousUnit
@@ -10,8 +9,6 @@ local EffectUtilities = import('/lua/EffectUtilities.lua')
 local SlowHover = import('/lua/defaultunits.lua').SlowHoverLandUnit
 
 TacticalMissileWeapon1 = SupportedArtilleryWeapon( TacticalMissileWeapon1 )
-
-NAmphibiousUnit = AddBombardModeToUnit(NAmphibiousUnit)
 
 INU2003 = Class(NAmphibiousUnit, SlowHover) {
     Weapons = {
@@ -75,25 +72,6 @@ INU2003 = Class(NAmphibiousUnit, SlowHover) {
             Buff.RemoveBuff(self, self.OnInWaterBuff, true)
         end
         return NAmphibiousUnit.OnLand(self)
-    end,
-
-        SetBombardmentMode = function(self, enable, changedByTransport)
-        NAmphibiousUnit.SetBombardmentMode(self, enable, changedByTransport)
-        self:SetScriptBit('RULEUTC_WeaponToggle', enable)
-    end,
-
-    OnScriptBitSet = function(self, bit)
-        NAmphibiousUnit.OnScriptBitSet(self, bit)
-        if bit == 1 then
-            self.SetBombardmentMode(self, true, false)
-        end
-    end,
-
-    OnScriptBitClear = function(self, bit)
-        NAmphibiousUnit.OnScriptBitClear(self, bit)
-        if bit == 1 then
-            self.SetBombardmentMode(self, false, false)
-        end
     end,
 
 }
