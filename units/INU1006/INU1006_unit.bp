@@ -2,8 +2,6 @@
 
 UnitBlueprint {
     AI = {
-        BombardModeCheckRadius = 8,
-        BombardModeCheckUnits = 4,
         GuardScanRadius = 32,
     },
     Audio = {
@@ -76,7 +74,6 @@ UnitBlueprint {
         Abilities = {
             '<LOC ability_aa>Anti-Air',
             '<LOC ability_artillery>Artillery',
-            '<LOC ability_bombardarea>Area bombardment',
         },
         BuildEffect = {
             ExtendsFront = 0.02,
@@ -158,10 +155,6 @@ UnitBlueprint {
         FactionName = 'Nomads',
         Icon = 'land',
         OrderOverrides = {
-            RULEUTC_WeaponToggle = {
-                bitmapId = 'toggle-bombardmode',
-                helpText = 'toggle_bombardmode',
-            },
             RULEUTC_SpecialToggle = {
                 bitmapId = 'toggle-weapon-air',
                 helpText = 'toggle_weapon_no_air',
@@ -170,7 +163,6 @@ UnitBlueprint {
         TechLevel = 'RULEUTL_Basic',
         ToggleCaps = {
             RULEUTC_WeaponToggle = true,
-            RULEUTC_SpecialToggle = true,
         },
         UnitName = '<LOC inu1006_name>Barrager',
         UnitWeight = 1,
@@ -319,8 +311,6 @@ UnitBlueprint {
                 },
             },
             BallisticArc = 'RULEUBA_None',
-            BombardParticipant = false,
-            BombardSwingTurret = false,
             CannotAttackGround = true,
             CollideFriendly = false,
             Damage = 25,    --31,25dps

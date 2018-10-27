@@ -1,6 +1,5 @@
 -- experimental hover unit bullfrog
 
-local AddBombardModeToUnit = import('/lua/nomadsutils.lua').AddBombardModeToUnit
 local NExperimentalHoverLandUnit = import('/lua/nomadsunits.lua').NExperimentalHoverLandUnit
 local PlasmaCannon = import('/lua/nomadsweapons.lua').PlasmaCannon
 local AnnihilatorCannon1 = import('/lua/nomadsweapons.lua').AnnihilatorCannon1
@@ -12,8 +11,6 @@ local EffectTemplate = import('/lua/EffectTemplates.lua')
 local GetRandomInt = import('/lua/utilities.lua').GetRandomInt
 local Utilities = import('/lua/utilities.lua')
 local SlowHover = import('/lua/defaultunits.lua').SlowHoverLandUnit
-
-NExperimentalHoverLandUnit = AddBombardModeToUnit( NExperimentalHoverLandUnit )
 
 INU4002 = Class(NExperimentalHoverLandUnit, SlowHover) {
 
@@ -89,26 +86,12 @@ INU4002 = Class(NExperimentalHoverLandUnit, SlowHover) {
         self:ForkThread(self.HeadRotationThread)
     end,
 
-    OnBombardmentModeChanged = function( self, enabled, changedByTransport )
-        NExperimentalHoverLandUnit.OnBombardmentModeChanged(self, enabled, changedByTransport)
-        self:CalcGattlingRotationSpeed()
-        self:ActivateGattlingRotation( self.GattlingCannonActive )
-    end,
-
     CalcGattlingRotationSpeed = function(self)
         local wep = self:GetWeaponByLabel('FrontGun')
         if wep then
 
             local wepBp = wep:GetBlueprint()
             local rof = wepBp.RateOfFire or 1
-
-            -- check bombardment mode values
-            if self.BombardmentMode and wepBp.BombardDisable then
-                self.GattlingRotSpeed = 0
-                return
-            elseif self.BombardmentMode and wepBp.BombardParticipant then
-                rof = wep.CurrentROF or rof
-            end
 
             rof = 10 / math.floor( 10 / rof)
             self.GattlingRotSpeed = rof * 120    -- every rof-time turn 120, or one-third (3 barrels)
@@ -183,25 +166,6 @@ INU4002 = Class(NExperimentalHoverLandUnit, SlowHover) {
             self.RightJetManip:SetSpeed(rotSpeedJet):SetGoal(jetAngle)
 
             WaitSeconds(0.2)
-        end
-    end,
-
-    SetBombardmentMode = function(self, enable, changedByTransport)
-        NExperimentalHoverLandUnit.SetBombardmentMode(self, enable, changedByTransport)
-        self:SetScriptBit('RULEUTC_WeaponToggle', enable)
-    end,
-
-    OnScriptBitSet = function(self, bit)
-        NExperimentalHoverLandUnit.OnScriptBitSet(self, bit)
-        if bit == 1 then
-            NExperimentalHoverLandUnit.SetBombardmentMode(self, true, false)
-        end
-    end,
-
-    OnScriptBitClear = function(self, bit)
-        NExperimentalHoverLandUnit.OnScriptBitClear(self, bit)
-        if bit == 1 then
-            NExperimentalHoverLandUnit.SetBombardmentMode(self, false, false)
         end
     end,
 
