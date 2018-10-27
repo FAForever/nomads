@@ -10,9 +10,8 @@ NFusionMissile1 = Class(FusionMissile) {
     end,
 
     StageThread = function(self)
-        WaitSeconds(1)
-        local bp = self:GetBlueprint().Physics
-        self:SetTurnRate(bp.TurnRate)
+        WaitSeconds(2.2)
+        self:SetTurnRate(self:GetBlueprint().Physics.TurnRate)
     end,
 }
 
