@@ -2,8 +2,6 @@
 
 UnitBlueprint {
     AI = {
-        BombardModeCheckRadius = 8,
-        BombardModeCheckUnits = 4,
     },
     Audio = {
         AmbientMove = Sound {
@@ -71,10 +69,7 @@ UnitBlueprint {
     Description = '<LOC inu3003_desc>EMP Tank',
     Display = {
         Abilities = {
-            '<LOC ability_bombardarea>Area bombardment',
             '<LOC ability_stun>EMP',
---            '<LOC ability_orbitalprotection>Orbital protection',
---            '<LOC ability_orbitalstrikewreck>Orbital strike on wreck',
         },
         BuildEffect = {
             ExtendsFront = 0.13,
@@ -155,14 +150,9 @@ UnitBlueprint {
         FactionName = 'Nomads',
         Icon = 'land',
         OrderOverrides = {
-            RULEUTC_WeaponToggle = {
-                bitmapId = 'toggle-bombardmode',
-                helpText = 'toggle_bombardmode',
-            },
         },
         TechLevel = 'RULEUTL_Advanced',
         ToggleCaps = {
-            RULEUTC_WeaponToggle = true,
         },
         UnitName = '<LOC inu3003_name>Dominator',
         UnitWeight = 1,
@@ -231,8 +221,6 @@ UnitBlueprint {
                 },
             },
             BallisticArc = 'RULEUBA_LowArc',
-            BombardParticipant = true,
-            BombardSwingTurret = false,
             Buffs = {
                 {
                     Add = {
@@ -283,6 +271,8 @@ UnitBlueprint {
             DamageToShields = 600,
             DamageType = 'Normal',
             DisplayName = 'EMPactor',
+            EnergyDrainPerSecond = 150,
+            EnergyRequired = 450,
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
             },
