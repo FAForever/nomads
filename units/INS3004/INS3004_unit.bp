@@ -719,69 +719,69 @@ UnitBlueprint {
             RackBones = {
                 {
                     MuzzleBones = {
-                        'RocketLauncher_Muzzle1',
-                    },
-                    RackBone = 'RocketLauncher_Revolver1',
-                },
-                {
-                    MuzzleBones = {
-                        'RocketLauncher_Muzzle2',
-                    },
-                    RackBone = 'RocketLauncher_Revolver2',
-                },
-            },
-            RackFireTogether = false,
-            RackRecoilDistance = 0,
-            RackReloadTimeout = 0,
-            RackSalvoChargeTime = 0,
-            RackSalvoReloadTime = 0,
-            RackSalvoSize = 1,
-            RackSlavedToTurret = false,
-            RangeCategory = 'UWRC_AntiAir',
-            RateOfFire = 2.5,
-            TargetCheckInterval = 0.3,
-            TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'EXPERIMENTAL',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE TECH3 BOMBER',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
-                'AIR MOBILE TRANSPORTATION',
-                'AIR MOBILE',
-                'SPECIALLOWPRI',
-                'ALLUNITS',
-            },
-            TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.4,
-            TurretBoneMuzzle = 'RocketLauncher_Pitch',
-            TurretBonePitch = 'RocketLauncher_Pitch',
-            TurretBoneYaw = 'RocketLauncher',
-            TurretDualManipulators = false,
-            TurretPitch = 40,
-            TurretPitchRange = 50,
-            TurretPitchSpeed = 180,
-            TurretYaw = 0,
-            TurretYawRange = 180,
-            TurretYawSpeed = 180,
-            Turreted = true,
-            WeaponCategory = 'Anti Air',
-            WeaponRepackTimeout = 0,
-            WeaponUnpacks = false,
+-- T3 heavy destroyer
+
+local SupportedArtilleryWeapon = import('/lua/nomadsutils.lua').SupportedArtilleryWeapon
+local AddNavalLights = import('/lua/nomadsutils.lua').AddNavalLights
+local NSeaUnit = import('/lua/nomadsunits.lua').NSeaUnit
+local AAGun = import('/lua/nomadsweapons.lua').AAGun
+local PlasmaCannon = import('/lua/nomadsweapons.lua').PlasmaCannon
+local StingrayCannon1 = import('/lua/nomadsweapons.lua').StingrayCannon1
+local UnderwaterRailgunWeapon1 = import('/lua/nomadsweapons.lua').UnderwaterRailgunWeapon1
+local RocketWeapon1 = import('/lua/nomadsweapons.lua').RocketWeapon1
+
+NSeaUnit = AddNavalLights(NSeaUnit)
+
+PlasmaCannon = SupportedArtilleryWeapon( PlasmaCannon )
+
+INS3004 = Class(NSeaUnit) {
+    Weapons = {
+        MainTurret1 = Class(PlasmaCannon) {},
+        MainTurret2 = Class(PlasmaCannon) {},
+        SideTurret1 = Class(StingrayCannon1) {},
+        SideTurret2 = Class(StingrayCannon1) {},
+        RailGun = Class(UnderwaterRailgunWeapon1) {},
+        AATurret = Class(RocketWeapon1) {
+            PlayFxMuzzleSequence = function(self, muzzle)
+                RocketWeapon1.PlayFxMuzzleSequence(self, muzzle)
+                if muzzle == 'RocketLauncher_Muzzle1' then
+                    self.unit:RotateAAturretRevolver(1)
+                else
+                    self.unit:RotateAAturretRevolver(2)
+                end
+            end,
         },
     },
-    Wreckage = {
-        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
-        EnergyMult = 0,
-        HealthMult = 0.9,
-        MassMult = 0.9,
-        ReclaimTimeMultiplier = 1,
-        WreckageLayers = {
-            Air = false,
-            Land = false,
-            Seabed = true,
-            Sub = true,
-            Water = true,
-        },
-    },
+
+    LightBone_Left = 'AntennaLeft3',
+    LightBone_Right = 'AntennaRight3',
+    HideTMD = true,
+
+    OnCreate = function(self)
+        NSeaUnit.OnCreate(self)
+
+        local AATurret = self:GetWeaponByLabel('AATurret')
+        if AATurret then
+            local bp = AATurret:GetBlueprint()
+            local RotateSpeed = 90 * (1 / ((1 / (bp.RateOfFire / table.getsize(bp.RackBones))) - 0.2))  -- calc how fast to rotate 90 degrees with current ROF and 0.2 sec free time
+            self.AATurretRotators = {
+                CreateRotator( self, bp.RackBones[1].RackBone, 'z', 0, RotateSpeed ),
+                CreateRotator( self, bp.RackBones[2].RackBone, 'z', 0, RotateSpeed ),
+            }
+        end
+
+        if self.HideTMD then self:HideBone('TMD', true) end
+    end,
+
+    RotateAAturretRevolver = function(self, revolver)
+        local angle = self.AATurretRotators[revolver]:GetCurrentAngle()
+        if revolver == 1 then
+            angle = angle + 90
+        else
+            angle = angle - 90
+        end
+        self.AATurretRotators[revolver]:SetGoal(angle)
+    end,
 }
+
+TypeClass = INS3004
