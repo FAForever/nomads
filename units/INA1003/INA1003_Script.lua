@@ -10,4 +10,3 @@ INA1003 = Class(NAirUnit) {
 }
 
 TypeClass = INA1003
-
