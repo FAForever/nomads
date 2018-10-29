@@ -19,7 +19,13 @@ ProjectileBlueprint {
     Categories = {
         'NOMADS',
         'PROJECTILE',
-        'ARTILLERY',
+        'TACTICAL',
+        'MISSILE',
+        'NOSPLASHDAMAGE',
+    },
+    Defense = {
+        Health = 1,
+        MaxHealth = 1,
     },
     Display = {
         ImpactEffects = {
@@ -40,11 +46,13 @@ ProjectileBlueprint {
         UniformScale = 0.3,
     },
     General = {
-        Category = 'Artillery',
+        Category = 'Missile',
         EntityCategory = {
             'NOMADS',
             'PROJECTILE',
-            'ARTILLERY',
+			'INDIRECTFIRE',
+			'TACTICAL',
+            'MISSILE',
         },
         Faction = 'NOMADS',
         Weapon = 'NArtilleryRocket1',
@@ -53,14 +61,16 @@ ProjectileBlueprint {
         HelpText = 0,
     },
     Physics = {
-        Acceleration = 0,
+        Acceleration = 5,
         DestroyOnWater = true,
-        InitialSpeed = 35,
-        MaxSpeed = 45,
-        MaxZigZag = 5,
-        TrackTarget = false,
-        TurnRate = 360,
+        InitialSpeed = 40,
+        MaxSpeed = 60,
+        MaxZigZag = 15,
+        TrackTarget = true,
+        TrackTargetGround = true,
+        TurnRate = 150,
         VelocityAlign = true,
-        ZigZagFrequency = 11,
+		UseGravity = false,
+        ZigZagFrequency = 5,
     },
 }
