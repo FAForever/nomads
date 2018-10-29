@@ -129,7 +129,7 @@ UnitBlueprint {
     },
     Economy = {
         BuildCostEnergy = 300,
-        BuildCostMass = 60,
+        BuildCostMass = 50,
         BuildTime = 220,
         TeleportEnergyMod = 0.15,
         TeleportMassMod = 1,
@@ -154,16 +154,7 @@ UnitBlueprint {
         },
         FactionName = 'Nomads',
         Icon = 'land',
-        OrderOverrides = {
-            RULEUTC_SpecialToggle = {
-                bitmapId = 'toggle-weapon-air',
-                helpText = 'toggle_weapon_no_air',
-            },
-        },
         TechLevel = 'RULEUTL_Basic',
-        ToggleCaps = {
-            RULEUTC_WeaponToggle = true,
-        },
         UnitName = '<LOC inu1006_name>Barrager',
         UnitWeight = 1,
     },
@@ -224,10 +215,6 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
-            ArtilleryShieldBlocks = true,
-            BombardParticipant = true,
-            BombardSwingTurret = true,
-            BombardTurretRotationSpeed = 1,
             Audio = {
                 Fire = Sound {
                     Bank = 'URLWeapon',
@@ -238,30 +225,35 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_HighArc',
             CannotAttackGround = false,
             CollideFriendly = false,
-            Damage = 150,
+            Damage = 300,
             DamageFriendly = false,
-            DamageRadius = 1.5,
+            DamageRadius = 1,
             DamageType = 'Normal',
             DisplayName = 'Artillery Rockets',
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
-            FiringRandomness = 0.5,
+            FiringRandomness = 0,
             FiringTolerance = 3,
             Label = 'ArtilleryGun',
             MaxRadius = 30,
-            MinRadius = 5,
-            MuzzleSalvoDelay = 0.1,
-            MuzzleSalvoSize = 2,
-            MuzzleVelocity = 14,
+            MinRadius = 10,
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 1,
             MuzzleVelocityReduceDistance = 28,
             ProjectileId = '/projectiles/NArtilleryRocket1/NArtilleryRocket1_proj.bp',
-            ProjectilesPerOnFire = 2,
+            ProjectilesPerOnFire = 1,
             RackBones = {
                 {
                     MuzzleBones = {
                         'muzzle.001',
+                    },
+                    RackBone = 'barrel',
+                },
+                {
+                    MuzzleBones = {
                         'muzzle.002',
                     },
                     RackBone = 'barrel',
@@ -275,7 +267,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
             RangeCategory = 'UWRC_IndirectFire',
-            RateOfFire = 0.15,
+            RateOfFire = 0.34,
             StopOnPrimaryWeaponBusy = true,
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -290,14 +282,14 @@ UnitBlueprint {
             TurretBoneMuzzle = 'muzzle.001',
             TurretBonePitch = 'barrel',
             TurretBoneYaw = 'turret',
-            TurretPitch = 45,
-            TurretPitchRange = 90,
+            TurretPitch = 115,
+            TurretPitchRange = 100,
             TurretPitchSpeed = 180,
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 90,
             Turreted = true,
-            WeaponCategory = 'Artillery',
+            WeaponCategory = 'Missile',
             WeaponRepackTimeout = 0,
             WeaponUnpacks = false,
         },
