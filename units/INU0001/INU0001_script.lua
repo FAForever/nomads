@@ -125,9 +125,11 @@ INU0001 = Class(ACUUnit) {
         self.Sync.Abilities = self:GetBlueprint().Abilities
         self:HasCapacitorAbility(false)
         
-        --TODO:set these to actual bp values like bp.Enhancements.ResourceAllocation.ProductionPerSecondEnergy
-        self.MassProduction = 30
-        self.EnergyProduction = 3000
+		
+        self.MassProduction = bp.Economy.ProductionPerSecondMass
+        self.EnergyProduction = bp.Economy.ProductionPerSecondEnergy
+        self.RASMassProduction = bp.Enhancements.ResourceAllocation.ProductionPerSecondMass
+        self.RASEnergyProduction = bp.Enhancements.ResourceAllocation.ProductionPerSecondEnergy
         
     end,
 
@@ -521,13 +523,13 @@ INU0001 = Class(ACUUnit) {
 
         elseif enh =='ResourceAllocation' then            
             self:AddToggleCap('RULEUTC_ProductionToggle')
-            self:SetProductionPerSecondEnergy(self.EnergyProduction)
+            self:SetProductionPerSecondEnergy(self.RASEnergyProduction)
             
 
         elseif enh == 'ResourceAllocationRemove' then
             self:RemoveToggleCap('RULEUTC_ProductionToggle')
-            self:SetProductionPerSecondEnergy(20)
-            self:SetProductionPerSecondMass(1)
+            self:SetProductionPerSecondEnergy(self.EnergyProduction)
+            self:SetProductionPerSecondMass(self.MassProduction)
 
         -- ---------------------------------------------------------------------------------------
         -- RAPID REPAIR
@@ -544,7 +546,7 @@ INU0001 = Class(ACUUnit) {
                     Duration = -1,
                     Affects = {
                         Regen = {
-                            Add = bp.RepairRate or 15,
+                            Add = bp.RepairRate,
                             Mult = 1.0,
                         },
                     },
@@ -559,8 +561,12 @@ INU0001 = Class(ACUUnit) {
                     Duration = -1,
                     Affects = {
                         MaxHealth = {
-                           Add = bp.AddHealth or 0,
+                           Add = bp.AddHealth,
                            Mult = 1.0,
+                        },
+                        Regen = {
+                            Add = bp.AddRegenRate,
+                            Mult = 1.0,
                         },
                     },
                 }
@@ -772,8 +778,8 @@ INU0001 = Class(ACUUnit) {
     
     OnScriptBitSet = function(self, bit)
         if bit == 4 then -- Production toggle
-            self:SetProductionPerSecondMass(self.MassProduction)
-            self:SetProductionPerSecondEnergy(20)
+            self:SetProductionPerSecondMass(self.RASMassProduction)
+            self:SetProductionPerSecondEnergy(self.EnergyProduction)
         else
             ACUUnit.OnScriptBitSet(self, bit)
         end
@@ -781,8 +787,8 @@ INU0001 = Class(ACUUnit) {
 
     OnScriptBitClear = function(self, bit)
         if bit == 4 then -- Production toggle
-            self:SetProductionPerSecondMass(1)
-            self:SetProductionPerSecondEnergy(self.EnergyProduction)
+            self:SetProductionPerSecondMass(self.MassProduction)
+            self:SetProductionPerSecondEnergy(self.RASEnergyProduction)
         else
             ACUUnit.OnScriptBitClear(self, bit)
         end

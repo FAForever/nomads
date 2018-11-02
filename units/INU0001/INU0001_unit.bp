@@ -601,7 +601,7 @@ UnitBlueprint {
         },
         PowerArmor = {
             AddHealth = 30000,
-            AddRegenRate = 0,
+            AddRegenRate = 50,
             BuildCostEnergy = 150000,
             BuildCostMass = 1500,
             BuildTime = 2000,
@@ -610,7 +610,6 @@ UnitBlueprint {
             Name = '<LOC NomadsACUEnh_PowerArmor_Help>Powered Armor',
             Prerequisite = 'RapidRepair',
             RepairDelay = 10,
-            RepairRate = 300,
             Slot = 'Back',
             UpgradeEffectBones = {
                 'upgrade_back',
@@ -638,13 +637,14 @@ UnitBlueprint {
         },
         RapidRepair = {
             AddHealth = 2000,
+            AddRegenRate = 15,
             BuildCostEnergy = 36000,
             BuildCostMass = 1200,
             BuildTime = 1200,
             Icon = 'se',
             Name = '<LOC NomadsACUEnh_RapidRepair_Help>',
             RepairDelay = 10,
-            RepairRate = 100,
+            RepairRate = 70,
             Slot = 'Back',
             UpgradeEffectBones = {
                 'upgrade_back',
@@ -672,8 +672,8 @@ UnitBlueprint {
             BuildTime = 2800,
             Icon = 'isb',
             Name = '<LOC enhancements_0045>Resource Allocation System',
-            ProductionPerSecondEnergy = 3000, --these stats don't change anything try edit script
-            ProductionPerSecondMass = 20,
+            ProductionPerSecondEnergy = 3000,
+            ProductionPerSecondMass = 30,
             ShowBones = {
                 'upgrade_back',
             },
