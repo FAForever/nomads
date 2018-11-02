@@ -126,8 +126,8 @@ INU0001 = Class(ACUUnit) {
         self:HasCapacitorAbility(false)
         
 		
-	self.MassProduction = bp.Economy.ProductionPerSecondMass
-	self.EnergyProduction = bp.Economy.ProductionPerSecondEnergy
+        self.MassProduction = bp.Economy.ProductionPerSecondMass
+        self.EnergyProduction = bp.Economy.ProductionPerSecondEnergy
         self.RASMassProduction = bp.Enhancements.ResourceAllocation.ProductionPerSecondMass
         self.RASEnergyProduction = bp.Enhancements.ResourceAllocation.ProductionPerSecondEnergy
         
