@@ -610,7 +610,6 @@ UnitBlueprint {
             Name = '<LOC NomadsACUEnh_PowerArmor_Help>Powered Armor',
             Prerequisite = 'RapidRepair',
             RepairDelay = 10,
-            RepairRate = 250, --this actually means nothing just yet
             Slot = 'Back',
             UpgradeEffectBones = {
                 'upgrade_back',
