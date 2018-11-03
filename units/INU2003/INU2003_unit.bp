@@ -302,7 +302,7 @@ UnitBlueprint {
             TurretBoneMuzzle = 'muzzle.001',
             TurretBonePitch = 'barrel',
             TurretBoneYaw = 'turret',
-            TurretPitch = 125, --almost vertical! if only we had proper Retard models to replace retarded model...
+            TurretPitch = 125,
             TurretPitchRange = 100,
             TurretPitchSpeed = 70,
             TurretYaw = 0,
