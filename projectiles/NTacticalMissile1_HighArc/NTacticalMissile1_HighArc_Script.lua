@@ -11,12 +11,12 @@ NTacticalMissile1_HighArc = Class(ArcingTacticalMissile) {
     end,
 
     StageThread = function(self)
-        WaitSeconds(1.1)
+        WaitSeconds(4)
         local bp = self:GetBlueprint().Physics
         self:SetTurnRate(bp.TurnRate)
         self:ChangeMaxZigZag(bp.MaxZigZag)
         self:ChangeZigZagFrequency(bp.ZigZagFrequency)
-        WaitSeconds(1.3)
+        WaitSeconds(1)
         self:ChangeMaxZigZag(0)
         self:ChangeZigZagFrequency(0)
     end,
