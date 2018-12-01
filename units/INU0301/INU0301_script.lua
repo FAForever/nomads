@@ -898,10 +898,6 @@ LOG('Todo: SCU right arm upgrade')
                             Add =  bp.AddBuildRate,
                             Mult = 1,                            
                         },
-                        MaxBuildDistance = {
-                            Add =  bp.MaxBuildDistance,
-                            Mult = 1,
-                        },
                     },
                 }
             end
