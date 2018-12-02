@@ -130,7 +130,6 @@ inu0301 = Class(NWalkingLandUnit) {
 
         -- enhancement related
         self:RemoveToggleCap('RULEUTC_SpecialToggle')
-        self:UpdateBuildRestrictions()
         self:SetWeaponEnabledByLabel( 'RocketRight', false )
         self:SetWeaponEnabledByLabel( 'RocketLeft', false )
         self:SetWeaponEnabledByLabel( 'RailGun', false )
@@ -392,10 +391,6 @@ inu0301 = Class(NWalkingLandUnit) {
 
 -- =================================================================================================================
 
-    UpdateBuildRestrictions = function(self)
-        NWalkingLandUnit.updateBuildRestrictions(self)
-    end,
-
     CreateEnhancement = function(self, enh)
         NWalkingLandUnit.CreateEnhancement(self, enh)
         local bp = self:GetBlueprint().Enhancements[enh]
@@ -597,14 +592,12 @@ inu0301 = Class(NWalkingLandUnit) {
             end
 
             Buff.ApplyBuff(self, 'NOMADSCULeftArmBuildRate')
-            self:UpdateBuildRestrictions()
 
         elseif enh == 'EngineeringLeftRemove' then
 
             if Buff.HasBuff( self, 'NOMADSCULeftArmBuildRate' ) then
                 Buff.RemoveBuff( self, 'NOMADSCULeftArmBuildRate' )
             end
-            self:UpdateBuildRestrictions()
 
         -- ---------------------------------------------------------------------------------------
         -- LEFT ARM MISSILE LAUNCHER
@@ -898,10 +891,6 @@ LOG('Todo: SCU right arm upgrade')
                             Add =  bp.AddBuildRate,
                             Mult = 1,                            
                         },
-                        MaxBuildDistance = {
-                            Add =  bp.MaxBuildDistance,
-                            Mult = 1,
-                        },
                     },
                 }
             end
@@ -910,14 +899,12 @@ LOG('Todo: SCU right arm upgrade')
             end
 
             Buff.ApplyBuff(self, 'NOMADSCURightArmBuildRate')
-            self:UpdateBuildRestrictions()
 
         elseif enh == 'EngineeringRightRemove' then
 
             if Buff.HasBuff( self, 'NOMADSCULeftArmBuildRate' ) then
                 Buff.RemoveBuff( self, 'NOMADSCULeftArmBuildRate' )
             end
-            self:UpdateBuildRestrictions()
 
         -- ---------------------------------------------------------------------------------------
         -- RIGHT ARM MISSILE LAUNCHER
