@@ -24,17 +24,20 @@ You should get local copies of both **FAForever/fa** and **Nomads-Project/nomads
 You should have a local copy of the code _- both FAForever/fa and Nomads-Project/nomads -_ on your computer.
 Now you'll want to set up your test environment, i.e. running the game based on your local copies.
 
-Inside of the nomads repository is an `init_devnomads.lua` file that you need to **copy** inside ```C:\ProgramData\FAForever\bin\```
-If you didn't use the default location for your GitHub folders, then you'll have to edit the file and change some file paths. The lines are at the start of the file, so you can't miss them.
-*( Make sure you don't edit the original file, to avoid problems later )*
+1. Inside of the nomads repository is an `init_devnomads.lua` file that you need to **copy** inside ```C:\ProgramData\FAForever\bin\```
+2. You will need to open the file and edit the file paths to match the locations of where you put the local copies of the code. The lines are at the start of the file, so you can't miss them.
+   - *( Make sure you don't edit the original file, to avoid problems later )*
+   - Make sure you pay attention to the double slashes in the file paths, and put them into the paths or they will not work!
+   - `dev_path = 'E:\\GITS\\fa'` corresponds to the fa path
+   - `dev_pathnomads = 'E:\\GITS\\nomads'` corresponds to the nomads path
 
-Inside the same folder, ```C:\ProgramData\FAForever\bin\```, you'll find `ForgedAlliance.exe`
-Make a shortcut for it either by right clicking on the file and putting it in an easily accessable place or right clicking in the folder you want the shortcut to be in and making a new shortcut there. *(For example your desktop)*
-Go into its properties (right click) and change the target:
+3. Inside the same folder, ```C:\ProgramData\FAForever\bin\```, you'll find `ForgedAlliance.exe`
+4. Make a shortcut for it either by right clicking on the file and putting it in an easily accessable place or right clicking in the folder you want the shortcut to be in and making a new shortcut there. *(For example your desktop)*
+5. Go into its properties (right click) and change the target:
 ```
 C:\ProgramData\FAForever\bin\ForgedAlliance.exe /init init_devnomads.lua /EnableDiskWatch /showlog /log C:\ProgramData\FAForever\logs\dev.log
 ```
-By adding `/showlog` then the log window will automaticaly appear. There is an ingame keybind to summon the log window aswell. So it depends on your own prefence if you want it from the start or not.
+  - By adding `/showlog` then the log window will automaticaly appear. There is an ingame keybind to summon the log window aswell. So it depends on your own prefence if you want it from the start or not.
 `/EnableDiskWatch` will ask FA to reload your changes whenever the file is changed - skipping the need to reload your game.
 `/log C:\ProgramData\FAForever\logs\dev.log` will save the log in the specified location. Usefull for sharing logs incase of issues.
 
