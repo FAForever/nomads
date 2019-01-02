@@ -228,7 +228,7 @@ UnitBlueprint {
             LAYER_Water = false,
         },
         DragCoefficient = 0.2,
-        Elevation = 0.34,
+        Elevation = 0.20,
         MaxAcceleration = 3.2,
         MaxBrake = 3.2,
         MaxSpeed = 3.2,

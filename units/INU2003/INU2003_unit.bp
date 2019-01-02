@@ -142,7 +142,7 @@ UnitBlueprint {
     },
     Economy = {
         BuildCostEnergy = 2500,
-        BuildCostMass = 300,
+        BuildCostMass = 220,
         BuildTime = 1500,
         TeleportEnergyMod = 0.15,
         TeleportMassMod = 1,
@@ -257,8 +257,8 @@ UnitBlueprint {
             MaxRadiusUnderWater = 45,
             MinRadius = 15,
             MuzzleChargeDelay = 0,
-            MuzzleSalvoDelay = 0.1,
-            MuzzleSalvoSize = 2,
+            MuzzleSalvoDelay = 1.3,
+            MuzzleSalvoSize = 4,
             MuzzleVelocity = 8,
             MuzzleVelocityReduceDistance = 1,
             ProjectilesPerOnFire = 2,
@@ -270,11 +270,6 @@ UnitBlueprint {
                     MuzzleBones = {
                         'Tube01',
                         'Tube02',
-                    },
-                    RackBone = 'INU2003',
-                },
-                {
-                    MuzzleBones = {
                         'Tube03',
                         'Tube04',
                     },
