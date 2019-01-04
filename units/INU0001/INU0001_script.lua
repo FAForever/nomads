@@ -91,6 +91,7 @@ INU0001 = Class(ACUUnit) {
 
     OnCreate = function(self)
         ACUUnit.OnCreate(self)
+        self.NukeEntity = 1 --leave a value for the death explosion entity to use later.
         
         --create capacitor sliders:
         self.CapSliders = {}
@@ -100,6 +101,7 @@ INU0001 = Class(ACUUnit) {
             slider:SetGoal(0, -1, 0 )
             slider:SetSpeed(1)
         end
+        --TODO: put in the capacitor ability back in, it looks like it got lost somehow
 
         self:GetAIBrain().OrbitalBombardmentInitiator = self
 
@@ -136,13 +138,11 @@ INU0001 = Class(ACUUnit) {
 
         self.Sync.Abilities = self:GetBlueprint().Abilities
         self:HasCapacitorAbility(false)
-        
 		
         self.MassProduction = bp.Economy.ProductionPerSecondMass
         self.EnergyProduction = bp.Economy.ProductionPerSecondEnergy
         self.RASMassProduction = bp.Enhancements.ResourceAllocation.ProductionPerSecondMass
         self.RASEnergyProduction = bp.Enhancements.ResourceAllocation.ProductionPerSecondEnergy
-        
     end,
 
     OnStopBeingBuilt = function(self, builder, layer)
@@ -152,7 +152,6 @@ INU0001 = Class(ACUUnit) {
         self:ForkThread(self.GiveInitialResources)
         self:ForkThread(self.HeadRotationThread)
 
-        self:ForkThread(self.DoMeteorAnim)
     end,
 
     -- =====================================================================================================================
@@ -288,6 +287,7 @@ INU0001 = Class(ACUUnit) {
         self:SetBusy(true)
         self:SetBlockCommandQueue(true)
         self.PlayCommanderWarpInEffectFlag = true
+        self:ForkThread(self.DoMeteorAnim)
     end,
 
     HeadRotationThread = function(self)
@@ -419,106 +419,78 @@ INU0001 = Class(ACUUnit) {
     -- =====================================================================================================================
     -- ENHANCEMENTS
 
-    CreateEnhancement = function(self, enh)
-
-        ACUUnit.CreateEnhancement(self, enh)
-
-        local bp = self:GetBlueprint().Enhancements[enh]
-        if not bp then return end
-
-        -- ---------------------------------------------------------------------------------------
-        -- INTEL PROBE
-        -- ---------------------------------------------------------------------------------------
-
-        if enh == 'IntelProbe' then
+    --a much more sensible way of doing enhancements, and more moddable too!
+    --change the behaviours here and dont touch the CreateEnhancement table.
+    -- EnhancementTable = {
+        -- IntelProbe = {
+            -- Behaviour = function(self)
+                -- self:AddEnhancementEmitterToBone( true, 'IntelProbe1' )
+                -- self:SetIntelProbeEnabled( false, true )
+            -- end,
+        -- },
+    -- },
+    EnhancementBehaviours = {
+        IntelProbe = function(self, bp)
             self:AddEnhancementEmitterToBone( true, 'IntelProbe1' )
             self:SetIntelProbeEnabled( false, true )
-
-        elseif enh == 'IntelProbeRemove' then
+        end,
+        
+        IntelProbeRemove = function(self, bp)
             self:AddEnhancementEmitterToBone( false, 'IntelProbe1' )
             self:SetIntelProbeEnabled( false, false )
 
-        -- ---------------------------------------------------------------------------------------
-        -- ADVANCED INTEL PROBE
-        -- ---------------------------------------------------------------------------------------
-
-        elseif enh == 'IntelProbeAdv' then
+        end,
+        
+        IntelProbeAdv = function(self, bp)
 --            self:AddEnhancementEmitterToBone( true, 'IntelProbe1' )
             self:SetIntelProbeEnabled( true, true )
-
-        elseif enh == 'IntelProbeAdvRemove' then
+        end,
+        
+        IntelProbeAdvRemove = function(self, bp)
             self:AddEnhancementEmitterToBone( false, 'IntelProbe1' )
             self:SetIntelProbeEnabled( true, false )
-
-        -- ---------------------------------------------------------------------------------------
-        -- MAIN WEAPON UPGRADE
-        -- ---------------------------------------------------------------------------------------
-
-        elseif enh == 'GunUpgrade' then
-
+        end,
+        
+        GunUpgrade = function(self, bp)
             local wep = self:GetWeaponByLabel('MainGun')
             local wbp = wep:GetBlueprint()
-
-            if bp.RateOfFireMulti then
-                if not Buffs['NOMADSACUGunUpgrade'] then
-                    BuffBlueprint {
-                        Name = 'NOMADSACUGunUpgrade',
-                        DisplayName = 'NOMADSACUGunUpgrade',
-                        BuffType = 'ACUGUNUPGRADE',
-                        Stacks = 'ADD',
-                        Duration = -1,
-                        Affects = {
-                            RateOfFireSpecifiedWeapons = {
-                                Mult = 1 / (bp.RateOfFireMulti or 1), -- here a value of 0.5 is actually doubling ROF
-                            },
-                        },
-                    }
-                end
-                if Buff.HasBuff( self, 'NOMADSACUGunUpgrade' ) then
-                    Buff.RemoveBuff( self, 'NOMADSACUGunUpgrade' )
-                end
-                Buff.ApplyBuff(self, 'NOMADSACUGunUpgrade')
-            end
-
+            
             -- adjust main gun
             wep:AddDamageMod( (bp.NewDamage or wbp.Damage) - wbp.Damage )
             wep:ChangeMaxRadius(bp.NewMaxRadius or wbp.MaxRadius)
+            wep:ChangeRateOfFire(bp.NewRateOfFire or 1.32)
 
             -- adjust overcharge gun
             local oc = self:GetWeaponByLabel('OverCharge')
             oc:ChangeMaxRadius( bp.NewMaxRadius or wbp.MaxRadius )
             local oca = self:GetWeaponByLabel('AutoOverCharge')
             oca:ChangeMaxRadius( bp.NewMaxRadius or wbp.MaxRadius )
-
-        elseif enh =='GunUpgradeRemove' then
-            Buff.RemoveBuff( self, 'NOMADSACUGunUpgrade' )
-
+        end,
+        
+        GunUpgradeRemove = function(self, bp)
             -- adjust main gun
             local wep = self:GetWeaponByLabel('MainGun')
             local wbp = wep:GetBlueprint()
             wep:AddDamageMod( -((bp.NewDamage or wbp.Damage) - wbp.Damage) )
             wep:ChangeMaxRadius(wbp.MaxRadius)
+            wep:ChangeRateOfFire(wbp.RateOfFire or 1)
 
             -- adjust overcharge gun
             local oc = self:GetWeaponByLabel('OverCharge')
             oc:ChangeMaxRadius( wbp.MaxRadius )
             local oca = self:GetWeaponByLabel('AutoOverCharge')
             oca:ChangeMaxRadius( bp.NewMaxRadius or wbp.MaxRadius )
-
-        -- ---------------------------------------------------------------------------------------
-        -- MAIN WEAPON UPGRADE 2
-        -- ---------------------------------------------------------------------------------------
-
-        elseif enh =='DoubleGuns' then
+        end,
+        
+        DoubleGuns = function(self, bp)
             -- this one should not change weapon damage, range, etc. The weapon script can't cope with that.
             self.DoubleBarrels = true
             self.DoubleBarrelOvercharge = bp.OverchargeIncluded
-
-        elseif enh =='DoubleGunsRemove' then
+        end,
+        
+        DoubleGunsRemove = function(self, bp)
             self.DoubleBarrels = false
             self.DoubleBarrelOvercharge = false
-
-            Buff.RemoveBuff( self, 'NOMADSACUGunUpgrade' )
 
             -- adjust main gun
             local ubp = self:GetBlueprint()
@@ -526,56 +498,46 @@ INU0001 = Class(ACUUnit) {
             local wbp = wep:GetBlueprint()
             wep:AddDamageMod( -((ubp.Enhancements['GunUpgrade'].NewDamage or wbp.Damage) - wbp.Damage) )
             wep:ChangeMaxRadius(wbp.MaxRadius)
+            wep:ChangeRateOfFire(wbp.RateOfFire or 1)
 
             -- adjust overcharge gun
             local oc = self:GetWeaponByLabel('OverCharge')
             oc:ChangeMaxRadius( wbp.MaxRadius )
             local oca = self:GetWeaponByLabel('AutoOverCharge')
             oca:ChangeMaxRadius( bp.NewMaxRadius or wbp.MaxRadius )
-
-        -- ---------------------------------------------------------------------------------------
-        -- LOCOMOTOR UPGRADE
-        -- ---------------------------------------------------------------------------------------
-
-        elseif enh == 'MovementSpeedIncrease' then
+        end,
+        
+        MovementSpeedIncrease = function(self, bp)
             self:SetSpeedMult( bp.SpeedMulti or 1.1 )
             self.UseRunWalkAnim = true
-
-        elseif enh == 'MovementSpeedIncreaseRemove' then
+        end,
+        
+        MovementSpeedIncreaseRemove = function(self, bp)
             self:SetSpeedMult( 1 )
             self.UseRunWalkAnim = false
-
-        -- ---------------------------------------------------------------------------------------
-        -- CAPACITOR UPGRADE
-        -- ---------------------------------------------------------------------------------------
-
-        elseif enh == 'Capacitor' then
+        end,
+        
+        Capacitor = function(self, bp)
             self:HasCapacitorAbility(true)
-
-        elseif enh == 'CapacitorRemove' then
+        end,
+        
+        CapacitorRemove = function(self, bp)
             self:ResetCapacitor()
             self:HasCapacitorAbility(false)
-
-        -- ---------------------------------------------------------------------------------------
-        -- RESOURCE ALLOCATION
-        -- ---------------------------------------------------------------------------------------
-
-        elseif enh =='ResourceAllocation' then            
+        end,
+        
+        ResourceAllocation = function(self, bp)
             self:AddToggleCap('RULEUTC_ProductionToggle')
-            self:SetProductionPerSecondEnergy(self.RASEnergyProduction)
-            
-
-        elseif enh == 'ResourceAllocationRemove' then
-            self:RemoveToggleCap('RULEUTC_ProductionToggle')
             self:SetProductionPerSecondEnergy(self.EnergyProduction)
-            self:SetProductionPerSecondMass(self.MassProduction)
-
-        -- ---------------------------------------------------------------------------------------
-        -- RAPID REPAIR
-        -- ---------------------------------------------------------------------------------------
-
-        elseif enh == 'RapidRepair' then
-
+        end,
+        
+        ResourceAllocationRemove = function(self, bp)
+            self:RemoveToggleCap('RULEUTC_ProductionToggle')
+            self:SetProductionPerSecondEnergy(20)
+            self:SetProductionPerSecondMass(1)
+        end,
+        
+        RapidRepair = function(self, bp)
             if not Buffs['NomadsACURapidRepair'] then
                 BuffBlueprint {
                     Name = 'NomadsACURapidRepair',
@@ -614,22 +576,18 @@ INU0001 = Class(ACUUnit) {
                 Buff.ApplyBuff(self, 'NomadsACURapidRepairPermanentHPboost')
             end
             self:EnableRapidRepair(true)
-
-        elseif enh == 'RapidRepairRemove' then
-
+        end,
+        
+        RapidRepairRemove = function(self, bp)
             -- keep in sync with same code in PowerArmorRemove
             self:EnableRapidRepair(false)
             if Buff.HasBuff( self, 'NomadsACURapidRepairPermanentHPboost' ) then
                 Buff.RemoveBuff( self, 'NomadsACURapidRepair' )
                 Buff.RemoveBuff( self, 'NomadsACURapidRepairPermanentHPboost' )
             end
-
-        -- ---------------------------------------------------------------------------------------
-        -- POWER ARMOR
-        -- ---------------------------------------------------------------------------------------
-
-        elseif enh =='PowerArmor' then
-
+        end,
+        
+        PowerArmor = function(self, bp)
             if not Buffs['NomadsACUPowerArmor'] then
                BuffBlueprint {
                     Name = 'NomadsACUPowerArmor',
@@ -657,9 +615,9 @@ INU0001 = Class(ACUUnit) {
             if bp.Mesh then
                 self:SetMesh( bp.Mesh, true)
             end
-
-        elseif enh == 'PowerArmorRemove' then
-
+        end,
+        
+        PowerArmorRemove = function(self, bp)
             local ubp = self:GetBlueprint()
             if bp.Mesh then
                 self:SetMesh( ubp.Display.MeshBlueprint, true)
@@ -674,13 +632,9 @@ INU0001 = Class(ACUUnit) {
                 Buff.RemoveBuff( self, 'NomadsACURapidRepair' )
                 Buff.RemoveBuff( self, 'NomadsACURapidRepairPermanentHPboost' )
             end
-
-        -- ---------------------------------------------------------------------------------------
-        -- TECH 2 SUITE
-        -- ---------------------------------------------------------------------------------------
-
-        elseif enh =='AdvancedEngineering' then
-
+        end,
+        
+        AdvancedEngineering = function(self, bp)
             -- new build FX bone available
             table.insert( self.BuildBones, 'BuildBeam2' )
 
@@ -715,8 +669,9 @@ INU0001 = Class(ACUUnit) {
 
             Buff.ApplyBuff(self, 'NOMADSACUT2BuildRate')
             self:updateBuildRestrictions()
-        elseif enh =='AdvancedEngineeringRemove' then
-
+        end,
+        
+        AdvancedEngineeringRemove = function(self, bp)
             -- remove extra build bone
             table.removeByValue( self.BuildBones, 'BuildBeam2' )
 
@@ -730,13 +685,9 @@ INU0001 = Class(ACUUnit) {
 
             self:AddBuildRestriction( categories.NOMADS * (categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER) )
             self:updateBuildRestrictions()
-
-        -- ---------------------------------------------------------------------------------------
-        -- TECH 3 SUITE
-        -- ---------------------------------------------------------------------------------------
-
-        elseif enh =='T3Engineering' then
-
+        end,
+        
+        T3Engineering = function(self, bp)
             -- make new structures available
             local cat = ParseEntityCategory(bp.BuildableCategoryAdds)
             self:RemoveBuildRestriction(cat)
@@ -767,9 +718,9 @@ INU0001 = Class(ACUUnit) {
             end
             Buff.ApplyBuff(self, 'NOMADSACUT3BuildRate')
             self:updateBuildRestrictions()
-
-        elseif enh =='T3EngineeringRemove' then
-
+        end,
+        
+        T3EngineeringRemove = function(self, bp)
             -- remove buff
             if Buff.HasBuff( self, 'NOMADSACUT3BuildRate' ) then
                 Buff.RemoveBuff( self, 'NOMADSACUT3BuildRate' )
@@ -779,20 +730,18 @@ INU0001 = Class(ACUUnit) {
             self:RestoreBuildRestrictions()
             self:AddBuildRestriction( categories.NOMADS * ( categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER) )
             self:updateBuildRestrictions()
-
-        -- ---------------------------------------------------------------------------------------
-        -- ORBITAL BOMBARDMENT
-        -- ---------------------------------------------------------------------------------------
-
-        elseif enh == 'OrbitalBombardment' then
+        end,
+        
+        OrbitalBombardment = function(self, bp)
             self:SetOrbitalBombardEnabled(true)
             -- self:AddCommandCap('RULEUCC_Tactical')
             self:AddEnhancementEmitterToBone( true, 'Orbital Bombardment' )
             self:AddCommandCap('RULEUCC_SiloBuildTactical')
             self:SetWeaponEnabledByLabel('TargetFinder', true)
             self:GetAIBrain():EnableSpecialAbility( 'NomadsAreaBombardment', false)
-
-        elseif enh == 'OrbitalBombardmentRemove' then
+        end,
+        
+        OrbitalBombardmentRemove = function(self, bp)
             self:SetOrbitalBombardEnabled(false)
             self:AddEnhancementEmitterToBone( false, 'Orbital Bombardment' )
             -- self:RemoveCommandCap('RULEUCC_Tactical')
@@ -801,9 +750,21 @@ INU0001 = Class(ACUUnit) {
             local amt = self:GetTacticalSiloAmmoCount()
             self:RemoveTacticalSiloAmmo(amt or 0)
             self:StopSiloBuild()
+        end,
+        
+        Generic = function(self, bp)
+        end,
+    },
+    
+    CreateEnhancement = function(self, enh)
+        ACUUnit.CreateEnhancement(self, enh)
+        local bp = self:GetBlueprint().Enhancements[enh]
+        if not bp then return end
 
+        if self.EnhancementBehaviours[enh] then
+            self.EnhancementBehaviours[enh](self, bp)
         else
-            WARN('Enhancement '..repr(enh)..' has no script support.')
+            WARN('Nomads: Enhancement '..repr(enh)..' has no script support.')
         end
     end,
 

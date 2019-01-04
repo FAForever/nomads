@@ -185,8 +185,8 @@ UnitBlueprint {
             '<LOC ability_deathaoe>Volatile',
             '<LOC ability_capacitor>Capacitor Booster',
         },
-        AnimationRun = '/units/INU0001/INU0001_Walk3.sca',
-        AnimationRunRate = 0.83,
+        AnimationRun = '/units/INU0001/INU0001_Walk.sca',
+        AnimationRunRate = 0.99,
         AnimationWalk = '/units/INU0001/INU0001_Walk.sca',
         AnimationWalkRate = 0.88,
         AttackReticleSize = 60,
@@ -434,7 +434,7 @@ UnitBlueprint {
             NewDoTTimeDuringCapacitor = 2,
             NewInitialDamageDuringCapacitor = 150,
             NewMaxRadius = 30,
-            RateOfFireMulti = 2,
+            NewRateOfFire = 1.32, --0.66* 2
             Slot = 'RCH',
             UpgradeEffectBones = {
                 'ElbowR',
@@ -543,7 +543,7 @@ UnitBlueprint {
                 'Locomotion',
             },
             SpeedMulti = 1.5,
-            Slot = 'Back',
+            Slot = 'LCH',
             UpgradeEffectBones = {
                 'Chest',
                 'Locomotion',
@@ -567,7 +567,7 @@ UnitBlueprint {
                 'MovementSpeedIncrease',
                 'MovementSpeedIncreaseRemove',
             },
-            Slot = 'Back',
+            Slot = 'LCH',
         },
         Capacitor = {
             BuildCostEnergy = 24000,
