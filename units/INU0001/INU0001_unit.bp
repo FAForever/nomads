@@ -349,13 +349,12 @@ UnitBlueprint {
             NewHealth = 2000,
             NewRegenRate = 10,
             ShowBones = {
-                'Gun2',
+                'BuildArm2',
             },
             Slot = 'LCH',
             UpgradeEffectBones = {
                 'BuildBeam1',
                 'BuildBeam2',
-                'BuildBeam3',
                 'ElbowR',
             },
             UpgradeUnitAmbientBones = {
@@ -367,7 +366,7 @@ UnitBlueprint {
             BuildCostMass = 1,
             BuildTime = 0.1,
             HideBones = {
-                'Gun2',
+                'BuildArm2',
             },
             Icon = 'aes',
             Name = '<LOC enhancements_0038>Remove Tech 2 Engineering Suite',
@@ -540,7 +539,8 @@ UnitBlueprint {
             Icon = 'il',
             Name = '<LOC NomadsACUEnh_MovementSpeedIncrease_Help>',
             ShowBones = {
-                'Locomotion',
+                'BuildArm2',
+                'BuildArm3',
             },
             SpeedMulti = 1.5,
             Slot = 'LCH',
@@ -558,7 +558,8 @@ UnitBlueprint {
             BuildCostMass = 1,
             BuildTime = 0.1,
             HideBones = {
-                'Locomotion',
+                'BuildArm2',
+                'BuildArm3',
             },
             Icon = 'il',
             Name = '<LOC NomadsACUEnh_MovementSpeedIncrease_Remove>',
@@ -793,6 +794,7 @@ UnitBlueprint {
             BuildCostMass = 1,
             BuildTime = 0.1,
             HideBones = {
+                'BuildArm2',
                 'BuildArm3',
             },
             Icon = 'ees',
@@ -811,8 +813,6 @@ UnitBlueprint {
             AimBone = 'ElbowL',
             BuildEffectBones = {
                 'BuildBeam1',
-                'BuildBeam2',
-                'BuildBeam3',
             },
             PitchBone = 'ElbowL',
             YawBone = 'Abb1',

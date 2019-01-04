@@ -123,6 +123,8 @@ INU0001 = Class(ACUUnit) {
         self:HideBone('PowerArmor', true)
         self:HideBone('Locomotion', true)
         self:HideBone('Orbital Bombardment', true)
+        self:HideBone('BuildArm2', true)
+        self:HideBone('BuildArm3', true)--these need to be updated in the other list as well, maybe add a function for this?
 
         self.HeadRotManip = CreateRotator(self, 'Head', 'y', nil):SetCurrentAngle(0)
         self.Trash:Add(self.HeadRotManip)
@@ -257,6 +259,8 @@ INU0001 = Class(ACUUnit) {
         self:HideBone('PowerArmor', true)
         self:HideBone('Locomotion', true)
         self:HideBone('Orbital Bombardment', true)
+        self:HideBone('BuildArm2', true)
+        self:HideBone('BuildArm3', true)--these need to be updated in the other list as well, maybe add a function for this?
 
         local totalBones = self:GetBoneCount() - 1
         local army = self:GetArmy()
@@ -688,6 +692,8 @@ INU0001 = Class(ACUUnit) {
         end,
         
         T3Engineering = function(self, bp)
+            -- new build FX bone available
+            table.insert( self.BuildBones, 'BuildBeam3' )
             -- make new structures available
             local cat = ParseEntityCategory(bp.BuildableCategoryAdds)
             self:RemoveBuildRestriction(cat)
@@ -721,6 +727,9 @@ INU0001 = Class(ACUUnit) {
         end,
         
         T3EngineeringRemove = function(self, bp)
+            -- remove extra build bone
+            table.removeByValue( self.BuildBones, 'BuildBeam3' )
+            table.removeByValue( self.BuildBones, 'BuildBeam2' )
             -- remove buff
             if Buff.HasBuff( self, 'NOMADSACUT3BuildRate' ) then
                 Buff.RemoveBuff( self, 'NOMADSACUT3BuildRate' )
