@@ -760,6 +760,10 @@ inu0301 = Class(NWalkingLandUnit) {
                            Add = bp.AddHealth or 0,
                            Mult = 1.0,
                         },
+						Regen = {
+                            Add = bp.AddRegenRate,
+                            Mult = 1.0,
+                        },
                     },
                 }
             end
