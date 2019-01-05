@@ -87,8 +87,7 @@ BuffBlueprint {
     Duration = -1,
     Affects = {
         BuildRate = {
-            Add = 30,
-            Mult = 1,
+            Mult = 2,
         },
     },
 }
@@ -124,8 +123,7 @@ BuffBlueprint {
     Duration = -1,
     Affects = {
         Regen = {
-            Add = 100,
-            Mult = 1,
+            Mult = 2,
         },
     },
 }
@@ -138,8 +136,7 @@ BuffBlueprint {
     Duration = -1,
     Affects = {
         RateOfFire = {
-            Add = 0,
-            Mult = 1.2,  -- remember that values below 1 actually boost the rof!
+            Mult = 0.34,  -- remember that values below 1 actually boost the rof!
         },
     },
 }
