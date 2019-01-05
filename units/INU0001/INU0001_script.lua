@@ -462,7 +462,7 @@ INU0001 = Class(ACUUnit) {
             -- adjust main gun
             wep:AddDamageMod( (bp.NewDamage or wbp.Damage) - wbp.Damage )
             wep:ChangeMaxRadius(bp.NewMaxRadius or wbp.MaxRadius)
-            wep:ChangeRateOfFire(bp.NewRateOfFire or 1.32)
+            wep:ChangeRateOfFire(bp.NewRateOfFire or 0.66)
 
             -- adjust overcharge gun
             local oc = self:GetWeaponByLabel('OverCharge')
