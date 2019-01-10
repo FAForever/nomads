@@ -166,11 +166,7 @@ INU0001 = Class(ACUUnit) {
         ACUUnit.OnKilled(self, instigator, type, overkillRatio)
     end,
 
-    DeathThread = function( self, overkillRatio, instigator)
-        -- since we're spawning a black hole the ACU disappears right away
-        self:Destroy()
-    end,
-
+    
     OnStartBuild = function(self, unitBeingBuilt, order)
 
        local bp = self:GetBlueprint()

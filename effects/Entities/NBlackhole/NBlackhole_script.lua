@@ -1,4 +1,4 @@
--- Nomads black hole
+-- Nomads singularity effects entity
 
 local NullShell = import('/lua/sim/defaultprojectiles.lua').NullShell
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
@@ -27,7 +27,6 @@ NBlackhole = Class(NullShell) {
         self.PropsBeingSuckedIn = {}
         self.WreckageResources = { e = 0, h = 1, m = 1, t = 1, }
         self.NukeBlackHoleFxScale = 1
-        self:SetParent( self:GetLauncher() )
 
         -- make sure the black hole is above the surface
         local pos = self:GetPosition()
@@ -36,6 +35,8 @@ NBlackhole = Class(NullShell) {
             pos[2] = self.surfaceY + 4
             Warp( self, pos )
         end
+        
+        self:ForkThread(self.EffectThread, 5)
     end,
 
     SetParent = function(self, parent)
@@ -51,82 +52,10 @@ NBlackhole = Class(NullShell) {
         end
     end,
 
-    SetLogo = function(self, bool)
-        self.logo = (bool == true)
-    end,
-
-    PassData = function(self, Data)
-        if Data.NukeOuterRingDamage then self.NukeOuterRingDamage = Data.NukeOuterRingDamage end
-        if Data.NukeOuterRingRadius then self.NukeOuterRingRadius = Data.NukeOuterRingRadius end
-        if Data.NukeOuterRingTicks then self.NukeOuterRingTicks = Data.NukeOuterRingTicks end
-        if Data.NukeOuterRingTotalTime then self.NukeOuterRingTotalTime = Data.NukeOuterRingTotalTime end
-        if Data.NukeInnerRingDamage then self.NukeInnerRingDamage = Data.NukeInnerRingDamage end
-        if Data.NukeInnerRingRadius then self.NukeInnerRingRadius = Data.NukeInnerRingRadius end
-        if Data.NukeInnerRingTicks then self.NukeInnerRingTicks = Data.NukeInnerRingTicks end
-        if Data.NukeInnerRingTotalTime then self.NukeInnerRingTotalTime = Data.NukeInnerRingTotalTime end
-        if Data.NukeBlackHoleMinDuration then self.NukeBlackHoleMinDuration = Data.NukeBlackHoleMinDuration end
-        if Data.NukeBlackHoleFxScale then self.NukeBlackHoleFxScale = Data.NukeBlackHoleFxScale end
-        if Data.NukeBlackHoleFxLogo then self:SetLogo( Data.NukeBlackHoleFxLogo ) end
-
-        if Data.NukeBlackHoleFireballDamage then self.NukeBlackHoleFireballDamage = Data.NukeBlackHoleFireballDamage end
-        if Data.NukeBlackHoleFireballRadius then self.NukeBlackHoleFireballRadius = Data.NukeBlackHoleFireballRadius end
-        if Data.NukeBlackHoleFireballDamageType then self.NukeBlackHoleFireballDamageType = Data.NukeBlackHoleFireballDamageType end
-
-        self:CreateNuclearExplosion()
-    end,
-
-    CreateNuclearExplosion = function(self)
-        local lifetime = math.max( math.max( self.NukeOuterRingTotalTime, self.NukeInnerRingTotalTime ), self.NukeBlackHoleMinDuration )
-
-        -- Create Damage Threads
-        self:ForkThread(self.OuterRingDamage)
-        self:ForkThread(self.InnerRingDamage)
-
-        -- Create thread that spawns and controls effects. Also eventually destroys this entity
-        self:ForkThread(self.EffectThread, lifetime)
-    end,
-
-    OuterRingDamage = function(self)
-        local myPos = self:GetPosition()
-        if self.NukeOuterRingTotalTime == 0 then
-            DamageArea( self, myPos, self.NukeOuterRingRadius, self.NukeOuterRingDamage, self.DamageData.DamageType or 'BlackholeDamage', true, false)
-
-        else
-            local ringWidth = ( self.NukeOuterRingRadius / self.NukeOuterRingTicks )
-            local tickLength = ( self.NukeOuterRingTotalTime / self.NukeOuterRingTicks )
-            DamageArea( self, myPos, ringWidth, self.NukeOuterRingDamage, self.DamageData.DamageType or 'BlackholeDamage', true, false )
-            WaitSeconds( tickLength )
-            for i = 2, self.NukeOuterRingTicks do
-                DamageRing( self, myPos, ringWidth * (i - 1), ringWidth * i, self.NukeOuterRingDamage, self.DamageData.DamageType or 'BlackholeDamage', true, false)
-                WaitSeconds(tickLength)
-            end
-        end
-    end,
-
-    InnerRingDamage = function(self)
-        local myPos = self:GetPosition()
-        if self.NukeInnerRingTotalTime == 0 then
-            DamageArea( self, myPos, self.NukeInnerRingRadius, self.NukeInnerRingDamage, self.DamageData.DamageType or 'BlackholeDamage', true, false)
-
-        else
-            local ringWidth = ( self.NukeInnerRingRadius / self.NukeInnerRingTicks )
-            local tickLength = ( self.NukeInnerRingTotalTime / self.NukeInnerRingTicks )
-            DamageArea( self, myPos, ringWidth, self.NukeInnerRingDamage, self.DamageData.DamageType or 'BlackholeDamage', true, false )
-            WaitSeconds(tickLength)
-            for i = 2, self.NukeInnerRingTicks do
-                DamageRing( self, myPos, ringWidth * (i - 1), ringWidth * i, self.NukeInnerRingDamage, self.DamageData.DamageType or 'BlackholeDamage', true, false )
-                WaitSeconds(tickLength)
-            end
-        end
-    end,
-
-    OnKilledUnit = function(self, unit)
-        if self.parent and not self.parent:BeenDestroyed() and IsUnit(self.parent) and not self.parent:IsDead() then
-            local kills = self.parent:GetStat('KILLS', 0).Value
-            self.parent:SetStat( 'KILLS', kills + 1 )
-            self.parent:CheckVeteranLevel()
-        end
-    end,
+    
+    
+    -- unit callbacks
+    -- ===========================================================================================================================================================
 
     OnUnitBeingSuckedIn = function(self, unit)
         table.insert( self.UnitsBeingSuckedIn, unit )
@@ -160,21 +89,10 @@ NBlackhole = Class(NullShell) {
             self.WreckageResources['t'] = self.WreckageResources['t'] + t
         end
     end,
-
-    OnDestroy = function(self)
-        -- notify units being sucked in that the black hole is gone
-        for k, unit in self.UnitsBeingSuckedIn do
-            if unit and not unit:BeenDestroyed() then
-                unit:OnBlackHoleDissipated()
-            end
-        end
-        for k, prop in self.PropsBeingSuckedIn do
-            if prop and not prop:BeenDestroyed() then
-                prop:OnBlackHoleDissipated()
-            end
-        end
-        NullShell.OnDestroy(self)
-    end,
+    
+    
+    -- wreckages
+    -- ===========================================================================================================================================================
 
     CreateWreckage = function(self)
         local wreckBp = '/effects/Entities/NBlackholeLeftover/NBlackholeLeftover_prop.bp'
@@ -207,8 +125,9 @@ NBlackhole = Class(NullShell) {
         prop:SetMaxHealth( resources['h'] )
         prop:SetHealth( self, resources['h'] )
     end,
-
--- ===========================================================================================================================================================
+    
+    -- Sounds and camera effects
+    -- ===========================================================================================================================================================
 
     EffectThread = function(self, lifetime)
         local army = self:GetArmy()
@@ -274,7 +193,26 @@ NBlackhole = Class(NullShell) {
 
         self:Destroy()
     end,
+    
+    
+    OnDestroy = function(self)
+        -- notify units being sucked in that the black hole is gone
+        for k, unit in self.UnitsBeingSuckedIn do
+            if unit and not unit:BeenDestroyed() then
+                unit:OnBlackHoleDissipated()
+            end
+        end
+        for k, prop in self.PropsBeingSuckedIn do
+            if prop and not prop:BeenDestroyed() then
+                prop:OnBlackHoleDissipated()
+            end
+        end
+        NullShell.OnDestroy(self)
+    end,
 
+    -- Sounds and camera effects
+    -- =======================================================================================================================
+    
     Camera = function(self, bag, lifetime)
         -- creates a camera so the effect is visible through the fog
         local pos = self:GetPosition()
@@ -329,6 +267,7 @@ NBlackhole = Class(NullShell) {
         --LOG('StopBlackholeAmbientSound = '..repr(name))
     end,
 
+    -- explosion effects
     -- =======================================================================================================================
 
     CoreEffects = function(self, bag, lifetime)
@@ -581,6 +520,7 @@ NBlackhole = Class(NullShell) {
         end
     end,
 
+    -- dissipation effects
     -- =======================================================================================================================
 
     DissipateEffects = function(self, bag, lifetime)
@@ -648,6 +588,7 @@ NBlackhole = Class(NullShell) {
         end
     end,
 
+    -- final aftermath explosion effects
     -- =======================================================================================================================
 
     AftermathExplosion = function(self, bag, lifetime, wreck)
@@ -783,58 +724,6 @@ NBlackhole = Class(NullShell) {
         end
     end,
 
-    AftermathFireArmsLogo = function(self, bag, lifetime, wreck)
-        -- creates the nomads logo in fire
-        if wreck ~= nil then
-            wreck:SetCanTakeDamage(false)
-        end
-
-        local FireArmTempl = { NomadsEffectTemplate.NukeBlackholeFireArmSegment4, NomadsEffectTemplate.NukeBlackholeFireArmSegment4,
-                               NomadsEffectTemplate.NukeBlackholeFireArmSegment4, NomadsEffectTemplate.NukeBlackholeFireArmSegment4,
-                               NomadsEffectTemplate.NukeBlackholeFireArmCenter2, }
-        local maxLength = 13
-        local arms = 6
-
-        local angle = (2*math.pi) / arms
-        local initialAngle = 0
-        local offset, height, curAngle, X, Z, offset, pos, entity, emit = 0, 0, 0, 0, 0, 0
-        local army = self:GetArmy()
-
-        for i = 0, (arms-1) do
-
-            curAngle = (i * angle) + initialAngle
-            X = math.sin( curAngle )
-            Z = math.cos( curAngle )
-
-            for seg = 0, 4 do
-                if math.mod( i, 2 ) == 1 or seg == 4 then
-                    offset = 2 + ((maxLength - 2) / 4 * seg)
-                    pos = self:GetPosition()
-                    pos[1] = pos[1] + (X * offset)
-                    pos[3] = pos[3] + (Z * offset)
-                    pos[2] = GetTerrainHeight(pos[1], pos[3]) + GetTerrainTypeOffset(pos[1], pos[3])
-                    entity = Entity()
-                    self.Trash:Add( entity )
-                    bag:Add( entity )
-                    Warp( entity, pos )
-                    entity:SetOrientation( OrientFromDir( Util.Cross( Vector(X,0,Z), Vector(0,1,0))), true )
-
-                    for k, v in FireArmTempl[ seg+1 ] do
-                        emit = CreateEmitterAtBone( entity, -1, army, v ):SetEmitterParam('LIFETIME', (lifetime * (10 - seg) * RandomFloat(0.7, 1)) ):ScaleEmitter( RandomFloat( 0.75, 1.25))
-                        self.Trash:Add( emit )
-                        bag:Add( emit )
-                    end
-
-                    DamageArea(self, pos, (3 * self.NukeBlackHoleFxScale), 1, 'BigFire', true)
-
-                    entity:Destroy()
-                end
-            end
-        end
-        if wreck ~= nil then
-            wreck:SetCanTakeDamage(false)
-        end
-    end,
 }
 
 TypeClass = NBlackhole

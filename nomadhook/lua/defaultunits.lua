@@ -7,7 +7,7 @@ AirUnit = Class(oldAirUnit) {
 
     OnKilled = function(self, instigator, type, overkillRatio)
         -- if killed by black hole then suck in unit regardless of flying or not
-        if self:DoOnKilledByBlackhole(type) then
+        if self:WasUnitKilledByBlackhole(type) then
             self.DeathBounce = 1
             if instigator and IsUnit(instigator) then
                 instigator:OnKilledUnit(self)

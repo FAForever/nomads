@@ -29,7 +29,12 @@ Prop = Class(oldProp) {
             if damageType == 'BlackholeDamage' or damageType == 'BlackholeDeathNuke' then
                 if not self.BlackholeSuckedIn then
                     self.BlackholeSuckedIn = true
-                    instigator:OnPropBeingSuckedIn( self )
+                    
+                    if instigator.NukeEntity.OnPropBeingSuckedIn then
+                        instigator.NukeEntity:OnPropBeingSuckedIn(self)
+                    else
+                        WARN('could not find instigator nuke entity for prop to be sucked into black hole')
+                    end
                     self:OnBlackHoleSuckingIn(instigator)
                 end
             end
