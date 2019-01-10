@@ -384,46 +384,32 @@ StrategicMissileWeapon = Class(DefaultProjectileWeapon) {
 
 StrategicMissileDefenseWeapon = Class(DefaultProjectileWeapon) {}
 
+local NukeDamage = import('/lua/sim/NukeDamage.lua').NukeAOE
 DeathNuke = Class(BareBonesWeapon) {
-    FiringMuzzleBones = {0}, -- just fire from the base bone of the unit
-
-    OnCreate = function(self)
-        BareBonesWeapon.OnCreate(self)
-        local bp = self:GetBlueprint()
-        self.Data = {
-            DamageType = bp.DamageType or 'Normal',
-
-            NukeOuterRingDamage = bp.NukeOuterRingDamage or 10,
-            NukeOuterRingRadius = bp.NukeOuterRingRadius or 40,
-            NukeOuterRingTicks = bp.NukeOuterRingTicks or 20,
-            NukeOuterRingTotalTime = bp.NukeOuterRingTotalTime or 10,
-
-            NukeInnerRingDamage = bp.NukeInnerRingDamage or 2000,
-            NukeInnerRingRadius = bp.NukeInnerRingRadius or 30,
-            NukeInnerRingTicks = bp.NukeInnerRingTicks or 24,
-            NukeInnerRingTotalTime = bp.NukeInnerRingTotalTime or 24,
-
-            NukeBlackHoleMinDuration = bp.NukeBlackHoleMinDuration or 10,
-            NukeBlackHoleFxScale = bp.NukeBlackHoleFxScale or 1,
-            NukeBlackHoleFxLogo = bp.NukeBlackHoleFxLogo or false,
-
-            NukeBlackHoleFireballDamage = bp.NukeBlackHoleFireballDamage or 0,
-            NukeBlackHoleFireballRadius = bp.NukeBlackHoleFireballRadius or 0,
-            NukeBlackHoleFireballDamageType = bp.NukeBlackHoleFireballDamageType or 'Normal',
-        }
-        self:SetWeaponEnabled(false)
-    end,
-
     OnFire = function(self)
     end,
 
     Fire = function(self)
         local bp = self:GetBlueprint()
-        local proj = self.unit:CreateProjectileAtBone(bp.ProjectileId, 0):SetCollision(false)
-        proj:PassDamageData(self:GetDamageTable())
-        if self.Data then
-            proj:PassData(self.Data)
-        end
+        self.proj = self.unit:CreateProjectileAtBone(bp.ProjectileId, 0):SetCollision(false)
+        self.proj.Launcher = self.unit --ensure that the projectile knows its parent unit
+        
+        --the projectile disappears without OnImpact so we call the explosion directly instead
+        self.proj:CreateSingularity(self.unit)
+        
+        --This also means we create the damage manually just like the other ACUs do
+        self.proj.InnerRing = NukeDamage()
+        self.proj.InnerRing:OnCreate(bp.NukeInnerRingDamage, bp.NukeInnerRingRadius, bp.NukeInnerRingTicks, bp.NukeInnerRingTotalTime)
+        self.proj.OuterRing = NukeDamage()
+        self.proj.OuterRing:OnCreate(bp.NukeOuterRingDamage, bp.NukeOuterRingRadius, bp.NukeOuterRingTicks, bp.NukeOuterRingTotalTime)
+
+        local launcher = self.unit
+        local pos = self.proj:GetPosition()
+        local army = launcher:GetArmy()
+        local brain = launcher:GetAIBrain()
+        local damageType = bp.DamageType
+        self.proj.InnerRing:DoNukeDamage(launcher, pos, brain, army, damageType)
+        self.proj.OuterRing:DoNukeDamage(launcher, pos, brain, army, damageType)
     end,
 }
 

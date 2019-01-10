@@ -38,7 +38,11 @@ Tree = Class(oldTree) {
             if type == 'BlackholeDamage' or type == 'BlackholeDeathNuke' then
                 if not self.BlackholeSuckedIn then
                     self.BlackholeSuckedIn = true
-                    instigator:OnPropBeingSuckedIn( self )
+                    if instigator.NukeEntity.OnPropBeingSuckedIn then
+                        instigator.NukeEntity:OnPropBeingSuckedIn( self )
+                    else
+                        WARN('could not find instigator nuke entity for tree prop to be sucked into black hole')
+                    end
                 end
             end
         end

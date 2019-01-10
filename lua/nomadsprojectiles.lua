@@ -6,6 +6,8 @@ local MultiBeamProjectile = DefaultProjectileFile.MultiBeamProjectile
 local SinglePolyTrailProjectile = DefaultProjectileFile.SinglePolyTrailProjectile
 local MultiPolyTrailProjectile = DefaultProjectileFile.MultiPolyTrailProjectile
 local SingleCompositeEmitterProjectile = DefaultProjectileFile.SingleCompositeEmitterProjectile
+local NukeProjectile = DefaultProjectileFile.NukeProjectile
+local NullShell = DefaultProjectileFile.NullShell
 
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
@@ -1431,137 +1433,69 @@ ArcingTacticalMissile = Class(TacticalMissile) {
     end,
 }
 
-StrategicMissile = Class(SingleBeamProjectile) {
+SingularityProjectile = Class(NullShell) {
     NukeProjBp = '/effects/Entities/NBlackhole/NBlackhole_proj.bp',
 
-    InitialEffects = NomadsEffectTemplate.NukeMissileInitialEffects,
-    LaunchEffects = NomadsEffectTemplate.NukeMissileLaunchEffects,
-    ThrustEffects = NomadsEffectTemplate.NukeMissileThrustEffects,
-    BeamName = NomadsEffectTemplate.NukeMissileBeam,
-
-    -- no impact Fx, the blackhole script does this
+    -- no impact Fx, the blackhole entity script does this
     FxImpactUnit = {},
     FxImpactLand = {},
     FxImpactUnderWater = {},
-
+    
+    
     OnCreate = function(self)
-        SingleBeamProjectile.OnCreate(self)
-
-        -- allow collisions with other things so we can die during flight
-        self:SetCollisionShape('Sphere', 0, 0, 0, 2.0)
-
-        -- movement stuff
-        self:ForkThread( self.MovementThread )
-
-        -- callback. I'm not really sure what this is used for, probably a campaign thingy
-        local launcher = self:GetLauncher()
-        if launcher and not launcher:IsDead() and launcher.EventCallbacks.ProjectileDamaged then
-            self.ProjectileDamaged = {}
-            for k,v in launcher.EventCallbacks.ProjectileDamaged do
-                table.insert( self.ProjectileDamaged, v )
-            end
-        end
+        NullShell.OnCreate(self)
+        self.Launcher = self:GetLauncher()
     end,
-
-    DoTakeDamage = function(self, instigator, amount, vector, damageType)
-        -- do callback, probably used for campaign (but don't delete!!)
-        if self.ProjectileDamaged then
-            for k,v in self.ProjectileDamaged do
-                v(self)
-            end
-        end
-        SingleBeamProjectile.DoTakeDamage(self, instigator, amount, vector, damageType)
-    end,
-
+    
     OnImpact = function(self, targetType, TargetEntity)
+        if self.AlreadyExploded then return end
         -- if we didn't impact with another projectile (that would be the anti nuke projectile) then create nuke effect
         if not TargetEntity or not EntityCategoryContains(categories.PROJECTILE, TargetEntity) then
+            self.AlreadyExploded = true --incase we decide to hit something else instead.
 
             -- Play the explosion sound
             local myBlueprint = self:GetBlueprint()
             if myBlueprint.Audio.Explosion then
                 self:PlaySound(myBlueprint.Audio.Explosion)
             end
-
-            nukeProjectile = self:CreateProjectile( self.NukeProjBp, 0, 0, 0, nil, nil, nil):SetCollision(false)
-            nukeProjectile.DamageData = table.deepcopy(self.DamageData)
-            nukeProjectile:PassData(self.Data)
+            
+            self:CreateSingularity(self.Launcher)
         end
-
-        SingleBeamProjectile.OnImpact(self, targetType, TargetEntity)
+        self:ForkThread( self.ExplosionDelayThread, targetType, TargetEntity)
     end,
-
-    MovementThread = function(self)
-        local army = self:GetArmy()
-        local launcher = self:GetLauncher()
-        self.CreateEffects( self, self.InitialEffects, army, 1 )
-        self:TrackTarget(false)
-        WaitSeconds(2.5)        -- Height
-        self:SetCollision(true)
-        self.CreateEffects( self, self.LaunchEffects, army, 1 )
-        WaitSeconds(2.5)
-        self.CreateEffects( self, self.ThrustEffects, army, 3 )
-        WaitSeconds(2.5)
-        self:TrackTarget(true) -- Turn ~90 degrees towards target
-        self:SetDestroyOnWater(true)
-        self:SetTurnRate(47.36)
-        WaitSeconds(2)                     -- Now set turn rate to zero so nuke flies straight
-        self:SetTurnRate(0)
-        self:SetAcceleration(0.001)
-        self.WaitTime = 0.5
-        while not self:BeenDestroyed() do
-            self:SetTurnRateByDist()
-            WaitSeconds(self.WaitTime)
+    
+    ExplosionDelayThread = function(self, targetType, TargetEntity)
+        WaitSeconds(0.1)
+        NullShell.OnImpact(self, targetType, TargetEntity)
+    end,
+    
+    CreateSingularity = function(self, parent)
+        if not parent.NukeEntity then
+            WARN('nomads: parent entity for singularity is dead or missing')
         end
-    end,
-
-    CreateEffects = function( self, EffectTable, army, scale)
-        for k, v in EffectTable do
-            self.Trash:Add(CreateAttachedEmitter(self, -1, army, v):ScaleEmitter(scale))
-        end
-    end,
-
-    SetTurnRateByDist = function(self)
-        local dist = self:GetDistanceToTarget()
-        --Get the nuke as close to 90 deg as possible
-        if dist > 150 then
-            --Freeze the turn rate as to prevent steep angles at long distance targets
-            self:SetTurnRate(0)
-        elseif dist > 75 and dist <= 150 then
-                        -- Increase check intervals
-            self.WaitTime = 0.3
-        elseif dist > 32 and dist <= 75 then
-                        -- Further increase check intervals
-            self.WaitTime = 0.1
-        elseif dist < 32 then
-                        -- Turn the missile down
-            self:SetTurnRate(50)
-        end
-    end,
-
-    CheckMinimumSpeed = function(self, minSpeed)
-        if self:GetCurrentSpeed() < minSpeed then
-            return false
-        end
-        return true
-    end,
-
-    SetMinimumSpeed = function(self, minSpeed, resetAcceleration)
-        if self:GetCurrentSpeed() < minSpeed then
-            self:SetVelocity(minSpeed)
-            if resetAcceleration then
-                self:SetAcceleration(0)
-            end
-        end
-    end,
-
-    GetDistanceToTarget = function(self)
-        local tpos = self:GetCurrentTargetPosition()
-        local mpos = self:GetPosition()
-        local dist = VDist2(mpos[1], mpos[3], tpos[1], tpos[3])
-        return dist
+        parent.NukeEntity = self:CreateProjectile( self.NukeProjBp, 0, 0, 0, nil, nil, nil):SetCollision(false)
+        parent.NukeEntity:SetParent(parent)
     end,
 }
+
+--a most unholy mergination of various classes but it all works! and has a linecount of approximately 0 as a result
+StrategicMissile = Class(SingularityProjectile, NukeProjectile, SingleBeamProjectile) {
+    InitialEffects = NomadsEffectTemplate.NukeMissileInitialEffects,
+    LaunchEffects = NomadsEffectTemplate.NukeMissileLaunchEffects,
+    ThrustEffects = NomadsEffectTemplate.NukeMissileThrustEffects,
+    BeamName = NomadsEffectTemplate.NukeMissileBeam,
+    
+    OnCreate = function(self)
+        SingleBeamProjectile.OnCreate(self)
+        self:LauncherCallbacks()
+    end,
+    
+    OnImpact = function(self, targetType, TargetEntity)
+        SingularityProjectile.OnImpact(self, targetType, TargetEntity)
+    end,
+}
+
+
 
 -- -----------------------------------------------------------------------------------------------------
 -- ROCKETS       (UNGUIDED, PROPELED)

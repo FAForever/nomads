@@ -81,15 +81,7 @@ Unit = Class(oldUnit) {
         self:UpdateWeaponLayers(layer, 'None')
     end,
 
-    OnKilled = function(self, instigator, type, overkillRatio)
-        self:UnregisterSpecialAbilities()
-        if self:DoOnKilledByBlackhole(type) then
-            self:OnKilledByBlackHole(instigator, type, overkillRatio)
-        else
-            oldUnit.OnKilled(self, instigator, type, overkillRatio)
-        end
-    end,
-
+    
 
 
     UpdateWeaponLayers = function(self, new, old)
@@ -463,88 +455,61 @@ Unit = Class(oldUnit) {
     -- ================================================================================================================
     -- BLACK HOLE SUCK IN STUFF
 
-    DoOnKilledByBlackhole = function(self, DmgType)
+    WasUnitKilledByBlackhole = function(self, DmgType)
         if DmgType == 'BlackholeDamage' or DmgType == 'BlackholeDeathNuke' then
             return true
         end
         return false
     end,
-
-    OnKilledByBlackHole = function(self, instigator, type, overkillRatio)
-        if self:DoOnKilledByBlackhole(type) then
-
-            if self._IsSuckedInBlackHole then return end
-
-            -- if killed by a black hole then do a special animation.
-            -- this is a shortened version of the stock onkilled event
-            self.Dead = true
-            self.overkillRatio = overkillRatio
-            self:SetCollisionShape('None')
-            self:DoUnitCallbacks( 'OnKilled' )
-
-            self:DestroyAllDamageEffects()
-            self:DestroyTopSpeedEffects()
-            self:DestroyMovementEffects()
-            self:DestroyIdleEffects()
-
-            self:DisableShield()
-            self:DisableUnitIntel('killed')
-
-            if self.TarmacBag then
-                self:DestroyTarmac()
-            end
-
-            if self.UnitBeingTeleported and not self.UnitBeingTeleported:IsDead() then
-                self.UnitBeingTeleported:Destroy()
-                self.UnitBeingTeleported = nil
-            end
-            if instigator then
-                if IsUnit(instigator) or instigator.OnKilledUnit then
-                    instigator:OnKilledUnit(self)
-                end
-            end
-            self:ForkThread(self.DeathThreadBlackHole, instigator)
-        end
-    end,
-
+    
     IsSuckedInBlackHole = function(self)
         return self._IsSuckedInBlackHole or false
     end,
-
-    OnBlackHoleDissipated = function(self)
-        -- fired by the blackhole when we're being sucked up but the black hole dissipates before we're destroyed. Revert back to normal damage thread.
-        -- warp to create wreck and damage effects at current (visible) position
-        local pos = self:GetPosition(0)
-        local ori = self:GetOrientation()
-        self.BlackholeSlider:Destroy()
-        Warp( self, pos, ori )
-        self:OnStopBeingSuckedInBlackhole()
-        self:ForkThread( self.DeathThread, self.overkillRatio, nil )
+    
+    OnKilled = function(self, instigator, type, overkillRatio)
+        self:UnregisterSpecialAbilities()
+        if self:WasUnitKilledByBlackhole(type) then
+            self._IsSuckedInBlackHole = true
+        end
+        oldUnit.OnKilled(self, instigator, type, overkillRatio)
+    end,
+    
+    DeathThread = function(self, overkillRatio, instigator)
+        --we replace the death thread with another one for units killed by black holes
+        if self._IsSuckedInBlackHole then
+            self:DeathThreadBlackHole(overkillRatio, instigator)
+        else
+            oldUnit.DeathThread(self, overkillRatio, instigator)
+        end
     end,
 
-    OnStartBeingSuckedInBlackhole = function(self, blackhole)
-    end,
+    DeathThreadBlackHole = function(self, overkillRatio, instigator)
+        --self._IsSuckedInBlackHole = true
+        if not instigator.NukeEntity then 
+            WARN('could not find nuke entity, proceeding with regular death')
+            oldUnit.DeathThread(self, overkillRatio, instigator)
+            return
+        end
+        
+        self.overkillRatio = overkillRatio
+        self:SetCollisionShape('None')
 
-    OnKilledByBlackhole = function(self, blackhole)
-        -- destroy unit without further effects. Matter, light and sounds are sucked in so we're done here
-        self:Destroy()
-    end,
+        self:DestroyAllDamageEffects()
+        self:DestroyTopSpeedEffects()
+        self:DestroyMovementEffects()
+        self:DestroyIdleEffects()
 
-    OnStopBeingSuckedInBlackhole = function(self)
-    end,
-
-    DeathThreadBlackHole = function( self, instigator )
-        self._IsSuckedInBlackHole = true
-
-        local Utilities = import('/lua/utilities.lua')
-
+        if self.TarmacBag then
+            self:DestroyTarmac()
+        end
+            
         -- This is a bit complex. The slider used below uses a relative direction. To feed the correct destinations to the slider
         -- we need to calculate the angle of the black hole relative to the unit, the units angle on the world map and the distance
         -- to the black hole.
-
+        local Utilities = import('/lua/utilities.lua')
         -- distance to black hole
         local pos = self:GetPosition()
-        local HolePos = instigator:GetPosition()
+        local HolePos = instigator.NukeEntity:GetPosition()
         local dist = VDist3(pos, HolePos)
 
         -- unit direction (from vector to angle (rad))
@@ -574,17 +539,29 @@ Unit = Class(oldUnit) {
         self:SetImmobile(true)  -- fix crash with landed aircraft
         self.BlackholeSlider = CreateSlider(self, 0, ox, oy, oz, 0, true)
         self.BlackholeSlider:SetGoal(ox, oy, oz)
-        self.BlackholeSlider:SetSpeed(35)
+        self.BlackholeSlider:SetSpeed(2)
+        --self.BlackholeSlider:SetAcceleration(3) --for some reason this doesnt actually work :/
         self.BlackholeSlider:SetWorldUnits(true)
         self.Trash:Add( self.BlackholeSlider )
+        
+        self.BlackholeRotator = CreateRotator(self, 0, 'x', nil, 0, 10, 180)
+        self.Trash:Add( self.BlackholeRotator )
 
-        self:OnStartBeingSuckedInBlackhole(instigator)
+        self:OnStartBeingSuckedInBlackhole(instigator.NukeEntity)
 
         -- let black hole know we're being sucked in
-        if instigator.OnUnitBeingSuckedIn then
-            instigator:OnUnitBeingSuckedIn(self)
+        if instigator.NukeEntity.OnUnitBeingSuckedIn then
+            instigator.NukeEntity:OnUnitBeingSuckedIn(self)
         end
 
+        --since the acceleration on the slider doesnt work, and WaitFor already loops every second we can just make a manual loop and add in our acceleration there.
+        --ugly code but it works, i blame gpg. maybe one day SetAcceleration will work
+        --WaitSeconds(3)
+        local waitTicks = 30
+        for i = 1, waitTicks do
+            self.BlackholeSlider:SetSpeed(2+(i*0.3))
+            WaitTicks(1)
+        end
         WaitFor( self.BlackholeSlider )
 
         pos = self:GetPosition(0)
@@ -599,11 +576,29 @@ Unit = Class(oldUnit) {
         end
 
         -- let black hole know we've been sucked in
-        if instigator.OnUnitSuckedIn then
-            instigator:OnUnitSuckedIn(self, self.overkillRatio)
+        if instigator.NukeEntity.OnUnitSuckedIn then
+            instigator.NukeEntity:OnUnitSuckedIn(self, self.overkillRatio)
         end
+        
+        self:VeterancyDispersal()
+        self:Destroy()
+    end,
 
-        self:OnKilledByBlackhole(instigator)
+    OnBlackHoleDissipated = function(self)
+        -- fired by the blackhole when we're being sucked up but the black hole dissipates before we're destroyed. Revert back to normal damage thread.
+        -- warp to create wreck and damage effects at current (visible) position
+        local pos = self:GetPosition(0)
+        local ori = self:GetOrientation()
+        self.BlackholeSlider:Destroy()
+        Warp( self, pos, ori )
+        self:OnStopBeingSuckedInBlackhole()
+        self:ForkThread( self.DeathThread, self.overkillRatio, nil )
+    end,
+
+    OnStartBeingSuckedInBlackhole = function(self, blackhole)
+    end,
+
+    OnStopBeingSuckedInBlackhole = function(self)
     end,
 
     -- ================================================================================================================
