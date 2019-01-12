@@ -528,10 +528,12 @@ INU0001 = Class(ACUUnit) {
         
         ResourceAllocation = function(self, bp)
             self:AddToggleCap('RULEUTC_ProductionToggle')
-            self:SetProductionPerSecondEnergy(self.EnergyProduction)
+            self:SetProductionPerSecondEnergy(self.RASEnergyProduction)
+            self:SetScriptBit('RULEUTC_ProductionToggle', false)
         end,
         
         ResourceAllocationRemove = function(self, bp)
+            self:SetScriptBit('RULEUTC_ProductionToggle', true)
             self:RemoveToggleCap('RULEUTC_ProductionToggle')
             self:SetProductionPerSecondEnergy(20)
             self:SetProductionPerSecondMass(1)
