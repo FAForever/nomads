@@ -78,23 +78,7 @@ INU4001 = Class(NExperimentalHoverLandUnit, SlowHover) {
             end,
 
             OnWeaponFired = function(self)
-                self.HatchThreadHandle = self:ForkThread( self.HandleHatchThread )
                 StrategicMissileWeapon.OnWeaponFired(self)
-            end,
-
-            HandleHatchThread = function(self)
-                -- close hatch, then wait and open the hatch again just in time
-                WaitTicks(4)
-                if self.unit and not self.unit:BeenDestroyed() and not self.unit:IsDead() then
-                    local bp = self:GetBlueprint()
-                    local timeTillNextSalvo = math.floor( (10/self.CurrentROF) - (bp.MuzzleSalvoDelay*10*bp.MuzzleSalvoSize) )
-                    local animTime = math.ceil( self.unit:CloseTMLHatch() )
-                    local waitTime = timeTillNextSalvo - animTime - 4
-                    if waitTime > 0 then
-                        WaitTicks( waitTime )
-                    end
-                    self.unit:OpenTMLHatch()
-                end
             end,
 
             ChangeRateOfFire = function(self, value)
@@ -152,6 +136,7 @@ INU4001 = Class(NExperimentalHoverLandUnit, SlowHover) {
         self.HatchAnimManip:SetRate(0)
         self.HatchAnimManip:SetAnimationFraction(1)
         self.Trash:Add( self.HatchAnimManip )
+		self.NukeEntity = 1 
     end,
 
     OnDestroy = function(self)
