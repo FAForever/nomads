@@ -35,12 +35,6 @@ INU1008 = Class(NLandUnit) {
     OnCreate = function(self)
         NLandUnit.OnCreate(self)
         self.WeaponFiredEffectsBag = TrashBag()
-        
-        local bpAnim = self:GetBlueprint().Display.UnpackAnimation
-        if bpAnim then
-            self.AnimManip = CreateAnimator(self):PlayAnim(bpAnim):SetRate(0)
-            self.Trash:Add(self.AnimManip)
-        end
     end,
 
     OnDestroy = function(self)
@@ -73,21 +67,6 @@ INU1008 = Class(NLandUnit) {
             end
         end
         self.WeaponFiredEffectsBag:Add( self:ForkThread(fn) )
-    end,
-    
-    EnableSpecialToggle = function(self)
-        self.AnimManip:SetRate(0.5)
-        self:EnableAnchor(self)
-    end,
-
-    DisableSpecialToggle = function(self)
-        self:ForkThread(self.Repack)
-    end,
-    
-    Repack = function(self)
-        self.AnimManip:SetRate(-0.5)
-        WaitFor(self.AnimManip)
-        self:DisableAnchor(self)
     end,
 }
 

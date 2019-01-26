@@ -64,10 +64,6 @@ UnitBlueprint {
     },
     Description = '<LOC inu1008_desc>Tank Destroyer',
     Display = {
-        Abilities = {
-            '<LOC ability_anchor>Anchor',
-            '<LOC ability_inaccuratewhenmoving>Inaccurate weapon when moving',
-        },
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -139,16 +135,7 @@ UnitBlueprint {
         },
         FactionName = 'Nomads',
         Icon = 'land',
-        OrderOverrides = {
-            RULEUTC_SpecialToggle = {
-                bitmapId = 'toggle-anchor',
-                helpText = 'toggle_anchor',
-            },
-        },
         TechLevel = 'RULEUTL_Basic',
-        ToggleCaps = {
-            RULEUTC_SpecialToggle = true,
-        },
         UnitName = '<LOC inu1008_name>Assassin',
         UnitWeight = 1,
     },
