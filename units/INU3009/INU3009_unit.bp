@@ -1,11 +1,6 @@
 -- T3 tank Slugger
 
 UnitBlueprint {
-    Abilities = {
-        Anchor = {
-            Buff = 'AnchorModeImmobilizeAddRange',
-        },
-    },
     Audio = {
         AmbientMove = Sound {
             Bank = 'UEL',
@@ -68,9 +63,6 @@ UnitBlueprint {
     },
     Description = '<LOC inu3009_desc>Armored Assault Tank',
     Display = {
-        Abilities = {
-            '<LOC ability_anchor>Anchor',
-        },
         BuildEffect = {
             ExtendsFront = 0.1,
             ExtendsRear = 0.35,
@@ -147,16 +139,7 @@ UnitBlueprint {
         },
         FactionName = 'Nomads',
         Icon = 'land',
-        OrderOverrides = {
-            RULEUTC_SpecialToggle = {
-                bitmapId = 'toggle-anchor',
-                helpText = 'toggle_anchor',
-            },
-        },
         TechLevel = 'RULEUTL_Secret',
-        ToggleCaps = {
-            RULEUTC_SpecialToggle = true,
-        },
         UnitName = '<LOC inu3009_name>Slugger',
         UnitWeight = 1,
     },
@@ -181,11 +164,11 @@ UnitBlueprint {
         },
         DragCoefficient = 0.2,
         Elevation = 0,
-        MaxAcceleration = 2.6,
-        MaxBrake = 2.6,
-        MaxSpeed = 2.6,
-        MaxSpeedReverse = 2.6,
-        MaxSteerForce = 2.6,
+        MaxAcceleration = 2.4,
+        MaxBrake = 2.4,
+        MaxSpeed = 2.4,
+        MaxSpeedReverse = 2.4,
+        MaxSteerForce = 2.4,
         MeshExtentsX = 0.8,
         MeshExtentsY = 0.65,
         MeshExtentsZ = 1.25,
@@ -241,7 +224,7 @@ UnitBlueprint {
             FiringTolerance = 0,
             FiringRandomness = 0,
             Label = 'MainGun',
-            MaxRadius = 28,
+            MaxRadius = 32,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 25,
