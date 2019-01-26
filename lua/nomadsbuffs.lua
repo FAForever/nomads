@@ -27,9 +27,6 @@ BuffBlueprint {
         RadarRadius = {
             Mult = 1.3,
         },
-        BuildRate = {
-            Mult = 1.3,
-        },
         VisionRadius = {
             Mult = 1.3,
         },
@@ -99,18 +96,19 @@ BuffBlueprint {
     Stacks = 'REPLACE',
     Duration = -1,
     Affects = {
-        VisionRadius = {
-            Add = 0,
-            Mult = 1.5,
-        },
+--        VisionRadius = {
+--            Add = 0,
+--            Mult = 1.5,
+--        },
 --        RadarRadius = {
---            Add = 0,
---            Mult = 1.25,
+--            Mult = 4,
+--        },		
+--        SonarRadius = {
+--            Mult = 4,
 --        },
---        OmniRadius = {
---            Add = 0,
---            Mult = 1.25,
---        },
+        OmniRadius = {
+            Mult = 2,
+        },
     },
 }
 
