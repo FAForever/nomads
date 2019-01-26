@@ -229,33 +229,6 @@ UnitBlueprint {
         Level5 = 45,
     },
     Weapon = {
-        { -- special dummy weapon to make the unit stop a certain distance away
-            Damage = 0,
-            DamageFriendly = false,
-            FireTargetLayerCapsTable = { --what the unit will stop for, seabed is important too
-                Land = 'Land|Water|Seabed',
-                Water = 'Land|Water|Seabed',
-            },
-            Label = 'TargetTracker',
-            MaxRadius = 100, --same range as long range gun
-            RackBones = {
-                {
-                    MuzzleBones = {
-                        'INU3004', -- when moving to new unit, update these to something that exists on the unit
-                    },
-                    RackBone = 'INU3004',
-                },
-            },
-            RateOfFire = 0.5,
-            TargetCheckInterval = 1,
-            TargetPriorities = {
-                'ALLUNITS',
-            },
-            TargetRestrictDisallow = 'UNTARGETABLE',
-            TrackingRadius = 1.2,
-            Turreted = false,
-            SlavedToBody = false,
-        },
         {
             AboveWaterTargetsOnly = true,
             ArtilleryShieldBlocks = true,
@@ -277,7 +250,7 @@ UnitBlueprint {
                 Land = 'Land|Water|Seabed',
             },
             FiringRandomness = 1.5,
-            FiringTolerance = 10,
+            FiringTolerance = 2,
             IgnoreIfDisabled = true,
             Label = 'ArtilleryGun',
             MaxRadius = 90,

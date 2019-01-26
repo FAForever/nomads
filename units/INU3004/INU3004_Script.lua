@@ -31,20 +31,14 @@ INU3004 = Class(NLandUnit) {
 	OnCreate = function(self)
         NLandUnit.OnCreate(self)
         self:SetWeaponEnabledByLabel('ArtilleryGun', false)
-                
-        local bp = self:GetBlueprint().Weapon
-        self.ArtilleryRange = bp[1].MaxRadius
-        self.SniperRange = bp[2].MaxRadius
     end,
 	
 	OnScriptBitSet = function(self, bit)
         NLandUnit.OnScriptBitClear(self, bit)
         if bit == 1 then
 			local bp = self:GetBlueprint()
-            self:SetSpeedMult(bp.Physics.LandSpeedMultiplier * 0.75)
 			self:SetWeaponEnabledByLabel('ArtilleryGun', true)
 			self:SetWeaponEnabledByLabel('SniperGun', false)
-			self:GetWeaponByLabel('TargetTracker'):ChangeMaxRadius(self.SniperRange)
             self:GetWeaponManipulatorByLabel('ArtilleryGun'):SetHeadingPitch(self:GetWeaponManipulatorByLabel('SniperGun'):GetHeadingPitch())
 		end
 	end,
@@ -52,11 +46,9 @@ INU3004 = Class(NLandUnit) {
     OnScriptBitClear = function(self, bit)
 		NLandUnit.OnScriptBitSet(self, bit)
         if bit == 1 then
-			local bp = self:GetBlueprint()	
-            self:SetSpeedMult(bp.Physics.LandSpeedMultiplier)			
+			local bp = self:GetBlueprint()			
 			self:SetWeaponEnabledByLabel('ArtilleryGun', false)
 			self:SetWeaponEnabledByLabel('SniperGun', true)
-			self:GetWeaponByLabel('TargetTracker'):ChangeMaxRadius(self.ArtilleryRange)
             self:GetWeaponManipulatorByLabel('SniperGun'):SetHeadingPitch(self:GetWeaponManipulatorByLabel('ArtilleryGun'):GetHeadingPitch())
 		end
 	end,
