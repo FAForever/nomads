@@ -1,15 +1,6 @@
 -- T4 experimental transport Comet
 
 UnitBlueprint {
-    Abilities = {
-        ArtillerySupport = {
-            LockoutDuration = 0.2,
-            MaxSimultaniousArtillerySupport = 1,
-            Range = 50,
-            SupportGroundTargetting = true,
-            TargetCategory = 'ALLUNITS',
-        },
-    },
     AI = {
         BeaconName = 'UEB5102',
         GuardReturnRadius = 175,
@@ -77,11 +68,6 @@ UnitBlueprint {
             Cue = 'UEA0305_Move_Stop',
             LodCutoff = 'UnitMove_LodCutoff',
         },
-        SupportingArtilleryPing = Sound {
-            Bank = 'NomadsMisc',
-            Cue = 'ArtillerySupportPinger',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
         Thruster = Sound {
             Bank = 'UEA',
             Cue = 'UEA0305_Move_Thruster',
@@ -118,17 +104,10 @@ UnitBlueprint {
         'TRANSPORTFOCUS',
         'CANTRANSPORTCOMMANDER',
         'ANTIAIR',
-        'ANTINAVY',
         'VISIBLETORECON',
         'OVERLAYANTIAIR',
-        'OVERLAYRADAR',
-        'OVERLAYSONAR',
         'CANNOTUSEAIRSTAGING',
-        'ARTILLERYSUPPORT',
         'UNSTUNABLE',
-        'INTELLIGENCE',
-        'RADAR',
-        'SONAR',
     },
     CollisionOffsetZ = 0,
     Defense = {
@@ -145,9 +124,7 @@ UnitBlueprint {
     Display = {
         Abilities = {
             '<LOC ability_aa>Anti-Air',
-            '<LOC ability_torpedo>Torpedoes',
             '<LOC ability_unstunable>Immune to EMP',
-            '<LOC ability_artillerysupport>Artillery Support',
             '<LOC ability_transport>Transport',
             '<LOC ability_transport_experimental>Transports Experimentals',
             '<LOC ability_radar>Radar',
@@ -289,8 +266,6 @@ UnitBlueprint {
         UnitWeight = 1,
     },
     Intel = {
-        RadarRadius = 100,
-        SonarRadius = 70,
         VisionRadius = 70,
     },
     Interface = {
@@ -427,8 +402,8 @@ UnitBlueprint {
         {
             Audio = {
                 Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB2109_Torpedo',
+                    Bank = 'URAWeapon',
+                    Cue = 'URA0203_Rock_Pack',
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
@@ -444,7 +419,7 @@ UnitBlueprint {
                 Land = 'Land|Water',
             },
             FiringTolerance = 360,
-            Label = 'Torpedo',
+            Label = 'AGRockets',
             MaxRadius = 40,
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 6,

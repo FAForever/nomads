@@ -2,18 +2,14 @@
 
 local Explosion = import('/lua/defaultexplosions.lua')
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
-local SupportingArtilleryAbility = import('/lua/nomadsutils.lua').SupportingArtilleryAbility
 local NAirTransportUnit = import('/lua/nomadsunits.lua').NAirTransportUnit
 local RocketWeapon1 = import('/lua/nomadsweapons.lua').RocketWeapon1
-local DroppedTorpedoWeapon1  = import('/lua/nomadsweapons.lua').DroppedTorpedoWeapon1
-
-NAirTransportUnit = SupportingArtilleryAbility( NAirTransportUnit )
 
 INA4001 = Class(NAirTransportUnit) {
 
     Weapons = {
         AARockets = Class(RocketWeapon1) {},
-        Torpedo = Class(DroppedTorpedoWeapon1) {},
+        AGRockets = Class(RocketWeapon1) {},
     },
 
     DestroyNoFallRandomChance = 1.1,  -- don't blow up in air when killed
