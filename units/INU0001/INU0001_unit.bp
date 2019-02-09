@@ -11,7 +11,7 @@ UnitBlueprint {
 				'CapacitorROF',
             },
             Duration = 30,
-            ChargeEnergyCost = 300,
+            ChargeEnergyCost = 500,
             ChargeTime = 30,
             bitmapId = 'toggle-capacitor',
             helpText = 'toggle_capacitor',
