@@ -51,6 +51,7 @@ INA2001 = Class(NAirTransportUnit) {
 
         -- effects
         self:PlayThrusterEffects()
+        self:Fold(true)
     end,
 
     OnKilled = function(self, instigator, type, overkillRatio)
@@ -262,30 +263,6 @@ INA2001 = Class(NAirTransportUnit) {
     -- When one of our attached units gets killed, detach it
     OnAttachedKilled = function(self, attached)
         attached:DetachFrom()
-    end,
-
-    OnStartTransportLoading = function(self)
-        --LOG('*DEBUG: OnStartTransportLoading')
-        NAirTransportUnit.OnStartTransportLoading(self)
-        self:Fold(true)
-    end,
-
-    OnStopTransportLoading = function(self)
-        --LOG('*DEBUG: OnStopTransportLoading')
-        NAirTransportUnit.OnStopTransportLoading(self)
-        self:Fold(false)
-    end,
-
-    OnTransportAttach = function(self, attachBone, unit)
-        --LOG('*DEBUG: OnTransportAttach')
-        NAirTransportUnit.OnTransportAttach(self, attachBone, unit)
-        self:Fold(true)
-    end,
-
-    OnTransportDetach = function(self, attachBone, unit)
-        --LOG('*DEBUG: OnTransportDetach')
-        NAirTransportUnit.OnTransportDetach(self, attachBone, unit)
-        self:Fold(false)
     end,
 
     Fold = function(self, DoUnfold)
