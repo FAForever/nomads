@@ -205,6 +205,35 @@ Unit = Class(oldUnit) {
     -- ================================================================================================================
     -- TRANSPORT EVENTS
 
+    --pending integration into main game; adds support for custom animation speeds.
+    TransportAnimationThread = function(self, rate)
+        local bp = self:GetBlueprint().Display
+        local animbp
+        rate = rate or 1
+
+        if rate < 0 and bp.TransportDropAnimation then
+            animbp = bp.TransportDropAnimation
+            rate = bp.TransportDropAnimationSpeed or -rate
+        else
+            animbp = bp.TransportAnimation
+            rate = bp.TransportAnimationSpeed or rate
+        end
+
+        WaitSeconds(.5)
+        if animbp then
+            local animBlock = self:ChooseAnimBlock(animbp)
+            if animBlock.Animation then
+                if not self.TransAnimation then
+                    self.TransAnimation = CreateAnimator(self)
+                    self.Trash:Add(self.TransAnimation)
+                end
+                self.TransAnimation:PlayAnim(animBlock.Animation)
+                self.TransAnimation:SetRate(rate)
+                WaitFor(self.TransAnimation)
+            end
+        end
+    end,
+    
     OnAddToStorage = function(self, carrier)
         -- fires when a unit is stored in a carrier (also for refueling)
         carrier:OnUnitAddedToStorage(self)
