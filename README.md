@@ -12,6 +12,8 @@ We can use all the help we can get :
 - giving feedback
 - and much more!
 
+To play the coop campaign see the coop missions repository [here](https://github.com/FAForever/NomadMissions).
+
 Be sure to visit our discord server [here](http://wiki.faforever.com/index.php?title=FAF_Dev_School_Git) where you can help out, comment or simply keep up with progress on the mod. Everyone is welcome!
 
 How do I start contributing?
