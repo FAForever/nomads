@@ -63,6 +63,7 @@ UnitBlueprint {
         'LAND',
         'TECH1',
         'DIRECTFIRE',
+        'HOVER',
         'VISIBLETORECON',
         'RECLAIMABLE',
         'TANK',
