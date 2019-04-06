@@ -404,7 +404,7 @@ CommanderBombardPriorityList = {
 }
 
 function CommanderBombardThread(cdr, platoon)
-    if cdr:GetUnitId() ~= 'inu0001' then return end
+    if cdr:GetUnitId() ~= 'XNL0001' then return end
     --LOG('*DEBUG: AI CommanderBombardThread')
 
     WaitTicks( Random(50,650) )  -- to avoid the artificial appearance when all AI players use their intel probe at the same time
@@ -686,7 +686,7 @@ function CommanderBombardThreadSorian(cdr, platoon)
 end
 
 function CommanderIntelProbeThread(cdr, platoon)
-    if cdr:GetUnitId() ~= 'inu0001' then
+    if cdr:GetUnitId() ~= 'XNL0001' then
         return
     end
 

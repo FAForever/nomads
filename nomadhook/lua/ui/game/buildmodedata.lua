@@ -133,7 +133,7 @@ local NomadsT3Sea = {
 buildModeKeys = table.merged( buildModeKeys, {
 
     -- ACU
-    ['inu0001'] = {
+    ['XNL0001'] = {
         [1] = NomadsT1Eng,
         [2] = NomadsT2Eng,
         [3] = NomadsT3Eng,
@@ -141,7 +141,7 @@ buildModeKeys = table.merged( buildModeKeys, {
     },
 
     -- SCU
-    ['inu0301'] = {
+    ['XNL0301'] = {
         [1] = NomadsT1Eng,
         [2] = NomadsT2Eng,
         [3] = NomadsT3Eng,
@@ -149,24 +149,24 @@ buildModeKeys = table.merged( buildModeKeys, {
     },
 
     -- T1 engineer
-    ['inu1001'] = {
+    ['XNL0105'] = {
         [1] = NomadsT1Eng,
     },
 
     -- T2 engineer
-    ['inu1005'] = {
+    ['XNL0208'] = {
         [1] = NomadsT1Eng,
         [2] = NomadsT2Eng,
     },
 
     -- T2 field engineer
-    ['inu3008'] = {
+    ['XNL0209'] = {
         [1] = NomadsT1Eng,
         [2] = NomadsT2Eng,
     },
 
     -- T3 engineer
-    ['inu2001'] = {
+    ['XNL0309'] = {
         [1] = NomadsT1Eng,
         [2] = NomadsT2Eng,
         [3] = NomadsT3Eng,

@@ -244,9 +244,9 @@ NomadsSCUEnh_ResourceAllocation_Remove = "Remove Resource Generator"
 --------------------------------------------------------
 
 -- ACU
-inu0001_desc = "Armored Command Unit"
-inu0001_help = "Houses Commander. Combination barracks and command center. Contains all the blueprints necessary to build a basic army from scratch."
-inu0001_name = "Armored Command Unit"
+XNL0001_desc = "Armored Command Unit"
+XNL0001_help = "Houses Commander. Combination barracks and command center. Contains all the blueprints necessary to build a basic army from scratch."
+XNL0001_name = "Armored Command Unit"
 
 -- surface operations support
 ino0001_desc = "Surface Operations Support"

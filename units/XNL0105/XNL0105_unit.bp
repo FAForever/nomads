@@ -1,0 +1,336 @@
+-- T1 Engineer
+
+UnitBlueprint {
+    AI = {
+        TargetBones = {
+            'halter',
+        },
+    },
+    Audio = {
+        AmbientIdle = Sound {
+            Bank = 'NomadsUnits',
+            Cue = 'HoverIdle',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        AmbientMoveLand = Sound {
+            Bank = 'NomadsUnits',
+            Cue = 'HoverMoving',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        AmbientMoveWater = Sound {
+            Bank = 'NomadsUnits',
+            Cue = 'HoverMovingOnWater',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        CaptureLoop = Sound {
+            Bank = 'UEL',
+            Cue = 'UEL0105_Capture_Loop',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Construct = Sound {
+            Bank = 'UEL',
+            Cue = 'UEL0105_Construct_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        ConstructLoop = Sound {
+            Bank = 'NomadsUnits',
+            Cue = 'ConstructionBeamLoop',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        ConstructSparkle = Sound {
+            Bank = 'NomadsUnits',
+            Cue = 'ConstructionSparkle',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        Destroyed = Sound {
+            Bank = 'NomadsDestroy',
+            Cue = 'Destroy_Land',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        HoverKilledOnWater = Sound {
+            Bank = 'Explosions',
+            Cue = 'Expl_Water_Lrg_01',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        ReclaimLoop = Sound {
+            Bank = 'UEL',
+            Cue = 'UEL0105_Reclaim_Loop',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        ReclaimSparkle = Sound {
+            Bank = 'NomadsUnits',
+            Cue = 'ReclaimSparkle',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartCapture = Sound {
+            Bank = 'UEL',
+            Cue = 'UEL0105_Capture_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartMove = Sound {
+            Bank = 'UAL',
+            Cue = 'UAL0101_Move_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StartReclaim = Sound {
+            Bank = 'UEL',
+            Cue = 'UEL0105_Reclaim_Start',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        StopMove = Sound {
+            Bank = 'UAL',
+            Cue = 'UAL0101_Move_Stop',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+        UISelection = Sound {
+            Bank = 'NomadsInterface',
+            Cue = 'Nomads_Select_Vehicle',
+            LodCutoff = 'UnitMove_LodCutoff',
+        },
+    },
+    BuildIconSortPriority = 10,
+    Categories = {
+        'SELECTABLE',
+        'BUILTBYTIER1FACTORY',
+        'BUILTBYTIER2FACTORY',
+        'BUILTBYTIER3FACTORY',
+        'NOMADS',
+        'MOBILE',
+        'HOVER',
+        'LAND',
+        'TECH1',
+        'CONSTRUCTION',
+        'ENGINEER',
+        'REPAIR',
+        'RECLAIM',
+        'CAPTURE',
+        'VISIBLETORECON',
+        'RECLAIMABLE',
+        'PATROLHELPER',
+        'SHOWQUEUE',
+    },
+    CollisionOffsetY = -0.05,
+    Defense = {
+        AirThreatLevel = 0,
+        ArmorType = 'Normal',
+        EconomyThreatLevel = 0,
+        Health = 130,
+        MaxHealth = 130,
+        RegenRate = 0,
+        SubThreatLevel = 0,
+        SurfaceThreatLevel = 0,
+    },
+    Description = '<LOC XNL0105_desc>Engineer',
+    Display = {
+        Abilities = {
+            '<LOC ability_hover>Hover',
+            '<LOC ability_engineeringsuite>Engineering Suite',
+        },
+        AnimationBuild = '/units/XNL0105/XNL0105_aunpack.sca',
+        AnimationBuildRate = 2,
+        BuildEffect = {
+            ExtendsFront = -0.03,
+            ExtendsRear = -0.03,
+        },
+        IdleEffects = {
+            Land = {
+                Effects = {
+                    {
+                        Bones = {
+                            'INU1001',
+                        },
+                        Offset = {
+                            0,
+                            -0.1,
+                            0,
+                        },
+                        Scale = 0.4,
+                        Type = 'NomadsHoverGroundFx1',
+                        Recolour = true,
+                    },
+                },
+            },
+            Water = {
+                Effects = {
+                    {
+                        Bones = {
+                            'INU1001',
+                        },
+                        Offset = {
+                            0,
+                            -0.1,
+                            0,
+                        },
+                        Scale = 0.4,
+                        Type = 'NomadsHoverGroundFx1',
+                        Recolour = true,
+                    },
+                },
+            },
+        },
+        Mesh = {
+            IconFadeInZoom = 130,
+            LODs = {
+                {
+                    LODCutoff = 100,
+                    Scrolling = true,
+                    ShaderName = 'NomadsUnit',
+                },
+                {
+                    AlbedoName = 'XNL0105_lod1_albedo.dds',
+                    LODCutoff = 215,
+                    ShaderName = 'NomadsUnit',
+                    SpecularName = 'XNL0105_lod1_specteam.dds',
+                },
+            },
+        },
+        MovementEffects = {
+            Land = {
+                Effects = {
+                    {
+                        Bones = {
+                            'INU1001',
+                        },
+                        Offset = {
+                            0,
+                            -0.1,
+                            0,
+                        },
+                        Scale = 0.4,
+                        Type = 'NomadsHoverGroundFx1',
+                        Recolour = true,
+                    },
+                },
+            },
+            Water = {
+                Effects = {
+                    {
+                        Bones = {
+                            'INU1001',
+                        },
+                        Offset = {
+                            0,
+                            -0.1,
+                            0,
+                        },
+                        Scale = 0.4,
+                        Type = 'NomadsHoverGroundFx1',
+                        Recolour = true,
+                    },
+                },
+            },
+        },
+        PlaceholderMeshName = 'UXB0000',
+        SpawnRandomRotation = false,
+        UniformScale = 0.25,
+    },
+    Economy = {
+        BuildCostEnergy = 260,
+        BuildCostMass = 52,
+        BuildRate = 5,
+        BuildTime = 260,
+        BuildableCategory = {
+            'BUILTBYTIER1ENGINEER NOMADS',
+        },
+        StorageEnergy = 0,
+        StorageMass = 10,
+        TeleportEnergyMod = 0.15,
+        TeleportMassMod = 1,
+        TeleportTimeMod = 0.01,
+    },
+    General = {
+        BuildBones = {
+            AimBone = 'muzzle',
+            BuildEffectBones = {
+                'muzzle',
+            },
+            PitchBone = 'INU1001',
+            YawBone = 'INU1001',
+        },
+        Category = 'Construction',
+        Classification = 'RULEUC_Engineer',
+        CommandCaps = {
+            RULEUCC_Attack = false,
+            RULEUCC_CallTransport = true,
+            RULEUCC_Capture = true,
+            RULEUCC_Guard = true,
+            RULEUCC_Move = true,
+            RULEUCC_Nuke = false,
+            RULEUCC_Patrol = true,
+            RULEUCC_Pause = true,
+            RULEUCC_Reclaim = true,
+            RULEUCC_Repair = true,
+            RULEUCC_RetaliateToggle = false,
+            RULEUCC_Stop = true,
+            RULEUCC_Transport = false,
+        },
+        ConstructionBar = true,
+        FactionName = 'Nomads',
+        Icon = 'amph',
+        SelectionPriority = 3,
+        TechLevel = 'RULEUTL_Basic',
+        UnitWeight = 1,
+    },
+    Intel = {
+        VisionRadius = 18,
+    },
+    Interface = {
+        HelpText = '<LOC XNL0105_help>Engineer',
+    },
+    LifeBarHeight = 0.075,
+    LifeBarOffset = 0.2,
+    LifeBarSize = 0.5,
+    Physics = {
+        BackUpDistance = 4,
+        BankingSlope = 0,
+        BuildOnLayerCaps = {
+            LAYER_Air = false,
+            LAYER_Land = true,
+            LAYER_Orbit = false,
+            LAYER_Seabed = false,
+            LAYER_Sub = false,
+            LAYER_Water = true,
+        },
+        Elevation = 0.2,
+        DragCoefficient = 0.2,
+        MaxAcceleration = 1.9,
+        MaxBrake = 1.9,
+        MaxSpeed = 1.9,
+        MaxSpeedReverse = 1.5,
+        MaxSteerForce = 15,
+        MeshExtentsX = 0.65,
+        MeshExtentsY = 0.85,
+        MeshExtentsZ = 0.6,
+        MinSpeedPercent = 0,
+        MotionType = 'RULEUMT_Hover',
+        RotateBodyWhileMoving = true,
+        RotateOnSpot = true,
+        TurnFacingRate = 50,
+        TurnRadius = 0,
+        TurnRate = 120,
+    },
+    SelectionCenterOffsetX = 0,
+    SelectionCenterOffsetZ = 0,
+    SelectionSizeX = 0.35,
+    SelectionSizeZ = 0.35,
+    SelectionThickness = 0.95,
+    SizeX = 0.7,
+    SizeY = 0.4,
+    SizeZ = 0.55,
+    StrategicIconName = 'icon_land1_engineer',
+    StrategicIconSortPriority = 105,
+    Wreckage = {
+        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        EnergyMult = 0,
+        HealthMult = 0.9,
+        MassMult = 0.9,
+        ReclaimTimeMultiplier = 1,
+        WreckageLayers = {
+            Air = false,
+            Land = true,
+            Seabed = true,
+            Sub = true,
+            Water = true,
+        },
+    },
+}
