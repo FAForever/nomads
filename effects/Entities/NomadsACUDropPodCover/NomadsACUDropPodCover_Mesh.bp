@@ -2,12 +2,12 @@ MeshBlueprint {
     IconFadeInZoom = 130,
     LODs = {
         {
-            AlbedoName = '/units/INA0001/INA0001_Albedo.dds',
+            AlbedoName = '/units/XNA0001/XNA0001_Albedo.dds',
             LODCutoff = 300,
-            MeshName = '/units/INA0001/INA0001_Cover_Lod0.scm',
-            NormalsName = '/units/INA0001/INA0001_NormalsTS.dds',
+            MeshName = '/units/XNA0001/XNA0001_Cover_Lod0.scm',
+            NormalsName = '/units/XNA0001/XNA0001_NormalsTS.dds',
             ShaderName = 'NomadsUnit',
-            SpecularName = '/units/INA0001/INA0001_SpecTeam.dds',
+            SpecularName = '/units/XNA0001/XNA0001_SpecTeam.dds',
         },
     },
 }

@@ -23,7 +23,7 @@ NomadsACUDropMeteor = Class(Meteor) {
         local x,y,z = unpack(pos)
         local terrain = GetTerrainHeight(x, z)
         y = terrain
-        local droppod = CreateUnitHPR('INA0001', army, x, y, z, 0, 0, 0)
+        local droppod = CreateUnitHPR('XNA0001', army, x, y, z, 0, 0, 0)
         --self.Trash:Add(droppod)
 
         -- adjusting droppod elevation to make the unit appear under water if we need it there. Since it is an air unit
