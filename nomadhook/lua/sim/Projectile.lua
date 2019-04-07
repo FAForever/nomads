@@ -53,23 +53,24 @@ Projectile = Class(oldProjectile) {
         end
 
         oldProjectile.OnImpact(self, targetType, targetEntity)
-        if targetType == 'Shield' then
+		
+        --[[if targetType == 'Shield' then
             self:DoShieldDamage( targetEntity )
         elseif targetType == 'Unit' and targetEntity.MyShield ~= nil then
-            if targetEntity:ShieldIsOn() then
+           if targetEntity:ShieldIsOn() then
                 self:DoShieldDamage( targetEntity )
             end
-        end
+        end]]
     end,
 
-    DoShieldDamage = function(self, shield)
+    --[[DoShieldDamage = function(self, shield)
         if self.DamageData.DamageToShields and self.DamageData.DamageToShields > 0 and shield then
             local damage = math.min( self.DamageData.DamageToShields, shield:GetHealth() )
             if damage > 0 then
-                Damage( self:GetLauncher(), self:GetPosition(), shield, damage, self.DamageData.DamageType)
+                --Damage( self:GetLauncher(), self:GetPosition(), shield, damage, self.DamageData.DamageType)
             end
         end
-    end,
+    end,]]
 
     DoUnitImpactBuffs = function(self, target)
         -- the original version of this function has the parent unit do the buffing when there's a radius specified. I also need the
