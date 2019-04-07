@@ -10,7 +10,7 @@ NSeaUnit = AddNavalLights(NSeaUnit)
 
 EnergyCannon1 = SupportedArtilleryWeapon( EnergyCannon1 )
 
-INS2001 = Class(NSeaUnit) {
+XNS0201 = Class(NSeaUnit) {
     Weapons = {
         FrontTurret = Class(EnergyCannon1) {},
         RearTurret = Class(EnergyCannon1) {},
@@ -98,4 +98,4 @@ INS2001 = Class(NSeaUnit) {
     end,
 }
 
-TypeClass = INS2001
+TypeClass = XNS0201

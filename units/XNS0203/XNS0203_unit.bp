@@ -95,7 +95,7 @@ UnitBlueprint {
         SubThreatLevel = 3,
         SurfaceThreatLevel = 0,
     },
-    Description = '<LOC ins1001_desc>Attack Submarine',
+    Description = '<LOC XNS0203_desc>Attack Submarine',
     Display = {
         Abilities = {
             '<LOC ability_sonar>Sonar',
@@ -104,12 +104,12 @@ UnitBlueprint {
         },
 --[[        AnimationDeath = {
             {
-                Animation = '/units/INS1001/INS1001_asink01.sca',
+                Animation = '/units/XNS0203/XNS0203_asink01.sca',
                 Weight = 100,
                 Rate = 0.1,
             },
             {
-                Animation = '/units/INS1001/INS1001_asink02.sca',
+                Animation = '/units/XNS0203/XNS0203_asink02.sca',
                 Weight = 100,
                 Rate = 0.1,
             },
@@ -247,7 +247,7 @@ UnitBlueprint {
         FactionName = 'Nomads',
         Icon = 'sea',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = '<LOC ins1001_name>Buccaneer',
+        UnitName = '<LOC XNS0203_name>Buccaneer',
         UnitWeight = 1,
     },
     Intel = {
@@ -256,7 +256,7 @@ UnitBlueprint {
         WaterVisionRadius = 32,
     },
     Interface = {
-        HelpText = '<LOC ins1001_help>Attack Submarine',
+        HelpText = '<LOC XNS0203_help>Attack Submarine',
     },
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.75,

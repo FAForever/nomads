@@ -8,7 +8,7 @@ local TacticalMissileWeapon1 = import('/lua/nomadsweapons.lua').TacticalMissileW
 
 NSubUnit = AddNavalLights(NSubUnit)
 
-INS3002 = Class(NSubUnit) {
+XNS0304 = Class(NSubUnit) {
     Weapons = {
         MissileLauncher1 = Class(TacticalMissileWeapon1) {},
         Torpedo = Class(TorpedoWeapon1) {},
@@ -22,7 +22,7 @@ INS3002 = Class(NSubUnit) {
         -- create buff used to reduce range under water
         local wep = self:GetWeaponByLabel('MissileLauncher1')
         if wep then
-            self.OnInWaterBuff = 'INS3002_OnWater'
+            self.OnInWaterBuff = 'XNS0304_OnWater'
             local wbp = wep:GetBlueprint()
             local MaxRadiusUnderWater = wbp.MaxRadiusUnderWater or wbp.MaxRadius
             BuffBlueprint {
@@ -77,5 +77,5 @@ INS3002 = Class(NSubUnit) {
     end,
 }
 
-TypeClass = INS3002
+TypeClass = XNS0304
 

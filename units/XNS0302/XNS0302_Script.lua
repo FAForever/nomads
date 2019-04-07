@@ -13,7 +13,7 @@ NSeaUnit = AddNavalLights(NSeaUnit)
 
 PlasmaCannon = SupportedArtilleryWeapon( PlasmaCannon )
 
-INS3004 = Class(NSeaUnit) {
+XNS0302 = Class(NSeaUnit) {
     Weapons = {
         MainTurret1 = Class(PlasmaCannon) {},
         MainTurret2 = Class(PlasmaCannon) {},
@@ -63,4 +63,4 @@ INS3004 = Class(NSeaUnit) {
     end,
 }
 
-TypeClass = INS3004
+TypeClass = XNS0302

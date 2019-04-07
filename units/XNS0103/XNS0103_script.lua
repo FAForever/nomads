@@ -7,7 +7,7 @@ local RocketWeapon1 = import('/lua/nomadsweapons.lua').RocketWeapon1
 
 NSeaUnit = AddNavalLights(NSeaUnit)
 
-INS1002 = Class(NSeaUnit) {
+XNS0103 = Class(NSeaUnit) {
     Weapons = {
         MainGun = Class(StingrayCannon1) {},
         AAGun = Class(RocketWeapon1) {},
@@ -17,4 +17,4 @@ INS1002 = Class(NSeaUnit) {
     LightBone_Right = 'light.001',
 }
 
-TypeClass = INS1002
+TypeClass = XNS0103

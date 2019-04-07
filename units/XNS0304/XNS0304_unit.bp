@@ -91,7 +91,7 @@ UnitBlueprint {
         SubThreatLevel = 60,
         SurfaceThreatLevel = 60,
     },
-    Description = '<LOC ins3002_desc>Tactical Submarine',
+    Description = '<LOC XNS0304_desc>Tactical Submarine',
     Display = {
         Abilities = {
             '<LOC ability_sonar>Sonar',
@@ -101,62 +101,62 @@ UnitBlueprint {
         },
 --[[        AnimationDeath = {
             {
-                Animation = '/units/INS3002/INS3002_ADeath01.sca',
+                Animation = '/units/XNS0304/XNS0304_ADeath01.sca',
                 Weight = 100,
                 Rate = 0.03,
             },
             {
-                Animation = '/units/INS3002/INS3002_ADeath01.sca',
+                Animation = '/units/XNS0304/XNS0304_ADeath01.sca',
                 Weight = 100,
                 Rate = 0.04,
             },
             {
-                Animation = '/units/INS3002/INS3002_ADeath01.sca',
+                Animation = '/units/XNS0304/XNS0304_ADeath01.sca',
                 Weight = 100,
                 Rate = 0.05,
             },
             {
-                Animation = '/units/INS3002/INS3002_ADeath02.sca',
+                Animation = '/units/XNS0304/XNS0304_ADeath02.sca',
                 Weight = 100,
                 Rate = 0.03,
             },
             {
-                Animation = '/units/INS3002/INS3002_ADeath02.sca',
+                Animation = '/units/XNS0304/XNS0304_ADeath02.sca',
                 Weight = 100,
                 Rate = 0.04,
             },
             {
-                Animation = '/units/INS3002/INS3002_ADeath02.sca',
+                Animation = '/units/XNS0304/XNS0304_ADeath02.sca',
                 Weight = 100,
                 Rate = 0.05,
             },
             {
-                Animation = '/units/INS3002/INS3002_ADeath03.sca',
+                Animation = '/units/XNS0304/XNS0304_ADeath03.sca',
                 Weight = 100,
                 Rate = 0.03,
             },
             {
-                Animation = '/units/INS3002/INS3002_ADeath03.sca',
+                Animation = '/units/XNS0304/XNS0304_ADeath03.sca',
                 Weight = 100,
                 Rate = 0.04,
             },
             {
-                Animation = '/units/INS3002/INS3002_ADeath03.sca',
+                Animation = '/units/XNS0304/XNS0304_ADeath03.sca',
                 Weight = 100,
                 Rate = 0.05,
             },
             {
-                Animation = '/units/INS3002/INS3002_ADeath04.sca',
+                Animation = '/units/XNS0304/XNS0304_ADeath04.sca',
                 Weight = 100,
                 Rate = 0.03,
             },
             {
-                Animation = '/units/INS3002/INS3002_ADeath04.sca',
+                Animation = '/units/XNS0304/XNS0304_ADeath04.sca',
                 Weight = 100,
                 Rate = 0.04,
             },
             {
-                Animation = '/units/INS3002/INS3002_ADeath04.sca',
+                Animation = '/units/XNS0304/XNS0304_ADeath04.sca',
                 Weight = 100,
                 Rate = 0.05,
             },
@@ -187,13 +187,13 @@ UnitBlueprint {
             IconFadeInZoom = 130,
             LODs = {
                 {
-                    AlbedoName = '/units/INS3002/INS3002_Albedo.dds',
+                    AlbedoName = '/units/XNS0304/XNS0304_Albedo.dds',
                     LODCutoff = 450,
-                    MeshName = '/units/INS3002/INS3002_LOD0.scm',
-                    NormalsName = '/units/INS3002/INS3002_normalsTS.dds',
+                    MeshName = '/units/XNS0304/XNS0304_LOD0.scm',
+                    NormalsName = '/units/XNS0304/XNS0304_normalsTS.dds',
                     Scrolling = true,
                     ShaderName = 'NomadsUnit',
-                    SpecularName = '/units/INS3002/INS3002_SpecTeam.dds',
+                    SpecularName = '/units/XNS0304/XNS0304_SpecTeam.dds',
                 },
             },
         },
@@ -291,7 +291,7 @@ UnitBlueprint {
         FactionName = 'Nomads',
         Icon = 'sea',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = '<LOC ins3002_name>Leviathan',
+        UnitName = '<LOC XNS0304_name>Leviathan',
         UnitWeight = 1,
     },
     Intel = {
@@ -300,7 +300,7 @@ UnitBlueprint {
         WaterVisionRadius = 45,
     },
     Interface = {
-        HelpText = '<LOC ins3002_help>Strategic Submarine',
+        HelpText = '<LOC XNS0304_help>Strategic Submarine',
     },
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.5,

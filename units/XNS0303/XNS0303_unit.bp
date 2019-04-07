@@ -106,7 +106,7 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
     },
-    Description = '<LOC ins3003_desc>Aircraft Carrier',
+    Description = '<LOC XNS0303_desc>Aircraft Carrier',
     Display = {
         Abilities = {
             '<LOC ability_aa>Anti-Air',
@@ -119,62 +119,62 @@ UnitBlueprint {
         },
 --[[        AnimationDeath = {
             {
-                Animation = '/units/INS3003/INS3003_ADeath01.sca',
+                Animation = '/units/XNS0303/XNS0303_ADeath01.sca',
                 Weight = 100,
                 Rate = 0.05,
             },
             {
-                Animation = '/units/INS3003/INS3003_ADeath01.sca',
+                Animation = '/units/XNS0303/XNS0303_ADeath01.sca',
                 Weight = 100,
                 Rate = 0.04,
             },
             {
-                Animation = '/units/INS3003/INS3003_ADeath01.sca',
+                Animation = '/units/XNS0303/XNS0303_ADeath01.sca',
                 Weight = 100,
                 Rate = 0.03,
             },
             {
-                Animation = '/units/INS3003/INS3003_ADeath02.sca',
+                Animation = '/units/XNS0303/XNS0303_ADeath02.sca',
                 Weight = 100,
                 Rate = 0.05,
             },
             {
-                Animation = '/units/INS3003/INS3003_ADeath02.sca',
+                Animation = '/units/XNS0303/XNS0303_ADeath02.sca',
                 Weight = 100,
                 Rate = 0.04,
             },
             {
-                Animation = '/units/INS3003/INS3003_ADeath02.sca',
+                Animation = '/units/XNS0303/XNS0303_ADeath02.sca',
                 Weight = 100,
                 Rate = 0.06,
             },
             {
-                Animation = '/units/INS3003/INS3003_ADeath03.sca',
+                Animation = '/units/XNS0303/XNS0303_ADeath03.sca',
                 Weight = 100,
                 Rate = 0.05,
             },
             {
-                Animation = '/units/INS3003/INS3003_ADeath03.sca',
+                Animation = '/units/XNS0303/XNS0303_ADeath03.sca',
                 Weight = 100,
                 Rate = 0.04,
             },
             {
-                Animation = '/units/INS3003/INS3003_ADeath03.sca',
+                Animation = '/units/XNS0303/XNS0303_ADeath03.sca',
                 Weight = 100,
                 Rate = 0.03,
             },
             {
-                Animation = '/units/INS3003/INS3003_ADeath04.sca',
+                Animation = '/units/XNS0303/XNS0303_ADeath04.sca',
                 Weight = 100,
                 Rate = 0.05,
             },
             {
-                Animation = '/units/INS3003/INS3003_ADeath04.sca',
+                Animation = '/units/XNS0303/XNS0303_ADeath04.sca',
                 Weight = 100,
                 Rate = 0.04,
             },
             {
-                Animation = '/units/INS3003/INS3003_ADeath04.sca',
+                Animation = '/units/XNS0303/XNS0303_ADeath04.sca',
                 Weight = 100,
                 Rate = 0.03,
             },
@@ -201,13 +201,13 @@ UnitBlueprint {
             IconFadeInZoom = 130,
             LODs = {
                 {
-                    AlbedoName = '/units/INS3003/INS3003_Albedo.dds',
+                    AlbedoName = '/units/XNS0303/XNS0303_Albedo.dds',
                     LODCutoff = 600,
-                    MeshName = '/units/INS3003/INS3003_LOD0.scm',
-                    NormalsName = '/units/INS3003/INS3003_normalsTS.dds',
+                    MeshName = '/units/XNS0303/XNS0303_LOD0.scm',
+                    NormalsName = '/units/XNS0303/XNS0303_normalsTS.dds',
                     Scrolling = true,
                     ShaderName = 'NomadsUnit',
-                    SpecularName = '/units/INS3003/INS3003_SpecTeam.dds',
+                    SpecularName = '/units/XNS0303/XNS0303_SpecTeam.dds',
                 },
             },
         },
@@ -292,7 +292,7 @@ UnitBlueprint {
             },
         },
         TechLevel = 'RULEUTL_Secret',
-        UnitName = '<LOC ins3003_name>Mastodon',
+        UnitName = '<LOC XNS0303_name>Mastodon',
         UnitWeight = 1,
     },
     Intel = {
@@ -302,7 +302,7 @@ UnitBlueprint {
         WaterVisionRadius = 36,
     },
     Interface = {
-        HelpText = '<LOC ins3003_help>Aircraft Carrier',
+        HelpText = '<LOC XNS0303_help>Aircraft Carrier',
     },
     LifeBarHeight = 0.075,
     LifeBarOffset = 7.75,

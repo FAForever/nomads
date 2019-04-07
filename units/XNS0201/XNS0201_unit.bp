@@ -78,7 +78,7 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 45,
     },
-    Description = '<LOC ins2001_desc>Destroyer',
+    Description = '<LOC XNS0201_desc>Destroyer',
     Display = {
         Abilities = {
             '<LOC ability_radar>Radar',
@@ -86,7 +86,7 @@ UnitBlueprint {
         },
 --[[        AnimationDeath = {
             {
-                Animation = '/units/INS2001/INS2001_ADeath01.sca',
+                Animation = '/units/XNS0201/XNS0201_ADeath01.sca',
                 Weight = 100,
                 Rate = 0.05,
             },
@@ -114,13 +114,13 @@ UnitBlueprint {
             IconFadeInZoom = 130,
             LODs = {
                 {
-                    AlbedoName = '/units/INS2001/INS2001_Albedo.dds',
+                    AlbedoName = '/units/XNS0201/XNS0201_Albedo.dds',
                     LODCutoff = 450,
-                    MeshName = '/units/INS2001/INS2001_LOD0.scm',
-                    NormalsName = '/units/INS2001/INS2001_normalsTS.dds',
+                    MeshName = '/units/XNS0201/XNS0201_LOD0.scm',
+                    NormalsName = '/units/XNS0201/XNS0201_normalsTS.dds',
                     Scrolling = true,
                     ShaderName = 'NomadsUnit',
-                    SpecularName = '/units/INS2001/INS2001_SpecTeam.dds',
+                    SpecularName = '/units/XNS0201/XNS0201_SpecTeam.dds',
                 },
             },
         },
@@ -189,7 +189,7 @@ UnitBlueprint {
         TechLevel = 'RULEUTL_Advanced',
         ToggleCaps = {
         },
-        UnitName = '<LOC ins2001_name>Firestorm',
+        UnitName = '<LOC XNS0201_name>Firestorm',
         UnitWeight = 1,
     },
     Intel = {
@@ -199,7 +199,7 @@ UnitBlueprint {
         WaterVisionRadius = 45,
     },
     Interface = {
-        HelpText = '<LOC ins2001_help>Bombardement-Ship',
+        HelpText = '<LOC XNS0201_help>Bombardement-Ship',
     },
     LifeBarHeight = 0.075,
     LifeBarOffset = 2.45,

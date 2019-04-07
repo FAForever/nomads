@@ -82,7 +82,7 @@ UnitBlueprint {
         SubThreatLevel = 45,
         SurfaceThreatLevel = 180,
     },
-    Description = '<LOC ins3004_desc>Heavy Destroyer',
+    Description = '<LOC XNS0302_desc>Heavy Destroyer',
     Display = {
         Abilities = {
             '<LOC ability_aa>Anti-Air',
@@ -92,47 +92,47 @@ UnitBlueprint {
         },
 --[[        AnimationDeath = {
             {
-                Animation = '/units/INS3004/INS3004_ADeath01.sca',
+                Animation = '/units/XNS0302/XNS0302_ADeath01.sca',
                 Rate = 0.03,
                 Weight = 100,
             },
             {
-                Animation = '/units/INS3004/INS3004_ADeath01.sca',
+                Animation = '/units/XNS0302/XNS0302_ADeath01.sca',
                 Rate = 0.04,
                 Weight = 100,
             },
             {
-                Animation = '/units/INS3004/INS3004_ADeath02.sca',
+                Animation = '/units/XNS0302/XNS0302_ADeath02.sca',
                 Rate = 0.03,
                 Weight = 100,
             },
             {
-                Animation = '/units/INS3004/INS3004_ADeath02.sca',
+                Animation = '/units/XNS0302/XNS0302_ADeath02.sca',
                 Rate = 0.04,
                 Weight = 100,
             },
             {
-                Animation = '/units/INS3004/INS3004_ADeath02.sca',
+                Animation = '/units/XNS0302/XNS0302_ADeath02.sca',
                 Rate = 0.05,
                 Weight = 100,
             },
             {
-                Animation = '/units/INS3004/INS3004_ADeath03.sca',
+                Animation = '/units/XNS0302/XNS0302_ADeath03.sca',
                 Rate = 0.04,
                 Weight = 100,
             },
             {
-                Animation = '/units/INS3004/INS3004_ADeath03.sca',
+                Animation = '/units/XNS0302/XNS0302_ADeath03.sca',
                 Rate = 0.05,
                 Weight = 100,
             },
             {
-                Animation = '/units/INS3004/INS3004_ADeath04.sca',
+                Animation = '/units/XNS0302/XNS0302_ADeath04.sca',
                 Rate = 0.04,
                 Weight = 100,
             },
             {
-                Animation = '/units/INS3004/INS3004_ADeath04.sca',
+                Animation = '/units/XNS0302/XNS0302_ADeath04.sca',
                 Rate = 0.05,
                 Weight = 100,
             },
@@ -154,13 +154,13 @@ UnitBlueprint {
             IconFadeInZoom = 130,
             LODs = {
                 {
-                    AlbedoName = '/units/INS3004/INS3004_Albedo.dds',
+                    AlbedoName = '/units/XNS0302/XNS0302_Albedo.dds',
                     LODCutoff = 600,
-                    MeshName = '/units/INS3004/INS3004_LOD0.scm',
-                    NormalsName = '/units/INS3004/INS3004_normalsTS.dds',
+                    MeshName = '/units/XNS0302/XNS0302_LOD0.scm',
+                    NormalsName = '/units/XNS0302/XNS0302_normalsTS.dds',
                     Scrolling = true,
                     ShaderName = 'NomadsUnit',
-                    SpecularName = '/units/INS3004/INS3004_SpecTeam.dds',
+                    SpecularName = '/units/XNS0302/XNS0302_SpecTeam.dds',
                 },
             },
         },
@@ -235,7 +235,7 @@ UnitBlueprint {
         TechLevel = 'RULEUTL_Secret',
         ToggleCaps = {
         },
-        UnitName = '<LOC ins3004_name>Juggernaut',
+        UnitName = '<LOC XNS0302_name>Juggernaut',
         UnitWeight = 1,
     },
     Intel = {
@@ -245,7 +245,7 @@ UnitBlueprint {
         WaterVisionRadius = 50,
     },
     Interface = {
-        HelpText = '<LOC ins3004_help>This ship is a little bit thin in an armor, but carries great fire power of 2 heavy long range plasma turrets, two smaller stingray cannons, flak AA defense and a submerged railgun.',
+        HelpText = '<LOC XNS0302_help>This ship is a little bit thin in an armor, but carries great fire power of 2 heavy long range plasma turrets, two smaller stingray cannons, flak AA defense and a submerged railgun.',
     },
     LifeBarHeight = 0.075,
     LifeBarOffset = 6.5,

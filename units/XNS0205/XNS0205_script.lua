@@ -9,7 +9,7 @@ local Utilities = import('/lua/utilities.lua')
 
 NSeaUnit = AddNavalLights(NSeaUnit)
 
-INS2003 = Class(NSeaUnit) {
+XNS0205 = Class(NSeaUnit) {
     Weapons = {
         MainGun = Class(UnderwaterRailgunWeapon1) {},
         RearGun = Class(UnderwaterRailgunWeapon1) {},
@@ -179,7 +179,7 @@ INS2003 = Class(NSeaUnit) {
             target.x = target.x - MyPos.x
             target.z = target.z - MyPos.z
             target = Utilities.NormalizeVector(target)
-            BodyX, BodyY, BodyZ = self:GetBoneDirection('ins2003')
+            BodyX, BodyY, BodyZ = self:GetBoneDirection('xns0205')
             BodyDir = Utilities.NormalizeVector( Vector( BodyX, 0, BodyZ) )
             GoalAngle = ( math.atan2( target.x, target.z ) - math.atan2( BodyDir.x, BodyDir.z ) ) * 180 / math.pi
 
@@ -246,4 +246,4 @@ INS2003 = Class(NSeaUnit) {
     end,
 }
 
-TypeClass = INS2003
+TypeClass = XNS0205

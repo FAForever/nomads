@@ -8,7 +8,7 @@ local TacticalMissileWeapon1 = import('/lua/nomadsweapons.lua').TacticalMissileW
 
 NSeaUnit = AddNavalLights(NSeaUnit)
 
-INS2002 = Class(NSeaUnit) {
+XNS0202 = Class(NSeaUnit) {
     Weapons = {
         AATurret = Class(RocketWeapon1) {},
         GunTurret = Class(EMPGun) {},
@@ -20,4 +20,4 @@ INS2002 = Class(NSeaUnit) {
     DestructionTicks = 200,
 }
 
-TypeClass = INS2002
+TypeClass = XNS0202

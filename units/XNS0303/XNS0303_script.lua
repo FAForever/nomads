@@ -13,7 +13,7 @@ local HVFlakWeapon = import('/lua/nomadsweapons.lua').HVFlakWeapon
 --NSeaUnit = SupportingArtilleryAbility( NSeaUnit )
 NSeaUnit = AddFlares( NSeaUnit )
 
-INS3003 = Class(NSeaUnit) {
+XNS0303 = Class(NSeaUnit) {
 
     Weapons = {
         AAGun1 = Class(ParticleBlaster1) {
@@ -357,4 +357,4 @@ INS3003 = Class(NSeaUnit) {
     },
 }
 
-TypeClass = INS3003
+TypeClass = XNS0303
