@@ -5,7 +5,7 @@ local OrbitalMissileWeapon = import('/lua/nomadsweapons.lua').OrbitalMissileWeap
 local CreateNomadsBuildSliceBeams = import('/lua/nomadseffectutilities.lua').CreateNomadsBuildSliceBeams
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 
-INO0001 = Class(NOrbitUnit) {
+xno0001 = Class(NOrbitUnit) {
     Weapons = {
         OrbitalGun1 = Class(OrbitalMissileWeapon) {},
         OrbitalGun2 = Class(OrbitalMissileWeapon) {},
@@ -135,14 +135,14 @@ INO0001 = Class(NOrbitUnit) {
 
         if unitType and type(unitType) == 'string' then
             if cb and type(cb) ~= 'function' then
-                WARN('INO0001: AddToConstructionQueue(): Passed callback is not a function! Ignoring it.')
+                WARN('xno0001: AddToConstructionQueue(): Passed callback is not a function! Ignoring it.')
                 cb = nil
             end
             table.insert( self.BuildQueue, { unitType = unitType, cb = cb, attachBone = attachBone, } )
             self:MaybeStartConstruction()
             return true
         else
-            WARN('INO0001: AddToConstructionQueue(): Passed unit type is not a string.')
+            WARN('xno0001: AddToConstructionQueue(): Passed unit type is not a string.')
         end
         return false
     end,
@@ -371,4 +371,4 @@ INO0001 = Class(NOrbitUnit) {
 
 }
 
-TypeClass = INO0001
+TypeClass = xno0001

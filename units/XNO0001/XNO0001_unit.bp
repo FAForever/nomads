@@ -39,12 +39,12 @@ UnitBlueprint {
             LODs = {
                 {
                 
-                    AlbedoName = '/Units/INO0001/INO0001_albedo.dds',
+                    AlbedoName = '/Units/XNO0001/XNO0001_albedo.dds',
                     LODCutoff = 10000,
-                    MeshName = '/Units/INO0001/INO0001_LOD0.scm',
-                    NormalsName = '/Units/INO0001/INO0001_normalsTS.dds',
+                    MeshName = '/Units/XNO0001/XNO0001_LOD0.scm',
+                    NormalsName = '/Units/XNO0001/XNO0001_normalsTS.dds',
                     ShaderName = 'NomadsUnit',
-                    SpecularName = '/Units/INO0001/INO0001_specteam.dds',
+                    SpecularName = '/Units/XNO0001/XNO0001_specteam.dds',
                 },
             },
         },
@@ -73,14 +73,14 @@ UnitBlueprint {
         FactionName = 'Nomads',
         Icon = 'air',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = '<LOC ino0001>Planet operations support ship',
+        UnitName = '<LOC xno0001>Planet operations support ship',
         UnitWeight = 1,
     },
     Intel = {
         VisionRadius = 0,
     },
     Interface = {
-        HelpText = '<LOC ino0001_help>Orbital Support Spacecraft',
+        HelpText = '<LOC xno0001_help>Orbital Support Spacecraft',
     },
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.4,
