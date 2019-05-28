@@ -57,7 +57,7 @@ XNA0105 = Class(NAirUnit) {
             local r = self.BarrelAnim:GetRate()
             local f = self.BarrelAnim:GetAnimationFraction()
             if r == 0 then
-                --LOG('INA1004: Not watching barrel anim because animation rate is 0')
+                --LOG('xna0105: Not watching barrel anim because animation rate is 0')
                 return
             elseif (r > 0 and f >= fraction) or (r < 0 and f <= fraction) then
                 self.BarrelAnim:SetRate(0)

@@ -62,7 +62,7 @@ XNB3303 = Class(NStructureUnit) {
                     secondSalvo = true
                 end
 
-                LOG('*DEBUG: INB3303 MissileBones set in script do not match MuzzleBones in weapon BP')
+                LOG('*DEBUG: xnb3303 MissileBones set in script do not match MuzzleBones in weapon BP')
             end,
 
             MakeSupported = function(self)

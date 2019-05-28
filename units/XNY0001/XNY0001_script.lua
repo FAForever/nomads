@@ -30,7 +30,7 @@ end,
     end,
 
     PointAntennaStraightUp = function(self)
-        --LOG('INY0001: PointAntennaStraightUp')
+        --LOG('xny0001: PointAntennaStraightUp')
 
         WaitSeconds(0.2)
 

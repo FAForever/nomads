@@ -21,7 +21,7 @@ XNB4205 = Class(NShieldStructureUnit) {
 
     OnCreate = function(self)
         NShieldStructureUnit.OnCreate(self)
-        self.UpgrAnim = CreateAnimator(self):PlayAnim('/units/INB4301/INB4301_UpgradeToT2Stlth.sca')
+        self.UpgrAnim = CreateAnimator(self):PlayAnim('/units/xnb4301/xnb4301_UpgradeToT2Stlth.sca')
         self.UpgrAnim:SetRate(0):SetAnimationFraction(1)
         self.Trash:Add(self.UpgrAnim)
         self.ShieldEffectsBag = {}

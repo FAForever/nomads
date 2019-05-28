@@ -24,7 +24,7 @@ XNA0001 = Class(Unit) {
     end,
 
     AddOpenUpCallback = function(self, fn)
-        -- fn -> function( <INA0001 instance>, <Opening anim state: opening|opened|expired>)
+        -- fn -> function( <xna0001 instance>, <Opening anim state: opening|opened|expired>)
         self:AddUnitCallback(fn, 'openup')
     end,
 

@@ -29,7 +29,7 @@ XNB2302 = Class(NStructureUnit) {
         while not self:IsDead() and self:GetFractionComplete() < 1 and not self.ArtilleryUnitRequested do
             if self:GetFractionComplete() >= 0.5 and (self:GetHealth() / self:GetMaxHealth()) >= 0.5 then
                 self.ArtilleryUnitRequested = true
-                self:GetAIBrain():RequestUnitAssignedToParent(self, 'ino2302', self.OnArtilleryUnitAssigned)
+                self:GetAIBrain():RequestUnitAssignedToParent(self, 'xno2302', self.OnArtilleryUnitAssigned)
             end
             WaitSeconds(2)
         end
@@ -44,7 +44,7 @@ XNB2302 = Class(NStructureUnit) {
                 WaitSeconds(5)
                 if not self.ArtilleryUnitRequested then
                     self.ArtilleryUnitRequested = true
-                    self:GetAIBrain():RequestUnitAssignedToParent(self, 'ino2302', self.OnArtilleryUnitAssigned)
+                    self:GetAIBrain():RequestUnitAssignedToParent(self, 'xno2302', self.OnArtilleryUnitAssigned)
                 end
             end)
         end

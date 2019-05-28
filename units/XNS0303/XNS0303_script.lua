@@ -184,7 +184,7 @@ XNS0303 = Class(NSeaUnit) {
         },
     },
 
-    BuildAttachBone = 'INS3003',
+    BuildAttachBone = 'xns0303',
     DestructionPartsLowToss = { 'Pad1_1', 'Pad1_2', 'Pad1_3', 'Pad1_4', 'Pad1_5', 'Pad1_6',
                                 'Pad2_1', 'Pad2_2', 'Pad2_3', 'Pad2_4', 'Pad2_5', 'Pad2_6',
                                 'Pad3_1', 'Pad3_2', 'Pad3_3', 'Pad3_4', 'Pad3_5', 'Pad3_6',
@@ -205,7 +205,7 @@ XNS0303 = Class(NSeaUnit) {
         self.OpenAnimManips = {}
         local n=1
         for i=1, 3 do  -- change the number of loops to control the number of pads used, max 3 and min 1
-            self.OpenAnimManips[n] = CreateAnimator(self):PlayAnim('/units/INS3003/INS3003_OpenPad'..i..'.sca'):SetRate(0)
+            self.OpenAnimManips[n] = CreateAnimator(self):PlayAnim('/units/xns0303/xns0303_OpenPad'..i..'.sca'):SetRate(0)
             self.OpenAnimManips[n]:SetAnimationFraction(0)
             self.Trash:Add( self.OpenAnimManips[n] )
             n = n + 1

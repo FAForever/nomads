@@ -128,7 +128,7 @@ XNB0304 = Class(NSCUFactoryUnit) {
 
             if self.PABD_progress == 99 then
                 -- something died. Stop this.
-                --LOG('*DEBUG: INB0304 something died.')
+                --LOG('*DEBUG: xnb0304 something died.')
 
                 self:DestroyPartArrivesByDropshipThread()
                 break
@@ -136,12 +136,12 @@ XNB0304 = Class(NSCUFactoryUnit) {
 
             if self.PABD_progress == 0 then
                 -- wait till progressed far enough
-                --LOG('*DEBUG: INB0304 waiting till unit construction progress is far enough')
+                --LOG('*DEBUG: xnb0304 waiting till unit construction progress is far enough')
             end
 
             if self.PABD_progress == 1 or (prevProg < 1 and self.PABD_progress > 1) then
                 -- start moving head to body
-                --LOG('*DEBUG: INB0304 move head to body')
+                --LOG('*DEBUG: xnb0304 move head to body')
 
                 local FocusCurPos = self:GetPosition('TractorFocus')
                 local TarPos = unitBeingBuilt:GetPosition(ubbBone)
@@ -156,7 +156,7 @@ XNB0304 = Class(NSCUFactoryUnit) {
 
             if self.PABD_progress == 9 then
                 -- attach head to body
-                --LOG('*DEBUG: INB0304 attach head to body')
+                --LOG('*DEBUG: xnb0304 attach head to body')
 
                 unitBeingBuilt:ShowBone(ubbBone, true)
                 self.lookalike:Destroy()
