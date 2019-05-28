@@ -249,94 +249,94 @@ XNL0001_help = "Houses Commander. Combination barracks and command center. Conta
 XNL0001_name = "Armored Command Unit"
 
 -- surface operations support
-ino0001_desc = "Surface Operations Support"
-ino0001_help = "Provides a number of services to the ACU."
-ino0001_name = "Surface Operations Support"
+xno0001_desc = "Surface Operations Support"
+xno0001_help = "Provides a number of services to the ACU."
+xno0001_name = "Surface Operations Support"
 
-inc0001_desc = "Orbital Frigate"
-inc0001_help = "Provides a number of services to the ACU."
-inc0001_name = "Planetary Operations Support Ship"
+xnc0001_desc = "Orbital Frigate"
+xnc0001_help = "Provides a number of services to the ACU."
+xnc0001_name = "Planetary Operations Support Ship"
 
-inc0002_desc = "Orbital Cruiser"
-inc0002_help = "Heavily damaged orbital cruiser."
-inc0002_name = "Orbital Cruiser"
+xnc0002_desc = "Orbital Cruiser"
+xnc0002_help = "Heavily damaged orbital cruiser."
+xnc0002_name = "Orbital Cruiser"
 
 
 -- orbital dropship
-ina0001_desc = "Drop pod"
-ina0001_help = "Transports units to the planets surface. Acts like a meteor."
-ina0001_name = "Meteor"
+xna0001_desc = "Drop pod"
+xna0001_help = "Transports units to the planets surface. Acts like a meteor."
+xna0001_name = "Meteor"
 
 -- area reinforcement unit
-ina2101_desc = "Area reinforcement"
-ina2101_help = "Stand alone unit that automatically attacks enemies in range. Has a limited lifetime, the unit crashes when out of fuel."
-ina2101_name = "Fanatic"
+xna2101_desc = "Area reinforcement"
+xna2101_help = "Stand alone unit that automatically attacks enemies in range. Has a limited lifetime, the unit crashes when out of fuel."
+xna2101_name = "Fanatic"
 
 -- orbital artillery gun (slave unit for T3 heavy artillery)
-ino2302_desc = "Orbital Artillery Gun"
-ino2302_help = "A gun turret in orbit. Fires high damage shells. Controlled by a ground station."
-ino2302_name = "Orbital Artillery Gun"
+xno2302_desc = "Orbital Artillery Gun"
+xno2302_help = "A gun turret in orbit. Fires high damage shells. Controlled by a ground station."
+xno2302_name = "Orbital Artillery Gun"
 
 -- support commander (and enhancement presets)
-inu0301_desc = "Support Armored Command Unit"
-inu0301_help = "Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or a combination. This variant is not enhanced during construction and does not have weapons and very limited engineering capabilities."
-inu0301_name = "Support Armored Command Unit"
+xnl0301_desc = "Support Armored Command Unit"
+xnl0301_help = "Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or a combination. This variant is not enhanced during construction and does not have weapons and very limited engineering capabilities."
+xnl0301_name = "Support Armored Command Unit"
 
-inu0301_combat_desc = "Support Armored Command Unit (Preset: Combat)"
-inu0301_combat_help = "Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or a combination. Enhanced during construction with an upgraded main cannon on the left arm and close combat machine gun on the right arm."
-inu0301_combat_name = "Support Armored Command Unit (Preset: Combat)"
+xnl0301_combat_desc = "Support Armored Command Unit (Preset: Combat)"
+xnl0301_combat_help = "Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or a combination. Enhanced during construction with an upgraded main cannon on the left arm and close combat machine gun on the right arm."
+xnl0301_combat_name = "Support Armored Command Unit (Preset: Combat)"
 
-inu0301_default_desc = "Support Armored Command Unit (Preset: Regular)"
-inu0301_default_help = "Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or a combination. Enhanced during construction with a weapon on the right arm and engineering capabilities on the left arm."
-inu0301_default_name = "Support Armored Command Unit (Preset: Regular)"
+xnl0301_default_desc = "Support Armored Command Unit (Preset: Regular)"
+xnl0301_default_help = "Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or a combination. Enhanced during construction with a weapon on the right arm and engineering capabilities on the left arm."
+xnl0301_default_name = "Support Armored Command Unit (Preset: Regular)"
 
-inu0301_energyrocket_desc = "Support Armored Command Unit (Preset: Energy Rocket Launcher)"
-inu0301_energyrocket_help= "Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or a combination. Enhanced during construction with a rocket launcher on both shoulders and a resource generator on the back to improve capacitor fill rate."
-inu0301_energyrocket_name = "Support Armored Command Unit (Preset: Energy Rocket Launcher)"
+xnl0301_energyrocket_desc = "Support Armored Command Unit (Preset: Energy Rocket Launcher)"
+xnl0301_energyrocket_help= "Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or a combination. Enhanced during construction with a rocket launcher on both shoulders and a resource generator on the back to improve capacitor fill rate."
+xnl0301_energyrocket_name = "Support Armored Command Unit (Preset: Energy Rocket Launcher)"
 
-inu0301_engineer_desc = "Support Armored Command Unit (Preset: Engineer)"
-inu0301_engineer_help = "Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or a combination. Enhanced during construction with two engineering arms."
-inu0301_engineer_name = "Support Armored Command Unit (Preset: Engineer)"
+xnl0301_engineer_desc = "Support Armored Command Unit (Preset: Engineer)"
+xnl0301_engineer_help = "Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or a combination. Enhanced during construction with two engineering arms."
+xnl0301_engineer_name = "Support Armored Command Unit (Preset: Engineer)"
 
-inu0301_fastcombat_desc = "Support Armored Command Unit (Preset: Fast Combat)"
-inu0301_fastcombat_help = "Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or a combination. Enhanced during construction with a cannon, a machine gun and an improved locomotor."
-inu0301_fastcombat_name = "Support Armored Command Unit (Preset: Fast Combat)"
+xnl0301_fastcombat_desc = "Support Armored Command Unit (Preset: Fast Combat)"
+xnl0301_fastcombat_help = "Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or a combination. Enhanced during construction with a cannon, a machine gun and an improved locomotor."
+xnl0301_fastcombat_name = "Support Armored Command Unit (Preset: Fast Combat)"
 
-inu0301_gunslinger_desc = "Support Armored Command Unit (Preset: Gunslinger)"
-inu0301_gunslinger_help = "Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or a combination. Enhanced during construction with an upgraded gun on the left arm and an additional capacitor on the right arm for enhanced firepower."
-inu0301_gunslinger_name = "Support Armored Command Unit (Preset: Gunslinger)"
+xnl0301_gunslinger_desc = "Support Armored Command Unit (Preset: Gunslinger)"
+xnl0301_gunslinger_help = "Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or a combination. Enhanced during construction with an upgraded gun on the left arm and an additional capacitor on the right arm for enhanced firepower."
+xnl0301_gunslinger_name = "Support Armored Command Unit (Preset: Gunslinger)"
 
-inu0301_heavytrooper_desc = "Support Armored Command Unit (Preset: Heavy Trooper)"
-inu0301_heavytrooper_help = "Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or a combination. Enhanced during construction with an upgraded gun on the left arm, a machine gun and a rapid repair system."
-inu0301_heavytrooper_name = "Support Armored Command Unit (Preset: Heavy Trooper)"
+xnl0301_heavytrooper_desc = "Support Armored Command Unit (Preset: Heavy Trooper)"
+xnl0301_heavytrooper_help = "Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or a combination. Enhanced during construction with an upgraded gun on the left arm, a machine gun and a rapid repair system."
+xnl0301_heavytrooper_name = "Support Armored Command Unit (Preset: Heavy Trooper)"
 
-inu0301_naturalproducer_desc = "Support Armored Command Unit (Preset: Producer)"
-inu0301_naturalproducer_help = "Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or a combination. Enhanced during construction with engineering capabilities on both arms and resource generator on its back."
-inu0301_naturalproducer_name = "Support Armored Command Unit (Preset: Producer)"
+xnl0301_naturalproducer_desc = "Support Armored Command Unit (Preset: Producer)"
+xnl0301_naturalproducer_help = "Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or a combination. Enhanced during construction with engineering capabilities on both arms and resource generator on its back."
+xnl0301_naturalproducer_name = "Support Armored Command Unit (Preset: Producer)"
 
-inu0301_rambo_desc = "Support Armored Command Unit (Preset: Rambo)"
-inu0301_rambo_help = "Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or a combination. Enhanced during construction with fully upgraded weapons on both arms, rapid repair and power armor on the back."
-inu0301_rambo_name = "Support Armored Command Unit (Preset: Rambo)"
+xnl0301_rambo_desc = "Support Armored Command Unit (Preset: Rambo)"
+xnl0301_rambo_help = "Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or a combination. Enhanced during construction with fully upgraded weapons on both arms, rapid repair and power armor on the back."
+xnl0301_rambo_name = "Support Armored Command Unit (Preset: Rambo)"
 
-inu0301_sniper_desc = "Support Armored Command Unit (Preset: Sniper)"
-inu0301_sniper_help = "Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or a combination. Enhanced during construction with an upgraded weapon on the right arm and the sniper enhancement on its back."
-inu0301_sniper_name = "Support Armored Command Unit (Preset: Sniper)"
+xnl0301_sniper_desc = "Support Armored Command Unit (Preset: Sniper)"
+xnl0301_sniper_help = "Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or a combination. Enhanced during construction with an upgraded weapon on the right arm and the sniper enhancement on its back."
+xnl0301_sniper_name = "Support Armored Command Unit (Preset: Sniper)"
 
-inu0301_rocket_desc = "Support Armored Command Unit (Preset: Rocket Launcher)"
-inu0301_rocket_help = "Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or a combination. Enhanced during construction with a rocket launcher on both shoulders and improved locomotor."
-inu0301_rocket_name = "Support Armored Command Unit (Preset: Rocket Launcher)"
+xnl0301_rocket_desc = "Support Armored Command Unit (Preset: Rocket Launcher)"
+xnl0301_rocket_help = "Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or a combination. Enhanced during construction with a rocket launcher on both shoulders and improved locomotor."
+xnl0301_rocket_name = "Support Armored Command Unit (Preset: Rocket Launcher)"
 
-inu0301_trooper_desc = "Support Armored Command Unit (Preset: Trooper)"
-inu0301_trooper_help = "Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or a combination. Enhanced during construction with a simple gun on the left arm."
-inu0301_trooper_name = "Support Armored Command Unit (Preset: Trooper)"
+xnl0301_trooper_desc = "Support Armored Command Unit (Preset: Trooper)"
+xnl0301_trooper_help = "Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or a combination. Enhanced during construction with a simple gun on the left arm."
+xnl0301_trooper_name = "Support Armored Command Unit (Preset: Trooper)"
 
-inu0301_antinaval_desc = "Support Armored Command Unit (Preset: Anti-Naval)"
-inu0301_antinaval_help = "Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or a combination. Enhanced during construction with a railgun on the left arm, an additional capacitor on the right shoulder and an improved locomotor."
-inu0301_antinaval_name = "Support Armored Command Unit (Preset: Anti-Naval)"
+xnl0301_antinaval_desc = "Support Armored Command Unit (Preset: Anti-Naval)"
+xnl0301_antinaval_help = "Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or a combination. Enhanced during construction with a railgun on the left arm, an additional capacitor on the right shoulder and an improved locomotor."
+xnl0301_antinaval_name = "Support Armored Command Unit (Preset: Anti-Naval)"
 
-inu0301_amphibious_desc = "Support Armored Command Unit (Preset: Amphibious)"
-inu0301_amphibious_help = "Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or a combination. Enhanced during construction with a railgun on the left arm, a machine gun on the right arm and an improved locomotor."
-inu0301_amphibious_name = "Support Armored Command Unit (Preset: Amphibious)"
+xnl0301_amphibious_desc = "Support Armored Command Unit (Preset: Amphibious)"
+xnl0301_amphibious_help = "Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or a combination. Enhanced during construction with a railgun on the left arm, a machine gun on the right arm and an improved locomotor."
+xnl0301_amphibious_name = "Support Armored Command Unit (Preset: Amphibious)"
 
 --------------------------------------------------------
 ---- T1 UNITS
@@ -345,147 +345,147 @@ inu0301_amphibious_name = "Support Armored Command Unit (Preset: Amphibious)"
 -- Land units
 
 -- T1 engineer
-inu1001_desc = "Engineer"
-inu1001_help = "Tech 1 amphibious construction, repair, capture and reclamation unit."
-inu1001_name = "Engineer"
+xnl0105_desc = "Engineer"
+xnl0105_help = "Tech 1 amphibious construction, repair, capture and reclamation unit."
+xnl0105_name = "Engineer"
 
 -- T1 land scout
-inu1002_desc = "Land scout"
-inu1002_help = "Fast, lightly armored reconnaissance vehicle. Armed with a very light gun and a state-of-the-art sensor suite."
-inu1002_name = "Silhouette"
+xnl0101_desc = "Land scout"
+xnl0101_help = "Fast, lightly armored reconnaissance vehicle. Armed with a very light gun and a state-of-the-art sensor suite."
+xnl0101_name = "Silhouette"
 
 -- T1 LAV
-inu1007_desc = "Light Assault Vehicle"
-inu1007_help = "Lightly armored hovering vehicle. Provides direct-fire support against low-end units. Can fire from transports."
-inu1007_name = "Grasshopper"
+xnl0106_desc = "Light Assault Vehicle"
+xnl0106_help = "Lightly armored hovering vehicle. Provides direct-fire support against low-end units. Can fire from transports."
+xnl0106_name = "Grasshopper"
 
 -- T1 medium tank
-inu1004_desc = "Medium tank"
-inu1004_help = "Armored hover tank. Armed with a single cannon, useful against lower tier units."
-inu1004_name = "Orbis"
+xnl0201_desc = "Medium tank"
+xnl0201_help = "Armored hover tank. Armed with a single cannon, useful against lower tier units."
+xnl0201_name = "Orbis"
 
 -- T1 AA gun / artillery
-inu1006_desc = "Mobile Anti-Air Gun / Artillery"
-inu1006_help = "Mobile anti-air defense and artillery. Effective against low-end enemy air units. Can also target surface units with its rockets."
-inu1006_name = "Barrager"
+xnl0103_desc = "Mobile Anti-Air Gun / Artillery"
+xnl0103_help = "Mobile anti-air defense and artillery. Effective against low-end enemy air units. Can also target surface units with its rockets."
+xnl0103_name = "Barrager"
 
 -- T1 tank destroyer
-inu1008_desc = "Tank Destroyer"
-inu1008_help = "Carries a long range cannon that kills almost any lower tier unit with one direct hit. Inaccurate when moving but deadly when still, ideal for ambushes."
-inu1008_name = "Assassin"
+xnl0107_desc = "Tank Destroyer"
+xnl0107_help = "Carries a long range cannon that kills almost any lower tier unit with one direct hit. Inaccurate when moving but deadly when still, ideal for ambushes."
+xnl0107_name = "Assassin"
 
 
 -- Air units
 -- T1 air scout
-ina1001_desc = "Air Scout"
-ina1001_help = "Standard air scout."
-ina1001_name = "Peeper"
+xna0101_desc = "Air Scout"
+xna0101_help = "Standard air scout."
+xna0101_name = "Peeper"
 
 -- T1 interceptor
-ina1002_desc = "Interceptor"
-ina1002_help = "Anti-air fighter. Useful for intercepting lower tier air units."
-ina1002_name = "Falcon"
+xna0102_desc = "Interceptor"
+xna0102_help = "Anti-air fighter. Useful for intercepting lower tier air units."
+xna0102_name = "Falcon"
 
 -- T1 bomber
-ina1003_desc = "Bomber"
-ina1003_help = "A low-end bomber equipped with 4 air-to-ground rocket launchers."
-ina1003_name = "Phoenix"
+xna0103_desc = "Bomber"
+xna0103_help = "A low-end bomber equipped with 4 air-to-ground rocket launchers."
+xna0103_name = "Phoenix"
 
 -- T1 gunship
-ina1004_desc = "Light Gunship"
-ina1004_help = "A low-end gunship designed to take out ground targets. Can pin-point targets for artillery units."
-ina1004_name = "Golem"
+xna0105_desc = "Light Gunship"
+xna0105_help = "A low-end gunship designed to take out ground targets. Can pin-point targets for artillery units."
+xna0105_name = "Golem"
 
 -- T1 transport
-ina1005_desc = "Light Air Transport"
-ina1005_help = "An unarmed, small capacity transport. Carries land units through the air."
-ina1005_name = "Diligence"
+xna0107_desc = "Light Air Transport"
+xna0107_help = "An unarmed, small capacity transport. Carries land units through the air."
+xna0107_name = "Diligence"
 
 
 -- Naval units
 
 -- submarine
-ins1001_desc = "Attack Submarine"
-ins1001_help = "Has torpedo launchers to attack naval units from below the water surface."
-ins1001_name = "Buccaneer Class"
+xns0203_desc = "Attack Submarine"
+xns0203_help = "Has torpedo launchers to attack naval units from below the water surface."
+xns0203_name = "Buccaneer Class"
 
 -- frigate
-ins1002_desc = "Frigate"
-ins1002_help = "Low-end naval unit. Has a single fast firing cannon and an anti-air missile launcher."
-ins1002_name = "Lance Class"
+xns0103_desc = "Frigate"
+xns0103_help = "Low-end naval unit. Has a single fast firing cannon and an anti-air missile launcher."
+xns0103_name = "Lance Class"
 
 
 -- Structures
 
 -- land factory
-inb0101_desc = "Land Factory"
-inb0101_help = "Constructs Tech 1 land units. Upgradeable."
-inb0101_name = "Land Factory"
+xnb0101_desc = "Land Factory"
+xnb0101_help = "Constructs Tech 1 land units. Upgradeable."
+xnb0101_name = "Land Factory"
 
 -- air factory
-inb0102_desc = "Air Factory"
-inb0102_help = "Constructs Tech 1 air units. Upgradeable."
-inb0102_name = "Air Factory"
+xnb0102_desc = "Air Factory"
+xnb0102_help = "Constructs Tech 1 air units. Upgradeable."
+xnb0102_name = "Air Factory"
 
 -- t1 naval factory
-inb0103_desc = "Naval Factory"
-inb0103_help = "Constructs Tech 1 naval units. Upgradeable."
-inb0103_name = "Naval Factory"
+xnb0103_desc = "Naval Factory"
+xnb0103_help = "Constructs Tech 1 naval units. Upgradeable."
+xnb0103_name = "Naval Factory"
 
 -- t1 power generator
-inb1101_desc = "Power Generator"
-inb1101_help = "Generates Energy. Construct next to other structures for adjacency bonus. Explodes violently when destroyed, this can cause chain reactions."
-inb1101_name = "Power Generator"
+xnb1101_desc = "Power Generator"
+xnb1101_help = "Generates Energy. Construct next to other structures for adjacency bonus. Explodes violently when destroyed, this can cause chain reactions."
+xnb1101_name = "Power Generator"
 
 -- t1 mass extractor
-inb1102_desc = "Mass Extractor"
-inb1102_help = "Extracts Mass. Must be constructed on Mass deposits. Construct structures next to Mass extractor for adjacency bonus."
-inb1102_name = "Mass Extractor"
+xnb1102_desc = "Mass Extractor"
+xnb1102_help = "Extracts Mass. Must be constructed on Mass deposits. Construct structures next to Mass extractor for adjacency bonus."
+xnb1102_name = "Mass Extractor"
 
 -- energy storage
-inb1105_desc = "Energy Storage"
-inb1105_help = "Stores Energy. Construct next to power generators for adjacency bonus."
-inb1105_name = "Energy Storage"
+xnb1105_desc = "Energy Storage"
+xnb1105_help = "Stores Energy. Construct next to power generators for adjacency bonus."
+xnb1105_name = "Energy Storage"
 
 -- mass storage
-inb1106_desc = "Mass Storage"
-inb1106_help = "Stores Mass. Construct next to extractors or fabricators for adjacency bonus."
-inb1106_name = "Mass Storage"
+xnb1106_desc = "Mass Storage"
+xnb1106_help = "Stores Mass. Construct next to extractors or fabricators for adjacency bonus."
+xnb1106_name = "Mass Storage"
 
 -- hydrocarbon power plant
-inb1107_desc = "Hydrocarbon Power Plant"
-inb1107_help = "Generates Energy. Must be constructed on hydrocarbon deposits. Construct structures next to Hydrocarbon power plant for adjacency bonus."
-inb1107_name = "Hydrocarbon Power Plant"
+xnb1107_desc = "Hydrocarbon Power Plant"
+xnb1107_help = "Generates Energy. Must be constructed on hydrocarbon deposits. Construct structures next to Hydrocarbon power plant for adjacency bonus."
+xnb1107_name = "Hydrocarbon Power Plant"
 
 -- T1 PD
-inb2101_desc = "Point Defense"
-inb2101_help = "Low-end defensive tower that attacks land- and sea-based units. Does not engage aircraft or submerged units."
-inb2101_name = "Scatterer"
+xnb2101_desc = "Point Defense"
+xnb2101_help = "Low-end defensive tower that attacks land- and sea-based units. Does not engage aircraft or submerged units."
+xnb2101_name = "Scatterer"
 
 -- T1 AA gun
-inb2102_desc = "Anti-Air Turret"
-inb2102_help = "Anti-air tower. Designed to engage low-end aircraft."
-inb2102_name = "Slicer"
+xnb2102_desc = "Anti-Air Turret"
+xnb2102_help = "Anti-air tower. Designed to engage low-end aircraft."
+xnb2102_name = "Slicer"
 
 -- t1 torpedo launcher
-inb2109_desc = "Torpedo Launcher"
-inb2109_help = "Low-end anti-naval defense system."
-inb2109_name = "Sea Needle"
+xnb2109_desc = "Torpedo Launcher"
+xnb2109_help = "Low-end anti-naval defense system."
+xnb2109_name = "Sea Needle"
 
 -- t1 radar
-inb3101_desc = "Radar System"
-inb3101_help = "Radar system with minimal range. Detects and tracks surface and air units. Can boost its range for a short time."
-inb3101_name = "Sibyl 1"
+xnb3101_desc = "Radar System"
+xnb3101_help = "Radar system with minimal range. Detects and tracks surface and air units. Can boost its range for a short time."
+xnb3101_name = "Sibyl 1"
 
 -- T1 sonar
-inb3102_desc = "Sonar System"
-inb3102_help = "Sonar system with minimal range. Detects and tracks naval units. Can boost its range for a short time."
-inb3102_name = "Echo 1"
+xnb3102_desc = "Sonar System"
+xnb3102_help = "Sonar system with minimal range. Detects and tracks naval units. Can boost its range for a short time."
+xnb3102_name = "Echo 1"
 
 -- wall
-inb5101_desc = "Wall Section"
-inb5101_help = "Restricts the movement of enemy units. Offers minimal protection from enemy fire."
-inb5101_name = "Wall"
+xnb5101_desc = "Wall Section"
+xnb5101_help = "Restricts the movement of enemy units. Offers minimal protection from enemy fire."
+xnb5101_name = "Wall"
 
 
 --------------------------------------------------------
@@ -495,181 +495,181 @@ inb5101_name = "Wall"
 -- Land units
 
 -- T2 engineer
-inu1005_desc = "Engineer"
-inu1005_help = "Tech 2 amphibious construction, repair, capture and reclamation unit."
-inu1005_name = "Engineer"
+xnl0208_desc = "Engineer"
+xnl0208_help = "Tech 2 amphibious construction, repair, capture and reclamation unit."
+xnl0208_name = "Engineer"
 
 -- T2 light tank
-inu2002_desc = "Fast Assault Tank"
-inu2002_help = "Assault tank, has a high movement speed and fast firing cannons."
-inu2002_name = "Rogue"
+xnl0203_desc = "Fast Assault Tank"
+xnl0203_help = "Assault tank, has a high movement speed and fast firing cannons."
+xnl0203_name = "Rogue"
 
 -- T2 Missile launcher
-inu2003_desc = "Mobile Missile Launcher"
-inu2003_help = "Amphibious missile launcher, fires two low yield tactical rockets. Designed to attack at long range. Can attack surface targets from under water."
-inu2003_name = "Avalanche"
+xnl0111_desc = "Mobile Missile Launcher"
+xnl0111_help = "Amphibious missile launcher, fires two low yield tactical rockets. Designed to attack at long range. Can attack surface targets from under water."
+xnl0111_name = "Avalanche"
 
 -- T2 AA gun
-inu2004_desc = "Mobile AA Artillery"
-inu2004_help = "Mobile AA unit. Armed with rocket artillery."
-inu2004_name = "Skyshell"
+xnl0205_desc = "Mobile AA Artillery"
+xnl0205_help = "Mobile AA unit. Armed with rocket artillery."
+xnl0205_name = "Skyshell"
 
 -- T2 heavy tank
-inu2005_desc = "Heavy Tank"
-inu2005_help = "Heavy tank, powerful weapons with anchor option for defensive use."
-inu2005_name = "Brute"
+xnl0202_desc = "Heavy Tank"
+xnl0202_help = "Heavy tank, powerful weapons with anchor option for defensive use."
+xnl0202_name = "Brute"
 
 -- T2 assault bot
-inu3005_desc = "Combat Bot"
-inu3005_help = "The combat bot is armed with a single cannon, useful against light to medium tier units."
-inu3005_name = "Goliath"
+-- xnl0300_desc = "Combat Bot"
+-- xnl0300_help = "The combat bot is armed with a single cannon, useful against light to medium tier units."
+-- xnl0300_name = "Goliath"
 
 -- T2 EMP tank
-inu3003_desc = "EMP Tank"
-inu3003_help = "Equipped with twin EMP cannons. Can freeze most units but inflicts minor damage. Has bombardment mode, useful for supressing groups of enemies."
-inu3003_name = "Dominator"
+xnl0306_desc = "EMP Tank"
+xnl0306_help = "Equipped with twin EMP cannons. Can freeze most units but inflicts minor damage. Has bombardment mode, useful for supressing groups of enemies."
+xnl0306_name = "Dominator"
 
 -- Air units
 -- T2 F/B
-ina2002_desc = "Fighter/Bomber"
-ina2002_help = "Multipurpose unit that uses its rocket launchers on either side against air or surface units. Also carries bombs and depth charges to deal with all kinds of threats."
-ina2002_name = "Spitfire"
+xna0202_desc = "Fighter/Bomber"
+xna0202_help = "Multipurpose unit that uses its rocket launchers on either side against air or surface units. Also carries bombs and depth charges to deal with all kinds of threats."
+xna0202_name = "Spitfire"
 
 -- T2 torpedo gunship
-ina2003_desc = "Torpedo Gunship"
-ina2003_help = "Versatile anti-surface and anti-submarine gunship. Carries a gun, a torpedo launcher and anti-air missile flares. Additionally, the gunship can pin-point targets for artillery units."
-ina2003_name = "Vanguard"
+xna0203_desc = "Torpedo Gunship"
+xna0203_help = "Versatile anti-surface and anti-submarine gunship. Carries a gun, a torpedo launcher and anti-air missile flares. Additionally, the gunship can pin-point targets for artillery units."
+xna0203_name = "Vanguard"
 
 -- T2 transport
-ina2001_desc = "Air Transport"
-ina2001_help = "Unarmed air transport that can carry land units and defend itself with flares."
-ina2001_name = "Scalestor"
+xna0104_desc = "Air Transport"
+xna0104_help = "Unarmed air transport that can carry land units and defend itself with flares."
+xna0104_name = "Scalestor"
 
 
 -- Naval units
 
 -- destroyer
-ins2001_desc = "Destroyer"
-ins2001_help = "Carries two cannon turrets but no torpedoes or anti-air weapons. Has bombardment mode, useful for assaulting bases and units protected by shields."
-ins2001_name = "Firestorm Class"
+xns0201_desc = "Destroyer"
+xns0201_help = "Carries two cannon turrets but no torpedoes or anti-air weapons. Has bombardment mode, useful for assaulting bases and units protected by shields."
+xns0201_name = "Firestorm Class"
 
 -- cruiser
-ins2002_desc = "Cruiser"
-ins2002_help = "Equipped with an AA missile turret, a double EMP cannon and long range homing missiles. The EMP weapon deals a lot of damage to shields."
-ins2002_name = "Mercenary Class"
+xns0202_desc = "Cruiser"
+xns0202_help = "Equipped with an AA missile turret, a double EMP cannon and long range homing missiles. The EMP weapon deals a lot of damage to shields."
+xns0202_name = "Mercenary Class"
 
 -- torpedo boat
-ins2003_desc = "Railgun Carrier"
-ins2003_help = "Anti-submarine ship. Uses two underwater railguns to attack submarines and ships. Also carries a tactical missile defense turret."
-ins2003_name = "Whaler Class"
+xns0205_desc = "Railgun Carrier"
+xns0205_help = "Anti-submarine ship. Uses two underwater railguns to attack submarines and ships. Also carries a tactical missile defense turret."
+xns0205_name = "Whaler Class"
 
 
 -- Structures
 
 -- land factory (HQ, FAF specific)
-inb0201_desc = "Land Factory HQ"
-inb0201_help = "Constructs Tech 2 land units. HQ factory, required to build same tier land units and same tier land support factories. Upgradeable."
-inb0201_name = "Land Factory HQ"
+xnb0201_desc = "Land Factory HQ"
+xnb0201_help = "Constructs Tech 2 land units. HQ factory, required to build same tier land units and same tier land support factories. Upgradeable."
+xnb0201_name = "Land Factory HQ"
 
 -- land factory (support, FAF specific)
-inb0211_desc = "Land Factory"
-inb0211_help = "Constructs Tech 2 land units. Supporting factory, requires a land HQ factory to build same tier land units. Upgradeable once a land HQ factory is built."
-inb0211_name = "Land Factory"
+xnb0211_desc = "Land Factory"
+xnb0211_help = "Constructs Tech 2 land units. Supporting factory, requires a land HQ factory to build same tier land units. Upgradeable once a land HQ factory is built."
+xnb0211_name = "Land Factory"
 
 -- air factory (HQ, FAF specific)
-inb0202_desc = "Air Factory HQ"
-inb0202_help = "Constructs Tech 2 air units. HQ factory, required to build same tier air units and same tier air support factories. Upgradeable."
-inb0202_name = "Air Factory HQ"
+xnb0202_desc = "Air Factory HQ"
+xnb0202_help = "Constructs Tech 2 air units. HQ factory, required to build same tier air units and same tier air support factories. Upgradeable."
+xnb0202_name = "Air Factory HQ"
 
 -- air factory (support, FAF specific)
-inb0212_desc = "Air Factory"
-inb0212_help = "Constructs Tech 2 air units. Supporting factory, requires an air HQ factory to build same tier air units. Upgradeable once an air HQ factory is built."
-inb0212_name = "Air Factory"
+xnb0212_desc = "Air Factory"
+xnb0212_help = "Constructs Tech 2 air units. Supporting factory, requires an air HQ factory to build same tier air units. Upgradeable once an air HQ factory is built."
+xnb0212_name = "Air Factory"
 
 -- naval factory (HQ, FAF specific)
-inb0203_desc = "Naval Factory HQ"
-inb0203_help = "Constructs Tech 2 naval units. HQ factory, required to build same tier naval units and same tier naval support factories. Upgradeable."
-inb0203_name = "Naval Factory HQ"
+xnb0203_desc = "Naval Factory HQ"
+xnb0203_help = "Constructs Tech 2 naval units. HQ factory, required to build same tier naval units and same tier naval support factories. Upgradeable."
+xnb0203_name = "Naval Factory HQ"
 
 -- naval factory (support, FAF specific)
-inb0213_desc = "Naval Factory"
-inb0213_help = "Constructs Tech 2 naval units. Supporting factory, requires a naval HQ factory to build same tier naval units. Upgradeable once a naval HQ factory is built."
-inb0213_name = "Naval Factory"
+xnb0213_desc = "Naval Factory"
+xnb0213_help = "Constructs Tech 2 naval units. Supporting factory, requires a naval HQ factory to build same tier naval units. Upgradeable once a naval HQ factory is built."
+xnb0213_name = "Naval Factory"
 
 -- Power generator
-inb1201_desc = "Antimatter-Reactor"
-inb1201_help = "Mid-level power generator. Construct next to other structures for adjacency bonus. Explodes violently when destroyed, this can cause chain reactions."
-inb1201_name = "Antimatter-Reactor"
+xnb1201_desc = "Antimatter-Reactor"
+xnb1201_help = "Mid-level power generator. Construct next to other structures for adjacency bonus. Explodes violently when destroyed, this can cause chain reactions."
+xnb1201_name = "Antimatter-Reactor"
 
 -- mass extractor
-inb1202_desc = "Mass Extractor"
-inb1202_help = "Mid-level Mass extractor. Must be constructed on Mass deposits. Construct structures next to Mass extractor for adjacency bonus."
-inb1202_name = "Mass Extractor"
+xnb1202_desc = "Mass Extractor"
+xnb1202_help = "Mid-level Mass extractor. Must be constructed on Mass deposits. Construct structures next to Mass extractor for adjacency bonus."
+xnb1202_name = "Mass Extractor"
 
 -- mass fabricator
-inb1104_desc = "Mass Fabricator"
-inb1104_help = "Creates Mass. Requires large amounts of Energy. Construct next to other structures for adjacency bonus. Explodes violently when destroyed, this can cause chain reactions."
-inb1104_name = "Mass Fabricator"
+xnb1104_desc = "Mass Fabricator"
+xnb1104_help = "Creates Mass. Requires large amounts of Energy. Construct next to other structures for adjacency bonus. Explodes violently when destroyed, this can cause chain reactions."
+xnb1104_name = "Mass Fabricator"
 
 -- point defense
-inb2201_desc = "Point Defense"
-inb2201_help = "Heavily armored defensive tower that attacks land- and sea-based units. Does not engage aircraft or submerged units."
-inb2201_name = "Piercer"
+xnb2201_desc = "Point Defense"
+xnb2201_help = "Heavily armored defensive tower that attacks land- and sea-based units. Does not engage aircraft or submerged units."
+xnb2201_name = "Piercer"
 
 -- aa gun
-inb2202_desc = "Anti-Air Heavy Turret"
-inb2202_help = "Anti-air tower. Designed to engage mid-level aircraft."
-inb2202_name = "Skythorn"
+xnb2202_desc = "Anti-Air Heavy Turret"
+xnb2202_help = "Anti-air tower. Designed to engage mid-level aircraft."
+xnb2202_name = "Skythorn"
 
 -- torpedo defense
-inb2207_desc = "Heavy Railgun Array"
-inb2207_help = "Anti-naval defense system. Designed to engage all naval units."
-inb2207_name = "Harpoon"
+xnb2207_desc = "Heavy Railgun Array"
+xnb2207_help = "Anti-naval defense system. Designed to engage all naval units."
+xnb2207_name = "Harpoon"
 
 -- TML
-inb2208_desc = "Tactical Missile Launcher"
-inb2208_help = "Tactical missile launcher. Must be ordered to launch its devastating missiles (will not attack automatically)."
-inb2208_name = "Bowcaster"
+xnb2208_desc = "Tactical Missile Launcher"
+xnb2208_help = "Tactical missile launcher. Must be ordered to launch its devastating missiles (will not attack automatically)."
+xnb2208_name = "Bowcaster"
 
 -- TMD
-inb4204_desc = "Tactical Missile Defense"
-inb4204_help = "Defense against incoming tactical missile. Protection is limited to the structure's operational area."
-inb4204_name = "Arc Aegis"
+xnb4204_desc = "Tactical Missile Defense"
+xnb4204_help = "Defense against incoming tactical missile. Protection is limited to the structure's operational area."
+xnb4204_name = "Arc Aegis"
 
 -- artillery
-inb2303_desc = "Artillery Installation"
-inb2303_help = "Stationary artillery. Designed to engage slow-moving units and fixed structures."
-inb2303_name = "Fire Slinger"
+xnb2303_desc = "Artillery Installation"
+xnb2303_help = "Stationary artillery. Designed to engage slow-moving units and fixed structures."
+xnb2303_name = "Fire Slinger"
 
 -- radar
-inb3201_desc = "Radar System"
-inb3201_help = "Radar system with moderate range. Detects and tracks surface and air units. Can boost its range for a short time."
-inb3201_name = "Sibyl 2"
+xnb3201_desc = "Radar System"
+xnb3201_help = "Radar system with moderate range. Detects and tracks surface and air units. Can boost its range for a short time."
+xnb3201_name = "Sibyl 2"
 
 -- sonar
-inb3202_desc = "Sonar System"
-inb3202_help = "Sonar system with moderate range. Detects and tracks naval units. Can boost its range for a short time."
-inb3202_name = "Echo 2"
+xnb3202_desc = "Sonar System"
+xnb3202_help = "Sonar system with moderate range. Detects and tracks naval units. Can boost its range for a short time."
+xnb3202_name = "Echo 2"
 
 -- stealth field generator
-inb4203_desc = "Stealth Field Generator"
-inb4203_help = "Generates stealth field. Hides units and structures within its operational range. Countered by optical and Omni sensors."
-inb4203_name = "Trickster"
+xnb4203_desc = "Stealth Field Generator"
+xnb4203_help = "Generates stealth field. Hides units and structures within its operational range. Countered by optical and Omni sensors."
+xnb4203_name = "Trickster"
 
 -- shield
-inb4202_desc = "Shield Generator"
-inb4202_help = "Generates a protective shield around units and structures within its radius."
-inb4202_name = "Surge Shield"
+xnb4202_desc = "Shield Generator"
+xnb4202_help = "Generates a protective shield around units and structures within its radius."
+xnb4202_name = "Surge Shield"
 
 -- shield + stealthfield
-inb4205_desc = "Stealth Shield Generator"
-inb4205_help = "Generates a protective shield around units and structures within its radius. The shield emits high energy vortices that scramble radar detection within the shield. Hides units and structures within its operational range from radar. Countered by optical and Omni sensors."
-inb4205_name = "Trickster"
+xnb4205_desc = "Stealth Shield Generator"
+xnb4205_help = "Generates a protective shield around units and structures within its radius. The shield emits high energy vortices that scramble radar detection within the shield. Hides units and structures within its operational range from radar. Countered by optical and Omni sensors."
+xnb4205_name = "Trickster"
 
 -- air staging facility
-inb5202_desc = "Air Staging Facility"
-inb5202_help = "Refuels and repairs aircraft. Air patrols will automatically use facility."
-inb5202_name = "Oasis"
+xnb5202_desc = "Air Staging Facility"
+xnb5202_help = "Refuels and repairs aircraft. Air patrols will automatically use facility."
+xnb5202_name = "Oasis"
 
 
 --------------------------------------------------------
@@ -679,186 +679,186 @@ inb5202_name = "Oasis"
 -- Land units
 
 -- T3 engineer
-inu2001_desc = "Engineer"
-inu2001_help = "Tech 3 amphibious construction, repair, capture and reclamation unit."
-inu2001_name = "Engineer"
+xnl0309_desc = "Engineer"
+xnl0309_help = "Tech 3 amphibious construction, repair, capture and reclamation unit."
+xnl0309_name = "Engineer"
 
 -- T3 tank
-inu3002_desc = "Heavy Amphibious Tank"
-inu3002_help = "Heavy amphibious tank. Equipped with heavy armor, a rocket launcher and a single siege cannon. Designed to deal with any surface threat."
-inu3002_name = "Nova"
+xnl0303_desc = "Heavy Amphibious Tank"
+xnl0303_help = "Heavy amphibious tank. Equipped with heavy armor, a rocket launcher and a single siege cannon. Designed to deal with any surface threat."
+xnl0303_name = "Nova"
 
 -- T3 artillery
-inu3004_desc = "Mobile Heavy artillery"
-inu3004_help = "Attacks targets at great range. Needs to deploy before firing."
-inu3004_name = "Mauler"
+xnl0304_desc = "Mobile Heavy artillery"
+xnl0304_help = "Attacks targets at great range. Needs to deploy before firing."
+xnl0304_name = "Mauler"
 
 -- T3 orbital fire command
-inu1003_desc = "Mobile Orbital Fire Command"
-inu1003_help = "Doesn't have direct fire weapons but coordinates attacks from orbit."
-inu1003_name = "Spotter"
+-- xnl0109_desc = "Mobile Orbital Fire Command"
+-- xnl0109_help = "Doesn't have direct fire weapons but coordinates attacks from orbit."
+-- xnl0109_name = "Spotter"
 
 -- T3 anti air unit
-inu3007_desc = "Mobile Anti-Air Missile Launcher"
-inu3007_help = "Launches anti-air missiles at enemy aircraft."
-inu3007_name = "Watchman"
+xnl0307_desc = "Mobile Anti-Air Missile Launcher"
+xnl0307_help = "Launches anti-air missiles at enemy aircraft."
+xnl0307_name = "Watchman"
 
 -- T2 mobile missile defense
-inu3008_desc = "Field Engineer"
-inu3008_help = "Hover unit equipped with engineering capabilities and a tactical missile defense installation. Has anchor option to increase intel and tmd range as well as the build capacity."
-inu3008_name = "Scarab"
+xnl0209_desc = "Field Engineer"
+xnl0209_help = "Hover unit equipped with engineering capabilities and a tactical missile defense installation. Has anchor option to increase intel and tmd range as well as the build capacity."
+xnl0209_name = "Scarab"
 
 -- T3 tracked tank
-inu3009_desc = "Armored Assault Tank"
-inu3009_help = "Tank that carries dual cannons and heavy armor. Has anchor option for defensive use."
-inu3009_name = "Slugger"
+xnl0305_desc = "Armored Assault Tank"
+xnl0305_help = "Tank that carries dual cannons and heavy armor. Has anchor option for defensive use."
+xnl0305_name = "Slugger"
 
 
 -- Air units
 -- Spy place
-ina3001_desc = "Spy Plane"
-ina3001_help = "State-of-the-art reconnaissance aircraft."
-ina3001_name = "Beholder"
+xna0301_desc = "Spy Plane"
+xna0301_help = "State-of-the-art reconnaissance aircraft."
+xna0301_name = "Beholder"
 
 -- ASF
-ina3003_desc = "Air-Superiority Fighter"
-ina3003_help = "Fast and agile anti-air fighter. Designed to engage all aircraft."
-ina3003_name = "Thunder"
+xna0303_desc = "Air-Superiority Fighter"
+xna0303_help = "Fast and agile anti-air fighter. Designed to engage all aircraft."
+xna0303_name = "Thunder"
 
 -- Bomber
-ina3004_desc = "Heavy Bomber"
-ina3004_help = "Drops a very large fiery bomb. Excels at taking out bases, a formation of smaller units and very big targets. Weak against individual targets."
-ina3004_name = "Red Rage"
+xna0304_desc = "Heavy Bomber"
+xna0304_help = "Drops a very large fiery bomb. Excels at taking out bases, a formation of smaller units and very big targets. Weak against individual targets."
+xna0304_name = "Red Rage"
 
 -- Gunship
-ina3006_desc = "Heavy Gunship"
-ina3006_help = "Equipped with a dual anti-surface cannon, a stingray gun, an anti-air missile launcher and anti-air missile flares. Excels at taking out single strong units and structures. Can also pin-point targets for artillery."
-ina3006_name = "Hornet"
+xna0306_desc = "Heavy Gunship"
+xna0306_help = "Equipped with a dual anti-surface cannon, a stingray gun, an anti-air missile launcher and anti-air missile flares. Excels at taking out single strong units and structures. Can also pin-point targets for artillery."
+xna0306_name = "Hornet"
 
 -- Naval units
 
 -- battleship
-ins3001_desc = "Battleship"
-ins3001_help = "Battleship. Has bombardment mode, useful for supressing groups of enemies." -- TODO: finish this description when the unit is implemented
-ins3001_name = "Battleship"
+-- xns0301_desc = "Battleship"
+-- xns0301_help = "Battleship. Has bombardment mode, useful for supressing groups of enemies." -- TODO: finish this description when the unit is implemented
+-- xns0301_name = "Battleship"
 
 -- submarine
-ins3002_desc = "Tactical Submarine"
-ins3002_help = "Equipped with two torpedo launchers and two tactical missile launchers."
-ins3002_name = "Leviathan Class"
+xns0304_desc = "Tactical Submarine"
+xns0304_help = "Equipped with two torpedo launchers and two tactical missile launchers."
+xns0304_name = "Leviathan Class"
 
 -- carrier
-ins3003_desc = "Aircraft Carrier"
-ins3003_help = "Aircraft Carrier"
-ins3003_name = "Mastodon Class"
+xns0303_desc = "Aircraft Carrier"
+xns0303_help = "Aircraft Carrier"
+xns0303_name = "Mastodon Class"
 
 -- heavy destroyer
-ins3004_desc = "Heavy Destroyer"
-ins3004_help = "A more powerful version of the Destroyer. Has two long range cannons, two smaller cannons, AA defense and a submerged railgun. Has bombardment mode, useful for assaulting bases and units protected by shields."
-ins3004_name = "Juggernaut Class"
+xns0302_desc = "Heavy Destroyer"
+xns0302_help = "A more powerful version of the Destroyer. Has two long range cannons, two smaller cannons, AA defense and a submerged railgun. Has bombardment mode, useful for assaulting bases and units protected by shields."
+xns0302_name = "Juggernaut Class"
 
 
 -- Structures
 
 -- land factory (HQ, FAF specific)
-inb0301_desc = "Land Factory HQ"
-inb0301_help = "Constructs Tech 3 land units. HQ factory, required to build same tier land units and same tier land support factories."
-inb0301_name = "Land Factory HQ"
+xnb0301_desc = "Land Factory HQ"
+xnb0301_help = "Constructs Tech 3 land units. HQ factory, required to build same tier land units and same tier land support factories."
+xnb0301_name = "Land Factory HQ"
 
 -- land factory (support, FAF specific)
-inb0311_desc = "Land Factory"
-inb0311_help = "Constructs Tech 3 land units. Supporting factory, requires a land HQ factory to build same tier land units."
-inb0311_name = "Land Factory"
+xnb0311_desc = "Land Factory"
+xnb0311_help = "Constructs Tech 3 land units. Supporting factory, requires a land HQ factory to build same tier land units."
+xnb0311_name = "Land Factory"
 
 -- air factory (HQ, FAF specific)
-inb0302_desc = "Air Factory HQ"
-inb0302_help = "Constructs Tech 3 air units. HQ factory, required to build same tier air units and same tier air support factories."
-inb0302_name = "Air Factory HQ"
+xnb0302_desc = "Air Factory HQ"
+xnb0302_help = "Constructs Tech 3 air units. HQ factory, required to build same tier air units and same tier air support factories."
+xnb0302_name = "Air Factory HQ"
 
 -- air factory (support, FAF specific)
-inb0312_desc = "Air Factory"
-inb0312_help = "Constructs Tech 3 air units. Supporting factory, requires an air HQ factory to build same tier units."
-inb0312_name = "Air Factory"
+xnb0312_desc = "Air Factory"
+xnb0312_help = "Constructs Tech 3 air units. Supporting factory, requires an air HQ factory to build same tier units."
+xnb0312_name = "Air Factory"
 
 -- naval factory (HQ, FAF specific)
-inb0303_desc = "Naval Factory HQ"
-inb0303_help = "Constructs Tech 3 naval units. HQ factory, required to build same tier naval units and same tier naval support factories."
-inb0303_name = "Naval Factory HQ"
+xnb0303_desc = "Naval Factory HQ"
+xnb0303_help = "Constructs Tech 3 naval units. HQ factory, required to build same tier naval units and same tier naval support factories."
+xnb0303_name = "Naval Factory HQ"
 
 -- naval factory (support, FAF specific)
-inb0313_desc = "Naval Factory"
-inb0313_help = "Constructs Tech 3 naval units. Supporting factory, requires a naval HQ factory to build same tier naval units."
-inb0313_name = "Naval Factory"
+xnb0313_desc = "Naval Factory"
+xnb0313_help = "Constructs Tech 3 naval units. Supporting factory, requires a naval HQ factory to build same tier naval units."
+xnb0313_name = "Naval Factory"
 
 -- T3 SCU factory
-inb0304_desc = "SACU Factory"
-inb0304_help = "Constructs Support Armored Command Units, with custom presets that specialize the role of the units with combinations of enhancements."
-inb0304_name = "SACU Factory"
+xnb0304_desc = "SACU Factory"
+xnb0304_help = "Constructs Support Armored Command Units, with custom presets that specialize the role of the units with combinations of enhancements."
+xnb0304_name = "SACU Factory"
 
 -- power generator
-inb1301_desc = "Power Generator"
-inb1301_help = "High-end power generator. Construct next to other structures for adjacency bonus. Explodes violently when destroyed, this can cause chain reactions."
-inb1301_name = "Advanced Antimatter Reactor"
+xnb1301_desc = "Power Generator"
+xnb1301_help = "High-end power generator. Construct next to other structures for adjacency bonus. Explodes violently when destroyed, this can cause chain reactions."
+xnb1301_name = "Advanced Antimatter Reactor"
 
 -- mass extractor
-inb1302_desc = "Mass Extractor"
-inb1302_help = "High-end Mass extractor. Must be constructed on Mass deposits. Construct structures next to Mass extractor for adjacency bonus."
-inb1302_name = "Mass Extractor"
+xnb1302_desc = "Mass Extractor"
+xnb1302_help = "High-end Mass extractor. Must be constructed on Mass deposits. Construct structures next to Mass extractor for adjacency bonus."
+xnb1302_name = "Mass Extractor"
 
 -- mass fabricator
-inb1303_desc = "Mass Fabricator"
-inb1303_help = "High-end Mass fabricator. Requires large amounts of Energy. Construct next to other structures for adjacency bonus. Explodes violently when destroyed, this can cause chain reactions."
-inb1303_name = "Mass Fabricator"
+xnb1303_desc = "Mass Fabricator"
+xnb1303_help = "High-end Mass fabricator. Requires large amounts of Energy. Construct next to other structures for adjacency bonus. Explodes violently when destroyed, this can cause chain reactions."
+xnb1303_name = "Mass Fabricator"
 
 -- SML
-inb2305_desc = "Strategic Missile Launcher"
-inb2305_help = "Strategic missile launcher. Constructing missiles costs resources. Must be ordered to construct missiles."
-inb2305_name = "Devourer"
+xnb2305_desc = "Strategic Missile Launcher"
+xnb2305_help = "Strategic missile launcher. Constructing missiles costs resources. Must be ordered to construct missiles."
+xnb2305_name = "Devourer"
 
 -- radar
-inb3301_desc = "Omni Sensor Array"
-inb3301_help = "Radar system with exceptional range. Detects and tracks surface and air units. Also detects stealthed and cloaked units. Can boost its range for a short time."
-inb3301_name = "Sibyl 3"
+xnb3301_desc = "Omni Sensor Array"
+xnb3301_help = "Radar system with exceptional range. Detects and tracks surface and air units. Also detects stealthed and cloaked units. Can boost its range for a short time."
+xnb3301_name = "Sibyl 3"
 
 -- sonar
-inb3302_desc = "Sonar Platform"
-inb3302_help = "Sonar system with exceptional range. Detects and tracks naval units. Can move and boost its range for a short time."
-inb3302_name = "Echo 3"
+xnb3302_desc = "Sonar Platform"
+xnb3302_help = "Sonar system with exceptional range. Detects and tracks naval units. Can move and boost its range for a short time."
+xnb3302_name = "Echo 3"
 
 -- sam
-inb4201_desc = "Anti-Air SAM Launcher"
-inb4201_help = "High-end anti-air tower. Designed to engage all levels of aircraft."
-inb4201_name = "Vindicator"
+xnb4201_desc = "Anti-Air SAM Launcher"
+xnb4201_help = "High-end anti-air tower. Designed to engage all levels of aircraft."
+xnb4201_name = "Vindicator"
 
 -- shield
-inb4301_desc = "Heavy Shield Generator"
-inb4301_help = "Generates a heavy shield around units and structures within its radius."
-inb4301_name = "Wave-Shield"
+xnb4301_desc = "Heavy Shield Generator"
+xnb4301_help = "Generates a heavy shield around units and structures within its radius."
+xnb4301_name = "Wave-Shield"
 
 -- shield + stealthfield
-inb4305_desc = "Heavy Stealth Shield Generator"
-inb4305_help = "Generates a heavy shield around units and structures within its radius. The shield emits high energy vortices that scramble radar detection within the shield. Hides units and structures within its operational range from radar. Countered by optical and Omni sensors."
-inb4305_name = "Illusionist"
+xnb4305_desc = "Heavy Stealth Shield Generator"
+xnb4305_help = "Generates a heavy shield around units and structures within its radius. The shield emits high energy vortices that scramble radar detection within the shield. Hides units and structures within its operational range from radar. Countered by optical and Omni sensors."
+xnb4305_name = "Illusionist"
 
 -- SMD
-inb4302_desc = "Strategic Missile Defense"
-inb4302_help = "Intercepts incoming strategic missiles. Protection is limited to the structure's operational area."
-inb4302_name = "Protector"
+xnb4302_desc = "Strategic Missile Defense"
+xnb4302_help = "Intercepts incoming strategic missiles. Protection is limited to the structure's operational area."
+xnb4302_name = "Protector"
 
 -- Fire control
-inb4303_desc = "Fire Control"
-inb4303_help = "Fire Control"
-inb4303_name = "Fire Control"
+xnb4303_desc = "Fire Control"
+xnb4303_help = "Fire Control"
+xnb4303_name = "Fire Control"
 
 -- T3 'short range' artillery
-inb3303_desc = "Rocket Artillery Installation"
-inb3303_help = "Stationary artillery. Hurls projectiles in a high arc. Designed to engage large groups and structures."
-inb3303_name = "Arbalast"
+xnb3303_desc = "Rocket Artillery Installation"
+xnb3303_help = "Stationary artillery. Hurls projectiles in a high arc. Designed to engage large groups and structures."
+xnb3303_name = "Arbalast"
 
 -- T3 long range heavy artillery
-inb2302_desc = "Heavy Artillery Installation"
-inb2302_help = "Stationary heavy artillery with excellent range, accuracy and damage potential."
-inb2302_name = "Desolator"
+xnb2302_desc = "Heavy Artillery Installation"
+xnb2302_help = "Stationary heavy artillery with excellent range, accuracy and damage potential."
+xnb2302_name = "Desolator"
 
 
 --------------------------------------------------------
@@ -866,34 +866,34 @@ inb2302_name = "Desolator"
 --------------------------------------------------------
 
 -- transport
-ina4001_desc = "Experimental Transport"
-ina4001_help = "Experimental transport. High transport capacity and several anti-air defenses and torpedoes."
-ina4001_name = "Comet"
+xna0401_desc = "Experimental Transport"
+xna0401_help = "Experimental transport. High transport capacity and several anti-air defenses and torpedoes."
+xna0401_name = "Comet"
 
 -- missile tank
-inu4001_desc = "Experimental Missile Tank"
-inu4001_help = "Hover unit designed for long range attacks. Equipped with long range EMP missiles, low yield tactical missiles, twin gattling guns, AA missiles and 4 smaller guns. EMP missiles are less efficient against heavily armored Experimental units and do less damage against them"
-inu4001_name = "Crawler"
+xnl0403_desc = "Experimental Missile Tank"
+xnl0403_help = "Hover unit designed for long range attacks. Equipped with long range EMP missiles, low yield tactical missiles, twin gattling guns, AA missiles and 4 smaller guns. EMP missiles are less efficient against heavily armored Experimental units and do less damage against them"
+xnl0403_name = "Crawler"
 
 -- beam tank
-inu2007_desc = "Experimental Assault Unit"
-inu2007_help = "Light and fast experimental unit. Uses a single beam weapon. Designed to engage groups of non-experimental units. Also viable against light and medium defended bases."
-inu2007_name = "Beamer"
+xnl0402_desc = "Experimental Assault Unit"
+xnl0402_help = "Light and fast experimental unit. Uses a single beam weapon. Designed to engage groups of non-experimental units. Also viable against light and medium defended bases."
+xnl0402_name = "Beamer"
 
 -- experimental tank
-inu4002_desc = "Experimental Heavy Tank"
-inu4002_help = "Hover tank experimental equipped with a large cannon, a gattling cannon, a set of smaller guns and two AA guns. Designed to engage all surface threats."
-inu4002_name = "Bullfrog"
+xnl0401_desc = "Experimental Heavy Tank"
+xnl0401_help = "Hover tank experimental equipped with a large cannon, a gattling cannon, a set of smaller guns and two AA guns. Designed to engage all surface threats."
+xnl0401_name = "Bullfrog"
 
 -- planetary defense cannon
-inb2304_desc = "Experimental Planetary Defense Cannon"
-inb2304_help = "Attacks enemy units on and off the planet from a large distance."
-inb2304_name = "Big Bertha"
+xnb2304_desc = "Experimental Planetary Defense Cannon"
+xnb2304_help = "Attacks enemy units on and off the planet from a large distance."
+xnb2304_name = "Big Bertha"
 
 -- Drop off point
-inb0401_desc = "Experimental Factory"
-inb0401_help = "A place where reinforcements built in orbit are set down."
-inb0401_name = "Dropoff"
+xnb0401_desc = "Experimental Factory"
+xnb0401_help = "A place where reinforcements built in orbit are set down."
+xnb0401_name = "Dropoff"
 
 
 --------------------------------------------------------
@@ -901,19 +901,19 @@ inb0401_name = "Dropoff"
 --------------------------------------------------------
 
 -- civilian vehcile
-inu9001_desc = "Civilian Truck"
-inu9001_help = "Civilian Truck"
-inu9001_name = "Armadillo"
+xnl9001_desc = "Civilian Truck"
+xnl9001_help = "Civilian Truck"
+xnl9001_name = "Armadillo"
 
 -- civilian structure 1 with gun
-inb9001_desc = "Nomads Structure with defense gun"
-inb9001_help = "Nomads Structure with defense gun"
-inu9001_name = "NC1001A"
+xnb9001_desc = "Nomads Structure with defense gun"
+xnb9001_help = "Nomads Structure with defense gun"
+xnb9001_name = "NC1001A"
 
 -- civilian structure 1 without gun
-inb9002_desc = "Nomads Structure"
-inb9002_help = "Nomads Structure"
-inu9002_name = "NC1001B"
+xnb9002_desc = "Nomads Structure"
+xnb9002_help = "Nomads Structure"
+xnl9002_name = "NC1001B"
 
 
 

@@ -162,7 +162,7 @@ PlatoonTemplate {
             { 'xsl0105', 1, 1, 'support', 'None' }
         },
         Nomads = {
-            { 'inu1001', 1, 1, 'support', 'None' }
+            { 'xnl0105', 1, 1, 'support', 'None' }
         },
     }
 }
@@ -183,7 +183,7 @@ PlatoonTemplate {
             { 'xsl0208', 1, 1, 'support', 'None' }
         },
         Nomads = {
-            { 'inu1005', 1, 1, 'support', 'None' }
+            { 'xnl0208', 1, 1, 'support', 'None' }
         },
     }
 }
@@ -204,7 +204,7 @@ PlatoonTemplate {
             { 'xsl0309', 1, 1, 'support', 'None' }
         },
         Nomads = {
-            { 'inu2001', 1, 1, 'support', 'None' }
+            { 'xnl0309', 1, 1, 'support', 'None' }
         },
     }
 }

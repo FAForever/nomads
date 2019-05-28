@@ -3,209 +3,209 @@ BuildingTemplates = {
        -- Power Structures
         {
             'T1EnergyProduction',
-            'inb1101',
+            'xnb1101',
         },
         {
             'T1HydroCarbon',
-            'inb1107',
+            'xnb1107',
         },
         {
             'T2EnergyProduction',
-            'inb1201',
+            'xnb1201',
         },
         {
             'T3EnergyProduction',
-            'inb1301',
+            'xnb1301',
         },
 
         -- Mass Structures
         {
             'T1Resource',
-            'inb1102',
+            'xnb1102',
         },
         {
             'T1MassCreation',
-            'inb1104',
+            'xnb1104',
         },
         {
             'T2Resource',
-            'inb1202',
+            'xnb1202',
         },
         {
             'T3Resource',
-            'inb1302',
+            'xnb1302',
         },
         {
             'T3MassCreation',
-            'inb1303',
+            'xnb1303',
         },
         {
             'T3MassExtraction',
-            'inb1302',
+            'xnb1302',
         },
 
         -- Land Factory Structures
         {
             'T1LandFactory',
-            'inb0101',
+            'xnb0101',
         },
         {
             'T2LandFactory',
-            'inb0201',
+            'xnb0201',
         },
         {
             'T3LandFactory',
-            'inb0301',
+            'xnb0301',
         },
         {
             'T3QuantumGate',
-            'inb0304',
+            'xnb0304',
         },
 
 
         -- Air Factory Structures
         {
             'T1AirFactory',
-            'inb0102',
+            'xnb0102',
         },
         {
             'T2AirFactory',
-            'inb0202',
+            'xnb0202',
         },
         {
             'T3AirFactory',
-            'inb0302',
+            'xnb0302',
         },
 
         -- Sea Factory Structures
         {
             'T1SeaFactory',
-            'inb0103',
+            'xnb0103',
         },
         {
             'T2SeaFactory',
-            'inb0203',
+            'xnb0203',
         },
         {
             'T3SeaFactory',
-            'inb0303',
+            'xnb0303',
         },
 
         -- Storage Structures
         {
             'MassStorage',
-            'inb1106',
+            'xnb1106',
         },
         {
             'EnergyStorage',
-            'inb1105',
+            'xnb1105',
         },
 
         -- Defense Structures
         -- -Wall
         {
             'Wall',
-            'inb5101',
+            'xnb5101',
         },
         -- -Ground Defense
         {
             'T1GroundDefense',
-            'inb2101',
+            'xnb2101',
         },
         {
             'T2GroundDefense',
-            'inb2201',
+            'xnb2201',
         },
 
         -- -Air Defense
         {
             'T1AADefense',
-            'inb2102',
+            'xnb2102',
         },
         {
             'T2AADefense',
-            'inb2202',
+            'xnb2202',
         },
         {
             'T3AADefense',
-            'inb4201',
+            'xnb4201',
         },
         -- -Naval Defense
         {
             'T1NavalDefense',
-            'inb2109',
+            'xnb2109',
         },
         {
             'T2NavalDefense',
-            'inb2207',
+            'xnb2207',
         },
         -- -Shield Defense
         {
             'T2ShieldDefense',
-            'inb4202',
+            'xnb4202',
         },
         {
             'T3ShieldDefense',
-            'inb4301',
+            'xnb4301',
         },
         -- -Missile Defense
         {
             'T2MissileDefense',
-            'inb4204',
+            'xnb4204',
         },
 
         -- Intelligence Strucutres
         {
             'T1Radar',
-            'inb3101',
+            'xnb3101',
         },
         {
             'T2Radar',
-            'inb3201',
+            'xnb3201',
         },
         {
             'T3Radar',
-            'inb3301',
+            'xnb3301',
         },
         {
             'T2RadarJammer',
-            'inb4202',  -- shield generator, no counter intel structure
+            'xnb4202',  -- shield generator, no counter intel structure
         },
         {
             'T1Sonar',
-            'inb3102',
+            'xnb3102',
         },
         {
             'T2Sonar',
-            'inb3202',
+            'xnb3202',
         },
         {
             'T3Sonar',
-            'inb3302',
+            'xnb3302',
         },
 
         -- Artillery Structures
         {
             'T2Artillery',
-            'inb2303',
+            'xnb2303',
         },
         {
             'T3Artillery',
-            'inb2302',
+            'xnb2302',
         },
 
         -- Strategic Missile Structures
         {
             'T2StrategicMissile',
-            'inb2208',
+            'xnb2208',
         },
         {
             'T3StrategicMissile',
-            'inb2305',
+            'xnb2305',
         },
         {
             'T3StrategicMissileDefense',
-            'inb4302',
+            'xnb4302',
         },
 
         -- Misc Structures
@@ -219,48 +219,48 @@ BuildingTemplates = {
         },
         {
             'T2AirStagingPlatform',
-            'inb5202',
+            'xnb5202',
         },
         --Experimental Structures
         {
             'T4LandExperimental1',
-            'inu2007',
+            'xnl0402',
         },
         {
             'T4LandExperimental2',
-            'inu4002',
+            'xnl0401',
         },
         {
             'T4AirExperimental1',
-            'ina4001',
+            'xna0401',
         },
         {
             'T4SeaExperimental1',
-            'inu4001',
+            'xnl0403',
         },
 
         -- UEF FA Specific
-        {
+        {--this doesnt exist for nomads, dunno what it is
             'T2EngineerSupport',
-            'inb1005',
+            'xnb1005',
         },
         {
             'T3GroundDefense',
-            'inb3303',
+            'xnb3303',
         },
 }
 
 RebuildStructuresTemplate = {
 
         -- factories
-        {'inb0201', 'inb0101',},
-        {'inb0202', 'inb0102',},
-        {'inb0203', 'inb0103',},
-        {'inb0301', 'inb0101',},
-        {'inb0302', 'inb0102',},
-        {'inb0303', 'inb0103',},
+        {'xnb0201', 'xnb0101',},
+        {'xnb0202', 'xnb0102',},
+        {'xnb0203', 'xnb0103',},
+        {'xnb0301', 'xnb0101',},
+        {'xnb0302', 'xnb0102',},
+        {'xnb0303', 'xnb0103',},
         -- extractors
-        {'inb1202', 'inb1102',},
+        {'xnb1202', 'xnb1102',},
         -- radar
 --        {'xsb3104', 'xsb3101',},
 --        {'xsb3201', 'xsb3101',},

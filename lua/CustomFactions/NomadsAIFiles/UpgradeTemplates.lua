@@ -1,37 +1,37 @@
 UnitUpgradeTemplates = {
 
     -- engineer
-    { 'inu1001', 'inu1005'},
-    { 'inu1005', 'inu2001'},
+    { 'xnl0105', 'xnl0208'},
+    { 'xnl0208', 'xnl0309'},
 }
 
 StructureUpgradeTemplates = {
 
     -- land factory
-    { 'inb0101', 'inb0201'},
-    { 'inb0201', 'inb0301'},
+    { 'xnb0101', 'xnb0201'},
+    { 'xnb0201', 'xnb0301'},
 
     -- air factory
-    { 'inb0102', 'inb0202'},
-    { 'inb0202', 'inb0302'},
+    { 'xnb0102', 'xnb0202'},
+    { 'xnb0202', 'xnb0302'},
 
     -- naval factory
-    { 'inb0103', 'inb0203'},
-    { 'inb0203', 'inb0303'},
+    { 'xnb0103', 'xnb0203'},
+    { 'xnb0203', 'xnb0303'},
 
     -- mass extractors
-    { 'inb1102', 'inb1202'},
-    { 'inb1202', 'inb1302'},
+    { 'xnb1102', 'xnb1202'},
+    { 'xnb1202', 'xnb1302'},
 
     -- radar
-    { 'inb3101', 'inb3201'},
-    { 'inb3201', 'inb3301'},
+    { 'xnb3101', 'xnb3201'},
+    { 'xnb3201', 'xnb3301'},
 
     -- sonar
-    { 'inb3102', 'inb3202'},
-    { 'inb3202', 'inb3302'},
+    { 'xnb3102', 'xnb3202'},
+    { 'xnb3202', 'xnb3302'},
 
     -- shields
-    { 'inb4202', 'inb4205'},
-    { 'inb4301', 'inb4305'},
+    { 'xnb4202', 'xnb4205'},
+    { 'xnb4301', 'xnb4305'},
 }

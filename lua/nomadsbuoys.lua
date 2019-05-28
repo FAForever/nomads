@@ -93,7 +93,7 @@ NIntelligenceBuoy = Class(NCameraBuoy) {
         local army = self:GetArmy()
         local x, y, z = unpack( self:GetPosition() )
         local Orientation = spec.Orientation or {0,0,0,0}
-        local UnitBpId = spec.UnitBpId or 'iny0001'
+        local UnitBpId = spec.UnitBpId or 'xny0001'
 
         self.ProbeUnit = CreateUnitHPR( UnitBpId, army, x, y, z, 0,0,0 )
         self.ProbeUnit:SetOrientation( Orientation, true )

@@ -199,7 +199,7 @@ AIBrain = Class(oldAIBrain) {
         if not self.OrbitalReinforcementReady and self:IsNomadsFaction( self ) then
             StartAbilityCoolDown( self:GetArmyIndex(), 'NomadsAreaReinforcement' )
             local ship = self.NomadsMothership
-            local unitType = self:GetSpecialAbilityParam( 'NomadsAreaReinforcement', 'UnitType' ) or AbilityDefinition['NomadsAreaReinforcement']['ExtraInfo']['UnitType'] or 'INA2003'
+            local unitType = self:GetSpecialAbilityParam( 'NomadsAreaReinforcement', 'UnitType' ) or AbilityDefinition['NomadsAreaReinforcement']['ExtraInfo']['UnitType'] or 'xna0203'
             local readyFn = function(self)      -- self is the constructed unit, not the brain
                 local brain = self:GetAIBrain()
                 brain:AddSpecialAbilityUnit( self, 'NomadsAreaReinforcement', false )
@@ -523,7 +523,7 @@ AIBrain = Class(oldAIBrain) {
 
     ConstructUnitInOrbit = function(self, bpId, ConstructedCallback)
         -- Tells the Nomads orbital unit to construct a unit of given type. Only these units can be constructed in orbit:
-        if bpId ~= 'ino2302' and bpId ~= 'inu3006h' then
+        if bpId ~= 'xno2302' then
             WARN('Cant construct unit type '..repr(bpId)..' in orbit.')
             return false
         end
@@ -548,7 +548,7 @@ AIBrain = Class(oldAIBrain) {
 
     CreateOrbitalUnit = function(self)
         --LOG('*DEBUG: Creating orbital unit')
-        local bp = 'INO0001'
+        local bp = 'xno0001'
         local army = self:GetArmyIndex()
         local x, z = self:GetArmyStartPos()
         local y = GetSurfaceHeight(x,z)

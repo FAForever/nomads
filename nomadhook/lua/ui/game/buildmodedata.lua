@@ -1,133 +1,133 @@
 -- TODO: make sure this is up to date
 
 local NomadsT1Eng = {
-    ['L'] = 'inb0101',
-    ['A'] = 'inb0102',
-    ['S'] = 'inb0103',
-    ['E'] = 'inb1102',
-    ['X'] = 'inb1106',
-    ['P'] = 'inb1101',
-    ['H'] = 'inb1107',
-    ['Y'] = 'inb1105',
-    ['W'] = 'inb5101',
-    ['D'] = 'inb2101',
-    ['N'] = 'inb2102',
-    ['T'] = 'inb2109',
-    ['I'] = 'inb3101',
-    ['O'] = 'inb3102',
+    ['L'] = 'xnb0101',
+    ['A'] = 'xnb0102',
+    ['S'] = 'xnb0103',
+    ['E'] = 'xnb1102',
+    ['X'] = 'xnb1106',
+    ['P'] = 'xnb1101',
+    ['H'] = 'xnb1107',
+    ['Y'] = 'xnb1105',
+    ['W'] = 'xnb5101',
+    ['D'] = 'xnb2101',
+    ['N'] = 'xnb2102',
+    ['T'] = 'xnb2109',
+    ['I'] = 'xnb3101',
+    ['O'] = 'xnb3102',
 }
 
 local NomadsT2Eng = {
-    ['E'] = 'inb1201',
-    ['P'] = 'inb1202',
-    ['D'] = 'inb2201',
-    ['N'] = 'inb2202',
-    ['F'] = 'inb1104',
-    ['T'] = 'inb2207',
-    ['R'] = 'inb2303',
-    ['M'] = 'inb2208',
-    ['K'] = 'inb4204',
-    ['V'] = 'inb4202',
-    ['C'] = 'inb4203',
-    ['I'] = 'inb3201',
-    ['O'] = 'inb3202',
-    ['G'] = 'inb5202',
+    ['E'] = 'xnb1201',
+    ['P'] = 'xnb1202',
+    ['D'] = 'xnb2201',
+    ['N'] = 'xnb2202',
+    ['F'] = 'xnb1104',
+    ['T'] = 'xnb2207',
+    ['R'] = 'xnb2303',
+    ['M'] = 'xnb2208',
+    ['K'] = 'xnb4204',
+    ['V'] = 'xnb4202',
+    ['C'] = 'xnb4203',
+    ['I'] = 'xnb3201',
+    ['O'] = 'xnb3202',
+    ['G'] = 'xnb5202',
 }
 
 local NomadsT3Eng = {
-    ['E'] = 'inb1302',
-    ['D'] = 'inb3303',
-    ['F'] = 'inb1303',
-    ['P'] = 'inb1301',
-    ['N'] = 'inb4201',
-    ['R'] = 'inb2302',
-    ['M'] = 'inb2305',
-    ['K'] = 'inb4302',
-    ['V'] = 'inb4301',
-    ['O'] = 'inb3302',
-    ['I'] = 'inb3301',
-    ['Q'] = 'inb0304',
+    ['E'] = 'xnb1302',
+    ['D'] = 'xnb3303',
+    ['F'] = 'xnb1303',
+    ['P'] = 'xnb1301',
+    ['N'] = 'xnb4201',
+    ['R'] = 'xnb2302',
+    ['M'] = 'xnb2305',
+    ['K'] = 'xnb4302',
+    ['V'] = 'xnb4301',
+    ['O'] = 'xnb3302',
+    ['I'] = 'xnb3301',
+    ['Q'] = 'xnb0304',
 }
 
 local NomadsT4Eng = {
-    ['S'] = 'inu2007',
-    ['M'] = 'inu4002',
-    ['R'] = 'inu4001',
-    ['A'] = 'ina4001',
+    ['S'] = 'xnl0402',
+    ['M'] = 'xnl0401',
+    ['R'] = 'xnl0403',
+    ['A'] = 'xna0401',
 }
 
 local NomadsT1Land = {
-    ['E'] = 'inu1001',
-    ['S'] = 'inu1002',
-    ['O'] = 'inu1007',
-    ['T'] = 'inu1004',
-    ['R'] = 'inu1008',
-    ['N'] = 'inu1006',
+    ['E'] = 'xnl0105',
+    ['S'] = 'xnl0101',
+    ['O'] = 'xnl0106',
+    ['T'] = 'xnl0201',
+    ['R'] = 'xnl0107',
+    ['N'] = 'xnl0103',
 }
 
 local NomadsT2Land = {
     ['A'] = 'xal0203',
-    ['E'] = 'inu1005',
-    ['A'] = 'inu2002',
-    ['T'] = 'inu2005',
-    ['M'] = 'inu2003',
-    ['N'] = 'inu2004',
-    ['V'] = 'inu3003',
-    ['D'] = 'inu3008',
+    ['E'] = 'xnl0208',
+    ['A'] = 'xnl0203',
+    ['T'] = 'xnl0202',
+    ['M'] = 'xnl0111',
+    ['N'] = 'xnl0205',
+    ['V'] = 'xnl0306',
+    ['D'] = 'xnl0209',
 }
 
 local NomadsT3Land = {
-    ['S'] = 'inu1003',
-    ['E'] = 'inu2001',
-    ['T'] = 'inu3002',
-    ['R'] = 'inu3004',
-    ['N'] = 'inu3007',
+    ['S'] = 'xnl0109',
+    ['E'] = 'xnl0309',
+    ['T'] = 'xnl0303',
+    ['R'] = 'xnl0304',
+    ['N'] = 'xnl0307',
 }
 
 local NomadsT1Air = {
-    ['E'] = 'inu1001',
-    ['S'] = 'ina1001',
-    ['F'] = 'ina1002',
-    ['O'] = 'ina1003',
-    ['G'] = 'ina1004',
-    ['T'] = 'ina1005',
+    ['E'] = 'xnl0105',
+    ['S'] = 'xna0101',
+    ['F'] = 'xna0102',
+    ['O'] = 'xna0103',
+    ['G'] = 'xna0105',
+    ['T'] = 'xna0107',
 }
 
 local NomadsT2Air = {
-    ['E'] = 'inu1005',
-    ['F'] = 'ina2002',
-    ['G'] = 'ina2003',
-    ['T'] = 'ina2001',
+    ['E'] = 'xnl0208',
+    ['F'] = 'xna0202',
+    ['G'] = 'xna0203',
+    ['T'] = 'xna0104',
 }
 
 local NomadsT3Air = {
-    ['E'] = 'inu2001',
-    ['S'] = 'ina3001',
-    ['F'] = 'ina3003',
-    ['O'] = 'ina3004',
-    ['G'] = 'ina3006',
+    ['E'] = 'xnl0309',
+    ['S'] = 'xna0301',
+    ['F'] = 'xna0303',
+    ['O'] = 'xna0304',
+    ['G'] = 'xna0306',
 }
 
 local NomadsT1Sea = {
-    ['E'] = 'inu1001',
-    ['F'] = 'ins1002',
-    ['S'] = 'ins1001',
+    ['E'] = 'xnl0105',
+    ['F'] = 'xns0103',
+    ['S'] = 'xns0203',
 }
 
 local NomadsT2Sea = {
-    ['E'] = 'inu1005',
-    ['O'] = 'ins2003',
-    ['C'] = 'ins2002',
-    ['D'] = 'ins2001',
+    ['E'] = 'xnl0208',
+    ['O'] = 'xns0205',
+    ['C'] = 'xns0202',
+    ['D'] = 'xns0201',
 }
 
 local NomadsT3Sea = {
-    ['E'] = 'inu2001',
-    ['D'] = 'inu3008',
-    ['T'] = 'ins3001',
-    ['D'] = 'ins3004',
-    ['C'] = 'ins3003',
-    ['S'] = 'ins3002',
+    ['E'] = 'xnl0309',
+    ['D'] = 'xnl0209',
+    ['T'] = 'xns0301',
+    ['D'] = 'xns0302',
+    ['C'] = 'xns0303',
+    ['S'] = 'xns0304',
 }
 
 buildModeKeys = table.merged( buildModeKeys, {
@@ -174,119 +174,119 @@ buildModeKeys = table.merged( buildModeKeys, {
     },
 
     -- T1 Land Factory
-    ['inb0101'] = {
+    ['xnb0101'] = {
         [1] = NomadsT1Land,
-        ['U'] = 'inb0201',
+        ['U'] = 'xnb0201',
     },
 
     -- T2 Land Factory
-    ['inb0201'] = {
+    ['xnb0201'] = {
         [1] = NomadsT1Land,
         [2] = NomadsT2Land,
-        ['U'] = 'inb0301',
+        ['U'] = 'xnb0301',
     },
 
     -- T3 Land Factory
-    ['inb0301'] = {
+    ['xnb0301'] = {
         [1] = NomadsT1Land,
         [2] = NomadsT2Land,
         [3] = NomadsT3Land,
     },
 
     -- T1 Air Factory
-    ['inb0102'] = {
+    ['xnb0102'] = {
         [1] = NomadsT1Air,
-        ['U'] = 'inb0202',
+        ['U'] = 'xnb0202',
     },
 
     -- T2 Air Factory
-    ['inb0202'] = {
+    ['xnb0202'] = {
         [1] = NomadsT1Air,
         [2] = NomadsT2Air,
-        ['U'] = 'inb0302',
+        ['U'] = 'xnb0302',
     },
 
     -- T3 Air Factory
-    ['inb0302'] = {
+    ['xnb0302'] = {
         [1] = NomadsT1Air,
         [2] = NomadsT2Air,
         [3] = NomadsT3Air,
     },
 
     -- T1 Naval Factory
-    ['inb0103'] = {
+    ['xnb0103'] = {
         [1] = NomadsT1Sea,
-        ['U'] = 'inb0203',
+        ['U'] = 'xnb0203',
     },
 
     -- T2 Naval Factory
-    ['inb0203'] = {
+    ['xnb0203'] = {
         [1] = NomadsT1Sea,
         [2] = NomadsT2Sea,
-        ['U'] = 'inb0303',
+        ['U'] = 'xnb0303',
     },
 
     -- T3 Naval Factory
-    ['inb0303'] = {
+    ['xnb0303'] = {
         [1] = NomadsT1Sea,
         [2] = NomadsT2Sea,
         [3] = NomadsT3Sea,
     },
 
     -- Quantum Gateway
-    ['inb0304'] = {
+    ['xnb0304'] = {
         [3] = {
-            ['C'] = 'inu0301_Default',
-            ['A'] = 'inu0301_AntiNaval',
-            ['O'] = 'inu0301_Combat',
-            ['E'] = 'inu0301_Engineer',
-            ['R'] = 'inu0301_Rambo',
-            ['K'] = 'inu0301_Rocket',
+            ['C'] = 'xnl0301_Default',
+            ['A'] = 'xnl0301_AntiNaval',
+            ['O'] = 'xnl0301_Combat',
+            ['E'] = 'xnl0301_Engineer',
+            ['R'] = 'xnl0301_Rambo',
+            ['K'] = 'xnl0301_Rocket',
         },
     },
 
     -- T1 Mass Extractor
-    ['inb1102'] = {
-        ['U'] = 'inb1202',
+    ['xnb1102'] = {
+        ['U'] = 'xnb1202',
     },
 
     -- T2 Mass Extractor
-    ['inb1202'] = {
-        ['U'] = 'inb1302',
+    ['xnb1202'] = {
+        ['U'] = 'xnb1302',
     },
 
     -- T1 Radar
-    ['inb3101'] = {
-        ['U'] = 'inb3201',
+    ['xnb3101'] = {
+        ['U'] = 'xnb3201',
     },
 
     -- T2 Radar
-    ['inb3201'] = {
-        ['U'] = 'inb3301',
+    ['xnb3201'] = {
+        ['U'] = 'xnb3301',
     },
 
     -- T1 Sonar
-    ['inb3102'] = {
-        ['U'] = 'inb3202',
+    ['xnb3102'] = {
+        ['U'] = 'xnb3202',
     },
 
     -- T2 Sonar
-    ['inb3202'] = {
-        ['U'] = 'inb3302',
+    ['xnb3202'] = {
+        ['U'] = 'xnb3302',
     },
 
     -- T2 shield
-    ['inb4202'] = {
-        ['U'] = 'inb4205',
+    ['xnb4202'] = {
+        ['U'] = 'xnb4205',
     },
 
     -- T3 shield
-    ['inb4301'] = {
-        ['U'] = 'inb4305',
+    ['xnb4301'] = {
+        ['U'] = 'xnb4305',
     },
 
     -- Aircraft Carrier
-    ['ins3003'] = {
+    ['xns0303'] = {
         [1] = NomadsT1Air,
         [2] = NomadsT2Air,
         [3] = NomadsT3Air,

@@ -11,7 +11,7 @@ PlatoonTemplate {
             { 'drl0204', 1, 1, 'attack', 'None' },
         },
         Nomads = {
-            { 'inu2005', 1, 1, 'attack', 'none' },
+            { 'xnl0202', 1, 1, 'attack', 'none' },
         },
     },
 }
@@ -26,7 +26,7 @@ PlatoonTemplate {
             { 'xrl0305', 1, 1, 'attack', 'none' },
         },
         Nomads = {
-            { 'inu3009', 1, 1, 'attack', 'none' },
+            { 'xnl0305', 1, 1, 'attack', 'none' },
         },
     },
 }

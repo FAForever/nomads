@@ -1,5 +1,5 @@
 TrailEmitterBlueprint {
-    BlueprintId = 'INU3002Rocket_polytrail_01',
+    BlueprintId = 'XNL0302Rocket_polytrail_01', --this doesnt exist?
     Lifetime = -1.00,
     TrailLength = 15,
     Size = 0.2,

@@ -35,7 +35,7 @@ PlatoonTemplate {
             { 'uas0401', 1, 1, 'attack', 'None' }
         },
         Nomads = {
-            { 'inu4001', 1, 1, 'attack', 'None' }
+            { 'xnl0403', 1, 1, 'attack', 'None' }
         },
     }
 }
@@ -57,7 +57,7 @@ PlatoonTemplate {
             { 'xss0103', 1, 1, 'attack', 'GrowthFormation' }
         },
         Nomads = {
-            { 'ins1002', 1, 1, 'attack', 'GrowthFormation' }
+            { 'xns0103', 1, 1, 'attack', 'GrowthFormation' }
         },
     }
 }
@@ -78,7 +78,7 @@ PlatoonTemplate {
             { 'xss0103', 1, 1, 'attack', 'GrowthFormation' }
         },
         Nomads = {
-            { 'ins1002', 1, 1, 'attack', 'GrowthFormation' }
+            { 'xns0103', 1, 1, 'attack', 'GrowthFormation' }
         },
     }
 }
@@ -99,7 +99,7 @@ PlatoonTemplate {
             { 'xss0203', 1, 1, 'attack', 'GrowthFormation' }
         },
         Nomads = {
-            { 'ins1001', 1, 1, 'attack', 'GrowthFormation' }
+            { 'xns0203', 1, 1, 'attack', 'GrowthFormation' }
         },
     }
 }
@@ -120,7 +120,7 @@ PlatoonTemplate {
             { 'xss0202', 1, 1, 'attack', 'GrowthFormation' }
         },
         Nomads = {
-            { 'ins2002', 1, 1, 'attack', 'GrowthFormation' }
+            { 'xns0202', 1, 1, 'attack', 'GrowthFormation' }
         },
     }
 }
@@ -141,7 +141,7 @@ PlatoonTemplate {
             { 'xss0201', 1, 1, 'attack', 'GrowthFormation' }
         },
         Nomads = {
-            { 'ins2001', 1, 1, 'attack', 'GrowthFormation' }
+            { 'xns0201', 1, 1, 'attack', 'GrowthFormation' }
         },
     }
 }
@@ -159,7 +159,7 @@ PlatoonTemplate {
             { 'xrs0204', 1, 1, 'attack', 'None' },
         },
         Nomads = {
-            { 'ins2003', 1, 1, 'attack', 'None' },
+            { 'xns0205', 1, 1, 'attack', 'None' },
         },
     },
 }
@@ -198,7 +198,7 @@ PlatoonTemplate {
             { 'xss0302', 1, 1, 'attack', 'GrowthFormation' }
         },
         Nomads = {
-            { 'ins3004', 1, 1, 'attack', 'GrowthFormation' }
+            { 'xns0302', 1, 1, 'attack', 'GrowthFormation' }
         },
     }
 }
@@ -217,7 +217,7 @@ PlatoonTemplate {
             { 'xss0303', 1, 1, 'attack', 'GrowthFormation' }
         },
         Nomads = {
-            { 'ins3003', 1, 1, 'attack', 'GrowthFormation' }
+            { 'xns0303', 1, 1, 'attack', 'GrowthFormation' }
         },
     }
 }
@@ -229,7 +229,7 @@ PlatoonTemplate {
             { 'xas0306', 1, 1, 'attack', 'None' },
         },
         Nomads = {
-            { 'ins3002', 1, 1, 'attack', 'None' }
+            { 'xns0304', 1, 1, 'attack', 'None' }
         },
     }
 }

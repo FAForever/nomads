@@ -208,7 +208,7 @@ PlatoonTemplate {
             { 'xsl0104', 1, 1, 'attack', 'none' }
         },
         Nomads = {
-            { 'inu1006', 1, 1, 'attack', 'none' }
+            { 'xnl0103', 1, 1, 'attack', 'none' }
         },
     },
 }
@@ -229,8 +229,8 @@ PlatoonTemplate {
             { 'xsl0103', 1, 1, 'Attack', 'none' }
         },
         Nomads = {
-            { 'inu1008', 1, 1, 'Attack', 'none' },
-            { 'inu1004', 1, 2, 'Attack', 'none' }, -- 1 or 2 T1 tanks to make the sniper tank less numerous on the battlefield
+            { 'xnl0107', 1, 1, 'Attack', 'none' },
+            { 'xnl0201', 1, 2, 'Attack', 'none' }, -- 1 or 2 T1 tanks to make the sniper tank less numerous on the battlefield
         },
     }
 }
@@ -251,7 +251,7 @@ PlatoonTemplate {
             { 'xsl0201', 1, 1, 'attack', 'None' }
         },
         Nomads = {
-            { 'inu1007', 1, 1, 'Attack', 'none' }
+            { 'xnl0106', 1, 1, 'Attack', 'none' }
         },
     }
 }
@@ -272,7 +272,7 @@ PlatoonTemplate {
             { 'xsl0201', 1, 1, 'attack', 'none' }
         },
         Nomads = {
-            { 'inu1004', 1, 1, 'attack', 'none' }
+            { 'xnl0201', 1, 1, 'attack', 'none' }
         },
     }
 }
@@ -293,7 +293,7 @@ PlatoonTemplate {
             { 'xsl0101', 1, 1, 'scout', 'none' }
         },
         Nomads = {
-            { 'inu1002', 1, 1, 'scout', 'none' }
+            { 'xnl0101', 1, 1, 'scout', 'none' }
         },
     }
 }
@@ -315,7 +315,7 @@ PlatoonTemplate {
             { 'xsl0205', 1, 1, 'attack', 'none' }
         },
         Nomads = {
-            { 'inu2004', 1, 1, 'attack', 'none' }
+            { 'xnl0205', 1, 1, 'attack', 'none' }
         },
     }
 }
@@ -336,7 +336,7 @@ PlatoonTemplate {
             { 'xsl0203', 1, 1, 'attack', 'none' }
         },
         Nomads = {
-            { 'inu2002', 1, 1, 'attack', 'none' }
+            { 'xnl0203', 1, 1, 'attack', 'none' }
         },
     }
 }
@@ -357,7 +357,7 @@ PlatoonTemplate {
             { 'xsl0111', 1, 1, 'artillery', 'none' },
         },
         Nomads = {
-            { 'inu2003', 1, 1, 'artillery', 'none' },
+            { 'xnl0111', 1, 1, 'artillery', 'none' },
         },
     }
 }
@@ -378,7 +378,7 @@ PlatoonTemplate {
             { 'xsl0202', 1, 1, 'attack', 'none' },
         },
         Nomads = {
-            { 'inu2005', 1, 1, 'attack', 'none' },
+            { 'xnl0202', 1, 1, 'attack', 'none' },
         },
     }
 }
@@ -396,7 +396,7 @@ PlatoonTemplate {
             { 'drl0204', 1, 1, 'attack', 'None' },
         },
         Nomads = {
-            { 'inu2005', 1, 1, 'attack', 'none' },
+            { 'xnl0202', 1, 1, 'attack', 'none' },
         },
     },
 }
@@ -414,8 +414,8 @@ PlatoonTemplate {
             { 'url0306', 1, 1, 'support', 'none' }
         },
         Nomads = {
-            { 'inu3003', 1, 1, 'support', 'none' },
-            { 'inu2005', 1, 2, 'support', 'none' }, -- 1 or 2 T2 tanks to make the EMP tank less numerous on the battlefield
+            { 'xnl0306', 1, 1, 'support', 'none' },
+            { 'xnl0202', 1, 2, 'support', 'none' }, -- 1 or 2 T2 tanks to make the EMP tank less numerous on the battlefield
         },
     }
 }
@@ -446,7 +446,7 @@ PlatoonTemplate {
             { 'xsl0205', 1, 1, 'attack', 'none' }
         },
         Nomads = {
-            { 'inu3007', 1, 1, 'attack', 'none' }
+            { 'xnl0307', 1, 1, 'attack', 'none' }
         },
     }
 }
@@ -467,7 +467,7 @@ PlatoonTemplate {
             { 'xsl0304', 1, 1, 'artillery', 'none' },
         },
         Nomads = {
-            { 'inu3004', 1, 1, 'artillery', 'none' },
+            { 'xnl0304', 1, 1, 'artillery', 'none' },
         },
     }
 }
@@ -488,7 +488,7 @@ PlatoonTemplate {
             { 'xsl0303', 1, 1, 'attack', 'none' },
         },
         Nomads = {
-            { 'inu3002', 1, 1, 'attack', 'none' },
+            { 'xnl0303', 1, 1, 'attack', 'none' },
         },
     }
 }
@@ -515,7 +515,7 @@ PlatoonTemplate {
             { 'xrl0305', 1, 1, 'attack', 'none' },
         },
         Nomads = {
-            { 'inu3009', 1, 1, 'attack', 'none' },
+            { 'xnl0305', 1, 1, 'attack', 'none' },
         },
     }
 }
@@ -527,7 +527,7 @@ PlatoonTemplate {
             { 'xel0306', 1, 1, 'attack', 'None' },
         },
         Nomads = {
-            { 'inu2003', 1, 1, 'attack', 'none' }
+            { 'xnl0111', 1, 1, 'attack', 'none' }
         },
     }
 }
@@ -548,8 +548,8 @@ PlatoonTemplate {
             { 'xsl0307', 1, 1, 'support', 'none' }
         },
         Nomads = {
-            { 'inu3003', 1, 1, 'support', 'none' },
-            { 'inu3002', 1, 1, 'support', 'none' }, -- 1 T3 tanks to make the EMP tank less numerous on the battlefield
+            { 'xnl0306', 1, 1, 'support', 'none' },
+            { 'xnl0303', 1, 1, 'support', 'none' }, -- 1 T3 tanks to make the EMP tank less numerous on the battlefield
         },
     }
 }
@@ -570,7 +570,7 @@ PlatoonTemplate {
             { 'xsl0301', 1, 1, 'support', 'none' }
         },
         Nomads = {
-            { 'inu0301_Default', 1, 1, 'support', 'none' }
+            { 'xnl0301_Default', 1, 1, 'support', 'none' }
         },
     }
 }

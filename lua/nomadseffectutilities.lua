@@ -120,7 +120,7 @@ function CreateNomadsBuildSliceBeams( builder, unitBeingBuilt, BuildEffectBones,
     local c = 0
     local ok = true  -- this threaded function keeps running even if the trashbag it's in is destroyed. This boolean is used to prevent this.
 
-    while not builder:BeenDestroyed() and not unitBeingBuilt:BeenDestroyed() and unitBeingBuilt:GetFractionComplete() < 1 and ok or ubbBp.BlueprintId == 'ino2302' or builder:GetBlueprint().BlueprintId == 'inc0001' do
+    while not builder:BeenDestroyed() and not unitBeingBuilt:BeenDestroyed() and unitBeingBuilt:GetFractionComplete() < 1 and ok or ubbBp.BlueprintId == 'xno2302' or builder:GetBlueprint().BlueprintId == 'xnc0001' do
         -- c counts down. when it reached 0 find new random offset within the unit. All endpoint entities will be grouped around this offset
         c = c - 1
         if c <= 0 then

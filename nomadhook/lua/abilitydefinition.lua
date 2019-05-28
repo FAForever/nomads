@@ -185,7 +185,7 @@ abilities = table.merged( abilities, {
             Sonar = true,
             Vision = false,
             WaterVision = false,
-            UnitBpId = 'iny0001',  -- TODO: embed this in the probe projectile script
+            UnitBpId = 'xny0001',  -- TODO: embed this in the probe projectile script
         },
         UIHelpText = 'specabil_intelprobe',
         ActiveDecal = {
@@ -232,7 +232,7 @@ abilities = table.merged( abilities, {
             Sonar = false,
             Vision = true,
             WaterVision = true,
-            UnitBpId = 'iny0001',  -- TODO: embed this in the probe projectile script
+            UnitBpId = 'xny0001',  -- TODO: embed this in the probe projectile script
         },
         UIHelpText = 'specabil_intelprobe',
         ActiveDecal = {

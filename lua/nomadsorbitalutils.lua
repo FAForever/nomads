@@ -31,7 +31,7 @@ end
 
 function CreateOrbitalUnit( brain )
     LOG('*DEBUG: Creating orbital unit')
-    local bp = 'INO0001'
+    local bp = 'xno0001'
     local army = brain:GetArmyIndex()
     local x, z = brain:GetArmyStartPos()
     local y = GetSurfaceHeight(x,z)

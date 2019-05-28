@@ -2,13 +2,13 @@ MeshBlueprint {
     IconFadeInZoom = 130,
     LODs = {
         {
-            AlbedoName = '/units/inu0301/inu0301_Albedo.dds',
+            AlbedoName = '/units/xnl0301/xnl0301_Albedo.dds',
             LODCutoff = 300,
             LookupName = '/textures/effects/NomadPowerArmorLookup.dds',
-            MeshName = '/units/inu0301/inu0301_Lod0.scm',
-            NormalsName = '/units/inu0301/inu0301_NormalsTS.dds',
+            MeshName = '/units/xnl0301/xnl0301_Lod0.scm',
+            NormalsName = '/units/xnl0301/xnl0301_NormalsTS.dds',
             ShaderName = 'NomadsPowerArmor',
-            SpecularName = '/units/inu0301/inu0301_SpecTeam.dds',
+            SpecularName = '/units/xnl0301/xnl0301_SpecTeam.dds',
         },
     },
 }

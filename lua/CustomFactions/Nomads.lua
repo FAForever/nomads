@@ -20,32 +20,32 @@ FactionList = {
         loadingColor = 'FFbadbdb',
         loadingTexture = '/UEF_load.dds',
         IdleEngTextures = {
-            T1 = '/icons/units/INU1001_icon.dds',
-            T2 = '/icons/units/INU1005_icon.dds',
-            T2F = '/icons/units/INU3008_icon.dds',
-            T3 = '/icons/units/INU2001_icon.dds',
-            SCU = '/icons/units/inu0301_icon.dds',
+            T1 = '/icons/units/xnl0105_icon.dds',
+            T2 = '/icons/units/xnl0208_icon.dds',
+            T2F = '/icons/units/xnl0209_icon.dds',
+            T3 = '/icons/units/xnl0309_icon.dds',
+            SCU = '/icons/units/xnl0301_icon.dds',
         },
         IdleFactoryTextures = {
             LAND = {
-                '/icons/units/INB0101_icon.dds',
-                '/icons/units/INB0201_icon.dds',
-                '/icons/units/INB0301_icon.dds',
+                '/icons/units/xnb0101_icon.dds',
+                '/icons/units/xnb0201_icon.dds',
+                '/icons/units/xnb0301_icon.dds',
             },
             AIR = {
-                '/icons/units/INB0102_icon.dds',
-                '/icons/units/INB0202_icon.dds',
-                '/icons/units/INB0302_icon.dds',
+                '/icons/units/xnb0102_icon.dds',
+                '/icons/units/xnb0202_icon.dds',
+                '/icons/units/xnb0302_icon.dds',
             },
             NAVAL = {
-                '/icons/units/INB0103_icon.dds',
-                '/icons/units/INB0203_icon.dds',
-                '/icons/units/INB0303_icon.dds',
+                '/icons/units/xnb0103_icon.dds',
+                '/icons/units/xnb0203_icon.dds',
+                '/icons/units/xnb0303_icon.dds',
             },
         },
         PreBuildUnits = {
-            MassExtractors = { 'INB1102', 'INB1102', 'INB1102', 'INB1102', },
-            Regular = { 'INB0101', 'INB1101', 'INB1101', 'INB1101', 'INB1101', },
+            MassExtractors = { 'xnb1102', 'xnb1102', 'xnb1102', 'xnb1102', },
+            Regular = { 'xnb0101', 'xnb1101', 'xnb1101', 'xnb1101', 'xnb1101', },
         },
 
         -- AI stuff
@@ -56,7 +56,7 @@ FactionList = {
 
         -- Used by GAZ_UI. This mod needs to be the version that supports Nomads and other custom factions
         GAZ_UI_Info = {
-            BuildingIdPrefixes = { 'inb', },
+            BuildingIdPrefixes = { 'xnb', },
             TexEnhancementPrefix = {
                 char = 'n',
                 prefix = '/game/nomads-enhancements/',

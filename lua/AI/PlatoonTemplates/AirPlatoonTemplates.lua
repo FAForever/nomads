@@ -142,7 +142,7 @@ PlatoonTemplate {
             { 'xsa0101', 1, 1, 'scout', 'GrowthFormation' }
         },
         Nomads = {
-            { 'ina1001', 1, 1, 'scout', 'GrowthFormation' }
+            { 'xna0101', 1, 1, 'scout', 'GrowthFormation' }
         },
     }
 }
@@ -154,7 +154,7 @@ PlatoonTemplate {
             { 'xra0105', 1, 1, 'attack', 'None' },
         },
         Nomads = {
-            { 'ina1004', 1, 1, 'attack', 'None' },
+            { 'xna0105', 1, 1, 'attack', 'None' },
         },
     },
 }
@@ -175,7 +175,7 @@ PlatoonTemplate {
             { 'xsa0103', 1, 1, 'attack', 'GrowthFormation' }
         },
         Nomads = {
-            { 'ina1003', 1, 1, 'attack', 'GrowthFormation' }
+            { 'xna0103', 1, 1, 'attack', 'GrowthFormation' }
         },
     }
 }
@@ -196,7 +196,7 @@ PlatoonTemplate {
             { 'xsa0102', 1, 1, 'attack', 'GrowthFormation' }
         },
         Nomads = {
-            { 'ina1002', 1, 1, 'attack', 'GrowthFormation' }
+            { 'xna0102', 1, 1, 'attack', 'GrowthFormation' }
         },
     }
 }
@@ -217,7 +217,7 @@ PlatoonTemplate {
             { 'xsa0107', 1, 1, 'support', 'GrowthFormation' }
         },
         Nomads = {
-            { 'ina1005', 1, 1, 'support', 'GrowthFormation' }
+            { 'xna0107', 1, 1, 'support', 'GrowthFormation' }
         },
     }
 }
@@ -241,7 +241,7 @@ PlatoonTemplate {
             { 'xsa0101', 1, 1, 'scout', 'GrowthFormation' }
         },
         Nomads = {
-            { 'ina1001', 1, 1, 'scout', 'GrowthFormation' }
+            { 'xna0101', 1, 1, 'scout', 'GrowthFormation' }
         },
     }
 }
@@ -262,7 +262,7 @@ PlatoonTemplate {
             { 'xsa0203', 1, 1, 'attack', 'GrowthFormation' }
         },
         Nomads = {
-            { 'ina2003', 1, 1, 'attack', 'GrowthFormation' }
+            { 'xna0203', 1, 1, 'attack', 'GrowthFormation' }
         },
     }
 }
@@ -283,7 +283,7 @@ PlatoonTemplate {
             { 'xsa0202', 1, 1, 'attack', 'None' },
         },
         Nomads = {
-            { 'ina2002', 1, 1, 'attack', 'None' },
+            { 'xna0202', 1, 1, 'attack', 'None' },
         },
     },
 }
@@ -304,7 +304,7 @@ PlatoonTemplate {
             { 'xsa0204', 1, 1, 'attack', 'GrowthFormation' }
         },
         Nomads = {
-            { 'ina2003', 1, 1, 'attack', 'GrowthFormation' }
+            { 'xna0203', 1, 1, 'attack', 'GrowthFormation' }
         },
     }
 }
@@ -325,7 +325,7 @@ PlatoonTemplate {
             { 'xsa0104', 1, 1, 'support', 'GrowthFormation' },
         },
         Nomads = {
-            { 'ina2001', 1, 1, 'support', 'GrowthFormation' },
+            { 'xna0104', 1, 1, 'support', 'GrowthFormation' },
         },
     }
 }
@@ -349,7 +349,7 @@ PlatoonTemplate {
             { 'xsa0304', 1, 1, 'attack', 'GrowthFormation' }
         },
         Nomads = {
-            { 'ina3004', 1, 1, 'attack', 'GrowthFormation' }
+            { 'xna0304', 1, 1, 'attack', 'GrowthFormation' }
         },
     }
 }
@@ -370,7 +370,7 @@ PlatoonTemplate {
             { 'xsa0303', 1, 1, 'attack', 'GrowthFormation' }
         },
         Nomads = {
-            { 'ina3003', 1, 1, 'attack', 'GrowthFormation' }
+            { 'xna0303', 1, 1, 'attack', 'GrowthFormation' }
         },
     }
 }
@@ -388,7 +388,7 @@ PlatoonTemplate {
             { 'xra0305', 1, 1, 'attack', 'GrowthFormation' }
         },
         Nomads = {
-            { 'ina3006', 1, 1, 'attack', 'GrowthFormation' }
+            { 'xna0306', 1, 1, 'attack', 'GrowthFormation' }
         },
     }
 }
@@ -409,7 +409,7 @@ PlatoonTemplate {
             { 'xsa0302', 1, 1, 'scout', 'GrowthFormation' }
         },
         Nomads = {
-            { 'ina3001', 1, 1, 'scout', 'GrowthFormation' }
+            { 'xna0301', 1, 1, 'scout', 'GrowthFormation' }
         },
     }
 }
@@ -430,7 +430,7 @@ PlatoonTemplate {
             { 'xsa0104', 1, 1, 'support', 'GrowthFormation' },
         },
         Nomads = {
-            { 'ina2001', 1, 1, 'support', 'GrowthFormation' },
+            { 'xna0104', 1, 1, 'support', 'GrowthFormation' },
         },
     }
 }

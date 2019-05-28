@@ -336,7 +336,7 @@ NExperimentalHoverLandUnit = Class(NHoverLandUnit) {
 
     DoCrushDamage = function(self, pos, bpDamage)
         -- To determine the offset in the units blueprint you can use this line:
-        -- CreateUnitHPR('inu1002', self:GetArmy(), pos[1], pos[2], pos[3], 0,0,0)
+        -- CreateUnitHPR('xnl0101', self:GetArmy(), pos[1], pos[2], pos[3], 0,0,0)
         DamageArea(self, pos, bpDamage.Radius, bpDamage.Amount, bpDamage.Type, bpDamage.DamageFriendly )
     end,
 }
