@@ -3,7 +3,7 @@
 local NOrbitUnit = import('/lua/nomadsunits.lua').NOrbitUnit
 local OrbitalGun = import('/lua/nomadsweapons.lua').OrbitalGun
 
-INC2302 = Class(NOrbitUnit) {
+XNC2302 = Class(NOrbitUnit) {
     Weapons = {
         MainGun = Class(OrbitalGun) { },
     },
@@ -11,4 +11,4 @@ INC2302 = Class(NOrbitUnit) {
     EngineRotateBones = { 'Panel_L', 'Panel_R', },
 }
 
-TypeClass = INC2302
+TypeClass = XNC2302

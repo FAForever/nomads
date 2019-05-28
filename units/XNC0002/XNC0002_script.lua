@@ -4,7 +4,7 @@ local NCivilianStructureUnit = import('/lua/nomadsunits.lua').NCivilianStructure
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local CreateNomadsBuildSliceBeams = import('/lua/nomadseffectutilities.lua').CreateNomadsBuildSliceBeams
 
-INC0002 = Class(NCivilianStructureUnit) {
+xnc0002 = Class(NCivilianStructureUnit) {
 
     OnCreate = function(self)
         self.BuildEffectsBag = TrashBag()
@@ -30,7 +30,7 @@ INC0002 = Class(NCivilianStructureUnit) {
 
         --[[for _, army in ListArmies() do
             if not IsEnemy(army, self:GetArmy()) then
-                self:AddToConstructionQueue('inu1001', army)
+                self:AddToConstructionQueue('xnl0105', army)
             end
         end]]
         --[[ForkThread(function()
@@ -171,7 +171,7 @@ INC0002 = Class(NCivilianStructureUnit) {
     ThrusterBurnBones = {'ThrusterFrontLeft', 'ThrusterFrontRight', 'ThrusterBackLeft', 'ThrusterBackRight'},
 
     TakeOff = function (self)
-        self.LaunchAnim = CreateAnimator(self):PlayAnim('/units/INO0001/INO0001_launch.sca')
+        self.LaunchAnim = CreateAnimator(self):PlayAnim('/units/xno0001/xno0001_launch.sca')
         self.LaunchAnim:SetAnimationFraction(0)
         self.LaunchAnim:SetRate(0.1)
         self.Trash:Add(self.LaunchAnim)
@@ -198,7 +198,7 @@ INC0002 = Class(NCivilianStructureUnit) {
                 self.Trash:Add( emit )
             end
         end
-        self.LaunchAnim = CreateAnimator(self):PlayAnim('/units/INO0001/INO0001_land.sca')
+        self.LaunchAnim = CreateAnimator(self):PlayAnim('/units/xno0001/xno0001_land.sca')
         self.LaunchAnim:SetAnimationFraction(0.3)
         self.LaunchAnim:SetRate(0.1)
         self.Trash:Add(self.LaunchAnim)
@@ -222,7 +222,7 @@ INC0002 = Class(NCivilianStructureUnit) {
             self:MaybeStartConstruction()
             return true
         else
-            WARN('INO0001: AddToConstructionQueue(): Passed unit type is not a string.')
+            WARN('xno0001: AddToConstructionQueue(): Passed unit type is not a string.')
         end
         return false
     end,
@@ -282,4 +282,4 @@ INC0002 = Class(NCivilianStructureUnit) {
     end,
 }
 
-TypeClass = INC0002
+TypeClass = xnc0002

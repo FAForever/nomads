@@ -42,16 +42,16 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
     },
-    Description = '<LOC ino2302_desc>Orbital Artillery Gun',
+    Description = '<LOC xno2302_desc>Orbital Artillery Gun',
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
                 {
-                    MeshName = '/units/INO2302/INO2302_lod0.scm',
-                    AlbedoName = '/units/INO2302/INO2302_albedo.dds',
-                    NormalsName = '/units/INO2302/INO2302_normalsTS.dds',
-                    SpecularName = '/units/INO2302/INO2302_specteam.dds',
+                    MeshName = '/units/XNO2302/XNO2302_lod0.scm',
+                    AlbedoName = '/units/XNO2302/XNO2302_albedo.dds',
+                    NormalsName = '/units/XNO2302/XNO2302_normalsTS.dds',
+                    SpecularName = '/units/XNO2302/XNO2302_specteam.dds',
                     LODCutoff = 300,
                     ShaderName = 'NomadsUnit',
                 },
@@ -99,14 +99,14 @@ UnitBlueprint {
         FactionName = 'Nomads',
         Icon = 'land',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = '<LOC ino2303>Orbital Artillery Gun',
+        UnitName = '<LOC xno2302>Orbital Artillery Gun',
         UnitWeight = 1,
     },
     Intel = {
         VisionRadius = 0,
     },
     Interface = {
-        HelpText = '<LOC inu2302_help>Orbital Artillery Gun',
+        HelpText = '<LOC xno2302_help>Orbital Artillery Gun',
     },
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.4,
