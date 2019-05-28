@@ -60,19 +60,19 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
     },
-    Description = '<LOC ino2302_desc>Orbital Artillery Gun',
+    Description = '<LOC xno2302_desc>Orbital Artillery Gun',
     Display = {
-        BuildMeshBlueprint = '/units/INO2302/INO2302_BuildMesh.bp',
+        BuildMeshBlueprint = '/units/XNO2302/XNO2302_BuildMesh.bp',
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
                 {
-                    AlbedoName = '/units/INO2302/INO2302_Albedo.dds',
+                    AlbedoName = '/units/XNO2302/XNO2302_Albedo.dds',
                     LODCutoff = 500,
-                    MeshName = '/units/INO2302/INO2302_Lod0.scm',
-                    NormalsName = '/units/INO2302/INO2302_NormalsTS.dds',
+                    MeshName = '/units/XNO2302/XNO2302_Lod0.scm',
+                    NormalsName = '/units/XNO2302/XNO2302_NormalsTS.dds',
                     ShaderName = 'NomadsUnit',
-                    SpecularName = '/units/INO2302/INO2302_SpecTeam.dds',
+                    SpecularName = '/units/XNO2302/XNO2302_SpecTeam.dds',
                 },
             },
         },
@@ -118,14 +118,14 @@ UnitBlueprint {
         FactionName = 'Nomads',
         Icon = 'land',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = '<LOC ino2303>Orbital Artillery Gun',
+        UnitName = '<LOC xno2302>Orbital Artillery Gun',
         UnitWeight = 1,
     },
     Intel = {
         VisionRadius = 0,
     },
     Interface = {
-        HelpText = '<LOC inu2302_help>Orbital Artillery Gun',
+        HelpText = '<LOC xno2302_help>Orbital Artillery Gun',
     },
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.4,

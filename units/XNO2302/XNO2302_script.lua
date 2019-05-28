@@ -3,7 +3,7 @@
 local NOrbitUnit = import('/lua/nomadsunits.lua').NOrbitUnit
 local OrbitalGun = import('/lua/nomadsweapons.lua').OrbitalGun
 
-INO2302 = Class(NOrbitUnit) {
+xno2302 = Class(NOrbitUnit) {
     Weapons = {
         MainGun = Class(OrbitalGun) {
         },
@@ -59,4 +59,4 @@ INO2302 = Class(NOrbitUnit) {
     end,
 }
 
-TypeClass = INO2302
+TypeClass = xno2302
