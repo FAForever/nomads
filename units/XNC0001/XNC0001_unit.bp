@@ -44,7 +44,7 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
     },
-    Description = '<LOC inc001_desc>Orbital Frigate',
+    Description = '<LOC xnc0001_desc>Orbital Frigate',
     Display = {
         IdleEffects = {
             Land = {

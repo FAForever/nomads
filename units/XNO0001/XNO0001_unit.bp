@@ -32,7 +32,7 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
     },
-    Description = '<LOC ino001_desc>Orbital Frigate',
+    Description = '<LOC xno0001_desc>Orbital Frigate',
     Display = {
         Mesh = {
             IconFadeInZoom = 130,

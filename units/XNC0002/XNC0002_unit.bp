@@ -39,7 +39,7 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
     },
-    Description = '<LOC inc002_desc>Orbital Cruiser',
+    Description = '<LOC xnc0002_desc>Orbital Cruiser',
     Display = {
         IdleEffects = {
             Land = {
