@@ -292,7 +292,7 @@ UnitBlueprint {
             },
         },
         TechLevel = 'RULEUTL_Secret',
-        UnitName = '<LOC XNS0303_name>Mastodon',
+        UnitName = '<LOC XNS0303_name>Mastodon Class',
         UnitWeight = 1,
     },
     Intel = {

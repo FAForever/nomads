@@ -189,7 +189,7 @@ UnitBlueprint {
         TechLevel = 'RULEUTL_Advanced',
         ToggleCaps = {
         },
-        UnitName = '<LOC XNS0201_name>Firestorm',
+        UnitName = '<LOC XNS0201_name>Firestorm Class',
         UnitWeight = 1,
     },
     Intel = {

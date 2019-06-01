@@ -210,7 +210,7 @@ UnitBlueprint {
         FactionName = 'Nomads',
         Icon = 'sea',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = '<LOC XNS0202_name>Mercenary',
+        UnitName = '<LOC XNS0202_name>Mercenary Class',
         UnitWeight = 1,
     },
     Intel = {

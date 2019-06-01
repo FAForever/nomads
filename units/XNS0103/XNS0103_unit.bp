@@ -177,7 +177,7 @@ UnitBlueprint {
         FactionName = 'Nomads',
         Icon = 'sea',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = '<LOC XNS0103_name>Lance',
+        UnitName = '<LOC XNS0103_name>Lance Class',
         UnitWeight = 1,
     },
     Intel = {

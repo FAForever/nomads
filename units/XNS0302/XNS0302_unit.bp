@@ -82,7 +82,7 @@ UnitBlueprint {
         SubThreatLevel = 45,
         SurfaceThreatLevel = 180,
     },
-    Description = '<LOC XNS0302_desc>Heavy Destroyer',
+    Description = '<LOC XNS0302_desc>Battleship',
     Display = {
         Abilities = {
             '<LOC ability_aa>Anti-Air',
@@ -235,7 +235,7 @@ UnitBlueprint {
         TechLevel = 'RULEUTL_Secret',
         ToggleCaps = {
         },
-        UnitName = '<LOC XNS0302_name>Juggernaut',
+        UnitName = '<LOC XNS0302_name>Juggernaut class',
         UnitWeight = 1,
     },
     Intel = {
@@ -245,7 +245,7 @@ UnitBlueprint {
         WaterVisionRadius = 50,
     },
     Interface = {
-        HelpText = '<LOC XNS0302_help>This ship is a little bit thin in an armor, but carries great fire power of 2 heavy long range plasma turrets, two smaller stingray cannons, flak AA defense and a submerged railgun.',
+        HelpText = '<LOC XNS0302_help>Long-range surface bombardment ship. Armed with direct fire cannons and underwater railguns.',
     },
     LifeBarHeight = 0.075,
     LifeBarOffset = 6.5,

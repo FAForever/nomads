@@ -752,9 +752,9 @@ xns0303_desc = "Aircraft Carrier"
 xns0303_help = "Aircraft Carrier"
 xns0303_name = "Mastodon Class"
 
--- heavy destroyer
-xns0302_desc = "Heavy Destroyer"
-xns0302_help = "A more powerful version of the Destroyer. Has two long range cannons, two smaller cannons, AA defense and a submerged railgun. Has bombardment mode, useful for assaulting bases and units protected by shields."
+-- battleship
+xns0302_desc = "Battleship"
+xns0302_help = "Long-range Surface Bombardment Ship. Has two long range plasma cannons, two smaller cannons, AA defense and a submerged railgun."
 xns0302_name = "Juggernaut Class"
 
 
