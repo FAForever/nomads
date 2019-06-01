@@ -1,11 +1,8 @@
 -- T2 tank Brute
 
-local AddAnchorAbilty = import('/lua/nomadsutils.lua').AddAnchorAbilty
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local NLandUnit = import('/lua/nomadsunits.lua').NLandUnit
 local ParticleBlaster1 = import('/lua/nomadsweapons.lua').ParticleBlaster1
-
-NLandUnit = AddAnchorAbilty(NLandUnit)
 
 
 XNL0202 = Class(NLandUnit) {
@@ -39,14 +36,6 @@ XNL0202 = Class(NLandUnit) {
             emit = CreateAttachedEmitter(self, bone, army, v)
             self.Trash:Add(emit)
         end
-    end,
-
-    EnableSpecialToggle = function(self)
-        self:EnableAnchor(self)
-    end,
-
-    DisableSpecialToggle = function(self)
-        self:DisableAnchor(self)
     end,
 }
 
