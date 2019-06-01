@@ -1373,7 +1373,7 @@ UnitBlueprint {
                 Water = 'Land|Water|Seabed',
             },
             Label = 'GunLeft',
-            MaxRadius = 25,
+            MaxRadius = 35,
             MinRadius = 1,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
