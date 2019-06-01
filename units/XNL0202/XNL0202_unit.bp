@@ -1,11 +1,6 @@
 -- T2 tank Brute
 
 UnitBlueprint {
-    Abilities = {
-        Anchor = {
-            Buff = 'AnchorModeImmobilizeAddRange',
-        },
-    },
     AI = {
         TargetBones = {
             'Turret',
@@ -164,9 +159,6 @@ UnitBlueprint {
             },
         },
         TechLevel = 'RULEUTL_Advanced',
-        ToggleCaps = {
-            RULEUTC_SpecialToggle = true,
-        },
         UnitName = '<LOC XNL0202_name>Brute',
         UnitWeight = 1,
     },
