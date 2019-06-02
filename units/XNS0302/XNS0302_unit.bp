@@ -1,4 +1,4 @@
--- T3 Heavy destroyer
+-- T3 Battleship
 
 UnitBlueprint {
     AI = {
@@ -235,7 +235,7 @@ UnitBlueprint {
         TechLevel = 'RULEUTL_Secret',
         ToggleCaps = {
         },
-        UnitName = '<LOC XNS0302_name>Juggernaut class',
+        UnitName = '<LOC XNS0302_name>Juggernaut Class',
         UnitWeight = 1,
     },
     Intel = {
