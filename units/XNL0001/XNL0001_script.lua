@@ -153,7 +153,8 @@ XNL0001 = Class(ACUUnit) {
         self:SetWeaponEnabledByLabel('TargetFinder', false)
         self:ForkThread(self.GiveInitialResources)
         self:ForkThread(self.HeadRotationThread)
-
+        self.AllowHeadRotation = true
+        self.PlayCommanderWarpInEffectFlag = nil
     end,
 
     -- =====================================================================================================================
@@ -271,8 +272,6 @@ XNL0001 = Class(ACUUnit) {
         WaitTicks(5)
 
         -- TODO: play some kind of animation here?
-        self.AllowHeadRotation = true
-        self.PlayCommanderWarpInEffectFlag = nil
 
         WaitTicks(12)  -- waiting till tick 50 to enable ACU. Same as other ACU's.
 
@@ -292,7 +291,6 @@ XNL0001 = Class(ACUUnit) {
 
     HeadRotationThread = function(self)
         -- keeps the head pointed at the current target (position)
-
         local nav = self:GetNavigator()
         local maxRot = self:GetBlueprint().Display.MovementEffects.HeadRotationMax or 10
         local wep = self:GetWeaponByLabel('MainGun')
@@ -320,7 +318,7 @@ XNL0001 = Class(ACUUnit) {
             target.x = target.x - MyPos.x
             target.z = target.z - MyPos.z
             target = Utilities.NormalizeVector(target)
-            torsoX, torsoY, torsoZ = self:GetBoneDirection('Hip')
+            torsoX, torsoY, torsoZ = self:GetBoneDirection('Chest')
             torsoDir = Utilities.NormalizeVector( Vector( torsoX, 0, torsoZ) )
             GoalAngle = ( math.atan2( target.x, target.z ) - math.atan2( torsoDir.x, torsoDir.z ) ) * 180 / math.pi
 
@@ -331,7 +329,6 @@ XNL0001 = Class(ACUUnit) {
                 GoalAngle = GoalAngle + 360
             end
             GoalAngle = math.max( -maxRot, math.min( GoalAngle, maxRot ) )
-
             self.HeadRotManip:SetSpeed(60):SetGoal(GoalAngle)
 
             WaitSeconds(0.2)

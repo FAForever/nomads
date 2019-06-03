@@ -236,7 +236,7 @@ UnitBlueprint {
             },
         },
         MovementEffects = {
-            HeadRotationMax = 15,
+            HeadRotationMax = 30,
             Land = {
                 Effects = {
                     {
