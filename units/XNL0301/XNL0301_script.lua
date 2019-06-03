@@ -142,6 +142,7 @@ XNL0301 = Class(NWalkingLandUnit) {
         self.HasRightArm = false
         self:SetRapidRepairParams( 'NomadsSCURapidRepair', bp.Enhancements.RapidRepair.RepairDelay, bp.Enhancements.RapidRepair.InterruptRapidRepairByWeaponFired)
     
+        self.Sync.Abilities = self:GetBlueprint().Abilities
         self:HasCapacitorAbility(false)
     end,
 
@@ -389,8 +390,440 @@ XNL0301 = Class(NWalkingLandUnit) {
         return NWalkingLandUnit.CanBeStunned(self)
     end,
 
--- =================================================================================================================
 
+    -- =====================================================================================================================
+    -- ENHANCEMENTS
+
+
+    --a much more sensible way of doing enhancements, and more moddable too!
+    --change the behaviours here and dont touch the CreateEnhancement table.
+    -- EnhancementTable = {
+        -- IntelProbe = function(self, bp)
+            -- self:AddEnhancementEmitterToBone( true, 'IntelProbe1' )
+            -- self:SetIntelProbeEnabled( false, true )
+        -- end,
+    -- },
+    EnhancementBehaviours = {
+        GunLeft = function(self, bp)
+            self:GetWeaponByLabel('GunLeft'):SetMuzzleOverride(true)
+            if bp.EnableWeapon then
+                self:SetWeaponEnabledByLabel( bp.EnableWeapon, true )
+                self:AddCommandCap('RULEUCC_Attack')
+                self:AddCommandCap('RULEUCC_RetaliateToggle')
+            end
+        end,
+        
+        GunLeftRemove = function(self, bp)
+            local ubp = self:GetBlueprint()
+            if ubp.Enhancements.GunLeft.EnableWeapon then
+                self:SetWeaponEnabledByLabel( ubp.Enhancements.GunLeft.EnableWeapon, false )
+                if not self:HasEnhancement('GunRight') and not self:HasEnhancement('GunRightUpgrade') and not self:HasEnhancement('RightRocket') then
+                    self:RemoveCommandCap('RULEUCC_Attack')
+                    self:RemoveCommandCap('RULEUCC_RetaliateToggle')
+                end
+            end
+        end,
+        
+        GunLeftUpgrade = function(self, bp)
+            local wep = self:GetWeaponByLabel('GunLeft')
+            local wbp = wep:GetBlueprint()
+            local rof = wbp.RateOfFire * (bp.RateOfFireMulti or 1)
+
+            if bp.RateOfFireMulti then
+                if not Buffs['NOMADSCULeftArmGunUpgrade'] then
+                    BuffBlueprint {
+                        Name = 'NOMADSCULeftArmGunUpgrade',
+                        DisplayName = 'NOMADSCULeftArmGunUpgrade',
+                        BuffType = 'SCUGUNUPGRADE',
+                        Stacks = 'ADD',
+                        Duration = -1,
+                        Affects = {
+                            RateOfFireSpecifiedWeapons = {
+                                Mult = 1 / (bp.RateOfFireMulti or 1), -- here a value of 0.5 is actually doubling ROF
+                            },
+                        },
+                    }
+                end
+                if Buff.HasBuff( self, 'NOMADSCULeftArmGunUpgrade' ) then
+                    Buff.RemoveBuff( self, 'NOMADSCULeftArmGunUpgrade' )
+                end
+                Buff.ApplyBuff(self, 'NOMADSCULeftArmGunUpgrade')
+            end
+
+            -- adjust main gun
+            wep:AddDamageMod( (bp.NewDamage or wbp.Damage) - wbp.Damage )
+            wep:ChangeMaxRadius(bp.NewMaxRadius or wbp.MaxRadius)
+            wep:SetMuzzleOverride(false)
+            wep.RackRecoilReturnSpeed = wbp.RackRecoilReturnSpeed or math.abs( wbp.RackRecoilDistance / (( 1 / rof ) - (wbp.MuzzleChargeDelay or 0))) * 1.25
+
+        end,
+        
+        GunLeftUpgradeRemove = function(self, bp)
+            Buff.RemoveBuff(self, 'NOMADSCULeftArmGunUpgrade')
+
+            -- adjust main gun
+            local wep = self:GetWeaponByLabel('GunLeft')
+            local wbp = wep:GetBlueprint()
+            wep:AddDamageMod( -((bp.NewDamage or wbp.Damage) - wbp.Damage) )
+            wep:ChangeMaxRadius(wbp.MaxRadius)
+            wep:SetMuzzleOverride(true)
+            wep.RackRecoilReturnSpeed = wbp.RackRecoilReturnSpeed or math.abs( wbp.RackRecoilDistance / (( 1 / wbp.RateOfFire ) - (wbp.MuzzleChargeDelay or 0))) * 1.25
+
+            -- and disable it
+            local ubp = self:GetBlueprint()
+            if ubp.Enhancements.GunLeft.EnableWeapon then
+                self:SetWeaponEnabledByLabel( ubp.Enhancements.GunLeft.EnableWeapon, false )
+                if not self:HasEnhancement('GunRight') and not self:HasEnhancement('GunRightUpgrade') and not self:HasEnhancement('RightRocket') then
+                    self:RemoveCommandCap('RULEUCC_Attack')
+                    self:RemoveCommandCap('RULEUCC_RetaliateToggle')
+                end
+            end
+        end,
+        
+        EngineeringLeft = function(self, bp)
+            if not Buffs['NOMADSCULeftArmBuildRate'] then
+                BuffBlueprint {
+                    Name = 'NOMADSCULeftArmBuildRate',
+                    DisplayName = 'NOMADSCULeftArmBuildRate',
+                    BuffType = 'SCUBUILDRATELEFT',
+                    Stacks = 'ADD',
+                    Duration = -1,
+                    Affects = {
+                        BuildRate = {
+                            Add =  bp.AddBuildRate,
+                            Mult = 1,
+                        },
+                    },
+                }
+            end
+            if Buff.HasBuff( self, 'NOMADSCULeftArmBuildRate' ) then
+                Buff.RemoveBuff( self, 'NOMADSCULeftArmBuildRate' )
+            end
+
+            Buff.ApplyBuff(self, 'NOMADSCULeftArmBuildRate')
+        end,
+        
+        EngineeringLeftRemove = function(self, bp)
+            if Buff.HasBuff( self, 'NOMADSCULeftArmBuildRate' ) then
+                Buff.RemoveBuff( self, 'NOMADSCULeftArmBuildRate' )
+            end
+        end,
+        
+        LeftRocket = function(self, bp)
+            if bp.EnableWeapon then
+                self:SetWeaponEnabledByLabel( bp.EnableWeapon, true )
+                self:AddCommandCap('RULEUCC_Attack')
+                self:AddCommandCap('RULEUCC_RetaliateToggle')
+            end
+        end,
+        
+        LeftRocketRemove = function(self, bp)
+            local ubp = self:GetBlueprint()
+            if ubp.Enhancements.LeftRocket.EnableWeapon then
+                self:SetWeaponEnabledByLabel( ubp.Enhancements.LeftRocket.EnableWeapon, false )
+                if not self:HasEnhancement('GunRight') and not self:HasEnhancement('GunRightUpgrade') and not self:HasEnhancement('RightRocket') then
+                    self:RemoveCommandCap('RULEUCC_Attack')
+                    self:RemoveCommandCap('RULEUCC_RetaliateToggle')
+                end
+            end
+        end,
+        
+        Railgun = function(self, bp)
+            if bp.EnableWeapon then
+                self:SetWeaponEnabledByLabel( bp.EnableWeapon, true )
+                self:AddCommandCap('RULEUCC_Attack')
+                self:AddCommandCap('RULEUCC_RetaliateToggle')
+            end
+        end,
+        
+        RailgunRemove = function(self, bp)
+            local ubp = self:GetBlueprint()
+            if ubp.Enhancements.Railgun.EnableWeapon then
+                self:SetWeaponEnabledByLabel( ubp.Enhancements.Railgun.EnableWeapon, false )
+                if not self:HasEnhancement('GunRight') and not self:HasEnhancement('GunRightUpgrade') and not self:HasEnhancement('RightRocket') then
+                    self:RemoveCommandCap('RULEUCC_Attack')
+                    self:RemoveCommandCap('RULEUCC_RetaliateToggle')
+                end
+            end
+        end,
+        
+        Capacitor = function(self, bp)
+            self:HasCapacitorAbility(true)
+        end,
+        
+        CapacitorRemove = function(self, bp)
+            self:ResetCapacitor()
+            self:HasCapacitorAbility(false)
+        end,
+        
+        AdditionalCapacitor = function(self, bp)
+            self:ResetCapacitor()
+            self:HasCapacitorAbility(true)
+            if bp.CapacitorNewChargeEnergyCost then
+                self.ChargeEnergyCost = bp.CapacitorNewChargeEnergyCost
+            end
+            if bp.CapacitorNewDuration then
+                self.CapDuration = bp.CapacitorNewDuration
+            end
+            if bp.CapacitorNewChargeTime then
+                self.CapChargeTime = bp.CapacitorNewChargeTime
+            end
+            if bp.DecayNewTime then
+                self.CapChargeTime = bp.DecayNewTime
+            end
+        end,
+        
+        AdditionalCapacitorRemove = function(self, bp)
+            self:ResetCapacitor()
+            self:HasCapacitorAbility(false)
+            local orgBp = self:GetBlueprint()
+            local obp = orgBp.Enhancements.AdditionalCapacitor
+            if obp.CapacitorNewChargeEnergyCost then
+                self.ChargeEnergyCost = orgBp.Abilities.Capacitor.ChargeEnergyCost
+            end
+            if obp.CapacitorNewDuration then
+                self.CapDuration = orgBp.Abilities.Capacitor.Duration
+            end
+            if obp.CapacitorNewChargeTime then
+                self.CapChargeTime = orgBp.Abilities.Capacitor.ChargeTime
+            end
+            if obp.DecayNewTime then
+                self.DecayTime = orgBp.Abilities.Capacitor.DecayNewTime
+            end
+        end,
+        
+        MovementSpeedIncrease = function(self, bp)
+            if not Buffs['NomadsSCUSpeedIncrease'] then
+                BuffBlueprint {
+                    Name = 'NomadsSCUSpeedIncrease',
+                    DisplayName = 'NomadsSCUSpeedIncrease',
+                    BuffType = 'NOMADSCUSPEEDINC',
+                    Stacks = 'ALWAYS',
+                    Duration = -1,
+                    Affects = {
+                        MoveMult = {
+                            Add = 0,
+                            Mult = bp.SpeedMulti or 1.1,
+                        },
+                    },
+                }
+            end
+            Buff.ApplyBuff(self, 'NomadsSCUSpeedIncrease')
+        end,
+        
+        MovementSpeedIncreaseRemove = function(self, bp)
+            if Buff.HasBuff( self, 'NomadsSCUSpeedIncrease' ) then
+                Buff.RemoveBuff( self, 'NomadsSCUSpeedIncrease' )
+            else
+                LOG('*DEBUG: SCU enhancement movement speed increase removed but buff wasnt')
+            end
+        end,
+        
+        ResourceAllocation = function(self, bp)
+            local bpEcon = self:GetBlueprint().Economy
+            self:SetProductionPerSecondEnergy(bp.ProductionPerSecondEnergy + bpEcon.ProductionPerSecondEnergy or 0)
+            self:SetProductionPerSecondMass(bp.ProductionPerSecondMass + bpEcon.ProductionPerSecondMass or 0)
+            
+            -- TODO: show effect on bones Backpack_Fx1 and 2
+        end,
+        
+        ResourceAllocationRemove = function(self, bp)
+            local bpEcon = self:GetBlueprint().Economy
+            self:SetProductionPerSecondEnergy(bpEcon.ProductionPerSecondEnergy or 0)
+            self:SetProductionPerSecondMass(bpEcon.ProductionPerSecondMass or 0)
+        end,
+        
+        RapidRepair = function(self, bp)
+            if not Buffs['NomadsSCURapidRepair'] then  -- make sure this buff exists though not used yet
+                BuffBlueprint {
+                    Name = 'NomadsSCURapidRepair',
+                    DisplayName = 'NomadsSCURapidRepair',
+                    BuffType = 'NOMADSCURAPIDREPAIRREGEN',
+                    Stacks = 'ALWAYS',
+                    Duration = -1,
+                    Affects = {
+                        Regen = {
+                            Add = bp.RepairRate or 15,
+                            Mult = 1.0,
+                        },
+                    },
+                }
+            end
+            if not Buffs['NomadsSCURapidRepairPermanentHPboost'] and bp.AddHealth > 0 then
+                BuffBlueprint {
+                    Name = 'NomadsSCURapidRepairPermanentHPboost',
+                    DisplayName = 'NomadsSCURapidRepairPermanentHPboost',
+                    BuffType = 'NOMADSCURAPIDREPAIRREGENPERMHPBOOST',
+                    Stacks = 'ALWAYS',
+                    Duration = -1,
+                    Affects = {
+                        MaxHealth = {
+                           Add = bp.AddHealth or 0,
+                           Mult = 1.0,
+                        },
+						Regen = {
+                            Add = bp.AddRegenRate,
+                            Mult = 1.0,
+                        },
+                    },
+                }
+            end
+            if bp.AddHealth > 0 then
+                Buff.ApplyBuff(self, 'NomadsSCURapidRepairPermanentHPboost')
+            end
+            self:EnableRapidRepair(true)
+        end,
+        
+        RapidRepairRemove = function(self, bp)
+            -- keep code below synced to same code in PowerArmorRemove
+            self:EnableRapidRepair(false)
+            if Buff.HasBuff( self, 'NomadsSCURapidRepairPermanentHPboost' ) then
+                Buff.RemoveBuff( self, 'NomadsSCURapidRepair' )
+                Buff.RemoveBuff( self, 'NomadsSCURapidRepairPermanentHPboost' )
+            else
+                LOG('*DEBUG: SCU enhancement rapid repair removed but buff wasnt')
+            end
+        end,
+        
+        PowerArmor = function(self, bp)
+            if not Buffs['NomadsSCUPowerArmor'] then
+               BuffBlueprint {
+                    Name = 'NomadsSCUPowerArmor',
+                    DisplayName = 'NomadsSCUPowerArmor',
+                    BuffType = 'NSCUUPGRADEHP',
+                    Stacks = 'ALWAYS',
+                    Duration = -1,
+                    Affects = {
+                        MaxHealth = {
+                            Add = bp.AddHealth,
+                            Mult = 1.0,
+                        },
+                        Regen = {
+                            Add = bp.AddRegenRate,
+                            Mult = 1.0,
+                        },
+                    },
+                }
+            end
+            if Buff.HasBuff( self, 'NomadsSCUPowerArmor' ) then
+                Buff.RemoveBuff( self, 'NomadsSCUPowerArmor' )
+            end
+            Buff.ApplyBuff(self, 'NomadsSCUPowerArmor')
+            if bp.Mesh then
+                self:SetMesh( bp.Mesh, true)
+            end
+        end,
+        
+        PowerArmorRemove = function(self, bp)
+            local ubp = self:GetBlueprint()
+            if bp.Mesh then
+                self:SetMesh( ubp.Display.MeshBlueprint, true)
+            end
+            if Buff.HasBuff( self, 'NomadsSCUPowerArmor' ) then
+                Buff.RemoveBuff( self, 'NomadsSCUPowerArmor' )
+            end
+
+            -- remove rapid repair - copy of above
+            self:EnableRapidRepair(false)
+            if Buff.HasBuff( self, 'NomadsSCURapidRepairPermanentHPboost' ) then
+                Buff.RemoveBuff( self, 'NomadsSCURapidRepair' )
+                Buff.RemoveBuff( self, 'NomadsSCURapidRepairPermanentHPboost' )
+            end
+        end,
+        
+        GunRight = function(self, bp)
+            if bp.EnableWeapon then
+                self:SetWeaponEnabledByLabel( bp.EnableWeapon, true )
+                self:AddCommandCap('RULEUCC_Attack')
+                self:AddCommandCap('RULEUCC_RetaliateToggle')
+            end
+        end,
+        
+        GunRightRemove = function(self, bp)
+            local ubp = self:GetBlueprint()
+            if ubp.Enhancements.GunRight.EnableWeapon then
+                self:SetWeaponEnabledByLabel( ubp.Enhancements.GunRight.EnableWeapon, false )
+                if not self:HasEnhancement('GunLeft') and not self:HasEnhancement('GunLeftUpgrade') and not self:HasEnhancement('LeftRocket') and not self:HasEnhancement('Railgun') then
+                    self:RemoveCommandCap('RULEUCC_Attack')
+                    self:RemoveCommandCap('RULEUCC_RetaliateToggle')
+                end
+            end
+        end,
+        
+        GunRightUpgrade = function(self, bp) --Retard: looks like this doesnt do anything, consider removing
+            -- adjust gattling
+            -- local wep = self:GetWeaponByLabel('GunRight')
+            WARN('Todo: SCU right arm upgrade')
+        end,
+        
+        GunRightUpgradeRemove = function(self, bp) --Retard: looks like this doesnt do anything, consider removing
+            -- adjust gattling
+            -- local wep = self:GetWeaponByLabel('GunRight')
+
+            -- and disable it
+            local ubp = self:GetBlueprint()
+            if ubp.Enhancements.GunRight.EnableWeapon then
+                self:SetWeaponEnabledByLabel( ubp.Enhancements.GunRight.EnableWeapon, false )
+                if not self:HasEnhancement('GunLeft') and not self:HasEnhancement('GunLeftUpgrade') and not self:HasEnhancement('LeftRocket') and not self:HasEnhancement('Railgun') then
+                    self:RemoveCommandCap('RULEUCC_Attack')
+                    self:RemoveCommandCap('RULEUCC_RetaliateToggle')
+                end
+            end
+        end,
+        
+        EngineeringRight = function(self, bp)
+            if not Buffs['NOMADSCURightArmBuildRate'] then
+                BuffBlueprint {
+                    Name = 'NOMADSCURightArmBuildRate',
+                    DisplayName = 'NOMADSCURightArmBuildRate',
+                    BuffType = 'SCUBUILDRATERIGHT',
+                    Stacks = 'ADD',
+                    Duration = -1,
+                    Affects = {
+                        BuildRate = {
+                            Add =  bp.AddBuildRate,
+                            Mult = 1,                            
+                        },
+                    },
+                }
+            end
+            if Buff.HasBuff( self, 'NOMADSCURightArmBuildRate' ) then
+                Buff.RemoveBuff( self, 'NOMADSCURightArmBuildRate' )
+            end
+
+            Buff.ApplyBuff(self, 'NOMADSCURightArmBuildRate')
+        end,
+        
+        EngineeringRightRemove = function(self, bp)
+            if Buff.HasBuff( self, 'NOMADSCULeftArmBuildRate' ) then
+                Buff.RemoveBuff( self, 'NOMADSCULeftArmBuildRate' )
+            end
+        end,
+        
+        RightRocket = function(self, bp)
+            if bp.EnableWeapon then
+                self:SetWeaponEnabledByLabel( bp.EnableWeapon, true )
+                self:AddCommandCap('RULEUCC_Attack')
+                self:AddCommandCap('RULEUCC_RetaliateToggle')
+            end
+        end,
+        
+        RightRocketRemove = function(self, bp)
+            local ubp = self:GetBlueprint()
+            if ubp.Enhancements.RightRocket.EnableWeapon then
+                self:SetWeaponEnabledByLabel( ubp.Enhancements.RightRocket.EnableWeapon, false )
+                if not self:HasEnhancement('GunLeft') and not self:HasEnhancement('GunLeftUpgrade') and not self:HasEnhancement('LeftRocket') and not self:HasEnhancement('Railgun') then
+                    self:RemoveCommandCap('RULEUCC_Attack')
+                    self:RemoveCommandCap('RULEUCC_RetaliateToggle')
+                end
+            end
+        end,
+        
+        Generic = function(self, bp)
+        end,
+    },
+    
+    
     CreateEnhancement = function(self, enh)
         NWalkingLandUnit.CreateEnhancement(self, enh)
         local bp = self:GetBlueprint().Enhancements[enh]
@@ -485,458 +918,16 @@ XNL0301 = Class(NWalkingLandUnit) {
             end
         end
 
-        -- ---------------------------------------------------------------------------------------
-        -- LEFT ARM GUN
-        -- ---------------------------------------------------------------------------------------
-
-        if enh == 'GunLeft' then
-            self:GetWeaponByLabel('GunLeft'):SetMuzzleOverride(true)
-            if bp.EnableWeapon then
-                self:SetWeaponEnabledByLabel( bp.EnableWeapon, true )
-                self:AddCommandCap('RULEUCC_Attack')
-                self:AddCommandCap('RULEUCC_RetaliateToggle')
-            end
-
-        elseif enh == 'GunLeftRemove' then
-            local ubp = self:GetBlueprint()
-            if ubp.Enhancements.GunLeft.EnableWeapon then
-                self:SetWeaponEnabledByLabel( ubp.Enhancements.GunLeft.EnableWeapon, false )
-                if not self:HasEnhancement('GunRight') and not self:HasEnhancement('GunRightUpgrade') and not self:HasEnhancement('RightRocket') then
-                    self:RemoveCommandCap('RULEUCC_Attack')
-                    self:RemoveCommandCap('RULEUCC_RetaliateToggle')
-                end
-            end
-
-        -- ---------------------------------------------------------------------------------------
-        -- LEFT ARM GUN UPGRADE
-        -- ---------------------------------------------------------------------------------------
-
-        elseif enh =='GunLeftUpgrade' then
-
-            local wep = self:GetWeaponByLabel('GunLeft')
-            local wbp = wep:GetBlueprint()
-            local rof = wbp.RateOfFire * (bp.RateOfFireMulti or 1)
-
-            if bp.RateOfFireMulti then
-                if not Buffs['NOMADSCULeftArmGunUpgrade'] then
-                    BuffBlueprint {
-                        Name = 'NOMADSCULeftArmGunUpgrade',
-                        DisplayName = 'NOMADSCULeftArmGunUpgrade',
-                        BuffType = 'SCUGUNUPGRADE',
-                        Stacks = 'ADD',
-                        Duration = -1,
-                        Affects = {
-                            RateOfFireSpecifiedWeapons = {
-                                Mult = 1 / (bp.RateOfFireMulti or 1), -- here a value of 0.5 is actually doubling ROF
-                            },
-                        },
-                    }
-                end
-                if Buff.HasBuff( self, 'NOMADSCULeftArmGunUpgrade' ) then
-                    Buff.RemoveBuff( self, 'NOMADSCULeftArmGunUpgrade' )
-                end
-                Buff.ApplyBuff(self, 'NOMADSCULeftArmGunUpgrade')
-            end
-
-            -- adjust main gun
-            wep:AddDamageMod( (bp.NewDamage or wbp.Damage) - wbp.Damage )
-            wep:ChangeMaxRadius(bp.NewMaxRadius or wbp.MaxRadius)
-            wep:SetMuzzleOverride(false)
-            wep.RackRecoilReturnSpeed = wbp.RackRecoilReturnSpeed or math.abs( wbp.RackRecoilDistance / (( 1 / rof ) - (wbp.MuzzleChargeDelay or 0))) * 1.25
-
-        elseif enh =='GunLeftUpgradeRemove' then
-
-            Buff.RemoveBuff(self, 'NOMADSCULeftArmGunUpgrade')
-
-            -- adjust main gun
-            local wep = self:GetWeaponByLabel('GunLeft')
-            local wbp = wep:GetBlueprint()
-            wep:AddDamageMod( -((bp.NewDamage or wbp.Damage) - wbp.Damage) )
-            wep:ChangeMaxRadius(wbp.MaxRadius)
-            wep:SetMuzzleOverride(true)
-            wep.RackRecoilReturnSpeed = wbp.RackRecoilReturnSpeed or math.abs( wbp.RackRecoilDistance / (( 1 / wbp.RateOfFire ) - (wbp.MuzzleChargeDelay or 0))) * 1.25
-
-            -- and disable it
-            local ubp = self:GetBlueprint()
-            if ubp.Enhancements.GunLeft.EnableWeapon then
-                self:SetWeaponEnabledByLabel( ubp.Enhancements.GunLeft.EnableWeapon, false )
-                if not self:HasEnhancement('GunRight') and not self:HasEnhancement('GunRightUpgrade') and not self:HasEnhancement('RightRocket') then
-                    self:RemoveCommandCap('RULEUCC_Attack')
-                    self:RemoveCommandCap('RULEUCC_RetaliateToggle')
-                end
-            end
-
-        -- ---------------------------------------------------------------------------------------
-        -- CONSTRUCTION ARM LEFT
-        -- ---------------------------------------------------------------------------------------
-
-        elseif enh == 'EngineeringLeft' then
-
-            if not Buffs['NOMADSCULeftArmBuildRate'] then
-                BuffBlueprint {
-                    Name = 'NOMADSCULeftArmBuildRate',
-                    DisplayName = 'NOMADSCULeftArmBuildRate',
-                    BuffType = 'SCUBUILDRATELEFT',
-                    Stacks = 'ADD',
-                    Duration = -1,
-                    Affects = {
-                        BuildRate = {
-                            Add =  bp.AddBuildRate,
-                            Mult = 1,
-                        },
-                    },
-                }
-            end
-            if Buff.HasBuff( self, 'NOMADSCULeftArmBuildRate' ) then
-                Buff.RemoveBuff( self, 'NOMADSCULeftArmBuildRate' )
-            end
-
-            Buff.ApplyBuff(self, 'NOMADSCULeftArmBuildRate')
-
-        elseif enh == 'EngineeringLeftRemove' then
-
-            if Buff.HasBuff( self, 'NOMADSCULeftArmBuildRate' ) then
-                Buff.RemoveBuff( self, 'NOMADSCULeftArmBuildRate' )
-            end
-
-        -- ---------------------------------------------------------------------------------------
-        -- LEFT ARM MISSILE LAUNCHER
-        -- ---------------------------------------------------------------------------------------
-
-        elseif enh == 'LeftRocket' then
-            if bp.EnableWeapon then
-                self:SetWeaponEnabledByLabel( bp.EnableWeapon, true )
-                self:AddCommandCap('RULEUCC_Attack')
-                self:AddCommandCap('RULEUCC_RetaliateToggle')
-            end
-
-        elseif enh == 'LeftRocketRemove' then
-            local ubp = self:GetBlueprint()
-            if ubp.Enhancements.LeftRocket.EnableWeapon then
-                self:SetWeaponEnabledByLabel( ubp.Enhancements.LeftRocket.EnableWeapon, false )
-                if not self:HasEnhancement('GunRight') and not self:HasEnhancement('GunRightUpgrade') and not self:HasEnhancement('RightRocket') then
-                    self:RemoveCommandCap('RULEUCC_Attack')
-                    self:RemoveCommandCap('RULEUCC_RetaliateToggle')
-                end
-            end
-
-        -- ---------------------------------------------------------------------------------------
-        -- LEFT ARM RAILGUN
-        -- ---------------------------------------------------------------------------------------
-
-        elseif enh == 'Railgun' then
-            if bp.EnableWeapon then
-                self:SetWeaponEnabledByLabel( bp.EnableWeapon, true )
-                self:AddCommandCap('RULEUCC_Attack')
-                self:AddCommandCap('RULEUCC_RetaliateToggle')
-            end
-
-        elseif enh == 'RailgunRemove' then
-            local ubp = self:GetBlueprint()
-            if ubp.Enhancements.Railgun.EnableWeapon then
-                self:SetWeaponEnabledByLabel( ubp.Enhancements.Railgun.EnableWeapon, false )
-                if not self:HasEnhancement('GunRight') and not self:HasEnhancement('GunRightUpgrade') and not self:HasEnhancement('RightRocket') then
-                    self:RemoveCommandCap('RULEUCC_Attack')
-                    self:RemoveCommandCap('RULEUCC_RetaliateToggle')
-                end
-            end
-
-        -- ---------------------------------------------------------------------------------------
-        -- CAPACITOR
-        -- ---------------------------------------------------------------------------------------
-
-        elseif enh == 'Capacitor' then
-            self:HasCapacitorAbility(true)
-        elseif enh == 'CapacitorRemove' then
-            self:ResetCapacitor()
-            self:HasCapacitorAbility(false)
-
-        -- ---------------------------------------------------------------------------------------
-        -- ADDITIONAL CAPACITOR
-        -- ---------------------------------------------------------------------------------------
-        
-        elseif enh == 'AdditionalCapacitor' then
-            self:ResetCapacitor()
-            if bp.CapacitorNewChargeEnergyCost then
-                self:SetChargeEnergyCost(bp.CapacitorNewChargeEnergyCost)
-            end
-            if bp.CapacitorNewDuration then
-                self:SetCapacitorDuration(bp.CapacitorNewDuration)
-            end
-            if bp.CapacitorNewChargeTime then
-                self:SetCapChargeTime(bp.CapacitorNewChargeTime)
-            end
-            
-        elseif enh == 'AdditionalCapacitorRemove' then
-            self:ResetCapacitor()
-            self:HasCapacitorAbility(false)
-            local orgBp = self:GetBlueprint()
-            local obp = orgBp.Enhancements.AdditionalCapacitor
-            if obp.CapacitorNewChargeEnergyCost then
-                self:SetChargeEnergyCost(orgBp.Abilities.Capacitor.ChargeEnergyCost)
-            end
-            if obp.CapacitorNewDuration then
-                self:SetCapacitorDuration(orgBp.Abilities.Capacitor.Duration)
-            end
-            if obp.CapacitorNewChargeTime then
-                self:SetCapChargeTime(orgBp.Abilities.Capacitor.ChargeTime)
-            end
-
-        -- ---------------------------------------------------------------------------------------
-        -- MOVEMENT SPEED INCREASE
-        -- ---------------------------------------------------------------------------------------
-
-        elseif enh == 'MovementSpeedIncrease' then
-            if not Buffs['NomadsSCUSpeedIncrease'] then
-                BuffBlueprint {
-                    Name = 'NomadsSCUSpeedIncrease',
-                    DisplayName = 'NomadsSCUSpeedIncrease',
-                    BuffType = 'NOMADSCUSPEEDINC',
-                    Stacks = 'ALWAYS',
-                    Duration = -1,
-                    Affects = {
-                        MoveMult = {
-                            Add = 0,
-                            Mult = bp.SpeedMulti or 1.1,
-                        },
-                    },
-                }
-            end
-            Buff.ApplyBuff(self, 'NomadsSCUSpeedIncrease')
-
-        elseif enh == 'MovementSpeedIncreaseRemove' then
-            if Buff.HasBuff( self, 'NomadsSCUSpeedIncrease' ) then
-                Buff.RemoveBuff( self, 'NomadsSCUSpeedIncrease' )
-            else
-                LOG('*DEBUG: SCU enhancement movement speed increase removed but buff wasnt')
-            end
-
-        -- ---------------------------------------------------------------------------------------
-        -- RESOURCE ALLOCATION
-        -- ---------------------------------------------------------------------------------------
-
-        elseif enh =='ResourceAllocation' then
-            local bpEcon = self:GetBlueprint().Economy
-            self:SetProductionPerSecondEnergy(bp.ProductionPerSecondEnergy + bpEcon.ProductionPerSecondEnergy or 0)
-            self:SetProductionPerSecondMass(bp.ProductionPerSecondMass + bpEcon.ProductionPerSecondMass or 0)
-            
-            -- TODO: show effect on bones Backpack_Fx1 and 2
-
-        elseif enh == 'ResourceAllocationRemove' then
-            local bpEcon = self:GetBlueprint().Economy
-            self:SetProductionPerSecondEnergy(bpEcon.ProductionPerSecondEnergy or 0)
-            self:SetProductionPerSecondMass(bpEcon.ProductionPerSecondMass or 0)
-            
-        -- ---------------------------------------------------------------------------------------
-        -- RAPID REPAIR
-        -- ---------------------------------------------------------------------------------------
-
-        elseif enh == 'RapidRepair' then
-
-            if not Buffs['NomadsSCURapidRepair'] then  -- make sure this buff exists though not used yet
-                BuffBlueprint {
-                    Name = 'NomadsSCURapidRepair',
-                    DisplayName = 'NomadsSCURapidRepair',
-                    BuffType = 'NOMADSCURAPIDREPAIRREGEN',
-                    Stacks = 'ALWAYS',
-                    Duration = -1,
-                    Affects = {
-                        Regen = {
-                            Add = bp.RepairRate or 15,
-                            Mult = 1.0,
-                        },
-                    },
-                }
-            end
-            if not Buffs['NomadsSCURapidRepairPermanentHPboost'] and bp.AddHealth > 0 then
-                BuffBlueprint {
-                    Name = 'NomadsSCURapidRepairPermanentHPboost',
-                    DisplayName = 'NomadsSCURapidRepairPermanentHPboost',
-                    BuffType = 'NOMADSCURAPIDREPAIRREGENPERMHPBOOST',
-                    Stacks = 'ALWAYS',
-                    Duration = -1,
-                    Affects = {
-                        MaxHealth = {
-                           Add = bp.AddHealth or 0,
-                           Mult = 1.0,
-                        },
-						Regen = {
-                            Add = bp.AddRegenRate,
-                            Mult = 1.0,
-                        },
-                    },
-                }
-            end
-            if bp.AddHealth > 0 then
-                Buff.ApplyBuff(self, 'NomadsSCURapidRepairPermanentHPboost')
-            end
-            self:EnableRapidRepair(true)
-
-        elseif enh == 'RapidRepairRemove' then
-
-            -- keep code below synced to same code in PowerArmorRemove
-            self:EnableRapidRepair(false)
-            if Buff.HasBuff( self, 'NomadsSCURapidRepairPermanentHPboost' ) then
-                Buff.RemoveBuff( self, 'NomadsSCURapidRepair' )
-                Buff.RemoveBuff( self, 'NomadsSCURapidRepairPermanentHPboost' )
-            else
-                LOG('*DEBUG: SCU enhancement rapid repair removed but buff wasnt')
-            end
-
-        -- ---------------------------------------------------------------------------------------
-        -- POWER ARMOR
-        -- ---------------------------------------------------------------------------------------
-
-        elseif enh =='PowerArmor' then
-            if not Buffs['NomadsSCUPowerArmor'] then
-               BuffBlueprint {
-                    Name = 'NomadsSCUPowerArmor',
-                    DisplayName = 'NomadsSCUPowerArmor',
-                    BuffType = 'NSCUUPGRADEHP',
-                    Stacks = 'ALWAYS',
-                    Duration = -1,
-                    Affects = {
-                        MaxHealth = {
-                            Add = bp.AddHealth,
-                            Mult = 1.0,
-                        },
-                        Regen = {
-                            Add = bp.AddRegenRate,
-                            Mult = 1.0,
-                        },
-                    },
-                }
-            end
-            if Buff.HasBuff( self, 'NomadsSCUPowerArmor' ) then
-                Buff.RemoveBuff( self, 'NomadsSCUPowerArmor' )
-            end
-            Buff.ApplyBuff(self, 'NomadsSCUPowerArmor')
-            if bp.Mesh then
-                self:SetMesh( bp.Mesh, true)
-            end
-
-        elseif enh == 'PowerArmorRemove' then
-            local ubp = self:GetBlueprint()
-            if bp.Mesh then
-                self:SetMesh( ubp.Display.MeshBlueprint, true)
-            end
-            if Buff.HasBuff( self, 'NomadsSCUPowerArmor' ) then
-                Buff.RemoveBuff( self, 'NomadsSCUPowerArmor' )
-            end
-
-            -- remove rapid repair - copy of above
-            self:EnableRapidRepair(false)
-            if Buff.HasBuff( self, 'NomadsSCURapidRepairPermanentHPboost' ) then
-                Buff.RemoveBuff( self, 'NomadsSCURapidRepair' )
-                Buff.RemoveBuff( self, 'NomadsSCURapidRepairPermanentHPboost' )
-            end
-
-        -- ---------------------------------------------------------------------------------------
-        -- RIGHT ARM GUN
-        -- ---------------------------------------------------------------------------------------
-
-        elseif enh == 'GunRight' then
-            if bp.EnableWeapon then
-                self:SetWeaponEnabledByLabel( bp.EnableWeapon, true )
-                self:AddCommandCap('RULEUCC_Attack')
-                self:AddCommandCap('RULEUCC_RetaliateToggle')
-            end
-
-        elseif enh == 'GunRightRemove' then
-            local ubp = self:GetBlueprint()
-            if ubp.Enhancements.GunRight.EnableWeapon then
-                self:SetWeaponEnabledByLabel( ubp.Enhancements.GunRight.EnableWeapon, false )
-                if not self:HasEnhancement('GunLeft') and not self:HasEnhancement('GunLeftUpgrade') and not self:HasEnhancement('LeftRocket') and not self:HasEnhancement('Railgun') then
-                    self:RemoveCommandCap('RULEUCC_Attack')
-                    self:RemoveCommandCap('RULEUCC_RetaliateToggle')
-                end
-            end
-
-        -- ---------------------------------------------------------------------------------------
-        -- RIGHT ARM GUN UPGRADE
-        -- ---------------------------------------------------------------------------------------
-
-        elseif enh =='GunRightUpgrade' then
-
-            -- adjust gattling
---            local wep = self:GetWeaponByLabel('GunRight')
-LOG('Todo: SCU right arm upgrade')
-
-        elseif enh =='GunRightUpgradeRemove' then
-
-            -- adjust gattling
---            local wep = self:GetWeaponByLabel('GunRight')
-
-            -- and disable it
-            local ubp = self:GetBlueprint()
-            if ubp.Enhancements.GunRight.EnableWeapon then
-                self:SetWeaponEnabledByLabel( ubp.Enhancements.GunRight.EnableWeapon, false )
-                if not self:HasEnhancement('GunLeft') and not self:HasEnhancement('GunLeftUpgrade') and not self:HasEnhancement('LeftRocket') and not self:HasEnhancement('Railgun') then
-                    self:RemoveCommandCap('RULEUCC_Attack')
-                    self:RemoveCommandCap('RULEUCC_RetaliateToggle')
-                end
-            end
-
-        -- ---------------------------------------------------------------------------------------
-        -- CONSTRUCTION ARM RIGHT
-        -- ---------------------------------------------------------------------------------------
-
-        elseif enh == 'EngineeringRight' then
-
-            if not Buffs['NOMADSCURightArmBuildRate'] then
-                BuffBlueprint {
-                    Name = 'NOMADSCURightArmBuildRate',
-                    DisplayName = 'NOMADSCURightArmBuildRate',
-                    BuffType = 'SCUBUILDRATERIGHT',
-                    Stacks = 'ADD',
-                    Duration = -1,
-                    Affects = {
-                        BuildRate = {
-                            Add =  bp.AddBuildRate,
-                            Mult = 1,                            
-                        },
-                    },
-                }
-            end
-            if Buff.HasBuff( self, 'NOMADSCURightArmBuildRate' ) then
-                Buff.RemoveBuff( self, 'NOMADSCURightArmBuildRate' )
-            end
-
-            Buff.ApplyBuff(self, 'NOMADSCURightArmBuildRate')
-
-        elseif enh == 'EngineeringRightRemove' then
-
-            if Buff.HasBuff( self, 'NOMADSCULeftArmBuildRate' ) then
-                Buff.RemoveBuff( self, 'NOMADSCULeftArmBuildRate' )
-            end
-
-        -- ---------------------------------------------------------------------------------------
-        -- RIGHT ARM MISSILE LAUNCHER
-        -- ---------------------------------------------------------------------------------------
-
-        elseif enh == 'RightRocket' then
-            if bp.EnableWeapon then
-                self:SetWeaponEnabledByLabel( bp.EnableWeapon, true )
-                self:AddCommandCap('RULEUCC_Attack')
-                self:AddCommandCap('RULEUCC_RetaliateToggle')
-            end
-
-        elseif enh == 'RightRocketRemove' then
-            local ubp = self:GetBlueprint()
-            if ubp.Enhancements.RightRocket.EnableWeapon then
-                self:SetWeaponEnabledByLabel( ubp.Enhancements.RightRocket.EnableWeapon, false )
-                if not self:HasEnhancement('GunLeft') and not self:HasEnhancement('GunLeftUpgrade') and not self:HasEnhancement('LeftRocket') and not self:HasEnhancement('Railgun') then
-                    self:RemoveCommandCap('RULEUCC_Attack')
-                    self:RemoveCommandCap('RULEUCC_RetaliateToggle')
-                end
-            end
-
-
+        if self.EnhancementBehaviours[enh] then
+            self.EnhancementBehaviours[enh](self, bp)
         else
-            WARN('Enhancement '..repr(enh)..' has no script support.')
+            WARN('Nomads: Enhancement '..repr(enh)..' has no script support.')
         end
     end,
 
+
+
+    
 -- =================================================================================================================
 
     CreateDestructionEffects = function( self, overKillRatio )
