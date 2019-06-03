@@ -13,6 +13,7 @@ UnitBlueprint {
             Duration = 30,
             ChargeEnergyCost = 500,
             ChargeTime = 30,
+            DecayTime = 8,
             bitmapId = 'toggle-capacitor',
             helpText = 'toggle_capacitor',
         },

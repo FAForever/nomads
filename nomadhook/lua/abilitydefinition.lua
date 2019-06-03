@@ -311,43 +311,23 @@ abilities = table.merged( abilities, {
         onframe = function (self, deltaTime)
             local UIUtil = import('/lua/ui/uiutil.lua')
             
-            local available = false
-            local capFull = true
-            local capCharg = true
-            local capCost = nil
-            local unit
+            --ask what state the capacitors are in
+            local CapacitorState = false
             for i,unit in import('/lua/ui/game/orders.lua').GetCurrentSelection() do
-                if not unit or unit:IsDead() then continue end
-                
-                local hasCap = UnitData[unit:GetEntityId()].HasCapacitorAbility
-                local capIsActive = UnitData[unit:GetEntityId()].CapacitorActive
-                local capIsFull = UnitData[unit:GetEntityId()].CapacitorFull
-                local capCharging = UnitData[unit:GetEntityId()].CapacitorCharging
-                
-                if hasCap and not capIsActive then 
-                    available = true
-                end
-                
-                if hasCap then
-                    capFull = capFull and capIsFull
-                end
-                
-                if hasCap then
-                    capCharg = capCharg and capCharging
+                if unit and not unit:IsDead() then
+                    CapacitorState = UnitData[unit:GetEntityId()].CapacitorState --'Charging' 'Discharging' 'Filled' 'Unfilled'
                 end
             end
             
-            if available then
-                if self:IsDisabled() then
-                    self:Enable()
-                end
-            else
-                if not self:IsDisabled() then
-                    self:Disable()
-                end
+            --capacitor switches icon to a disabled icon when discharging
+            if CapacitorState == 'Discharging' and not self:IsDisabled()then 
+                self:Disable()
+            elseif CapacitorState ~= 'Discharging' and self:IsDisabled() then
+                self:Enable()
             end
             
-            if capFull and not self._fullTextures then
+            --capacitor switches icon to production when filled.
+            if CapacitorState == 'Filled' then
                 local bitmapId = "production"
                 local button_prefix = "/game/orders/" .. bitmapId .. "_btn_"
                 self:SetNewTextures(
@@ -357,9 +337,7 @@ abilities = table.merged( abilities, {
                         UIUtil.SkinnableFile(button_prefix .. "over_sel.dds", true),
                         UIUtil.SkinnableFile(button_prefix .. "dis.dds", true),
                         UIUtil.SkinnableFile(button_prefix .. "dis_sel.dds", true))
-                self._fullTextures = true
-            end
-            if not capFull and self._fullTextures then
+            else
                 local bitmapId = "toggle-capacitor"
                 local button_prefix = "/game/orders/" .. bitmapId .. "_btn_"
                 self:SetNewTextures(
@@ -369,36 +347,28 @@ abilities = table.merged( abilities, {
                         UIUtil.SkinnableFile(button_prefix .. "over_sel.dds", true),
                         UIUtil.SkinnableFile(button_prefix .. "dis.dds", true),
                         UIUtil.SkinnableFile(button_prefix .. "dis_sel.dds", true))
-                self._fullTextures = false
-            end
-            if self._isAutoMode then
-                self.autoModeIcon:SetAlpha(1)
             end
             
-            self:SetCheck(capCharg and (not capFull))
+            if self._isAutoMode then
+                self.autoModeIcon:SetAlpha(1)
+            else
+                self.autoModeIcon:SetAlpha(0)
+            end
+            
+            --when unchecked, the icon shows a full battery, shown during charging
+            self:SetCheck(CapacitorState ~= 'Charging')
         end,
         
         behavior = function(self, modifiers)
             local controls = import('/lua/ui/controls.lua').Get()
             if modifiers.Left then
-                if self._isAutoMode and not self:IsDisabled() and not self._fullTextures then
-                    self.autoModeIcon:SetAlpha(0)
-                    self._isAutoMode = false
-                    if controls.mouseoverDisplay.text then
-                        controls.mouseoverDisplay.text:SetText(self._curHelpText)
-                    end
-                end
                 local cb = { Func = 'ActivateCapacitor'}
                 SimCallback(cb, true)
             elseif modifiers.Right then
                 self._curHelpText = self._data.helpText
-                if self._isAutoMode then
-                    self.autoModeIcon:SetAlpha(0)
-                    self._isAutoMode = false
-                else
-                    self.autoModeIcon:SetAlpha(1)
-                    self._isAutoMode = true
-                end
+                
+                --toggle the autocapacitor mode
+                self._isAutoMode = not self._isAutoMode
                 
                 if controls.mouseoverDisplay.text then
                     controls.mouseoverDisplay.text:SetText(self._curHelpText)
@@ -406,6 +376,13 @@ abilities = table.merged( abilities, {
                 
                 local cb = { Func = 'AutoCapacitor', Args = { auto = self._isAutoMode == true }}
                 SimCallback(cb, true)
+            end
+            
+            --update icon
+            if self._isAutoMode then
+                self.autoModeIcon:SetAlpha(0)
+            else
+                self.autoModeIcon:SetAlpha(1)
             end
         end,
         

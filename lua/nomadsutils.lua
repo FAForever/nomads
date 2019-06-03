@@ -1552,7 +1552,6 @@ function AddCapacitorAbility( SuperClass )
         
     return Class(SuperClass) {
     
-        CapDoPlayFx = true,
         CapFxBones = nil,
         CapFxBeingUsedTemplate = NomadsEffectTemplate.CapacitorBeingUsed,
         CapFxChargingTemplate = NomadsEffectTemplate.CapacitorCharging,
@@ -1561,63 +1560,28 @@ function AddCapacitorAbility( SuperClass )
         
         OnCreate = function(self)
             SuperClass.OnCreate(self)
-            
             self:HasCapacitorAbility(true)
-            self.Sync.CapacitorActive = false
             self.Sync.AutoCapacitor = false
-            self.Sync.CapacitorFull = false
-            Sync.CapacitorCharging = false
-            self.CapChargeWhenFull = 100
-            self.CapCurCharge = 0
-            self:SetCapacitorDuration(self:GetBlueprint().Abilities.Capacitor.Duration)
-            self:SetChargeEnergyCost(self:GetBlueprint().Abilities.Capacitor.ChargeEnergyCost)
-            self:SetCapChargeTime(self:GetBlueprint().Abilities.Capacitor.ChargeTime)
+            self.Sync.CapacitorState = 'Unfilled' --'Charging' 'Discharging' 'Filled' 'Unfilled'
+            self.CapChargeFraction = 0 --from 0 to 1
+            
+            local bp = self:GetBlueprint().Abilities.Capacitor
+            self.CapacitorDecayTime = bp.DecayTime
+            self.ChargeEnergyCost = bp.ChargeEnergyCost
+            self.CapDuration = bp.Duration
+            self.CapChargeTime = bp.ChargeTime
             self.CapFxBag = TrashBag()
-        end,
-        
-        OnStopBeingBuilt = function(self,builder,layer)
-            self.Sync.Abilities = self:GetBlueprint().Abilities
-            SuperClass.OnStopBeingBuilt(self,builder,layer)
-        end,
-        
-        OnKilled = function(self, instigator, type, overkillRatio)
-            SuperClass.OnKilled(self, instigator, type, overkillRatio)
-        end,
-        
-        OnCapacitorCharging = function(self, currentCharge)
-        end,
-        
-        OnCapStartBeingUsed = function(self, duration)
-        end,
-        
-        OnCapStopBeingUsed = function(self)
-        end,
-        
-        CapIsBeingUsed = function(self)
         end,
         
         HasCapacitorAbility = function(self, hasIt)
             self.Sync.HasCapacitorAbility = hasIt
         end,
         
-        SetChargeEnergyCost = function(self, energyCost)
-            self.ChargeEnergyCost = energyCost
-        end,
-        
-        SetCapChargeTime = function(self, chargeTime)
-            self.CapChargeTime = chargeTime
-        end,
-        
-        SetCapacitorDuration = function(self, duration)
-            self.CapDuration = duration
-        end,
-        
         ResetCapacitor = function(self)
-            self.Sync.CapacitorActive = false
-            self.Sync.AutoCapacitor = false
-            self.Sync.CapacitorFull = false
-            Sync.CapacitorCharging = false
-            self.CapCurCharge = 0
+            self.CapChargeFraction = 0
+            self.Sync.CapacitorState = 'Unfilled'
+            self:UpdateCapacitorFraction()
+            
             if self.Chargethread then
                 KillThread(self.Chargethread)
                 self.Chargethread = nil
@@ -1626,145 +1590,23 @@ function AddCapacitorAbility( SuperClass )
                 KillThread(self.CapStateThreadHandle)
                 self.CapStateThreadHandle = nil
             end
-            self:CapDestroyFx()
-        end,
-        
-        CapUpdateBar = function(self)
-            self:SetShieldRatio( self:CapGetCapacityFrac() )
-        end,
-        
-        CapGetCapacityFrac = function(self)
-            if self.CapCurCharge < 0 then return 0 end
-            if self.CapCurCharge == 0 or self.CapChargeWhenFull == 0 then
-                return 0
-            end
-            return (self.CapCurCharge / self.CapChargeWhenFull)
-        end,
-        
-        IsCapPaused = function(self)
-            return not self.Sync.CapacitorCharging
-        end,
-        
-        IsCapCharging = function(self)
-            return self.Sync.CapacitorCharging
-        end,
-        
-        IsCapCharged = function(self)
-            return self.CapCurCharge >= self.CapChargeWhenFull
-        end,
-        
-        IsCapActive = function(self)
-            return self.Sync.CapacitorActive
-        end,
-        
-        CapacitorIsAuto = function(self)
-            return self.Sync.AutoCapacitor
+            self.CapFxBag:Destroy()
         end,
         
         SetAutoCapacitor = function(self, autoCap)
             self.Sync.AutoCapacitor = autoCap
-            if autoCap and not self.Sync.CapacitorCharging and not self.Sync.CapacitorActive then
-                self:StartCharging()
+            if autoCap and self.Sync.CapacitorState == 'Unfilled' then
+                self.CapacitorSwitchStates[self.Sync.CapacitorState](self)
             end
         end,
         
-        StartCharging = function(self)
-            self.Sync.CapacitorCharging = true
-            self.Chargethread = ForkThread(
-            function()
-                while self.CapCurCharge < self.CapChargeWhenFull do
-                    self.CapChargeEvent = CreateEconomyEvent(self, self.ChargeEnergyCost, 0, 1)
-                    WaitFor(self.CapChargeEvent)
-                    self.CapCurCharge = self.CapCurCharge + (100 / self.CapChargeTime)
-                    self:CapUpdateBar()
-                    self:OnCapacitorCharging( self.CapCurCharge )
-                    RemoveEconomyEvent(self, self.CapChargeEvent)
-                    self.CapChargeEvent = nil
-                end
-                self:UpdateConsumptionValues()
-                self.Sync.CapacitorCharging = false
-                self:CapPlayFx('Full')
-                self.Sync.CapacitorFull = true
-            end)
+        --runs whenever the fraction changes, so all the UIs know what to do
+        UpdateCapacitorFraction = function(self)
+            --possible math.max(self.CapChargeFraction,0) needed here
+            self:SetShieldRatio( self.CapChargeFraction )
         end,
         
-        PauseCharging = function(self)
-            self.Sync.CapacitorCharging = false
-            self.Sync.AutoCapacitor = false
-            if self.Chargethread then
-                KillThread(self.Chargethread)
-            end
-            if self.CapChargeEvent then
-                RemoveEconomyEvent(self, self.CapChargeEvent)
-                self.CapChargeEvent = nil
-                self:UpdateConsumptionValues()
-            end
-        end,
-        
-        TryToActivateCapacitor = function(self)        
-            if self.Sync.CapacitorActive then
-                return
-            end
-            if self.CapCurCharge < self.CapChargeWhenFull then
-                return
-            end
-            
-            --Can't be charging when activated
-            if self.Sync.CapacitorCharging then
-                self.Sync.CapacitorCharging = false
-            end
-            self:ActivateCapacitor()
-        end,
-        
-        ActivateCapacitor = function(self)
-            self.Sync.CapacitorFull = false
-
-            while self:IsStunned() do  -- dont waste capacitor time being stunned
-                WaitTicks(1)
-            end
-
-            self:CapPlayFx('BeingUsed')
-
-            local bp = self:GetBlueprint().Abilities
-            local buffs = bp.Capacitor.Buffs or {}
-            local duration = bp.Duration
-
-            -- apply buffs
-            for k, buffName in buffs do
-                Buff.ApplyBuff( self, buffName )
-            end
-
-            -- notify weapons
-            for i = 1, self:GetWeaponCount() do
-                local wep = self:GetWeapon(i)
-                if wep.UseCapacitorBoost then
-                    wep:OnCapStartBeingUsed( duration )
-                end
-            end
-
-            self:UpdateConsumptionValues()
-            self:OnCapStartBeingUsed( duration )
-            self.Sync.CapacitorActive = true
-            if self.CapStateThreadHandle then KillThread( self.CapStateThreadHandle ) end
-            self.CapStateThreadHandle = self:ForkThread( self.CapacitorMain )
-        end,
-        
-        CapacitorMain = function(self)
-            local i = self.CapDuration
-            while self.CapCurCharge > 0 do
-                self.CapCurCharge = (i / self.CapDuration) * self.CapChargeWhenFull
-                self:CapUpdateBar()
-                i = i - 0.1
-                WaitTicks(1)
-            end
-            self.CapCurCharge = 0
-            self:CapUpdateBar()
-            
-            self:DeactivateCapacitor()
-        end,
-        
-        DeactivateCapacitor = function(self)
-            
+        RemoveCapacitorBuffs = function(self)
             local bp = self:GetBlueprint().Abilities
             local buffs = bp.Capacitor.Buffs or {}
             -- remove buffs
@@ -1780,73 +1622,185 @@ function AddCapacitorAbility( SuperClass )
                 end
             end
 
-            self:CapPlayFx('StopBeingUsed')
             self:UpdateConsumptionValues()
-            self:OnCapStopBeingUsed()
-            self.Sync.CapacitorActive = false
-            
-            if self.Sync.AutoCapacitor then
-                self:StartCharging()
-            end
+            --end the discharging cycle. the capacitor should be empty when RemoveCapacitorBuffs is called.
+            self.CapacitorSwitchStates[self.Sync.CapacitorState](self)
         end,
         
-        CapPlayFx = function(self, state)
-            if self.CapFxBones and self.CapDoPlayFx then
-                local templ = {}
+        AddCapacitorBuffs = function(self)
+            local bp = self:GetBlueprint().Abilities
+            local buffs = bp.Capacitor.Buffs or {}
 
-                if state == 'Empty' then
-                    templ = self.CapFxEmptyTemplate
-                    self:StopUnitAmbientSound('CapacitorInUseLoop')
-                    self:PlayUnitSound('CapacitorEmpty')
-                    --AddVOUnitEvent(self, 'CapacitorEmpty')
-                elseif state == 'Charging' then
-                    templ = self.CapFxChargingTemplate
-                    self:StopUnitAmbientSound('CapacitorInUseLoop')
-                    self:PlayUnitSound('CapacitorStartCharging')
-                elseif state == 'Full' then
-                    templ = self.CapFxFullTemplate
+            -- apply buffs
+            for k, buffName in buffs do
+                Buff.ApplyBuff( self, buffName )
+            end
+
+            -- notify weapons
+            for i = 1, self:GetWeaponCount() do
+                local wep = self:GetWeapon(i)
+                if wep.UseCapacitorBoost then
+                    wep:OnCapStartBeingUsed( bp.Duration )
+                end
+            end
+
+            self:UpdateConsumptionValues()
+        end,
+        
+        --cant use states since they would conflict with anything that actually has states. sigh.
+        --'Charging' 'Discharging' 'Filled' 'Unfilled'
+        --self.CapacitorSwitchStates[self.Sync.CapacitorState](self)
+        CapacitorSwitchStates = {
+            -- When the capacitor is not full or charging
+            Unfilled = function(self)
+                self.Sync.CapacitorState = 'Charging'
+                
+                self:PlayCapEffects(self.CapFxChargingTemplate)
+                self:StopUnitAmbientSound('CapacitorInUseLoop')
+                self:PlayUnitSound('CapacitorStartCharging')
+                
+                --end the decay thread if there is one
+                if self.CapDecayThread then
+                    KillThread(self.CapDecayThread)
+                end
+                
+                self.CapChargeThread = self:ForkThread( self.CapacitorChargeThread )
+            end,
+            
+            -- When the capacitor is full and ready to discharge
+            Filled = function(self)
+                self.Sync.CapacitorState = 'Discharging'
+            
+                self:PlayCapEffects(self.CapFxBeingUsedTemplate)
+                self:PlayUnitSound('CapacitorStartBeingUsed')
+                self:PlayUnitAmbientSound('CapacitorInUseLoop')
+                
+                self:AddCapacitorBuffs()
+                --start discharge thread
+                self.CapDischargeThread = self:ForkThread( self.CapacitorDischargeThread )
+            end,
+            
+            -- When the capacitor is draining energy and charging
+            Charging = function(self)
+                if self.CapChargeFraction == 1 then
+                    self.Sync.CapacitorState = 'Filled'
+                    
+                    self:PlayCapEffects(self.CapFxFullTemplate)
                     self:StopUnitAmbientSound('CapacitorInUseLoop')
                     self:PlayUnitSound('CapacitorFull')
                     AddVOUnitEvent(self, 'CapacitorFull')
-                elseif state == 'BeingUsed' then
-                    templ = self.CapFxBeingUsedTemplate
-                    self:PlayUnitSound('CapacitorStartBeingUsed')
-                    self:PlayUnitAmbientSound('CapacitorInUseLoop')
-                elseif state == 'StopBeingUsed' then
+                else
+                    self.Sync.CapacitorState = 'Unfilled'
+                    --cancel the charging
+                    self.Sync.AutoCapacitor = false
+                    if self.CapChargeThread then
+                        KillThread(self.CapChargeThread)
+                    end
+                    if self.CapChargeEvent then
+                        RemoveEconomyEvent(self, self.CapChargeEvent)
+                        self.CapChargeEvent = nil
+                        self:UpdateConsumptionValues()
+                    end
+                    
+                    self.CapFxBag:Destroy()
                     self:StopUnitAmbientSound('CapacitorInUseLoop')
                     self:PlayUnitSound('CapacitorStopBeingUsed')
+                    --start decay thread
+                    self.CapDecayThread = self:ForkThread( self.CapacitorDecayThread )
                 end
-
-                self:CapDestroyFx()
-                local ox, oy, oz
-                local army, emit = self:GetArmy()
-                for bk, bone in self.CapFxBones do
-                    ox = self.CapFxBonesOffsets[bk][1] or 0
-                    oy = self.CapFxBonesOffsets[bk][2] or 0
-                    oz = self.CapFxBonesOffsets[bk][3] or 0
-                    for k, v in templ do
-                        emit = CreateAttachedEmitter(self, bone, army, v)
-                        emit:OffsetEmitter(ox, oy, oz)
-                        self.CapFxBag:Add(emit)
+            end,
+            
+            -- When the capacitor is applying buffs and discharging
+            Discharging = function(self)
+                --you cant cancel the discharge halfway through
+                if self.CapChargeFraction == 0 then
+                    self.Sync.CapacitorState = 'Unfilled'
+                    
+                    self.CapFxBag:Destroy()
+                    --self:PlayCapEffects(self.CapFxEmptyTemplate)
+                    self:StopUnitAmbientSound('CapacitorInUseLoop')
+                    self:PlayUnitSound('CapacitorEmpty')
+                    -- AddVOUnitEvent(self, 'CapacitorEmpty')
+                    
+                    --start charging if we have autocap on.
+                    if self.Sync.AutoCapacitor then
+                        self.CapacitorSwitchStates[self.Sync.CapacitorState](self)
                     end
                 end
+            end,
+        },
+        
+        --TODO: streamline this in terms of drain values. instead of economy events use drain values
+        CapacitorChargeThread = function(self)
+            while self.CapChargeFraction < 1 do
+                self.CapChargeEvent = CreateEconomyEvent(self, self.ChargeEnergyCost, 0, 1)
+                WaitFor(self.CapChargeEvent)
+                self.CapChargeFraction = self.CapChargeFraction + (1 / self.CapChargeTime)
+                self:UpdateCapacitorFraction()
+                RemoveEconomyEvent(self, self.CapChargeEvent)
+                self.CapChargeEvent = nil
             end
+            self:UpdateConsumptionValues()
+            --finish charging
+            self.CapChargeFraction = 1
+            self.CapacitorSwitchStates[self.Sync.CapacitorState](self)
+        end,
+        
+        CapacitorDischargeThread  = function(self)
+            while self:IsStunned() do  -- dont waste capacitor time being stunned
+                WaitTicks(1)
+            end
+            local i = self.CapDuration
+            while self.CapChargeFraction > 0 do
+                self.CapChargeFraction = i / self.CapDuration
+                self:UpdateCapacitorFraction()
+                i = i - 0.1
+                WaitTicks(1)
+            end
+            self.CapChargeFraction = 0
+            self:UpdateCapacitorFraction()
+            self:RemoveCapacitorBuffs()
+        end,
+        
+        CapacitorDecayThread  = function(self)
+            local i = self.CapacitorDecayTime * self.CapChargeFraction
+            while self.CapChargeFraction > 0 do
+                self.CapChargeFraction = i / self.CapacitorDecayTime
+                self:UpdateCapacitorFraction()
+                i = i - 0.1
+                WaitTicks(1)
+            end
+            self.CapChargeFraction = 0
+            self:UpdateCapacitorFraction()
         end,
 
-        CapDestroyFx = function(self)
+        PlayCapEffects = function(self, effects)
             self.CapFxBag:Destroy()
+            local ox, oy, oz
+            local army, emit = self:GetArmy()
+            for bk, bone in self.CapFxBones do
+                ox = self.CapFxBonesOffsets[bk][1] or 0
+                oy = self.CapFxBonesOffsets[bk][2] or 0
+                oz = self.CapFxBonesOffsets[bk][3] or 0
+                for k, v in effects do
+                    emit = CreateAttachedEmitter(self, bone, army, v)
+                    emit:OffsetEmitter(ox, oy, oz)
+                    self.CapFxBag:Add(emit)
+                end
+            end
         end,
         
         -- don't do shield things
         EnableShield = function(self)
-            WARN('Shields disabled by capacitor ability...')
+            WARN('Nomads: Shields disabled by capacitor ability')
         end,
 
         DisableShield = function(self)
-            WARN('Shields disabled by capacitor ability...')
+            WARN('Nomads: Shields disabled by capacitor ability')
         end,
     }
 end
+
 
 function AddCapacitorAbilityToWeapon( SuperClass )
     -- The capacitor ability code for weapons
@@ -1859,22 +1813,6 @@ function AddCapacitorAbilityToWeapon( SuperClass )
             -- Overwrite on SCUs and ACUs to have support for weapon enhancements. There are requirements to the values in the returned table.
             -- All values in the enhancement should begin with "New". See code below to find all supported bp values.
             return {}
-        end,
-
-        GetDamageTable = function(self)
-            -- if capacitor in use pass different data to projectile, to create DoT effect
-            local damageTable = SuperClass.GetDamageTable(self)
-            if self:CapIsBeingUsed() then
-                local ebp = self:CapGetWepAffectingEnhancementBP()
-                local wbp = self:GetBlueprint()
-                damageTable.DamageAmount        = ebp.NewDamageDuringCapacitor or wbp.DamageDuringCapacitor or damageTable.DamageAmount
-                damageTable.DamageRadius        = ebp.NewDamageRadiusDuringCapacitor or wbp.DamageRadiusDuringCapacitor or damageTable.DamageRadius
-                damageTable.DamageToShields     = ebp.NewDamageToShieldsDuringCapacitor or wbp.DamageToShieldsDuringCapacitor or damageTable.DamageToShields
-                damageTable.DoTTime             = ebp.NewDoTTimeDuringCapacitor or wbp.DoTTimeDuringCapacitor or damageTable.DoTTime
-                damageTable.DoTPulses           = ebp.NewDoTPulsesDuringCapacitor or wbp.DoTPulsesDuringCapacitor or damageTable.DoTPulses
-                damageTable.InitialDamageAmount = ebp.NewInitialDamageDuringCapacitor or wbp.InitialDamageDuringCapacitor or damageTable.InitialDamageAmount
-            end
-            return damageTable
         end,
 
         OnCapStartBeingUsed = function(self, duration)
@@ -1891,15 +1829,10 @@ function AddCapacitorAbilityToWeapon( SuperClass )
 
         OnCapStopBeingUsed = function(self)
             --LOG('*DEBUG: wep OnCapStopBeingUsed()')
-
             local wbp = self:GetBlueprint()
             local newProjwbp = wbp.ProjectileId
 
             self:ChangeProjectileBlueprint(newProjwbp)
-        end,
-
-        CapIsBeingUsed = function(self)
-            return self.unit:CapIsBeingUsed()
         end,
     }
 end

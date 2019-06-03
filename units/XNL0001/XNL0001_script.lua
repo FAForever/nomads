@@ -87,7 +87,7 @@ XNL0001 = Class(ACUUnit) {
     -- =====================================================================================================================
     -- CREATION AND FIRST SECONDS OF GAMEPLAY
 
-    CapFxBones2 = { 'CapacitorL', 'CapacitorR', },
+    CapFxBones = { 'CapacitorL', 'CapacitorR', },
 
     OnCreate = function(self)
         ACUUnit.OnCreate(self)
@@ -204,6 +204,7 @@ XNL0001 = Class(ACUUnit) {
         self.BuildingUnit = true
     end,
 
+    --TODO: change this so it works for all relevant nomads units
     -- use our own reclaim animation
     CreateReclaimEffects = function( self, target )
         NomadsEffectUtil.PlayNomadsReclaimEffects( self, target, self:GetBlueprint().General.BuildBones.BuildEffectBones or {0,}, self.ReclaimEffectsBag )
@@ -230,6 +231,15 @@ XNL0001 = Class(ACUUnit) {
     end,
 
 
+    -- Adjust position of the capacitor sliders to match the charge.
+    UpdateCapacitorFraction = function(self)
+        ACUUnit.UpdateCapacitorFraction(self)
+        for number,slider in self.CapSliders do
+            slider:SetGoal(0, self.CapChargeFraction-1, 0 )
+            slider:SetSpeed(1)
+        end
+    end,
+        
     -- =====================================================================================================================
     -- EFFECTS AND ANIMATIONS
 
@@ -240,8 +250,7 @@ XNL0001 = Class(ACUUnit) {
         self.PlayCommanderWarpInEffectFlag = false
         self:HideBone(0, true)
         self:SetWeaponEnabledByLabel('MainGun', false)
-        self:CapDestroyFx()
-        self.CapDoPlayFx = false
+        self.CapFxBag:Destroy() --TODO: optimise this so you dont need to turn capacitor off at the start
 
         local meteor = self:CreateProjectile('/effects/Entities/NomadsACUDropMeteor/NomadsACUDropMeteor_proj.bp')
         self.Trash:Add(meteor)
@@ -267,7 +276,6 @@ XNL0001 = Class(ACUUnit) {
             end
         end
 
-        self.CapDoPlayFx = true
 
         WaitTicks(5)
 
@@ -418,13 +426,12 @@ XNL0001 = Class(ACUUnit) {
 
     --a much more sensible way of doing enhancements, and more moddable too!
     --change the behaviours here and dont touch the CreateEnhancement table.
+    --call with: self.EnhancementBehaviours[enh](self, bp)
     -- EnhancementTable = {
-        -- IntelProbe = {
-            -- Behaviour = function(self)
-                -- self:AddEnhancementEmitterToBone( true, 'IntelProbe1' )
-                -- self:SetIntelProbeEnabled( false, true )
-            -- end,
-        -- },
+        -- IntelProbe = function(self, bp)
+            -- self:AddEnhancementEmitterToBone( true, 'IntelProbe1' )
+            -- self:SetIntelProbeEnabled( false, true )
+        -- end,
     -- },
     EnhancementBehaviours = {
         IntelProbe = function(self, bp)
