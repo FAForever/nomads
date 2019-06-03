@@ -52,13 +52,6 @@ DarkMatterWeapon1 = Class(DefaultProjectileWeapon) {
 
 EMPGun = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = NomadsEffectTemplate.EMPGunMuzzleFlash,
-
--- DamageToShields globally implemented in defaultweapons.lua and projectile.lua per build 41
---    GetDamageTable = function(self)
---        local damageTable = DefaultProjectileWeapon.GetDamageTable(self)
---        damageTable.DamageToShields = self:GetBlueprint().DamageToShields
---        return damageTable
---    end,
 }
 
 RailgunWeapon1 = Class(DefaultProjectileWeapon) {

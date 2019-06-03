@@ -566,30 +566,9 @@ EmpShell = Class(SinglePolyTrailProjectile) {
     PolyTrail = NomadsEffectTemplate.EMPGunPolyTrail,
     PolyTrailOffset = 0,
 
--- DamageToShields globally implemented in defaultweapons.lua and projectile.lua per build 41
---    PassDamageData = function(self, DamageData)
---        EmitterProjectile.PassDamageData(self, DamageData)
---        if DamageData.DamageToShields then
---            self.DamageData.DamageToShields = DamageData.DamageToShields
---        end
---    end,
---
---    DoShieldDamage = function(self, shield)
---        if self.DamageData.DamageToShields and self.DamageData.DamageToShields > 0 and shield then
---            local damage = math.min( self.DamageData.DamageToShields, shield:GetHealth() )
---            if damage > 0 then
---                Damage( self:GetLauncher(), self:GetPosition(), shield, damage, self.DamageData.DamageType)
---            end
---        end
---    end,
 
     OnImpact = function(self, targetType, targetEntity)
         EmitterProjectile.OnImpact(self, targetType, targetEntity)
-
--- DamageToShields globally implemented in defaultweapons.lua and projectile.lua per build 41
---        if targetType == 'Shield' then
---            self:DoShieldDamage( targetEntity )
---        end
 
         -- create custom electricity effect based on stun duration
         local Duration = false
