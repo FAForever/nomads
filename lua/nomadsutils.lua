@@ -1695,11 +1695,7 @@ function AddCapacitorAbility( SuperClass )
                     self.Sync.AutoCapacitor = false
                     if self.CapChargeThread then
                         KillThread(self.CapChargeThread)
-                    end
-                    if self.CapChargeEvent then
-                        RemoveEconomyEvent(self, self.CapChargeEvent)
-                        self.CapChargeEvent = nil
-                        self:UpdateConsumptionValues()
+                        self:SetMaintenanceConsumptionInactive()
                     end
                     
                     self.CapFxBag:Destroy()
@@ -1730,17 +1726,16 @@ function AddCapacitorAbility( SuperClass )
             end,
         },
         
-        --TODO: streamline this in terms of drain values. instead of economy events use drain values
+        --TODO: add energy stall slowdown to this(?)
         CapacitorChargeThread = function(self)
+            self:SetEnergyMaintenanceConsumptionOverride(self.ChargeEnergyCost or 500)
+            self:SetMaintenanceConsumptionActive()
             while self.CapChargeFraction < 1 do
-                self.CapChargeEvent = CreateEconomyEvent(self, self.ChargeEnergyCost, 0, 1)
-                WaitFor(self.CapChargeEvent)
-                self.CapChargeFraction = self.CapChargeFraction + (1 / self.CapChargeTime)
+                WaitTicks(1)
+                self.CapChargeFraction = self.CapChargeFraction + (0.1 / self.CapChargeTime)
                 self:UpdateCapacitorFraction()
-                RemoveEconomyEvent(self, self.CapChargeEvent)
-                self.CapChargeEvent = nil
             end
-            self:UpdateConsumptionValues()
+            self:SetMaintenanceConsumptionInactive()
             --finish charging
             self.CapChargeFraction = 1
             self.CapacitorSwitchStates[self.Sync.CapacitorState](self)
@@ -1750,11 +1745,9 @@ function AddCapacitorAbility( SuperClass )
             while self:IsStunned() do  -- dont waste capacitor time being stunned
                 WaitTicks(1)
             end
-            local i = self.CapDuration
             while self.CapChargeFraction > 0 do
-                self.CapChargeFraction = i / self.CapDuration
+                self.CapChargeFraction = self.CapChargeFraction - (0.1 / self.CapDuration)
                 self:UpdateCapacitorFraction()
-                i = i - 0.1
                 WaitTicks(1)
             end
             self.CapChargeFraction = 0
@@ -1763,11 +1756,9 @@ function AddCapacitorAbility( SuperClass )
         end,
         
         CapacitorDecayThread  = function(self)
-            local i = self.CapacitorDecayTime * self.CapChargeFraction
             while self.CapChargeFraction > 0 do
-                self.CapChargeFraction = i / self.CapacitorDecayTime
+                self.CapChargeFraction = self.CapChargeFraction - (0.1 / self.CapacitorDecayTime)
                 self:UpdateCapacitorFraction()
-                i = i - 0.1
                 WaitTicks(1)
             end
             self.CapChargeFraction = 0
