@@ -25,17 +25,6 @@ DefaultProjectileWeapon = Class(oldDefaultProjectileWeapon) {
         end
     end,
 
-    CapIsBeingUsed = function(self)  -- this is here to make sure this function can always available, regardless rest of scripting is available
-        return false
-    end,
-
-    GetDamageTable = function(self)
-        local table = oldDefaultProjectileWeapon.GetDamageTable(self)
-        table.DamageToShields = self:GetBlueprint().DamageToShields or 0
-        table.InitialDamageAmount = self:GetBlueprint().InitialDamage or 0
-        return table
-    end,
-
     CreateProjectileForWeapon = function(self, bone)
         -- when a nuke is launched the function NukeCreatedAtUnit is called. This happens in the RackSalvoFiringState. For tactical missile
         -- launchers this doesn't happen but it is necessary to properly handle ammo count on the UI. This function is called just before

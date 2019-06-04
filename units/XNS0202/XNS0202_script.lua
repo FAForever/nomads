@@ -11,7 +11,15 @@ NSeaUnit = AddNavalLights(NSeaUnit)
 XNS0202 = Class(NSeaUnit) {
     Weapons = {
         AATurret = Class(RocketWeapon1) {},
-        GunTurret = Class(EMPGun) {},
+        GunTurret = Class(EMPGun) {
+            CreateProjectileAtMuzzle = function(self, muzzle)
+                local proj = EMPGun.CreateProjectileAtMuzzle(self, muzzle)
+                local data = self:GetBlueprint().DamageToShields
+                if proj and not proj:BeenDestroyed() then
+                    proj:PassData(data)
+                end
+            end,
+        },
         CruiseMissile = Class(TacticalMissileWeapon1) {},
     },
 

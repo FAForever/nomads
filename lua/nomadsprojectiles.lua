@@ -606,6 +606,16 @@ EmpShell = Class(SinglePolyTrailProjectile) {
             end
             self:PlayElectricityEffects( self:GetArmy(), NomadsEffectTemplate.EMPGunElectricityEffect, ImpactEffectScale, Duration )
         end
+        
+        if targetType ~= 'Shield' then
+            targetEntity = targetEntity.MyShield
+        end
+
+        if not targetEntity then return end
+
+        -- Never cause overspill damage to the unit, 1 min to avoid logspam with 0 declared damage
+        local damage = math.max(math.min(self.Data or 0, targetEntity:GetHealth()), 1)
+        Damage(self, {0,0,0}, targetEntity, damage, 'Normal')
     end,
 
     PlayElectricityEffects = function( self, army, EffectTable, EffectScale, EffectDuration )

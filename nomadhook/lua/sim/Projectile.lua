@@ -37,8 +37,6 @@ Projectile = Class(oldProjectile) {
 
     PassDamageData = function(self, DamageData)
         oldProjectile.PassDamageData(self, DamageData)
-        self.DamageData.DamageToShields = DamageData.DamageToShields
-        self.DamageData.InitialDamageAmount = DamageData.InitialDamageAmount
     end,
 
     OnImpact = function(self, targetType, targetEntity)
@@ -53,22 +51,6 @@ Projectile = Class(oldProjectile) {
         end
 
         oldProjectile.OnImpact(self, targetType, targetEntity)
-        if targetType == 'Shield' then
-            self:DoShieldDamage( targetEntity )
-        elseif targetType == 'Unit' and targetEntity.MyShield ~= nil then
-            if targetEntity:ShieldIsOn() then
-                self:DoShieldDamage( targetEntity )
-            end
-        end
-    end,
-
-    DoShieldDamage = function(self, shield)
-        if self.DamageData.DamageToShields and self.DamageData.DamageToShields > 0 and shield then
-            local damage = math.min( self.DamageData.DamageToShields, shield:GetHealth() )
-            if damage > 0 then
-                Damage( self:GetLauncher(), self:GetPosition(), shield, damage, self.DamageData.DamageType)
-            end
-        end
     end,
 
     DoUnitImpactBuffs = function(self, target)

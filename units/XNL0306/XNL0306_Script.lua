@@ -8,6 +8,13 @@ XNL0306 = Class(NLandUnit) {
     Weapons = {
         MainGun = Class(EMPGun) {
             FxMuzzleFlash = import('/lua/nomadseffecttemplate.lua').EMPGunMuzzleFlash_Tank,
+            CreateProjectileAtMuzzle = function(self, muzzle)
+                local proj = EMPGun.CreateProjectileAtMuzzle(self, muzzle)
+                local data = self:GetBlueprint().DamageToShields
+                if proj and not proj:BeenDestroyed() then
+                    proj:PassData(data)
+                end
+            end,
         },
     },
 }
