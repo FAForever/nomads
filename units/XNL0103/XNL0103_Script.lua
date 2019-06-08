@@ -37,23 +37,17 @@ XNL0103 = Class(NLandUnit) {
 
     OnCreate = function(self)
         NLandUnit.OnCreate(self)
-		self:SetScriptBit('RULEUTC_SpecialToggle', false)
-    end,
-	
-    OnScriptBitSet = function(self, bit)
-        NLandUnit.OnScriptBitClear(self, bit)
-        if bit == 1 then
-            self:SetWeaponEnabledByLabel('AAGun', true)
-			self:SetWeaponEnabledByLabel('TargetPainter', true)
-		end
+        self:SetScriptBit('RULEUTC_SpecialToggle', false)
     end,
 
-    OnScriptBitClear = function(self, bit)
-		NLandUnit.OnScriptBitSet(self, bit)
-        if bit == 1 then
-            self:SetWeaponEnabledByLabel('AAGun', false)
-			self:SetWeaponEnabledByLabel('TargetPainter', false)
-		end
+    DisableSpecialToggle = function(self)
+        self:SetWeaponEnabledByLabel('TargetPainter', true)
+    end,
+
+    EnableSpecialToggle = function(self)
+        self:SetWeaponEnabledByLabel('TargetPainter', false)
+        self:SetWeaponEnabledByLabel('ArtilleryGun', true)
+        self:SetWeaponEnabledByLabel('AAGun', false)
     end,
 }
 

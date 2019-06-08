@@ -1,4 +1,4 @@
--- T1 AA/Artilery
+-- T1 AA/Artillery
 
 UnitBlueprint {
     AI = {
@@ -55,7 +55,6 @@ UnitBlueprint {
         'ARTILLERY',
         'VISIBLETORECON',
         'RECLAIMABLE',
-        'OVERLAYANTIAIR',
         'OVERLAYINDIRECTFIRE',
     },
     CollisionOffsetZ = 0.1,
@@ -98,8 +97,8 @@ UnitBlueprint {
                 Effects = {
                     {
                         Bones = {
-                            'exhaust_L',
-                            'exhaust_R',
+                            'Exhaust01',
+                            'Exhaust02',
                         },
                         Type = 'GroundKickup01',
                     },
@@ -108,7 +107,7 @@ UnitBlueprint {
                     ScrollTreads = true,
                     TreadMarks = {
                         {
-                            BoneName = 'INU1006',
+                            BoneName = 'XNL0103',
                             TreadMarks = 'tank_treads_albedo',
                             TreadMarksInterval = 0.3,
                             TreadMarksSizeX = 0.4,
@@ -247,20 +246,41 @@ UnitBlueprint {
             FiringTolerance = 3,
             Label = 'ArtilleryGun',
             MaxRadius = 30,
-            MinRadius = 10,
+            MinRadius = 5, --revert to 10 after testing
             MuzzleSalvoDelay = 0.5,
             MuzzleSalvoSize = 2,
-            MuzzleVelocity = 1,
+            MuzzleVelocity = 16,
             MuzzleVelocityReduceDistance = 28,
             ProjectileId = '/projectiles/NArtilleryRocket1/NArtilleryRocket1_proj.bp',
             ProjectilesPerOnFire = 1,
             RackBones = {
                 {
                     MuzzleBones = {
-                        'muzzle.001',
-                        'muzzle.002',
+                        'Muzzle01',
+                        'Muzzle02',
                     },
-                    RackBone = 'barrel',
+                    RackBone = 'TurretPitch',
+                },
+                {
+                    MuzzleBones = {
+                        'Muzzle03',
+                        'Muzzle04',
+                    },
+                    RackBone = 'TurretPitch',
+                },
+                {
+                    MuzzleBones = {
+                        'Muzzle05',
+                        'Muzzle06',
+                    },
+                    RackBone = 'TurretPitch',
+                },
+                {
+                    MuzzleBones = {
+                        'Muzzle07',
+                        'Muzzle08',
+                    },
+                    RackBone = 'TurretPitch',
                 },
             },
             RackFireTogether = false,
@@ -272,7 +292,7 @@ UnitBlueprint {
             RackSlavedToTurret = false,
             RangeCategory = 'UWRC_IndirectFire',
             RateOfFire = 0.34,
-            StopOnPrimaryWeaponBusy = true,
+            StopOnPrimaryWeaponBusy = false,
             TargetCheckInterval = 0.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -283,19 +303,21 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE',
             ToggleWeapon = 'AAGun',
             TrackingRadius = 1.15,
-            TurretBoneMuzzle = 'muzzle.001',
-            TurretBonePitch = 'barrel',
-            TurretBoneYaw = 'turret',
-            TurretPitch = 115,
+            TurretBoneMuzzle = 'Muzzle01',
+            TurretBonePitch = 'TurretPitch',
+            TurretBoneYaw = 'TurretYaw',
+            TurretPitch = 0,
             TurretPitchRange = 100,
             TurretPitchSpeed = 180,
             TurretYaw = 0,
             TurretYawRange = 180,
             TurretYawSpeed = 90,
             Turreted = true,
-            WeaponCategory = 'Missile',
-            WeaponRepackTimeout = 0,
-            WeaponUnpacks = false,
+            WeaponCategory = 'Artillery',
+            WeaponRepackTimeout = 1,
+            WeaponUnpackAnimation = '/units/xnl0103/XNL0103_Unpack.sca',
+            WeaponUnpackAnimationRate = 5,
+            WeaponUnpacks = true,
         },
         {
             AlwaysRecheckTarget = true,
@@ -329,10 +351,51 @@ UnitBlueprint {
             RackBones = {
                 {
                     MuzzleBones = {
-                        'muzzle.001',
-                        'muzzle.002',
+                        'Muzzle01',
                     },
-                    RackBone = 'barrel',
+                    RackBone = 'TurretPitch',
+                },
+                {
+                    MuzzleBones = {
+                        'Muzzle02',
+                    },
+                    RackBone = 'TurretPitch',
+                },
+                {
+                    MuzzleBones = {
+                        'Muzzle03',
+                    },
+                    RackBone = 'TurretPitch',
+                },
+                {
+                    MuzzleBones = {
+                        'Muzzle04',
+                    },
+                    RackBone = 'TurretPitch',
+                },
+                {
+                    MuzzleBones = {
+                        'Muzzle05',
+                    },
+                    RackBone = 'TurretPitch',
+                },
+                {
+                    MuzzleBones = {
+                        'Muzzle06',
+                    },
+                    RackBone = 'TurretPitch',
+                },
+                {
+                    MuzzleBones = {
+                        'Muzzle07',
+                    },
+                    RackBone = 'TurretPitch',
+                },
+                {
+                    MuzzleBones = {
+                        'Muzzle08',
+                    },
+                    RackBone = 'TurretPitch',
                 },
             },
             RackFireTogether = false,
@@ -342,7 +405,6 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
-            RangeCategory = 'UWRC_AntiAir',
             RateOfFire = 0.5,
             TargetCheckInterval = 0.3,
             TargetPriorities = {
@@ -359,11 +421,11 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE',
             ToggleWeapon = 'ArtilleryGun',
             TrackingRadius = 1.4,
-            TurretBoneMuzzle = 'muzzle.001',
-            TurretBonePitch = 'barrel',
-            TurretBoneYaw = 'turret',
+            TurretBoneMuzzle = 'Muzzle01',
+            TurretBonePitch = 'TurretPitch',
+            TurretBoneYaw = 'TurretYaw',
             TurretDualManipulators = false,
-            TurretPitch = 45,
+            TurretPitch = 0,
             TurretPitchRange = 90,
             TurretPitchSpeed = 180,
             TurretYaw = 0,
@@ -372,8 +434,10 @@ UnitBlueprint {
             Turreted = true,
             UseFiringSolutionInsteadOfAimBone = true,
             WeaponCategory = 'Anti Air',
-            WeaponRepackTimeout = 0,
-            WeaponUnpacks = false,
+            WeaponRepackTimeout = 1,
+            WeaponUnpackAnimation = '/units/XNL0103/XNL0103_Unpack.sca',
+            WeaponUnpackAnimationRate = 2.5,
+            WeaponUnpacks = true,
         },
         {
             AlwaysRecheckTarget = true,
@@ -399,9 +463,9 @@ UnitBlueprint {
             RackBones = {
                 {
                     MuzzleBones = {
-                        'muzzle.001',
+                        'RangeFinderPitch',
                     },
-                    RackBone = 'barrel',
+                    RackBone = 'RangeFinderYaw',
                 },
             },
             RackFireTogether = false,
@@ -427,9 +491,9 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.4,
-            TurretBoneMuzzle = 'muzzle.001',
-            TurretBonePitch = 'barrel',
-            TurretBoneYaw = 'turret',
+            TurretBoneMuzzle = 'RangeFinderPitch',
+            TurretBonePitch = 'RangeFinderPitch',
+            TurretBoneYaw = 'RangeFinderYaw',
             TurretDualManipulators = false,
             TurretPitch = 0,
             TurretPitchRange = 180,
