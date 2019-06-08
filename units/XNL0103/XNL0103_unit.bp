@@ -246,7 +246,7 @@ UnitBlueprint {
             FiringTolerance = 3,
             Label = 'ArtilleryGun',
             MaxRadius = 30,
-            MinRadius = 5, --revert to 10 after testing
+            MinRadius = 5,
             MuzzleSalvoDelay = 0.5,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 16,
@@ -257,27 +257,27 @@ UnitBlueprint {
                 {
                     MuzzleBones = {
                         'Muzzle01',
-                        'Muzzle02',
-                    },
-                    RackBone = 'TurretPitch',
-                },
-                {
-                    MuzzleBones = {
-                        'Muzzle03',
-                        'Muzzle04',
-                    },
-                    RackBone = 'TurretPitch',
-                },
-                {
-                    MuzzleBones = {
                         'Muzzle05',
+                    },
+                    RackBone = 'TurretPitch',
+                },
+                {
+                    MuzzleBones = {
+                        'Muzzle02',
                         'Muzzle06',
                     },
                     RackBone = 'TurretPitch',
                 },
                 {
                     MuzzleBones = {
+                        'Muzzle03',
                         'Muzzle07',
+                    },
+                    RackBone = 'TurretPitch',
+                },
+                {
+                    MuzzleBones = {
+                        'Muzzle04',
                         'Muzzle08',
                     },
                     RackBone = 'TurretPitch',
@@ -331,7 +331,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
-            Damage = 25,    --31,25dps
+            Damage = 25,
             DamageType = 'Normal',
             DisplayName = 'Rocket (AA)',
             EffectiveRadius = 0,
@@ -352,47 +352,27 @@ UnitBlueprint {
                 {
                     MuzzleBones = {
                         'Muzzle01',
-                    },
-                    RackBone = 'TurretPitch',
-                },
-                {
-                    MuzzleBones = {
-                        'Muzzle02',
-                    },
-                    RackBone = 'TurretPitch',
-                },
-                {
-                    MuzzleBones = {
-                        'Muzzle03',
-                    },
-                    RackBone = 'TurretPitch',
-                },
-                {
-                    MuzzleBones = {
-                        'Muzzle04',
-                    },
-                    RackBone = 'TurretPitch',
-                },
-                {
-                    MuzzleBones = {
                         'Muzzle05',
                     },
                     RackBone = 'TurretPitch',
                 },
                 {
                     MuzzleBones = {
+                        'Muzzle02',
                         'Muzzle06',
                     },
                     RackBone = 'TurretPitch',
                 },
                 {
                     MuzzleBones = {
+                        'Muzzle03',
                         'Muzzle07',
                     },
                     RackBone = 'TurretPitch',
                 },
                 {
                     MuzzleBones = {
+                        'Muzzle04',
                         'Muzzle08',
                     },
                     RackBone = 'TurretPitch',
