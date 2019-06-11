@@ -173,7 +173,7 @@ UnitBlueprint {
                     SpecularName = '/units/XNL0203/XNL0203_SpecTeam.dds',
                 },
                 {
-                    AlbedoName = '/units/XNL0203/XNL0203_lod1_Albedo',
+                    AlbedoName = '/units/XNL0203/XNL0203_lod1_Albedo.dds',
                     LODCutoff = 215,
                     ShaderName = 'NomadsUnit',
                     SpecularName = '/units/XNL0203/XNL0203_lod1_SpecTeam.dds',
