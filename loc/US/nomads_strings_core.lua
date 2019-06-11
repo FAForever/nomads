@@ -699,9 +699,9 @@ xnl0304_name = "Mauler"
 -- xnl0109_name = "Spotter"
 
 -- T3 anti air unit
-xnl0307_desc = "Mobile Anti-Air Missile Launcher"
-xnl0307_help = "Launches anti-air missiles at enemy aircraft."
-xnl0307_name = "Watchman"
+xnl0302_desc = "Mobile Anti-Air Missile Launcher"
+xnl0302_help = "Launches anti-air missiles at enemy aircraft."
+xnl0302_name = "Watchman"
 
 -- T2 mobile missile defense
 xnl0209_desc = "Field Engineer"
@@ -716,9 +716,9 @@ xnl0305_name = "Slugger"
 
 -- Air units
 -- Spy place
-xna0301_desc = "Spy Plane"
-xna0301_help = "State-of-the-art reconnaissance aircraft."
-xna0301_name = "Beholder"
+xnl0302_desc = "Spy Plane"
+xnl0302_help = "State-of-the-art reconnaissance aircraft."
+xnl0302_name = "Beholder"
 
 -- ASF
 xna0303_desc = "Air-Superiority Fighter"
@@ -731,9 +731,9 @@ xna0304_help = "Drops a very large fiery bomb. Excels at taking out bases, a for
 xna0304_name = "Red Rage"
 
 -- Gunship
-xna0306_desc = "Heavy Gunship"
-xna0306_help = "Equipped with a dual anti-surface cannon, a stingray gun, an anti-air missile launcher and anti-air missile flares. Excels at taking out single strong units and structures. Can also pin-point targets for artillery."
-xna0306_name = "Hornet"
+xna0305_desc = "Heavy Gunship"
+xna0305_help = "Equipped with a dual anti-surface cannon, a stingray gun, an anti-air missile launcher and anti-air missile flares. Excels at taking out single strong units and structures. Can also pin-point targets for artillery."
+xna0305_name = "Hornet"
 
 -- Naval units
 

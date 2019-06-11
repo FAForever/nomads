@@ -81,7 +81,7 @@ local NomadsT3Land = {
     ['E'] = 'xnl0309',
     ['T'] = 'xnl0303',
     ['R'] = 'xnl0304',
-    ['N'] = 'xnl0307',
+    ['N'] = 'xnl0302',
 }
 
 local NomadsT1Air = {
@@ -102,10 +102,10 @@ local NomadsT2Air = {
 
 local NomadsT3Air = {
     ['E'] = 'xnl0309',
-    ['S'] = 'xna0301',
+    ['S'] = 'xnl0302',
     ['F'] = 'xna0303',
     ['O'] = 'xna0304',
-    ['G'] = 'xna0306',
+    ['G'] = 'xna0305',
 }
 
 local NomadsT1Sea = {

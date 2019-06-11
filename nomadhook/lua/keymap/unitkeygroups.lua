@@ -146,7 +146,7 @@ unitkeygroups = {
   "T3_Sniper_Bot",
   "url0303", -- Loyalist
   "uel0303", -- Titan
-  "xnl0307", -- Nomads Superheavy tank
+  "xnl0302", -- Nomads Anti Air
 
   "T3_Spy_Plane",
 
@@ -567,7 +567,7 @@ unitkeygroups = {
 "uea0302",
 "ura0302",
 "xsa0302",
-"xna0301",
+"xnl0302",
 },
 ["T3_Air_Superiority_Fighter"] = {
 "uaa0303",
@@ -724,7 +724,7 @@ unitkeygroups = {
 ["T3_Heavy_Gunship"] = {
 "uea0305",
 "xra0305",
-"xna0306",
+"xna0305",
 },
 ["T2_Amphibious_Tank"] = {
 "uel0203",

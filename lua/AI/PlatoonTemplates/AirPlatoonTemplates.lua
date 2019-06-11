@@ -388,7 +388,7 @@ PlatoonTemplate {
             { 'xra0305', 1, 1, 'attack', 'GrowthFormation' }
         },
         Nomads = {
-            { 'xna0306', 1, 1, 'attack', 'GrowthFormation' }
+            { 'xna0305', 1, 1, 'attack', 'GrowthFormation' }
         },
     }
 }
@@ -409,7 +409,7 @@ PlatoonTemplate {
             { 'xsa0302', 1, 1, 'scout', 'GrowthFormation' }
         },
         Nomads = {
-            { 'xna0301', 1, 1, 'scout', 'GrowthFormation' }
+            { 'xnl0302', 1, 1, 'scout', 'GrowthFormation' }
         },
     }
 }

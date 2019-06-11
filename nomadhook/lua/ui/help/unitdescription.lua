@@ -161,7 +161,7 @@ Description = table.merged( Description, {
     ['xnl0303'] = "<LOC xnl0303_help>Heavy hover tank. Equipped with heavy armor, a rocket launcher and a single siege cannon. Designed to deal with any surface threat. Additionally, it can pin-point targets for artillery units.",
     ['xnl0109'] = "<LOC xnl0109_help>Doesn't have direct fire weapons but coordinates attacks from orbit.",
     ['xnl0304'] = "<LOC xnl0304_help>Attacks targets at great range. Needs to deploy before firing.",
-    ['xnl0307'] = "<LOC xnl0307_help>Launches anti-air missiles at enemy aircraft.",
+    ['xnl0302'] = "<LOC xnl0302_help>Launches anti-air missiles at enemy aircraft.",
     ['xnl0209'] = "<LOC xnl0209_help>Hover unit equipped with limited engineering capabilities and a tactical missile defense installation. Can only construct offensive and defensive structures.",
     ['xnl0305'] = "<LOC xnl0305_help>Tracked tank unit that carries dual plasma cannons and very heavy armor.",
 
@@ -181,10 +181,10 @@ Description = table.merged( Description, {
     ['xna0203'] = "<LOC xna0203_help>Torpedo Gunship",
     ['xna0104'] = "<LOC xna0104_help>Air Transport",
 
-    ['xna0301'] = "<LOC xna0301_help>Spy Plane",
+    ['xnl0302'] = "<LOC xnl0302_help>Spy Plane",
     ['xna0303'] = "<LOC xna0303_help>Air-Superiority Fighter",
     ['xna0304'] = "<LOC xna0304_help>Strategic Bomber",
-    ['xna0306'] = "<LOC xna0306_help>Heavy Gunship",
+    ['xna0305'] = "<LOC xna0305_help>Heavy Gunship",
 
     ['xna0401'] = "<LOC xna0401_help>Experimental transport unit. Can also transport the Beamer (can fire from transport) and single naval units.",
 
