@@ -278,14 +278,14 @@ XNL0402 = Class(NLandUnit) {
 
         -- Create Initial explosion effects
         Explosion.CreateFlash( self, 'beamstart', 3, army )
-        CreateAttachedEmitter(self, 'XNL0402', army, '/effects/emitters/destruction_explosion_concussion_ring_03_emit.bp'):ScaleEmitter(0.5)
-        CreateAttachedEmitter(self, 'XNL0402', army, '/effects/emitters/explosion_fire_sparks_02_emit.bp')
-        CreateAttachedEmitter(self, 'XNL0402', army, '/effects/emitters/distortion_ring_01_emit.bp'):ScaleEmitter(0.5)
+        CreateAttachedEmitter(self, 0, army, '/effects/emitters/destruction_explosion_concussion_ring_03_emit.bp'):ScaleEmitter(0.5)
+        CreateAttachedEmitter(self, 0, army, '/effects/emitters/explosion_fire_sparks_02_emit.bp')
+        CreateAttachedEmitter(self, 0, army, '/effects/emitters/distortion_ring_01_emit.bp'):ScaleEmitter(0.5)
         self:ShakeCamera(50, 5, 0, 1)
 
-        self:CreateExplosionDebris( 'XNL0402', army )
-        self:CreateExplosionDebris( 'XNL0402', army )
-        self:CreateExplosionDebris( 'XNL0402', army )
+        self:CreateExplosionDebris( 0, army )
+        self:CreateExplosionDebris( 0, army )
+        self:CreateExplosionDebris( 0, army )
 
         -- damage ring to push trees
         local x, y, z = unpack(self:GetPosition())
@@ -307,11 +307,11 @@ XNL0402 = Class(NLandUnit) {
 
         -- Create Initial explosion effects
         Explosion.CreateFlash( self, 'beamstart', 2, army )
-        CreateAttachedEmitter(self, 'XNL0402', army, '/effects/emitters/explosion_fire_sparks_02_emit.bp')
-        CreateAttachedEmitter(self, 'XNL0402', army, '/effects/emitters/distortion_ring_01_emit.bp'):ScaleEmitter(0.2)
+        CreateAttachedEmitter(self, 0, army, '/effects/emitters/explosion_fire_sparks_02_emit.bp')
+        CreateAttachedEmitter(self, 0, army, '/effects/emitters/distortion_ring_01_emit.bp'):ScaleEmitter(0.2)
         self:ShakeCamera(30, 4, 0, 1)
 
-        self:CreateExplosionDebris( 'XNL0402', army )
+        self:CreateExplosionDebris( 0, army )
 
         -- damage ring to push trees
         local x, y, z = unpack(self:GetPosition())
@@ -330,12 +330,12 @@ XNL0402 = Class(NLandUnit) {
         end
 
         -- final explosion
-        Explosion.CreateFlash( self, 'XNL0402', 3, army )
+        Explosion.CreateFlash( self, 0, 3, army )
         self:ShakeCamera(2.5, 1.25, 0, 0.15)
         self:PlayUnitSound('Destroyed')
 
-        self:CreateExplosionDebris( 'XNL0402', army )
-        self:CreateExplosionDebris( 'XNL0402', army )
+        self:CreateExplosionDebris( 0, army )
+        self:CreateExplosionDebris( 0, army )
 
         -- Finish up force ring to push trees
         DamageRing(self, {x,y,z}, 0.1, 3, 1, 'Force', true)

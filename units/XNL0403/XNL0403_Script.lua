@@ -237,13 +237,13 @@ XNL0403 = Class(NExperimentalHoverLandUnit, SlowHover) {
 
         -- Create Initial explosion effects
         explosion.CreateFlash( self, 'TML.003', 2, army )
-        CreateAttachedEmitter(self, 'XNL0403', army, '/effects/emitters/destruction_explosion_concussion_ring_03_emit.bp'):ScaleEmitter(0.5)
-        CreateAttachedEmitter(self, 'XNL0403', army, '/effects/emitters/explosion_fire_sparks_02_emit.bp')
-        CreateAttachedEmitter(self, 'XNL0403', army, '/effects/emitters/distortion_ring_01_emit.bp'):ScaleEmitter(0.5)
+        CreateAttachedEmitter(self, 0, army, '/effects/emitters/destruction_explosion_concussion_ring_03_emit.bp'):ScaleEmitter(0.5)
+        CreateAttachedEmitter(self, 0, army, '/effects/emitters/explosion_fire_sparks_02_emit.bp')
+        CreateAttachedEmitter(self, 0, army, '/effects/emitters/distortion_ring_01_emit.bp'):ScaleEmitter(0.5)
         self:ShakeCamera(50, 5, 0, 1)
 
-        self:CreateExplosionDebris( 'XNL0403', army )
-        self:CreateExplosionDebris( 'XNL0403', army )
+        self:CreateExplosionDebris( 0, army )
+        self:CreateExplosionDebris( 0, army )
 
         -- damage ring to push trees
         local x, y, z = unpack(self:GetPosition())
@@ -267,12 +267,12 @@ XNL0403 = Class(NExperimentalHoverLandUnit, SlowHover) {
         end
 
         -- final explosion
-        explosion.CreateFlash( self, 'XNL0403', 3, army )
+        explosion.CreateFlash( self, 0, 3, army )
         self:ShakeCamera(3, 2, 0, 0.15)
         self:PlayUnitSound('Destroyed')
 
-        self:CreateExplosionDebris( 'XNL0403', army )
-        self:CreateExplosionDebris( 'XNL0403', army )
+        self:CreateExplosionDebris( 0, army )
+        self:CreateExplosionDebris( 0, army )
 
         -- Finish up force ring to push trees
         DamageRing(self, {x,y,z}, 0.1, 3, 1, 'Force', true)

@@ -346,11 +346,11 @@ XNA0401 = Class(NAirTransportUnit) {
 
         -- damage effects
         for k, v in NomadsEffectTemplate.ExpTransportDestruction do
-            emit = CreateEmitterAtBone(self, 'XNA0401', army, v)
+            emit = CreateEmitterAtBone(self, 0, army, v)
         end
         DamageRing(self, pos, 0.1, damageRingSize, 1, 'Force', true)
         DamageRing(self, pos, 0.1, damageRingSize, 1, 'Force', true)
-        Explosion.CreateFlash( self, 'XNA0401', 3, army )
+        Explosion.CreateFlash( self, 0, 3, army )
 
         self:ShakeCamera(8, 3, 1, 1)
 

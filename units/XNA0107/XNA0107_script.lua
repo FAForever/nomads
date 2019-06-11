@@ -4,7 +4,7 @@ local NAirTransportUnit = import('/lua/nomadsunits.lua').NAirTransportUnit
 
 XNA0107 = Class(NAirTransportUnit) {
 
-    DestructionPartsLowToss = {'XNA0107'},
+    DestructionPartsLowToss = {0},
     DestroySeconds = 7.5,
 
     OnKilled = function(self, instigator, type, overkillRatio)
