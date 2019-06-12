@@ -14,7 +14,7 @@ We can use all the help we can get :
 
 To play the coop campaign see the coop missions repository [here](https://github.com/FAForever/NomadMissions).
 
-Be sure to visit our discord server [here](http://wiki.faforever.com/index.php?title=FAF_Dev_School_Git) where you can help out, comment or simply keep up with progress on the mod. Everyone is welcome!
+Be sure to visit our discord server [here](https://discord.gg/eV3wmAX) where you can help out, comment or simply keep up with progress on the mod. Everyone is welcome!
 
 How do I play Nomads?
 ----------------------------
@@ -22,21 +22,22 @@ Nomads is designed to be run as a featured mod on the Forged Alliance Forever cl
 
 To play Nomads online, simply go to the **Find games** tab on the client, and select the mod from the featured mod list, then host a game!
 
-    - Note: You don't need to enable any ingame version of Nomads mods, and the Nomads mod won't show up in the mod list. Running Nomads in a different manner to the one described may produce unexpected results, or not work at all.
-    - The mod is always up to date thanks to the patching mechanism, so you don't need to worry about updating the mod or making sure your friends have the same version as you do!
+   - You don't need to enable any ingame version of Nomads mods, and the Nomads mod won't show up in the mod list. Running Nomads in a different manner to the one described may produce unexpected results, or not work at all.
+   - The mod is always up to date thanks to the patching mechanism, so you don't need to worry about updating the mod or making sure your friends have the same version as you do!
 
 To play Nomads offline, a little more setup is required.
 
-    1. Make sure you have downloaded the mod through the FAForever client. To do this, simply host a game of Nomads as described above. You can close the game once you get to the ingame lobby without starting.
-    2. Go to ```C:\ProgramData\FAForever\bin\``` (note: **not** program files) and find ```ForgedAlliance.exe```
-    3. Right click on it and create a shortcut. Place this shortcut wherever is convenient for you.
-    4. Go into its properties (right click) and change the target:
+   1. Make sure you have downloaded the mod through the FAForever client. To do this, simply host a game of Nomads as described above. You can close the game once you get to the ingame lobby without starting.
+   2. Go to `C:\ProgramData\FAForever\bin\` (note: **not** program files) and find `ForgedAlliance.exe`
+   3. Right click on it and create a shortcut. Place this shortcut wherever is convenient for you.
+   4. Go into its properties (right click) and change the target:
 ```
 C:\ProgramData\FAForever\bin\ForgedAlliance.exe /init init_nomads.lua /log C:\ProgramData\FAForever\logs\offlineNomads.log
 ```
    5. Click on the shortcut to launch the game. Select Skirmish from the menu (Multiplayer LAN works too) and enjoy!
-   - Note: to update the mod simply follow step 1
- 
+   - To update the mod simply follow step 1
+
+
 How do I start contributing?
 ----------------------------
 If you want to contribute, then you'll need to know how **git** works. 
