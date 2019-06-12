@@ -146,7 +146,7 @@ UnitBlueprint {
         },
     DifferentialUpgradeCostCalculation = true, --
         RebuildBonusIds = { --
-            'inb0311', --
+            'znb9601', --
         }, --
         StorageEnergy = 0,
         StorageMass = 320,
@@ -189,7 +189,7 @@ UnitBlueprint {
         TechLevel = 'RULEUTL_Secret',
         UnitWeight = 1,
         UpgradesFrom = 'znb9501', --
-        UpgradesFromBase = 'znb0101', --
+        UpgradesFromBase = 'xnb0101', --
     },
     Intel = {
         VisionRadius = 20,

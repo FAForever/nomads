@@ -127,7 +127,7 @@ UnitBlueprint {
         },
     DifferentialUpgradeCostCalculation = true, --
         RebuildBonusIds = {
-            'inb0312',
+            'znb9602',
         },
         StorageEnergy = 0,
         StorageMass = 320,
