@@ -27,14 +27,14 @@ To play Nomads online, simply go to the **Find games** tab on the client, and se
 
 To play Nomads offline, a little more setup is required.
 
-   1. Make sure you have downloaded the mod through the FAForever client. To do this, simply host a game of Nomads as described above. You can close the game once you get to the ingame lobby without starting.
-   2. Go to `C:\ProgramData\FAForever\bin\` (note: **not** program files) and find `ForgedAlliance.exe`
-   3. Right click on it and create a shortcut. Place this shortcut wherever is convenient for you.
-   4. Go into its properties (right click) and change the target:
+1. Make sure you have downloaded the mod through the FAForever client. To do this, simply host a game of Nomads as described above. You can close the game once you get to the ingame lobby without starting.
+2. Go to `C:\ProgramData\FAForever\bin\` (note: **not** program files) and find `ForgedAlliance.exe`
+3. Right click on it and create a shortcut. Place this shortcut wherever is convenient for you.
+4. Go into its properties (right click) and change the target:
 ```
 C:\ProgramData\FAForever\bin\ForgedAlliance.exe /init init_nomads.lua /log C:\ProgramData\FAForever\logs\offlineNomads.log
 ```
-   5. Click on the shortcut to launch the game. Select Skirmish from the menu (Multiplayer LAN works too) and enjoy!
+5. Click on the shortcut to launch the game. Select Skirmish from the menu (Multiplayer LAN works too) and enjoy!
    - To update the mod simply follow step 1
 
 
