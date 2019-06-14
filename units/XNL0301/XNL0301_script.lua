@@ -5,8 +5,6 @@ local NomadsEffectUtil = import('/lua/nomadseffectutilities.lua')
 local Utilities = import('/lua/utilities.lua')
 local EffectUtil = import('/lua/EffectUtilities.lua')
 local Buff = import('/lua/sim/Buff.lua')
-
-local AddEnhancementPresetHandling = import('/lua/nomadsutils.lua').AddEnhancementPresetHandling
 local AddRapidRepair = import('/lua/nomadsutils.lua').AddRapidRepair
 local AddRapidRepairToWeapon = import('/lua/nomadsutils.lua').AddRapidRepairToWeapon
 local AddCapacitorAbility = import('/lua/nomadsutils.lua').AddCapacitorAbility
@@ -21,7 +19,7 @@ local UnderwaterRailgunWeapon1 = import('/lua/nomadsweapons.lua').UnderwaterRail
 local RocketWeapon1 = import('/lua/nomadsweapons.lua').RocketWeapon4
 local DeathEnergyBombWeapon = import('/lua/nomadsweapons.lua').DeathEnergyBombWeapon
 
-NWalkingLandUnit = AddAkimbo(AddCapacitorAbility(AddEnhancementPresetHandling(AddRapidRepair(NWalkingLandUnit))))
+NWalkingLandUnit = AddAkimbo(AddCapacitorAbility(AddRapidRepair(NWalkingLandUnit)))
 APCannon1 = AddCapacitorAbilityToWeapon(APCannon1)
 GattlingWeapon1 = AddCapacitorAbilityToWeapon(GattlingWeapon1)
 UnderwaterRailgunWeapon1 = AddCapacitorAbilityToWeapon(UnderwaterRailgunWeapon1)
