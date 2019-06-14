@@ -14,6 +14,8 @@ AIBrain = Class(oldAIBrain) {
     -- ================================================================================================================
     -- TASK SCRIPT SUPPORT
     -- ================================================================================================================
+    --TODO: refactor this, at least so its self.SpecialAbilityUnits[unitId][abilityType] instead of self.SpecialAbilityUnits[type][unitId]
+
 
     SpecialAbilities = {},
     SpecialAbilityUnits = {},
@@ -36,7 +38,10 @@ AIBrain = Class(oldAIBrain) {
     SetSpecialAbilityUnitAvailability = function(self, unit, type, canUseAbilityNow)
         local unitId = unit:GetEntityId()
         if AbilityDefinition[ type ] then
-            self.SpecialAbilityUnits[type][unitId] = not (canUseAbilityNow == false)
+            if not self.SpecialAbilityUnits[type] then
+                self.SpecialAbilityUnits[type] = {}
+            end
+            self.SpecialAbilityUnits[type][unitId] = (canUseAbilityNow == true)
             SetAbilityUnits( self:GetArmyIndex(), type, self:GetSpecialAbilityUnitIds(type) )
         end
     end,
@@ -195,7 +200,7 @@ AIBrain = Class(oldAIBrain) {
 
     PrepareOrbitalReinforcement = function(self)
         -- has the ship construct a reinforcement unit which can then be used with the special ability.
-        if not self.OrbitalReinforcementReady and self:IsNomadsFaction( self ) then
+        if not self.OrbitalReinforcementReady and Factions[self:GetFactionIndex()].Category == 'NOMADS' then
             StartAbilityCoolDown( self:GetArmyIndex(), 'NomadsAreaReinforcement' )
             local ship = self.NomadsMothership
             local unitType = self:GetSpecialAbilityParam( 'NomadsAreaReinforcement', 'UnitType' ) or AbilityDefinition['NomadsAreaReinforcement']['ExtraInfo']['UnitType'] or 'xna0203'
