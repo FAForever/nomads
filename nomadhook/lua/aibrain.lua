@@ -1,4 +1,3 @@
-local NomadsOrbitalUtils = import('/lua/nomadsorbitalutils.lua')
 local Factions = import('/lua/factions.lua').Factions
 local AbilityDefinition = import('/lua/abilitydefinition.lua').abilities
 local Util = import('/lua/utilities.lua')
@@ -220,6 +219,7 @@ AIBrain = Class(oldAIBrain) {
         end
     end,
 
+    --TODO:refactor this so its done in unit scripts and not like this
     -- ================================================================================================================
     -- NOMADS ORBITAL UNIT CONSTRUCTION
     -- ================================================================================================================

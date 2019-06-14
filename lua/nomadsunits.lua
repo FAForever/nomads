@@ -44,7 +44,6 @@ local CreateRepairBuildBeams = NomadsEffectUtil.CreateRepairBuildBeams
 -- added later
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local Unit = import('/lua/sim/Unit.lua').Unit
-local NomadsOrbitUtils = import('/lua/nomadsorbitalutils.lua')
 
 
 function AddNomadsBeingBuiltEffects( SuperClass )
