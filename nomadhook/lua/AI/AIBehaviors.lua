@@ -137,6 +137,10 @@ function CapacitorToggleThread(unit)
 
         -- Wait till we have a full capacitor and not occupied
         while not unit:IsDead() and (not unit:CapIsFull() or unit:IsUnitState('Busy') or unit:IsUnitState('Attached')) do
+            -- Enable AutoCapacitor if enhancment is installed
+            if not unit.Sync.AutoCapacitor and unit:HasEnhancement('Capacitor') then
+                unit:SetAutoCapacitor(true)
+            end
             --LOG('*DEBUG: AI capacitor thread: not yet... cap='..repr(unit:CapIsFull())..' busy='..repr(unit:IsUnitState('Busy')))
             WaitSeconds(10)
         end
@@ -154,6 +158,10 @@ function CapacitorToggleThread(unit)
                 --LOG('*DEBUG: AI starts capacitor on unit '..repr(unit:GetUnitId())..' because engineering')
                 unit:CapUse()
             end
+        -- boost unit enhancement
+        elseif unit:IsUnitState('Enhancing') and unit:GetWorkProgress() < 0.7 then
+            --LOG('*DEBUG: AI starts capacitor on unit '..repr(unit:GetUnitId())..' because enhancing')
+            unit:CapUse()
 
         -- or check number nearby friendlies versus enemies
         elseif numWep > 0 then

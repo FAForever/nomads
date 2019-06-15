@@ -1756,6 +1756,14 @@ function AddCapacitorAbility( SuperClass )
             self:UpdateCapacitorFraction()
         end,
 
+        CapIsFull = function(self)
+            return self.CapChargeFraction == 1
+        end,
+
+        CapUse = function(self)
+            self.CapacitorSwitchStates['Filled'](self)
+        end,
+
         PlayCapEffects = function(self, effects)
             self.CapFxBag:Destroy()
             local ox, oy, oz
