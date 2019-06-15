@@ -1,6 +1,7 @@
 do
 
 RandomFloat = import('/lua/utilities.lua').GetRandomFloat
+GetTrueEnemyUnitsInCylinder = import('/lua/utilities.lua').GetTrueEnemyUnitsInCylinder
 
 
 -------- GENERIC UNIT BEHAVIORS --------
@@ -10,20 +11,16 @@ GenericPlatoonBehaviors = function(platoon)
     -- A generic function that is called for each unit that the AI constructs. Useful to add generic behavior for all units.
     --LOG('*DEBUG: AI GenericPlatoonBehaviors')
     for k,v in platoon:GetPlatoonUnits() do
+        if not v:IsDead() then
+            -- Capacitor behavior
+            if not v.CapacitorToggleThread then
+                v.CapacitorToggleThread = v:ForkThread( CapacitorToggleThread )
 
-        if v:IsDead() then
-            continue
+            -- Area bombard behavior
+            elseif not v.BombardModeToggleThread then
+                v.BombardModeToggleThread = v:ForkThread( BombardModeToggleThread )
 
-        -- Capacitor behavior
-        elseif not v.CapacitorToggleThread then
-            v.CapacitorToggleThread = v:ForkThread( CapacitorToggleThread )
-
-        -- Area bombard behavior
-        elseif not v.BombardModeToggleThread then
-            v.BombardModeToggleThread = v:ForkThread( BombardModeToggleThread )
-
-
-
+            end
         end
     end
 end
@@ -126,91 +123,76 @@ function CapacitorToggleThread(unit)
         return
     end
 
-    --LOG('*DEBUG: AI starting capacitor thread for unit '..repr(unit:GetUnitId()))
-    local brain = unit:GetAIBrain()
-    local healthFrac, wep = 0
-    local TECH1, curLayer, numGround, numAir, numSub
-    local canAtckSurface, canAtckAir, canAtckSub, wbp
-    local landRange, airRange, subRange
-    local numWep = unit:GetWeaponCount()
+    local healthFrac = 0
+    local TECH1
     while not unit:IsDead() do
-
         -- Wait till we have a full capacitor and not occupied
-        while not unit:IsDead() and (not unit:CapIsFull() or unit:IsUnitState('Busy') or unit:IsUnitState('Attached')) do
-            --LOG('*DEBUG: AI capacitor thread: not yet... cap='..repr(unit:CapIsFull())..' busy='..repr(unit:IsUnitState('Busy')))
+        while not unit:IsDead() and (not (unit.Sync.CapacitorState == 'Filled') or unit:IsUnitState('Busy') or unit:IsUnitState('Attached')) do
+            if not unit.Sync.AutoCapacitor and unit:HasEnhancement('Capacitor') then
+                unit:SetAutoCapacitor(true)
+            end
             WaitSeconds(10)
         end
+        local numWep = unit:GetWeaponCount()
 
         -- wait till we're not idling or till sustained some damage
         healthFrac = ( unit:GetHealth() / unit:GetMaxHealth() )
         if healthFrac < 0.8 then
-            --LOG('*DEBUG: AI starts capacitor on unit '..repr(unit:GetUnitId())..' because low health')
-            unit:CapUse()
-
+            unit.CapacitorSwitchStates[unit.Sync.CapacitorState](unit)
         -- or wait till we're doing engineering work (except reclaiming which doesn't need a boost)
         elseif unit:IsUnitState('Building') or unit:IsUnitState('Repairing') or unit:IsUnitState('Capturing') then
             TECH1 = EntityCategoryContains(categories.TECH1, unit.UnitBeingBuilt)
             if (TECH1 and unit:GetWorkProgress() <= 0.25) or (not TECH1 and unit:GetWorkProgress() <= 0.65) then
-                --LOG('*DEBUG: AI starts capacitor on unit '..repr(unit:GetUnitId())..' because engineering')
-                unit:CapUse()
+                unit.CapacitorSwitchStates[unit.Sync.CapacitorState](unit)
             end
+        -- or wait until we are getting an upgrade
+        elseif unit:IsUnitState('Enhancing') and unit:GetWorkProgress() < 0.7 then
+            unit.CapacitorSwitchStates[unit.Sync.CapacitorState](unit)
 
         -- or check number nearby friendlies versus enemies
         elseif numWep > 0 then
 
-            canAtckSurface = false
-            canAtckAir = false
-            canAtckSub = false
-            landRange = 0
-            airRange = 0
-            subRange = 0
-            numGround = 0
-            numAir = 0
-            numSub = 0
-
             -- determine what can I shoot and what is my range?
+            local position = unit:GetPosition()
+            local targetUnits = 0
+            local WeaponRangesByLayer = {}
+            
             for w=1, numWep do
-                wep = unit:GetWeapon(w)
+                local wep = unit:GetWeapon(w)
                 if wep:IsEnabled() then
                     wbp = wep:GetBlueprint()
                     curLayer = unit:GetCurrentLayer()
                     if not wbp.FireTargetLayerCapsTable[curLayer] then
                         continue
                     end
-                    if string.find( wbp.FireTargetLayerCapsTable[curLayer], 'Land') or string.find( wbp.FireTargetLayerCapsTable[curLayer], 'Water') then
-                        canAtckSurface = true
-                        landRange = math.max( landRange, wbp.MaxRadius )
-                    end
-                    if string.find( wbp.FireTargetLayerCapsTable[curLayer], 'Air' ) then
-                        canAtckAir = true
-                        airRange = math.max( airRange, wbp.MaxRadius )
-                    end
-                    if string.find( wbp.FireTargetLayerCapsTable[curLayer], 'Sub' ) then
-                        canAtckSub = true
-                        subRange = math.max( subRange, wbp.MaxRadius )
+                    
+                    --parse the layer caps into a table so we can loop through them.
+                    local layersToShootAt = {}
+                    string.gsub(wbp.FireTargetLayerCapsTable[curLayer], "%a+", function(w) table.insert(layersToShootAt, w) end)
+                    
+                    --find the largest ranges we can find targets at for each layer
+                    for k,layer in layersToShootAt do
+                        WeaponRangesByLayer[layer] = math.max( WeaponRangesByLayer[layer] or 0, wbp.MaxRadius )
                     end
                 end
             end
-
-            -- determine number of units that we can shoot at
-            local position = unit:GetPosition()
-            if canAtckSurface and landRange > 0 then
-                numGround = brain:GetNumUnitsAroundPoint( (categories.LAND + categories.NAVAL + categories.STRUCTURE), position, landRange, 'Enemy' )
-            end
-            if canAtckAir and airRange > 0 then
-                numAir = brain:GetNumUnitsAroundPoint( ( categories.MOBILE * categories.AIR ), position, airRange, 'Enemy' )
-            end
-            if canAtckSub and subRange > 0 then
-                numSub = brain:GetNumUnitsAroundPoint( ( categories.MOBILE * categories.SUBMERSIBLE ), position, subRange, 'Enemy' )
-            end
-
-            -- decide to activate capacitor or not
-            if (numGround + numAir + numSub) >= 4 then
-                --LOG('*DEBUG: AI starts capacitor on unit '..repr(unit:GetUnitId())..' because enemy units')
-                --unit:CapUse()
+            
+            for layer,range in WeaponRangesByLayer do
+                local enemyUnits = GetTrueEnemyUnitsInCylinder(unit, position, range) or {}
+                for k,target in enemyUnits do
+                    local targetLayer = target:GetCurrentLayer()
+                    --check if we have a weapon capable of firing at the target unit
+                    if WeaponRangesByLayer[targetLayer] then
+                        targetUnits = targetUnits + 1
+                    end
+                    -- decide to activate capacitor or not. no need to check further if we already meet our criteria.
+                    if targetUnits >= 4 then
+                        unit.CapacitorSwitchStates[unit.Sync.CapacitorState](unit)
+                        break
+                    end
+                end
             end
         end
-
         WaitSeconds(5)
     end
 end
