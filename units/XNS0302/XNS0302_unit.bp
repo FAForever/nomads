@@ -181,13 +181,6 @@ UnitBlueprint {
                         Scale = 2.5,
                         Type = 'RightFrontWake',
                     },
-					{
-                        Bones = {
-                            'wake',
-                        },
-                        Scale = 1.5,
-                        Type = 'BackWake',
-                    },
                     {
                         Bones = {
                             'WakeBack',
