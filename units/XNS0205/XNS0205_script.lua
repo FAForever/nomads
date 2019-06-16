@@ -13,7 +13,7 @@ XNS0205 = Class(NSeaUnit) {
     Weapons = {
         MainGun = Class(UnderwaterRailgunWeapon1) {},
         RearGun = Class(UnderwaterRailgunWeapon1) {},
-        TMD = Class(HVFlakWeapon) {
+        TMD = Class(HVFlakWeapon) { --TODO: refactor this so all the counting is done in the HVFlakWeapon and here you just set parameters
             IdleState = State(HVFlakWeapon.IdleState) {
                 Main = function(self)
                     HVFlakWeapon.IdleState.Main(self)
@@ -115,23 +115,11 @@ XNS0205 = Class(NSeaUnit) {
     end,
 
     OnTargetAcquired = function(self)
-        --LOG('OnTargetAcquired')
         self:PlayTAEffects()
     end,
 
     OnTargetLost = function(self)
-        --LOG('OnTargetLost')
         self:DestroyTAEffects()
-    end,
-
-    OnStopBeingBuilt = function(self, builder, layer)
-        NSeaUnit.OnStopBeingBuilt(self, builder, layer)
-
---        local wbp = self:GetWeaponByLabel('MainGun'):GetBlueprint()
---        self.TurretRotManip = CreateRotator(self, wbp.TurretBoneYaw, 'y', nil):SetCurrentAngle(0):SetPrecedence(1)
---        self.Trash:Add(self.TurretRotManip)
---        self.TurretRotationEnabled = false
---        self:ForkThread(self.TurretRotationThread)
     end,
 
     OnMotionHorzEventChange = function( self, new, old )
@@ -143,57 +131,6 @@ XNS0205 = Class(NSeaUnit) {
         if new ~= old then
             self:DestroyMovementSmokeEffects()
             self:PlayMovementSmokeEffects(new)
-        end
-    end,
-
-    TurretRotationThread = function(self)
-        -- keeps the Turret rotated to the current target position
-
-        local wep = self:GetWeaponByLabel('MainGun')
-        local wbp = wep:GetBlueprint()
-        local maxRot = wbp.TurretYawRange or 10
-        local rotSpeed = wbp.TurretYawSpeed or 50
-
-        local nav = self:GetNavigator()
-        local GoalAngle = 0
-        local target, BodyDir, BodyX, BodyY, BodyZ, MyPos
-
-        while not self:IsDead() do
-
-            -- don't rotate if we're not allowed to
-            while not self.TurretRotationEnabled do
-                WaitSeconds(0.2)
-            end
-
-            -- get a location of interest. This is the unit we're currently firing on or, alternatively, the position we're moving to
-            target = wep:GetCurrentTarget()
-            if target and target.GetPosition then
-                target = target:GetPosition()
-            else
-                target = wep:GetCurrentTargetPos() or nav:GetCurrentTargetPos()
-            end
-
-            -- calculate the angle for the Turret rotation. The rotation of the Body is taken into account
-            MyPos = self:GetPosition()
-            target.y = 0
-            target.x = target.x - MyPos.x
-            target.z = target.z - MyPos.z
-            target = Utilities.NormalizeVector(target)
-            BodyX, BodyY, BodyZ = self:GetBoneDirection('xns0205')
-            BodyDir = Utilities.NormalizeVector( Vector( BodyX, 0, BodyZ) )
-            GoalAngle = ( math.atan2( target.x, target.z ) - math.atan2( BodyDir.x, BodyDir.z ) ) * 180 / math.pi
-
-            -- rotation limits, sometimes the angle is more than 180 degrees which causes a bad rotation.
-            if GoalAngle > 180 then
-                GoalAngle = GoalAngle - 360
-            elseif GoalAngle < -180 then
-                GoalAngle = GoalAngle + 360
-            end
-            GoalAngle = math.max( -maxRot, math.min( GoalAngle, maxRot ) )
-
-            self.TurretRotManip:SetSpeed(rotSpeed):SetGoal(GoalAngle)
-
-            WaitSeconds(0.2)
         end
     end,
 

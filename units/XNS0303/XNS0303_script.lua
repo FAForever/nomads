@@ -184,7 +184,7 @@ XNS0303 = Class(NSeaUnit) {
         },
     },
 
-    BuildAttachBone = 'xns0303',
+    BuildAttachBone = 0,
     DestructionPartsLowToss = { 'Pad1_1', 'Pad1_2', 'Pad1_3', 'Pad1_4', 'Pad1_5', 'Pad1_6',
                                 'Pad2_1', 'Pad2_2', 'Pad2_3', 'Pad2_4', 'Pad2_5', 'Pad2_6',
                                 'Pad3_1', 'Pad3_2', 'Pad3_3', 'Pad3_4', 'Pad3_5', 'Pad3_6',

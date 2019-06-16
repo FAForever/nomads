@@ -10,7 +10,7 @@ XNB1107 = Class(NEnergyCreationUnit) {
 
     DestructionPartsHighToss = { 'exhaust.001', },
     DestructionPartsLowToss = {'exhaust.001', 'exhaust.002', 'exhaust.003', 'exhaust.004', 'exhaust.005', },
-    DestructionPartsChassisToss = { 'XNB1107' },
+    DestructionPartsChassisToss = { 0 },
 
     PlayActiveEffects = function(self)
         -- adding additional effects on top of the regular active effects
