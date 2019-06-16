@@ -22,7 +22,7 @@ UnitBlueprint {
             LodCutoff = 'UnitMove_LodCutoff',
         },
         DoneBeingBuilt = Sound {
-            Bank = 'NomadsUnits',
+            Bank = 'NomadsBuildings',
             Cue = 'StructureActivate',
             LodCutoff = 'UnitMove_LodCutoff',
         },
