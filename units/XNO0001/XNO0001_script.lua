@@ -41,7 +41,7 @@ xno0001 = Class(NOrbitUnit) {
 
         NOrbitUnit.OnCreate(self)
 
-        self:CreateSpinners()
+        --self:SetupRotators()
         local bp = self:GetBlueprint()
         if bp.Display.AnimationBuildArm then
             self.ConstructionArmAnimManip = CreateAnimator( self ):PlayAnim( bp.Display.AnimationBuildArm ):SetRate(0)
@@ -53,27 +53,41 @@ xno0001 = Class(NOrbitUnit) {
         self.MoveAway(self)
     end,
 
-    CreateSpinners = function(self)
-        -- spinner 1
-        if not self.RotatorManipulator1 then
-            self.RotatorManipulator1 = CreateRotator( self, 'Spinner1', 'z' )
-            self.RotatorManipulator1:SetAccel( 5 )
-            self.RotatorManipulator1:SetTargetSpeed( 30 )
-            self.Trash:Add( self.RotatorManipulator1 )
-        end
-        if not self.RotatorManipulator3 then
-            self.RotatorManipulator3 = CreateRotator( self, 'Spinner3', 'z' )
-            self.RotatorManipulator3:SetAccel( 5 )
-            self.RotatorManipulator3:SetTargetSpeed( 30 )
-            self.Trash:Add( self.RotatorManipulator3 )
-        end
+-- =========================================================================================
+-- Rotators
 
-        -- spinner 2
-        if not self.RotatorManipulator2 then
-            self.RotatorManipulator2 = CreateRotator( self, 'Spinner2', 'z' )
-            self.RotatorManipulator2:SetAccel( -5 )
-            self.RotatorManipulator2:SetTargetSpeed( -60 )
-            self.Trash:Add( self.RotatorManipulator2 )
+    SetupRotators = function(self)
+        local bp = self:GetBlueprint().Rotators
+        if not self.RotatorOuter then
+            self.RotatorOuter = CreateRotator( self, 'Deflector Edge', 'z' )
+            self.RotatorOuter:SetAccel( bp.OuterAcceleration )
+            self.RotatorOuter:SetTargetSpeed( bp.OuterSpeed )
+            self.Trash:Add( self.RotatorOuter )
+        end
+        if not self.RotatorInner then
+            self.RotatorInner = CreateRotator( self, 'Deflector Centre', 'z' )
+            self.RotatorInner:SetAccel( bp.InnerAcceleration )
+            self.RotatorInner:SetTargetSpeed( bp.InnerSpeed )
+            self.Trash:Add( self.RotatorInner )
+        end
+    end,
+
+    StopRotators = function(self)
+        if self.RotatorOuter then
+            self.RotatorOuter:SetTargetSpeed( 0 )
+        end
+        if self.RotatorInner then
+            self.RotatorInner:SetTargetSpeed( 0 )
+        end      
+    end,
+    
+    StartRotators = function(self)
+        local bp = self:GetBlueprint().Rotators
+        if self.RotatorOuter then
+            self.RotatorOuter:SetTargetSpeed( bp.OuterSpeed )
+        end
+        if self.RotatorInner then
+            self.RotatorInner:SetTargetSpeed( bp.InnerSpeed )
         end
     end,
 
@@ -86,7 +100,7 @@ xno0001 = Class(NOrbitUnit) {
             return nil
         end
 
-        local bone = 'turret_muzzle02'
+        local bone = 'MissilePort08'
         local dx, dy, dz = self:GetBoneDirection( bone )
         local pos = self:GetPosition( bone )
         local proj = self:CreateProjectile( projBp, pos.x, pos.y, pos.z, dx, dy, dz )
@@ -109,7 +123,6 @@ xno0001 = Class(NOrbitUnit) {
         for w=1, c do
             wep = self:GetWeapon(w)
             if wep:ReadyToFire() then
-                --LOG('Mothership weapon '..repr(w)..' is firing')
                 wep:AssignTarget( targetPosition )
                 return true
             end
@@ -117,6 +130,8 @@ xno0001 = Class(NOrbitUnit) {
         LOG('*DEBUG: Couldnt fire orbital strike, all weapons are busy')
         return false
     end,
+
+
 
 -- =========================================================================================
 -- Constructing
@@ -267,7 +282,8 @@ xno0001 = Class(NOrbitUnit) {
 
 
 -- engines
-    ThrusterBurnBones = {'ExhaustBig', 'ExhaustSmallRight', 'ExhaustSmallLeft', 'ExhaustSmallTop'},
+    --ThrusterBurnBones = {'ExhaustBig', 'ExhaustSmallRight', 'ExhaustSmallLeft', 'ExhaustSmallTop'},
+    ThrusterBurnBones = {'Engine Exhaust01', 'Engine Exhaust02', 'Engine Exhaust03', 'Engine Exhaust04', 'Engine Exhaust05', }, --rename to EngineBones ?
 
     BurnEngines = function(self)
         local army, emit = self:GetArmy()

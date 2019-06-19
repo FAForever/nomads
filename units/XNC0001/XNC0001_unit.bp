@@ -50,11 +50,12 @@ UnitBlueprint {
             Land = {
                 Effects = {
                     {
-                        Bones = {
-                            'ThrusterFrontRight',
-                            'ThrusterFrontLeft',
-                            'ThrusterBackLeft',
-                            'ThrusterBackRight',
+                        Bones = {--TODO: update these to actual bones, create the model
+                        'Engine Exhaust01',
+                        'Engine Exhaust02',
+                        'Engine Exhaust03',
+                        'Engine Exhaust04',
+                        'Engine Exhaust05',
                         },
                         Type = 'AeonGroundFXT1Engineer',
                     },
@@ -77,7 +78,7 @@ UnitBlueprint {
         },
         PlaceholderMeshName = 'UXL0004',
         SpawnRandomRotation = true,
-        UniformScale = 0.08,
+        UniformScale = 0.4,
     },
     Economy = {
         BuildCostEnergy = 72000,
@@ -145,14 +146,10 @@ UnitBlueprint {
     },
     Rotators = {
         Stationary = false,
-        --if Stationary == true
-        -- PrimaryAngle = 45,
-        -- SecondaryAngle = -45,
-        --if Stationary == false
-        PrimaryAccel = 5,
-        PrimarySpeed = 10,
-        SecondaryAccel = -5,
-        SecondarySpeed = -20,
+        InnerAcceleration = 10,
+        InnerSpeed = 80,
+        OuterAcceleration = -20,
+        OuterSpeed = -160,
     },
     SelectionSizeX = 3,
     SelectionSizeZ = 8,

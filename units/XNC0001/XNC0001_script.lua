@@ -26,55 +26,44 @@ xnc0001 = Class(NCivilianStructureUnit) {
     
     SetupRotators = function(self)
         local bp = self:GetBlueprint().Rotators
-        if not self.RotatorManipulator1 then
-            self.RotatorManipulator1 = CreateRotator( self, 'Spinner1', 'z' )
-            self.RotatorManipulator1:SetAccel( bp.PrimaryAccel )
-            self.RotatorManipulator1:SetTargetSpeed( bp.PrimarySpeed )
-            self.Trash:Add( self.RotatorManipulator1 )
+        if not self.RotatorOuter then
+            self.RotatorOuter = CreateRotator( self, 'Deflector Edge', 'z' )
+            self.RotatorOuter:SetAccel( bp.OuterAcceleration )
+            self.RotatorOuter:SetTargetSpeed( bp.OuterSpeed )
+            self.Trash:Add( self.RotatorOuter )
         end
-        if not self.RotatorManipulator2 then
-            self.RotatorManipulator2 = CreateRotator( self, 'Spinner2', 'z' )
-            self.RotatorManipulator2:SetAccel( bp.SecondaryAccel )
-            self.RotatorManipulator2:SetTargetSpeed( bp.SecondarySpeed )
-            self.Trash:Add( self.RotatorManipulator2 )
-        end
-        if not self.RotatorManipulator3 then
-            self.RotatorManipulator3 = CreateRotator( self, 'Spinner3', 'z' )
-            self.RotatorManipulator3:SetAccel( bp.PrimaryAccel )
-            self.RotatorManipulator3:SetTargetSpeed( bp.PrimarySpeed )
-            self.Trash:Add( self.RotatorManipulator3 )
+        if not self.RotatorInner then
+            self.RotatorInner = CreateRotator( self, 'Deflector Centre', 'z' )
+            self.RotatorInner:SetAccel( bp.InnerAcceleration )
+            self.RotatorInner:SetTargetSpeed( bp.InnerSpeed )
+            self.Trash:Add( self.RotatorInner )
         end
     end,
 
     StopRotators = function(self)
-        if self.RotatorManipulator1 then
-            self.RotatorManipulator1:SetTargetSpeed( 0 )
+        if self.RotatorOuter then
+            self.RotatorOuter:SetTargetSpeed( 0 )
         end
-        if self.RotatorManipulator2 then
-            self.RotatorManipulator2:SetTargetSpeed( 0 )
-        end
-        if self.RotatorManipulator3 then
-            self.RotatorManipulator3:SetTargetSpeed( 0 )
-        end        
+        if self.RotatorInner then
+            self.RotatorInner:SetTargetSpeed( 0 )
+        end      
     end,
     
     StartRotators = function(self)
         local bp = self:GetBlueprint().Rotators
-        if self.RotatorManipulator1 then
-            self.RotatorManipulator1:SetTargetSpeed( bp.PrimarySpeed )
+        if self.RotatorOuter then
+            self.RotatorOuter:SetTargetSpeed( bp.OuterSpeed )
         end
-        if self.RotatorManipulator2 then
-            self.RotatorManipulator2:SetTargetSpeed( bp.SecondarySpeed )
-        end
-        if self.RotatorManipulator3 then
-            self.RotatorManipulator3:SetTargetSpeed( bp.PrimarySpeed )
+        if self.RotatorInner then
+            self.RotatorInner:SetTargetSpeed( bp.InnerSpeed )
         end
     end,
 
     --engines
     
-    EngineBurnBones = {'ExhaustBig', 'ExhaustSmallRight', 'ExhaustSmallLeft', 'ExhaustSmallTop'},
-    ThrusterBurnBones = {'ThrusterFrontLeft', 'ThrusterFrontRight', 'ThrusterBackLeft', 'ThrusterBackRight'},
+    EngineBurnBones = {'Engine Exhaust01', 'Engine Exhaust02', 'Engine Exhaust03', 'Engine Exhaust04', 'Engine Exhaust05', },
+    --ThrusterBurnBones = {'ThrusterFrontLeft', 'ThrusterFrontRight', 'ThrusterBackLeft', 'ThrusterBackRight'},
+    ThrusterBurnBones = {0}, --why is this here?
     ThrusterFireEffects = { --for when the engine is on full power
             '/effects/emitters/nomads_orbital_frigate_thruster04_emit.bp',--smoke
             '/effects/emitters/nomads_orbital_frigate_thruster05_emit.bp',--smoke

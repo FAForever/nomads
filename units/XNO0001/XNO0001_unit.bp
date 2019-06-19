@@ -50,7 +50,7 @@ UnitBlueprint {
         },
         PlaceholderMeshName = 'UXL0004',
         SpawnRandomRotation = true,
-        UniformScale = 0.08,
+        UniformScale = 0.4,
     },
     General = {
         CapCost = 0,
@@ -119,6 +119,13 @@ UnitBlueprint {
             },
         },
     },
+    Rotators = {
+        Stationary = false,
+        InnerAcceleration = 10,
+        InnerSpeed = 80,
+        OuterAcceleration = -20,
+        OuterSpeed = -160,
+    },
     SelectionSizeX = 0.45,
     SelectionSizeZ = 0.65,
     SelectionThickness = 0.66,
@@ -175,9 +182,9 @@ UnitBlueprint {
             RackBones = {
                 {
                     MuzzleBones = {
-                        'turret_muzzle01',
+                        'MissilePort01',
                     },
-                    RackBone = 'turret_barrels',
+                    RackBone = 'MissilePort01',
                 },
             },
             RackFireTogether = false,
