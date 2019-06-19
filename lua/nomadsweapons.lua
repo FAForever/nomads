@@ -432,7 +432,7 @@ DeathEnergyBombWeapon = Class(BareBonesWeapon) {
 }
 
 --------------------------------------------------------------------------
--- Mothership weapons
+-- Orbital weapons
 --------------------------------------------------------------------------
 
 OrbitalMissileWeapon = Class(DefaultProjectileWeapon) {

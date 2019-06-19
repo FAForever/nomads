@@ -9,20 +9,8 @@ xno2302 = Class(NOrbitUnit) {
         },
     },
 
-    EngineRotateBones = { 'Panel_L', 'Panel_R', },
-
     OnCreate = function(self)
         NOrbitUnit.OnCreate(self)
--- TODO: fix this. Gives weird behaviour right now
---        -- create the engine thrust manipulators and set up the thursting arcs for the engines
---        self.EngineManipulators = {}
---        local manip
---        for k, v in self.EngineRotateBones do
---            manip = CreateThrustController(self, 'Thruster', v)
---            manip:SetThrustingParam( 0, 0, 0, 0, -0.1, 0.1, 1, 0.25 )  -- XMAX, XMIN, YMAX, YMIN, ZMAX, ZMIN, TURNMULT, TURNSPEED
---            self.Trash:Add(manip)
---            table.insert(self.EngineManipulators, manip)
---        end
         self:SetWeaponEnabledByLabel('MainGun', false)
         self:SetUnSelectable(true)
         
@@ -34,7 +22,17 @@ xno2302 = Class(NOrbitUnit) {
     OnSetParent = function(self, parent, cbKilledUnit)
         self:SetImmobile(false)
         self.parent = parent
+        self.Unused = false
         self.parentCallbacks[ 'OnKilledUnit' ] = cbKilledUnit or false
+    end,
+
+    --called by the spawning frigate when assigning us. After that its up to the parent to decide what to do.
+    OnSpawnedInOrbit = function(self, parent)
+        if parent then
+            parent:OnArtilleryUnitAssigned(self)
+        else
+            WARN('spawned without parent!')
+        end
     end,
 
     OnKilledUnit = function(self, unitKilled)
@@ -51,7 +49,7 @@ xno2302 = Class(NOrbitUnit) {
         self.parentCallbacks[ 'OnKilledUnit' ] = false
         self:SetUnSelectable(true)
         IssueClearCommands( {self} )
-        -- TODO: maybe some effects stop? lights, I dont know..
+        self.Unused = true
     end,
 
     EnableWeapon = function(self, enable)

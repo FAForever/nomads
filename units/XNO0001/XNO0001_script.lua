@@ -26,15 +26,6 @@ xno0001 = Class(NOrbitUnit) {
     returnposition = nil,
     targetCoordinates = nil,
 
-    OnPreCreate = function(self)
-        --yes i know this is disgusting but it has to be done since the nomads orbital ship crashes the game
-        --so it needs an exception FIXME: refactor nomads orbital frigate so its not so crazy.
-
-        self.ColourIndex = 5 --default nomads colour apparently. This makes it not call the DetermineColourIndex later on.
-
-        NOrbitUnit.OnPreCreate(self)
-    end,
-
     OnCreate = function(self)
         self.BuildEffectsBag = TrashBag()
         self.ThrusterEffectsBag = TrashBag()
@@ -49,7 +40,8 @@ xno0001 = Class(NOrbitUnit) {
 
         self.OrbitalStrikeCurWepTarget = {}
         self.OrbitalStrikeDbKey = {}
-        self.returnposition = Vector(self:GetPosition()[1], self:GetPosition()[2], self:GetPosition()[3])
+        self.OrbitalSpawnQueue = {}
+        self.returnposition = Vector(self:GetPosition()[1], self:GetPosition()[2], self:GetPosition()[3]) --why is this like this
         self.MoveAway(self)
     end,
 
@@ -134,119 +126,87 @@ xno0001 = Class(NOrbitUnit) {
 
 
 -- =========================================================================================
--- Constructing
+-- Spawning Orbital Units (not called constructing to avoid confusion)
 
 -- scripted construction, so not via the engine and regular engineer methods. This is for animations really.
+    SpawningThreadHandle = nil,
 
-    BuildQueue = {
-    --   { unitType = 'xxx', cb = yyy, attachBone = zzz, },
-    },
-    Constructing = false,
-    ConstructingThreadHandle = nil,
-
-    AddToConstructionQueue = function(self, unitType, cb, attachBone )
+    AddToSpawnQueue = function(self, unitType, parentUnit, attachBone )
         -- puts on the build queue to create a unit of the given type. If a callback is passed it will be run when the unit is
         -- constructed.
-
         if unitType and type(unitType) == 'string' then
-            if cb and type(cb) ~= 'function' then
-                WARN('xno0001: AddToConstructionQueue(): Passed callback is not a function! Ignoring it.')
-                cb = nil
+            if parentUnit and parentUnit:GetEntityId() then
+                self.OrbitalSpawnQueue[parentUnit:GetEntityId()] = { unitType = unitType, parentUnit = parentUnit or false, attachBone = attachBone or 0, }
+            else
+                WARN('Nomads: parent unit is missing or misformated when requesting orbital spawn! Attempting to spawn unit without parent.')
+                --normally the entity ID is unique. with no parent, we create a unique identifier for this table
+                --"a" suffix differentiates from entity IDs. the rest loops through incase there are more unparented entries in the table
+                local IDSalt = 1
+                while self.OrbitalSpawnQueue["a" .. IDSalt] and IDSalt < 100 do
+                    IDSalt = IDSalt + 1
+                end
+                self.OrbitalSpawnQueue["a" .. IDSalt] = { unitType = unitType, parentUnit = parentUnit or false, attachBone = attachBone or 0, }
             end
-            table.insert( self.BuildQueue, { unitType = unitType, cb = cb, attachBone = attachBone, } )
-            self:MaybeStartConstruction()
-            return true
+            self:CheckSpawnQueue()
         else
-            WARN('xno0001: AddToConstructionQueue(): Passed unit type is not a string.')
-        end
-        return false
-    end,
-
-    OnConstructionFinished = function(self, unit)
-    end,
-
-    MaybeStartConstruction = function(self)
-        if not self.Constructing and table.getn( self.BuildQueue ) > 0 then
-            local keys = table.keys( self.BuildQueue )
-            local queueKey = keys[1]
-            self.ConstructingThreadHandle = self:ForkThread( self.StartConstruction, queueKey )
-            self.Trash:Add( self.ConstructingThreadHandle )
+            WARN('Nomads: Unit type missing or not a string when requesting orbital spawn. Aborting attempt.')
         end
     end,
 
-    StartConstruction = function( self, queueKey )
+    CheckSpawnQueue = function(self)
+        if not self.UnitBeingBuilt and table.getn(table.keys(self.OrbitalSpawnQueue)) > 0 then
+            self.UnitBeingBuilt = true --in case of multiple calls in the same tick since forkthread has a tick delay
+            self.SpawningThreadHandle = self:ForkThread( self.SpawnUnitInOrbit )
+            self.Trash:Add( self.SpawningThreadHandle )
+        end
+    end,
 
-        self.Constructing = true
-
+    SpawnUnitInOrbit = function(self)
+        --find an entry in the table. if its empty then do nothing.
+        local key = table.keys(self.OrbitalSpawnQueue)[1]
+        
+        if not key then WARN('Nomads: called SpawnUnitInOrbit without valid queue format. Something is quite wrong. Aborting spawn.') return end
+        
+        --local attachBone = self.OrbitalSpawnQueue[1].attachBone or 0
         local attachBone = 0
-        local unitBp = self.BuildQueue[ queueKey ].unitType
+        local unitBp = self.OrbitalSpawnQueue[key].unitType
 
         if self.ConstructionArmAnimManip then
             self.ConstructionArmAnimManip:SetRate(1)
             WaitFor( self.ConstructionArmAnimManip )
         end
 
--- TODO: When the unit is ready and it has proper bones then uncomment these 2 lines and remove the createUnitHPR line with x + 5 in it
+        -- TODO: When the unit is ready and it has proper bones then uncomment these 2 lines and remove the createUnitHPR line with x + 5 in it
         local x, y, z =  unpack(self:GetPosition( attachBone ))
---        local unit = CreateUnitHPR( unitBp, self:GetArmy(), x, y, z, 0, 0, 0 )
+        -- local unit = CreateUnitHPR( unitBp, self:GetArmy(), x, y, z, 0, 0, 0 )
         local unit = CreateUnitHPR( unitBp, self:GetArmy(), x + 5, y, z, 0, 0, 0 )
         self.UnitBeingBuilt = unit
         unit:SetIsValidTarget(false)
         unit:SetImmobile(true)
---        unit:AttachBoneTo( self.BuildQueue[ queueKey ].attachBone or 0, self, attachBone )
+        -- unit:AttachBoneTo( self.OrbitalSpawnQueue[key].attachBone or 0, self, attachBone )
 
-        -- build effects
-        if unit:GetBlueprint().Display.BuildMeshBlueprint then
-            unit:SetMesh(unit:GetBlueprint().Display.BuildMeshBlueprint, true)
-        end
-        local layer = self:GetCurrentLayer()
-        unit:StartBeingBuiltEffects( self, layer)
-        local effectThread = ForkThread( CreateNomadsBuildSliceBeams, self, unit, self.BuildBones, self.BuildEffectsBag )
+        -- animation goes here
 
-        -- build process
-        local Ticks = math.ceil( unit:GetBlueprint().Economy.BuildTime or 10000 ) / 100
-        local tick = 0
-        local progress = 0
-
-        -- building the unit
-        while not self:IsDead() and progress < 1 do
-            progress = tick / Ticks
-            unit:SetHealth( nil, progress * unit:GetMaxHealth() )
-            self:SetWorkProgress( progress )
-            WaitTicks(1)
-            tick = tick + 1
-        end
-
-        -- construction done!
+        WaitTicks(20)
+        
+        -- construction done
         unit:DetachFrom()
         unit:SetIsValidTarget(true)
         unit:SetImmobile(false)
 
-        -- remove building effects
-        if unit:GetBlueprint().Display.BuildMeshBlueprint then
-            unit:SetMesh(unit:GetBlueprint().Display.MeshBlueprint, true)
-        end
-        KillThread(effectThread)
-        self:StopBuildingEffects()
-
         -- move the unit out of the way
         self:RollOffUnit()
 
-        -- say we're done construction a unit
-        self:OnConstructionFinished( unit, queueKey)
-
-        -- do callback if available
-        local cb = self.BuildQueue[ queueKey ].cb
-        if cb then
-            cb( unit )
+        -- let the unit know its spawned. it should figure out the rest from there.
+        if unit.OnSpawnedInOrbit then
+            unit:OnSpawnedInOrbit(self.OrbitalSpawnQueue[key].parentUnit)
         end
 
-        -- some last things
-        self.UnitBeingBuilt = nil
-        self.Constructing = false
-        table.remove( self.BuildQueue, queueKey )
+        -- clean up spawning mechanism & flags
+        self.UnitBeingBuilt = false
+        self.OrbitalSpawnQueue[key] = nil --remove item in the list
 
-        -- wait a short while for the new unit to clear the construction area
+        -- wait a short while for the new unit to clear the spawn area
         if self.ConstructionArmAnimManip then
             self.ConstructionArmAnimManip:SetRate(-1)
             WaitFor(self.ConstructionArmAnimManip)
@@ -255,7 +215,7 @@ xno0001 = Class(NOrbitUnit) {
         end
 
         -- see if there's more to build
-        self:MaybeStartConstruction()
+        self:CheckSpawnQueue()
     end,
 
     RollOffUnit = function(self)
@@ -278,8 +238,7 @@ xno0001 = Class(NOrbitUnit) {
         fy = bpP.Y + py
         fz = bpP.Z + pz
         return spin, fx, fy, fz
-    end,
-
+    end,    
 
 -- engines
     --ThrusterBurnBones = {'ExhaustBig', 'ExhaustSmallRight', 'ExhaustSmallLeft', 'ExhaustSmallTop'},

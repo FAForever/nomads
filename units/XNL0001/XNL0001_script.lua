@@ -7,6 +7,7 @@ local Utilities = import('/lua/utilities.lua')
 local NomadsEffectUtil = import('/lua/nomadseffectutilities.lua')
 
 local NUtils = import('/lua/nomadsutils.lua')
+local CreateOrbitalUnit = NUtils.CreateOrbitalUnit
 local AddRapidRepair = NUtils.AddRapidRepair
 local AddRapidRepairToWeapon = NUtils.AddRapidRepairToWeapon
 local AddCapacitorAbility = NUtils.AddCapacitorAbility
@@ -147,6 +148,8 @@ XNL0001 = Class(ACUUnit) {
         self.RASEnergyProduction = bp.Enhancements.ResourceAllocation.ProductionPerSecondEnergy
     end,
 
+
+
     OnStopBeingBuilt = function(self, builder, layer)
         ACUUnit.OnStopBeingBuilt(self, builder, layer)
         self:SetWeaponEnabledByLabel('MainGun', true)
@@ -246,17 +249,18 @@ XNL0001 = Class(ACUUnit) {
     -------- INITIAL ANIM --------
 
     DoMeteorAnim = function(self)  -- part of initial dropship animation
-
+        self.OrbitalUnit = CreateOrbitalUnit(self)
+        
         self.PlayCommanderWarpInEffectFlag = false
         self:HideBone(0, true)
         self:SetWeaponEnabledByLabel('MainGun', false)
-        self.CapFxBag:Destroy() --TODO: optimise this so you dont need to turn capacitor off at the start
+        --self.CapFxBag:Destroy() --TODO: optimise this so you dont need to turn capacitor off at the start
 
         local meteor = self:CreateProjectile('/effects/Entities/NomadsACUDropMeteor/NomadsACUDropMeteor_proj.bp')
         self.Trash:Add(meteor)
         meteor:Start(self:GetPosition(), 3)
 
-        WaitTicks(35) -- time before meteor opens
+        WaitTicks(35) -- time before meteor opens --TODO: make this shorter, the same length as other ACU warp in animations
 
         self:ShowBone(0, true)
         self:HideBone('IntelProbe1', true)
@@ -395,10 +399,10 @@ XNL0001 = Class(ACUUnit) {
         local brain = self:GetAIBrain()
         brain:EnableSpecialAbility( 'NomadsAreaBombardment', (enable == true) )
         if enable then
-            brain.NomadsMothership:ReturnToStartLocation()
+            self.OrbitalUnit:ReturnToStartLocation()
         else
             if not self:HasEnhancement( 'IntelProbe' ) and not self:HasEnhancement( 'IntelProbe' ) then
-                brain.NomadsMothership:MoveAway()
+                self.OrbitalUnit:MoveAway()
             end
         end
     end,
@@ -406,7 +410,7 @@ XNL0001 = Class(ACUUnit) {
     SetIntelProbeEnabled = function(self, adv, enable)
         local brain = self:GetAIBrain()
         if enable then
-            brain.NomadsMothership:ReturnToStartLocation()
+            self.OrbitalUnit:ReturnToStartLocation()
             local EnAbil, DisAbil = 'NomadsIntelProbe', 'NomadsIntelProbeAdvanced'
             if adv then
                 EnAbil = 'NomadsIntelProbeAdvanced'
@@ -415,7 +419,7 @@ XNL0001 = Class(ACUUnit) {
             brain:EnableSpecialAbility( DisAbil, false )
             brain:EnableSpecialAbility( EnAbil, true )
         else
-            if not self:HasEnhancement( 'OrbitalBombardment' ) then brain.NomadsMothership:MoveAway() end
+            if not self:HasEnhancement( 'OrbitalBombardment' ) then self.OrbitalUnit:MoveAway() end
             brain:EnableSpecialAbility( 'NomadsIntelProbeAdvanced', false )
             brain:EnableSpecialAbility( 'NomadsIntelProbe', false )
         end

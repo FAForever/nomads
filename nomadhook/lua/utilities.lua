@@ -1,5 +1,5 @@
 --just like GetEnemyUnitInSphere but also includes your own army
-function GetUnitsInSphere(position, radius)
+function GetUnitsInSphere(position, radius, unitCats)
     -- New function
     local x1 = position.x - radius
     local y1 = position.y - radius
@@ -11,10 +11,11 @@ function GetUnitsInSphere(position, radius)
 
     local RadEntities = {}
 
+    local cats = unitCats or categories.ALLUNITS
     if UnitsinRec then
         for k, v in UnitsinRec do
             local dist = VDist3(position, v:GetPosition())
-            if dist <= radius then
+            if dist <= radius and EntityCategoryContains(cats, v) then
                 table.insert(RadEntities, v)
             end
         end

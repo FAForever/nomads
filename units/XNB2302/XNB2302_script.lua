@@ -1,6 +1,11 @@
 -- T3 artillery
 local NStructureUnit = import('/lua/nomadsunits.lua').NStructureUnit
+local GetUnitsInSphere = import('/lua/utilities.lua').GetUnitsInSphere
 local DefaultProjectileWeapon = import('/lua/sim/defaultweapons.lua').DefaultProjectileWeapon
+local NUtils = import('/lua/nomadsutils.lua')
+local CreateOrbitalUnit = NUtils.CreateOrbitalUnit
+local RequestOrbitalSpawnThread = NUtils.RequestOrbitalSpawnThread
+local FindOrbitalUnit = NUtils.FindOrbitalUnit
 
 XNB2302 = Class(NStructureUnit) {
     Weapons = {
@@ -15,7 +20,6 @@ XNB2302 = Class(NStructureUnit) {
     OnKilled = function(self, instigator, type, overkillRatio)
         if self.ArtilleryUnit then
             self.ArtilleryUnit:OnParentKilled()
-            self:GetAIBrain():ParentOfUnitKilled( self.ArtilleryUnit )
         end
         NStructureUnit.OnKilled(self, instigator, type, overkillRatio)
     end,
@@ -26,25 +30,48 @@ XNB2302 = Class(NStructureUnit) {
     end,
 
     WatchBuildProgress = function(self)
-        while not self:IsDead() and self:GetFractionComplete() < 1 and not self.ArtilleryUnitRequested do
+        while not self:IsDead() and self:GetFractionComplete() < 1 and not self.ArtilleryAlreadyRequested do
             if self:GetFractionComplete() >= 0.5 and (self:GetHealth() / self:GetMaxHealth()) >= 0.5 then
-                self.ArtilleryUnitRequested = true
-                self:GetAIBrain():RequestUnitAssignedToParent(self, 'xno2302', self.OnArtilleryUnitAssigned)
+                self.ArtilleryAlreadyRequested = true
+                self:FindArtillerySatellite()
             end
             WaitSeconds(2)
         end
     end,
 
+    FindArtillerySatellite = function(self)
+        local position = self:GetPosition()
+        local satellites = GetUnitsInSphere(position, 500, categories.xno2302)
+        local ArtilleryAssigned = false
+        
+        for _,satellite in satellites do
+            if satellite.Unused == true then
+                self:OnArtilleryUnitAssigned(satellite)
+                ArtilleryAssigned = true
+                break
+            end
+        end
+        
+        if ArtilleryAssigned == false then
+            local OrbitalFrigate = FindOrbitalUnit(self)
+            if OrbitalFrigate then
+                OrbitalFrigate:AddToSpawnQueue( 'xno2302', self )
+            else
+                self:ForkThread( RequestOrbitalSpawnThread, 'xno2302')
+            end
+        end
+    end,
+    
     OnStopBeingBuilt = function(self, builder, layer)
         NStructureUnit.OnStopBeingBuilt(self, builder, layer)
 
         -- in case we haven't asked for a slave unit, do it now
-        if not self.ArtilleryUnitRequested then
+        if not self.ArtilleryAlreadyRequested then
             ForkThread(function()
-                WaitSeconds(5)
-                if not self.ArtilleryUnitRequested then
-                    self.ArtilleryUnitRequested = true
-                    self:GetAIBrain():RequestUnitAssignedToParent(self, 'xno2302', self.OnArtilleryUnitAssigned)
+                WaitSeconds(2)
+                if not self.ArtilleryAlreadyRequested then
+                    self.ArtilleryAlreadyRequested = true
+                    self:FindArtillerySatellite()
                 end
             end)
         end
@@ -93,7 +120,7 @@ XNB2302 = Class(NStructureUnit) {
 
     OnGiven = function(self, newUnit)
         if self.ArtilleryUnit ~= nil then
-            newUnit.ArtilleryUnitRequested = true
+            newUnit.ArtilleryAlreadyRequested = true
             local pos = self.ArtilleryUnit:GetPosition()
             ChangeUnitArmy(self.ArtilleryUnit, (newUnit:GetAIBrain()):GetArmyIndex() )
             for _ , unit in GetUnitsInRect( Rect(pos[1]-2.5, pos[3]-2.5, pos[1]+2.5, pos[3]+2.5) ) do
@@ -103,13 +130,8 @@ XNB2302 = Class(NStructureUnit) {
                 end
             end
         else
-            self.ArtilleryUnitRequested = true
-            newUnit.ArtilleryUnitRequested = false
-            local requestqueue = self:GetAIBrain().RequestUnitQueue['xno2302']
-            if requestqueue then
-                requestqueue[1] = nil
-                table.removeByValue(requestqueue, 1)
-            end
+            self.ArtilleryAlreadyRequested = true
+            newUnit.ArtilleryAlreadyRequested = false
         end
     end,
 }
