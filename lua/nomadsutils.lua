@@ -8,6 +8,70 @@ local Entity = import('/lua/sim/Entity.lua').Entity
 
 
 -- ================================================================================================================
+-- Orbital units
+-- ================================================================================================================
+
+--orbital units are spawned on request from parent units
+--self.OrbitalUnit = self:CreateOrbitalUnit()
+--CreateOrbitalUnit = function(self, offsetAmount, blueprint, unitArmy, pos)
+function CreateOrbitalUnit(self, offsetAmount, blueprint, unitArmy, pos)
+    local bp = blueprint or 'xno0001'
+    local army = unitArmy or self:GetArmy()
+    local position = pos or self:GetPosition()
+    local heading = self:GetHeading()
+    
+    --calculate offset distance based on parent unit orientation
+    local offsetDistance = offsetAmount or -15 --negative puts it behind the unit
+    local offset = {offsetDistance * (math.sin(heading)), 0, offsetDistance * (math.cos(heading))}
+    position = VAdd(position,offset)
+    
+    --set the height, taking terrain into account
+    local initialHeight =__blueprints[bp].Physics.Elevation or 100
+    position[2] = GetTerrainHeight(position[1],position[3]) + initialHeight
+
+    return CreateUnitHPR( bp, army, position[1], position[2], position[3], 0, heading, 0)
+end
+
+--a thread for spawning the orbital frigate, requesting a build from it, and then despawning the frigate.
+--self:ForkThread( RequestOrbitalSpawnThread, constructedBP, offsetAmount, blueprint, unitArmy, pos )
+function RequestOrbitalSpawnThread(self, constructedBP, offsetAmount, blueprint, unitArmy, pos)
+    local OrbitalUnit = CreateOrbitalUnit(self, offsetAmount, blueprint, unitArmy, pos)
+    WaitSeconds(2)
+    --do some animation here
+    
+    OrbitalUnit:AddToSpawnQueue( constructedBP, self ) --request the construction of the unit
+    WaitSeconds(2)
+    while OrbitalUnit.UnitBeingBuilt do
+    WARN('waiting for frigate to finish its thing')
+    WaitSeconds(0.1)
+    end
+    WaitSeconds(3)
+    --do some takeoff animation here
+    
+    OrbitalUnit:Destroy()
+end
+
+FindOrbitalUnit = function(self, cats)
+    local position = self:GetPosition()
+    local unitCats = cats or categories.xno0001
+    local units = Utils.GetUnitsInSphere(position, 500, unitCats)
+    local ChosenUnit = false
+    
+    local ShortestQueueLength = 4 --if the queues get too long for some absurd reason, spawn a new frigate instead of clogging up the rest
+    for _,unit in units do
+        local queueLength = table.getn(table.keys(unit.OrbitalSpawnQueue or {1,1,1,1}))
+        
+        if queueLength == 0 then
+            return unit
+        elseif ShortestQueueLength > queueLength then
+            ShortestQueueLength = queueLength
+            ChosenUnit = unit
+        end
+    end
+    return ChosenUnit or false
+end
+
+-- ================================================================================================================
 -- Bombard mode stuff
 -- ================================================================================================================
 
