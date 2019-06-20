@@ -134,12 +134,12 @@ function GetNewUnitLocations()
     local t = {}
     t = table.cat( t, {
         -- adding all Nomads support factories to the game
-        '/units/xnb0211',
-        '/units/xnb0212',
-        '/units/xnb0213',
-        '/units/xnb0311',
-        '/units/xnb0312',
-        '/units/xnb0313',
+        '/units/znb9501', -- Land Support Tech2
+        '/units/znb9502', -- Air Support Tech2
+        '/units/znb9503', -- Sea Support Tech2
+        '/units/znb9601', -- Land Support Tech3
+        '/units/znb9602', -- Air Support Tech3
+        '/units/znb9603', -- Sea Support Tech3
     })
     return t
 end
