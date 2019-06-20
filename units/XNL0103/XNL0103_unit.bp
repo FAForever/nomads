@@ -105,6 +105,7 @@ UnitBlueprint {
                 },
                 Treads = {
                     ScrollTreads = true,
+                    --ScrollMultiplier = 0.75, -- the speed at which treads scroll, 0.2 is default
                     TreadMarks = {
                         {
                             BoneName = 'XNL0103',

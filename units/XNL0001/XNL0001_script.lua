@@ -102,7 +102,6 @@ XNL0001 = Class(ACUUnit) {
             slider:SetGoal(0, -1, 0 )
             slider:SetSpeed(1)
         end
-        --TODO: put in the capacitor ability back in, it looks like it got lost somehow
 
         self:GetAIBrain().OrbitalBombardmentInitiator = self
 
