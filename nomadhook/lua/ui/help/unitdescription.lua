@@ -82,12 +82,12 @@ Description = table.merged( Description, {
     ['xnb0304'] = "<LOC xnb0304_help>Constructs Support command units.",
 
     -- NOMADS SUPPORT FACTORIES (FAF SPECIFIC)
-    ['xnb0211'] = "<LOC xnb0211_help>Constructs Tech 2 land units. Upgradeable.",
-    ['xnb0212'] = "<LOC xnb0212_help>Constructs Tech 2 air units. Upgradeable.",
-    ['xnb0213'] = "<LOC xnb0213_help>Constructs Tech 2 naval units. Upgradeable.",
-    ['xnb0311'] = "<LOC xnb0311_help>Constructs Tech 3 land units. Highest tech level available.",
-    ['xnb0312'] = "<LOC xnb0312_help>Constructs Tech 3 air units. Highest tech level available.",
-    ['xnb0313'] = "<LOC xnb0313_help>Constructs Tech 3 naval units. Highest tech level available.",
+    ['znb9501'] = "<LOC znb9501_help>Constructs Tech 2 land units. Upgradeable.",
+    ['znb9502'] = "<LOC znb9502_help>Constructs Tech 2 air units. Upgradeable.",
+    ['znb9503'] = "<LOC znb9503_help>Constructs Tech 2 naval units. Upgradeable.",
+    ['znb9601'] = "<LOC znb9601_help>Constructs Tech 3 land units. Highest tech level available.",
+    ['znb9602'] = "<LOC znb9602_help>Constructs Tech 3 air units. Highest tech level available.",
+    ['znb9603'] = "<LOC znb9603_help>Constructs Tech 3 naval units. Highest tech level available.",
 
 
     -- WEAPON STRUCTURES
