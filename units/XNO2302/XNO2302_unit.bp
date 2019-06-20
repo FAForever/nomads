@@ -49,6 +49,7 @@ UnitBlueprint {
         'VISIBLETORECON',
         'SELECTABLE',
         'HIGHALTAIR',
+        'EXCLUDEINDOMINATION',
     },
     Defense = {
         AirThreatLevel = 0,

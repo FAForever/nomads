@@ -19,6 +19,7 @@ UnitBlueprint {
         'UNTARGETABLE',
         'NOFORMATION',
         'INSIGNIFICANTUNIT',
+        'EXCLUDEINDOMINATION',
     },
     Defense = {
         AirThreatLevel = 0,

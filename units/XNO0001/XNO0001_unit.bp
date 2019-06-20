@@ -21,6 +21,7 @@ UnitBlueprint {
         'NOFORMATION',
         'INSIGNIFICANTUNIT',
         'VISIBLETORECON',
+        'EXCLUDEINDOMINATION', --excluded from victory conditions
     },
     Defense = {
         AirThreatLevel = 0,
