@@ -1,3 +1,4 @@
+
 UnitUpgradeTemplates =
 {
     -- earth unit upgrades
@@ -58,10 +59,13 @@ StructureUpgradeTemplates =
 
         -- sonar
         { 'ueb3102', 'ueb3202'},
-        { 'ueb3202', 'ues0304'},
+        { 'ueb3202', 'ues0305'},
 
-        --Shield
+        -- Shield
         { 'ueb4202', 'ueb4301'},
+
+        -- Engineering Station (The Kennel)
+        { 'xeb0104', 'xeb0204'},
 
     },
 
@@ -89,7 +93,7 @@ StructureUpgradeTemplates =
 
         -- sonar
         { 'uab3102', 'uab3202'},
-        { 'uab3202', 'uas0304'},
+        { 'uab3202', 'uas0305'},
 
 
     },
@@ -118,13 +122,18 @@ StructureUpgradeTemplates =
 
         -- sonar
         { 'urb3102', 'urb3202'},
-        { 'urb3202', 'urs0304'},
+        { 'urb3202', 'urs0305'},
 
         -- shields
         { 'urb4202', 'urb4204'},
         { 'urb4204', 'urb4205'},
         { 'urb4205', 'urb4206'},
         { 'urb4206', 'urb4207'},
+
+        -- Engineering Station (The Hive)
+        { 'xrb0104', 'xrb0204'},
+        { 'xrb0204', 'xrb0304'},
+
     },
 
     -- seraphim structure upgrades
@@ -151,14 +160,13 @@ StructureUpgradeTemplates =
 
         -- sonar
         { 'xsb3102', 'xsb3202'},
-        { 'xsb3202', 'xrs0304'},
+--        { 'xsb3202', 'xsb0305'}, -- unit xsb3202 can't upgrade to xsb0305 (building does not exist).
 
         --Shield
         { 'xsb4202', 'xsb4301'},
 
     },
 }
-
 
 function GetUpgradeTemplates(name, OrgTemplate)
     local Factions = import('/lua/factions.lua').GetFactions()
