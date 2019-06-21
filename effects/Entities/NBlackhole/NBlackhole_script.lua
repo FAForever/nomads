@@ -506,7 +506,9 @@ NBlackhole = Class(NullShell) {
         end
 
         for k, prop in self.PropsBeingSuckedIn do
-
+            if prop:BeenDestroyed() then
+                continue
+            end
             local count = prop:GetBoneCount()
             if count > 1 or not prop.GetPosition then
                 for i = 0, count do
