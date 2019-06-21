@@ -995,7 +995,7 @@ UnitBlueprint {
             CollideFriendly = false,
             Damage = 3000,
             DamageFriendly = false,
-            DamageRadius = 1.5,
+            DamageRadius = 2.5,
             DamageType = 'Overcharge',
             DisplayName = 'Kinetic overcharge cannon',
             EnergyChargeForFirstShot = false,
@@ -1022,7 +1022,6 @@ UnitBlueprint {
                 minDamage = 1500,
             },
             ProjectileId = '/projectiles/NAPRoundOC1/NAPRoundOC1_proj.bp',
-            ProjectileIdDuringCapacitor = '/projectiles/NAPRound2/NAPRound2_proj.bp',
             ProjectileLifetimeUsesMultiplier = 1.15,
             RackBones = {
                 {
@@ -1085,7 +1084,7 @@ UnitBlueprint {
             CollideFriendly = false,
             Damage = 3000,
             DamageFriendly = false,
-            DamageRadius = 1.5,
+            DamageRadius = 2.5,
             DamageType = 'Overcharge',
             DisplayName = 'Kinetic overcharge cannon',
             EnergyChargeForFirstShot = false,
@@ -1112,7 +1111,6 @@ UnitBlueprint {
                 minDamage = 1500,
             },
             ProjectileId = '/projectiles/NAPRoundOC1/NAPRoundOC1_proj.bp',
-            ProjectileIdDuringCapacitor = '/projectiles/NAPRound2/NAPRound2_proj.bp',
             ProjectileLifetimeUsesMultiplier = 1.15,
             RackBones = {
                 {

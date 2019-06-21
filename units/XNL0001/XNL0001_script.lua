@@ -253,7 +253,6 @@ XNL0001 = Class(ACUUnit) {
         self.PlayCommanderWarpInEffectFlag = false
         self:HideBone(0, true)
         self:SetWeaponEnabledByLabel('MainGun', false)
-        --self.CapFxBag:Destroy() --TODO: optimise this so you dont need to turn capacitor off at the start
 
         local meteor = self:CreateProjectile('/effects/Entities/NomadsACUDropMeteor/NomadsACUDropMeteor_proj.bp')
         self.Trash:Add(meteor)

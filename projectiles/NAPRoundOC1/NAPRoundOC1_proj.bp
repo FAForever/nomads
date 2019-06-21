@@ -47,7 +47,8 @@ ProjectileBlueprint {
     },
     Physics = {
         DestroyOnWater = true,
-        LeadTarget = false,
+        LeadTarget = true,
+        TrackTarget = true,
         TurnRate = 360,
         UseGravity = true,
         VelocityAlign = true,
