@@ -280,13 +280,13 @@ Unit = Class(oldUnit) {
             local targets = {}
             if PosEntity then
                 if buffTable.ApplyToFriendly then   -- new info, allows to target friendly units aswell
-                    targets = utilities.GetUnitsInSphere(PosEntity, buffTable.Radius)
+                    targets = utilities.GetAllUnitsInSphere(PosEntity, buffTable.Radius)
                 else
                     targets = utilities.GetEnemyUnitsInSphere(self, PosEntity, buffTable.Radius)
                 end
             else
                 if buffTable.ApplyToFriendly then
-                    targets = utilities.GetUnitsInSphere(self:GetPosition(), buffTable.Radius)
+                    targets = utilities.GetAllUnitsInSphere(self:GetPosition(), buffTable.Radius)
                 else
                     targets = utilities.GetEnemyUnitsInSphere(self, self:GetPosition(), buffTable.Radius)
                 end

@@ -1,6 +1,6 @@
 -- T3 artillery
 local NStructureUnit = import('/lua/nomadsunits.lua').NStructureUnit
-local GetUnitsInSphere = import('/lua/utilities.lua').GetUnitsInSphere
+local GetOwnUnitsInSphere = import('/lua/utilities.lua').GetOwnUnitsInSphere
 local DefaultProjectileWeapon = import('/lua/sim/defaultweapons.lua').DefaultProjectileWeapon
 local NUtils = import('/lua/nomadsutils.lua')
 local CreateOrbitalUnit = NUtils.CreateOrbitalUnit
@@ -41,7 +41,7 @@ XNB2302 = Class(NStructureUnit) {
 
     FindArtillerySatellite = function(self)
         local position = self:GetPosition()
-        local satellites = GetUnitsInSphere(position, 500, categories.xno2302)
+        local satellites = GetOwnUnitsInSphere(position, 500, self:GetArmy(), categories.xno2302)
         local ArtilleryAssigned = false
         
         for _,satellite in satellites do
@@ -122,7 +122,7 @@ XNB2302 = Class(NStructureUnit) {
         if self.ArtilleryUnit ~= nil then
             newUnit.ArtilleryAlreadyRequested = true
             local pos = self.ArtilleryUnit:GetPosition()
-            ChangeUnitArmy(self.ArtilleryUnit, (newUnit:GetAIBrain()):GetArmyIndex() )
+            ChangeUnitArmy(self.ArtilleryUnit, (newUnit:GetAIBrain()):GetArmyIndex() ) --why not newUnit:GetArmy()
             for _ , unit in GetUnitsInRect( Rect(pos[1]-2.5, pos[3]-2.5, pos[1]+2.5, pos[3]+2.5) ) do
                 if string.find(unit:GetBlueprint().BlueprintId, 'xno2302') then
                     newUnit:OnArtilleryUnitAssigned(unit)

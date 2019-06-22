@@ -7,6 +7,7 @@ local Utilities = import('/lua/utilities.lua')
 local NomadsEffectUtil = import('/lua/nomadseffectutilities.lua')
 
 local NUtils = import('/lua/nomadsutils.lua')
+local Utils = import('/lua/utilities.lua')
 local CreateOrbitalUnit = NUtils.CreateOrbitalUnit
 local AddRapidRepair = NUtils.AddRapidRepair
 local AddRapidRepairToWeapon = NUtils.AddRapidRepairToWeapon
@@ -103,7 +104,7 @@ XNL0001 = Class(ACUUnit) {
             slider:SetSpeed(1)
         end
 
-        self:GetAIBrain().OrbitalBombardmentInitiator = self
+        self:GetAIBrain().OrbitalBombardmentInitiator = self --TODO: fix this so that orbital bombard supports many units.
 
         local bp = self:GetBlueprint()
 
@@ -157,6 +158,16 @@ XNL0001 = Class(ACUUnit) {
         self:ForkThread(self.HeadRotationThread)
         self.AllowHeadRotation = true
         self.PlayCommanderWarpInEffectFlag = nil
+        --if the acu is spawned in, find an orbital unit that works.
+        if not self.OrbitalUnit then
+            WARN('creating new unit')
+            local units = Utils.GetOwnUnitsInSphere(self:GetPosition(), 500, self:GetArmy(), categories.xno0001)
+            if units[1] then
+                self.OrbitalUnit = units[1]
+            else
+                self.OrbitalUnit = CreateOrbitalUnit(self)
+            end
+        end
     end,
 
     -- =====================================================================================================================
@@ -248,7 +259,9 @@ XNL0001 = Class(ACUUnit) {
     -------- INITIAL ANIM --------
 
     DoMeteorAnim = function(self)  -- part of initial dropship animation
-        self.OrbitalUnit = CreateOrbitalUnit(self)
+        if not self.OrbitalUnit then
+            self.OrbitalUnit = CreateOrbitalUnit(self)
+        end
         
         self.PlayCommanderWarpInEffectFlag = false
         self:HideBone(0, true)

@@ -41,10 +41,10 @@ function RequestOrbitalSpawnThread(self, constructedBP, offsetAmount, blueprint,
     
     OrbitalUnit:AddToSpawnQueue( constructedBP, self ) --request the construction of the unit
     WaitSeconds(2)
-    while OrbitalUnit.UnitBeingBuilt do
-    WARN('waiting for frigate to finish its thing')
-    WaitSeconds(0.1)
-    end
+    -- while OrbitalUnit.UnitBeingBuilt do
+    -- WARN('waiting for frigate to finish its thing')
+    -- WaitSeconds(0.1)
+    -- end
     WaitSeconds(3)
     --do some takeoff animation here
     
@@ -54,7 +54,7 @@ end
 FindOrbitalUnit = function(self, cats)
     local position = self:GetPosition()
     local unitCats = cats or categories.xno0001
-    local units = Utils.GetUnitsInSphere(position, 500, unitCats)
+    local units = Utils.GetOwnUnitsInSphere(position, 500, self:GetArmy(), unitCats)
     local ChosenUnit = false
     
     local ShortestQueueLength = 4 --if the queues get too long for some absurd reason, spawn a new frigate instead of clogging up the rest
