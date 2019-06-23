@@ -8,18 +8,17 @@ xnc0001 = Class(NCivilianStructureUnit) {
 
     OnCreate = function(self)
         self.BuildEffectsBag = TrashBag()
+        self.EngineEffectsBag = TrashBag()
         self.ThrusterEffectsBag = TrashBag()
 
         NCivilianStructureUnit.OnCreate(self)
 
-        self:SetupRotators()
         
-        -- ForkThread(function()
-            -- WaitSeconds(2)
-            -- self:Landing()
+        self:Landing(true)
+        ForkThread(function()
             -- WaitSeconds(12)
             -- self:TakeOff()
-        -- end)
+        end)
     end,
     
     --rotators
@@ -30,12 +29,14 @@ xnc0001 = Class(NCivilianStructureUnit) {
             self.RotatorOuter = CreateRotator( self, 'Deflector Edge', 'z' )
             self.RotatorOuter:SetAccel( bp.OuterAcceleration )
             self.RotatorOuter:SetTargetSpeed( bp.OuterSpeed )
+            self.RotatorOuter:SetSpeed( bp.OuterSpeed )
             self.Trash:Add( self.RotatorOuter )
         end
         if not self.RotatorInner then
             self.RotatorInner = CreateRotator( self, 'Deflector Centre', 'z' )
             self.RotatorInner:SetAccel( bp.InnerAcceleration )
             self.RotatorInner:SetTargetSpeed( bp.InnerSpeed )
+            self.RotatorInner:SetSpeed( bp.InnerSpeed )
             self.Trash:Add( self.RotatorInner )
         end
     end,
@@ -61,29 +62,32 @@ xnc0001 = Class(NCivilianStructureUnit) {
 
     --engines
     
-    EngineBurnBones = {'Engine Exhaust01', 'Engine Exhaust02', 'Engine Exhaust03', 'Engine Exhaust04', 'Engine Exhaust05', },
-    --ThrusterBurnBones = {'ThrusterFrontLeft', 'ThrusterFrontRight', 'ThrusterBackLeft', 'ThrusterBackRight'},
-    ThrusterBurnBones = {0}, --why is this here?
-    ThrusterFireEffects = { --for when the engine is on full power
+    EngineExhaustBones = {'Engine Exhaust01', 'Engine Exhaust02', 'Engine Exhaust03', 'Engine Exhaust04', 'Engine Exhaust05', },
+    ThrusterExhaustBones = { 'ThrusterPort01', 'ThrusterPort02', 'ThrusterPort03', 'ThrusterPort04', 'ThrusterPort05', 'ThrusterPort06', },
+    EngineFireEffects = { --for when the engine is on full power
             '/effects/emitters/nomads_orbital_frigate_thruster04_emit.bp',--smoke
             '/effects/emitters/nomads_orbital_frigate_thruster05_emit.bp',--smoke
             '/effects/emitters/nomads_orbital_frigate_thruster01_emit.bp',--fire
             '/effects/emitters/nomads_orbital_frigate_thruster02_emit.bp',--fire
         },
-    ThrusterPartialEffects = { --hot air effects only
+    EnginePartialEffects = { --hot air effects only
             --'/effects/emitters/nomads_orbital_frigate_thruster03_emit.bp', --this one looks dumb
             '/effects/emitters/nomads_orbital_frigate_thruster04_emit.bp',
         },
+    ThrusterEffects = { --hot air effects only
+            --'/effects/emitters/nomads_orbital_frigate_thruster03_emit.bp', --this one looks dumb
+            '/effects/emitters/aeon_t1eng_groundfx01_emit.bp',
+        },
 
-    BurnEngines = function(self)
-        self:AddEffects(self.ThrusterFireEffects, self.EngineBurnBones, self.ThrusterEffectsBag, 0.3)
+    StartEngines = function(self)
+        self:AddEffects(self.EngineFireEffects, self.EngineExhaustBones, self.EngineEffectsBag, 0.3)
     end,
 
     StopEngines = function(self)
-        self.ThrusterEffectsBag:Destroy()
-        self:AddEffects(self.ThrusterPartialEffects, self.EngineBurnBones, self.ThrusterEffectsBag)
-        WaitSeconds(6)
-        self.ThrusterEffectsBag:Destroy()
+        self.EngineEffectsBag:Destroy()
+        self:AddEffects(self.EnginePartialEffects, self.EngineExhaustBones, self.EngineEffectsBag)
+        WaitSeconds(4.5)
+        self.EngineEffectsBag:Destroy()
     end,
 
     TakeOff = function (self)
@@ -93,21 +97,32 @@ xnc0001 = Class(NCivilianStructureUnit) {
         self.Trash:Add(self.LaunchAnim)
         ForkThread(function()
             WaitSeconds(0.3)
-            self:BurnEngines()
+            self:StartEngines()
         end)
     end,
 
-    Landing = function (self)
-        self:AddEffects(self.ThrusterFireEffects, self.EngineBurnBones, self.ThrusterEffectsBag)
-        self.LaunchAnim = CreateAnimator(self):PlayAnim('/units/xno0001/xno0001_land.sca')
-        self.LaunchAnim:SetAnimationFraction(0.3)
+    Landing = function (self, EnableThrusters)
+        self:HideBone(0, true)
+        --start rotators
+        self:SetupRotators()
+        self:StopRotators() --start slowing them down
+        
+        self:AddEffects(self.EngineFireEffects, self.EngineExhaustBones, self.EngineEffectsBag)
+        self.LaunchAnim = CreateAnimator(self):PlayAnim('/units/xno0001/xno0001_entry01.sca')
+        --self.LaunchAnim:SetAnimationFraction(0.3)
         self.LaunchAnim:SetRate(0.1)
         self.Trash:Add(self.LaunchAnim)
         
-        ForkThread(function()
-            WaitSeconds(5.3)
+        self:ForkThread(function(self, EnableThrusters)
+            WaitSeconds(0.1)
+            self:ShowBone(0, true)
+            WaitSeconds(3.5)
+            if EnableThrusters then
+                self:AddEffects(self.ThrusterEffects, self.ThrusterExhaustBones, self.ThrusterEffectsBag)
+            end
+            WaitSeconds(1)
             self:StopEngines()
-        end)
+        end, EnableThrusters)
     end,
 
     AddEffects = function (self, effects, bones, bag, delay)

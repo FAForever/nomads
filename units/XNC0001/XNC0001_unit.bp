@@ -1,7 +1,12 @@
 UnitBlueprint {
     AI = {
         TargetBones = {
-            'Body',
+            'Deflector Centre',
+            'Deflector Edge',
+            'CargoPort01',
+            'CargoPort02',
+            'MissilePort04',
+            'MissilePort14',
         },
     },
     Audio = {
@@ -31,9 +36,6 @@ UnitBlueprint {
         'VISIBLETORECON',
         'SIZE20'
     },
-    CollisionOffsetX = 0,
-    CollisionOffsetY = -1.5,
-    CollisionOffsetZ = 1.175,
     Defense = {
         AirThreatLevel = 0,
         ArmorType = 'Normal',
@@ -46,22 +48,6 @@ UnitBlueprint {
     },
     Description = '<LOC xnc0001_desc>Orbital Frigate',
     Display = {
-        IdleEffects = {
-            Land = {
-                Effects = {
-                    {
-                        Bones = {--TODO: update these to actual bones, create the model
-                        'Engine Exhaust01',
-                        'Engine Exhaust02',
-                        'Engine Exhaust03',
-                        'Engine Exhaust04',
-                        'Engine Exhaust05',
-                        },
-                        Type = 'AeonGroundFXT1Engineer',
-                    },
-                },
-            },
-        },
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -146,10 +132,10 @@ UnitBlueprint {
     },
     Rotators = {
         Stationary = false,
-        InnerAcceleration = 10,
-        InnerSpeed = 80,
-        OuterAcceleration = -20,
-        OuterSpeed = -160,
+        InnerAcceleration = 5,
+        InnerSpeed = 240,
+        OuterAcceleration = -10,
+        OuterSpeed = -480,
     },
     SelectionSizeX = 3,
     SelectionSizeZ = 8,
@@ -157,7 +143,9 @@ UnitBlueprint {
     SizeX = 2,
     SizeY = 3,
     SizeZ = 11.25,
+    CollisionOffsetX = 0,
     CollisionOffsetY = 2.7,
+    CollisionOffsetZ = 0,
     StrategicIconName = 'icon_structure_generic',
     StrategicIconSortPriority = 55,
     Wreckage = {
