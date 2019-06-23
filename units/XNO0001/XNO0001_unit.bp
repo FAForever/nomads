@@ -1,4 +1,14 @@
 UnitBlueprint {
+    AI = {
+        TargetBones = {
+            'Deflector Centre',
+            'Deflector Edge',
+            'CargoPort01',
+            'CargoPort02',
+            'MissilePort04',
+            'MissilePort14',
+        },
+    },
     Air = {
         BankFactor = 0,
         BankForward = false,
@@ -122,10 +132,10 @@ UnitBlueprint {
     },
     Rotators = {
         Stationary = false,
-        InnerAcceleration = 10,
-        InnerSpeed = 80,
-        OuterAcceleration = -20,
-        OuterSpeed = -160,
+        InnerAcceleration = 5,
+        InnerSpeed = 240,
+        OuterAcceleration = -10,
+        OuterSpeed = -480,
     },
     SelectionSizeX = 0.45,
     SelectionSizeZ = 0.65,
