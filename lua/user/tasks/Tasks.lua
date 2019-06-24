@@ -40,7 +40,6 @@ function MapReticulesToUnitIdsScript( TaskName, ReticulePositions, Units, UnitId
             table.insert(UnitCapList, k)
         end
     end
-
     -- for every reticule determine the nearest unassigned unit
     local ClosestUnitKeys = {}
     local pos, dist, ClosestDist, ClosestUnitKey
@@ -76,19 +75,6 @@ function MapReticulesToUnitIdsScript( TaskName, ReticulePositions, Units, UnitId
     return map
 end
 
-function VerifyScriptCommand(data)
--- TODO: cooldown check to see if ability is allowed to be used
-    local TaskName = data.TaskName
-    local army = GetFocusArmy()
-    if TaskName and UnitsAreInArmy(data.Units, army) and LocationIsOk(data, GetRangeCheckUnitsScript(TaskName) ) then
-        data.AuthorizedUnits = data.Units
-        data.UserValidated = true
-    else
-        data.UserValidated = false
-    end
-    return data
-end
-
 -- --------------------------------------------------
 
 AbilityUnits = {}
@@ -100,8 +86,8 @@ GetAvailableAbilityUnitsForFocusArmy = function(abilityName)
 -- TODO: consider energy needs. The Eye of Rianne needs energy to run so we may want to dynamically filter out units
 -- based on the current supply and energy available.
     local army = GetFocusArmy()
-    --LOG('*DEBUG: GetAvailableAbilityUnitsForFocusArmy() abilityName = '..repr(abilityName)..' army = '..repr(army))
-    if not IsValidAbility(abilityName) then
+    --WARN('*DEBUG: GetAvailableAbilityUnitsForFocusArmy() abilityName = '..repr(abilityName)..' army = '..repr(army))
+    if not AbilityDefinition[abilityName] then
         return false
     elseif AbilityUnits[abilityName][army] then
         local ret = {}
@@ -117,33 +103,10 @@ GetAvailableAbilityUnitsForFocusArmy = function(abilityName)
     return {}
 end
 
-GetAbilityUnitsForFocusArmy = function(abilityName)
-    local army = GetFocusArmy()
-    --LOG('*DEBUG: GetAbilityUnitsForFocusArmy() abilityName = '..repr(abilityName)..' army = '..repr(army))
-    if not IsValidAbility(abilityName) then
-        return false
-    elseif AbilityUnits[abilityName][army] then
-        local unitIds = table.keys(AbilityUnits[abilityName][army])
-        unitIds = DoUnitSelectedFilter(abilityName, unitIds)
-        return unitIds
-    end
-    return {}
-end
-
-GetAbilityRangeCheckUnitsForFocusArmy = function(abilityName)
-    local army = GetFocusArmy()
-    --LOG('*DEBUG: GetAbilityRangeCheckUnitsForFocusArmy() abilityName = '..repr(abilityName)..' army = '..repr(army))
-    if not IsValidAbility(abilityName) then
-        return false
-    elseif AbilityRangeCheckUnits[abilityName][army] then
-        return AbilityRangeCheckUnits[abilityName][army]
-    end
-    return {}
-end
 
 SetAbilityUnits = function(abilityName, army, unitIds)
     --LOG('*DEBUG: SetAbilityUnits() abilityName = '..repr(abilityName)..' army = '..repr(army)..' unitIds = '..repr(unitIds))
-    if army and unitIds and army >= 0 and army < 16 and IsValidAbility(abilityName) then
+    if army and unitIds and army >= 0 and army < 16 and AbilityDefinition[abilityName] then
         if not AbilityUnits[abilityName] then
             AbilityUnits[abilityName] = {}
         end
@@ -154,6 +117,7 @@ SetAbilityUnits = function(abilityName, army, unitIds)
         AbilityUnits[abilityName][army] = unitIds
 
         -- notify all views that we updated the list of units
+        --this wasnt in the Tasks.lua in the fa repo
         local views = import('/lua/ui/game/worldview.lua').GetWorldViews()
         for k, view in views do
             view:OnAbilityUnitsListUpdated(abilityName)
@@ -169,7 +133,7 @@ end
 SetAbilityRangeCheckUnits = function(abilityName, army, unitIds)
     -- used to add a single unit id for range checking, or more than one (provided as a table)
     --LOG('*DEBUG: SetAbilityRangeCheckUnits() abilityName = '..repr(abilityName)..' army = '..repr(army)..' unitIds = '..repr(unitIds))
-    if army and unitIds and army >= 0 and army <= 16 and IsValidAbility(abilityName) then
+    if army and unitIds and army >= 0 and army <= 16 and AbilityDefinition[abilityName] then
         if not AbilityRangeCheckUnits[abilityName] then
             AbilityRangeCheckUnits[abilityName] = {}
         end
@@ -182,14 +146,6 @@ SetAbilityRangeCheckUnits = function(abilityName, army, unitIds)
         return true
     end
     --LOG('*DEBUG: SetAbilityRangeCheckUnits() bad values')
-    return false
-end
-
-
-IsValidAbility = function(abilityName)
-    if AbilityDefinition[ abilityName ] then
-        return true
-    end
     return false
 end
 
@@ -247,6 +203,59 @@ UnitCanFireAtPos = function(abilityName, unit, pos)
     return false
 end
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--these are from tasks.lua in the FA repo.
+
+
+function GetRangeCheckUnits(TaskName)
+    return GetAbilityRangeCheckUnitsForFocusArmy(TaskName)
+end
+
+function VerifyScriptCommand(data)
+-- TODO: cooldown check to see if ability is allowed to be used
+    local TaskName = data.TaskName
+    local army = GetFocusArmy()
+    if TaskName and UnitsAreInArmy(data.Units, army) and LocationIsOk(data, GetRangeCheckUnits(TaskName)) then
+        data.AuthorizedUnits = data.Units
+        data.UserValidated = true
+    else
+        data.UserValidated = false
+    end
+    return data
+end
+
+-- --------------------------------------------------
+
+GetAbilityRangeCheckUnitsForFocusArmy = function(abilityName)
+    local army = GetFocusArmy()
+    --LOG('*DEBUG: GetAbilityRangeCheckUnitsForFocusArmy() abilityName = '..repr(abilityName)..' army = '..repr(army)..' units = '..repr(AbilityRangeCheckUnits[abilityName][army]))
+    if not AbilityDefinition[ abilityName ] then
+        return false
+    elseif AbilityRangeCheckUnits[abilityName][army] then
+        return AbilityRangeCheckUnits[abilityName][army]
+    end
+    return {}
+end
+
 LocationIsOk = function(data, RangeCheckUnits)
     -- almost same script as in worldview.lua
     local InRange, RangeLimited = true, false
@@ -270,7 +279,7 @@ LocationIsOk = function(data, RangeCheckUnits)
                         continue
                     elseif maxDist > 0 then              -- unit counts towards range check, do check
                         posU = unit:GetPosition()
-                        dist = VDist2( posU[1], posU[3], posM[1], posM[3] )
+                        dist = VDist2(posU[1], posU[3], posM[1], posM[3])
                         InRange = (dist >= minDist and dist <= maxDist)
                         if InRange then
                             break
