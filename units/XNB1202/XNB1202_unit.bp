@@ -55,6 +55,7 @@ UnitBlueprint {
     Description = '<LOC XNB1202_desc>Mass Extractor',
     Display = {
         Abilities = {
+            '<LOC ability_amphibious>Amphibious',
             '<LOC ability_upgradable>Upgradeable',
         },
         AnimationOpen = '/units/XNB1202/XNB1202_awork.sca',

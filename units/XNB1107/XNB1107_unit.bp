@@ -55,6 +55,9 @@ UnitBlueprint {
     },
     Description = '<LOC XNB1107_desc>HCPP',
     Display = {
+        Abilities = {
+            '<LOC ability_amphibious>Amphibious',
+        },
         BlinkingLights = {
             {
                 BLBone = 'light.001',

@@ -114,7 +114,6 @@ UnitBlueprint {
             '<LOC ability_aa>Anti-Air',
             '<LOC ability_stun>EMP',
             '<LOC ability_hover>Hover',
-            '<LOC ability_massive>Massive',
             '<LOC ability_transportable>Transportable',
             '<LOC ability_deathaoe>Volatile',
         },
