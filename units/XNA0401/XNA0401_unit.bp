@@ -326,6 +326,7 @@ UnitBlueprint {
         DontUseForcedAttachPoints = true,
         TransportClass = 10,
     },
+    VeteranMassMult = 0.5,
     Weapon = {
         {
             Audio = {

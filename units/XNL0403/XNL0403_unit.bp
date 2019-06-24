@@ -396,6 +396,7 @@ UnitBlueprint {
         Level4 = 200,
         Level5 = 250,
     },
+    VeteranMassMult = 0.5,
     Weapon = {
         {
             Audio = {
