@@ -126,7 +126,7 @@ UnitBlueprint {
             RULEUCC_Transport = false,
         },
         FactionName = 'Nomads',
-        Icon = 'land',
+        Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Basic',
         ToggleCaps = {

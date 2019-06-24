@@ -152,6 +152,7 @@ UnitBlueprint {
             RULEUCC_Stop = true,
             RULEUCC_Transport = false,
         },
+        Icon = 'land',
         FactionName = 'Nomads',
         OrderOverrides = {
             RULEUTC_SpecialToggle = {
