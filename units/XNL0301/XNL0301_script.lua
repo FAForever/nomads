@@ -327,13 +327,13 @@ XNL0301 = Class(NWalkingLandUnit) {
     OnPaused = function(self)
         NWalkingLandUnit.OnPaused(self)
         if self.BuildingUnit then
-            NWalkingLandUnit.StopBuildingEffects(self, self:GetUnitBeingBuilt())
+            NWalkingLandUnit.StopBuildingEffects(self, self.UnitBeingBuilt)
         end
     end,
 
     OnUnpaused = function(self)
         if self.BuildingUnit then
-            NWalkingLandUnit.StartBuildingEffects(self, self:GetUnitBeingBuilt(), self.UnitBuildOrder)
+            NWalkingLandUnit.StartBuildingEffects(self, self.UnitBeingBuilt, self.UnitBuildOrder)
         end
         NWalkingLandUnit.OnUnpaused(self)
     end,
