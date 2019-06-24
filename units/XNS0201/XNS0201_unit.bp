@@ -81,8 +81,9 @@ UnitBlueprint {
     Description = '<LOC XNS0201_desc>Destroyer',
     Display = {
         Abilities = {
-            '<LOC ability_radar>Radar',
             '<LOC ability_sonar>Sonar',
+            '<LOC ability_radar>Radar',
+            '<LOC ability_torpedo>Torpedoes',
         },
 --[[        AnimationDeath = {
             {

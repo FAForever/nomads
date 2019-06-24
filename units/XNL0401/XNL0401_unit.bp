@@ -95,10 +95,9 @@ UnitBlueprint {
     },
     Description = '<LOC XNL0401_desc>Experimental Heavy Tank',
     Display = {
-    Abilities = {
-            '<LOC ability_aa>Anti-Air',
+        Abilities = {
             '<LOC ability_hover>Hover',
-            '<LOC ability_massive>Massive',
+            '<LOC ability_aa>Anti-Air',
             '<LOC ability_deathaoe>Volatile',
         },
         IdleEffects = {

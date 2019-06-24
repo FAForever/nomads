@@ -57,6 +57,7 @@ UnitBlueprint {
     Display = {
         Abilities = {
             '<LOC ability_upgradable>Upgradeable',
+            '<LOC ability_amphibious>Amphibious',
         },
         AnimationOpen = '/units/XNB1102/XNB1102_awork.sca',
         AnimationUpgrade = '/units/XNB1102/XNB1102_Aupgrade.sca',
