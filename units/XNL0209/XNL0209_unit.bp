@@ -297,7 +297,7 @@ UnitBlueprint {
                 helpText = 'toggle_radar_boost',
             },
         },
-        SelectionPriority = 2,
+        SelectionPriority = 3,
         TechLevel = 'RULEUTL_Advanced',
         ToggleCaps = {
             RULEUTC_IntelToggle = true,
