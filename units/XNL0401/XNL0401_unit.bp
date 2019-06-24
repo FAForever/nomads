@@ -297,7 +297,7 @@ UnitBlueprint {
         Icon = 'amph',
         OrderOverrides = {
         },
-        TechLevel = 'RULEUTL_Secret',
+        TechLevel = 'RULEUTL_Experimental',
         ToggleCaps = {
         },
         UnitName = '<LOC XNL0401_name>Bullfrog',

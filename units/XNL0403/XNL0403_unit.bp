@@ -326,7 +326,7 @@ UnitBlueprint {
         },
         FactionName = 'Nomads',
         Icon = 'amph',
-        TechLevel = 'RULEUTL_Secret',
+        TechLevel = 'RULEUTL_Experimental',
         UnitName = '<LOC XNL0403_name>Crawler',
         UnitWeight = 1,
     },

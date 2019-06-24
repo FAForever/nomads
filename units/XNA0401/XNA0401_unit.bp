@@ -261,7 +261,7 @@ UnitBlueprint {
         },
         FactionName = 'Nomads',
         Icon = 'air',
-        TechLevel = 'RULEUTL_Secret',
+        TechLevel = 'RULEUTL_Experimental',
         UnitName = '<LOC XNA0401_name>Comet',
         UnitWeight = 1,
     },

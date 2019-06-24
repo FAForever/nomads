@@ -154,7 +154,7 @@ UnitBlueprint {
         },
         FactionName = 'Nomads',
         Icon = 'amph',
-        TechLevel = 'RULEUTL_Secret',
+        TechLevel = 'RULEUTL_Experimental',
         UnitName = '<LOC XNL0402_name>Beamer',
         UnitWeight = 1,
     },
