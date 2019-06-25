@@ -160,7 +160,6 @@ XNL0001 = Class(ACUUnit) {
         self.PlayCommanderWarpInEffectFlag = nil
         --if the acu is spawned in, find an orbital unit that works.
         if not self.OrbitalUnit then
-            WARN('creating new unit')
             local units = Utils.GetOwnUnitsInSphere(self:GetPosition(), 500, self:GetArmy(), categories.xno0001)
             if units[1] then
                 self.OrbitalUnit = units[1]
@@ -417,6 +416,19 @@ XNL0001 = Class(ACUUnit) {
             end
         end
     end,
+    
+    OrbitalStrikeTargets = function(self, targetPositions)
+        -- TODO:Make the acu actually have ammo. Also check if removing ammo for every shot is sane, or if it should be per function call
+        if self.OrbitalUnit then
+            for _, location in targetPositions do
+                self.OrbitalUnit:OnGivenNewTarget(location)
+                if self:GetTacticalSiloAmmoCount() > 0 then
+                    self:RemoveTacticalSiloAmmo(1)
+                end
+            end
+        end
+    end,
+
 
     SetIntelProbeEnabled = function(self, adv, enable)
         local brain = self:GetAIBrain()
@@ -764,7 +776,8 @@ XNL0001 = Class(ACUUnit) {
             self:AddEnhancementEmitterToBone( true, 'Orbital Bombardment' )
             self:AddCommandCap('RULEUCC_SiloBuildTactical')
             self:SetWeaponEnabledByLabel('TargetFinder', true)
-            self:GetAIBrain():EnableSpecialAbility( 'NomadsAreaBombardment', false)
+            -- self:GetAIBrain():EnableSpecialAbility( 'NomadsAreaBombardment', false)--this is supposed to update when the ammo is loaded
+            self:GetAIBrain():EnableSpecialAbility( 'NomadsAreaBombardment', true)--this is supposed to update when the ammo is loaded
         end,
         
         OrbitalBombardmentRemove = function(self, bp)

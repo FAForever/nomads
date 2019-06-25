@@ -13,10 +13,10 @@ NomadsAreaBombardment = Class(ScriptTask) {
 
     OrbitalStrike = function(self)
         local locations = self:GetLocations()
-        local brain = self:GetAIBrain()
-        for k, loc in locations do
-            brain:OrbitalStrikeTarget( loc )
-        end
+        local unit = self:GetUnit()
+        
+        unit:OrbitalStrikeTargets( locations )
+        
         self:SetAIResult(AIRESULT.Success)
         self.ScriptIsDone = true
     end,

@@ -144,13 +144,6 @@ UnitBlueprint {
     SizeY = 0.4,
     SizeZ = 0.9,
     SpecialAbilities = {
-        NomadsAreaBombardment = {
-            AreaOfEffect = 3,
-            MaxRadius = 0,  -- depend on other units to determine range
-            NoAutoEnable = true,
-            WantNumTargets = 1,  -- keep equal to number of weapons
-            CanUseRangeExtenders = true,
-        },
         NomadsIntelProbe = {
             MaxRadius = -1, -- unlimited range
             NoAutoEnable = true,

@@ -830,7 +830,7 @@ UnitBlueprint {
             RULEUCC_Tactical = false,
             RULEUCC_Teleport = false,
             RULEUCC_Transport = false,
-            RULEUCC_Script = false,
+            RULEUCC_Script = true,
         },
         FactionName = 'Nomads',
         Icon = 'amph',
@@ -885,8 +885,11 @@ UnitBlueprint {
     SizeZ = 0.8,
     SpecialAbilities = {
         NomadsAreaBombardment = {
-            IsRangeExtender = true,
-            MaxRadius = 200,
+            AreaOfEffect = 3,
+            MaxRadius = 200,  --same as the distance on the orbital pointer weapon
+            NoAutoEnable = true,
+            WantNumTargets = 1,  -- keep equal to number of weapons --TODO: change this so each weapon can call multiple projectiles?
+            CanUseRangeExtenders = false,
         },
     },
     StrategicIconName = 'icon_commander_generic',
@@ -1207,7 +1210,7 @@ UnitBlueprint {
             ArtilleryShieldBlocks = true,
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
-            CountedProjectile = true,
+            CountedProjectile = false,
             Damage = 450,
             DamageFriendly = true,
             DamageRadius = 3,

@@ -647,7 +647,7 @@ function CommanderBombardThread(cdr, platoon)
 
 
             -- launch bombardment at found location
-            IssueScript( { brain.NomadsMothership, }, commandData )
+            IssueScript( brain:GetSpecialAbilityUnits( AbilityName ), commandData )
 
             target = nil
             targetUnits = nil

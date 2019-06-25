@@ -226,17 +226,6 @@ AIBrain = Class(oldAIBrain) {
 
     -- ================================================================================================================
 
-    OrbitalStrikeTarget = function(self, targetPosition)
-        if self.NomadsMothership then
-            self.NomadsMothership:OnGivenNewTarget(targetPosition)
-            if self.OrbitalBombardmentInitiator:GetTacticalSiloAmmoCount() > 0 then
-                self.OrbitalBombardmentInitiator:RemoveTacticalSiloAmmo(1)
-            end
-        end
-    end,
-
-    -- ================================================================================================================
-
     CreateBrainShared = function(self, planName)
         self.RequestedUnitPool = {}
         self.SpecialAbilities = {}
@@ -251,20 +240,6 @@ AIBrain = Class(oldAIBrain) {
         oldAIBrain.CreateBrainShared(self, planName)
 
         self:LoadCustomFactions()
-    end,
-
-    OnDefeat = function(self)
-        --self:RemoveOrbitalUnit()
-        --self:KillAllRequestedUnits()
-        oldAIBrain.OnDefeat(self)
-    end,
-
-    OnVictory = function(self)
-        oldAIBrain.OnVictory(self)
-    end,
-
-    OnDraw = function(self)
-        oldAIBrain.OnDraw(self)
     end,
 
     OnSpawnPreBuiltUnits = function(self)
