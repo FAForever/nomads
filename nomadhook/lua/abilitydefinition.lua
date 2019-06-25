@@ -61,10 +61,6 @@ abilities = table.merged( abilities, {
         },
 
         GetAllUnitsFile = '/lua/user/tasks/Tasks.lua',
-        GetRangeCheckUnitsFile = '/lua/user/tasks/Tasks.lua',
-        MapReticulesToUnitIdsFile = '/lua/user/tasks/Tasks.lua',
-        UserProcessFile = '/lua/user/tasks/Tasks.lua',
-        UserVerifyFile = '/lua/user/tasks/Tasks.lua',
     },
 
     LaunchTacMissile = {
@@ -90,10 +86,6 @@ abilities = table.merged( abilities, {
         },
 
         GetAllUnitsFile = '/lua/user/tasks/Tasks.lua',
-        GetRangeCheckUnitsFile = '/lua/user/tasks/Tasks.lua',
-        MapReticulesToUnitIdsFile = '/lua/user/tasks/Tasks.lua',
-        UserProcessFile = '/lua/user/tasks/Tasks.lua',
-        UserVerifyFile = '/lua/user/tasks/Tasks.lua',
     },
 
     NomadsIntelOvercharge = {
@@ -129,10 +121,6 @@ abilities = table.merged( abilities, {
         SoundLaunched = 'IntelBoostInitiated',
 
         GetAllUnitsFile = '/lua/user/tasks/Tasks.lua',
-        GetRangeCheckUnitsFile = '/lua/user/tasks/Tasks.lua',
-        MapReticulesToUnitIdsFile = '/lua/user/tasks/NomadsIntelOvercharge.lua',
-        UserProcessFile = '/lua/user/tasks/Tasks.lua',
-        UserVerifyFile = '/lua/user/tasks/Tasks.lua',
     },
 
     NomadsAreaBombardment = {
@@ -164,10 +152,6 @@ abilities = table.merged( abilities, {
 --        SoundLaunched = 'OrbitalStrikeLaunched',
 
         GetAllUnitsFile = '/lua/user/tasks/Tasks.lua',
-        GetRangeCheckUnitsFile = '/lua/user/tasks/Tasks.lua',
-        MapReticulesToUnitIdsFile = '/lua/user/tasks/Tasks.lua',
-        UserProcessFile = '/lua/user/tasks/Tasks.lua',
-        UserVerifyFile = '/lua/user/tasks/Tasks.lua',
     },
 
     NomadsIntelProbe = {
@@ -211,10 +195,6 @@ abilities = table.merged( abilities, {
         },
 
         GetAllUnitsFile = '/lua/user/tasks/Tasks.lua',
-        GetRangeCheckUnitsFile = '/lua/user/tasks/Tasks.lua',
-        MapReticulesToUnitIdsFile = '/lua/user/tasks/Tasks.lua',
-        UserProcessFile = '/lua/user/tasks/Tasks.lua',
-        UserVerifyFile = '/lua/user/tasks/Tasks.lua',
     },
 
     NomadsIntelProbeAdvanced = {
@@ -259,10 +239,6 @@ abilities = table.merged( abilities, {
         },
 
         GetAllUnitsFile = '/lua/user/tasks/Tasks.lua',
-        GetRangeCheckUnitsFile = '/lua/user/tasks/Tasks.lua',
-        MapReticulesToUnitIdsFile = '/lua/user/tasks/Tasks.lua',
-        UserProcessFile = '/lua/user/tasks/Tasks.lua',
-        UserVerifyFile = '/lua/user/tasks/Tasks.lua',
     },
 
     TargetLocation = {
@@ -301,10 +277,6 @@ abilities = table.merged( abilities, {
         },
 
         GetAllUnitsFile = '/lua/user/tasks/Tasks.lua',
-        GetRangeCheckUnitsFile = '/lua/user/tasks/Tasks.lua',
-        MapReticulesToUnitIdsFile = '/lua/user/tasks/Tasks.lua',
-        UserProcessFile = '/lua/user/tasks/Tasks.lua',
-        UserVerifyFile = '/lua/user/tasks/Tasks.lua',
     },
     
     Capacitor = {

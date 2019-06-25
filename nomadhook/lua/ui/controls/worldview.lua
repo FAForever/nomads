@@ -4,6 +4,13 @@ local AbilityDefinition = import('/lua/abilitydefinition.lua').abilities
 local CM = import('/lua/ui/game/commandmode.lua')
 local Utilities = import('/lua/utilities.lua')
 
+--TODO: rename the tasks file to something else, or possibly remove it entirely
+TasksFile = import( '/lua/user/tasks/Tasks.lua' )
+VerifyScriptCommand2 = TasksFile.VerifyScriptCommand
+MapReticulesToUnitIdsScript = TasksFile.MapReticulesToUnitIdsScript
+ProcessUserCommandScript = TasksFile.ProcessUserCommandScript
+GetAllUnitsScript = TasksFile.GetAllUnitsScript
+GetRangeCheckUnitsScript = TasksFile.GetRangeCheckUnitsScript
 
 ReticuleSizeCorrection = 1.4
 ReticuleIdCounter = 0
@@ -100,7 +107,7 @@ WorldView = Class(oldWorldView) {
                         self.ReticuleCount = math.max(self.ReticuleCountMin, self.ReticuleCount - 1)
                         self:UpdateTargetReticules(self.DragStartPos, self.DragDelta, self.DragAngle)
                     else
-                        import('/lua/ui/game/commandmode.lua').EndCommandMode(true)
+                        CM.EndCommandMode(true)
                     end
                     EventHandled = true
                 end
@@ -179,7 +186,7 @@ WorldView = Class(oldWorldView) {
 
             if self.ReticuleCount <= 0 then
                 -- there's no unit remaining, end the command mode
-                import('/lua/ui/game/commandmode.lua').EndCommandMode(true)
+                CM.EndCommandMode(true)
                 return
             elseif i < self.ReticuleCount then
                 -- we have fewer reticules than we can have, make more!
@@ -545,8 +552,7 @@ WorldView = Class(oldWorldView) {
 
     GetAbilityUnits = function(self)
         local name = self:GetAbilityData('Name')
-        local file = self:GetAbilityData('GetAllUnitsFile')
-        local unitIds = import(file).GetAllUnitsScript(name) or {}
+        local unitIds = GetAllUnitsScript(name) or {}
         local units = {}
         local unit
         for k, unitId in unitIds do
@@ -568,8 +574,7 @@ WorldView = Class(oldWorldView) {
 
     GetRangeCheckUnits = function(self)
         local name = self:GetAbilityData('Name')
-        local file = self:GetAbilityData('GetRangeCheckUnitsFile')
-        local unitIds = import(file).GetRangeCheckUnitsScript(name) or {}
+        local unitIds = GetRangeCheckUnitsScript(name) or {}
         local unit
         local units = {}
         for k, unitId in unitIds do

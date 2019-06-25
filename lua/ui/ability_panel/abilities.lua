@@ -57,12 +57,9 @@ local numSlots = 5
 local firstAltSlot = 1
 local vertRows = 5
 local horzRows = 1
-local vertCols = numSlots/vertRows
-local horzCols = numSlots/horzRows
 
 local orderCheckboxMap = false
 local FlashTime = 5
-local SpecialAbilities = import('/lua/abilitydefinition.lua').abilities
 local availableOrders = {}
 local defaultOrdersTable = {}
 local ButtonParams = {}
@@ -78,7 +75,7 @@ function SetupOrdersControl(parent)
     SetLayout(UIUtil.currentLayout)
 
     -- setup command mode behaviors
-    import('/lua/ui/game/commandmode.lua').AddStartBehavior(
+    CM.AddStartBehavior(
         function(commandMode, data)
             local orderCheckbox = orderCheckboxMap[data]
             if orderCheckbox then
@@ -89,7 +86,7 @@ function SetupOrdersControl(parent)
 
 local oldSelection = GetSelectedUnits()
 
-    import('/lua/ui/game/commandmode.lua').AddEndBehavior(
+    CM.AddEndBehavior(
         function(commandMode, data)
             local orderCheckbox = orderCheckboxMap[data]
             if orderCheckbox then
@@ -154,7 +151,7 @@ end
 --add an ability
 function AddSpecialAbility(data)
     local AbilityName = data.AbilityName
-    local ability = SpecialAbilities[AbilityName] or false
+    local ability = AbilityDefinition[AbilityName] or false
     local AddAbility = true
 
     if not controls.orderButtonGrid then
@@ -184,7 +181,7 @@ end
 --remove an ability
 function RemoveSpecialAbility(data)
     local AbilityName = data.AbilityName
-    local ability = SpecialAbilities[AbilityName] or false
+    local ability = AbilityDefinition[AbilityName] or false
     local RemoveAbility = false
     local id = false
 
