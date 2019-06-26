@@ -174,8 +174,7 @@ XNL0001 = Class(ACUUnit) {
 
     OnKilled = function(self, instigator, type, overkillRatio)
         self:SetOrbitalBombardEnabled(false)
-        self:SetIntelProbeEnabled(true, false)
-        self:SetIntelProbeEnabled(false, false)
+        self:SetIntelProbe(false)
         ACUUnit.OnKilled(self, instigator, type, overkillRatio)
     end,
 
@@ -428,23 +427,16 @@ XNL0001 = Class(ACUUnit) {
             end
         end
     end,
-
-
-    SetIntelProbeEnabled = function(self, adv, enable)
+    
+    --accepts false or nil to remove, but sending false is preferred, more clear code that way
+    SetIntelProbe = function(self, condition)
         local brain = self:GetAIBrain()
-        if enable then
+        brain:EnableSpecialAbility( 'NomadsIntelProbeAdvanced', ('IntelProbeAdv' == condition) )
+        brain:EnableSpecialAbility( 'NomadsIntelProbe', ('IntelProbe' == condition) )
+        if condition then
             self.OrbitalUnit:ReturnToStartLocation()
-            local EnAbil, DisAbil = 'NomadsIntelProbe', 'NomadsIntelProbeAdvanced'
-            if adv then
-                EnAbil = 'NomadsIntelProbeAdvanced'
-                DisAbil = 'NomadsIntelProbe'
-            end
-            brain:EnableSpecialAbility( DisAbil, false )
-            brain:EnableSpecialAbility( EnAbil, true )
-        else
-            if not self:HasEnhancement( 'OrbitalBombardment' ) then self.OrbitalUnit:MoveAway() end
-            brain:EnableSpecialAbility( 'NomadsIntelProbeAdvanced', false )
-            brain:EnableSpecialAbility( 'NomadsIntelProbe', false )
+        elseif not self:HasEnhancement( 'OrbitalBombardment' ) then
+            self.OrbitalUnit:MoveAway()
         end
     end,
     
@@ -465,29 +457,28 @@ XNL0001 = Class(ACUUnit) {
     -- EnhancementTable = {
         -- IntelProbe = function(self, bp)
             -- self:AddEnhancementEmitterToBone( true, 'IntelProbe1' )
-            -- self:SetIntelProbeEnabled( false, true )
+            -- self:SetIntelProbe( 'IntelProbe' )
         -- end,
     -- },
     EnhancementBehaviours = {
         IntelProbe = function(self, bp)
             self:AddEnhancementEmitterToBone( true, 'IntelProbe1' )
-            self:SetIntelProbeEnabled( false, true )
+            self:SetIntelProbe( 'IntelProbe' )
         end,
         
         IntelProbeRemove = function(self, bp)
             self:AddEnhancementEmitterToBone( false, 'IntelProbe1' )
-            self:SetIntelProbeEnabled( false, false )
-
+            self:SetIntelProbe(false)
         end,
         
         IntelProbeAdv = function(self, bp)
 --            self:AddEnhancementEmitterToBone( true, 'IntelProbe1' )
-            self:SetIntelProbeEnabled( true, true )
+            self:SetIntelProbe( 'IntelProbeAdv' )
         end,
         
         IntelProbeAdvRemove = function(self, bp)
             self:AddEnhancementEmitterToBone( false, 'IntelProbe1' )
-            self:SetIntelProbeEnabled( true, false )
+            self:SetIntelProbe(false)
         end,
         
         GunUpgrade = function(self, bp)
