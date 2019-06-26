@@ -91,7 +91,7 @@ ScriptTask = Class(oldScriptTask) {
             return true
         end
 
-        local params = self:GetParams()
+        local params = self.CommandData.ExtraInfo
         if not params.DoRangeCheck then
             return true
         end
@@ -133,7 +133,7 @@ ScriptTask = Class(oldScriptTask) {
 
             -- check range if specified and use it to allow or disallow this
             local ok = true
-            local locs = self:GetLocations()
+            local locs = self.TargetLocations
             for _, loc in locs do
                 if not self:IsInRange(loc) then
                     ok = false
@@ -157,21 +157,13 @@ ScriptTask = Class(oldScriptTask) {
     end,
 
     StartCooldown = function(self)
-        local params = self:GetParams()
+        local params = self.CommandData.ExtraInfo
         if params.CoolDownTime and params.CoolDownTime > 0 then
             local tick = GetGameTick() + ( params.CoolDownTime * 10 )    -- 10 because seconds -> ticks
             local brain = self:GetAIBrain()
             brain:SetSpecialAbilityParam( self.CommandData.TaskName, 'CooledDownTick', tick )
             StartAbilityCoolDown( brain:GetArmyIndex(), self.CommandData.TaskName )
         end
-    end,
-
-    GetParams = function(self)
-        return self.CommandData.ExtraInfo
-    end,
-
-    GetLocations = function(self)
-        return self.TargetLocations
     end,
 
     TaskTick = function(self)

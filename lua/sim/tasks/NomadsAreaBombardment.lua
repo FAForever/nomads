@@ -12,7 +12,7 @@ NomadsAreaBombardment = Class(ScriptTask) {
     end,
 
     OrbitalStrike = function(self)
-        local locations = self:GetLocations()
+        local locations = self.TargetLocations
         local unit = self:GetUnit()
         
         unit:OrbitalStrikeTargets( locations )

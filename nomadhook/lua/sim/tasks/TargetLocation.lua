@@ -13,7 +13,7 @@ TargetLocation = Class(ScriptTask) {
 
     ScryLocation = function(self)
         local unit = self:GetUnit()
-        local locations = self:GetLocations()
+        local locations = self.TargetLocations
 
         for k, loc in locations do
             if loc then

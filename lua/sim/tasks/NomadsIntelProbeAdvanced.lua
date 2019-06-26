@@ -13,20 +13,20 @@ NomadsIntelProbeAdvanced = Class(ScriptTask) {
     IntelProbe = function(self)
         local brain = self:GetAIBrain()
         local projBp =    brain:GetSpecialAbilityParam( self.CommandData.TaskName, 'ProjectileBP')
-                       or self:GetParams()['ProjectileBP']
+                       or self.CommandData.ExtraInfo['ProjectileBP']
                        or '/projectiles/NIntelProbe1/NIntelProbe1_proj.bp'
         local data = {
-            Lifetime = brain:GetSpecialAbilityParam( self.CommandData.TaskName, 'Lifetime') or self:GetParams()['Lifetime'] or 60,
-            Radius = brain:GetSpecialAbilityParam( self.CommandData.TaskName, 'Radius') or self:GetParams()['Radius'] or 25,
-            ArtillerySupportRadius = brain:GetSpecialAbilityParam( self.CommandData.TaskName, 'ArtillerySupportRadius') or self:GetParams()['ArtillerySupportRadius'] or 0,
-            Omni = brain:GetSpecialAbilityParam( self.CommandData.TaskName, 'Omni') or self:GetParams()['Omni'] or false,
-            Radar = brain:GetSpecialAbilityParam( self.CommandData.TaskName, 'Radar') or self:GetParams()['Radar'] or false,
-            Sonar = brain:GetSpecialAbilityParam( self.CommandData.TaskName, 'Sonar') or self:GetParams()['Sonar'] or false,
-            Vision = brain:GetSpecialAbilityParam( self.CommandData.TaskName, 'Vision') or self:GetParams()['Vision'] or false,
-            WaterVision = brain:GetSpecialAbilityParam( self.CommandData.TaskName, 'WaterVision') or self:GetParams()['WaterVision'] or false,
+            Lifetime = brain:GetSpecialAbilityParam( self.CommandData.TaskName, 'Lifetime') or self.CommandData.ExtraInfo['Lifetime'] or 60,
+            Radius = brain:GetSpecialAbilityParam( self.CommandData.TaskName, 'Radius') or self.CommandData.ExtraInfo['Radius'] or 25,
+            ArtillerySupportRadius = brain:GetSpecialAbilityParam( self.CommandData.TaskName, 'ArtillerySupportRadius') or self.CommandData.ExtraInfo['ArtillerySupportRadius'] or 0,
+            Omni = brain:GetSpecialAbilityParam( self.CommandData.TaskName, 'Omni') or self.CommandData.ExtraInfo['Omni'] or false,
+            Radar = brain:GetSpecialAbilityParam( self.CommandData.TaskName, 'Radar') or self.CommandData.ExtraInfo['Radar'] or false,
+            Sonar = brain:GetSpecialAbilityParam( self.CommandData.TaskName, 'Sonar') or self.CommandData.ExtraInfo['Sonar'] or false,
+            Vision = brain:GetSpecialAbilityParam( self.CommandData.TaskName, 'Vision') or self.CommandData.ExtraInfo['Vision'] or false,
+            WaterVision = brain:GetSpecialAbilityParam( self.CommandData.TaskName, 'WaterVision') or self.CommandData.ExtraInfo['WaterVision'] or false,
         }
 
-        local location = self:GetLocations()[1]
+        local location = self.TargetLocations[1]
         local unit = self:GetUnit()
 
         if unit then
