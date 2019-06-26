@@ -60,7 +60,7 @@ local horzRows = 1
 
 local orderCheckboxMap = false
 local FlashTime = 2
-local availableOrders = {}
+local availableOrdersTable = {}
 local defaultOrdersTable = {}
 local ButtonParams = {}
 
@@ -157,8 +157,8 @@ function AddSpecialAbility(data)
     if not controls.orderButtonGrid then
         AddAbility = false
     else
-        for k,v in availableOrders do
-            if v == AbilityName then
+        for orderName,order in availableOrdersTable do
+            if orderName == AbilityName then
                 AddAbility = false
             end
         end
@@ -166,7 +166,7 @@ function AddSpecialAbility(data)
 
     if AddAbility and ability then
         ability['Name'] = AbilityName
-        table.insert(availableOrders, AbilityName)
+        availableOrdersTable[AbilityName] = true
         defaultOrdersTable[AbilityName] = ability
         defaultOrdersTable[AbilityName].behavior = AbilityButtonBehavior
         ButtonParams[AbilityName] = { Enabled = true, CoolDownTime = false, CurrCoolDownTime = false, CoolDownEnabled = false, CoolDownTimerValue = 0 }
@@ -185,15 +185,15 @@ function RemoveSpecialAbility(data)
     local RemoveAbility = false
     local id = false
 
-    for k,v in availableOrders do
-        if v == AbilityName then
+    for orderName,order in availableOrdersTable do
+        if orderName == AbilityName then
             RemoveAbility = true
-            id = k
+            id = orderName
         end
     end
 
     if RemoveAbility then
-        table.remove(availableOrders, id)
+        availableOrdersTable[id] = nil
         defaultOrdersTable[AbilityName] = nil
         ButtonParams[AbilityName] = nil
         SetAvailableOrders()
@@ -250,8 +250,8 @@ function SetAvailableOrders()
 
     --count our buttons
     local numValidOrders = 0
-    for i, v in availableOrders do
-        if standardOrdersTable[v] then
+    for orderName,order in availableOrdersTable do
+        if standardOrdersTable[orderName] then
             numValidOrders = numValidOrders + 1
         end
     end
@@ -282,13 +282,13 @@ function CreateAltOrders()
     -- determine what slots to put abilities into
     -- we first want a table of slots we want to fill, and what orders want to fill them
     local desiredSlot = {}
-    for index, availOrder in availableOrders do
-        if standardOrdersTable[availOrder] then
-            local UISlot = standardOrdersTable[availOrder].UISlot
+    for orderName,order in availableOrdersTable do
+        if standardOrdersTable[orderName] then
+            local UISlot = standardOrdersTable[orderName].UISlot
             if not desiredSlot[UISlot] then
                 desiredSlot[UISlot] = {}
             end
-            table.insert(desiredSlot[UISlot], availOrder)
+            table.insert(desiredSlot[UISlot], orderName)
         end
     end
 
@@ -332,21 +332,20 @@ function CreateAltOrders()
     end
 
     -- create the alt order buttons
-    for index, availOrder in availableOrders do
-        if not standardOrdersTable[availOrder] then continue end   -- skip any orders we don't have in our table
+    --for index, availOrder in availableOrdersTable do
+    for orderName,order in availableOrdersTable do
+        if not standardOrdersTable[orderName] then continue end   -- skip any orders we don't have in our table
+        local orderInfo = standardOrdersTable[orderName] or AbilityInformation[orderName]
+        local orderCheckbox = AddOrder(orderInfo, slotForOrder[orderName], true)
 
-        local orderInfo = standardOrdersTable[availOrder] or AbilityInformation[availOrder]
-        local orderCheckbox = AddOrder(orderInfo, slotForOrder[availOrder], true)
-
-        orderCheckbox._order = availOrder
-
---        if standardOrdersTable[availOrder].script then
-        if standardOrdersTable[availOrder].Name then
-            orderCheckbox._script = standardOrdersTable[availOrder].script
-            orderCheckbox._Name = standardOrdersTable[availOrder].Name
+        orderCheckbox._order = orderName
+--        if standardOrdersTable[orderName].script then
+        if standardOrdersTable[orderName].Name then
+            orderCheckbox._script = standardOrdersTable[orderName].script
+            orderCheckbox._Name = standardOrdersTable[orderName].Name
         end
 
-        orderCheckboxMap[availOrder] = orderCheckbox
+        orderCheckboxMap[orderName] = orderCheckbox
     end
 end
 
