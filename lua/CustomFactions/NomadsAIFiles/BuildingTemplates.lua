@@ -226,10 +226,10 @@ BuildingTemplates = {
             'T4LandExperimental1',
             'xnl0402',
         },
-        {
-            'T4LandExperimental2',
-            'xnl0401',
-        },
+--        {
+--            'T4LandExperimental2',
+--            'xnl0401',
+--        },
         {
             'T4AirExperimental1',
             'xna0401',
