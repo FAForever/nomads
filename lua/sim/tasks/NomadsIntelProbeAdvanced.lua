@@ -30,7 +30,7 @@ NomadsIntelProbeAdvanced = Class(ScriptTask) {
         local unit = self:GetUnit()
 
         if unit then
-            self.IntelProbeProjectile = unit:LaunchProbe(location, projBp, data)
+            self.IntelProbeProjectile = unit:RequestProbe(location, projBp, data)
             if self.IntelProbeProjectile then
                 self:SetAIResult(AIRESULT.Unknown)
             else

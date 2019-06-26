@@ -447,6 +447,14 @@ XNL0001 = Class(ACUUnit) {
             brain:EnableSpecialAbility( 'NomadsIntelProbe', false )
         end
     end,
+    
+    RequestProbe = function(self, location, projBp, data)
+        if self.OrbitalUnit then
+            self.OrbitalUnit:LaunchProbe(location, projBp, data)
+        else
+            WARN('WARN:tried to launch probe without orbital unit, aborting.')
+        end
+    end,
 
     -- =====================================================================================================================
     -- ENHANCEMENTS

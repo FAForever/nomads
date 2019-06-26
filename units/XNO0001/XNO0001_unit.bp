@@ -144,14 +144,6 @@ UnitBlueprint {
     SizeY = 0.4,
     SizeZ = 0.9,
     SpecialAbilities = {
-        NomadsIntelProbe = {
-            MaxRadius = -1, -- unlimited range
-            NoAutoEnable = true,
-        },
-        NomadsIntelProbeAdvanced = {
-            MaxRadius = -1, -- unlimited range
-            NoAutoEnable = true,
-        },
     },
 --    StrategicIconName = 'icon_experimental_generic',
 --    StrategicIconSortPriority = 55,
