@@ -59,7 +59,7 @@ local vertRows = 5
 local horzRows = 1
 
 local orderCheckboxMap = false
-local FlashTime = 5
+local FlashTime = 2
 local availableOrders = {}
 local defaultOrdersTable = {}
 local ButtonParams = {}
