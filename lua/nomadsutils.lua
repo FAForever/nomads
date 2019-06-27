@@ -188,7 +188,7 @@ function AddBombardModeToUnit(SuperClass)
                 -- units spread their fire nicely.
                 local direction = ( Random(0,1) * 2 ) - 1
                 local goal = MaxYaw * direction * RandomFloat(0, 0.5)
-                while self and not self:BeenDestroyed() and not self:IsDead() and self.BombardmentMode do
+                while self and not self:BeenDestroyed() and not self.Dead and self.BombardmentMode do
                     rotator:SetGoal( goal )
                     WaitFor(rotator)
                     WaitTicks(2)
@@ -274,7 +274,7 @@ function AddIntelOvercharge(SuperClass)
         end,
 
         CanIntelOvercharge = function(self)
-            return (not self.IntelOverchargeInRecoveryTime and not self.IsIntelOvercharging and not self.IsIntelOverchargeChargingUp and not self:IsDead() and not self:IsStunned())
+            return (not self.IntelOverchargeInRecoveryTime and not self.IsIntelOvercharging and not self.IsIntelOverchargeChargingUp and not self.Dead and not self:IsStunned())
         end,
 
         FireIntelOverchargeDeathWeapon = function(self)
@@ -922,7 +922,7 @@ function SupportedArtilleryWeapon(SuperClass)
                 local SupportingUnits = AIUtils.GetOwnUnitsAroundPoint(self.unit:GetAIBrain(), categories.ARTILLERYSUPPORT, targetPos, 70)
                 for k, unit in SupportingUnits do
                     range = unit:GetArtillerySupportRange() or 0
-                    if not unit:IsDead() and range > 0 then
+                    if not unit.Dead and range > 0 then
                         pos1 = unit:GetPosition()
                         dist = VDist2(pos1[1], pos1[3], targetPos[1], targetPos[3])
                         if dist <= range and unit:CheckCanSupportArtilleryForTarget(self.Owner, targetPos, target) then
@@ -1200,7 +1200,7 @@ function AddRapidRepair(SuperClass)
             local bp = self:GetBlueprint()
             local delay = self:GetRapidRepairParam('repairDelay')
 
-            while not self:IsDead() and self.RapidRepairCounter >= 0 do
+            while not self.Dead and self.RapidRepairCounter >= 0 do
 
                 -- if the timer isn't expired yet, add one to it
                 if self.RapidRepairCounter < delay then
@@ -1226,7 +1226,7 @@ function AddRapidRepair(SuperClass)
             self:OnStartRapidRepairing()
 
             -- the buff increases regen. Wait till we're done "repairing"
-            while not self:IsDead() and self:GetHealth() < self:GetMaxHealth() and self.RapidRepairCounter > -1 and self.RapidRepairProcessThreadHandle do
+            while not self.Dead and self:GetHealth() < self:GetMaxHealth() and self.RapidRepairCounter > -1 and self.RapidRepairProcessThreadHandle do
                 WaitTicks(1)
             end
 
@@ -1389,7 +1389,7 @@ function AddAkimbo( SuperClass )
             self.TorsoRotManip = CreateRotator(self, torsoBone, 'y', nil):SetCurrentAngle(0)
             self.Trash:Add(self.TorsoRotManip)
 
-            while not self:IsDead() do
+            while not self.Dead do
 
                 -- if we're EMP-ed then wait till we're no longer EMP-ed
                 while self:IsStunned() do

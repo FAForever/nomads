@@ -52,7 +52,7 @@ XNL0302 = Class(NLandUnit) {
         local nav = self:GetNavigator()
         local maxRot = self:GetBlueprint().Display.MovementEffects.WheelRotationMax or 45
 
-        while not self:IsDead() do
+        while not self.Dead do
 
             local target = nav:GetCurrentTargetPos()
             local MyPos = self:GetPosition()

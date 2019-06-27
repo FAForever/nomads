@@ -20,7 +20,7 @@ XNL0402 = Class(NLandUnit) {
                     if self.UnpackAnimator then frac = self.UnpackAnimator:GetAnimationFraction() end
                     self.unit:PlayBeamChargeUpSequence()
                     self.unit:ScaleBeamChargeupEffects( frac )
-                    while self and self.unit and not self.unit:IsDead() do
+                    while self and self.unit and not self.unit.Dead do
                         if self.UnpackAnimator then
                             frac = self.UnpackAnimator:GetAnimationFraction()
                             self.unit:ScaleBeamChargeupEffects( math.min(frac, 1) )
@@ -81,7 +81,7 @@ XNL0402 = Class(NLandUnit) {
                 -- only allow shutting down the beam if the lifetime is exceeded or hold fire was used. If we don't do this the beam
                 -- shuts down each time the target assigned by the player is killed. The unit then waits a while before starting the
                 -- beam again.
-                if not self.AllowBeamShutdown and self.unit and not self.unit:IsDead() then return end
+                if not self.AllowBeamShutdown and self.unit and not self.unit.Dead then return end
 
                 if self.HoldFireThread then
                     KillThread( self.HoldFireThread )

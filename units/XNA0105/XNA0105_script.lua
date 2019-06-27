@@ -53,7 +53,7 @@ XNA0105 = Class(NAirUnit) {
     end,
 
     WatchBarrelAnim = function(self, fraction)
-        while self and not self:IsDead() and self.BarrelAnim do
+        while self and not self.Dead and self.BarrelAnim do
             local r = self.BarrelAnim:GetRate()
             local f = self.BarrelAnim:GetAnimationFraction()
             if r == 0 then

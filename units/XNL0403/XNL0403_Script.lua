@@ -49,7 +49,7 @@ XNL0403 = Class(NExperimentalHoverLandUnit, SlowHover) {
                 if table.getsize( self.TargetPool ) >= 1 then
                     local keys = table.keys( self.TargetPool )
                     local target = self.TargetPool[ keys[1] ]
-                    if target and not target:BeenDestroyed() and target.IsDead and not target:IsDead() then
+                    if target and not target:BeenDestroyed() and target.IsDead and not target.Dead then
                         local maxDist = self:GetBlueprint().MaxRadius
                         if self:GetDistanceToTarget( target ) <= maxDist then
                             proj:SetNewTarget( target )

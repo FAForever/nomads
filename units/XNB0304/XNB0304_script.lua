@@ -64,7 +64,7 @@ XNB0304 = Class(NSCUFactoryUnit) {
         self:SetBlockCommandQueue(true)
 
         -- waiting for head attached to body (see thread below)
-        while self and not self:IsDead() and self.PABD_progress < 10 do
+        while self and not self.Dead and self.PABD_progress < 10 do
             WaitTicks(1)
         end
 
@@ -106,7 +106,7 @@ XNB0304 = Class(NSCUFactoryUnit) {
 
             -- checking current progress to determine the current state ---------------------------
 
-            ok = (self and not self:IsDead() and unitBeingBuilt and not unitBeingBuilt:IsDead())
+            ok = (self and not self.Dead and unitBeingBuilt and not unitBeingBuilt.Dead)
             if not ok then
                 self.PABD_progress = 99
             elseif self:GetWorkProgress() >= 1 or unitBeingBuilt:GetFractionComplete() >= 1 then

@@ -30,7 +30,7 @@ XNB2302 = Class(NStructureUnit) {
     end,
 
     WatchBuildProgress = function(self)
-        while not self:IsDead() and self:GetFractionComplete() < 1 and not self.ArtilleryAlreadyRequested do
+        while not self.Dead and self:GetFractionComplete() < 1 and not self.ArtilleryAlreadyRequested do
             if self:GetFractionComplete() >= 0.5 and (self:GetHealth() / self:GetMaxHealth()) >= 0.5 then
                 self.ArtilleryAlreadyRequested = true
                 self:FindArtillerySatellite()

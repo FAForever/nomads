@@ -251,7 +251,7 @@ XNA0104 = Class(NAirTransportUnit) {
         -- stop thruster burn after x seconds
         local fn = function(self, delay)
             WaitSeconds(delay)
-            if self and not self:IsDead() then
+            if self and not self.Dead then
                 self:DestroyThrusterBurnEffects()
             end
         end
@@ -266,7 +266,7 @@ XNA0104 = Class(NAirTransportUnit) {
     end,
 
     Fold = function(self, DoUnfold)
-        if not self:IsDead() then
+        if not self.Dead then
 
             -- makes the unit compact or not, depending on current cargo and some other parameters. Also adjusts hitbox accordingly.
             local FoldState = self:GetFoldState()

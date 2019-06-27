@@ -51,7 +51,7 @@ XNL0107 = Class(NLandUnit) {
     end,
 
     UpdateWeaponAccuracy = function(self, moving)
-        if not self:IsDead() then
+        if not self.Dead then
             self:GetWeapon(1):SetMovingAccuracy(moving)
         end
     end,

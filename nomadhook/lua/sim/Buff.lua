@@ -35,7 +35,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
                 -- activate or deactivate immobility after a delay
                 local fn = function(unit, delay, bool)
                     WaitSeconds(delay)
-                    if unit and not unit:IsDead() then
+                    if unit and not unit.Dead then
                         unit:SetImmobile(bool)
                     end
                 end
@@ -202,7 +202,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
     oldBuffAffectUnit(unit, buffName, instigator, afterRemove)
     Buffs[buffName].Affects = OrgAffectsTable
 
-    if unit and not unit:BeenDestroyed() and not unit:IsDead() then
+    if unit and not unit:BeenDestroyed() and not unit.Dead then
         unit:OnAfterBeingBuffed( buffName, instigator, nil, beforeData )
     end
 end

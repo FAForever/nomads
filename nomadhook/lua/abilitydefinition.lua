@@ -287,7 +287,7 @@ abilities = table.merged( abilities, {
             --ask what state the capacitors are in
             local CapacitorState = false
             for i,unit in import('/lua/ui/game/orders.lua').GetCurrentSelection() do
-                if unit and not unit:IsDead() then
+                if unit and not unit.Dead then
                     CapacitorState = UnitData[unit:GetEntityId()].CapacitorState --'Charging' 'Discharging' 'Filled' 'Unfilled'
                 end
             end
