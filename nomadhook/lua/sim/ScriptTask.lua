@@ -127,27 +127,20 @@ ScriptTask = Class(oldScriptTask) {
         return InRange
     end,
 
-    IfBrainAllowsRun = function(self, fn, arg1, arg2, arg3, arg4, arg5)
-        -- checks if the brain allows running this taskscript. If yes, do it. If no, display warning of potential cheating.
-        if self:IsEnabled() and not self:IsCoolingDown() then
 
+    -- checks if the brain allows running this taskscript. If yes, do it. If no, display warning of potential cheating.
+    IfBrainAllowsRun = function(self)
+        if self:IsEnabled() and not self:IsCoolingDown() then
             -- check range if specified and use it to allow or disallow this
-            local ok = true
-            local locs = self.TargetLocations
-            for _, loc in locs do
+            local locations = self.TargetLocations
+            for _, loc in locations do
                 if not self:IsInRange(loc) then
-                    ok = false
-                    break
+                    WARN('Army '..repr(self:GetAIBrain():GetArmyIndex())..' tried to invoke task script '..self.CommandData.TaskName..' on a location that is out of range!')
+                    return false
                 end
             end
 
-            if ok then
-                self:StartCooldown()
-                fn(self, arg1, arg2, arg3, arg4, arg5)
-                return true
-            else
-                WARN('Army '..repr(self:GetAIBrain():GetArmyIndex())..' tried to invoke task script '..self.CommandData.TaskName..' on a location that is out of range!')
-            end
+            return true
         else
             WARN('Army '..repr(self:GetAIBrain():GetArmyIndex())..' tried to invoke currently unavailable task script '..self.CommandData.TaskName)
         end

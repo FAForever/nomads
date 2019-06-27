@@ -5,7 +5,10 @@ local AIRESULT = import('/lua/sim/ScriptTask.lua').AIRESULT
 NomadsIntelProbeAdvanced = Class(ScriptTask) {
 
     StartTask = function(self)
-        if not self:IfBrainAllowsRun( self.IntelProbe ) then
+        if self:IfBrainAllowsRun() then
+            self:StartCooldown()
+            self:IntelProbe()
+        else
             self:SetAIResult(AIRESULT.Ignored)
         end
     end,

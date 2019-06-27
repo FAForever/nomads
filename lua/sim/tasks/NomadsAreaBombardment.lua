@@ -6,7 +6,10 @@ NomadsAreaBombardment = Class(ScriptTask) {
 
     StartTask = function(self)
         self.ScriptIsDone = false
-        if not self:IfBrainAllowsRun( self.OrbitalStrike ) then
+        if self:IfBrainAllowsRun() then
+            self:StartCooldown()
+            self:OrbitalStrike()
+        else
             self:SetAIResult(AIRESULT.Ignored)
         end
     end,

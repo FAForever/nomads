@@ -6,7 +6,10 @@ local VoiceOvers = import('/lua/ui/game/voiceovers.lua')
 NomadsIntelOvercharge = Class(ScriptTask) {
 
     StartTask = function(self)
-        self:IfBrainAllowsRun( self.IntelOvercharge )
+        if self:IfBrainAllowsRun() then
+            self:StartCooldown()
+            self:IntelOvercharge()
+        end
     end,
 
     IntelOvercharge = function(self)
