@@ -22,7 +22,7 @@ function CreateAmbientShieldEffects( unit, EffectsBag )
 
     local effectTable = NomadsEffectTemplate[efctTempl] or {}
     local offset = bp.Defense.Shield.ShieldSize - (bp.Defense.Shield.ShieldVerticalOffset or 0)
-    while unit and not unit:BeenDestroyed() and not unit:IsDead() do
+    while unit and not unit:BeenDestroyed() and not unit.Dead do
         for k, v in effectTable do
             emit = CreateEmitterAtBone( unit, bone, army, v ):OffsetEmitter(0, offset, 0)
             EffectsBag:Add( emit )
@@ -167,7 +167,7 @@ function CreateRepairBuildBeams( builder, unitBeingBuilt, BuildEffectBones, Buil
     local ox, oy, oz = unpack(unitBeingBuilt:GetPosition())
     local ok = true  -- this threaded function keeps running even if the trashbag it's in is destroyed. This boolean is used to prevent this.
 
-    while not builder:BeenDestroyed() and not builder:IsDead() and not unitBeingBuilt:BeenDestroyed() and ok do
+    while not builder:BeenDestroyed() and not builder.Dead and not unitBeingBuilt:BeenDestroyed() and ok do
         for k, v in endEntityTable do
             if not v:BeenDestroyed() then
                 if endEntityTable[k].counter <= 0 then
@@ -257,7 +257,7 @@ function CreateBuildCubeThread( unitBeingBuilt, builder, OnBeingBuiltEffectsBag,
 
     WaitSeconds(0.1)
 
-    if unitBeingBuilt:IsDead() then
+    if unitBeingBuilt.Dead then
         return
     end
 
@@ -374,7 +374,7 @@ function PlayNomadsReclaimEffects( reclaimer, reclaimed, BuildEffectBones, Effec
     local x, y, z
     local ok = true  -- this threaded function keeps running even if the trashbag it's in is destroyed. This boolean is used to prevent this.
 
-    while not reclaimer:BeenDestroyed() and not reclaimer:IsDead() and not reclaimed:BeenDestroyed() and ok do
+    while not reclaimer:BeenDestroyed() and not reclaimer.Dead and not reclaimed:BeenDestroyed() and ok do
 
         for k, v in endEntityTable do
             if not v:BeenDestroyed() then

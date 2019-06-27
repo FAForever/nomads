@@ -11,7 +11,7 @@ GenericPlatoonBehaviors = function(platoon)
     -- A generic function that is called for each unit that the AI constructs. Useful to add generic behavior for all units.
     --LOG('*DEBUG: AI GenericPlatoonBehaviors')
     for k,v in platoon:GetPlatoonUnits() do
-        if not v:IsDead() then
+        if not v.Dead then
             -- Capacitor behavior
             if not v.CapacitorToggleThread then
                 v.CapacitorToggleThread = v:ForkThread( CapacitorToggleThread )
@@ -61,10 +61,10 @@ function BombardModeToggleThread(unit)
     --LOG('*DEBUG: AI starting bombardmode toggle thread for unit '..repr(unit:GetUnitId())..' and weapon '..repr(wep:GetBlueprint().Label))
 
     Range = wep:GetBlueprint().MaxRadius or 20
-    while not unit:IsDead() do
+    while not unit.Dead do
 
         -- Wait till we can do things
-        while not unit:IsDead() and (unit:IsUnitState('Busy') or unit:IsUnitState('Attached')) do
+        while not unit.Dead and (unit:IsUnitState('Busy') or unit:IsUnitState('Attached')) do
             --LOG('*DEBUG: AI BombardModeToggleThread: not yet...')
             WaitSeconds(10)
         end
@@ -125,9 +125,9 @@ function CapacitorToggleThread(unit)
 
     local healthFrac = 0
     local TECH1
-    while not unit:IsDead() do
+    while not unit.Dead do
         -- Wait till we have a full capacitor and not occupied
-        while not unit:IsDead() and (not (unit.Sync.CapacitorState == 'Filled') or unit:IsUnitState('Busy') or unit:IsUnitState('Attached')) do
+        while not unit.Dead and (not (unit.Sync.CapacitorState == 'Filled') or unit:IsUnitState('Busy') or unit:IsUnitState('Attached')) do
             if not unit.Sync.AutoCapacitor and unit:HasEnhancement('Capacitor') then
                 unit:SetAutoCapacitor(true)
             end
@@ -209,7 +209,7 @@ function BehemothCrushBehavior(self)
     local airUnit = EntityCategoryContains(categories.AIR, experimental)
 
     --Find target loop
-    while experimental and not experimental:IsDead() do
+    while experimental and not experimental.Dead do
         if lastBase then
             targetUnit, lastBase = WreckBase(self, lastBase)
         end
@@ -217,7 +217,7 @@ function BehemothCrushBehavior(self)
             targetUnit, lastBase = FindExperimentalTarget(self)
         end
 
-        while not experimental:IsDead() and not experimental:IsIdleState() do
+        while not experimental.Dead and not experimental:IsIdleState() do
 
             local nearCommander = CommanderOverrideCheck(self)
             if nearCommander and nearCommander ~= targetUnit then
@@ -294,7 +294,7 @@ function CometTryExpGhettoGunship(self)
     local cargo, ExpInCargo, HasCargo, healthFrac, pos, beamer
 
     -- if we dont have a beamer attached then keep scanning the area to find one. If so, pick it up
-    while not unit:IsDead() do
+    while not unit.Dead do
 
         ExpInCargo = false
         HasCargo = false
@@ -302,7 +302,7 @@ function CometTryExpGhettoGunship(self)
         if cargo and table.getn(cargo) > 0 then   -- check for exp in cargo. No need to pick up a second one
             HasCargo = true
             for _,v in cargo do
-                if not v:IsDead() and EntityCategoryContains(categories.EXPERIMENTAL, v) then
+                if not v.Dead and EntityCategoryContains(categories.EXPERIMENTAL, v) then
                     ExpInCargo = true
                     break
                 end
@@ -325,7 +325,7 @@ function CometTryExpGhettoGunship(self)
 --            beamers = brain:GetUnitsAroundPoint( BeamerCat, pos, BeamerFindRadius, 'Ally' )
             beamers = AIUtils.GetOwnUnitsAroundPoint( brain, BeamerCat, pos, BeamerFindRadius )
             for k, b in beamers do
-                if not b:BeenDestroyed() and not b:IsDead() and b:GetFractionComplete() >= 1 then
+                if not b:BeenDestroyed() and not b.Dead and b:GetFractionComplete() >= 1 then
                     beamer = b
                     break
                 end
@@ -350,10 +350,10 @@ local oldCommanderBehavior = CommanderBehavior
 function CommanderBehavior(platoon)
     --LOG('*DEBUG: CommanderBehavior')
     for k,v in platoon:GetPlatoonUnits() do
-        if not v:IsDead() and not v.AIBombardThread then
+        if not v.Dead and not v.AIBombardThread then
             v.AIBombardThread = v:ForkThread( CommanderBombardThread, platoon )
         end
-        if not v:IsDead() and not v.AIIntelProbeThread then
+        if not v.Dead and not v.AIIntelProbeThread then
             v.AIIntelProbeThread = v:ForkThread( CommanderIntelProbeThread, platoon )
         end
     end
@@ -365,10 +365,10 @@ if rawget(import('/lua/AI/AIBehaviors.lua'), 'CommanderThreadSorian') then  -- C
     function CommanderThreadSorian(cdr, platoon)
         --LOG('*DEBUG: CommanderThreadSorian')
         for k,v in platoon:GetPlatoonUnits() do
-            if not v:IsDead() and not v.AIBombardThread then
+            if not v.Dead and not v.AIBombardThread then
                 v.AIBombardThread = v:ForkThread( CommanderBombardThreadSorian, platoon )
             end
-            if not v:IsDead() and not v.AIIntelProbeThread then
+            if not v.Dead and not v.AIIntelProbeThread then
                 v.AIIntelProbeThread = v:ForkThread( CommanderIntelProbeThreadSorian, platoon )
             end
         end
@@ -421,7 +421,7 @@ function CommanderBombardThread(cdr, platoon)
         AbilityCooldown = AbilityCooldown * 2
     end
 
-    while not cdr:IsDead() do
+    while not cdr.Dead do
 
         target = false
 
@@ -457,7 +457,7 @@ function CommanderBombardThread(cdr, platoon)
                     for l, targetUnit in targetUnits do
 
                         -- skip dead and moving targets
-                        if targetUnit:BeenDestroyed() or targetUnit:IsDead() or targetUnit:IsUnitState('Moving') or targetUnit:IsUnitState('Attached') or targetUnit:IsUnitState('Patrolling') then
+                        if targetUnit:BeenDestroyed() or targetUnit.Dead or targetUnit:IsUnitState('Moving') or targetUnit:IsUnitState('Attached') or targetUnit:IsUnitState('Patrolling') then
                             continue
                         end
 
@@ -506,7 +506,7 @@ function CommanderBombardThread(cdr, platoon)
                 for l, targetUnit in targetUnits do
 
                     -- skip dead and moving targets
-                    if targetUnit:BeenDestroyed() or targetUnit:IsDead() or targetUnit:IsUnitState('Moving') or targetUnit:IsUnitState('Attached') or targetUnit:IsUnitState('Patrolling') then
+                    if targetUnit:BeenDestroyed() or targetUnit.Dead or targetUnit:IsUnitState('Moving') or targetUnit:IsUnitState('Attached') or targetUnit:IsUnitState('Patrolling') then
                         continue
                     end
 
@@ -699,7 +699,7 @@ function CommanderIntelProbeThread(cdr, platoon)
         TMDrange = 15
     end
 
-    while not cdr:IsDead() do
+    while not cdr.Dead do
 
         -- check ACU enhancements
         while not cdr:HasEnhancement('IntelProbe') and not cdr:HasEnhancement('IntelProbeAdv') do

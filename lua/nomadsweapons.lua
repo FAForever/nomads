@@ -617,7 +617,7 @@ Flamer = Class(DefaultProjectileWeapon) {
     FlameTimerThread = function(self)
         -- decreases the counter value, when it reaches max the flame effect is removed.
         local max = 20 / (self:GetBlueprint().RateOfFire or 1)
-        while self and self.unit and not self.unit:BeenDestroyed() and not self.unit:IsDead() and self.FlameTimer <= max do
+        while self and self.unit and not self.unit:BeenDestroyed() and not self.unit.Dead and self.FlameTimer <= max do
             WaitTicks(1)
             self.FlameTimer = self.FlameTimer + 1
         end

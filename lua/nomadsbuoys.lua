@@ -136,7 +136,7 @@ NIntelligenceBuoy = Class(NCameraBuoy) {
     end,
 
     OnKilled = function(self, instigator, damageType, overkill)
-        if self.ProbeUnit and not self.ProbeUnit:BeenDestroyed() and not self.ProbeUnit:IsDead() then
+        if self.ProbeUnit and not self.ProbeUnit:BeenDestroyed() and not self.ProbeUnit.Dead then
             self.ProbeUnit:Kill()
         end
         NCameraBuoy.OnKilled(self, instigator, damageType, overkill)

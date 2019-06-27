@@ -157,7 +157,7 @@ function NomadsSharedFactory( SuperClass )
         if self:GetBlueprint().Display.BuildEffect.Factory.BuildFieldReversed then dir = -1 end  -- some factories have backwards bones, here's a correction
         self.ArmSlider1:SetSpeed( 1000 ):SetWorldUnits(true)
 
-        while not self:BeenDestroyed() and not self.UnitBeingBuilt:BeenDestroyed() and self.UnitBeingBuilt:GetFractionComplete() < 1 and not self:IsDead() do
+        while not self:BeenDestroyed() and not self.UnitBeingBuilt:BeenDestroyed() and self.UnitBeingBuilt:GetFractionComplete() < 1 and not self.Dead do
 
             if self.UnitBeingBuilt:GetFractionComplete() <= r then
                 mul = self.UnitBeingBuilt:GetFractionComplete() / r
@@ -265,7 +265,7 @@ NHoverLandUnit = Class(HoverLandUnit) {
     OnMotionHorzEventChange = function( self, new, old )
         HoverLandUnit.OnMotionHorzEventChange( self, new, old )
 
-        if not self:IsDead() then
+        if not self.Dead then
             local layer = self:GetCurrentLayer()
             if new == 'Stopped' or new == 'Stopping' then   -- when stopping play the idle sound, on water play a different one
                 if layer == 'Water' and self:GetBlueprint().Audio and self:GetBlueprint().Audio.AmbientMoveWater then
@@ -314,7 +314,7 @@ NExperimentalHoverLandUnit = Class(NHoverLandUnit) {
         -- damages the area every X interval
         local bp = self:GetBlueprint().Display.MovementEffects.Crush
         if bp and bp.Damage then
-            while not self:IsDead() and self.DoCrushing do
+            while not self.Dead and self.DoCrushing do
                 for k, BoneInfo in bp.Bones do
 
                     local pos = self:GetPosition( BoneInfo.BoneName )
@@ -466,7 +466,7 @@ NConstructionUnit = Class(ConstructionUnit) {
     OnMotionHorzEventChange = function( self, new, old )
         ConstructionUnit.OnMotionHorzEventChange( self, new, old )
 
-        if not self:IsDead() then
+        if not self.Dead then
             local layer = self:GetCurrentLayer()
             if new == 'Stopped' or new == 'Stopping' then   -- when stopping play the idle sound, on water play a different one
                 if layer == 'Water' and self:GetBlueprint().Audio and self:GetBlueprint().Audio.AmbientMoveWater then

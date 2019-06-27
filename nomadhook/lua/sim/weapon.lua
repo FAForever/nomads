@@ -281,7 +281,7 @@ Weapon = Class(oldWeapon) {
         local precedence = bp.AimControlPrecedence or 10
         if delay >= 0.1 then  -- if delay is less than 0 don't wait at all
             WaitSeconds(delay)
-            if self and self.unit and self.unit:IsDead() then
+            if self and self.unit and self.unit.Dead then
                 return
             end
         end

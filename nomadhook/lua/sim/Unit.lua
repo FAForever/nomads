@@ -184,7 +184,7 @@ Unit = Class(oldUnit) {
             local fn = function(self, nuke)
                 local old, new = 0, 0
                 WaitTicks(2)
-                while self and not self:IsDead() do
+                while self and not self.Dead do
                     if nuke then
                         new = self:GetNukeSiloAmmoCount()
                     else

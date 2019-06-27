@@ -36,7 +36,7 @@ XNB3301 = Class(NRadarUnit) {
 
     RotatorThread = function(self)
         local goal = 0
-        while not self:BeenDestroyed() and not self:IsDead() do
+        while not self:BeenDestroyed() and not self.Dead do
             if goal == 0 then goal = -160 else goal = 0 end
             self.Rotator:SetGoal( goal )
             WaitTicks(1)

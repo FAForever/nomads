@@ -138,7 +138,7 @@ XNL0401 = Class(NExperimentalHoverLandUnit, SlowHover) {
             return angle
         end
 
-        while not self:IsDead() do
+        while not self.Dead do
 
             target = wep:GetCurrentTarget()
             targetPos = wep:GetCurrentTargetPos()

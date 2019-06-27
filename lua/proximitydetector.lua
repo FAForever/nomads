@@ -100,7 +100,7 @@ ProxDetectEntity = Class(Entity) {
         if other:GetArmy() == -1 then -- -1 == observer
             return false
         end
-        if self.Owner:IsDead() then
+        if self.Owner.Dead then
             self:Disable()
             return false
         end

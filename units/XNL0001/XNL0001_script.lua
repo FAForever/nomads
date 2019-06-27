@@ -318,7 +318,7 @@ XNL0001 = Class(ACUUnit) {
         local GoalAngle = 0
         local target, torsoDir, torsoX, torsoY, torsoZ, MyPos
 
-        while not self:IsDead() do
+        while not self.Dead do
 
             -- don't rotate if we're not allowed to
             while not self.HeadRotationEnabled do
