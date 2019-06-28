@@ -123,8 +123,8 @@ UnitBlueprint {
         UniformScale = 0.33,
     },
     Economy = {
-        BuildCostEnergy = 1500,
-        BuildCostMass = 300,
+        BuildCostEnergy = 1800,
+        BuildCostMass = 360,
         BuildTime = 1600,
         TeleportEnergyMod = 0.15,
         TeleportMassMod = 1,
@@ -271,8 +271,6 @@ UnitBlueprint {
             DamageToShields = 600,
             DamageType = 'Normal',
             DisplayName = 'EMPactor',
-            EnergyDrainPerSecond = 150,
-            EnergyRequired = 450,
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
             },
