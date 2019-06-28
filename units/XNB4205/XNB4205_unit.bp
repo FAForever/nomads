@@ -61,11 +61,11 @@ UnitBlueprint {
             MeshZ = '/effects/Entities/Shield05_stealth/Shield05_stealthz_mesh',
             RegenAssistMult = 60,
             ShieldEnergyDrainRechargeTime = 5,
-            ShieldMaxHealth = 9000,
-            ShieldRechargeTime = 16,
+            ShieldMaxHealth = 10000,
+            ShieldRechargeTime = 26,
             ShieldRegenRate = 125,
             ShieldRegenStartTime = 3,
-            ShieldSize = 30,   -- keep shield size equal to stealth field size
+            ShieldSize = 32,   -- keep shield size equal to stealth field size
             ShieldVerticalOffset = -3, --0, -- TODO: I'm sure we can do without offset. Add ring on ground?
         },
         SubThreatLevel = 0,
@@ -110,13 +110,11 @@ UnitBlueprint {
         UniformScale = 0.35,
     },
     Economy = {
-        BuildCostEnergy = 3000,
-        BuildCostMass = 150,
-        BuildTime = 420,
+        BuildCostEnergy = 10000,
+        BuildCostMass = 900,
+        BuildTime = 2000,
+        DifferentialUpgradeCostCalculation = true,
         MaintenanceConsumptionPerSecondEnergy = 275,
-        RebuildBonusIds = {
-            'xnb4205',
-        },
     },
     Footprint = {
         SizeX = 3,
@@ -156,10 +154,11 @@ UnitBlueprint {
         UnitName = '<LOC XNB4205_name>Trickster',
         UnitWeight = 1,
         UpgradesFrom = 'xnb4202',
+        UpgradesFromBase = 'xnb4202',
     },
     Intel = {
-        RadarStealthFieldRadius = 30,
-        SonarStealthFieldRadius = 30,
+        RadarStealthFieldRadius = 16,
+        SonarStealthFieldRadius = 16,
         VisionRadius = 20,
     },
     Interface = {

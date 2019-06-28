@@ -62,10 +62,10 @@ UnitBlueprint {
             RegenAssistMult = 60,
             ShieldEnergyDrainRechargeTime = 5,
             ShieldMaxHealth = 8000,
-            ShieldRechargeTime = 16,
-            ShieldRegenRate = 115,
+            ShieldRechargeTime = 20,
+            ShieldRegenRate = 110,
             ShieldRegenStartTime = 3,
-            ShieldSize = 25,
+            ShieldSize = 20,
             ShieldVerticalOffset = -3,
         },
         SubThreatLevel = 0,
@@ -113,7 +113,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 5000,
         BuildCostMass = 500,
-        BuildRate = 15,
+        BuildRate = 20,
         BuildTime = 700,
         BuildableCategory = {
             'xnb4205',
@@ -121,7 +121,6 @@ UnitBlueprint {
         MaintenanceConsumptionPerSecondEnergy = 200,
         RebuildBonusIds = {
             'xnb4202',
-            'xnb4205',
         },
     },
     Footprint = {

@@ -63,9 +63,9 @@ UnitBlueprint {
             ShieldEnergyDrainRechargeTime = 5,
             ShieldMaxHealth = 18000,
             ShieldRechargeTime = 25,
-            ShieldRegenRate = 130,
+            ShieldRegenRate = 155,
             ShieldRegenStartTime = 3,
-            ShieldSize = 46,
+            ShieldSize = 50,
             ShieldVerticalOffset = -4, --0, -- TODO: I'm sure we can do without offset. Add ring on ground?
         },
         SubThreatLevel = 0,
@@ -111,13 +111,11 @@ UnitBlueprint {
         UniformScale = 0.42,
     },
     Economy = {
-        BuildCostEnergy = 8000,
-        BuildCostMass = 800,
-        BuildTime = 800,
+        BuildCostEnergy = 65000,
+        BuildCostMass = 3800,
+        BuildTime = 7600,
+        DifferentialUpgradeCostCalculation = true,
         MaintenanceConsumptionPerSecondEnergy = 600,
-        RebuildBonusIds = {
-            'xnb4305',
-        },
     },
     Footprint = {
         SizeX = 3,
@@ -157,10 +155,11 @@ UnitBlueprint {
         UnitName = '<LOC XNB4305_name>Illusionist',
         UnitWeight = 1,
         UpgradesFrom = 'xnb4301',
+        UpgradesFromBase = 'xnb4301',
     },
     Intel = {
-        RadarStealthFieldRadius = 46,
-        SonarStealthFieldRadius = 46,
+        RadarStealthFieldRadius = 25,
+        SonarStealthFieldRadius = 25,
         VisionRadius = 20,
     },
     Interface = {
