@@ -297,7 +297,7 @@ UnitBlueprint {
     Intel = {
         SonarRadius = 90,
         VisionRadius = 32,
-        WaterVisionRadius = 45,
+        WaterVisionRadius = 55,
     },
     Interface = {
         HelpText = '<LOC XNS0304_help>Strategic Submarine',
