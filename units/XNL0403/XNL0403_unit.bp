@@ -297,8 +297,8 @@ UnitBlueprint {
     },
     Economy = {
         BuildCostEnergy = 300000,
-        BuildCostMass = 16000,        
-        BuildRate = 1080,
+        BuildCostMass = 20000,        
+        BuildRate = 1500,
         BuildTime = 40000,
     },
     General = {
@@ -436,8 +436,8 @@ UnitBlueprint {
             },
             FiringTolerance = 180,
             Label = 'MainGun',
-            MaxRadius = 175,
-            MinRadius = 5,
+            MaxRadius = 200,
+            MinRadius = 25,
             MuzzleSalvoDelay = 0.5,
             MuzzleSalvoSize = 24,
             MuzzleVelocity = 14.5,

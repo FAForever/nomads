@@ -1,7 +1,6 @@
 -- experimental hover unit crawler
 
 local AddLights = import('/lua/nomadsutils.lua').AddLights
-local AddBombardModeToUnit = import('/lua/nomadsutils.lua').AddBombardModeToUnit
 local NExperimentalHoverLandUnit = import('/lua/nomadsunits.lua').NExperimentalHoverLandUnit
 local NomadsWeaponsFile = import('/lua/nomadsweapons.lua')
 local EMPMissileWeapon = NomadsWeaponsFile.EMPMissileWeapon
@@ -87,17 +86,6 @@ XNL0403 = Class(NExperimentalHoverLandUnit, SlowHover) {
 
             SetWeaponEnabled = function(self, enable)
                 StrategicMissileWeapon.SetWeaponEnabled(self, enable)
-
-                -- open or close the hatch based on whether we disable the weapon and make sure it stays that way by killing the
-                -- hatch thread.
-                if self.HatchThreadHandle then
-                    KillThread( self.HatchThreadHandle )
-                end
-                if enable then
-                    self.unit:OpenTMLHatch()
-                else
-                    self.unit:CloseTMLHatch()
-                end
             end,
         },
         FrontGattling01 = Class(GattlingWeapon1) {},
@@ -127,12 +115,6 @@ XNL0403 = Class(NExperimentalHoverLandUnit, SlowHover) {
     OnCreate = function(self)
         NExperimentalHoverLandUnit.OnCreate(self)
         self.SmokeEmitters = TrashBag()
-
-        self.HatchAnimManip = CreateAnimator(self)
-        self.HatchAnimManip:PlayAnim( self:GetBlueprint().Display.AnimationOpenHatch )
-        self.HatchAnimManip:SetRate(0)
-        self.HatchAnimManip:SetAnimationFraction(1)
-        self.Trash:Add( self.HatchAnimManip )
 		self.NukeEntity = 1 
     end,
 
@@ -144,19 +126,11 @@ XNL0403 = Class(NExperimentalHoverLandUnit, SlowHover) {
     OnStopBeingBuilt = function(self, builder, layer)
         NExperimentalHoverLandUnit.OnStopBeingBuilt(self, builder, layer)
         self:PlayMovementSmokeEffects('Stopped')
-        self:OpenTMLHatch()
     end,
 
     OnDetachedToTransport = function(self, transport)
     end,
 
--- ANIMATIONS =====================
-
-    OpenTMLHatch = function(self)
-    end,
-
-    CloseTMLHatch = function(self)
-    end,
 
 -- EFFECTS =====================
 
