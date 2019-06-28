@@ -1,6 +1,5 @@
 -- T3 heavy destroyer
 
-local SupportedArtilleryWeapon = import('/lua/nomadsutils.lua').SupportedArtilleryWeapon
 local AddNavalLights = import('/lua/nomadsutils.lua').AddNavalLights
 local NSeaUnit = import('/lua/nomadsunits.lua').NSeaUnit
 local AAGun = import('/lua/nomadsweapons.lua').AAGun
@@ -10,8 +9,6 @@ local UnderwaterRailgunWeapon1 = import('/lua/nomadsweapons.lua').UnderwaterRail
 local RocketWeapon1 = import('/lua/nomadsweapons.lua').RocketWeapon1
 
 NSeaUnit = AddNavalLights(NSeaUnit)
-
-PlasmaCannon = SupportedArtilleryWeapon( PlasmaCannon )
 
 XNS0302 = Class(NSeaUnit) {
     Weapons = {
