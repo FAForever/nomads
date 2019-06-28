@@ -101,7 +101,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 12750,
         BuildCostMass = 1785,
-        BuildTime = 1200,
+        BuildTime = 1600,
         RebuildBonusIds = {
             'xnb2303',
         },
@@ -219,11 +219,12 @@ UnitBlueprint {
             InitialDamage = 1000,
             Label = 'MainGun',
             MaxRadius = 128,
-            MinRadius = 5,
+            MinRadius = 50,
             MuzzleChargeDelay = 0.2,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 26.13,
+            MuzzleVelocityReduceDistance = 120,
             ProjectileId = '/projectiles/NEnergyProj1/NEnergyProj1_proj.bp',
             ProjectilesPerOnFire = 1,
             RackBones = {
