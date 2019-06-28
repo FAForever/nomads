@@ -1,25 +1,18 @@
 -- T3 gunship
 
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
-local SupportingArtilleryAbility = import('/lua/nomadsutils.lua').SupportingArtilleryAbility
 local NAirUnit = import('/lua/nomadsunits.lua').NAirUnit
-local StingrayCannon1 = import('/lua/nomadsweapons.lua').StingrayCannon1
-local AnnihilatorCannon1 = import('/lua/nomadsweapons.lua').AnnihilatorCannon1
+local PlasmaCannon = import('/lua/nomadsweapons.lua').PlasmaCannon
 local RocketWeapon1 = import('/lua/nomadsweapons.lua').RocketWeapon1
-
--- add supporting artillery ability and aa missile flares
-NAirUnit = SupportingArtilleryAbility( NAirUnit )
 
 XNA0305 = Class(NAirUnit) {
 
     Weapons = {
-        MainGun = Class(StingrayCannon1) {},
-        CannonLeft = Class(AnnihilatorCannon1) {},
-        CannonRight = Class(AnnihilatorCannon1) {},
+        CannonLeft = Class(PlasmaCannon) {},
+        CannonRight = Class(PlasmaCannon) {},
         AAMissile = Class(RocketWeapon1) {},
     },
 
-    ArtillerySupportFxBone = 'Arty_Pinger',
     BeamHoverExhaustCruise = NomadsEffectTemplate.AirThrusterLargeCruisingBeam,
     BeamHoverExhaustIdle = NomadsEffectTemplate.AirThrusterLargeIdlingBeam,
 
@@ -38,22 +31,13 @@ XNA0305 = Class(NAirUnit) {
         NAirUnit.OnMotionVertEventChange( self, new, old )
         self:UpdateHoverEmitter(new, old)
 
-        -- The weapon should not fire when close to the ground.
-
         if new == 'Up' and old == 'Bottom' then
-            -- lift off, from surface
-            -- disabling weapons so we don't fire in the ground, wait 2 ticks before enabling the weapons again
             self:EnableWeapons( 0.5, true, true )
         end
 
-        -- special abilities only available when on cruising height
         if new == 'Top' then
-            -- unit reaching target altitude, coming from surface
-            self:EnableArtillerySupport(true)
 
         elseif new == 'Down' then
-            -- unit starts landing
-            self:EnableArtillerySupport(false)
 
         end
     end,
@@ -70,7 +54,6 @@ XNA0305 = Class(NAirUnit) {
                 WaitSeconds( delay )
             end
             if groundWeapons or true then
-                self:SetWeaponEnabledByLabel( 'MainGun', enable or true )
                 self:SetWeaponEnabledByLabel( 'CannonLeft', enable or true )
                 self:SetWeaponEnabledByLabel( 'CannonRight', enable or true )
             end
