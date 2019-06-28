@@ -3,9 +3,6 @@
 local NLandUnit = import('/lua/nomadsunits.lua').NLandUnit
 local RocketWeapon1 = import('/lua/nomadsweapons.lua').RocketWeapon1
 local Utilities = import('/lua/utilities.lua')
-local AddAnchorAbilty = import('/lua/nomadsutils.lua').AddAnchorAbilty
-
-NLandUnit = AddAnchorAbilty( NLandUnit )
 
 XNL0302 = Class(NLandUnit) {
 
@@ -84,14 +81,6 @@ XNL0302 = Class(NLandUnit) {
 
             WaitSeconds(0.2)
         end
-    end,
-
-    EnableSpecialToggle = function(self)
-        self:EnableAnchor(self)
-    end,
-
-    DisableSpecialToggle = function(self)
-        self:DisableAnchor(self)
     end,
 }
 

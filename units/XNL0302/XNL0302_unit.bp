@@ -1,11 +1,6 @@
 -- T3 mobile AA
 
 UnitBlueprint {
-    Abilities = {
-        Anchor = {
-            Buff = 'AnchorModeImmobilizeAddRange',
-        },
-    },
     Audio = {
         AmbientMove = Sound {
             Bank = 'UEL',
@@ -70,7 +65,6 @@ UnitBlueprint {
     Display = {
         Abilities = {
             '<LOC ability_aa>Anti-Air',
-            '<LOC ability_anchor>Anchor'
         },
         BuildEffect = {
             ExtendsFront = 0.1,
@@ -135,9 +129,9 @@ UnitBlueprint {
         UniformScale = 0.05,
     },
     Economy = {
-        BuildCostEnergy = 8000,
-        BuildCostMass = 640,
-        BuildTime = 3200,
+        BuildCostEnergy = 10000,
+        BuildCostMass = 800,
+        BuildTime = 4000,
         TeleportEnergyMod = 0.15,
         TeleportMassMod = 1,
         TeleportTimeMod = 0.01,
@@ -162,14 +156,9 @@ UnitBlueprint {
         FactionName = 'Nomads',
         Icon = 'land',
         OrderOverrides = {
-            RULEUTC_SpecialToggle = {
-                bitmapId = 'toggle-anchor',
-                helpText = 'toggle_anchor',
-            },
         },
         TechLevel = 'RULEUTL_Secret',
         ToggleCaps = {
-            RULEUTC_SpecialToggle = true,
         },
         UnitName = '<LOC XNL0302_name>Watchman',
         UnitWeight = 1,
@@ -194,9 +183,9 @@ UnitBlueprint {
             LAYER_Water = false,
         },
         DragCoefficient = 0.2,
-        MaxAcceleration = 3.2,
-        MaxBrake = 3.2,
-        MaxSpeed = 3.2,
+        MaxAcceleration = 3.5,
+        MaxBrake = 3.5,
+        MaxSpeed = 3.5,
         MaxSpeedReverse = 0,
         MaxSteerForce = 5,
         MeshExtentsX = 0.9,
@@ -241,7 +230,7 @@ UnitBlueprint {
             CannotAttackGround = true,
             CollideFriendly = false,
             Damage = 200,
-            DamageRadius = 1.5,
+            DamageRadius = 2,
             DamageType = 'Normal',
             DisplayName = 'Missile (AA)',
             EffectiveRadius = 0,
@@ -251,7 +240,7 @@ UnitBlueprint {
             FiringRandomness = 0,
             FiringTolerance = 60,
             Label = 'MainGun',
-            MaxRadius = 44,
+            MaxRadius = 60,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 45,
