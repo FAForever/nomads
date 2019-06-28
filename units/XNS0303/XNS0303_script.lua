@@ -1,17 +1,9 @@
 -- carrier
 
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
---local SupportingArtilleryAbility = import('/lua/nomadsutils.lua').SupportingArtilleryAbility
-local AddFlares = import('/lua/nomadsutils.lua').AddFlares
---local AddNavalLights = import('/lua/nomadsutils.lua').AddNavalLights
 local NSeaUnit = import('/lua/nomadsunits.lua').NSeaUnit
 local ParticleBlaster1 = import('/lua/nomadsweapons.lua').ParticleBlaster1
 local HVFlakWeapon = import('/lua/nomadsweapons.lua').HVFlakWeapon
-
--- add supporting artillery ability and aa missile flares
---NSeaUnit = AddNavalLights(NSeaUnit)
---NSeaUnit = SupportingArtilleryAbility( NSeaUnit )
-NSeaUnit = AddFlares( NSeaUnit )
 
 XNS0303 = Class(NSeaUnit) {
 
