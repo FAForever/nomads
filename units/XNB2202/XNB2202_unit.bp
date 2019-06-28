@@ -109,9 +109,9 @@ UnitBlueprint {
         UniformScale = 0.095,
     },
     Economy = {
-        BuildCostEnergy = 3920,
-        BuildCostMass = 392,
-        BuildTime = 958,
+        BuildCostEnergy = 4000,
+        BuildCostMass = 400,
+        BuildTime = 540,
         RebuildBonusIds = {
             'xnb2202',
         },
@@ -206,7 +206,7 @@ UnitBlueprint {
             CannotAttackGround = true,
             CollideFriendly = false,
             Damage = 30,
-            DamageRadius = 1.5,
+            DamageRadius = 2,
             DamageType = 'Normal',
             DisplayName = 'Ion blaster',
             FireTargetLayerCapsTable = {
@@ -214,7 +214,7 @@ UnitBlueprint {
                 Land = 'Air',
                 Water = 'Air',
             },
-            FiringRandomness = 0.75,
+            FiringRandomness = 2,
             FiringTolerance = 4,
             Label = 'AAGun',
             MaxRadius = 44,
@@ -243,7 +243,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
             RangeCategory = 'UWRC_AntiAir',
-            RateOfFire = 1.666,
+            RateOfFire = 1.25,
             TargetCheckInterval = 0.3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
