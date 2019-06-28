@@ -1,15 +1,6 @@
 -- T2 torpedo gunship
 
 UnitBlueprint {
-    Abilities = {
-        ArtillerySupport = {
-            LockoutDuration = 1,
-            MaxSimultaniousArtillerySupport = -1,
-            Range = 22,
-            SupportGroundTargetting = true,
-            TargetCategory = 'ALLUNITS',
-        },
-    },
     Air = {
         AutoLandTime = 1,
         BankFactor = 0.1,
@@ -148,8 +139,6 @@ UnitBlueprint {
     Description = '<LOC XNA0203_desc>Torpedo Gunship',
     Display = {
         Abilities = {
-            '<LOC ability_artillerysupport>Artillery Support',
-            '<LOC ability_flares>Flares',
             '<LOC ability_sonar>Sonar',
             '<LOC ability_torpedo>Torpedoes',
         },
@@ -242,7 +231,7 @@ UnitBlueprint {
         UnitWeight = 1,
     },
     Intel = {
-        SonarRadius = 60,
+        SonarRadius = 45,
         VisionRadius = 32,
     },
     Interface = {
