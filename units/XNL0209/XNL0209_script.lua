@@ -1,11 +1,8 @@
 -- T2 field enginer
 
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
-local AddIntelOvercharge = import('/lua/nomadsutils.lua').AddIntelOvercharge
 local NConstructionUnit = import('/lua/nomadsunits.lua').NConstructionUnit
 local HVFlakWeapon = import('/lua/nomadsweapons.lua').HVFlakWeapon
-
-NConstructionUnit = AddAnchorAbilty( AddIntelOvercharge( NConstructionUnit ))
 
 XNL0209 = Class(NConstructionUnit) {
     Weapons = {
@@ -82,15 +79,6 @@ XNL0209 = Class(NConstructionUnit) {
         },
     },
 
-    OverchargeFxBone = 'TMD_Fx1',
-    OverchargeChargingFxBone = 'TMD_Fx1',
-    OverchargeExplosionFxBone = 'TMD_Fx1',
-
-    OverchargeFx = NomadsEffectTemplate.T1RadarOvercharge,
-    OverchargeRecoveryFx = NomadsEffectTemplate.T1RadarOverchargeRecovery,
-    OverchargeChargingFx = NomadsEffectTemplate.T1RadarOverchargeCharging,
-    OverchargeExplosionFx = NomadsEffectTemplate.T1RadarOverchargeExplosion,
-
     TMDEffectBones = { 'TMD_Fx1', 'TMD_Fx2', },
 
     OnCreate = function(self)
@@ -141,57 +129,6 @@ XNL0209 = Class(NConstructionUnit) {
     DestroyTAEffects = function(self)
         self.TAEffectsBag:Destroy()
         self.PlayingTAEffects = false
-    end,
-
-    OnScriptBitSet = function(self, bit)
-        NConstructionUnit.OnScriptBitSet(self, bit)
-        if bit == 1 then
-            self:IntelOverchargeBeginCharging()
-        end
-    end,
-
-    OnScriptBitClear = function(self, bit)
-        NConstructionUnit.OnScriptBitClear(self, bit)
-        if bit == 1 then
-            self:IntelOverchargeChargingCancelled()
-        end
-    end,
-
-    OnIntelOverchargeBeginCharging = function(self)
-        NConstructionUnit.OnIntelOverchargeBeginCharging(self)
-        self:SetScriptBit('RULEUTC_WeaponToggle', true)
-    end,
-
-    OnIntelOverchargeChargingCancelled = function(self)
-        NConstructionUnit.OnIntelOverchargeChargingCancelled(self)
-        self:SetScriptBit('RULEUTC_WeaponToggle', false)
-    end,
-
-    OnIntelOverchargeFinishedCharging = function(self)
-        NConstructionUnit.OnIntelOverchargeFinishedCharging(self)
-        self:RemoveToggleCap('RULEUTC_WeaponToggle')
-    end,
-
-    OnBeginIntelOvercharge = function(self)
-        NConstructionUnit.OnBeginIntelOvercharge(self)
-        self:RemoveToggleCap('RULEUTC_WeaponToggle')
-    end,
-
-    OnFinishedIntelOvercharge = function(self)
-        NConstructionUnit.OnFinishedIntelOvercharge(self)
-
-        local OverchargeRecoverTime = self:GetBlueprint().Intel.OverchargeRecoverTime or 0
-        if OverchargeRecoverTime <= 0 then
-            self:AddToggleCap('RULEUTC_WeaponToggle')
-            self:SetScriptBit('RULEUTC_WeaponToggle', false)
-        end
-    end,
-
-    OnFinishedIntelOverchargeRecovery = function(self)
-        NConstructionUnit.OnFinishedIntelOverchargeRecovery(self)
-
-        self:AddToggleCap('RULEUTC_WeaponToggle')
-        self:SetScriptBit('RULEUTC_WeaponToggle', false)
     end,
 }
 
