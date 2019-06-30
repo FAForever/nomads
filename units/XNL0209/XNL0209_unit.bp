@@ -132,7 +132,6 @@ UnitBlueprint {
             '<LOC ability_engineeringsuite>Engineering Suite',
             '<LOC ability_hover>Hover',
             '<LOC ability_radar>Radar',
-            '<LOC ability_sonar>Sonar',
             '<LOC ability_tacmissiledef>Tactical Missile Defense',
         },
         BuildEffect = {
@@ -232,7 +231,7 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 1000,
         BuildCostMass = 225,
-        BuildRate = 17,
+        BuildRate = 17.5,
         BuildTime = 1000,
         BuildableCategory = {
             'BUILTBYTIER2ENGINEER DEFENSE NOMADS',
@@ -286,7 +285,6 @@ UnitBlueprint {
     },
     Intel = {
         RadarRadius = 45,
-        SonarRadius = 45,
         VisionRadius = 20,
     },
     Interface = {
@@ -307,9 +305,9 @@ UnitBlueprint {
         },
         DragCoefficient = 0.2,
         Elevation = 0.20,
-        MaxAcceleration = 3.5,
-        MaxBrake = 3.5,
-        MaxSpeed = 3.5,
+        MaxAcceleration = 3.2,
+        MaxBrake = 3.2,
+        MaxSpeed = 3.2,
         MaxSpeedReverse = 0,
         MaxSteerForce = 1000,
         MeshExtentsX = 1.1,
@@ -371,7 +369,7 @@ UnitBlueprint {
             FiringRandomness = 0,
             Label = 'MainGun',
             MaximumBeamLength = 40,
-            MaxRadius = 23, --29,9 with anchor
+            MaxRadius = 23,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             NeedPrep = true,
