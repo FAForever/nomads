@@ -87,11 +87,6 @@ XNL0209 = Class(NConstructionUnit) {
         self.PlayingTAEffects = false
     end,
 
-    OnStopBeingBuilt = function(self, builder, layer)
-        NConstructionUnit.OnStopBeingBuilt(self, builder, layer)
-        self:SetMaintenanceConsumptionActive()
-    end,
-
     OnDestroy = function(self)
         self:DestroyTAEffects()
         NConstructionUnit.OnDestroy(self)

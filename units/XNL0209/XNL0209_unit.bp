@@ -238,8 +238,7 @@ UnitBlueprint {
             'BUILTBYTIER2ENGINEER DEFENSE NOMADS',
             'BUILTBYTIER2ENGINEER INDIRECTFIRE NOMADS',
         },
-        MaintenanceConsumptionPerSecondEnergy = 15,
-        MaxBuildDistance = 10,
+        MaxBuildDistance = 5,
         NeedToFaceTargetToBuild = false,
         StorageEnergy = 200,
         StorageMass = 30,
@@ -257,7 +256,7 @@ UnitBlueprint {
             YawBone = 'Engi_Yaw',
         },
         Category = 'Utility',
-        Classification = 'RULEUC_MilitaryVehicle',
+        Classification = 'RULEUC_Engineer',
         CommandCaps = {
             RULEUCC_Attack = false,
             RULEUCC_CallTransport = true,
@@ -277,24 +276,18 @@ UnitBlueprint {
         FactionName = 'Nomads',
         Icon = 'amph',
         OrderOverrides = {
-            RULEUTC_IntelToggle = {
-                bitmapId = 'radar',
-                helpText = 'toggle_radar',
-            },
         },
         SelectionPriority = 3,
         TechLevel = 'RULEUTL_Advanced',
         ToggleCaps = {
-            RULEUTC_IntelToggle = true,
         },
         UnitName = '<LOC XNL0209_name>Scarab',
         UnitWeight = 1,
     },
     Intel = {
-        VisionRadius = 25,
-        RadarRadius = 50,
-        ShowIntelOnSelect = true,
-        SonarRadius = 50,
+        RadarRadius = 45,
+        SonarRadius = 45,
+        VisionRadius = 20,
     },
     Interface = {
         HelpText = '<LOC XNL0209_help>Hover unit equipped with limited engineering capabilities and a tactical missile defense installation. Can only construct offensive and defensive structures.',
