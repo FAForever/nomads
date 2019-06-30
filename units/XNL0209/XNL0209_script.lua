@@ -1,7 +1,6 @@
 -- T2 field enginer
 
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
-local AddAnchorAbilty = import('/lua/nomadsutils.lua').AddAnchorAbilty
 local AddIntelOvercharge = import('/lua/nomadsutils.lua').AddIntelOvercharge
 local NConstructionUnit = import('/lua/nomadsunits.lua').NConstructionUnit
 local HVFlakWeapon = import('/lua/nomadsweapons.lua').HVFlakWeapon
@@ -156,14 +155,6 @@ XNL0209 = Class(NConstructionUnit) {
         if bit == 1 then
             self:IntelOverchargeChargingCancelled()
         end
-    end,
-
-    EnableSpecialToggle = function(self)
-        self:EnableAnchor(self)
-    end,
-
-    DisableSpecialToggle = function(self)
-        self:DisableAnchor(self)
     end,
 
     OnIntelOverchargeBeginCharging = function(self)
