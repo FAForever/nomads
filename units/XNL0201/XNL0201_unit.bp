@@ -209,7 +209,7 @@ UnitBlueprint {
         VisionRadius = 20,
     },
     Interface = {
-        HelpText = '<LOC XNL0201_help>Tank',
+        HelpText = '<LOC XNL0201_help>Armored medium tank. Armed with a single cannon, useful against lower tier units.',
     },
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.4,

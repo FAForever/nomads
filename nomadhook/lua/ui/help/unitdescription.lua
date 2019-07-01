@@ -147,7 +147,7 @@ Description = table.merged( Description, {
     -- NOMADS LAND UNITS
     ['xnl0101'] = "<LOC xnl0101_help>Fast, lightly armored reconnaissance vehicle. Armed with a light gun and a state-of-the-art sensor suite.",
     ['xnl0106'] = "<LOC xnl0106_help>Lightly armored hover tank. Provides direct-fire support against low-end units.",
-    ['xnl0201'] = "<LOC xnl0201_help>Armored hover tank. Armed with a single cannon, useful against lower tier units.",
+    ['xnl0201'] = "<LOC xnl0201_help>Armored medium tank. Armed with a single cannon, useful against lower tier units.",
     ['xnl0103'] = "<LOC xnl0103_help>Mobile anti-air defense and artillery. Effective against low-end enemy air units. Can also target surface units with its rockets.",
     ['xnl0107'] = "<LOC xnl0107_help>Carries a long range cannon that kills almost any lower tier unit with one direct hit. Inaccurate when moving but deadly when still, ideal for ambushes.",
 
