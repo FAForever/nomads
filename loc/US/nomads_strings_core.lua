@@ -705,7 +705,7 @@ xnl0302_name = "Watchman"
 
 -- T2 mobile missile defense
 xnl0209_desc = "Field Engineer"
-xnl0209_help = "Hover unit equipped with engineering capabilities and a tactical missile defense installation. Has anchor option to increase intel and tmd range as well as the build capacity."
+xnl0209_help = "Hover unit equipped with engineering capabilities and a tactical missile defense installation. Can only construct offensive and defensive structures."
 xnl0209_name = "Scarab"
 
 -- T3 tracked tank

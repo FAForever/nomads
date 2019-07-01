@@ -288,7 +288,7 @@ UnitBlueprint {
         VisionRadius = 20,
     },
     Interface = {
-        HelpText = '<LOC XNL0209_help>Hover unit equipped with limited engineering capabilities and a tactical missile defense installation. Can only construct offensive and defensive structures.',
+        HelpText = '<LOC XNL0209_help>Hover unit equipped with engineering capabilities and a tactical missile defense installation. Can only construct offensive and defensive structures.',
     },
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.4,

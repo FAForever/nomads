@@ -162,7 +162,7 @@ Description = table.merged( Description, {
     ['xnl0109'] = "<LOC xnl0109_help>Doesn't have direct fire weapons but coordinates attacks from orbit.",
     ['xnl0304'] = "<LOC xnl0304_help>Attacks targets at great range. Needs to deploy before firing.",
     ['xnl0302'] = "<LOC xnl0302_help>Launches anti-air missiles at enemy aircraft.",
-    ['xnl0209'] = "<LOC xnl0209_help>Hover unit equipped with limited engineering capabilities and a tactical missile defense installation. Can only construct offensive and defensive structures.",
+    ['xnl0209'] = "<LOC xnl0209_help>Hover unit equipped with engineering capabilities and a tactical missile defense installation. Can only construct offensive and defensive structures.",
     ['xnl0305'] = "<LOC xnl0305_help>Tracked tank unit that carries dual plasma cannons and very heavy armor.",
 
     ['xnl0402'] = "<LOC xnl0402_help>Beam Tank",
