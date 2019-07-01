@@ -2,7 +2,6 @@
 
 local NCivilianStructureUnit = import('/lua/nomadsunits.lua').NCivilianStructureUnit
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
-local CreateNomadsBuildSliceBeams = import('/lua/nomadseffectutilities.lua').CreateNomadsBuildSliceBeams
 
 xnc0001 = Class(NCivilianStructureUnit) {
 
@@ -10,15 +9,8 @@ xnc0001 = Class(NCivilianStructureUnit) {
         self.BuildEffectsBag = TrashBag()
         self.EngineEffectsBag = TrashBag()
         self.ThrusterEffectsBag = TrashBag()
-
         NCivilianStructureUnit.OnCreate(self)
-
-        
-        self:Landing(true)
-        ForkThread(function()
-            -- WaitSeconds(12)
-            -- self:TakeOff()
-        end)
+        self:Landing(true) --landing animation
     end,
     
     --rotators

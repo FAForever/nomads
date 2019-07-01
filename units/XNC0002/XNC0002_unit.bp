@@ -41,21 +41,6 @@ UnitBlueprint {
     },
     Description = '<LOC xnc0002_desc>Orbital Cruiser',
     Display = {
-        IdleEffects = {
-            Land = {
-                Effects = {
-                    {
-                        Bones = {
-                            'ThrusterFrontRight',
-                            'ThrusterFrontLeft',
-                            'ThrusterBackLeft',
-                            'ThrusterBackRight',
-                        },
-                        Type = 'AeonGroundFXT1Engineer',
-                    },
-                },
-            },
-        },
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -72,7 +57,7 @@ UnitBlueprint {
         },
         PlaceholderMeshName = 'UXL0004',
         SpawnRandomRotation = true,
-        UniformScale = 0.16,
+        UniformScale = 0.6,
     },
     Economy = {
         BuildCostEnergy = 72000,
@@ -140,14 +125,10 @@ UnitBlueprint {
     },
     Rotators = {
         Stationary = false,
-        --if Stationary == true
-        -- PrimaryAngle = 45,
-        -- SecondaryAngle = -45,
-        --if Stationary == false
-        PrimaryAccel = 5,
-        PrimarySpeed = 10,
-        SecondaryAccel = -5,
-        SecondarySpeed = -20,
+        InnerAcceleration = 5,
+        InnerSpeed = 240,
+        OuterAcceleration = -10,
+        OuterSpeed = -480,
     },
     SelectionSizeX = 3,
     SelectionSizeZ = 8,
