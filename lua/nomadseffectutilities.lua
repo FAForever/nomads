@@ -98,6 +98,7 @@ function PlaySparkleEffectAtUnitBeingBuilt( builder, unitBeingBuilt, snd )
 end
 
 -- beams coming from engineers and ACU when constructing
+--TODO:rewrite this.
 function CreateNomadsBuildSliceBeams( builder, unitBeingBuilt, BuildEffectBones, BuildEffectsBag )
 
     if not unitBeingBuilt.BuilderList then
@@ -117,16 +118,11 @@ function CreateNomadsBuildSliceBeams( builder, unitBeingBuilt, BuildEffectBones,
     local ox, oy, oz = unpack(unitBeingBuilt:GetPosition())
     local x, y, z, bx, by, bz
     local maxDiff = 0.25
-    local c = 0
     local ok = true  -- this threaded function keeps running even if the trashbag it's in is destroyed. This boolean is used to prevent this.
 
-    while not builder:BeenDestroyed() and not unitBeingBuilt:BeenDestroyed() and unitBeingBuilt:GetFractionComplete() < 1 and ok or ubbBp.BlueprintId == 'xno2302' or builder:GetBlueprint().BlueprintId == 'xnc0001' do
-        -- c counts down. when it reached 0 find new random offset within the unit. All endpoint entities will be grouped around this offset
-        c = c - 1
-        if c <= 0 then
-            c = Random(10,30)
-            bx, by, bz = builder.GetRandomOffset(unitBeingBuilt, 1 )
-        end
+    while not builder:BeenDestroyed() and not unitBeingBuilt:BeenDestroyed() and unitBeingBuilt:GetFractionComplete() < 1 and ok or builder:GetBlueprint().BlueprintId == 'xnc0001' do
+        bx, by, bz = builder.GetRandomOffset(unitBeingBuilt, 1 )
+        local randWaitTime = Random(10,30)
         for k, v in endEntityTable do
             if not v:BeenDestroyed() then
                 if endEntityTable[k].counter <= 0 then
@@ -134,17 +130,17 @@ function CreateNomadsBuildSliceBeams( builder, unitBeingBuilt, BuildEffectBones,
                     y = (by + RandomFloat(-maxDiff, maxDiff)) * (BeamYWarpScale or 1)
                     z = (bz + RandomFloat(-maxDiff, maxDiff)) * (BeamZWarpScale or 1)
                     Warp( v, Vector(ox + x, oy + y, oz + z))
-                    endEntityTable[k].counter = Random(0, math.min(7, c))
+                    endEntityTable[k].counter = Random(0, math.min(7, randWaitTime))
                     PlaySparkleEffectAtUnitBeingBuilt( builder, unitBeingBuilt, 'ConstructSparkle' )
                 else
-                    endEntityTable[k].counter = endEntityTable[k].counter - 1
+                    endEntityTable[k].counter = endEntityTable[k].counter - 20
                 end
             else
                 ok = false
                 break
             end
         end
-        WaitSeconds( 0.1 )
+        WaitSeconds( randWaitTime/20 )
     end
 
     WaitSeconds( 0.1 ) -- some time to continue displaying the effects. Is sometimes nice when something is constructed in 1 tick or less (build walls with ACU T3 enh..)
@@ -179,14 +175,14 @@ function CreateRepairBuildBeams( builder, unitBeingBuilt, BuildEffectBones, Buil
                     endEntityTable[k].counter = Random(0, 7)
                     PlaySparkleEffectAtUnitBeingBuilt( builder, unitBeingBuilt, 'ConstructSparkle' )
                 else
-                    endEntityTable[k].counter = endEntityTable[k].counter - 1
+                    endEntityTable[k].counter = endEntityTable[k].counter - 5
                 end
             else
                 ok = false
                 break
             end
         end
-        WaitSeconds( 0.1 )
+        WaitSeconds( 0.5 )
     end
 
     -- destroy beams cause no longer needed
@@ -386,14 +382,14 @@ function PlayNomadsReclaimEffects( reclaimer, reclaimed, BuildEffectBones, Effec
                     endEntityTable[k].counter = Random(0, 2)
                     PlaySparkleEffectAtUnitBeingBuilt( reclaimer, reclaimed, 'ReclaimSparkle' )
                 else
-                    endEntityTable[k].counter = endEntityTable[k].counter - 1
+                    endEntityTable[k].counter = endEntityTable[k].counter - 5
                 end
             else
                 ok = false
                 break
             end
         end
-        WaitSeconds( 0.1 )
+        WaitSeconds( 0.5 )
     end
 end
 
