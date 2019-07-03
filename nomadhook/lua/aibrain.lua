@@ -15,6 +15,171 @@ AIBrain = Class(oldAIBrain) {
     -- TASK SCRIPT SUPPORT
     -- ================================================================================================================
     --TODO: refactor this, at least so its self.SpecialAbilityUnits[unitId][abilityType] instead of self.SpecialAbilityUnits[type][unitId]
+    
+    --[[
+    --list of the abilities that the army brain has. parameters for each ability. If the ability is available to activate immediately.
+    --example structure:
+    BrainSpecialAbilities = {
+        AreaBombardment = { --AbilityType
+            AvailableNow = false,
+            NumberOfReticules = 1,
+            RangeCheckRequired = true,
+        },
+    },
+    
+    --list of units that have abilities. list of abilities of each unit. parameters for each ability. if the ability is available to activate immediately.
+    
+    --example structure:
+    UnitSpecialAbilities = {
+        1 = { --unitID
+            AreaBombardment = { --AbilityType
+                AvailableNowUnit = 0,
+                AreaOfEffect = 1,
+                RangeCheckUnitRequired = true,
+            },
+        },
+    },
+    
+    --how to loop through the units list per ability
+    for unitID,abilityTypes in UnitSpecialAbilities do
+        if abilityTypes[abilityname] and abilityTypes[abilityname][parameter] == false then
+            abilityTypes[abilityname][parameter] = true
+        end
+    end
+    
+    --]]
+    
+    
+    BrainSpecialAbilities = {},
+    UnitSpecialAbilities = {},
+    
+    --abilities get added, removed, changed
+    SetSpecialAbility = function(self, abilityName, data)
+        if data == 'Remove' and self.BrainSpecialAbilities[abilityName] then
+            self.BrainSpecialAbilities[abilityName] = nil
+        elseif type(data) == 'table' then
+            if not self.BrainSpecialAbilities[abilityName] then
+                self.BrainSpecialAbilities[abilityName] = data
+            else
+                for key,value in data do
+                    self.BrainSpecialAbilities[abilityName][key] = value
+                end
+            end
+        else
+            WARN('Nomads: Attempt to set special ability with malformed data!')
+        end
+        
+        self.QueueAbilityPanelUpdate = true
+    end,
+    
+    --units update themselves in the list when they gain, change or lose abilities
+    --brain:SetUnitSpecialAbility(self, 'OrbitalBombardment', {AvailableNowUnit = 1,})
+    SetUnitSpecialAbility = function(self, unit, abilityName, data)
+        local unitId = unit:GetEntityId()
+        --replace unit argument with unitId argument?
+        
+        if data == 'Remove' and self.UnitSpecialAbilities[unitId][abilityName] then
+            self.UnitSpecialAbilities[unitId][abilityName] = nil
+        elseif type(data) == 'table' then
+            if not self.UnitSpecialAbilities[unitId] then
+                self.UnitSpecialAbilities[unitId] = {}
+            end
+            if not self.UnitSpecialAbilities[unitId][abilityName] then
+                self.UnitSpecialAbilities[unitId][abilityName] = data
+            else
+                --TODO: some table.merged?
+                for key,value in data do
+                    self.UnitSpecialAbilities[unitId][abilityName][key] = value
+                end
+            end
+        else
+            WARN('Nomads: Attempt to set special ability with malformed data!')
+        end
+        
+        self.QueueAbilityPanelUpdate = true
+    end,
+    
+    --this ensures we only update the panel at most once per tick. No need to spam this late game.
+    AbilityPanelUpdateThread = function(self)
+        local army = self:GetArmyIndex()
+        while not self:IsDefeated() do
+            WaitTicks(1)
+            if self.QueueAbilityPanelUpdate then
+                self:CheckAbilities()
+                UpdateSpecialAbilityUI(army, self.BrainSpecialAbilities)
+                self.QueueAbilityPanelUpdate = false
+            end
+        end
+    end,
+    
+    --units register abilities when they are built, and deregister them when they die.
+    --when units are destroyed, their abilities are deregistered.
+    --upgrades register and deregister special abilities for units.
+    --weapons, timers and more set whether abilities can be activated immediately.
+    
+    --when the unit list is updates, the abilities are updated too.
+    --when abilities are updated, the UI gets notified.
+    
+    --The ui is notified and arranges ability buttons on the panel as per the abilities list.
+    --It adds, removes, enables, disables the ability buttons.
+    
+    --when pressed, the ability buttons issue a run the script for that ability.
+    --if a script operates on units, having units selected will cause the script to run only on the selection and not the whole army.
+    --these script orders then go through many checks to make sure they work properly.
+    --These scripts give any orders needed, and then notify the abilities panel.
+    
+    --this makes sure that the abilities table matches the units, both in listed and currently available abilities.
+    CheckAbilities = function(self)
+        --dont run more than once per tick (danger - make sure it doesnt miss any updates - add a queue function and a loop. the queue function sets to true, the loop runs the check and then resets the queue function.)
+        --add any missing abilities
+        --remove any unused abilities
+        
+        --set each ability as useable if there is a unit that can use it right now.
+        
+        --we loop through the whole queue to make sure we dont miss anything, and check for multiple things so we stuff this table here with our results.
+        local AbilityUpdateQueue = {}
+        
+        for unitID, abilityTypes in self.UnitSpecialAbilities do
+            local unit = GetEntityById(unitID)
+            if not unit or unit:BeenDestroyed() then
+                self.UnitSpecialAbilities[unitID] = nil
+                continue
+            end
+            for AbilityName, Ability in abilityTypes do
+                --discount disabled abilities. if all units have it disabled, the ability disappears from the panel.
+                if Ability.Enabled == false then continue end
+                
+                if not AbilityUpdateQueue[AbilityName] then
+                    AbilityUpdateQueue[AbilityName] = 0
+                end
+                if Ability.AvailableNowUnit > 0 then
+                    --right now we only support true/false but we might as well count them since we need to loop through everything anyway
+                    --also this means that adding in a UI counter for the number of units that can activate an ability at any time becomes trivial!
+                    AbilityUpdateQueue[AbilityName] = AbilityUpdateQueue[AbilityName] + 1
+                end
+            end
+        end
+        
+        for Ability, AbilityData in self.BrainSpecialAbilities do
+            if AbilityUpdateQueue[Ability] then
+                --self.BrainSpecialAbilities[Ability]['AvailableNow'] = AbilityUpdateQueue[Ability]
+                AbilityData['AvailableNow'] = AbilityUpdateQueue[Ability]
+                AbilityUpdateQueue[Ability] = nil --remove the entry from the table
+            else --optional: add a flag for having unit-less abilities? elseif not AbilityUpdateQueue[Ability]['UnitUnrestricted'] then
+                --remove the ability since no units support it
+                self.BrainSpecialAbilities[Ability] = nil
+            end
+        end
+        
+        --add in any missing abilities.
+        for Ability, AvailableCount in AbilityUpdateQueue do
+            if not self.BrainSpecialAbilities[Ability] then
+                self.BrainSpecialAbilities[Ability] = {}
+            end
+            --TODO: add in any missing parameters using the default abilities tables. or perhaps not.
+            self.BrainSpecialAbilities[Ability]['AvailableNow'] = AvailableCount
+        end
+    end,
 
 
     SpecialAbilities = {},
