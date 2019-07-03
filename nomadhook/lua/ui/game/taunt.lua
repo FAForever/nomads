@@ -1,6 +1,8 @@
-﻿do
+﻿
+-- hook taunts
 
--- TODO: Add our own taunts here
+-- Nichols ID  99-108
+-- Benson  ID 109-116
 
 taunts = table.cat( taunts, {
 
@@ -25,5 +27,3 @@ taunts = table.cat( taunts, {
     {text = '<LOC NTaunts_MP1_011_017>[{i Benson}]: Your strategy is as primitive as your tech.', bank = 'NTaunts', cue = 'NTaunt_Benson_008'},
 
 } )
-
-end

@@ -1,9 +1,5 @@
-do
+-- hook taunt index table
 
--- TODO: find a good way to support other faction taunts
-
-local NomadsTaunts = { 65, }
-
-AITaunts = table.insert( AITaunts, NomadsTaunts )
-
-end
+AITaunts = table.cat( AITaunts, {
+    {99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116}, -- Nomads
+} )
