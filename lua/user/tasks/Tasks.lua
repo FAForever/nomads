@@ -160,26 +160,12 @@ UnitsAreInArmy = function(units, army)
     return true, army
 end
 
+
+-- filter out units that are not selected. uses Command data. Alternatively could use GetSelectedUnitIds from abilities.lua. not sure whats better.
 DoUnitSelectedFilter = function(abilityName, unitIds)
-    -- filter out units that are not selected. First find out whether that should be done, if yes do the filtering.
-    local SelectedUnitIds = {}
-    local UseSelected = false
-    local views = import('/lua/ui/game/worldview.lua').GetWorldViews()
-    for k, view in views do
-        if view:GetAbilityData('Name') == abilityName then
-            UseSelected = view:GetUseSelectedUnits(view)
-            SelectedUnitIds = view:GetSelectedUnitIds(view)
-            break
-        end
-    end
-    if UseSelected and SelectedUnitIds then
-        local newUnitIds = {}
-        for k, unitId in unitIds do
-            if table.find(SelectedUnitIds, unitId) then
-                newUnitIds[k] = unitId
-            end
-        end
-        unitIds = newUnitIds
+    local mode = import('/lua/ui/game/commandmode.lua').GetCommandMode() --TODO:after fixing this entire file move the import somewhere sane
+    if mode[1] == 'order' and mode[2].TaskName and AbilityDefinition[ mode[2].TaskName ] and mode[2].Behaviour.UseSelected and table.getn(mode[2].SelectedUnits) > 0 then
+        unitIds = table.filter(unitIds, function(v) return table.find(mode[2].SelectedUnits, v) end)
     end
     return unitIds
 end

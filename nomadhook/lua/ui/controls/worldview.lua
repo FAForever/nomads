@@ -564,14 +564,6 @@ WorldView = Class(oldWorldView) {
         return units
     end,
 
-    GetSelectedUnitIds = function(self)
-        return self.SelectedUnits or {}
-    end,
-
-    GetUseSelectedUnits = function(self)
-        return (self.Behavior.UseSelected and table.getsize(self:GetSelectedUnitIds()) > 0) or false
-    end,
-
     GetRangeCheckUnits = function(self)
         local name = self:GetAbilityData('Name')
         local unitIds = GetRangeCheckUnitsScript(name) or {}
