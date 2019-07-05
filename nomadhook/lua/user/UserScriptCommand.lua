@@ -4,8 +4,7 @@ AbilityDefinition = import('/lua/abilitydefinition.lua').abilities
 TasksFile = import( '/lua/user/tasks/Tasks.lua' )
 VerifyScriptCommand2 = TasksFile.VerifyScriptCommand
 MapReticulesToUnitIdsScript = TasksFile.MapReticulesToUnitIdsScript
-ProcessUserCommandScript = TasksFile.ProcessUserCommandScript
-GetAllUnitsScript = TasksFile.GetAllUnitsScript
+GetAvailableAbilityUnits = TasksFile.GetAvailableAbilityUnits
 
 
 function VerifyScriptCommand(data)
@@ -27,7 +26,7 @@ function VerifyScriptCommand(data)
 
     -- get units associated with this task
     if abilDef.GetAllUnitsFile then
-        result.UnitIds = GetAllUnitsScript( TaskName )
+        result.UnitIds = GetAvailableAbilityUnits( TaskName )
         for k, id in result.UnitIds do
             table.insert( result.Units, GetUnitById(id) )
         end
@@ -38,9 +37,6 @@ function VerifyScriptCommand(data)
             table.insert( result.Units, GetUnitById(id) )
         end
     end
-
-    -- allow customized manipulations
-    result = ProcessUserCommandScript(TaskName, result)
 
     -- reticule things - retrieve from UI, assign a reticule position to a unit, remove excess units from task list
     local ReticulePositions

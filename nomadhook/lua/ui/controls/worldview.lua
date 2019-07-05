@@ -8,8 +8,7 @@ local Utilities = import('/lua/utilities.lua')
 TasksFile = import( '/lua/user/tasks/Tasks.lua' )
 VerifyScriptCommand2 = TasksFile.VerifyScriptCommand
 MapReticulesToUnitIdsScript = TasksFile.MapReticulesToUnitIdsScript
-ProcessUserCommandScript = TasksFile.ProcessUserCommandScript
-GetAllUnitsScript = TasksFile.GetAllUnitsScript
+GetAvailableAbilityUnits = TasksFile.GetAvailableAbilityUnits
 GetRangeCheckUnitsScript = TasksFile.GetRangeCheckUnitsScript
 
 ReticuleSizeCorrection = 1.4
@@ -552,7 +551,7 @@ WorldView = Class(oldWorldView) {
 
     GetAbilityUnits = function(self)
         local name = self:GetAbilityData('Name')
-        local unitIds = GetAllUnitsScript(name) or {}
+        local unitIds = GetAvailableAbilityUnits(name) or {}
         local units = {}
         local unit
         for k, unitId in unitIds do

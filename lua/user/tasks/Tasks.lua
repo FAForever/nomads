@@ -1,19 +1,12 @@
 -- Keeps some administrative values and has generic validation functions.
 
 local AbilityDefinition = import('/lua/abilitydefinition.lua').abilities
-
 local GetWorldViews = import('/lua/ui/game/worldview.lua').GetWorldViews
-
-function GetAllUnitsScript( TaskName )
-    return GetAvailableAbilityUnitsForFocusArmy( TaskName )
-end
-
-function ProcessUserCommandScript( TaskName, data)
-    return data
-end
+--local CM = import('/lua/ui/game/commandmode.lua')
 
 function GetRangeCheckUnitsScript( TaskName )
-    return GetAbilityRangeCheckUnitsForFocusArmy(TaskName)
+    local army = GetFocusArmy()
+    return GetAbilityUnitsFromTable(ArmyUnitAbilitiesTable[army], TaskName)
 end
 
 function MapReticulesToUnitIdsScript( TaskName, ReticulePositions, Units, UnitIds )
@@ -98,54 +91,34 @@ UpdateArmyUnitsTable = function(unitAbilitiesTable)
     ArmyUnitAbilitiesTable[army] = unitAbilitiesTable
 end
 
-
-
-GetAvailableAbilityUnitsForFocusArmy = function(abilityName)
--- TODO: consider energy needs. The Eye of Rianne needs energy to run so we may want to dynamically filter out units
--- based on the current supply and energy available.
+GetAvailableAbilityUnits = function(abilityName)
+    -- TODO: consider energy needs. The Eye of Rianne needs energy to run so we may want to dynamically filter out units
+    -- based on the current supply and energy available.
     local army = GetFocusArmy()
-    --WARN('*DEBUG: GetAvailableAbilityUnitsForFocusArmy() abilityName = '..repr(abilityName)..' army = '..repr(army))
-    if not AbilityDefinition[abilityName] then
-        return false
-    elseif AbilityUnits[abilityName][army] then
-        local ret = {}
-        local units = AbilityUnits[abilityName][army]
-        for unitId, available in units do
-            if available then
-                table.insert(ret, unitId)
-            end
-        end
-        ret = DoUnitSelectedFilter(abilityName, ret)
-        return ret
-    end
-    return {}
+    return DoUnitSelectedFilter(abilityName, GetAbilityUnitsFromTable(ArmyUnitAbilitiesTable[army], abilityName, true))
 end
 
-
-SetAbilityUnits = function(abilityName, army, unitIds)
-    --LOG('*DEBUG: SetAbilityUnits() abilityName = '..repr(abilityName)..' army = '..repr(army)..' unitIds = '..repr(unitIds))
-    if army and unitIds and army >= 0 and army < 16 and AbilityDefinition[abilityName] then
-        if not AbilityUnits[abilityName] then
-            AbilityUnits[abilityName] = {}
+--filters out units with abilities from a table.
+GetAbilityUnitsFromTable = function(abilityTable, abilityName, AvailableNowOnly)
+    if not AbilityDefinition[ abilityName ] then return false end
+    
+    local unitsTable = {}
+    for unitID, abilityTypes in abilityTable do
+        if abilityTypes[abilityName] and (not (abilityTypes[abilityName]['Enabled'] == false)) and (not AvailableNowOnly or abilityTypes[abilityName]['AvailableNowUnit'] > 0) then
+            table.insert(unitsTable, unitID)
         end
-        if not AbilityUnits[abilityName][army] then
-            AbilityUnits[abilityName][army] = {}
-        end
-
-        AbilityUnits[abilityName][army] = unitIds
-
-        -- notify all views that we updated the list of units
-        --this wasnt in the Tasks.lua in the fa repo
-        local views = GetWorldViews()
-        for k, view in views do
-            view:OnAbilityUnitsListUpdated(abilityName)
-        end
-
-        --LOG('*DEBUG: SetAbilityUnits() result = '..repr(AbilityUnits[abilityName][army]))
-        return true
     end
-    --LOG('*DEBUG: SetAbilityUnits() bad values')
-    return false
+    return unitsTable
+end
+
+-- internal - GetAvailableAbilityUnits
+-- filter out units that are not selected. uses Command data. Alternatively could use GetSelectedUnitIds from abilities.lua. not sure whats better.
+DoUnitSelectedFilter = function(abilityName, unitIds)
+    local mode = import('/lua/ui/game/commandmode.lua').GetCommandMode() --TODO:after fixing this entire file move the import somewhere sane
+    if unitIds and mode[1] == 'order' and mode[2].TaskName and AbilityDefinition[ mode[2].TaskName ] and mode[2].Behaviour.UseSelected and table.getn(mode[2].SelectedUnits) > 0 then
+        unitIds = table.filter(unitIds, function(v) return table.find(mode[2].SelectedUnits, v) end)
+    end
+    return unitIds
 end
 
 SetAbilityRangeCheckUnits = function(abilityName, army, unitIds)
@@ -167,27 +140,8 @@ SetAbilityRangeCheckUnits = function(abilityName, army, unitIds)
     return false
 end
 
-UnitsAreInArmy = function(units, army)
-    local ua
-    for _, unit in units do
-        ua = unit:GetArmy()
-        if not army == ua then
-            return false, ua
-        end
-    end
-    return true, army
-end
-
-
--- filter out units that are not selected. uses Command data. Alternatively could use GetSelectedUnitIds from abilities.lua. not sure whats better.
-DoUnitSelectedFilter = function(abilityName, unitIds)
-    local mode = import('/lua/ui/game/commandmode.lua').GetCommandMode() --TODO:after fixing this entire file move the import somewhere sane
-    if mode[1] == 'order' and mode[2].TaskName and AbilityDefinition[ mode[2].TaskName ] and mode[2].Behaviour.UseSelected and table.getn(mode[2].SelectedUnits) > 0 then
-        unitIds = table.filter(unitIds, function(v) return table.find(mode[2].SelectedUnits, v) end)
-    end
-    return unitIds
-end
-
+-- internal - MapReticulesToUnitIdsScript
+--NomadsIntelOvercharge.lua
 UnitCanFireAtPos = function(abilityName, unit, pos)
     local MaxRadius = -1
     local MinRadius = -1
@@ -207,12 +161,24 @@ UnitCanFireAtPos = function(abilityName, unit, pos)
     return false
 end
 
+-- internal - VerifyScriptCommand
+UnitsAreInArmy = function(units, army)
+    local ua
+    for _, unit in units do
+        ua = unit:GetArmy()
+        if not army == ua then
+            return false, ua
+        end
+    end
+    return true, army
+end
 
+--userscriptcommand.lua
 function VerifyScriptCommand(data)
 -- TODO: cooldown check to see if ability is allowed to be used
     local TaskName = data.TaskName
     local army = GetFocusArmy()
-    if TaskName and UnitsAreInArmy(data.Units, army) and LocationIsOk(data, GetAbilityRangeCheckUnitsForFocusArmy(TaskName)) then
+    if TaskName and UnitsAreInArmy(data.Units, army) and LocationIsOk(data, GetAbilityUnitsFromTable(ArmyUnitAbilitiesTable[army], TaskName, false)) then
         data.AuthorizedUnits = data.Units
         data.UserValidated = true
     else
@@ -221,19 +187,7 @@ function VerifyScriptCommand(data)
     return data
 end
 
--- --------------------------------------------------
-
-GetAbilityRangeCheckUnitsForFocusArmy = function(abilityName)
-    local army = GetFocusArmy()
-    --LOG('*DEBUG: GetAbilityRangeCheckUnitsForFocusArmy() abilityName = '..repr(abilityName)..' army = '..repr(army)..' units = '..repr(AbilityRangeCheckUnits[abilityName][army]))
-    if not AbilityDefinition[ abilityName ] then
-        return false
-    elseif AbilityRangeCheckUnits[abilityName][army] then
-        return AbilityRangeCheckUnits[abilityName][army]
-    end
-    return {}
-end
-
+-- internal - VerifyScriptCommand
 LocationIsOk = function(data, RangeCheckUnits)
     -- almost same script as in worldview.lua
     local InRange, RangeLimited = true, false
