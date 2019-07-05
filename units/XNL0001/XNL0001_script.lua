@@ -406,11 +406,11 @@ XNL0001 = Class(ACUUnit) {
 
     SetOrbitalBombardEnabled = function(self, enable)
         local brain = self:GetAIBrain()
-        brain:EnableSpecialAbility( 'NomadsAreaBombardment', (enable == true) )
+        brain:SetUnitSpecialAbility(self, 'NomadsAreaBombardment', {Enabled = (enable == true)})
         if enable then
             self.OrbitalUnit:ReturnToStartLocation()
         else
-            if not self:HasEnhancement( 'IntelProbe' ) and not self:HasEnhancement( 'IntelProbe' ) then
+            if not self:HasEnhancement( 'IntelProbe' ) and not self:HasEnhancement( 'IntelProbeAdv' ) then
                 self.OrbitalUnit:MoveAway()
             end
         end
@@ -431,8 +431,8 @@ XNL0001 = Class(ACUUnit) {
     --accepts false or nil to remove, but sending false is preferred, more clear code that way
     SetIntelProbe = function(self, condition)
         local brain = self:GetAIBrain()
-        brain:EnableSpecialAbility( 'NomadsIntelProbeAdvanced', ('IntelProbeAdv' == condition) )
-        brain:EnableSpecialAbility( 'NomadsIntelProbe', ('IntelProbe' == condition) )
+        brain:SetUnitSpecialAbility(self, 'NomadsIntelProbeAdvanced', {Enabled = ('IntelProbeAdv' == condition)})
+        brain:SetUnitSpecialAbility(self, 'NomadsIntelProbe', {Enabled = ('IntelProbe' == condition)})
         if condition then
             self.OrbitalUnit:ReturnToStartLocation()
         elseif not self:HasEnhancement( 'OrbitalBombardment' ) then
@@ -775,8 +775,6 @@ XNL0001 = Class(ACUUnit) {
             self:AddEnhancementEmitterToBone( true, 'Orbital Bombardment' )
             self:AddCommandCap('RULEUCC_SiloBuildTactical')
             self:SetWeaponEnabledByLabel('TargetFinder', true)
-            -- self:GetAIBrain():EnableSpecialAbility( 'NomadsAreaBombardment', false)--this is supposed to update when the ammo is loaded
-            self:GetAIBrain():EnableSpecialAbility( 'NomadsAreaBombardment', true)--this is supposed to update when the ammo is loaded
         end,
         
         OrbitalBombardmentRemove = function(self, bp)
@@ -804,14 +802,6 @@ XNL0001 = Class(ACUUnit) {
         else
             WARN('Nomads: Enhancement '..repr(enh)..' has no script support.')
         end
-    end,
-
-    OnAmmoCountDecreased = function(self, amount)
-        self:GetAIBrain():EnableSpecialAbility( 'NomadsAreaBombardment', false)
-    end,
-
-    OnAmmoCountIncreased = function(self, amount)
-        self:GetAIBrain():EnableSpecialAbility( 'NomadsAreaBombardment', true)
     end,
     
     OnScriptBitSet = function(self, bit)

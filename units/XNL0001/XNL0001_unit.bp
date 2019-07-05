@@ -887,20 +887,19 @@ UnitBlueprint {
         NomadsAreaBombardment = {
             AreaOfEffect = 3,
             MaxRadius = 200,  --same as the distance on the orbital pointer weapon
-            NoAutoEnable = true, --TODO: remove this
             WantNumTargets = 1,  -- keep equal to number of weapons --TODO: change this so each weapon can call multiple projectiles?
             CanUseRangeExtenders = false,
-            Enabled = false --setting to disabled at start
+            Enabled = false,
         },
         NomadsIntelProbe = {
             MaxRadius = -1, -- unlimited range
-            NoAutoEnable = true, --TODO: remove this
-            Enabled = false --setting to disabled at start
+            Enabled = false, --setting to disabled at start
+            AvailableNowUnit = 1, --Instantly available when enabled
         },
         NomadsIntelProbeAdvanced = {
-            MaxRadius = -1, -- unlimited range
-            NoAutoEnable = true, --TODO: remove this
-            Enabled = false --setting to disabled at start
+            MaxRadius = -1,
+            Enabled = false,
+            AvailableNowUnit = 1,
         },
     },
     StrategicIconName = 'icon_commander_generic',
