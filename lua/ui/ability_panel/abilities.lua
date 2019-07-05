@@ -11,6 +11,8 @@ local Prefs = import('/lua/user/prefs.lua')
 local Keymapping = import('/lua/keymap/defaultKeyMap.lua').defaultKeyMap
 local CM = import('/lua/ui/game/commandmode.lua')
 local UIMain = import('/lua/ui/uimain.lua')
+--TODO: rename the tasks file to something else, or possibly remove it entirely
+TasksFile = import( '/lua/user/tasks/Tasks.lua' )
 
 local VoiceOvers = import('/lua/ui/game/voiceovers.lua')
 local AbilityDefinition = import('/lua/abilitydefinition.lua').abilities
@@ -146,6 +148,38 @@ function CreateOrderButtonGrid()
     controls.orderButtonGrid = Grid(controls.bg, GameCommon.iconWidth, GameCommon.iconHeight)
     controls.orderButtonGrid:SetName("Orders Grid")
     controls.orderButtonGrid:DeleteAll()
+end
+
+function UpdateSpecialAbilityUI(abilitiesTable, unitAbilitiesTable)
+    --store the ability units list for use elsewhere
+    TasksFile.UpdateArmyUnitsTable(unitAbilitiesTable)
+    --note down abilities to remove
+    for abilityName, order in availableOrdersTable do
+        if not abilitiesTable[abilityName] then
+            SetSpecialAbility(abilityName, 'Remove')
+        end
+    end
+    
+    --note down abilities to add or change
+    for abilityName, ability in abilitiesTable do
+        SetSpecialAbility(abilityName, ability.AvailableNow)
+    end
+end
+
+function SetSpecialAbility(abilityName, condition)
+    if condition == 'Remove' then
+        RemoveSpecialAbility({AbilityName = abilityName})
+    elseif condition == 0 then
+        if not availableOrdersTable[abilityName] then
+            AddSpecialAbility({AbilityName = abilityName})
+        end
+        DisableSpecialAbility({AbilityName = abilityName})
+    elseif condition > 0 then
+        if not availableOrdersTable[abilityName] then
+            AddSpecialAbility({AbilityName = abilityName})
+        end
+        EnableSpecialAbility({AbilityName = abilityName})
+    end
 end
 
 --add an ability
@@ -672,6 +706,7 @@ function GetBehaviour(AbilityName, ClickType, MouseButton)
 end
 
 -- ability button behaviour
+--TODO:sort this out.
 function AbilityButtonBehavior(self, modifiers, ClickType, MouseButton)
 
     local behavior = GetBehaviour(self._script, ClickType, MouseButton)

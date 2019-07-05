@@ -5,6 +5,13 @@ local oldOnSync = OnSync
 function OnSync()
     oldOnSync()
 
+    for k, v in Sync.UpdateSpecialAbilityUI do
+        local army = v.Army
+        if army == GetFocusArmy() and v.BrainAbilitiesTable and v.BrainAbilitiesTable then
+            import('/lua/ui/ability_panel/abilities.lua').UpdateSpecialAbilityUI(v.BrainAbilitiesTable, v.UnitAbilitiesTable)
+        end
+    end
+    
     for k, v in Sync.AddSpecialAbility do
         local army = v.Army
         if army == GetFocusArmy() then

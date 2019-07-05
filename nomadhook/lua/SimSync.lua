@@ -4,7 +4,10 @@ local oldResetSyncTable = ResetSyncTable
 function ResetSyncTable()
     oldResetSyncTable()
 
-    -- special ability syncs
+    -- new special ability syncs
+    Sync.UpdateSpecialAbilityUI = {}
+    
+    -- legacy special ability syncs
     Sync.AddSpecialAbility = {}
     Sync.RemoveSpecialAbility = {}
     Sync.EnableSpecialAbility = {}
@@ -17,6 +20,12 @@ function ResetSyncTable()
 
     Sync.VOUnitEvents = {}
     Sync.VOEvents = {}
+end
+
+UpdateSpecialAbilityUI = function(army, brainSpecialAbilities, unitSpecialAbilities)
+    if army ~= nil and brainSpecialAbilities and unitSpecialAbilities then
+        table.insert(Sync.UpdateSpecialAbilityUI, {BrainAbilitiesTable = brainSpecialAbilities, UnitAbilitiesTable = unitSpecialAbilities, Army = army})
+    end
 end
 
 AddSpecialAbility = function(army, ability)
