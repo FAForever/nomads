@@ -80,6 +80,23 @@ end
 
 AbilityUnits = {}
 AbilityRangeCheckUnits = {}
+ArmyUnitAbilitiesTable = {}
+--[[
+ArmyUnitAbilitiesTable = {
+    1 = { --Army ID
+        12 = {--UnitID
+            OrbitalBombardment = { --Ability
+                AvailableNowUnit = true,
+            },
+        },
+    },
+}
+
+--]]
+UpdateArmyUnitsTable = function(unitAbilitiesTable)
+    local army = GetFocusArmy()
+    ArmyUnitAbilitiesTable[army] = unitAbilitiesTable
+end
 
 
 
