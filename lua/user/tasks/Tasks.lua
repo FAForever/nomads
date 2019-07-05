@@ -2,6 +2,7 @@
 
 local AbilityDefinition = import('/lua/abilitydefinition.lua').abilities
 
+local GetWorldViews = import('/lua/ui/game/worldview.lua').GetWorldViews
 
 function GetAllUnitsScript( TaskName )
     return GetAvailableAbilityUnitsForFocusArmy( TaskName )
@@ -118,7 +119,7 @@ SetAbilityUnits = function(abilityName, army, unitIds)
 
         -- notify all views that we updated the list of units
         --this wasnt in the Tasks.lua in the fa repo
-        local views = import('/lua/ui/game/worldview.lua').GetWorldViews()
+        local views = GetWorldViews()
         for k, view in views do
             view:OnAbilityUnitsListUpdated(abilityName)
         end
@@ -190,37 +191,11 @@ UnitCanFireAtPos = function(abilityName, unit, pos)
 end
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
---these are from tasks.lua in the FA repo.
-
-
-function GetRangeCheckUnits(TaskName)
-    return GetAbilityRangeCheckUnitsForFocusArmy(TaskName)
-end
-
 function VerifyScriptCommand(data)
 -- TODO: cooldown check to see if ability is allowed to be used
     local TaskName = data.TaskName
     local army = GetFocusArmy()
-    if TaskName and UnitsAreInArmy(data.Units, army) and LocationIsOk(data, GetRangeCheckUnits(TaskName)) then
+    if TaskName and UnitsAreInArmy(data.Units, army) and LocationIsOk(data, GetAbilityRangeCheckUnitsForFocusArmy(TaskName)) then
         data.AuthorizedUnits = data.Units
         data.UserValidated = true
     else
