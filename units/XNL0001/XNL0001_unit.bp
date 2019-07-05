@@ -890,6 +890,7 @@ UnitBlueprint {
             WantNumTargets = 1,  -- keep equal to number of weapons --TODO: change this so each weapon can call multiple projectiles?
             CanUseRangeExtenders = false,
             Enabled = false,
+            AvailableNowUnit = 1, --Instantly available when enabled
         },
         NomadsIntelProbe = {
             MaxRadius = -1, -- unlimited range
