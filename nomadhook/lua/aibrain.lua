@@ -14,7 +14,6 @@ AIBrain = Class(oldAIBrain) {
     -- ================================================================================================================
     -- TASK SCRIPT SUPPORT
     -- ================================================================================================================
-    --TODO: refactor this, at least so its self.SpecialAbilityUnits[unitId][abilityType] instead of self.SpecialAbilityUnits[type][unitId]
     
     --[[
     --list of the abilities that the army brain has. parameters for each ability. If the ability is available to activate immediately.
@@ -42,8 +41,8 @@ AIBrain = Class(oldAIBrain) {
     
     --how to loop through the units list per ability
     for unitID,abilityTypes in UnitSpecialAbilities do
-        if abilityTypes[abilityname] and abilityTypes[abilityname][parameter] == false then
-            abilityTypes[abilityname][parameter] = true
+        if abilityTypes[abilityName] and abilityTypes[abilityName][parameter] == false then
+            abilityTypes[abilityName][parameter] = true
         end
     end
     
@@ -106,7 +105,7 @@ AIBrain = Class(oldAIBrain) {
             WaitTicks(1)
             if self.QueueAbilityPanelUpdate then
                 self:CheckAbilities()
-                UpdateSpecialAbilityUI(army, self.BrainSpecialAbilities)
+                UpdateSpecialAbilityUI(army, self.BrainSpecialAbilities, self.UnitSpecialAbilities)
                 self.QueueAbilityPanelUpdate = false
             end
         end
