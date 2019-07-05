@@ -351,7 +351,7 @@ function AddIntelOvercharge(SuperClass)
             local eCostPerSec = bp.Intel.OverchargeEnergyDrainPerSecond or 100
             local numEvents, fraction, time = 10, 0, 0
 
-            self:SpecialAbilitySetAvailability(false)
+            self:SpecialAbilitySetAvailability(0)
 
             if eCost > 0 then    -- charging, only if there is an energy requirement specified
 
@@ -446,7 +446,7 @@ function AddIntelOvercharge(SuperClass)
 
             self:OnFinishedIntelOverchargeRecovery()
 
-            self:SpecialAbilitySetAvailability(true)
+            self:SpecialAbilitySetAvailability(1)
         end,
 
         OnBeginIntelOvercharge = function(self)

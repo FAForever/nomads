@@ -403,6 +403,7 @@ AIBrain = Class(oldAIBrain) {
 
         oldAIBrain.CreateBrainShared(self, planName)
 
+        self:ForkThread(self.AbilityPanelUpdateThread)
         self:LoadCustomFactions()
     end,
 

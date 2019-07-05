@@ -20,7 +20,7 @@ Unit = Class(oldUnit) {
         oldUnit.OnPreCreate(self)
     end,
 
-        CreateTerrainTypeEffects = function( self, effectTypeGroups, FxBlockType, FxBlockKey, TypeSuffix, EffectBag, TerrainType )
+    CreateTerrainTypeEffects = function( self, effectTypeGroups, FxBlockType, FxBlockKey, TypeSuffix, EffectBag, TerrainType )
         local army = self:GetArmy()
         local pos = self:GetPosition()
         local effects = {}
@@ -81,7 +81,13 @@ Unit = Class(oldUnit) {
         self:UpdateWeaponLayers(layer, 'None')
     end,
 
-    
+    OnDestroy = function(self)
+        if self.AbilitiesCleared ~= true then
+            self:UnregisterSpecialAbilities()
+        end
+        self.AbilitiesCleared = nil --just in case its not cleared
+        oldUnit.OnDestroy(self)
+    end,
 
 
     UpdateWeaponLayers = function(self, new, old)
@@ -116,7 +122,7 @@ Unit = Class(oldUnit) {
         -- event fires when the counted projectile weapon ammo count increased whatever reason. Polls every 2 ticks.
         --LOG('*DEBUG: OnAmmoCountIncreased NewCount = '..repr(NewCount))
         if NewCount > 0 then
-            self:SpecialAbilitySetAvailability(true)
+            self:SpecialAbilitySetAvailability(1)
         end
     end,
 
@@ -124,7 +130,7 @@ Unit = Class(oldUnit) {
         -- event fires when the counted projectile weapon ammo count decreased after firing a missile.
         --LOG('*DEBUG: OnAmmoCountDecreased NewCount = '..repr(NewCount))
         if NewCount < 1 then
-            self:SpecialAbilitySetAvailability(false)
+            self:SpecialAbilitySetAvailability(0)
         end
     end,
 
@@ -497,6 +503,7 @@ Unit = Class(oldUnit) {
     
     OnKilled = function(self, instigator, type, overkillRatio)
         self:UnregisterSpecialAbilities()
+        self.AbilitiesCleared = true
         if self:WasUnitKilledByBlackhole(type) then
             self._IsSuckedInBlackHole = true
         end
@@ -715,34 +722,14 @@ Unit = Class(oldUnit) {
 
     -- ================================================================================================================
     -- SPECIAL ABILITIES
-
+    
     RegisterSpecialAbilities = function(self)
         -- registering special abilities at the brain
         local bp = self:GetBlueprint()
         if bp.SpecialAbilities then
             local brain = self:GetAIBrain()
-            for abil, abp in bp.SpecialAbilities do
-                if not abp.IsRangeExtender then        -- range extender units only extend the range of another unit but can't use the ability
-                    local AutoEnable = not ((abp.NoAutoEnable or false) == true)
-                    brain:AddSpecialAbilityUnit( self, abil, AutoEnable, true )
-                end
-                brain:AddSpecialAbilityRangeCheckUnit( self, abil )
-            end
-
-            -- if we have counted projectiles then set unit availability based on current ammo
-            local bp, wep, IsNuke
-            local NumWep = self:GetWeaponCount()
-            for i=1, NumWep do
-                wep = self:GetWeapon(i)
-                bp = wep:GetBlueprint()
-                if bp.CountedProjectile == true then
-                    if bp.NukeWeapon then
-                        self:SpecialAbilitySetAvailability( self:GetNukeSiloAmmoCount() >= 1 )
-                    else
-                        self:SpecialAbilitySetAvailability( self:GetTacticalSiloAmmoCount() >= 1 )
-                    end
-                    break
-                end
+            for abilityName, abilityBp in bp.SpecialAbilities do
+                brain:SetUnitSpecialAbility(self, abilityName, abilityBp)
             end
         end
     end,
@@ -752,25 +739,24 @@ Unit = Class(oldUnit) {
         local bp = self:GetBlueprint()
         if bp.SpecialAbilities then
             local brain = self:GetAIBrain()
-            for abil, abp in bp.SpecialAbilities do
-                if not abp.IsRangeExtender then        -- range extender units only extend the range of another unit but can't use the ability
-                    brain:RemoveSpecialAbilityUnit( self, abil, true )
-                end
-                brain:RemoveSpecialAbilityRangeCheckUnit( self, abil )
+            for abilityName, abilityBp in bp.SpecialAbilities do
+                brain:SetUnitSpecialAbility(self, abilityName, 'Remove')
             end
         end
     end,
 
-    SpecialAbilitySetAvailability = function(self, bool)
+    --why does this loop through all the abilities of a unit and set them to the same thing?
+    SpecialAbilitySetAvailability = function(self, Availability)
         local bp = self:GetBlueprint()
         if bp.SpecialAbilities then
             local brain = self:GetAIBrain()
-            for abil, abp in bp.SpecialAbilities do
-                brain:SetSpecialAbilityUnitAvailability( self, abil, bool )
+            for abilityName, abilityBp in bp.SpecialAbilities do
+                brain:SetUnitSpecialAbility(self, abilityName, {AvailableNowUnit = Availability,})
             end
         end
     end,
 
+    --TODO:refactor this, so its not insane.
     --Updates build restrictions of any unit passed, used for support factories
     updateBuildRestrictions = function(self)
         local faction = false
