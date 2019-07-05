@@ -237,7 +237,7 @@ end
 --enable an ability button on ability panel
 function EnableSpecialAbility(data)
     local AbilityName = data.AbilityName
-    if orderCheckboxMap[AbilityName] then
+    if orderCheckboxMap[AbilityName] and not ButtonParams[AbilityName].CoolDownEnabled and not ButtonParams[AbilityName].Enabled then
         orderCheckboxMap[AbilityName]:Enable()
         ButtonParams[AbilityName].Enabled = true
         ForkThread(newOrderGlow, orderCheckboxMap[AbilityName])
@@ -251,7 +251,7 @@ end
 --disable an ability button on ability panel
 function DisableSpecialAbility(data)
     local AbilityName = data.AbilityName
-    if orderCheckboxMap[AbilityName] then
+    if orderCheckboxMap[AbilityName] and ButtonParams[AbilityName].Enabled then
         orderCheckboxMap[AbilityName]:Disable()
         ButtonParams[AbilityName].Enabled = false
 
@@ -565,7 +565,7 @@ function CreateNewAbilityGlow(parent)
     local StartTime = GetGameTimeSeconds()
     controls.NewButtonGlows[button].OnFrame = function(self, deltaTime)
 
-        if (GetGameTimeSeconds() - StartTime) > FlashTime then
+        if (GetGameTimeSeconds() - StartTime) > FlashTime and controls.NewButtonGlows[button] and controls.NewButtonGlows[button].SetNeedsFrameUpdate then
             controls.NewButtonGlows[button]:SetNeedsFrameUpdate(false)
         end
 
@@ -582,7 +582,9 @@ function CreateNewAbilityGlow(parent)
             alpha = .4
             incriment = false
         end
-        controls.NewButtonGlows[button]:SetAlpha(alpha)
+        if controls.NewButtonGlows[button] and controls.NewButtonGlows[button].SetAlpha then
+            controls.NewButtonGlows[button]:SetAlpha(alpha)
+        end
     end
 end
 
