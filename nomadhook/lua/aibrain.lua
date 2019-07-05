@@ -271,7 +271,7 @@ AIBrain = Class(oldAIBrain) {
             end
             ship:AddToConstructionQueue( unitType, readyFn )
         else
-            DisableSpecialAbility( 'NomadsAreaReinforcement' )
+            --DisableSpecialAbility( 'NomadsAreaReinforcement' )
         end
     end,
 
