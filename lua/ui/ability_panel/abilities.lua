@@ -805,8 +805,8 @@ end
 function EnableButtonStopCoolDown(buttonName)
     local data = {}
     data.AbilityName = buttonName
-    EnableSpecialAbility(data)
     StopCoolDownTimer(buttonName)
+    EnableSpecialAbility(data)
 end
 
 --disable the button and start the cooldown timer
