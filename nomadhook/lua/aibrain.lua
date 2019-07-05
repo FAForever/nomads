@@ -185,40 +185,8 @@ AIBrain = Class(oldAIBrain) {
     SpecialAbilityUnits = {},
     SpecialAbilityRangeCheckUnits = {},
 
-    AddSpecialAbilityUnit = function(self, unit, type, autoEnable, canUseAbilityNow)
-        local unitId = unit:GetEntityId()
-        if AbilityDefinition[ type ] then
-            if not self.SpecialAbilityUnits[type] then
-                self.SpecialAbilityUnits[type] = {}
-            end
-            self.SpecialAbilityUnits[type][unitId] = not (canUseAbilityNow == false)
-            SetAbilityUnits( self:GetArmyIndex(), type, self:GetSpecialAbilityUnitIds(type) )
-            if autoEnable and table.getsize( self.SpecialAbilityUnits[type] ) == 1 then
-                self:EnableSpecialAbility( type, true )
-            end
-        end
-    end,
-
-    SetSpecialAbilityUnitAvailability = function(self, unit, type, canUseAbilityNow)
-        local unitId = unit:GetEntityId()
-        if AbilityDefinition[ type ] then
-            if not self.SpecialAbilityUnits[type] then
-                self.SpecialAbilityUnits[type] = {}
-            end
-            self.SpecialAbilityUnits[type][unitId] = (canUseAbilityNow == true)
-            SetAbilityUnits( self:GetArmyIndex(), type, self:GetSpecialAbilityUnitIds(type) )
-        end
-    end,
-
     RemoveSpecialAbilityUnit = function(self, unit, type, autoDisable)
-        if self.SpecialAbilityUnits[type] then
-            local unitId = unit:GetEntityId()
-            self.SpecialAbilityUnits[type][unitId] = nil
-            SetAbilityUnits( self:GetArmyIndex(), type, self:GetSpecialAbilityUnitIds(type) )
-            if autoDisable and table.getsize( self.SpecialAbilityUnits[type] ) < 1 then
-                self:EnableSpecialAbility( type, false )
-            end
-        end
+        WARN('Nomads using deprecated function RemoveSpecialAbilityUnit')
     end,
 
     GetSpecialAbilityUnits = function(self, type)
@@ -244,25 +212,6 @@ AIBrain = Class(oldAIBrain) {
         return units
     end,
 
-    AddSpecialAbilityRangeCheckUnit = function(self, unit, type)
-        local unitId = unit:GetEntityId()
-        if AbilityDefinition[ type ] then
-            if not self.SpecialAbilityRangeCheckUnits[type] then
-                self.SpecialAbilityRangeCheckUnits[type] = {}
-            end
-            table.insert( self.SpecialAbilityRangeCheckUnits[type], unitId )
-            SetAbilityRangeCheckUnits( self:GetArmyIndex(), type, self:GetSpecialAbilityRangeCheckUnitIds(type) )
-        end
-    end,
-
-    RemoveSpecialAbilityRangeCheckUnit = function(self, unit, type)
-        if self.SpecialAbilityRangeCheckUnits[type] then
-            local unitId = unit:GetEntityId()
-            table.removeByValue( self.SpecialAbilityRangeCheckUnits[type], unitId )
-            SetAbilityRangeCheckUnits( self:GetArmyIndex(), type, self:GetSpecialAbilityRangeCheckUnitIds(type) )
-        end
-    end,
-
     GetSpecialAbilityRangeCheckUnits = function(self, type)
         local units = {}
         if self.SpecialAbilityRangeCheckUnits[type] then
@@ -286,62 +235,9 @@ AIBrain = Class(oldAIBrain) {
         return units
     end,
 
-    GetSpecialAbilityUnitIds = function(self, type)
-        self:GetSpecialAbilityUnits(type)  -- only for cleaning up the table, not interested in the results of this call
-        return self.SpecialAbilityUnits[type]
-    end,
-
     GetSpecialAbilityRangeCheckUnitIds = function(self, type)
         self:GetSpecialAbilityRangeCheckUnits(type)  -- only for cleaning up the table, not interested in the results of this call
         return self.SpecialAbilityRangeCheckUnits[type]
-    end,
-
-    EnableSpecialAbility = function(self, type, enable)
-        --LOG('*DEBUG: EnableSpecialAbility type = '..repr(type))
-        if AbilityDefinition[type].enabled == false then
-            --WARN('Ability "'..repr(type)..'" is disabled in abilitydefinition file')
-            return false
-        else
-            if not self.SpecialAbilities[ type ] then
-                self.SpecialAbilities[ type ] = {}
-                if AbilityDefinition[type]['ExtraInfo'] then
-                    for k, v in AbilityDefinition[type]['ExtraInfo'] do
-                        self:SetSpecialAbilityParam( type, k, v )
-                    end
-                end
-            end
-            enable = (enable == true)
-            if self:IsSpecialAbilityEnabled( type ) == nil or self:IsSpecialAbilityEnabled( type ) ~= enable then
-                local army = self:GetArmyIndex()
-                self.SpecialAbilities[ type ][ 'enabled' ] = enable
-                if enable then
-                    AddSpecialAbility( army, type )
-                else
-                    RemoveSpecialAbility( army, type )
-                end
-            end
-        end
-    end,
-
-    IsSpecialAbilityEnabled = function(self, type)
-         if self.SpecialAbilities[ type ] then
-             return self.SpecialAbilities[ type ][ 'enabled' ]
-         end
-    end,
-
-    SetSpecialAbilityParam = function(self, type, parameter, value)
-
-        -- set and/or change a parameter for the special ability. Returns old value (could be nil if previously not set)
-        if parameter ~= 'enabled' then
-            local old
-            if self.SpecialAbilities[ type ][ parameter ] then
-                old = self.SpecialAbilities[ type ][ parameter ]
-            end
-            self.SpecialAbilities[ type ][ parameter ] = value
-            return old
-        else
-            WARN('AIBrain: SetSpecialAbilityParam(): cant set parameter "'..parameter..'" this way!')
-        end
     end,
 
     GetSpecialAbilityParam = function(self, type, param1, param2)
@@ -370,7 +266,7 @@ AIBrain = Class(oldAIBrain) {
             local unitType = self:GetSpecialAbilityParam( 'NomadsAreaReinforcement', 'UnitType' ) or AbilityDefinition['NomadsAreaReinforcement']['ExtraInfo']['UnitType'] or 'xna0203'
             local readyFn = function(self)      -- self is the constructed unit, not the brain
                 local brain = self:GetAIBrain()
-                brain:AddSpecialAbilityUnit( self, 'NomadsAreaReinforcement', false )
+                --brain:AddSpecialAbilityUnit( self, 'NomadsAreaReinforcement', false )
                 brain:SetOrbitalReinforcementReady(true)
             end
             ship:AddToConstructionQueue( unitType, readyFn )
@@ -382,9 +278,9 @@ AIBrain = Class(oldAIBrain) {
     SetOrbitalReinforcementReady = function(self, ready)
         self.OrbitalReinforcementReady = (ready == true)
         if self.OrbitalReinforcementReady then
-            EnableSpecialAbility( 'NomadsAreaReinforcement' )
+            --EnableSpecialAbility( 'NomadsAreaReinforcement' )
         else
-            DisableSpecialAbility( 'NomadsAreaReinforcement' )
+            --DisableSpecialAbility( 'NomadsAreaReinforcement' )
         end
     end,
 
