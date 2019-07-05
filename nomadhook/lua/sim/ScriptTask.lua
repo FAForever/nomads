@@ -72,9 +72,9 @@ ScriptTask = Class(oldScriptTask) {
         return self:GetUnit():GetArmy()
     end,
 
-    IsEnabled = function(self, type)
+    IsEnabled = function(self)
         local brain = self:GetAIBrain()
-        return brain:GetSpecialAbilityParam( self.CommandData.TaskName, 'enabled') or false
+        return (brain.BrainSpecialAbilities[self.CommandData.TaskName] ~= nil) or false
     end,
 
     IsCoolingDown = function(self)
@@ -96,35 +96,32 @@ ScriptTask = Class(oldScriptTask) {
             return true
         end
 
-        -- almost same script as in worldview.lua
+        -- should be the same as in worldview.lua --TODO:make sure that is is.
         -- checking all rangecheckunits if given location is within range
         local TaskName = self.CommandData.TaskName
-        local brain = self:GetAIBrain()
-        local RangeCheckUnits = brain:GetSpecialAbilityRangeCheckUnits(TaskName)
-        local InRange = false
-
-        if RangeCheckUnits then
-            local unit, maxDist, minDist, posU, dist
-            for k, unit in RangeCheckUnits do
+        
+        local abilityTable = self:GetAIBrain().UnitSpecialAbilities
+        
+        local maxDist, minDist, posU, dist
+        for unitID, abilityTypes in abilityTable do
+            if abilityTypes[TaskName] and (not (abilityTypes[TaskName]['Enabled'] == false)) then
+                local unit = GetEntityById(unitID)
+                
                 maxDist = unit:GetBlueprint().SpecialAbilities[TaskName].MaxRadius
-                minDist = 0  -- TODO: minimum radius distance check currently not implemented
+                minDist = 0  -- TODO: check if minradius is currently implemented
                 if not maxDist or maxDist < 0 then   -- unlimited range
-                    InRange = true
-                    break
+                    return true
                 elseif maxDist == 0 then             -- skip unit
                     continue
                 elseif maxDist > 0 then              -- unit counts towards range check, do check
                     posU = unit:GetPosition()
                     dist = VDist2( posU[1], posU[3], loc[1], loc[3] )
-                    InRange = (dist >= minDist and dist <= maxDist)
-                    if InRange then
-                        break
-                    end
+                    if (dist >= minDist and dist <= maxDist) then return true end
                 end
             end
         end
 
-        return InRange
+        return false
     end,
 
 
@@ -141,10 +138,9 @@ ScriptTask = Class(oldScriptTask) {
             end
 
             return true
-        else
-            WARN('Army '..repr(self:GetAIBrain():GetArmyIndex())..' tried to invoke currently unavailable task script '..self.CommandData.TaskName)
         end
 
+        WARN('Army '..repr(self:GetAIBrain():GetArmyIndex())..' tried to invoke currently unavailable task script '..self.CommandData.TaskName)
         self:SetAIResult(AIRESULT.Fail)
         return false
     end,
@@ -160,7 +156,7 @@ ScriptTask = Class(oldScriptTask) {
     end,
 
     TaskTick = function(self)
-        LOG('ScriptTask default TaskTick: aborting and failing task')
+        WARN('ScriptTask default TaskTick: aborting and failing task')
         self:SetAIResult(AIRESULT.Fail)
         return TASKSTATUS.Abort
     end,
