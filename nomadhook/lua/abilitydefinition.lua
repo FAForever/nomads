@@ -140,12 +140,12 @@ abilities = table.merged( abilities, {
         UIBehaviorSingleClick = {
             AllReticulesAtStart = true,
             DragDelta = 1,
-            UseSelected = false,
+            UseSelected = true,
         },
         UIBehaviorDoubleClick = {
             AllReticulesAtStart = true,
             DragDelta = 2,
-            UseSelected = false,
+            UseSelected = true,
         },
 
 --        SoundReady = 'OrbitalStrikeReady',
@@ -191,7 +191,7 @@ abilities = table.merged( abilities, {
             AllReticulesAtStart = false,
             DragDelta = 0,
             ReticuleSizeOverride = 70,
-            UseSelected = false,
+            UseSelected = true,
         },
 
         GetAllUnitsFile = '/lua/user/tasks/Tasks.lua',
@@ -235,7 +235,7 @@ abilities = table.merged( abilities, {
             AllReticulesAtStart = false,
             DragDelta = 0,
             ReticuleSizeOverride = 35,
-            UseSelected = false,
+            UseSelected = true,
         },
 
         GetAllUnitsFile = '/lua/user/tasks/Tasks.lua',
