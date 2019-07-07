@@ -6993,7 +6993,7 @@ float4 NomadsBuildHologramPS( NOMADSBUILDMESH_VERTEX vertex,
 }
 
 // creates a build-band hologram that reveals the unit. this one is for factories, where the banding is horizontal.
-float4 NomadsBuildHologramFactoryPS( NOMADSBUILDMESH_VERTEX vertex,
+float4 NomadsBuildHologramUnitPS( NOMADSBUILDMESH_VERTEX vertex,
                     uniform bool FadeAlmostDone ) : COLOR0
 {
     // The holographic colour
@@ -7250,9 +7250,9 @@ technique CybranPhaseShield_HighFidelity
 // ====================================================================================================================================================================
 // All nomads shader techniques
 
-technique NOMADSBuildFactory_MediumFidelity
+technique NOMADSBuildUnit_MediumFidelity
 <
-    string abstractTechnique = "NomadsBuildFactory";
+    string abstractTechnique = "NomadsBuildUnit";
     int fidelity = FIDELITY_MEDIUM;
 
     string cartographicTechnique = "CartographicUnit";
@@ -7273,7 +7273,7 @@ technique NOMADSBuildFactory_MediumFidelity
         ZWriteEnable = false;
 
         VertexShader = compile vs_1_1 NOMADSBuildMeshVS();
-        PixelShader = compile ps_2_a NomadsBuildHologramFactoryPS(true);
+        PixelShader = compile ps_2_a NomadsBuildHologramUnitPS(true);
     }
     pass P1
     {
@@ -7297,9 +7297,9 @@ technique NOMADSBuildFactory_MediumFidelity
     }
 }
 
-technique NOMADSBuildFactory_LowFidelity
+technique NOMADSBuildUnit_LowFidelity
 <
-    string abstractTechnique = "NomadsBuildFactory";
+    string abstractTechnique = "NomadsBuildUnit";
     int fidelity = FIDELITY_LOW;
 
     string cartographicTechnique = "CartographicUnit";

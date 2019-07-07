@@ -357,16 +357,23 @@ function ExtractBuildMeshBlueprint(bp)
 
     local FactionName = bp.General.FactionName
     if FactionName == 'Nomads' then
+        --assign different build shaders based on whether its a unit or building. possibly set this in the blueprint instead?
+        local buildShaderType = 'NomadsBuild'
+        for _, cat in bp.Categories do
+            if cat == 'MOBILE' then
+                buildShaderType = 'NomadsBuildUnit'
+                break
+            end
+        end
 
         local meshid = bp.Display.MeshBlueprint
         if not meshid then return end
         local meshbp = original_blueprints.Mesh[meshid]
         if not meshbp then return end
-
         local buildmeshbp = table.deepcopy(meshbp)
         if buildmeshbp.LODs then
             for i, lod in buildmeshbp.LODs do
-                lod.ShaderName = 'NomadsBuild'
+                lod.ShaderName = buildShaderType
                 lod.LookupName = '/textures/effects/NomadsBuildNoiseLookup.dds'  -- Nomads 3D build noise texture
             end
         end
