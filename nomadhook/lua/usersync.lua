@@ -11,32 +11,6 @@ function OnSync()
             import('/lua/ui/ability_panel/abilities.lua').UpdateSpecialAbilityUI(v.BrainAbilitiesTable, v.UnitAbilitiesTable)
         end
     end
-    
-    for k, v in Sync.AddSpecialAbility do
-        local army = v.Army
-        if army == GetFocusArmy() then
-            import('/lua/ui/ability_panel/abilities.lua').AddSpecialAbility(v)
-        end
-    end
-    for k, v in Sync.RemoveSpecialAbility do
-        local army = v.Army
-        if army == GetFocusArmy() then
-            import('/lua/ui/ability_panel/abilities.lua').RemoveSpecialAbility(v)
-        end
-    end
-
-    for k, v in Sync.EnableSpecialAbility do
-        local army = v.Army
-        if army == GetFocusArmy() then
-            import('/lua/ui/ability_panel/abilities.lua').EnableSpecialAbility(v)
-        end
-    end
-    for k, v in Sync.DisableSpecialAbility do
-        local army = v.Army
-        if army == GetFocusArmy() then
-            import('/lua/ui/ability_panel/abilities.lua').DisableSpecialAbility(v)
-        end
-    end
 
     for k, v in Sync.StartAbilityCoolDown do
         local army = v.Army
@@ -61,19 +35,6 @@ function OnSync()
                     view:RemoveStaticAbilityDecal( decalKeys[ k ] )
                 end
             end
-        end
-    end
-
-    for k, v in Sync.SetAbilityUnits do
-        local army = v.Army
-        if army == GetFocusArmy() then
-            import('/lua/user/tasks/Tasks.lua').SetAbilityUnits( v.AbilityName, army, v.UnitIds )
-        end
-    end
-    for k, v in Sync.SetAbilityRangeCheckUnits do
-        local army = v.Army
-        if army == GetFocusArmy() then
-            import('/lua/user/tasks/Tasks.lua').SetAbilityRangeCheckUnits( v.AbilityName, army, v.UnitIds )
         end
     end
 

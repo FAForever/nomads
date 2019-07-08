@@ -185,10 +185,6 @@ AIBrain = Class(oldAIBrain) {
     SpecialAbilityUnits = {},
     SpecialAbilityRangeCheckUnits = {},
 
-    RemoveSpecialAbilityUnit = function(self, unit, type, autoDisable)
-        WARN('Nomads using deprecated function RemoveSpecialAbilityUnit')
-    end,
-
     GetSpecialAbilityUnits = function(self, type)
         local units = {}
         if self.SpecialAbilityUnits[type] then
