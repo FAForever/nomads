@@ -1181,12 +1181,6 @@ UnitBlueprint {
     SizeX = 1.2,
     SizeY = 1.75,
     SizeZ = 0.8,
-    SpecialAbilities = {
-        NomadsAreaBombardment = {
-            IsRangeExtender = true,
-            MaxRadius = 200,
-        },
-    },
     StrategicIconName = 'icon_commander_generic',
     StrategicIconSortPriority = 1,
     Transport = {

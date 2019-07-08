@@ -195,18 +195,6 @@ XNL0301 = Class(NWalkingLandUnit) {
     -- =====================================================================================================================
     -- UNIT DEATH
 
-    OnKilled = function(self, instigator, type, overkillRatio)
-        local brain = self:GetAIBrain()
-        brain:RemoveSpecialAbilityUnit(self, 'NomadsAreaBombardment')
-        NWalkingLandUnit.OnKilled(self, instigator, type, overkillRatio)
-    end,
-
-    OnDestroy = function(self)
-        local brain = self:GetAIBrain()
-        brain:RemoveSpecialAbilityUnit(self, 'NomadsAreaBombardment')
-        NWalkingLandUnit.OnDestroy(self)
-    end,
-
     DoDeathWeapon = function(self)
         if self:IsBeingBuilt() then return end
 
