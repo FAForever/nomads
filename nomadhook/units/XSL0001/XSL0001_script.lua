@@ -5,10 +5,10 @@ XSL0001 = Class(oldXSL0001) {
         oldXSL0001.CreateEnhancement(self, enh)
 
     if enh =='Missile' then
-        self:GetBlueprint().SpecialAbilities.LaunchTacMissile.NoAutoEnable = false
+            self:GetBlueprint().SpecialAbilities.LaunchTacMissile.Enabled = true
         self:RegisterSpecialAbilities()
     elseif enh == 'MissileRemove' then
-        self:GetBlueprint().SpecialAbilities.LaunchTacMissile.NoAutoEnable = true
+            self:GetBlueprint().SpecialAbilities.LaunchTacMissile.Enabled = false
         self:UnregisterSpecialAbilities()
         end
     end
