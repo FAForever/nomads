@@ -194,6 +194,7 @@ PlatoonTemplate {
 -- T1
 PlatoonTemplate {
     Name = 'T1LandAA',
+    -- all units in this squad must have categories.ANTIAIR
     FactionSquads = {
         UEF = {
             { 'uel0104', 1, 1, 'Attack', 'none' }
@@ -215,6 +216,7 @@ PlatoonTemplate {
 
 PlatoonTemplate {
     Name = 'T1LandArtillery',
+    -- all units in this squad must have categories.INDIRECTFIRE
     FactionSquads = {
         UEF = {
             { 'uel0103', 1, 1, 'Attack', 'none' }
@@ -229,8 +231,7 @@ PlatoonTemplate {
             { 'xsl0103', 1, 1, 'Attack', 'none' }
         },
         Nomads = {
-            { 'xnl0107', 1, 1, 'Attack', 'none' },
-            { 'xnl0201', 1, 2, 'Attack', 'none' }, -- 1 or 2 T1 tanks to make the sniper tank less numerous on the battlefield
+            { 'xnl0103', 1, 1, 'attack', 'none' }
         },
     }
 }
@@ -272,7 +273,8 @@ PlatoonTemplate {
             { 'xsl0201', 1, 1, 'attack', 'none' }
         },
         Nomads = {
-            { 'xnl0201', 1, 1, 'attack', 'none' }
+            { 'xnl0107', 1, 1, 'Attack', 'none' },
+            { 'xnl0201', 1, 2, 'Attack', 'none' }, -- 1 or 2 T1 tanks to make the sniper tank less numerous on the battlefield
         },
     }
 }
