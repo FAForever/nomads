@@ -1,6 +1,5 @@
-do
 
-
+-- Hook AirUnit for Blackhole kills
 local oldAirUnit = AirUnit
 
 AirUnit = Class(oldAirUnit) {
@@ -9,15 +8,10 @@ AirUnit = Class(oldAirUnit) {
         -- if killed by black hole then suck in unit regardless of flying or not
         if self:WasUnitKilledByBlackhole(type) then
             self.DeathBounce = 1
-            if instigator and IsUnit(instigator) then
-                instigator:OnKilledUnit(self)
-            end
             MobileUnit.OnKilled(self, instigator, type, overkillRatio)
         else
             oldAirUnit.OnKilled(self, instigator, type, overkillRatio)
         end
     end,
+
 }
-
-
-end
