@@ -7533,7 +7533,7 @@ technique NomadsUnit_MedFidelity
         RasterizerState( Rasterizer_Cull_CW )
 
         VertexShader = compile vs_1_1 NormalMappedVS();
-        PixelShader = compile ps_2_0 NormalMappedPS(true,true,false, false,0,0 );
+        PixelShader = compile ps_2_0 NomadsNormalMappedPS(true,true,false, false,0,0 );
     }
 }
 
@@ -7574,7 +7574,7 @@ technique NomadsUnitStunned_HighFidelity
         RasterizerState( Rasterizer_Cull_CW )
 
         VertexShader = compile vs_1_1 NormalMappedVS();
-        PixelShader = compile ps_2_a NormalMappedPS(
+        PixelShader = compile ps_2_a NomadsNormalMappedPS(
             true,  // mask albedo
             true,  // glow
             true,  // hi def shadows
@@ -7609,7 +7609,7 @@ technique NomadsUnitStunned_MedFidelity
         RasterizerState( Rasterizer_Cull_CW )
 
         VertexShader = compile vs_1_1 NormalMappedVS();
-        PixelShader = compile ps_2_0 NormalMappedPS(true,true,false, false,0,0 );
+        PixelShader = compile ps_2_0 NomadsNormalMappedPS(true,true,false, false,0,0 );
     }
     pass P1
     {
@@ -7661,7 +7661,7 @@ technique NomadsPowerArmor_HighFidelity
         RasterizerState( Rasterizer_Cull_CW )
 
         VertexShader = compile vs_1_1 NormalMappedVS();
-        PixelShader = compile ps_2_a NormalMappedPS(true,true,true, false,0,0 );
+        PixelShader = compile ps_2_a NomadsNormalMappedPS(true,true,true, false,0,0 );
     }
     pass P1
     {
@@ -7690,7 +7690,7 @@ technique NomadsPowerArmor_MedFidelity
         RasterizerState( Rasterizer_Cull_CW )
 
         VertexShader = compile vs_1_1 NormalMappedVS();
-        PixelShader = compile ps_2_0 NormalMappedPS(true,true,false, false,0,0 );
+        PixelShader = compile ps_2_0 NomadsNormalMappedPS(true,true,false, false,0,0 );
     }
     pass P1
     {
@@ -7750,7 +7750,7 @@ technique NomadsPhaseShield_HighFidelity
         RasterizerState( Rasterizer_Cull_CW )
 
         VertexShader = compile vs_1_1 NormalMappedVS();
-        PixelShader = compile ps_2_a NormalMappedPS(true,true,true, false,0,0 );
+        PixelShader = compile ps_2_a NomadsNormalMappedPS(true,true,true, false,0,0 );
     }
     pass P1
     {
@@ -7779,7 +7779,7 @@ technique NomadsPhaseShield_MedFidelity
         RasterizerState( Rasterizer_Cull_CW )
 
         VertexShader = compile vs_1_1 NormalMappedVS();
-        PixelShader = compile ps_2_0 NormalMappedPS(true,true,false, false,0,0 );
+        PixelShader = compile ps_2_0 NomadsNormalMappedPS(true,true,false, false,0,0 );
     }
     pass P1
     {
@@ -7951,7 +7951,6 @@ technique ShieldNomadsStealth_LowFidelity
         PixelShader = compile ps_2_0 ShieldNomadsLoFiPS();
     }
 }
-
 // ====================================================================================================================================================================
 // all nomads techniques using a changed pixel shader and with the 's' added
 
