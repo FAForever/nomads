@@ -48,6 +48,7 @@ UnitBlueprint {
         'NOMADS',
         'MOBILE',
         'NAVAL',
+        'DESTROYER',
         'TECH2',
         'VISIBLETORECON',
         'RECLAIMABLE',

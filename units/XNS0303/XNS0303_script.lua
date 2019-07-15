@@ -1,7 +1,9 @@
 -- carrier
 
-local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local NSeaUnit = import('/lua/nomadsunits.lua').NSeaUnit
+local SupportingArtilleryAbility = import('/lua/nomadsutils.lua').SupportingArtilleryAbility
+NSeaUnit = SupportingArtilleryAbility( NSeaUnit )
+local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local ParticleBlaster1 = import('/lua/nomadsweapons.lua').ParticleBlaster1
 local HVFlakWeapon = import('/lua/nomadsweapons.lua').HVFlakWeapon
 

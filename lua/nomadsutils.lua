@@ -921,12 +921,18 @@ function SupportedArtilleryWeapon(SuperClass)
                 -- the next line effectively limits the ability range to 70.
                 local SupportingUnits = AIUtils.GetOwnUnitsAroundPoint(self.unit:GetAIBrain(), categories.ARTILLERYSUPPORT, targetPos, 70)
                 for k, unit in SupportingUnits do
-                    range = unit:GetArtillerySupportRange() or 0
-                    if not unit.Dead and range > 0 then
-                        pos1 = unit:GetPosition()
-                        dist = VDist2(pos1[1], pos1[3], targetPos[1], targetPos[3])
-                        if dist <= range and unit:CheckCanSupportArtilleryForTarget(self.Owner, targetPos, target) then
-                            return unit
+                    if not unit.Dead then
+                        if not unit.GetArtillerySupportRange then
+                            WARN('Nomads: GetAnArtillerySupporter: Function "GetArtillerySupportRange()" is missing on unit ['..repr(unit:GetUnitId())..']')
+                            continue
+                        end
+                        range = unit:GetArtillerySupportRange() or 0
+                        if range > 0 then
+                            pos1 = unit:GetPosition()
+                            dist = VDist2(pos1[1], pos1[3], targetPos[1], targetPos[3])
+                            if dist <= range and unit:CheckCanSupportArtilleryForTarget(self.Owner, targetPos, target) then
+                                return unit
+                            end
                         end
                     end
                 end

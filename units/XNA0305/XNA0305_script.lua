@@ -1,7 +1,9 @@
 -- T3 gunship
 
-local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local NAirUnit = import('/lua/nomadsunits.lua').NAirUnit
+local SupportingArtilleryAbility = import('/lua/nomadsutils.lua').SupportingArtilleryAbility
+NAirUnit = SupportingArtilleryAbility( NAirUnit )
+local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local PlasmaCannon = import('/lua/nomadsweapons.lua').PlasmaCannon
 local RocketWeapon1 = import('/lua/nomadsweapons.lua').RocketWeapon1
 

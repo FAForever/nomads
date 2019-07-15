@@ -429,6 +429,7 @@ NSubUnit = Class(SubUnit) {}
 NConstructionUnit = Class(ConstructionUnit) {
 
     CreateBuildEffects = function( self, unitBeingBuilt, order )
+        if not unitBeingBuilt then return end
         local UpgradesFrom = unitBeingBuilt:GetBlueprint().General.UpgradesFrom
         if (not unitBeingBuilt:IsBeingBuilt()) or (UpgradesFrom and UpgradesFrom ~= 'none' and self:IsUnitState('Guarding')) then
             CreateRepairBuildBeams( self, unitBeingBuilt, self:GetBlueprint().General.BuildBones.BuildEffectBones, self.BuildEffectsBag )

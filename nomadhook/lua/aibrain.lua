@@ -65,7 +65,7 @@ AIBrain = Class(oldAIBrain) {
                 end
             end
         else
-            WARN('Nomads: Attempt to set special ability with malformed data!')
+            WARN('Nomads: SetSpecialAbility: Attempt to set special brain ability '..repr(abilityName)..' with malformed data! | data =  ('..repr(data)..')')
         end
         
         self.QueueAbilityPanelUpdate = true
@@ -77,8 +77,12 @@ AIBrain = Class(oldAIBrain) {
         local unitId = unit:GetEntityId()
         --replace unit argument with unitId argument?
         
-        if data == 'Remove' and self.UnitSpecialAbilities[unitId][abilityName] then
-            self.UnitSpecialAbilities[unitId][abilityName] = nil
+        if data == 'Remove' then
+            if self.UnitSpecialAbilities[unitId][abilityName] then
+                self.UnitSpecialAbilities[unitId][abilityName] = nil
+            else
+                SPEW('Nomads: SetUnitSpecialAbility: Attempt to remove non existent special ability '..repr(abilityName)..' from unit ['..repr(unit:GetUnitId())..']')
+            end
         elseif type(data) == 'table' then
             if not self.UnitSpecialAbilities[unitId] then
                 self.UnitSpecialAbilities[unitId] = {}
@@ -92,7 +96,7 @@ AIBrain = Class(oldAIBrain) {
                 end
             end
         else
-            WARN('Nomads: Attempt to set special ability with malformed data!')
+            WARN('Nomads: SetUnitSpecialAbility: Attempt to set special ability '..repr(abilityName)..' on unit ['..repr(unit:GetUnitId())..'] with malformed data! | data =  ('..repr(data)..')')
         end
         
         self.QueueAbilityPanelUpdate = true
