@@ -69,6 +69,7 @@ UnitBlueprint {
         'NOMADS',
         'MOBILE',
         'NAVAL',
+        'T3SUBMARINE',
         'TECH3',
         'SUBMERSIBLE',
         'INDIRECTFIRE',
