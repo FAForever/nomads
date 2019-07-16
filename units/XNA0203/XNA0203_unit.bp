@@ -114,7 +114,6 @@ UnitBlueprint {
         'SONAR',
         'OVERLAYSONAR',
         'OVERLAYDIRECTFIRE',
-        'ARTILLERYSUPPORT',
     },
     CollisionOffsetZ = -0.2,
     Defense = {
