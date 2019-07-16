@@ -109,13 +109,6 @@ Unit = Class(oldUnit) {
     end,
 
     -- ================================================================================================================
-    -- NEW GENERIC EVENTS
-
-    OnShieldRemoved = function(self)
-        -- happens when the shield bubble is gone for whatever reason. "OnShieldEnabled" is fired when the shield is back on
-    end,
-
-    -- ================================================================================================================
     -- AMMO EVENTS
 
     OnAmmoCountIncreased = function(self, NewCount)

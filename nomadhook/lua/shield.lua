@@ -11,11 +11,6 @@ local NomadsShieldChanges = function(SuperClass)
         end
     end,
 
-    RemoveShield = function(self)
-        SuperClass.RemoveShield(self)
-        self.Owner:OnShieldRemoved()
-    end,
-
     CollapseShield = function(self, instigator)
         ChangeState(self, self.EnergyDrainRechargeState)
     end,
