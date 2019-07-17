@@ -18,13 +18,18 @@ Wreckage = Class(oldWreckage) {
     end,
 
     DoTakeDamage = function(self, instigator, amount, vector, damageType)
-        local maxHealth = self:GetMaxHealth()
         self:AdjustHealth(instigator, -amount)
         local health = self:GetHealth()
-        if health <= 0 and self.BlackholeSuckedIn then
-            -- let the black hole script destroy the wreckage
+
+        if health <= 0 then 
+            if self.BlackholeSuckedIn then
+                -- let the black hole script destroy the wreckage
+            else
+                self:DoPropCallbacks('OnKilled')
+                self:Destroy()
+            end
         else
-            oldWreckage.DoTakeDamage(self, instigator, amount, vector, damageType)
+            self:UpdateReclaimLeft()
         end
     end,
 }

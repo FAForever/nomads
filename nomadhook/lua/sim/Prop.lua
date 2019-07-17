@@ -32,6 +32,7 @@ Prop = Class(oldProp) {
     OnBlackHoleDissipated = function(self)
         self.BlackholeSuckedIn = false
         if self.BlackHoleDestroys then
+            self:DoPropCallbacks('OnKilled')
             self:Destroy()
         end
     end,
