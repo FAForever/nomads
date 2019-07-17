@@ -3,11 +3,6 @@ local oldProp = Prop
 Prop = Class(oldProp) {
     BlackHoleDestroys = true,
 
-    OnCreate = function(self)
-        oldProp.OnCreate(self)
-        self.BlackholeSuckedIn = false
-    end,
-
     OnDamage = function(self, instigator, amount, direction, damageType)
         if self.CanTakeDamage then
             if damageType == 'BlackholeDamage' or damageType == 'BlackholeDeathNuke' then
