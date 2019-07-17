@@ -5,7 +5,7 @@ local oldWreckage = Wreckage
 Wreckage = Class(oldWreckage) {
 
     OnDamage = function(self, instigator, amount, vector, damageType)
-        if self:BlackhHoleCanPropSuckIn() then
+        if self.CanTakeDamage then
             if damageType == 'BlackholeDamage' or damageType == 'BlackholeDeathNuke' then
                 if not self.BlackholeSuckedIn then
                     self.BlackholeSuckedIn = true

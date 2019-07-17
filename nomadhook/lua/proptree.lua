@@ -34,7 +34,7 @@ Tree = Class(oldTree) {
     end,
 
     CheckForBlackHoleDamage = function(self, instigator, type)
-        if self:BlackhHoleCanPropSuckIn() then
+        if self.CanTakeDamage then
             if type == 'BlackholeDamage' or type == 'BlackholeDeathNuke' then
                 if not self.BlackholeSuckedIn then
                     self.BlackholeSuckedIn = true
