@@ -1,9 +1,5 @@
-do
-
 local oldWreckage = Wreckage
-
 Wreckage = Class(oldWreckage) {
-
     OnDamage = function(self, instigator, amount, vector, damageType)
         if self.CanTakeDamage then
             if damageType == 'BlackholeDamage' or damageType == 'BlackholeDeathNuke' then
@@ -32,5 +28,3 @@ Wreckage = Class(oldWreckage) {
         end
     end,
 }
-
-end

@@ -1,14 +1,10 @@
-do
-
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local RandomFloat = import('/lua/utilities.lua').GetRandomFloat
 local Prop = import('/lua/sim/Prop.lua').Prop
 
 -- Redone the trees quite significantly. This may be a bit destructive but else I couldn't get the trees working like I wanted.
-
 local oldTree = Tree
 Tree = Class(oldTree) {
-
     OnCreate = function(self)
         oldTree.OnCreate(self)
         self.Fallen = false
@@ -18,7 +14,7 @@ Tree = Class(oldTree) {
     end,
 
     OnCollision = function(self, other, nx, ny, nz, depth)
-        self:StateVariable( {nx, ny, nz} )
+        self:StateVariable({nx, ny, nz})
         self:PlayUprootingEffect(other)
         ChangeState(self, self.FallingOutwardsState)
     end,
@@ -39,7 +35,7 @@ Tree = Class(oldTree) {
                 if not self.BlackholeSuckedIn then
                     self.BlackholeSuckedIn = true
                     if instigator.NukeEntity.OnPropBeingSuckedIn then
-                        instigator.NukeEntity:OnPropBeingSuckedIn( self )
+                        instigator.NukeEntity:OnPropBeingSuckedIn(self)
                     else
                         WARN('could not find instigator nuke entity for tree prop to be sucked into black hole')
                     end
@@ -56,10 +52,8 @@ Tree = Class(oldTree) {
 
         OnDamage = function(self, instigator, armormod, direction, type)
             if self:DamageIsForce(type) then
-
                 if GetGameTimeSeconds() < 10 then  -- game start, trees should be gone where ACU spawns
                     ChangeState(self, self.ObliteratedState)
-
                 else
                     self:StateVariable(direction)
                     if type == 'ForceInwards' then
@@ -68,20 +62,16 @@ Tree = Class(oldTree) {
                         ChangeState(self, self.FallingOutwardsState)
                     end
                 end
-
             elseif self:DamageIsFire(type) then
                 if not self.Burning and (type ~= 'ForestFire' or Random(1, 5) <= 1) then
                     self.Burning = true
                     self.BigFireFx = (type == 'BigFire')
                     self:PlayFireEffects()
                 end
-
             elseif self:DamageIsDisintegrate(type) then
                 ChangeState(self, self.DisintegrateState)
-
             elseif self:DamageIsObliterate() or Random(1, 8) <= 1 then
                 ChangeState(self, self.ObliteratedState)
-
             end
 
             self:CheckForBlackHoleDamage(instigator, type)
@@ -109,10 +99,8 @@ Tree = Class(oldTree) {
                     self.BigFireFx = (type == 'BigFire')
                     self:PlayFireEffects()
                 end
-
             elseif self:DamageIsDisintegrate(type) then
                 ChangeState(self, self.DisintegrateState)
-
             elseif self:DamageIsObliterate() or (not self:DamageIsForce(type) and Random(1, 4) <= 1) then
                 ChangeState(self, self.ObliteratedState)
             end
@@ -154,7 +142,6 @@ Tree = Class(oldTree) {
             self:Destroy()
         end,
 
-
         OnCollisionCheck = function(self, other)
             return false
         end,
@@ -186,7 +173,7 @@ Tree = Class(oldTree) {
             local templ = NomadsEffectTemplate.TreeDisintegrate
             if self.Fallen then templ = NomadsEffectTemplate.FallenTreeDisintegrate end
             for k, v in templ do
-                CreateEmitterAtBone( self, 0, -1, v )  -- the effects must have a limited life...
+                CreateEmitterAtBone(self, 0, -1, v) -- the effects must have a limited life...
             end
             self.Burning = false
             self:DestroyFireEffects()
@@ -200,7 +187,7 @@ Tree = Class(oldTree) {
     end,
 
     DamageIsForce = function(self, type)
-        return (type == 'Force' or type == 'ForceInwards' or type == 'ExperimentalFootfall')  -- exp footfall so the trees fall by steps from experimentals
+        return (type == 'Force' or type == 'ForceInwards' or type == 'ExperimentalFootfall') -- exp footfall so the trees fall by steps from experimentals
     end,
 
     DamageIsFire = function(self, type)
@@ -216,7 +203,6 @@ Tree = Class(oldTree) {
     end,
 
     PlayFireEffects = function(self, initialScale, curveParam)
-
         if self.BurnTime <= 0 then return end
 
         if self.FireEffectsThread then
@@ -240,24 +226,24 @@ Tree = Class(oldTree) {
 
         local fn = function(self, templ, initialScale, curveParam)
             local scale, frac, curve, dmgTime, emit = initialScale, 1, 1, 1
--- FIXME: this seems to put the flames on a wrong place
---            local offset = RandomFloat(0, 1)
---            local dx, dy, dz = self:GetBoneDirection(0)
+            -- FIXME: this seems to put the flames on a wrong place
+            -- local offset = RandomFloat(0, 1)
+            -- local dx, dy, dz = self:GetBoneDirection(0)
 
             self:PlayPropSound('BurnStart')
             self:PlayPropAmbientSound('BurnLoop')
 
             for k, v in templ do
-                emit = CreateAttachedEmitter(self, 0, -1, v):ScaleEmitter( scale )
---                emit:OffsetEmitter( dx * offset, dy * offset, dz * offset)
-                table.insert( self.FireEffects, emit )
+                emit = CreateAttachedEmitter(self, 0, -1, v):ScaleEmitter(scale)
+                -- emit:OffsetEmitter(dx * offset, dy * offset, dz * offset)
+                table.insert(self.FireEffects, emit)
                 self.Trash:Add(emit)
             end
 
             self:SetMesh(self:GetBlueprint().Display.MeshBlueprintWrecked)
             if not self.ScorchMarkCreated then
                 self.ScorchMarkCreated = true
-                DefaultExplosions.CreateScorchMarkSplat( self, 0.5, -1 )
+                DefaultExplosions.CreateScorchMarkSplat(self, 0.5, -1)
             end
 
             while self and self.BurnTime > 0 do
@@ -265,19 +251,19 @@ Tree = Class(oldTree) {
                 curve = (-curveParam * math.pow(frac, 2)) + (curveParam * frac) + 1
                 scale = initialScale * frac * curve
                 for k, v in self.FireEffects do
-                    v:ScaleEmitter( scale )
+                    v:ScaleEmitter(scale)
                 end
--- TODO: disabled for performance reasons. remove completely?
---                if dmgTime <= 0 then
---                    DamageArea(self, self:GetCachePosition(), 1, 1, 'ForestFire', true)
---                    dmgTime = Random(140, 200)
---                    if self.BigFireFx then
---                        dmgTime = dmgTime * 0.75
---                    end
---                end
+                -- TODO: disabled for performance reasons. remove completely?
+                -- if dmgTime <= 0 then
+                --     DamageArea(self, self:GetCachePosition(), 1, 1, 'ForestFire', true)
+                --     dmgTime = Random(140, 200)
+                --     if self.BigFireFx then
+                --         dmgTime = dmgTime * 0.75
+                --     end
+                -- end
                 WaitTicks(10)
                 self.BurnTime = self.BurnTime - 1
---                dmgTime = dmgTime - 10
+                -- dmgTime = dmgTime - 10
             end
 
             self:PlayPropAmbientSound(nil)
@@ -294,7 +280,7 @@ Tree = Class(oldTree) {
 
     DestroyFireEffects = function(self)
         if self.FireEffectsThread then
-            KillThread( self.FireEffectsThread )
+            KillThread(self.FireEffectsThread)
         end
         if self.FireEffects then
             for k, v in self.FireEffects do
@@ -328,6 +314,3 @@ TreeGroup = Class(TreeGroup) {
         end
     end,
 }
-
-
-end

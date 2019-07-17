@@ -1,11 +1,6 @@
 -- some code for black hole effects. Doesn't support multiple blackholes around the same area because of the boolean but that's ok.
-
-do
-
 local oldProp = Prop
-
 Prop = Class(oldProp) {
-
     BlackHoleDestroys = true,
 
     OnCreate = function(self)
@@ -51,6 +46,3 @@ Prop = Class(oldProp) {
         end
     end,
 }
-
-
-end
