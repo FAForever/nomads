@@ -456,6 +456,7 @@ UnitBlueprint {
             BuildTime = 500,
             Icon = 'ip',
             Name = '<LOC NomadsACUEnh_IntelProbe_Help>Intel Probe',
+            NewOmniRadius = 60,
             ShowBones = {
                 'IntelProbe1',
             },
@@ -488,6 +489,7 @@ UnitBlueprint {
             Slot = 'RCH',
         },
         IntelProbeAdv = {
+            AdvOmniRadius = 100,
             BuildCostEnergy = 24000,
             BuildCostMass = 800,
             BuildTime = 800,
