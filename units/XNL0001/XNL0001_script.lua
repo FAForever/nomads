@@ -464,21 +464,25 @@ XNL0001 = Class(ACUUnit) {
         IntelProbe = function(self, bp)
             self:AddEnhancementEmitterToBone( true, 'IntelProbe1' )
             self:SetIntelProbe( 'IntelProbe' )
+            self:SetIntelRadius('Omni', bp.NewOmniRadius or 60)
         end,
         
         IntelProbeRemove = function(self, bp)
             self:AddEnhancementEmitterToBone( false, 'IntelProbe1' )
             self:SetIntelProbe(false)
+            self:SetIntelRadius('Omni', bp.OmniRadius or 26)
         end,
         
         IntelProbeAdv = function(self, bp)
 --            self:AddEnhancementEmitterToBone( true, 'IntelProbe1' )
             self:SetIntelProbe( 'IntelProbeAdv' )
+            self:SetIntelRadius('Omni', bp.AdvOmniRadius or 100)
         end,
         
         IntelProbeAdvRemove = function(self, bp)
             self:AddEnhancementEmitterToBone( false, 'IntelProbe1' )
             self:SetIntelProbe(false)
+            self:SetIntelRadius('Omni', bp.OmniRadius or 26)
         end,
         
         GunUpgrade = function(self, bp)
