@@ -371,7 +371,7 @@ xnl0103_name = "Barrager"
 
 -- T1 tank destroyer
 xnl0107_desc = "Tank Destroyer"
-xnl0107_help = "Carries a long range cannon that kills almost any lower tier unit with one direct hit. Inaccurate when moving but deadly when still, ideal for ambushes."
+xnl0107_help = "Carries a long range cannon that kills almost any lower tier unit with one direct hit."
 xnl0107_name = "Assassin"
 
 
@@ -388,17 +388,17 @@ xna0102_name = "Falcon"
 
 -- T1 bomber
 xna0103_desc = "Bomber"
-xna0103_help = "A low-end bomber equipped with 4 air-to-ground rocket launchers."
+xna0103_help = "A low-end bomber equipped with air-to-ground rocket launchers."
 xna0103_name = "Phoenix"
 
 -- T1 gunship
 xna0105_desc = "Light Gunship"
-xna0105_help = "A low-end gunship designed to take out ground targets. Can pin-point targets for artillery units."
+xna0105_help = "A low-end gunship designed to take out ground targets."
 xna0105_name = "Golem"
 
 -- T1 transport
 xna0107_desc = "Light Air Transport"
-xna0107_help = "An unarmed, small capacity transport. Carries land units through the air."
+xna0107_help = "An unarmed, small capacity transport whith allows him fly faster. Carries land units through the air."
 xna0107_name = "Diligence"
 
 
@@ -506,7 +506,7 @@ xnl0203_name = "Rogue"
 
 -- T2 Missile launcher
 xnl0111_desc = "Mobile Missile Launcher"
-xnl0111_help = "Amphibious missile launcher, fires two low yield tactical rockets. Designed to attack at long range. Can attack surface targets from under water."
+xnl0111_help = "Amphibious missile launcher, fires low yield tactical rockets. Designed to attack at long range. Can attack surface targets from under water."
 xnl0111_name = "Avalanche"
 
 -- T2 AA gun
@@ -516,7 +516,7 @@ xnl0205_name = "Skyshell"
 
 -- T2 heavy tank
 xnl0202_desc = "Heavy Tank"
-xnl0202_help = "Heavy tank, powerful weapons with anchor option for defensive use."
+xnl0202_help = "Heavy tank, powerful weapons which brutalize enemy forces."
 xnl0202_name = "Brute"
 
 -- T2 assault bot
@@ -526,23 +526,23 @@ xnl0202_name = "Brute"
 
 -- T2 EMP tank
 xnl0306_desc = "EMP Tank"
-xnl0306_help = "Equipped with twin EMP cannons. Can freeze most units but inflicts minor damage. Has bombardment mode, useful for supressing groups of enemies."
+xnl0306_help = "Equipped with EMP cannons, that freeze enemy units and cause superior damage to shields. Useful for supressing groups of enemies."
 xnl0306_name = "Dominator"
 
 -- Air units
 -- T2 F/B
 xna0202_desc = "Fighter/Bomber"
-xna0202_help = "Multipurpose unit that uses its rocket launchers on either side against air or surface units. Also carries bombs and depth charges to deal with all kinds of threats."
+xna0202_help = "Multipurpose unit that uses its rocket launchers on either side against air or surface units."
 xna0202_name = "Spitfire"
 
 -- T2 torpedo gunship
 xna0203_desc = "Torpedo Gunship"
-xna0203_help = "Versatile anti-surface and anti-submarine gunship. Carries a gun, a torpedo launcher and anti-air missile flares. Additionally, the gunship can pin-point targets for artillery units."
+xna0203_help = "Versatile anti-surface and anti-submarine gunship. Carries a gun, a torpedo launcher."
 xna0203_name = "Vanguard"
 
 -- T2 transport
 xna0104_desc = "Air Transport"
-xna0104_help = "Unarmed air transport that can carry land units and defend itself with flares."
+xna0104_help = "Unarmed air transport that can carry land units and can cause damage by thurusters."
 xna0104_name = "Scalestor"
 
 
@@ -550,17 +550,17 @@ xna0104_name = "Scalestor"
 
 -- destroyer
 xns0201_desc = "Destroyer"
-xns0201_help = "Carries two cannon turrets but no torpedoes or anti-air weapons. Has bombardment mode, useful for assaulting bases and units protected by shields."
+xns0201_help = "Carries heavy cannons and medium railguns to deal with light submerged units. Do not have anti-air weapons."
 xns0201_name = "Firestorm Class"
 
 -- cruiser
 xns0202_desc = "Cruiser"
-xns0202_help = "Equipped with an AA missile turret, a double EMP cannon and long range homing missiles. The EMP weapon deals a lot of damage to shields."
+xns0202_help = "Equipped with an AA missile turret, manual tactical missle launchera and double EMP cannon. The EMP weapon deals a lot of damage to shields and suppress enemy forces."
 xns0202_name = "Mercenary Class"
 
 -- torpedo boat
 xns0205_desc = "Railgun Carrier"
-xns0205_help = "Anti-submarine ship. Uses two underwater railguns to attack submarines and ships. Also carries a tactical missile defense turret."
+xns0205_help = "Anti-submarine ship. Uses  underwater railguns to attack submarines and ships. Also carries a tactical missile defense turret."
 xns0205_name = "Whaler Class"
 
 
@@ -685,12 +685,12 @@ xnl0309_name = "Engineer"
 
 -- T3 tank
 xnl0303_desc = "Heavy Amphibious Tank"
-xnl0303_help = "Heavy amphibious tank. Equipped with heavy armor, a rocket launcher and a single siege cannon. Designed to deal with any surface threat."
+xnl0303_help = "Heavy amphibious tank. Equipped with heavy armor, a rocket launcher and a single siege cannon."
 xnl0303_name = "Nova"
 
 -- T3 artillery
 xnl0304_desc = "Mobile Heavy artillery"
-xnl0304_help = "Attacks targets at great range. Needs to deploy before firing."
+xnl0304_help = "Attacks targets at great range. Able fire in move for devasting use."
 xnl0304_name = "Mauler"
 
 -- T3 orbital fire command
@@ -710,7 +710,7 @@ xnl0209_name = "Scarab"
 
 -- T3 tracked tank
 xnl0305_desc = "Armored Assault Tank"
-xnl0305_help = "Tank that carries dual cannons and heavy armor. Has anchor option for defensive use."
+xnl0305_help = "Tank that carries dual cannons and heavy armor."
 xnl0305_name = "Slugger"
 
 
@@ -732,7 +732,7 @@ xna0304_name = "Red Rage"
 
 -- Gunship
 xna0305_desc = "Heavy Gunship"
-xna0305_help = "Equipped with a dual anti-surface cannon, a stingray gun, an anti-air missile launcher and anti-air missile flares. Excels at taking out single strong units and structures. Can also pin-point targets for artillery."
+xna0305_help = "Equipped with a dual anti-surface cannon, a stingray gun, an anti-air missile launcher. Excels at taking out single strong units and structures."
 xna0305_name = "Hornet"
 
 -- Naval units
@@ -867,17 +867,17 @@ xnb2302_name = "Desolator"
 
 -- transport
 xna0401_desc = "Experimental Transport"
-xna0401_help = "Experimental transport. High transport capacity and several anti-air defenses and torpedoes."
+xna0401_help = "Experimental transport. High transport capacity and several anti-air defenses."
 xna0401_name = "Comet"
 
 -- missile tank
 xnl0403_desc = "Experimental Missile Tank"
-xnl0403_help = "Hover unit designed for long range attacks. Equipped with long range EMP missiles, low yield tactical missiles, twin gattling guns, AA missiles and 4 smaller guns. EMP missiles are less efficient against heavily armored Experimental units and do less damage against them"
+xnl0403_help = "Experimental hover unit designed for long range attacks. Equipped with long range EMP missiles that owerhelm enemy tactical defense and supress armies, short range gattling guns for self defense. Carry single nuclear missle silo for ultimate destruction."
 xnl0403_name = "Crawler"
 
 -- beam tank
 xnl0402_desc = "Experimental Assault Unit"
-xnl0402_help = "Light and fast experimental unit. Uses a single beam weapon. Designed to engage groups of non-experimental units. Also viable against light and medium defended bases."
+xnl0402_help = "Uses a single beam weapon who is able to shoot while moving. Designed to engage any kind of units. Able load on, and fire from experimental transport."
 xnl0402_name = "Beamer"
 
 -- experimental tank
