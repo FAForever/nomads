@@ -127,7 +127,6 @@ UnitBlueprint {
     Display = {
         Abilities = {
             '<LOC ability_transport>Transport',
-            '<LOC ability_flares>Flares',
         },
         AnimationDeath = {
             {
