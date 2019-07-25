@@ -4,18 +4,13 @@ Prop = Class(oldProp) {
     BlackHoleDestroys = true,
 
     OnDamage = function(self, instigator, amount, direction, damageType)
-        if self.CanTakeDamage then
-            if damageType == 'BlackholeDamage' or damageType == 'BlackholeDeathNuke' then
-                if not self.BlackholeSuckedIn then
-                    self.BlackholeSuckedIn = true
-                    
-                    if instigator.NukeEntity.OnPropBeingSuckedIn then
-                        instigator.NukeEntity:OnPropBeingSuckedIn(self)
-                    else
-                        WARN('could not find instigator nuke entity for prop to be sucked into black hole')
-                    end
-                    self:OnBlackHoleSuckingIn(instigator)
-                end
+        if not self.CanTakeDamage then return end
+
+        if damageType == 'BlackholeDamage' or damageType == 'BlackholeDeathNuke' then
+            if not self.BlackholeSuckedIn then
+                self.BlackholeSuckedIn = true
+                instigator.NukeEntity:OnPropBeingSuckedIn(self)
+                self:OnBlackHoleSuckingIn(instigator)
             end
         end
         oldProp.OnDamage(self, instigator, amount, direction, damageType)

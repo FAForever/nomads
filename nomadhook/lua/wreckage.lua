@@ -1,17 +1,13 @@
 local oldWreckage = Wreckage
 Wreckage = Class(oldWreckage) {
     OnDamage = function(self, instigator, amount, vector, damageType)
-        if self.CanTakeDamage then
-            if damageType == 'BlackholeDamage' or damageType == 'BlackholeDeathNuke' then
-                if not self.BlackholeSuckedIn then
-                    self.BlackholeSuckedIn = true
-                    if instigator.NukeEntity.OnPropBeingSuckedIn then
-                        instigator.NukeEntity:OnPropBeingSuckedIn( self )
-                    else
-                        WARN('could not find instigator nuke entity for wreckage to be sucked into black hole')
-                    end
-                    self:OnBlackHoleSuckingIn(instigator)
-                end
+        if not self.CanTakeDamage then return end
+
+        if damageType == 'BlackholeDamage' or damageType == 'BlackholeDeathNuke' then
+            if not self.BlackholeSuckedIn then
+                self.BlackholeSuckedIn = true
+                instigator.NukeEntity:OnPropBeingSuckedIn(self)
+                self:OnBlackHoleSuckingIn(instigator)
             end
         end
         oldWreckage.OnDamage(self, instigator, amount, vector, damageType)

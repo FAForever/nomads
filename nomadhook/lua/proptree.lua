@@ -30,16 +30,13 @@ Tree = Class(oldTree) {
     end,
 
     CheckForBlackHoleDamage = function(self, instigator, type)
-        if self.CanTakeDamage then
-            if type == 'BlackholeDamage' or type == 'BlackholeDeathNuke' then
-                if not self.BlackholeSuckedIn then
-                    self.BlackholeSuckedIn = true
-                    if instigator.NukeEntity.OnPropBeingSuckedIn then
-                        instigator.NukeEntity:OnPropBeingSuckedIn(self)
-                    else
-                        WARN('could not find instigator nuke entity for tree prop to be sucked into black hole')
-                    end
-                end
+        if not self.CanTakeDamage then return end
+
+        if type == 'BlackholeDamage' or type == 'BlackholeDeathNuke' then
+            if not self.BlackholeSuckedIn then
+                self.BlackholeSuckedIn = true
+                instigator.NukeEntity:OnPropBeingSuckedIn(self)
+                self:OnBlackHoleSuckingIn(instigator)
             end
         end
     end,
