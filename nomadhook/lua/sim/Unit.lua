@@ -338,11 +338,16 @@ Unit = Class(oldUnit) {
         -- speed multi (0.8 becomes 0.64,etc). This only happens when the multi is < 1. Fixing this by taking the square root of the passed
         -- value instead, if it is below 1. Test by having a Nomads hover unit with reduced speed on water through a buff and another hover
         -- unit. Move them over water and compare speeds.
-        self.SpeedMulti = val
-        if val < 1 then
-            val = math.sqrt(val)
+        if val then
+            self.SpeedMulti = val
+            if val < 1 then
+                val = math.sqrt(val)
+            end
+            --LOG('*DEBUG: SetSpeedMult '..repr(self:GetUnitId())..' '..repr(val))
+        else
+            WARN('Nomads: SetSpeedMult: Can\'t set SpeedMult to unit ['..repr(self:GetUnitId() or "Unknown")..']. val=nil!')
+            return
         end
-        --LOG('*DEBUG: SetSpeedMult '..repr(self:GetUnitId())..' '..repr(val))
         return oldUnit.SetSpeedMult(self, val)
     end,
 
