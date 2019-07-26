@@ -1844,11 +1844,11 @@ function AddCapacitorAbility( SuperClass )
         
         -- don't do shield things
         EnableShield = function(self)
-            WARN('Nomads: Shields disabled by capacitor ability')
+            WARN('Nomads: EnableShield: Shields disabled by capacitor ability on unit ['..repr(self:GetUnitId() or "Unknown")..'].!')
         end,
 
         DisableShield = function(self)
-            WARN('Nomads: Shields disabled by capacitor ability')
+            WARN('Nomads: DisableShield: Shields disabled by capacitor ability on unit ['..repr(self:GetUnitId() or "Unknown")..'].!')
         end,
     }
 end
