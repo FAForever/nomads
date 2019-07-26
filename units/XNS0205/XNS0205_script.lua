@@ -44,6 +44,10 @@ XNS0205 = Class(NSeaUnit) {
                         --WARN("reloading")
                         WaitSeconds(1.2)
                         --WARN('wait time elapsed')
+                        if not self or self:BeenDestroyed() then
+                            --WARN('Nomads: Unit XNS0205: RackSalvoReloadState: Unit died while reloading Weapon Rack. ')
+                            return
+                        end
                         HVFlakWeapon.RackSalvoReloadState.Main(self)
                         self.unit:OnTargetLost()
                     end)
