@@ -505,7 +505,7 @@ XNL0001 = Class(ACUUnit) {
             local ubp = self:GetBlueprint()
             local wep = self:GetWeaponByLabel('MainGun')
             local wbp = wep:GetBlueprint()
-			wep:AddDamageRadiusMod(-ubp.Enhancements['GunUpgrade'].NewDamageRadius)
+            wep:AddDamageRadiusMod(-ubp.Enhancements['GunUpgrade'].NewDamageRadius)
             wep:ChangeMaxRadius(wbp.MaxRadius)
 
             -- adjust overcharge gun
@@ -529,7 +529,7 @@ XNL0001 = Class(ACUUnit) {
             local ubp = self:GetBlueprint()
             local wep = self:GetWeaponByLabel('MainGun')
             local wbp = wep:GetBlueprint()
-			wep:AddDamageRadiusMod(-ubp.Enhancements['GunUpgrade'].NewDamageRadius)
+            wep:AddDamageRadiusMod(-ubp.Enhancements['GunUpgrade'].NewDamageRadius)
             wep:ChangeMaxRadius(wbp.MaxRadius)
 
             -- adjust overcharge gun
