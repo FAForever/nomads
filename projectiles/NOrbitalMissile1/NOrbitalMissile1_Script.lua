@@ -1,11 +1,11 @@
-local TacticalMissile = import('/lua/nomadsprojectiles.lua').TacticalMissile
+local StrategicMissile = import('/lua/nomadsprojectiles.lua').StrategicMissile
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local EffectUtil = import('/lua/EffectUtilities.lua')
 
-NOrbitalMissile1 = Class(TacticalMissile) {
+NOrbitalMissile1 = Class(StrategicMissile) {
 
     OnCreate = function(self, inWater)
-        TacticalMissile.OnCreate(self)
+        StrategicMissile.OnCreate(self)
         self:ForkThread(self.TrailThread)
     end,
 

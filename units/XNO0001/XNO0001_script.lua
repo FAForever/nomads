@@ -2,6 +2,7 @@
 
 local NOrbitUnit = import('/lua/nomadsunits.lua').NOrbitUnit
 local OrbitalMissileWeapon = import('/lua/nomadsweapons.lua').OrbitalMissileWeapon
+local StrategicMissileWeapon = import('/lua/nomadsweapons.lua').StrategicMissileWeapon
 local CreateNomadsBuildSliceBeams = import('/lua/nomadseffectutilities.lua').CreateNomadsBuildSliceBeams
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 
@@ -9,15 +10,6 @@ local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 xno0001 = Class(NOrbitUnit) {
     Weapons = {
         OrbitalGun1 = Class(OrbitalMissileWeapon) {},
-        OrbitalGun2 = Class(OrbitalMissileWeapon) {},
-        OrbitalGun3 = Class(OrbitalMissileWeapon) {},
-        OrbitalGun4 = Class(OrbitalMissileWeapon) {},
-        OrbitalGun5 = Class(OrbitalMissileWeapon) {},
-        OrbitalGun6 = Class(OrbitalMissileWeapon) {},
-        OrbitalGun7 = Class(OrbitalMissileWeapon) {},
-        OrbitalGun8 = Class(OrbitalMissileWeapon) {},
-        OrbitalGun9 = Class(OrbitalMissileWeapon) {},
-        OrbitalGun10 = Class(OrbitalMissileWeapon) {},
     },
 
     ConstructionArmAnimManip = nil,
