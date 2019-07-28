@@ -381,9 +381,9 @@ UnitBlueprint {
             Slot = 'LCH',
         },
         DoubleGuns = {
-            BuildCostEnergy = 42000,
-            BuildCostMass = 1500,
-            BuildTime = 1200,
+            BuildCostEnergy = 15000,
+            BuildCostMass = 500,
+            BuildTime = 500,
             Icon = 'hamc2',
             Name = '<LOC NomadsACUEnh_DoubleGuns_Help>',
             ShowBones = {
@@ -419,14 +419,13 @@ UnitBlueprint {
             Slot = 'RCH',
         },
         GunUpgrade = {
-            BuildCostEnergy = 24000,
-            BuildCostMass = 800,
-            BuildTime = 800,
+            BuildCostEnergy = 15000,
+            BuildCostMass = 500,
+            BuildTime = 500,
             Icon = 'hamc',
             Name = '<LOC NomadsACUEnh_GunUpgrade_Help>',
-            NewDamage = 300,
+            NewDamageRadius = 2.5,
             NewMaxRadius = 30,
-            NewRateOfFire = 0.66,
             Slot = 'RCH',
             UpgradeEffectBones = {
                 'ElbowR',

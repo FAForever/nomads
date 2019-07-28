@@ -496,9 +496,8 @@ XNL0001 = Class(ACUUnit) {
             local wbp = wep:GetBlueprint()
             
             -- adjust main gun
-            wep:AddDamageMod( (bp.NewDamage or wbp.Damage) - wbp.Damage )
+            wep:AddDamageRadiusMod(bp.NewDamageRadius or 3)
             wep:ChangeMaxRadius(bp.NewMaxRadius or wbp.MaxRadius)
-            wep:ChangeRateOfFire(bp.NewRateOfFire or 0.66)
 
             -- adjust overcharge gun
             local oc = self:GetWeaponByLabel('OverCharge')
@@ -509,11 +508,11 @@ XNL0001 = Class(ACUUnit) {
         
         GunUpgradeRemove = function(self, bp)
             -- adjust main gun
+            local ubp = self:GetBlueprint()
             local wep = self:GetWeaponByLabel('MainGun')
             local wbp = wep:GetBlueprint()
-            wep:AddDamageMod( -((bp.NewDamage or wbp.Damage) - wbp.Damage) )
+			wep:AddDamageRadiusMod(-ubp.Enhancements['GunUpgrade'].NewDamageRadius)
             wep:ChangeMaxRadius(wbp.MaxRadius)
-            wep:ChangeRateOfFire(wbp.RateOfFire or 1)
 
             -- adjust overcharge gun
             local oc = self:GetWeaponByLabel('OverCharge')
@@ -536,9 +535,8 @@ XNL0001 = Class(ACUUnit) {
             local ubp = self:GetBlueprint()
             local wep = self:GetWeaponByLabel('MainGun')
             local wbp = wep:GetBlueprint()
-            wep:AddDamageMod( -((ubp.Enhancements['GunUpgrade'].NewDamage or wbp.Damage) - wbp.Damage) )
+			wep:AddDamageRadiusMod(-ubp.Enhancements['GunUpgrade'].NewDamageRadius)
             wep:ChangeMaxRadius(wbp.MaxRadius)
-            wep:ChangeRateOfFire(wbp.RateOfFire or 1)
 
             -- adjust overcharge gun
             local oc = self:GetWeaponByLabel('OverCharge')
