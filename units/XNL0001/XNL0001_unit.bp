@@ -590,9 +590,9 @@ UnitBlueprint {
             Slot = 'Back',
         },
         OrbitalBombardment = {
-            BuildCostEnergy = 50000,
-            BuildCostMass = 1000,
-            BuildTime = 1500,
+            BuildCostEnergy = 150000,
+            BuildCostMass = 3200,
+            BuildTime = 3000,
             Icon = 'heo',
             Name = '<LOC NomadsACUEnh_OrbitalBombardment_Help>',
             ShowBones = {

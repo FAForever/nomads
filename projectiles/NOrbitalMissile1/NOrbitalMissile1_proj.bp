@@ -51,9 +51,9 @@ ProjectileBlueprint {
         UniformScale = 0.8,
     },
     Economy = {
-        BuildCostEnergy = 3600,
-        BuildCostMass = 250,
-        BuildTime = 450,
+        BuildCostEnergy = 200000,
+        BuildCostMass = 2000,
+        BuildTime = 2000,
     },
     General = {
         Category = 'Direct Fire',
