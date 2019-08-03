@@ -597,7 +597,7 @@ znb9503_help = "Constructs Tech 2 naval units. Supporting factory, requires a na
 znb9503_name = "Naval Factory"
 
 -- Power generator
-xnb1201_desc = "Antimatter-Reactor"
+xnb1201_desc = "Power Generator"
 xnb1201_help = "Mid-level power generator. Construct next to other structures for adjacency bonus. Explodes violently when destroyed, this can cause chain reactions."
 xnb1201_name = "Antimatter-Reactor"
 
