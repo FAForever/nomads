@@ -57,7 +57,7 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
     },
-    Description = '<LOC XNB1201_desc>Antimatter-Reactor',
+    Description = '<LOC XNB1201_desc>Power Generator',
     Display = {
         Abilities = {
             '<LOC ability_deathaoe>Volatile',
