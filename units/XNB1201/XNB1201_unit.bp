@@ -240,7 +240,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = '<LOC XNB1201_name>Antimatter-Reactor',
+        UnitName = '<LOC XNB1201_name>Antimatter Reactor',
         UnitWeight = 1,
     },
     Intel = {
