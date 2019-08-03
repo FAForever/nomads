@@ -599,7 +599,7 @@ znb9503_name = "Naval Factory"
 -- Power generator
 xnb1201_desc = "Power Generator"
 xnb1201_help = "Mid-level power generator. Construct next to other structures for adjacency bonus. Explodes violently when destroyed, this can cause chain reactions."
-xnb1201_name = "Antimatter-Reactor"
+xnb1201_name = "Antimatter Reactor"
 
 -- mass extractor
 xnb1202_desc = "Mass Extractor"
