@@ -26,28 +26,18 @@ XNS0205 = Class(NSeaUnit) {
 
 
                 ReloadThread = function(self)
-                    --WARN('waiting in idle reload')
                     WaitSeconds(1.2)
                     if not self.PlayingTAEffects then
-                        --WARN('idle reload time elapsed successfully')
                         self.counter = 0
-                    else
-                        --WARN('idle reload time reset with counter: '..self.counter)
                     end
-                    --self.RackSalvoFireReadyState.Main(self)
                 end,
             },
 
             RackSalvoReloadState = State(HVFlakWeapon.RackSalvoReloadState) {
                 Main = function(self)
                     ForkThread(function()
-                        --WARN("reloading")
                         WaitSeconds(1.2)
-                        --WARN('wait time elapsed')
-                        if not self or self:BeenDestroyed() then
-                            --WARN('Nomads: Unit XNS0205: RackSalvoReloadState: Unit died while reloading Weapon Rack. ')
-                            return
-                        end
+                        if not self or self:BeenDestroyed() then return end
                         HVFlakWeapon.RackSalvoReloadState.Main(self)
                         self.unit:OnTargetLost()
                     end)
@@ -68,12 +58,10 @@ XNS0205 = Class(NSeaUnit) {
                     end
                     self.counter = self.counter + 1
                     if self.counter > 5 then
-                        --WARN("reseting counter from: "..self.counter)
                         self.counter = 0
                         self.RackSalvoReloadState.Main(self)
                     else
                         self:PlaySound(self.Audio.FireSpecial)
-                        --WARN('fire counter: '..self.counter)
                         HVFlakWeapon.RackSalvoFiringState.Main(self)
                         self.unit:OnTargetAcquired()
                     end

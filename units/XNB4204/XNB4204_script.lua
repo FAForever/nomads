@@ -13,7 +13,7 @@ XNB4204 = Class(NStructureUnit) {
         Turret01 = Class(HVFlakWeapon) {
 
 
-            IdleState = State(HVFlakWeapon.IdleState) {
+            IdleState = State(HVFlakWeapon.IdleState) { --TODO: refactor this so all the counting is done in the HVFlakWeapon and here you just set parameters
                 Main = function(self)
                     HVFlakWeapon.IdleState.Main(self)
                     self.unit:OnTargetLost()
@@ -25,24 +25,18 @@ XNB4204 = Class(NStructureUnit) {
 
 
                 ReloadThread = function(self)
-                    --WARN('waiting in idle reload')
                     WaitSeconds(1.4)
                     if not self.PlayingTAEffects then
-                        --WARN('idle reload time elapsed successfully')
                         self.counter = 0
-                    else
-                        --WARN('idle reload time reset with counter: '..self.counter)
                     end
-                    --self.RackSalvoFireReadyState.Main(self)
                 end,
             },
 
             RackSalvoReloadState = State(HVFlakWeapon.RackSalvoReloadState) {
                 Main = function(self)
                     ForkThread(function()
-                        --WARN("reloading")
                         WaitSeconds(1.4)
-                        --WARN('wait time elapsed')
+                        if not self or self:BeenDestroyed() then return end
                         HVFlakWeapon.RackSalvoReloadState.Main(self)
                         self.unit:OnTargetLost()
                     end)
@@ -63,12 +57,10 @@ XNB4204 = Class(NStructureUnit) {
                     end
                     self.counter = self.counter + 1
                     if self.counter > 5 then
-                        --WARN("reseting counter from: "..self.counter)
                         self.counter = 0
                         self.RackSalvoReloadState.Main(self)
                     else
                         self:PlaySound(self.Audio.FireSpecial)
-                        --WARN('fire counter: '..self.counter)
                         HVFlakWeapon.RackSalvoFiringState.Main(self)
                         self.unit:OnTargetAcquired()
                     end
