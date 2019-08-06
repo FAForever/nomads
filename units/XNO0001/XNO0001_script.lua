@@ -24,8 +24,6 @@ xno0001 = Class(NOrbitUnit) {
     BuildBones = { 0, },
     BuildEffectsBag = nil,
     ThrusterEffectsBag = nil,
-    returnposition = nil,
-    targetCoordinates = nil,
 
     OnCreate = function(self)
         self.BuildEffectsBag = TrashBag()
@@ -43,7 +41,7 @@ xno0001 = Class(NOrbitUnit) {
         self.OrbitalStrikeCurWepTarget = {}
         self.OrbitalStrikeDbKey = {}
         self.OrbitalSpawnQueue = {}
-        self.returnposition = Vector(self:GetPosition()[1], self:GetPosition()[2], self:GetPosition()[3]) --why is this like this
+        --self.returnposition = Vector(self:GetPosition()[1], self:GetPosition()[2], self:GetPosition()[3]) --why is this like this
         self:Landing(false)
     end,
 
@@ -244,6 +242,7 @@ xno0001 = Class(NOrbitUnit) {
         return spin, fx, fy, fz
     end,    
 
+-- =========================================================================================
 -- engines
     EngineExhaustBones = {'Engine Exhaust01', 'Engine Exhaust02', 'Engine Exhaust03', 'Engine Exhaust04', 'Engine Exhaust05', },
     ThrusterExhaustBones = { 'ThrusterPort01', 'ThrusterPort02', 'ThrusterPort03', 'ThrusterPort04', 'ThrusterPort05', 'ThrusterPort06', },
@@ -261,13 +260,6 @@ xno0001 = Class(NOrbitUnit) {
         --'/effects/emitters/nomads_orbital_frigate_thruster03_emit.bp', --this one looks dumb
         '/effects/emitters/aeon_t1eng_groundfx01_emit.bp',
     },
-    
-    StartEngines = function(self)
-        --TODO:Rewrite the movement mechanism so theres never a need for insane threading like this
-        self:ForkThread(function()
-            self:AddEffects(self.EngineFireEffects, self.EngineExhaustBones, self.EngineEffectsBag, 0.3)
-        end)
-    end,
 
     StopEngines = function(self)
         self.EngineEffectsBag:Destroy()
@@ -297,7 +289,8 @@ xno0001 = Class(NOrbitUnit) {
             end
             WaitSeconds(1)
             self:StopEngines()
-            self.MoveAway(self)
+            --self.MoveAway(self)
+            self.MovementThread(self)
         end, EnableThrusters)
     end,
 
@@ -315,54 +308,59 @@ xno0001 = Class(NOrbitUnit) {
         end
     end,
 
+-- =========================================================================================
 -- movement behavior
-    MoveAway = function(self)
-        local positionX, positionZ, positionY = unpack(self:GetPosition())
-        local mapsizeX, mapsizeY = GetMapSize()
-        local distanceX = mapsizeX/2 - positionX
-        local distanceY = mapsizeY/2 - positionY
 
-        if math.abs(distanceX) < math.abs(distanceY) then
-            if distanceY < 0 then
-                self.targetCoordinates = Vector(positionX + Random(mapsizeX/5)-mapsizeX/10, positionZ, mapsizeY - 2)
-            else
-                self.targetCoordinates = Vector(positionX + Random(mapsizeX/5)-mapsizeX/10, positionZ, 2)
+    MovementThread = function(self)
+        while self and not self:BeenDestroyed() do
+            if self.UnitToFollow then
+                self.MovementLocation = self.UnitToFollow:GetPosition()
+            elseif not self.MovementLocation then
+                self.MovementLocation = self:GetPosition()
             end
-        else
-            if distanceX < 0 then
-                self.targetCoordinates = Vector(mapsizeX - 2, positionZ, positionY + Random(mapsizeY/5)-mapsizeY/10)
+            
+            local position = self:GetPosition()
+            local dist = VDist2(position[1], position[3], self.MovementLocation[1], self.MovementLocation[3])
+            if dist > 25 and not self.CurrentlyMoving then
+                self.MoveCommand = IssueMove({self}, self.MovementLocation)
             else
-                self.targetCoordinates = Vector(2, positionZ, positionY + Random(mapsizeY/5)-mapsizeY/10)
+                self.MoveCommand = nil
+            end
+            
+            WaitSeconds(3)
+        end
+    end,
+
+    --accepts either a unit to follow, a target location, or false to stay still
+    SetMovementTarget = function(self, Target)
+        if Target and IsUnit(Target) then
+            self.UnitToFollow = Target
+        else
+            self.UnitToFollow = nil
+            if Target == false then
+                self.MovementLocation = self:GetPosition()
+            else
+                self.MovementLocation = Target
             end
         end
-
-        self.MoveCommand = IssueMove({self}, self.targetCoordinates)
-        self:StartEngines()
-
-        self:CheckIfAtTarget()
     end,
 
-    ReturnToStartLocation = function(self)
-        if self:GetPosition() == self.returnposition then return end
-        self.MoveCommand = IssueMove({self}, self.returnposition)
-        self:StartEngines()
-        self:CheckIfAtTarget(self.returnposition)
-    end,
+    OnMotionHorzEventChange = function(self, new, old)
+        if new == 'Stopped' then
+            self:ForkThread(function()
+                self:StopEngines()
+            end)
+            self.CurrentlyMoving = false --this is needed because IsMoving gives weird results - the unit thinks its moving for a while after it stopped.
+        end
 
-    CheckIfAtTarget = function(self)
-        ForkThread(function()
-            local arrivedAtTarget = false
-            WaitSeconds(3)
+        if old == 'Stopped' then
+            self:ForkThread(function()
+                self:AddEffects(self.EngineFireEffects, self.EngineExhaustBones, self.EngineEffectsBag, 0.3)
+            end)
+            self.CurrentlyMoving = true
+        end
 
-            while not arrivedAtTarget do
-                if (self:GetPosition()[1]-self.targetCoordinates[1])^2 + (self:GetPosition()[3]-self.targetCoordinates[3])^2 < 10 then
-                    arrivedAtTarget = true
-                    self:StopEngines()
-                    self.MoveCommand = nil
-                end
-                WaitSeconds(1)
-            end
-        end)
+        NOrbitUnit.OnMotionHorzEventChange(self, new, old)
     end,
 
 }

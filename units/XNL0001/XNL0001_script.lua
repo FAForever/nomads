@@ -408,10 +408,12 @@ XNL0001 = Class(ACUUnit) {
         local brain = self:GetAIBrain()
         brain:SetUnitSpecialAbility(self, 'NomadsAreaBombardment', {Enabled = (enable == true)})
         if enable then
-            self.OrbitalUnit:ReturnToStartLocation()
+            --self.OrbitalUnit:ReturnToStartLocation()
+            self.OrbitalUnit:SetMovementTarget(self)
         else
             if not self:HasEnhancement( 'IntelProbe' ) and not self:HasEnhancement( 'IntelProbeAdv' ) then
-                self.OrbitalUnit:MoveAway()
+                --self.OrbitalUnit:MoveAway()
+                self.OrbitalUnit:SetMovementTarget(false)
             end
         end
     end,
@@ -434,9 +436,11 @@ XNL0001 = Class(ACUUnit) {
         brain:SetUnitSpecialAbility(self, 'NomadsIntelProbeAdvanced', {Enabled = ('IntelProbeAdv' == condition)})
         brain:SetUnitSpecialAbility(self, 'NomadsIntelProbe', {Enabled = ('IntelProbe' == condition)})
         if condition then
-            self.OrbitalUnit:ReturnToStartLocation()
+            --self.OrbitalUnit:ReturnToStartLocation()
+            self.OrbitalUnit:SetMovementTarget(self)
         elseif not self:HasEnhancement( 'OrbitalBombardment' ) then
-            self.OrbitalUnit:MoveAway()
+            --self.OrbitalUnit:MoveAway()
+            self.OrbitalUnit:SetMovementTarget(false)
         end
     end,
     
