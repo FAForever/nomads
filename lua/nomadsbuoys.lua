@@ -62,18 +62,6 @@ NCameraBuoy = Class(Buoy) {
     end,
 }
 
-NOrbitalStrikeBuoy = Class(Buoy) {
--- not used currently. Calls in an orbital strike from the frigate.
-    ActiveFx = NomadsEffectTemplate.BuoyActive,
-    DestroyedFx = NomadsEffectTemplate.BuoyDestroyed,
-    LightsFx = NomadsEffectTemplate.BuoyLights,
-
-    ActiveThread = function(self)
-        local aiBrain = self:GetBrain()
-        brain:OrbitalStrikeTarget( self.spec.Pos )
-    end,
-}
-
 NIntelligenceBuoy = Class(NCameraBuoy) {
 
     ActiveFx = nil,
