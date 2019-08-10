@@ -20,6 +20,7 @@ UnitBlueprint {
     },
     AI = {
         GuardRadius = 10,
+        InitialAutoMode = true,
         TargetBones = {
             'head',
             'torso',
@@ -1221,7 +1222,7 @@ UnitBlueprint {
             ArtilleryShieldBlocks = true,
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
-            CountedProjectile = false,
+            CountedProjectile = true,
             Damage = 450,
             DamageFriendly = true,
             DamageRadius = 3,
@@ -1262,7 +1263,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
             RangeCategory = 'UWRC_IndirectFire',
-            RateOfFire = 3,
+            RateOfFire = 0.5,
             TargetCheckInterval = 1,
             TargetPriorities = {
                 'SPECIALHIGHPRI',

@@ -73,9 +73,9 @@ XNL0001 = Class(ACUUnit) {
 
         DeathWeapon = Class(DeathNuke) {},
 
+        --TODO: Refactor this into the shield pointer weapons if possible
         TargetFinder = Class(TacticalMissileWeapon2) {
-            CreateProjectileForWeapon = function(self, bone)
-            end,
+            FxMuzzleFlash = {},
 
             CreateProjectileAtMuzzle = function(self, muzzle)
             end,
@@ -422,9 +422,11 @@ XNL0001 = Class(ACUUnit) {
         -- TODO:Make the acu actually have ammo. Also check if removing ammo for every shot is sane, or if it should be per function call
         if self.OrbitalUnit then
             for _, location in targetPositions do
-                self.OrbitalUnit:OnGivenNewTarget(location)
                 if self:GetTacticalSiloAmmoCount() > 0 then
                     self:RemoveTacticalSiloAmmo(1)
+                    self.OrbitalUnit:OnGivenNewTarget(location)
+                else
+                    WARN('Nomads: Ordered Orbital Bombardment ability on unit with no ammo in storage - aborting launch.')
                 end
             end
         end
@@ -775,7 +777,7 @@ XNL0001 = Class(ACUUnit) {
         
         OrbitalBombardment = function(self, bp)
             self:SetOrbitalBombardEnabled(true)
-            -- self:AddCommandCap('RULEUCC_Tactical')
+            --self:AddCommandCap('RULEUCC_Tactical')
             self:AddEnhancementEmitterToBone( true, 'Orbital Bombardment' )
             self:AddCommandCap('RULEUCC_SiloBuildTactical')
             self:SetWeaponEnabledByLabel('TargetFinder', true)
@@ -784,7 +786,7 @@ XNL0001 = Class(ACUUnit) {
         OrbitalBombardmentRemove = function(self, bp)
             self:SetOrbitalBombardEnabled(false)
             self:AddEnhancementEmitterToBone( false, 'Orbital Bombardment' )
-            -- self:RemoveCommandCap('RULEUCC_Tactical')
+            --self:RemoveCommandCap('RULEUCC_Tactical')
             self:RemoveCommandCap('RULEUCC_SiloBuildTactical')
             self:SetWeaponEnabledByLabel('TargetFinder', false)
             local amt = self:GetTacticalSiloAmmoCount()
