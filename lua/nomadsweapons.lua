@@ -436,76 +436,10 @@ DeathEnergyBombWeapon = Class(BareBonesWeapon) {
 --------------------------------------------------------------------------
 
 OrbitalMissileWeapon = Class(DefaultProjectileWeapon) {
-
-    IsOrbitalGun = true,
-
     FxMuzzleFlash = {
         '/effects/emitters/cannon_muzzle_flash_04_emit.bp',
         '/effects/emitters/cannon_muzzle_smoke_11_emit.bp',
     },
-
-    OnCreate = function(self)
-        DefaultProjectileWeapon.OnCreate(self)
-
-        self._IsEnabled = true
-        self.CurTargetPos = false
-        self:SetEnabled( false )
-    end,
-
-    ReadyToFire = function(self)
-        if not self:IsEnabled() then
-            return true
-        end
-        return false
-    end,
-
-    AssignTarget = function(self, targetPosition)
-        self.CurTargetPos = targetPosition
-        if self.CurTargetPos then
-            self:SetEnabled( true )
-            self:SetTargetGround( self.CurTargetPos )
-            self:DelayedSetDisabled(10)  -- fail-safe. in rare cases the weapon is not disabled and that breaks orbital striking
-        else
-            self:SetEnabled( false )
-            WARN('OrbitalMissileWeapon: AssignTarget: no valid target!')
-        end
-    end,
-
-    CreateProjectileForWeapon = function(self, bone)
-        local proj = DefaultProjectileWeapon.CreateProjectileForWeapon( self, bone )
-        if proj and not proj:BeenDestroyed() then
-            -- give the projectile a target. Prevents an issue where the missile keeps flying straight, don't remove.
-            if self.CurTargetPos then
-                proj:SetNewTargetGround( self.CurTargetPos )
-                self:SetTargetGround( self.CurTargetPos )
-            else
-                proj:Destroy()
-            end
-        end
-        return proj
-    end,
-
-    OnWeaponFired = function(self)
-        self:DelayedSetDisabled(1)
-        DefaultProjectileWeapon.OnWeaponFired(self)
-    end,
-
-    DelayedSetDisabled = function(self, ticks)
-        local fn = function(self, ticks)
-            WaitTicks(ticks)
-            self:SetEnabled( false )
-        end
-        self:ForkThread(fn, ticks)
-    end,
-
-    IsEnabled = function(self)
-        return self._IsEnabled
-    end,
-
-    SetEnabled = function(self, bool)
-        self._IsEnabled = (bool == true)
-        DefaultProjectileWeapon.SetEnabled(self, self._IsEnabled)
-    end,
 }
 
 OrbitalGun = Class(DefaultProjectileWeapon) {

@@ -9,7 +9,7 @@ local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 
 xno0001 = Class(NOrbitUnit) {
     Weapons = {
-        OrbitalGun1 = Class(OrbitalMissileWeapon) {},
+        OrbitalMissileLauncher = Class(OrbitalMissileWeapon) {},
     },
 
     ConstructionArmAnimManip = nil,
@@ -82,7 +82,7 @@ xno0001 = Class(NOrbitUnit) {
 
     LaunchProbe = function(self, location, projBp, data)
         if not location or not projBp or not data then
-            WARN('*DEBUG: LaunchProbe missing information. Location = '..repr(location)..' projBp = '..repr(projBp)..' data = '..repr(data))
+            WARN('Nomads: LaunchProbe missing information. Location = '..repr(location)..' projBp = '..repr(projBp)..' data = '..repr(data))
             return nil
         end
 
@@ -102,21 +102,11 @@ xno0001 = Class(NOrbitUnit) {
 
 -- =========================================================================================
 -- Orbital striking
-
+-- right now this launches a single missile per target. it could be changed in the weapon BP to fire multiple missiles per target, or more targets could be given to the weapon.
+    
     OnGivenNewTarget = function(self, targetPosition)
-        local wep
-        local c = self:GetWeaponCount()
-        for w=1, c do
-            wep = self:GetWeapon(w)
-            if wep:ReadyToFire() then
-                wep:AssignTarget( targetPosition )
-                return true
-            end
-        end
-        LOG('*DEBUG: Couldnt fire orbital strike, all weapons are busy')
-        return false
+        IssueTactical( {self}, targetPosition )
     end,
-
 
 
 -- =========================================================================================

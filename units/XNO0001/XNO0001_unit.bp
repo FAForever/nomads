@@ -80,6 +80,7 @@ UnitBlueprint {
             RULEUCC_Repair = false,
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
+            RULEUCC_Tactical = true,
             RULEUCC_Transport = false,
         },
         FactionName = 'Nomads',
@@ -158,7 +159,7 @@ UnitBlueprint {
             Damage = 6000,
             DamageType = 'BlackholeDamage',
             DisplayName = 'Blackhole Warhead',
-            DamageRadius = 0,
+            DamageRadius = 1,
             DamageType = 'Normal',
             DisplayName = 'Fusion Missile',
             FireTargetLayerCapsTable = {
@@ -169,13 +170,13 @@ UnitBlueprint {
             FiringRandomness = 0,
             FiringTolerance = 360,
             LeadTarget = true,
-            Label = 'OrbitalGun1',
+            Label = 'OrbitalMissileLauncher',
+            ManualFire = true,
             MaxRadius = 99999,
-            MuzzleSalvoDelay = 0.2,
+            MuzzleSalvoDelay = 0.2, --for some reason the unit gets stuck completing its launch order if the delay is less than 0.2, or the total rack firing duration is less than 0.2 seconds
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 22,
             NukeBlackHoleMinDuration = 5,
-            NukeBlackHoleFxLogo = true,
             NukeBlackHoleFxScale = 1,
             NukeInnerRingDamage = 6750,
             NukeInnerRingRadius = 15,
@@ -194,6 +195,96 @@ UnitBlueprint {
                         'MissilePort01',
                     },
                     RackBone = 'MissilePort01',
+                },
+                {
+                    MuzzleBones = {
+                        'MissilePort11',
+                    },
+                    RackBone = 'MissilePort11',
+                },
+                {
+                    MuzzleBones = {
+                        'MissilePort02',
+                    },
+                    RackBone = 'MissilePort02',
+                },
+                {
+                    MuzzleBones = {
+                        'MissilePort12',
+                    },
+                    RackBone = 'MissilePort12',
+                },
+                {
+                    MuzzleBones = {
+                        'MissilePort03',
+                    },
+                    RackBone = 'MissilePort03',
+                },
+                {
+                    MuzzleBones = {
+                        'MissilePort13',
+                    },
+                    RackBone = 'MissilePort13',
+                },
+                {
+                    MuzzleBones = {
+                        'MissilePort04',
+                    },
+                    RackBone = 'MissilePort04',
+                },
+                {
+                    MuzzleBones = {
+                        'MissilePort14',
+                    },
+                    RackBone = 'MissilePort14',
+                },
+                {
+                    MuzzleBones = {
+                        'MissilePort05',
+                    },
+                    RackBone = 'MissilePort05',
+                },
+                {
+                    MuzzleBones = {
+                        'MissilePort15',
+                    },
+                    RackBone = 'MissilePort15',
+                },
+                {
+                    MuzzleBones = {
+                        'MissilePort06',
+                    },
+                    RackBone = 'MissilePort06',
+                },
+                {
+                    MuzzleBones = {
+                        'MissilePort16',
+                    },
+                    RackBone = 'MissilePort16',
+                },
+                {
+                    MuzzleBones = {
+                        'MissilePort07',
+                    },
+                    RackBone = 'MissilePort07',
+                },
+                {
+                    MuzzleBones = {
+                        'MissilePort17',
+                    },
+                    RackBone = 'MissilePort17',
+                },
+                {
+                    MuzzleBones = {
+                        'MissilePort08',
+                    },
+                    RackBone = 'MissilePort08',
+                },
+                {
+                    MuzzleBones = {
+                        'MissilePort18',
+                    },
+                    RackBone = 'MissilePort18',
                 },
             },
             RackFireTogether = false,
