@@ -6,7 +6,7 @@ local oldWeapon = Weapon
 Weapon = Class(oldWeapon) {
 
     OnCreate = function(self)
-        self._IsEnabled = true
+        self.IsEnabled = true
         self._MaxRadius = self:GetBlueprint().MaxRadius or 0
         self.RateOfFire = self:GetBlueprint().RateOfFire
         self.DoAlternateDualAimController = false
@@ -24,11 +24,7 @@ Weapon = Class(oldWeapon) {
 
     SetEnabled = function(self, enable)
         oldWeapon.SetEnabled(self, enable)
-        self._IsEnabled = enable
-    end,
-
-    IsEnabled = function(self)
-        return self._IsEnabled
+        self.IsEnabled = enable
     end,
 
     ChangeMaxRadius = function(self, val)
@@ -96,7 +92,7 @@ Weapon = Class(oldWeapon) {
         -- remember previous weapon state when going in transport and revert to that when going out of transport
         if not self.unit:GetBlueprint().Transport.CanFireFromTransport then
             if transportstate then
-                self.WeaponDisabledOnTransportWasEnabled = self:IsEnabled()
+                self.WeaponDisabledOnTransportWasEnabled = self.IsEnabled
             end
         end
 

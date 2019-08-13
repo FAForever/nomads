@@ -159,7 +159,7 @@ function CapacitorToggleThread(unit)
             
             for w=1, numWep do
                 local wep = unit:GetWeapon(w)
-                if wep:IsEnabled() then
+                if wep.IsEnabled then
                     wbp = wep:GetBlueprint()
                     curLayer = unit:GetCurrentLayer()
                     if not wbp.FireTargetLayerCapsTable[curLayer] then

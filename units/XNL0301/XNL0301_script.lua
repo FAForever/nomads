@@ -68,16 +68,17 @@ XNL0301 = Class(NWalkingLandUnit) {
 
             SetEnabled = function(self, enable)
                 -- disabling the main gun also disables the gattling, this works better
-                self._IsEnabled = (enable == true)
-                self:AimManipulatorSetEnabled(self._IsEnabled)
+                self.IsEnabled = enable
+                self:AimManipulatorSetEnabled(self.IsEnabled)
                 self:UpdateMaxRadius()
             end,
 
+            --TODO: Replace this with a pointer weapon instead, which would be better. probably.
             UpdateMaxRadius = function(self)
                 -- the max radius when disabled should be that of the longest range weapon. Otherwise the unit
                 -- will walk up to the target and not attack from range, exposing it unnecessarily. This is an
                 -- issue with rocket and railgun enhancements
-                if self:IsEnabled() then
+                if self.IsEnabled then
                     self:ChangeMaxRadius(self:GetMaxRadius(), true)
                 else
                     self:ChangeMaxRadius(self.unit:GetAllWeaponMaxRadius(), true)
@@ -182,7 +183,7 @@ XNL0301 = Class(NWalkingLandUnit) {
         local n = self:GetWeaponCount()
         for i=1, n do
             wep = self:GetWeapon(i)
-            if wep and wep:IsEnabled() then
+            if wep and wep.IsEnabled then
                 rad = wep:GetMaxRadius()
                 if rad > maxRad then
                     maxRad = rad
