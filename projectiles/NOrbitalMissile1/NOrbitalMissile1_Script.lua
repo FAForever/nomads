@@ -4,6 +4,13 @@ local EffectUtil = import('/lua/EffectUtilities.lua')
 
 NOrbitalMissile1 = Class(StrategicMissile) {
 
+    FxTrails = NomadsEffectTemplate.TacticalMissileTrail,
+    PolyTrail = NomadsEffectTemplate.TacticalMissilePolyTrail,
+
+    -- small correction to make the smoke appear to come from the missile
+    FxTrailOffset = -0.32,
+    PolyTrailOffset = -0.22,
+
     OnCreate = function(self, inWater)
         StrategicMissile.OnCreate(self)
         self:ForkThread(self.TrailThread)
@@ -44,6 +51,7 @@ NOrbitalMissile1 = Class(StrategicMissile) {
         self:SetStage(5)
     end,
 
+    --TODO:refactor this, this is crazy. use turnratebydist instead
     SetStage = function(self, stage)
         local bp = self:GetBlueprint().Physics
 
