@@ -232,19 +232,23 @@ function ModBlueprints(all_bps)
     HandleUnitWithBuildPresets(PresetUnitBPs, all_bps)
 end
 
-function HandleUnitWithBuildPresets(bps, allUnitBlueprints)
+--Slightly disgusting that we need to hook the whole function just to change two bits in it. Changes are commented with "Nomads" in them
+function HandleUnitWithBuildPresets(bps, all_bps)
 
-    local SortCats = { 'SORTOTHER', 'SORTINTEL', 'SORTSTRATEGIC', 'SORTDEFENSE', 'SORTECONOMY', 'SORTCONSTRUCTION', }
+    -- hashing sort categories for quick lookup
+    local sortCategories = { ['SORTOTHER'] = true, ['SORTINTEL'] = true, ['SORTSTRATEGIC'] = true, ['SORTDEFENSE'] = true, ['SORTECONOMY'] = true, ['SORTCONSTRUCTION'] = true, }
+
     local tempBp = {}
 
     for k, bp in bps do
+
         for name, preset in bp.EnhancementPresets do
             -- start with clean copy of the original unit BP
             tempBp = table.deepcopy(bp)
 
             -- create BP table for the assigned preset with required info
             tempBp.EnhancementPresetAssigned = {
-                Enhancements = table.deepcopy( preset.Enhancements ),
+                Enhancements = table.deepcopy(preset.Enhancements),
                 Name = name,
                 BaseBlueprintId = bp.BlueprintId,
             }
@@ -253,20 +257,24 @@ function HandleUnitWithBuildPresets(bps, allUnitBlueprints)
             local e, m, t = 0, 0, 0
             if not preset.BuildCostEnergyOverride or not preset.BuildCostMassOverride or not preset.BuildTimeOverride then
                 for k, enh in preset.Enhancements do
-                    if not tempBp.Enhancements[enh] then
+                    -- replaced continue by reversing if statement
+                    if tempBp.Enhancements[enh] then
+                        e = e + (tempBp.Enhancements[enh].BuildCostEnergy or 0)
+                        m = m + (tempBp.Enhancements[enh].BuildCostMass or 0)
+                        t = t + (tempBp.Enhancements[enh].BuildTime or 0)
+                        -- HUSSAR added name of the enhancement so that preset units cannot be built
+                        -- if they have restricted enhancement(s)
+                        tempBp.CategoriesHash[enh] = true -- hashing without changing case of enhancements
+                    else
                         WARN('*DEBUG: Enhancement '..repr(enh)..' used in preset '..repr(name)..' for unit '..repr(tempBp.BlueprintId)..' does not exist')
-                        continue
                     end
-                    e = e + (tempBp.Enhancements[enh].BuildCostEnergy or 0)
-                    m = m + (tempBp.Enhancements[enh].BuildCostMass or 0)
-                    t = t + (tempBp.Enhancements[enh].BuildTime or 0)
                 end
             end
             tempBp.Economy.BuildCostEnergy = preset.BuildCostEnergyOverride or (tempBp.Economy.BuildCostEnergy + e)
             tempBp.Economy.BuildCostMass = preset.BuildCostMassOverride or (tempBp.Economy.BuildCostMass + m)
             tempBp.Economy.BuildTime = preset.BuildTimeOverride or (tempBp.Economy.BuildTime + t)
 
-            -- teleport cost adjustments. Teleporting a manually enhanced SCU is cheaper than a prebuild SCU because the latter has its cost
+            -- teleport cost adjustments. Manually enhanced SCU with teleport is cheaper than a prebuild SCU because the latter has its cost
             -- adjusted (up). This code sets bp values used in the code to calculate with different base values than the unit cost.
             if preset.TeleportNoCostAdjustment ~= false then
                 -- set teleport cost overrides to cost of base unit
@@ -276,61 +284,56 @@ function HandleUnitWithBuildPresets(bps, allUnitBlueprints)
 
             -- Add a sorting category so similar SCUs are grouped together in the build menu
             if preset.SortCategory then
-                if table.find(SortCats, preset.SortCategory) or preset.SortCategory == 'None' then
-                    for _, v in SortCats do
-                        table.removeByValue(tempBp.Categories, v)
+                if sortCategories[preset.SortCategory] or preset.SortCategory == 'None' then
+                    for k, v in sortCategories do
+                        tempBp.CategoriesHash[k] = false
                     end
                     if preset.SortCategory ~= 'None' then
-                        table.insert(tempBp.Categories, preset.SortCategory)
+                        tempBp.CategoriesHash[preset.SortCategory] = true
                     end
                 end
             end
 
-            -- UI unit view overrides. Some units get a shield or capacitor from their preset. Tell the UI to show the proper values (when picking the unit in the factory build queue)
+            -- Added in Nomads: UI unit view overrides. Some units get a shield or capacitor from their preset. Tell the UI to show the proper values (when picking the unit in the factory build queue)
             if preset.UIUnitViewOverrides then
                 if not tempBp.Display.UIUnitViewOverrides then
                     tempBp.Display.UIUnitViewOverrides = {}
                 end
-
-                if preset.UIUnitViewOverrides.CapacitorDuration then
-                    tempBp.Display.UIUnitViewOverrides.CapacitorDuration = preset.UIUnitViewOverrides.CapacitorDuration
-                end
-                if preset.UIUnitViewOverrides.MaxHealth then
-                    tempBp.Display.UIUnitViewOverrides.MaxHealth = preset.UIUnitViewOverrides.MaxHealth
-                end
-                if preset.UIUnitViewOverrides.ShieldMaxHealth then
-                    tempBp.Display.UIUnitViewOverrides.ShieldMaxHealth = preset.UIUnitViewOverrides.ShieldMaxHealth
-                end
-
-                if preset.UIUnitViewOverrides.MaintenanceConsumptionPerSecondEnergy then
-                    tempBp.Display.UIUnitViewOverrides.MaintenanceConsumptionPerSecondEnergy = preset.UIUnitViewOverrides.MaintenanceConsumptionPerSecondEnergy
-                end
-                if preset.UIUnitViewOverrides.MaintenanceConsumptionPerSecondMass then
-                    tempBp.Display.UIUnitViewOverrides.MaintenanceConsumptionPerSecondMass = preset.UIUnitViewOverrides.MaintenanceConsumptionPerSecondMass
-                end
-                if preset.UIUnitViewOverrides.ProductionPerSecondEnergy then
-                    tempBp.Display.UIUnitViewOverrides.ProductionPerSecondEnergy = preset.UIUnitViewOverrides.ProductionPerSecondEnergy
-                end
-                if preset.UIUnitViewOverrides.ProductionPerSecondMass then
-                    tempBp.Display.UIUnitViewOverrides.ProductionPerSecondMass = preset.UIUnitViewOverrides.ProductionPerSecondMass
+                
+                --create a table with the list of values to check and then loop through it to set the values
+                local presetList = {
+                'CapacitorDuration',
+                'MaxHealth',
+                'ShieldMaxHealth',
+                'MaintenanceConsumptionPerSecondEnergy',
+                'MaintenanceConsumptionPerSecondMass',
+                'ProductionPerSecondEnergy',
+                'ProductionPerSecondMass',
+                }
+                
+                for _,presetValue in presetList do
+                    if preset.UIUnitViewOverrides[presetValue] then
+                        tempBp.Display.UIUnitViewOverrides[presetValue] = preset.UIUnitViewOverrides[presetValue]
+                    end
                 end
             end
 
-            -- change other things relevant things aswell
+            -- change other things relevant things as well
+            tempBp.BaseBlueprintId = tempBp.BlueprintId
             tempBp.BlueprintId = tempBp.BlueprintId .. '_' .. name
             tempBp.BuildIconSortPriority = preset.BuildIconSortPriority or tempBp.BuildIconSortPriority or 0
-            tempBp.General.SelectionPriority = preset.SelectionPriority or tempBp.General.SelectionPriority
+            tempBp.General.SelectionPriority = preset.SelectionPriority or tempBp.General.SelectionPriority --Added in Nomads
             tempBp.General.UnitName = preset.UnitName or tempBp.General.UnitName
             tempBp.Interface.HelpText = preset.HelpText or tempBp.Interface.HelpText
             tempBp.Description = preset.Description or tempBp.Description
-            table.insert(tempBp.Categories, 'ISPREENHANCEDUNIT')
-
+            tempBp.CategoriesHash['ISPREENHANCEDUNIT'] = true
             -- clean up some data that's not needed anymore
-            table.removeByValue(tempBp.Categories, 'USEBUILDPRESETS')
+            tempBp.CategoriesHash['USEBUILDPRESETS'] = false
             tempBp.EnhancementPresets = nil
+            -- synchronizing Categories with CategoriesHash for compatibility
+            tempBp.Categories = table.unhash(tempBp.CategoriesHash)
 
-            table.insert( allUnitBlueprints.Unit, tempBp )
-            --LOG('*DEBUG: created preset unit '..repr(tempBp.BlueprintId))
+            table.insert(all_bps.Unit, tempBp)
 
             BlueprintLoaderUpdateProgress()
         end
