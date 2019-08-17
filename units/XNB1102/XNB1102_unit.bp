@@ -53,7 +53,7 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
     },
-    Description = '<LOC XNB1107_desc>HCPP',
+    Description = '<LOC XNB1102_desc>HCPP',
     Display = {
         Abilities = {
             '<LOC ability_amphibious>Amphibious',
@@ -101,10 +101,10 @@ UnitBlueprint {
                     ShaderName = 'NomadsUnit',
                 },
                 {
-                    AlbedoName = 'XNB1107_lod1_Albedo.dds',
+                    AlbedoName = 'XNB1102_lod1_Albedo.dds',
                     LODCutoff = 300,
                     ShaderName = 'NomadsUnit',
-                    SpecularName = 'XNB1107_lod1_specteam.dds',
+                    SpecularName = 'XNB1102_lod1_specteam.dds',
                 },
             },
         },
@@ -133,7 +133,7 @@ UnitBlueprint {
         BuildTime = 400,
         ProductionPerSecondEnergy = 100,
         RebuildBonusIds = {
-            'XNB1107',
+            'XNB1102',
         },
     },
     Footprint = {
@@ -161,11 +161,11 @@ UnitBlueprint {
         Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Basic',
-        UnitName = '<LOC XNB1107_name>Hydrocarbon Power Plant',
+        UnitName = '<LOC XNB1102_name>Hydrocarbon Power Plant',
         UnitWeight = 1,
     },
     Interface = {
-        HelpText = '<LOC XNB1107_help>Hydrocarbon Power Plant',
+        HelpText = '<LOC XNB1102_help>Hydrocarbon Power Plant',
     },
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.2,

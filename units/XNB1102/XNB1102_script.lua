@@ -3,7 +3,7 @@
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local NEnergyCreationUnit = import('/lua/nomadsunits.lua').NEnergyCreationUnit
 
-XNB1107 = Class(NEnergyCreationUnit) {
+XNB1102 = Class(NEnergyCreationUnit) {
 
     ActiveEffectBone = 'exhaust.001',
     ActiveEffectTemplateName = 'T1HydroPowerPlantSurface1',
@@ -38,4 +38,4 @@ XNB1107 = Class(NEnergyCreationUnit) {
     end,
 }
 
-TypeClass = XNB1107
+TypeClass = XNB1102

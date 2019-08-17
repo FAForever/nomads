@@ -437,6 +437,11 @@ xnb1101_desc = "Power Generator"
 xnb1101_help = "Generates Energy. Construct next to other structures for adjacency bonus. Explodes violently when destroyed, this can cause chain reactions."
 xnb1101_name = "Power Generator"
 
+-- hydrocarbon power plant
+XNB1102_desc = "Hydrocarbon Power Plant"
+XNB1102_help = "Generates Energy. Must be constructed on hydrocarbon deposits. Construct structures next to Hydrocarbon power plant for adjacency bonus."
+XNB1102_name = "Hydrocarbon Power Plant"
+
 -- t1 mass extractor
 xnb1103_desc = "Mass Extractor"
 xnb1103_help = "Extracts Mass. Must be constructed on Mass deposits. Construct structures next to Mass extractor for adjacency bonus."
@@ -451,11 +456,6 @@ xnb1105_name = "Energy Storage"
 xnb1106_desc = "Mass Storage"
 xnb1106_help = "Stores Mass. Construct next to extractors or fabricators for adjacency bonus."
 xnb1106_name = "Mass Storage"
-
--- hydrocarbon power plant
-xnb1107_desc = "Hydrocarbon Power Plant"
-xnb1107_help = "Generates Energy. Must be constructed on hydrocarbon deposits. Construct structures next to Hydrocarbon power plant for adjacency bonus."
-xnb1107_name = "Hydrocarbon Power Plant"
 
 -- T1 PD
 xnb2101_desc = "Point Defense"
