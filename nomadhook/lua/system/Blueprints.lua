@@ -1,150 +1,4 @@
 
---function LoadBlueprints()
--- TODO: remove this. This is part an investigation in how to make the blueprints load faster
---
---    LOG('Loading blueprints...')
---LOG('-------- 1 --------')
---    InitOriginalBlueprints()
---
---LOG('-------- 2 --------')
---    for i,dir in {'/effects', '/env', '/meshes', '/projectiles', '/props', '/units'} do
---LOG('-------- '..repr(dir)..' --------')
---        for k,file in DiskFindFiles(dir, '*.bp') do
---            BlueprintLoaderUpdateProgress()
---            safecall("loading blueprint "..file, doscript, file)
---        end
---    end
---LOG('-------- 3 --------')
---
---    for i,m in __active_mods do
---        for k,file in DiskFindFiles(m.location, '*.bp') do
---            BlueprintLoaderUpdateProgress()
---            LOG("applying blueprint mod "..file)
---            safecall("loading mod blueprint "..file, doscript, file)
---        end
---    end
---LOG('-------- 4 --------')
---
---    BlueprintLoaderUpdateProgress()
---    LOG('Extracting mesh blueprints.')
---    ExtractAllMeshBlueprints()
---LOG('-------- 5 --------')
---
---    BlueprintLoaderUpdateProgress()
---    LOG('Modding blueprints.')
---    ModBlueprints(original_blueprints)
---LOG('-------- 6 --------')
---
---    BlueprintLoaderUpdateProgress()
---    LOG('Registering blueprints...')
---    RegisterAllBlueprints(original_blueprints)
---    original_blueprints = nil
---LOG('-------- 7 --------')
---
---    LOG('Blueprints loaded')
---end
-
-
--- Overwriting the blueprint loader so that new units can be injected. Necessary for FAFhook which adds support factories: new
--- unit only necessary for FAF and undesired in the other balances.
-function LoadBlueprints(pattern, directories, mods, skipGameFiles, skipExtraction, skipRegistration)
-
-    -- set default parameters if they are not provided
-    if not pattern then pattern = '*.bp' end
-    if not directories then
-        directories = {'/effects', '/env', '/meshes', '/projectiles', '/props', '/units'}
-    end
-
-    LOG('Blueprints Loading... \'' .. tostring(pattern) .. '\' files')
-
-    if not mods then
-        mods = __active_mods or import('/lua/mods.lua').GetGameMods()
-    end
-    InitOriginalBlueprints()
-
-    if not skipGameFiles then
-        for i,dir in directories do
-            for k,file in DiskFindFiles(dir, pattern) do
-                BlueprintLoaderUpdateProgress()
-                safecall("Blueprints Loading org file "..file, doscript, file)
-            end
-        end
-    end
-    local stats = {}
-    stats.UnitsOrg = table.getsize(original_blueprints.Unit)
-    stats.ProjsOrg = table.getsize(original_blueprints.Projectile)
-
-    -- added this next  bit and the function GetNewUnitLocations
-    local NewUnitPaths = GetNewUnitLocations()
-    for i,dir in NewUnitPaths do
-        for k,file in DiskFindFiles(dir, pattern) do
-            BlueprintLoaderUpdateProgress()
-            safecall("loading blueprint new unit "..file, doscript, file)
-        end
-    end
-
-    for i,mod in mods or {} do
-        current_mod = mod -- used in UnitBlueprint()
-        for k,file in DiskFindFiles(mod.location, pattern) do
-            BlueprintLoaderUpdateProgress()
-            safecall("Blueprints Loading mod file "..file, doscript, file)
-        end
-    end
-    stats.UnitsMod = table.getsize(original_blueprints.Unit) - stats.UnitsOrg
-    stats.ProjsMod = table.getsize(original_blueprints.Projectile) - stats.ProjsOrg
-
-    if not skipExtraction then
-        BlueprintLoaderUpdateProgress()
-        LOG('Blueprints Extracting mesh...')
-        ExtractAllMeshBlueprints()
-    end
-
-    BlueprintLoaderUpdateProgress()
-    LOG('Blueprints Modding...')
-    PreModBlueprints(original_blueprints)
-    ModBlueprints(original_blueprints)
-    PostModBlueprints(original_blueprints)
-
-    stats.UnitsTotal = table.getsize(original_blueprints.Unit)
-    stats.UnitsPreset = stats.UnitsTotal - stats.UnitsOrg - stats.UnitsMod
-    if stats.UnitsTotal > 0 then
-        LOG('Blueprints Loading... completed: ' .. stats.UnitsOrg .. ' original, '
-                                                .. stats.UnitsMod .. ' modded, and '
-                                                .. stats.UnitsPreset .. ' preset units')
-    end
-    stats.ProjsTotal = table.getsize(original_blueprints.Projectile)
-    if stats.ProjsTotal > 0 then
-        LOG('Blueprints Loading... completed: ' .. stats.ProjsOrg .. ' original and '
-                                                .. stats.ProjsMod .. ' modded projectiles')
-    end
-
-    if not skipRegistration then
-        BlueprintLoaderUpdateProgress()
-        LOG('Blueprints Registering...')
-        RegisterAllBlueprints(original_blueprints)
-        original_blueprints = nil
-    else
-        return original_blueprints
-    end
-end
-
-
--- hook this to inject new units into the blueprint loader. Necessary for f.e. FAFhook to add the support factories.
-function GetNewUnitLocations()
-    local t = {}
-    t = table.cat( t, {
-        -- adding all Nomads support factories to the game
-        '/units/znb9501', -- Land Support Tech2
-        '/units/znb9502', -- Air Support Tech2
-        '/units/znb9503', -- Sea Support Tech2
-        '/units/znb9601', -- Land Support Tech3
-        '/units/znb9602', -- Air Support Tech3
-        '/units/znb9603', -- Sea Support Tech3
-    })
-    return t
-end
-
-
 local oldModBlueprints = ModBlueprints
 function ModBlueprints(all_bps)
 
@@ -154,20 +8,6 @@ function ModBlueprints(all_bps)
 
         if not bp.Categories then
             continue
-        end
-
-        -- adding or deleting categories on the fly
-        if bp.DelCategories then
-            for k, v in bp.DelCategories do
-                table.removeByValue( bp.Categories, v )
-            end
-            bp.DelCategories = nil
-        end
-        if bp.AddCategories then
-            for k, v in bp.AddCategories do
-                table.insert( bp.Categories, v )
-            end
-            bp.AddCategories = nil
         end
 
         -- check for the correct categories
@@ -211,11 +51,6 @@ function ModBlueprints(all_bps)
         if NAVAL and MOBILE and not EXP and (not bp.Transport or not bp.Transport.TransportClass) then
             -- making the unit transportable
 
--- Since pretty much all naval units are transportable this is not necessary anymore
---            if not bp.Display then bp.Display = {} end
---            if not bp.Display.Abilities then bp.Display.Abilities = {} end
---            table.insert( bp.Display.Abilities, '<LOC ability_transportable>Transportable' )
-
             if not bp.General then bp.General = {} end
             if not bp.General.CommandCaps then bp.General.CommandCaps = {} end
             bp.General.CommandCaps[ 'RULEUCC_CallTransport' ] = true
@@ -229,7 +64,6 @@ function ModBlueprints(all_bps)
     end
 
     oldModBlueprints(all_bps)
-    HandleUnitWithBuildPresets(PresetUnitBPs, all_bps)
 end
 
 --Slightly disgusting that we need to hook the whole function just to change two bits in it. Changes are commented with "Nomads" in them
