@@ -53,14 +53,14 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
     },
-    Description = '<LOC XNB1102_desc>Mass Extractor',
+    Description = '<LOC XNB1103_desc>Mass Extractor',
     Display = {
         Abilities = {
             '<LOC ability_upgradable>Upgradeable',
             '<LOC ability_amphibious>Amphibious',
         },
-        AnimationOpen = '/units/XNB1102/XNB1102_awork.sca',
-        AnimationUpgrade = '/units/XNB1102/XNB1102_Aupgrade.sca',
+        AnimationOpen = '/units/XNB1103/XNB1103_awork.sca',
+        AnimationUpgrade = '/units/XNB1103/XNB1103_Aupgrade.sca',
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -69,10 +69,10 @@ UnitBlueprint {
                     ShaderName = 'NomadsUnit',
                 },
                 {
-                    AlbedoName = 'XNB1102_lod1_albedo.dds',
+                    AlbedoName = 'XNB1103_lod1_albedo.dds',
                     LODCutoff = 215,
                     ShaderName = 'NomadsUnit',
-                    SpecularName = 'XNB1102_lod1_specteam.dds',
+                    SpecularName = 'XNB1103_lod1_specteam.dds',
                 },
             },
         },
@@ -105,7 +105,7 @@ UnitBlueprint {
         MaintenanceConsumptionPerSecondEnergy = 2,
         ProductionPerSecondMass = 2,
         RebuildBonusIds = {
-            'XNB1102',
+            'XNB1103',
         },
     },
     General = {
@@ -133,12 +133,12 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_ProductionToggle = true,
         },
-        UnitName = '<LOC XNB1102_name>Mass Extractor',
+        UnitName = '<LOC XNB1103_name>Mass Extractor',
         UnitWeight = 1,
         UpgradesTo = 'xnb1202',
     },
     Interface = {
-        HelpText = '<LOC XNB1102_help>Mass Extractor',
+        HelpText = '<LOC XNB1103_help>Mass Extractor',
     },
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.3,

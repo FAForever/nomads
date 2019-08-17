@@ -44,7 +44,7 @@ FactionList = {
             },
         },
         PreBuildUnits = {
-            MassExtractors = { 'xnb1102', 'xnb1102', 'xnb1102', 'xnb1102', },
+            MassExtractors = { 'xnb1103', 'xnb1103', 'xnb1103', 'xnb1103', },
             Regular = { 'xnb0101', 'xnb1101', 'xnb1101', 'xnb1101', 'xnb1101', },
         },
 

@@ -19,7 +19,7 @@ local nomadupgrades =
     ['xnb3202']  = 'xnb3302',
     ['xnb3101']  = 'xnb3201',   -- radar
     ['xnb3201']  = 'xnb3301',
-    ['xnb1102']  = 'xnb1202',   -- mex
+    ['xnb1103']  = 'xnb1202',   -- mex
     ['xnb1202']  = 'xnb1302',
 }
 

@@ -20,7 +20,7 @@ StructureUpgradeTemplates = {
     { 'xnb0203', 'xnb0303'},
 
     -- mass extractors
-    { 'xnb1102', 'xnb1202'},
+    { 'xnb1103', 'xnb1202'},
     { 'xnb1202', 'xnb1302'},
 
     -- radar

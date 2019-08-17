@@ -21,7 +21,7 @@ BuildingTemplates = {
         -- Mass Structures
         {
             'T1Resource',
-            'xnb1102',
+            'xnb1103',
         },
         {
             'T1MassCreation',
@@ -260,7 +260,7 @@ RebuildStructuresTemplate = {
         {'xnb0302', 'xnb0102',},
         {'xnb0303', 'xnb0103',},
         -- extractors
-        {'xnb1202', 'xnb1102',},
+        {'xnb1202', 'xnb1103',},
         -- radar
 --        {'xsb3104', 'xsb3101',},
 --        {'xsb3201', 'xsb3101',},

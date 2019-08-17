@@ -2,7 +2,7 @@
 
 local NMassCollectionUnit = import('/lua/nomadsunits.lua').NMassCollectionUnit
 
-XNB1102 = Class(NMassCollectionUnit) {
+XNB1103 = Class(NMassCollectionUnit) {
 
     OnStartBuild = function(self, unitBeingBuilt, order)
         NMassCollectionUnit.OnStartBuild(self, unitBeingBuilt, order)
@@ -35,6 +35,6 @@ XNB1102 = Class(NMassCollectionUnit) {
     end,
 }
 
-TypeClass = XNB1102
+TypeClass = XNB1103
 
 

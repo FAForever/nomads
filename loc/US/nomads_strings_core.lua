@@ -438,9 +438,9 @@ xnb1101_help = "Generates Energy. Construct next to other structures for adjacen
 xnb1101_name = "Power Generator"
 
 -- t1 mass extractor
-xnb1102_desc = "Mass Extractor"
-xnb1102_help = "Extracts Mass. Must be constructed on Mass deposits. Construct structures next to Mass extractor for adjacency bonus."
-xnb1102_name = "Mass Extractor"
+xnb1103_desc = "Mass Extractor"
+xnb1103_help = "Extracts Mass. Must be constructed on Mass deposits. Construct structures next to Mass extractor for adjacency bonus."
+xnb1103_name = "Mass Extractor"
 
 -- energy storage
 xnb1105_desc = "Energy Storage"

@@ -139,7 +139,7 @@ UnitBlueprint {
         },
         UnitName = '<LOC XNB1202_name>Mass Extractor',
         UnitWeight = 1,
-        UpgradesFrom = 'xnb1102',
+        UpgradesFrom = 'XNB1103',
         UpgradesTo = 'xnb1302',
     },
     Intel = {

@@ -4,7 +4,7 @@ local NomadsT1Eng = {
     ['L'] = 'xnb0101',
     ['A'] = 'xnb0102',
     ['S'] = 'xnb0103',
-    ['E'] = 'xnb1102',
+    ['E'] = 'xnb1103',
     ['X'] = 'xnb1106',
     ['P'] = 'xnb1101',
     ['H'] = 'xnb1107',
@@ -246,7 +246,7 @@ buildModeKeys = table.merged( buildModeKeys, {
     },
 
     -- T1 Mass Extractor
-    ['xnb1102'] = {
+    ['xnb1103'] = {
         ['U'] = 'xnb1202',
     },
 
