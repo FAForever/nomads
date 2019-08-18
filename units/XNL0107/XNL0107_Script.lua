@@ -1,11 +1,8 @@
 -- T1 tank destroyer
 
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
-local AddAnchorAbilty = import('/lua/nomadsutils.lua').AddAnchorAbilty
 local NLandUnit = import('/lua/nomadsunits.lua').NLandUnit
 local KineticCannon1 = import('/lua/nomadsweapons.lua').KineticCannon1
-
-NLandUnit = AddAnchorAbilty(NLandUnit)
 
 XNL0107 = Class(NLandUnit) {
     Weapons = {
