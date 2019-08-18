@@ -268,7 +268,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             DamageFriendly = false,
             CollideFriendly = false,
-            Damage = 45,
+            Damage = 40,
             DamageType = 'Normal',
             DisplayName = 'Particle blaster',
             FireTargetLayerCapsTable = {
