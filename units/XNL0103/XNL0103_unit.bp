@@ -235,7 +235,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_HighArc',
             CannotAttackGround = false,
             CollideFriendly = false,
-            Damage = 150,
+            Damage = 80,
             DamageFriendly = false,
             DamageRadius = 1,
             DamageType = 'Normal',
@@ -249,8 +249,8 @@ UnitBlueprint {
             Label = 'ArtilleryGun',
             MaxRadius = 30,
             MinRadius = 5,
-            MuzzleSalvoDelay = 0.5,
-            MuzzleSalvoSize = 2,
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
             MuzzleVelocity = 16,
             MuzzleVelocityReduceDistance = 28,
             ProjectileId = '/projectiles/NArtilleryRocket1/NArtilleryRocket1_proj.bp',
@@ -259,6 +259,11 @@ UnitBlueprint {
                 {
                     MuzzleBones = {
                         'Muzzle01',
+                    },
+                    RackBone = 'TurretPitch',
+                },
+                {
+                    MuzzleBones = {
                         'Muzzle05',
                     },
                     RackBone = 'TurretPitch',
@@ -266,6 +271,11 @@ UnitBlueprint {
                 {
                     MuzzleBones = {
                         'Muzzle02',
+                    },
+                    RackBone = 'TurretPitch',
+                },
+                {
+                    MuzzleBones = {
                         'Muzzle06',
                     },
                     RackBone = 'TurretPitch',
@@ -273,6 +283,11 @@ UnitBlueprint {
                 {
                     MuzzleBones = {
                         'Muzzle03',
+                    },
+                    RackBone = 'TurretPitch',
+                },
+                {
+                    MuzzleBones = {
                         'Muzzle07',
                     },
                     RackBone = 'TurretPitch',
@@ -280,6 +295,11 @@ UnitBlueprint {
                 {
                     MuzzleBones = {
                         'Muzzle04',
+                    },
+                    RackBone = 'TurretPitch',
+                },
+                {
+                    MuzzleBones = {
                         'Muzzle08',
                     },
                     RackBone = 'TurretPitch',
@@ -293,7 +313,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
             RangeCategory = 'UWRC_IndirectFire',
-            RateOfFire = 0.34,
+            RateOfFire = 1,
             StopOnPrimaryWeaponBusy = false,
             TargetCheckInterval = 0.5,
             TargetPriorities = {
@@ -333,7 +353,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
-            Damage = 25,
+            Damage = 50,
             DamageType = 'Normal',
             DisplayName = 'Rocket (AA)',
             EffectiveRadius = 0,
@@ -344,8 +364,8 @@ UnitBlueprint {
             FiringTolerance = 0.5,
             Label = 'AAGun',
             MaxRadius = 32,
-            MuzzleSalvoDelay = 0.5,
-            MuzzleSalvoSize = 2,
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
             MuzzleVelocity = 45,
             ProjectileId = '/projectiles/NRocketProj1/NRocketProj1_proj.bp',
             ProjectileLifetimeUsesMultiplier = 1.75,
@@ -354,6 +374,11 @@ UnitBlueprint {
                 {
                     MuzzleBones = {
                         'Muzzle01',
+                    },
+                    RackBone = 'TurretPitch',
+                },
+                {
+                    MuzzleBones = {
                         'Muzzle05',
                     },
                     RackBone = 'TurretPitch',
@@ -361,6 +386,11 @@ UnitBlueprint {
                 {
                     MuzzleBones = {
                         'Muzzle02',
+                    },
+                    RackBone = 'TurretPitch',
+                },
+                {
+                    MuzzleBones = {
                         'Muzzle06',
                     },
                     RackBone = 'TurretPitch',
@@ -368,6 +398,11 @@ UnitBlueprint {
                 {
                     MuzzleBones = {
                         'Muzzle03',
+                    },
+                    RackBone = 'TurretPitch',
+                },
+                {
+                    MuzzleBones = {
                         'Muzzle07',
                     },
                     RackBone = 'TurretPitch',
@@ -375,6 +410,11 @@ UnitBlueprint {
                 {
                     MuzzleBones = {
                         'Muzzle04',
+                    },
+                    RackBone = 'TurretPitch',
+                },
+                {
+                    MuzzleBones = {
                         'Muzzle08',
                     },
                     RackBone = 'TurretPitch',
@@ -387,7 +427,7 @@ UnitBlueprint {
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
             RackSlavedToTurret = true,
-            RateOfFire = 0.5,
+            RateOfFire = 1,
             TargetCheckInterval = 0.3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
