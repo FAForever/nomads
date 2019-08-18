@@ -422,7 +422,7 @@ UnitBlueprint {
             },
             FiringTolerance = 360,
             Label = 'AGRockets',
-            MaxRadius = 40,
+            MaxRadius = 35,
             MuzzleSalvoDelay = 0.2,
             MuzzleSalvoSize = 6,
             MuzzleVelocity = 25,
