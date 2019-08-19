@@ -1234,7 +1234,7 @@ NIFCruiseMissile = Class(SingleCompositeEmitterProjectile) {
     -- small correction to make the smoke appear to come from the missile
     FxTrailOffset = -0.16,
     PolyTrailOffset = -0.11,
-    FxTrailScale = .5,
+    FxTrailScale = 0.5,
 
     FxImpactTrajectoryAligned = false,
 
