@@ -2262,10 +2262,10 @@ float4 NomadsNormalMappedPS( NORMALMAPPED_VERTEX vertex,
 #endif
 
     //increasing the alpha creates more glow
-    alpha = alpha * 1.5;
+    alpha = alpha * 1.2;
 
     //subtracting the alpha from the color cancels out the oversaturation created when the glowy parts of the frame are blurred and added to the frame
-    color.rgb = color.rgb - (float3(alpha, alpha, alpha) * 0.3);
+    color.rgb = color.rgb - (float3(alpha, alpha, alpha) * 0.15);
 
     return float4( color.rgb, alpha );
 }
