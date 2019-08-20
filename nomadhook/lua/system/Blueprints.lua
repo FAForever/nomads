@@ -63,9 +63,95 @@ function ModBlueprints(all_bps)
         BlueprintLoaderUpdateProgress()
     end
 
+    ExtractColouredBlueprints(all_bps)
     oldModBlueprints(all_bps)
 end
 
+ConvertColoursList = function()
+    -- Importing files doesnt work inside blueprints.lua, so here is a function to get a properly converted list.
+    -- Dont forget to update this whenever the colours get updated!
+    local colourslist = import('/lua/GameColors.lua').GameColors.ArmyColors
+    local DetermineColourIndex = import('/lua/NomadsUtils.lua').DetermineColourIndex
+    local colourIndexList = {}
+    
+    for _, colour in colourslist do
+        table.insert(colourIndexList, DetermineColourIndex(colour))
+    end
+
+    WARN(repr(colourIndexList))
+    return colourIndexList
+end
+
+-- We duplicate beam and trail blueprints so that we are able to switch effect colours to match faction colours ingame.
+function ExtractColouredBlueprints(all_bps)
+    --first we get a list of the colour indeces, so we know how many blueprints to duplicate
+    local colourIndexList = {
+        585.71850585938,
+        360.95690917969,
+        540.25,
+        420.98999023438,
+        383.75686645508,
+        540.25,
+        619.61962890625,
+        660.46667480469,
+        507.66906738281,
+        600.81774902344,
+        634.99401855469,
+        660.80395507813,
+        414.98803710938,
+        390.8688659668,
+        711.86108398438,
+        540.40502929688,
+        480.66491699219,
+        520.59997558594,
+        436.99072265625,
+    }
+    --this list was generated with ConvertColoursList, see above - they are hue values + 360, with saturation stored in the decimal part. yeah. its dumb.
+
+    for _, bp in all_bps.Beam do
+        if bp.RecolourByArmyColour then
+            --we make one duplicate for each colour, and also leave the original
+            for k,ColourIndex in colourIndexList do
+                local colouredBp = table.deepcopy(bp)
+                colouredBp.RecolourByArmyColour = false
+                --to avoid lua side computation we store the index in the name, then we call it with string ops instead of whatever.
+                colouredBp.BlueprintId = string.sub(bp.BlueprintId,1,-4) .. math.floor(100*colourIndexList[k])
+                colouredBp.UShift = ColourIndex --UShift is the sideways beam movement. pretty much unused, so its fine to overwrite
+                StoreBlueprint('Beam', colouredBp)
+            end
+        end
+    end
+    
+    for _, bp in all_bps.TrailEmitter do
+        if bp.RecolourByArmyColour then
+            --we make one duplicate for each colour, and also leave the original
+            for k,ColourIndex in colourIndexList do
+                local colouredBp = table.deepcopy(bp)
+                colouredBp.RecolourByArmyColour = false
+                --to avoid lua side computation we store the index in the name, then we call it with string ops instead of whatever.
+                colouredBp.BlueprintId = string.sub(bp.BlueprintId,1,-4) .. math.floor(100*colourIndexList[k])
+                --Size is used all the time, but we will mash all the values together anyway in a fit of madness
+                --Hue takes first 3 digits, next 2 are saturation, and then last 1 and decimals are for the size. what could possibly go wrong.
+                --example: 36091.15 -> 360 hue, 9 saturation, 1.15 size
+                colouredBp.Size = (10*math.floor(10*ColourIndex)) + bp.Size
+                StoreBlueprint('TrailEmitter', colouredBp)
+            end
+        end
+    end
+end
+
+
+
+
+
+
+
+
+
+
+
+
+--TODO:if SACUs are losing their capacitor abilities, we can just remove all this.
 --Slightly disgusting that we need to hook the whole function just to change two bits in it. Changes are commented with "Nomads" in them
 function HandleUnitWithBuildPresets(bps, all_bps)
 
