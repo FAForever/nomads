@@ -63,6 +63,11 @@ DefaultBeamWeapon = Class(oldDefaultBeamWeapon) {
         end
         return next
     end,
+    
+    OnCreate = function(self)
+        self:DetermineColourIndex()
+        oldDefaultBeamWeapon.OnCreate(self)
+    end,
 }
 
 
