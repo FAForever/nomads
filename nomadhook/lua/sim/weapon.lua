@@ -10,8 +10,8 @@ Weapon = Class(oldWeapon) {
         self._MaxRadius = self:GetBlueprint().MaxRadius or 0
         self.RateOfFire = self:GetBlueprint().RateOfFire
         self.DoAlternateDualAimController = false
-        oldWeapon.OnCreate(self)
         self:DetermineColourIndex()
+        oldWeapon.OnCreate(self)
     end,
 
     DetermineColourIndex = function(self)
@@ -19,7 +19,7 @@ Weapon = Class(oldWeapon) {
         if not self.unit.ColourIndex then
             WARN('crazy unit is crazy - no colour index despite when its set OnPreCreate! blueprintID: ' .. self.unit:GetUnitId())
         end
-        self.ColourIndex = self.unit.ColourIndex or 5
+        self.ColourIndex = self.unit.ColourIndex or 383.999
     end,
 
     SetEnabled = function(self, enable)
