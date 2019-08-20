@@ -250,6 +250,71 @@ struct PS_OUTPUT {
 PS_OUTPUT WorldPS(WORLD_OUTPUT inData)
 {
 	PS_OUTPUT o = (PS_OUTPUT)0;
+    
+    //disgusting hack to recolour emitters to team colour: we put the index into the emitter curve (barely used for anything)
+    //and then we use it to override the colours if needed.
+    
+    float4 RampColour = tex2D(ParticleSampler1,inData.mTex1);
+    if ( inData.mTex1.y > 360 )
+    {
+        //this is a mess. the colours cant be passed in via some other argument, so we use rampselectioncurve, with the int part as hue and decimal as saturation. yeah.
+        float FactionSaturation = inData.mTex1.y % 1;
+        float FactionHue = (inData.mTex1.y - 361) / 60;
+        
+        float valueMax = max(max(RampColour.r, RampColour.g), RampColour.b);
+        float valueMin = min(min(RampColour.r, RampColour.g), RampColour.b);
+        float valueLerp = lerp(valueMin,valueMax, FactionHue % 1);
+        
+        //absolutely hideous.
+        if (FactionHue < 1)
+        {
+        RampColour.b = valueMin;
+        RampColour.r = valueMax;
+        RampColour.g = valueLerp;
+        }
+        else if (FactionHue < 2)
+        {
+        RampColour.b = valueMin;
+        RampColour.g = valueMax;
+        RampColour.r = valueLerp;
+        }
+        else if (FactionHue < 3)
+        {
+        RampColour.r = valueMin;
+        RampColour.g = valueMax;
+        RampColour.b = valueLerp;
+        }
+        else if (FactionHue < 4)
+        {
+        RampColour.r = valueMin;
+        RampColour.b = valueMax;
+        RampColour.g = valueLerp;
+        }
+        else if (FactionHue < 5)
+        {
+        RampColour.g = valueMin;
+        RampColour.b = valueMax;
+        RampColour.r = valueLerp;
+        }
+        else if (FactionHue < 6)
+        {
+        RampColour.g = valueMin;
+        RampColour.r = valueMax;
+        RampColour.b = valueLerp;
+        }
+        
+        //desaturate the colour to closer match the teamcolour. we dont transfer the brightness, thats the ramps job.
+        float Grey = RampColour.r*0.3 + RampColour.g*0.59 + RampColour.b*0.11;
+        RampColour.rgb = lerp(Grey, RampColour.rgb, FactionSaturation);
+    }
+    
+    o.color = tex2D(ParticleSampler0,inData.mTex0) * RampColour;
+    return o;
+}
+
+PS_OUTPUT WorldTeamPS(WORLD_OUTPUT inData)
+{
+	PS_OUTPUT o = (PS_OUTPUT)0;
 	o.color = tex2D(ParticleSampler0,inData.mTex0) * tex2D(ParticleSampler1,inData.mTex1);
 	return o;
 }
@@ -293,13 +358,25 @@ then the offset = cross( view space camera direction,  view space beam direction
 
 normalize this and add it to the position.
 
+the beam creates a texture with 4 vertices running along the length of the beam.
+
+the single texture has scrolling UVs and is aligned to the camera view along its beam direction.
 
 */
 
-
 BEAM_OUTPUT BeamVS(float3 Pos: POSITION, float4 Size: TEXCOORD0, float4 Color: TEXCOORD1, float4 Scaling: TEXCOORD2)
 {
-   BEAM_OUTPUT Out;
+    /*
+    Pos.xyz == position in world space
+    Size.xyz == direction vector of beam - all values between 0,1 depend on the angle the beam is in relation to world units
+    Size.w == Thickness in blueprint
+    Color.rgba == vertex colour/beam colour in blueprint, (set by engine?)
+    Scaling.x == 0 or 1, (0 one side of beam, 1 other side of beam) unknown source, likely relating to thickness of beam
+    Scaling.y == 0 to length of beam in world units. i.e. distance of vertex from start point of beam
+    Scaling.z == UShift in blueprint
+    Scaling.w == VShift in blueprint
+    */
+    BEAM_OUTPUT Out;
 
 	// initial position
 	float3 pos = mul( float4(Pos,1), ViewMatrix);
@@ -314,12 +391,20 @@ BEAM_OUTPUT BeamVS(float3 Pos: POSITION, float4 Size: TEXCOORD0, float4 Color: T
 	offset = normalize(offset) * Size.w;
 	
 	// get the position into view space
-	pos += offset;		
-
+	pos += offset;
 	Out.mPos = mul(float4(pos, 1), Projection);
-
+    //one texture is scrolling, the second one is static
 	Out.mColor = Color;
-	Out.mUv0.x = Scaling.x + (Scaling.z * time);
+    
+    //in the case of colour shenanigans, remove the uv shifting and just take the raw output
+    if (Scaling.z > 360)
+    {
+        Out.mUv0.x = Scaling.z;
+    }
+    else
+    {
+        Out.mUv0.x = Scaling.x + (Scaling.z * time);
+    }
 	Out.mUv0.y = Scaling.y + (Scaling.w * time);	
 	Out.mUv1 = Scaling.xy;
 	
@@ -327,12 +412,92 @@ BEAM_OUTPUT BeamVS(float3 Pos: POSITION, float4 Size: TEXCOORD0, float4 Color: T
 }
 
 
+
 float4 BeamPS(BEAM_OUTPUT inData, uniform int textureCount) : COLOR 
 {
+    //disgusting hack to recolour emitters to team colour: we put the index into the emitter curve (barely used for anything)
+    //and then we use it to override the colours if needed.
+    float4 RampColour;
+    if ( inData.mUv0.x > 360 )
+    {
+        //this is a mess. the colours cant be passed in via some other argument, so we use Width. yeah.
+        //hue + 360    +    Saturation
+        RampColour = tex2D(ParticleSampler0Wrap, float2(inData.mUv1.x,inData.mUv0.y)) * inData.mColor;
+        inData.mUv0.x = inData.mUv0.x;
+        float FactionSaturation = 1; //in this case this is 2 decimal places - 0.11, 0.26, ect
+        float FactionHue = (inData.mUv0.x - 361 ) / 60;
+        
+        float valueMax = max(max(RampColour.r, RampColour.g), RampColour.b);
+        float valueMin = min(min(RampColour.r, RampColour.g), RampColour.b);
+        float valueLerp = lerp(valueMin,valueMax, FactionHue % 1);
+        
+        //absolutely hideous.
+        if (FactionHue < 1)
+        {
+        RampColour.b = valueMin;
+        RampColour.r = valueMax;
+        RampColour.g = valueLerp;
+        }
+        else if (FactionHue < 2)
+        {
+        RampColour.b = valueMin;
+        RampColour.g = valueMax;
+        RampColour.r = valueLerp;
+        }
+        else if (FactionHue < 3)
+        {
+        RampColour.r = valueMin;
+        RampColour.g = valueMax;
+        RampColour.b = valueLerp;
+        }
+        else if (FactionHue < 4)
+        {
+        RampColour.r = valueMin;
+        RampColour.b = valueMax;
+        RampColour.g = valueLerp;
+        }
+        else if (FactionHue < 5)
+        {
+        RampColour.g = valueMin;
+        RampColour.b = valueMax;
+        RampColour.r = valueLerp;
+        }
+        else if (FactionHue < 6)
+        {
+        RampColour.g = valueMin;
+        RampColour.r = valueMax;
+        RampColour.b = valueLerp;
+        }
+        
+        //desaturate the colour to closer match the teamcolour. we dont transfer the brightness, thats the ramps job.
+        float Grey = RampColour.r*0.3 + RampColour.g*0.59 + RampColour.b*0.11;
+        RampColour.rgb = lerp(Grey, RampColour.rgb, FactionSaturation);
+    }
+    else 
+    {
+        RampColour = tex2D(ParticleSampler0Wrap, inData.mUv0);
+    }
 	float4 color;
 	if( textureCount == 1 )
 	{
-		color =  tex2D(ParticleSampler0Wrap, inData.mUv0) * inData.mColor; 
+		color =  RampColour; 
+	}
+	if( textureCount == 2 )
+	{
+		color = RampColour;
+	}
+	
+	return color;
+	
+}
+
+float4 BeamOriginalPS(BEAM_OUTPUT inData, uniform int textureCount) : COLOR 
+{
+	float4 color;
+    
+	if( textureCount == 1 )
+	{
+		color =  tex2D(ParticleSampler0Wrap, inData.mUv0) * inData.mColor;
 	}
 	if( textureCount == 2 )
 	{
@@ -343,15 +508,13 @@ float4 BeamPS(BEAM_OUTPUT inData, uniform int textureCount) : COLOR
 	
 }
 
-
-
 struct TRAIL_OUTPUT {
    float4 mPos: POSITION;
    float2 mUv0: TEXCOORD0;
    float2 mUv1: TEXCOORD1;
 };
 
-
+//each trail is made from two vertices (?) one at the start and one at the end of the beam
 TRAIL_OUTPUT TrailVS(float3 Pos: POSITION, float3 Direction: TEXCOORD0, float3 Lifetime: TEXCOORD1, float4 Width: TEXCOORD2)
 {
    TRAIL_OUTPUT Out;
@@ -361,38 +524,129 @@ TRAIL_OUTPUT TrailVS(float3 Pos: POSITION, float3 Direction: TEXCOORD0, float3 L
 	float startTime = Lifetime.x;
 	float lifetime = Lifetime.y;
 	float repeatRate = Lifetime.z;
+    /*
+    trail parameters:
+    Pos.xyz == position in world space
+    Width.x == Size in the blueprint
+    Width.y == 0 for all vertices, unknown source
+    Width.z == 0 or 1, unknown source, determines position of texture with respect to beam center?
+    Width.w == current tick ingame for some reason
+    Lifetime.x == time in ticks since the start of the game, updated sporadically
+    Lifetime.y == TrailLength in blueprint (corresponds to length of beam in world units?)
+    Lifetime.z == increases with time from start of its life, directly proportional to TextureRepeatRate in blueprint
+    */
 
 	// get amount of time elapsed since creation
-	float t = (time - startTime) / lifetime; 	
-	// get amount of time lapsed since beginning of strip
-	float vee = (startTime - originTime) / lifetime;
-	float repeatvee = vee * repeatRate; //frac(vee);
+	float t = (time - startTime) / lifetime;
 
 	// initial position
+	// position with respect to screen, 0 is centre
 	float3 pos = mul( float4(Pos,1), ViewMatrix);
-
+    
 	// get the direction into view space.
 	float3 viewspacedirection = mul( Direction.xyz, ViewMatrix);
 	
 	// calculate the cross product of the direction of the beam and the direction of the camera
 	float3 offset = cross(float3(0,0,1), viewspacedirection);
 	
-	// normalize the offset
+    //a most terrifying breakdown of multiple variables stored in a single variable. this should never, ever be done.
+    if (Width.x > 36000 )
+    {
+        //storage format: (hue + 360) * 100    +    Saturation * 100    +     Size from blueprint (max size: 9.99)
+        Width.y = floor(Width.x) + Width.z; //store repeat rate inside the decimal instead of the size
+        Width.x = Width.x % 10; //grab the end off the variable and store it for actual use
+    }
+	// normalize the offset and scale by the Size from the blueprint
 	offset = normalize(offset) * Width.x;
 	
 	// get the position into view space
-	pos += offset;		
+	pos += offset;
 
 	// get the position into projection space
 	Out.mPos = mul(float4(pos, 1), Projection);
 
-	// output some useful uv's	
-	Out.mUv0 = float2(Width.z, repeatRate);
+	// output some useful uv's
+	Out.mUv0 = float2(Width.y, repeatRate);
 	Out.mUv1 = float2(t, Width.z);
+    
 	return Out;
 }
 
-float4 TrailPS(TRAIL_OUTPUT inData) : COLOR 
+float4 TrailPS(TRAIL_OUTPUT inData) : COLOR
+{
+    if( inData.mUv1.x > 0.0 && inData.mUv1.x < 1.0 )
+    {
+        //disgusting hack to recolour emitters to team colour: we put the index into the emitter curve (barely used for anything)
+        //and then we use it to override the colours if needed.
+        float4 RampColour;
+        if ( inData.mUv0.x > 36000 )
+        {
+            //this is a mess. the colours cant be passed in via some other argument, so we use Width. yeah.
+            //(hue + 360) * 100    +    Saturation * 100    +     Width.z (max size: 9.99)
+            RampColour = tex2D(ParticleSampler0Wrap, float2(inData.mUv0.x,inData.mUv0.x % 1));
+            inData.mUv0.x = inData.mUv0.x /100;
+            float FactionSaturation = inData.mUv0.x % 1; //in this case this is 2 decimal places - 0.11, 0.26, ect
+            float FactionHue = (inData.mUv0.x - 361 ) / 60;
+            
+            float valueMax = max(max(RampColour.r, RampColour.g), RampColour.b);
+            float valueMin = min(min(RampColour.r, RampColour.g), RampColour.b);
+            float valueLerp = lerp(valueMin,valueMax, FactionHue % 1);
+            
+            //absolutely hideous.
+            if (FactionHue < 1)
+            {
+            RampColour.b = valueMin;
+            RampColour.r = valueMax;
+            RampColour.g = valueLerp;
+            }
+            else if (FactionHue < 2)
+            {
+            RampColour.b = valueMin;
+            RampColour.g = valueMax;
+            RampColour.r = valueLerp;
+            }
+            else if (FactionHue < 3)
+            {
+            RampColour.r = valueMin;
+            RampColour.g = valueMax;
+            RampColour.b = valueLerp;
+            }
+            else if (FactionHue < 4)
+            {
+            RampColour.r = valueMin;
+            RampColour.b = valueMax;
+            RampColour.g = valueLerp;
+            }
+            else if (FactionHue < 5)
+            {
+            RampColour.g = valueMin;
+            RampColour.b = valueMax;
+            RampColour.r = valueLerp;
+            }
+            else if (FactionHue < 6)
+            {
+            RampColour.g = valueMin;
+            RampColour.r = valueMax;
+            RampColour.b = valueLerp;
+            }
+            
+            //desaturate the colour to closer match the teamcolour. we dont transfer the brightness, thats the ramps job.
+            float Grey = RampColour.r*0.3 + RampColour.g*0.59 + RampColour.b*0.11;
+            RampColour.rgb = lerp(Grey, RampColour.rgb, FactionSaturation);
+            RampColour.a = 0.8;
+        }
+        else 
+        {
+            RampColour = tex2D(ParticleSampler0Wrap, inData.mUv0);
+        }
+        
+        return RampColour * tex2D(ParticleSampler1,inData.mUv1);
+    }
+    else
+        return float4(0, 0, 0, 0);
+}
+
+float4 TrailOriginalPS(TRAIL_OUTPUT inData) : COLOR 
 {
     if( inData.mUv1.x > 0.0 && inData.mUv1.x < 1.0 )
         return tex2D(ParticleSampler1, inData.mUv1) * tex2D(ParticleSampler0Wrap, inData.mUv0);
