@@ -72,6 +72,161 @@ FindOrbitalUnit = function(self, cats)
 end
 
 -- ================================================================================================================
+-- Colour Index / Recolouring emitters
+-- ================================================================================================================
+
+DetermineColourIndex = function(hex)
+    --we work out the hue of our team colour, which will then be sent to the shader for applying shader magic.
+    if not hex then return 23.999 end
+    --split the string by channel, supcom gives argb so drop the first channel
+    local r,g,b = string.sub(hex,3,4), string.sub(hex,5,6), string.sub(hex,7,8)
+    r,g,b = tonumber(r,16), tonumber(g,16), tonumber(b,16)
+    local h,s,v = ConvertRGBtoHSV(r,g,b)
+    
+    --we apply utter madness to allow the value to pass to the shader. This makes it not quite the right hue value.
+    if s < 0.25 then
+        h = 540.25 -- a pale blue colour that is nicely suited to grey and white colours
+    else
+        --yeah. we store s in the decimal part of h, just so we can pass it to the shader. thats right, this is insane.
+        if s == 1 then s = 0.99 end
+        --we add 360 so that all the indeces are the same length, and any shader can easily recognize them as special.
+        h = math.ceil(h*360) + s + 360
+        --h = 0.01*math.floor(100*h) --round to 2 decimal places
+    end
+    return h
+end
+
+ConvertRGBtoHSV = function(r, g, b, a)
+    r, g, b, a = r / 255, g / 255, b / 255
+    local max, min = math.max(r, g, b), math.min(r, g, b)
+    local h, s, v
+    v = max
+
+    local d = max - min
+    if max == 0 then s = 0 else s = d / max end
+
+    if max == min then
+        h = 0 -- achromatic
+    else
+        if max == r then
+            h = (g - b) / d
+            if g < b then h = h + 6 end
+        elseif max == g then
+            h = (b - r) / d + 2
+        elseif max == b then
+            h = (r - g) / d + 4
+        end
+        h = h / 6
+    end
+
+    return h, s, v, a or 255
+end
+
+ConvertRGBtoHSL = function(r, g, b, a)
+    r, g, b = r / 255, g / 255, b / 255
+
+    local maxL, minL = math.max(r, g, b), math.min(r, g, b)
+    local h, s, l
+
+    l = (maxL + minL) / 2
+
+    if maxL == minL then
+        h, s = 0, 0 -- achromatic
+    else
+        local d = maxL - minL
+        if l > 0.5 then s = d / (2 - maxL - minL) else s = d / (maxL + minL) end
+        if maxL == r then
+            h = (g - b) / d
+            if g < b then h = h + 6 end
+        elseif maxL == g then
+            h = (b - r) / d + 2
+        elseif maxL == b then
+            h = (r - g) / d + 4
+        end
+        h = h / 6
+    end
+    
+    return h, s, l, a or 255
+end
+
+--[[
+--example format: 
+BeamsToRecolour = {
+    'FxImpactAirUnit',
+    'FxImpactLand',
+    'FxImpactNone',
+    'FxImpactProp',
+    'FxImpactShield',
+    'FxImpactWater',
+    'FxImpactUnderWater',
+    'FxImpactUnit',
+    'FxImpactProjectile',
+    'FxImpactProjectileUnderWater',
+    'FxOnKilled',
+},
+--]]
+
+--TODO: allow even more fine grained control, colouring only some of the emitter templates, ect.
+--TODO: allow this to check if the emitter exists in the blueprints list first before setting
+
+SetBeamsToColoured = function(self, BeamsToColour) --Replace specified emitter blueprints with their coloured versions, so every time theyre called we already have everything done!
+    if not self.ColourIndex then WARN('Nomads: SetBeamsToColoured could not find ColourIndex. Leaving Emitters uncoloured.') return end
+    
+    for _, EmitterList in BeamsToColour do
+        if self[EmitterList] then
+            for k, Emitter in self[EmitterList] do
+                if string.sub(Emitter,-3) == '.bp' then
+                    self[EmitterList][k] = string.sub(Emitter,1,-4) .. math.floor(100*self.ColourIndex)
+                else
+                    self[EmitterList][k] = string.sub(Emitter,1,-6) .. math.floor(100*self.ColourIndex)
+                end
+            end
+        end
+    end
+end
+
+--TODO:Rename self.FactionColour, and set it to allow individual blueprints
+--TODO: possibly replace these with blueprint switching instead, so we dont need to call this every time? not sure whats better.
+
+-- Hook the Emitter creation commands, so we can insert our colour changes here.
+-- To use, import into target file, and any functions written in that file will use this instead of the engine function. Example:
+--local CreateAttachedEmitter = import('/lua/NomadsUtils.lua').CreateAttachedEmitterColoured
+
+CreateAttachedEmitterColoured = function(self, ...)
+    local emit = CreateAttachedEmitter(self, unpack(arg))
+    if self.ColourIndex and self.FactionColour then
+        emit:SetEmitterCurveParam('RAMPSELECTION_CURVE', self.ColourIndex, 0)
+    end
+    return emit
+end
+
+CreateEmitterAtBoneColoured = function(self, ...) -- Hook the engine CreateEmitterAtBone command, so we can insert our colour changes here.
+    local emit = CreateEmitterAtBone(self, unpack(arg))
+    if self.ColourIndex and self.FactionColour then
+        emit:SetEmitterCurveParam('RAMPSELECTION_CURVE', self.ColourIndex, 0)
+    end
+    return emit
+end
+
+CreateEmitterAtEntityColoured = function(self, ...) -- Hook the engine CreateEmitterAtEntity command, so we can insert our colour changes here.
+    local emit = CreateEmitterAtEntity(self, unpack(arg))
+    if self.ColourIndex and self.FactionColour then
+        emit:SetEmitterCurveParam('RAMPSELECTION_CURVE', self.ColourIndex, 0)
+    end
+    
+    return emit
+end
+
+CreateEmitterOnEntityColoured = function(self, ...) -- Hook the engine CreateEmitterOnEntity command, so we can insert our colour changes here.
+    local emit = CreateEmitterOnEntity(self, unpack(arg))
+    if self.ColourIndex and self.FactionColour then
+        emit:SetEmitterCurveParam('RAMPSELECTION_CURVE', self.ColourIndex, 0)
+    end
+    
+    return emit
+end
+
+-- ================================================================================================================
 -- Bombard mode stuff
 -- ================================================================================================================
 
