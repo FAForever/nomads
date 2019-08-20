@@ -9,7 +9,7 @@ local Utilities = import('/lua/utilities.lua')
 
 NSeaUnit = AddNavalLights(NSeaUnit)
 
-XNS0205 = Class(NSeaUnit) {
+xns0102 = Class(NSeaUnit) {
     Weapons = {
         MainGun = Class(UnderwaterRailgunWeapon1) {},
         RearGun = Class(UnderwaterRailgunWeapon1) {},
@@ -175,4 +175,4 @@ XNS0205 = Class(NSeaUnit) {
     end,
 }
 
-TypeClass = XNS0205
+TypeClass = xns0102

@@ -159,7 +159,7 @@ PlatoonTemplate {
             { 'xrs0204', 1, 1, 'attack', 'None' },
         },
         Nomads = {
-            { 'xns0205', 1, 1, 'attack', 'None' },
+            { 'xns0102', 1, 1, 'attack', 'None' },
         },
     },
 }

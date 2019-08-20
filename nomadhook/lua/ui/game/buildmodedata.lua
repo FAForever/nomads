@@ -116,7 +116,7 @@ local NomadsT1Sea = {
 
 local NomadsT2Sea = {
     ['E'] = 'xnl0208',
-    ['O'] = 'xns0205',
+    ['O'] = 'xns0102',
     ['C'] = 'xns0202',
     ['D'] = 'xns0201',
 }

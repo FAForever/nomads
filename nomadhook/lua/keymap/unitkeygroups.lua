@@ -765,7 +765,7 @@ unitkeygroups = {
 "xel0306",},
 ["T2_Torpedo_Boat"] = {
 "xes0102",
-"xns0205",
+"xns0102",
 },
 ["T2_Shield_Boat"] = {
 "xes0205",},
