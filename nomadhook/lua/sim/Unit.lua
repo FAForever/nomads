@@ -1,20 +1,24 @@
 do
 
 local oldUnit = Unit
+local colourslist = import('/lua/GameColors.lua').GameColors.ArmyColors
+local DetermineColourIndex = import('/lua/NomadsUtils.lua').DetermineColourIndex
+--local CreateAttachedEmitter = import('/lua/NomadsUtils.lua').CreateAttachedEmitterColoured
 
 Unit = Class(oldUnit) {
 
     -- ================================================================================================================
     -- improved emitter features
     --we add the functionality to change the colour of emitters based on the units faction colour.
-    --this is done via a specially made ramp texture containing all the faction colours,
-    --and then using SetEmitterCurveParam to change the colour via script.
+    --this is done via a specially made shader that takes the ramp selection curve and applies a colour based on that.
+    --we then use SetEmitterCurveParam to change the colour via scripts
+    --for beams and trails, there is no direct way to pass the index via scripts, so we create a set of duplicate blueprints for them and swap them out at beam/trail creation time.
 
     OnPreCreate = function(self)
-        --yes i know this is disgusting but it has to be done since the nomads orbital ship crashes the game
-        --so it needs an exception FIXME: refactor nomads orbital frigate so its not so crazy.
+    --we determine the index once on create then save it in the entity table to save on sim slowdown
         if not self.ColourIndex then
-            self:DetermineColourIndex()
+            local hexColour = colourslist[ScenarioInfo.ArmySetup[ListArmies()[self:GetArmy()]].ArmyColor]
+            self.ColourIndex = DetermineColourIndex(hexColour)
         end
 
         oldUnit.OnPreCreate(self)
@@ -43,9 +47,7 @@ Unit = Class(oldUnit) {
                             emit:OffsetEmitter(vTypeGroup.Offset[1] or 0, vTypeGroup.Offset[2] or 0,vTypeGroup.Offset[3] or 0)
                         end
                         if vTypeGroup.Recolour then
-                            --WARN('Trying to recolour emitter (make sure it has a ramp compatible with this feature): '..vEffect)
-                            emit:SetEmitterCurveParam('RAMPSELECTION_CURVE', 1-((self.ColourIndex)*(1/18))+1/36, 0)
-                            --WARN('recolouring emitter'..(self.ColourIndex)*(1/18)..' with index of: '..self.ColourIndex)
+                            emit:SetEmitterCurveParam('RAMPSELECTION_CURVE', self.ColourIndex, 0)
                         end
                         if EffectBag then
                             table.insert( EffectBag, emit )
@@ -55,18 +57,6 @@ Unit = Class(oldUnit) {
             end
         end
     end,
-
-    DetermineColourIndex = function(self)
-        --we determine the index once on create then save it in the entity table to save on sim slowdown
-        --WARN('setting colour index for blueprintID: ' .. self:GetUnitId())
-        local tblArmy = ListArmies()
-        local army = self:GetArmy()
-        self.ColourIndex = ScenarioInfo.ArmySetup[tblArmy[army]].ArmyColor
-    end,
-
-
-
-
 
     OnCreate = function(self)
         oldUnit.OnCreate(self)
