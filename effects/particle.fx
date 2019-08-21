@@ -423,7 +423,7 @@ float4 BeamPS(BEAM_OUTPUT inData, uniform int textureCount) : COLOR
         //this is a mess. the colours cant be passed in via some other argument, so we use Width. yeah.
         //hue + 360    +    Saturation
         RampColour = tex2D(ParticleSampler0Wrap, float2(inData.mUv1.x,inData.mUv0.y)) * inData.mColor;
-        inData.mUv0.x = inData.mUv0.x;
+        
         float FactionSaturation = 1; //in this case this is 2 decimal places - 0.11, 0.26, ect
         float FactionHue = (inData.mUv0.x - 361 ) / 60;
         
@@ -475,7 +475,7 @@ float4 BeamPS(BEAM_OUTPUT inData, uniform int textureCount) : COLOR
     }
     else 
     {
-        RampColour = tex2D(ParticleSampler0Wrap, inData.mUv0);
+        RampColour = tex2D(ParticleSampler0Wrap, inData.mUv0) * inData.mColor;
     }
 	float4 color;
 	if( textureCount == 1 )
@@ -484,7 +484,7 @@ float4 BeamPS(BEAM_OUTPUT inData, uniform int textureCount) : COLOR
 	}
 	if( textureCount == 2 )
 	{
-		color = RampColour;
+		color = RampColour * tex2D(ParticleSampler1, inData.mUv1);
 	}
 	
 	return color;
