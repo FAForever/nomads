@@ -1,44 +1,57 @@
 do
 
 
+local SetBeamsToColoured = import('/lua/NomadsUtils.lua').SetBeamsToColoured
+local CreateEmitterAtBone = import('/lua/NomadsUtils.lua').CreateEmitterAtBoneColoured
+local CreateEmitterAtEntity = import('/lua/NomadsUtils.lua').CreateEmitterAtEntityColoured
+
 local oldProjectile = Projectile
 
 Projectile = Class(oldProjectile) {
 
     OnCreate = function(self, inWater)
-        -- if not self:GetLauncher().ColourIndex then
-            -- WARN('projectile could not get colour index from launcher! something is wrong!')
-            -- --debug for warning on projectiles - note: a bunch of those are created as debris on death which dont have an army so it can be a false alarm
-        -- end
-        self.ColourIndex = self:GetLauncher().ColourIndex or 5
-        --WARN(repr(self))
-        -- RecolourEffects(self.ColourIndex, effects)
+        self.ColourIndex = self:GetLauncher().ColourIndex or 383.999
+        SetBeamsToColoured(self, self.BeamsToRecolour)
         oldProjectile.OnCreate(self, inWater)
         self.ImpactOnType = "Unknown"
     end,
 
-    -- FXRecolour = {
-        -- FxImpactAirUnit = {},
-        -- FxImpactLand = {},
-        -- FxImpactNone = {},
-        -- FxImpactProp = {},
-        -- FxImpactShield = {},
-        -- FxImpactWater = {},
-        -- FxImpactUnderWater = {},
-        -- FxImpactUnit = {},
-        -- FxImpactProjectile = {},
-        -- FxImpactProjectileUnderWater = {},
-        -- FxOnKilled = {},
-    -- }
+    --fill this table with emitters to recolour. This one works on trails and beams.
+    BeamsToRecolour = {},
 
-    -- RecolourEffects = function(index, effects)
+    --completely unchanged, just put here to allow the imported functions to override the engine functions.
+    CreateImpactEffects = function(self, army, EffectTable, EffectScale)
+        local emit = nil
+        for _, v in EffectTable do
+            if self.FxImpactTrajectoryAligned then
+                emit = CreateEmitterAtBone(self, -2, army, v)
+            else
+                emit = CreateEmitterAtEntity(self, army, v)
+            end
+            if emit and EffectScale ~= 1 then
+                emit:ScaleEmitter(EffectScale or 1)
+            end
+        end
+    end,
 
-    -- end,
+    --completely unchanged, just put here to allow the imported functions to override the engine functions.
+    CreateTerrainEffects = function(self, army, EffectTable, EffectScale)
+        local emit = nil
+        for _, v in EffectTable do
+            emit = CreateEmitterAtBone(self, -2, army, v)
+            if emit and EffectScale ~= 1 then
+                emit:ScaleEmitter(EffectScale or 1)
+            end
+        end
+    end,
 
+
+    --TODO:Remove this?
     PassDamageData = function(self, DamageData)
         oldProjectile.PassDamageData(self, DamageData)
     end,
 
+    --TODO:see if this can be removed. either merged into faf or just deleted if we dont need it.
     OnImpact = function(self, targetType, targetEntity)
         self.ImpactOnType = targetType   -- adding this var so destructively hooking is not necessary
 
@@ -53,6 +66,7 @@ Projectile = Class(oldProjectile) {
         oldProjectile.OnImpact(self, targetType, targetEntity)
     end,
 
+    --TODO: see if this is needed still, it should be functional in FAF
     DoUnitImpactBuffs = function(self, target)
         -- the original version of this function has the parent unit do the buffing when there's a radius specified. I also need the
         -- unit that was hit to fix a problem where that unit isn't stunned (see unit.lua for more info). Destructively overwriting this fn
