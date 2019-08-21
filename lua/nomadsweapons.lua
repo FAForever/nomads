@@ -10,18 +10,61 @@ local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local RandomFloat = import('/lua/utilities.lua').GetRandomFloat
 
 
--- ====================================================================================================
+--When adding weapon classes, follow the FAF naming conventions - NIFOrbitalBombardmentWeapon
 
-AcuUpgradedWeapon = Class(DefaultProjectileWeapon) {
--- TODO: used?
-    FxMuzzleFlash = EffectTemplate.TLaserMuzzleFlash,
+--------------------------------------------------------------------------
+-- Projectile Weapons
+--------------------------------------------------------------------------
+
+--Autocannons
+
+--
+
+--Artillery
+
+
+--------------------------------------------------------------------------
+-- Missile Weapons
+--------------------------------------------------------------------------
+
+--Direct Fire weapons
+
+--Cruise Missile weapons
+
+--Strategic Missile weapons
+
+
+--------------------------------------------------------------------------
+-- Orbital weapons
+--------------------------------------------------------------------------
+
+--Used for orbital bombardment by the orbital frigate. This weapon is with a script, where the fire command is read from a queue.
+NIFOrbitalBombardmentWeapon = Class(DefaultProjectileWeapon) {
+    FxMuzzleFlash = {
+        '/effects/emitters/cannon_muzzle_flash_04_emit.bp',
+        '/effects/emitters/cannon_muzzle_smoke_11_emit.bp',
+    },
+
+    --Remove queue item after firing weapon.
+    RackSalvoFiringState = State(DefaultProjectileWeapon.RackSalvoFiringState) {
+        Main = function(self)
+            DefaultProjectileWeapon.RackSalvoFiringState.Main(self)
+            table.remove(self.unit.OrbitalBombardmentQueue,1)
+        end,
+    },
+
 }
+
+
+
+
+-- -----------------------------------------------------------------------------------------------------
+-- LEGACY WEAPONS - These are used by older versions of nomads, and as such have an older organisation structure.
+-- Where possible, create new projectiles and tie them into the new structure instead, so that the old ones eventually dont need to be used.
+-- -----------------------------------------------------------------------------------------------------
+
 
 KineticCannon1 = Class(DefaultProjectileWeapon) {
-    FxMuzzleFlash = NomadsEffectTemplate.KineticCannonMuzzleFlash,
-}
-
-KineticCannon1_Overcharge = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = NomadsEffectTemplate.KineticCannonMuzzleFlash,
 }
 
@@ -435,66 +478,7 @@ DeathEnergyBombWeapon = Class(BareBonesWeapon) {
 -- Orbital weapons
 --------------------------------------------------------------------------
 
-OrbitalMissileWeapon = Class(DefaultProjectileWeapon) {
-    FxMuzzleFlash = {
-        '/effects/emitters/cannon_muzzle_flash_04_emit.bp',
-        '/effects/emitters/cannon_muzzle_smoke_11_emit.bp',
-    },
-}
-
 OrbitalGun = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = EffectTemplate.TIFArtilleryMuzzleFlash,
-}
-
-OrbitalEnergyCannon = Class(DefaultProjectileWeapon) {
-    FxRackChargeMuzzleFlash = {},
-    FxChargeMuzzleFlash = {},
-    FxMuzzleFlash = {},
-
-    IfTargetPosUnknownUseLastKnown = true,  -- enable to try to prevent not firing projectiles cause no target location is known
-
-    CreateProjectileAtMuzzle = function(self, muzzle)
-        -- creates a projectile in the sky that falls down on the target destination.
-
-        local pos, proj, maxOffset, angle, velocity, bp
-
-        -- determine impact position. This is the targets position
-        if self:GetCurrentTargetPos() then
-            pos = self:GetCurrentTargetPos()
-
-        elseif self:GetCurrentTarget() then
-            pos = self:GetCurrentTarget():GetPosition()
-
-        elseif self.unit:GetTargetEntity() then
-            pos = self.unit:GetTargetEntity():GetPosition()
-
-        end
-
-        if (not pos or not pos[1]) and self.IfTargetPosUnknownUseLastKnown then
-            pos = self.LastKnownTargetPos
-        end
-        if not pos or not pos[1] then
-            WARN('OrbitalEnergyCannon: cant create projectile cause there is no target position')
-            return
-        end
-
-        self.LastKnownTargetPos = pos
-        bp = self:GetBlueprint()
-
-        -- create projectile and position it above the target location. keep firing randomness in mind
-        proj = DefaultProjectileWeapon.CreateProjectileAtMuzzle(self, muzzle)
-        maxOffset = bp.FiringRandomness or 1
-        velocity = bp.MuzzleVelocity or 100
-        angle = Random(1, 360)
-
-        pos[1] = pos[1] + ( math.cos(angle) * RandomFloat(0, maxOffset) )
-        pos[2] = pos[2] + 500
-        pos[3] = pos[3] + ( math.sin(angle) * RandomFloat(0, maxOffset) )
-        proj:SetPosition(pos, true)
-        proj:SetBallisticAcceleration(0)
-        proj:SetVelocity( 0, -velocity, 0 )
-
-        return proj
-    end,
 }
 
