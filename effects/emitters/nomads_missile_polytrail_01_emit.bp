@@ -1,8 +1,8 @@
 TrailEmitterBlueprint {
     BlueprintId = 'missile_polytrail_01',
     Lifetime = -1.00,
-    TrailLength = 3.5,
-    Size = 0.06,
+    TrailLength = 3,
+    Size = 0.04,
     SortOrder = 0,
     BlendMode = 3,
     TextureRepeatRate = 0.1,
