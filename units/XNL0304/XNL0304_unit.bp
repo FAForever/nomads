@@ -235,7 +235,7 @@ UnitBlueprint {
             DamageFriendly = true,
             DamageRadius = 5,
             DamageType = 'Normal',
-            DisplayName = 'Particle blast artillery',
+            DisplayName = 'Particle Blast Artillery',
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
             },

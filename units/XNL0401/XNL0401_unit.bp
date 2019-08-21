@@ -470,7 +470,7 @@ UnitBlueprint {
             Damage = 200,   --1000dps
             DamageRadius = 0.5,
             DamageType = 'Normal',
-            DisplayName = 'Annihilator Gattling Cannon',
+            DisplayName = 'Annihilator Gatling Cannon',
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
@@ -549,7 +549,7 @@ UnitBlueprint {
             Damage = 375,
             DamageRadius = 1,
             DamageType = 'Normal',
-            DisplayName = 'Kinetic cannon',
+            DisplayName = 'Kinetic Cannon',
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
@@ -623,7 +623,7 @@ UnitBlueprint {
             Damage = 375,
             DamageRadius = 1,
             DamageType = 'Normal',
-            DisplayName = 'Kinnetic Cannon',
+            DisplayName = 'Kinetic Cannon',
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
@@ -697,7 +697,7 @@ UnitBlueprint {
             CollideFriendly = false,
             Damage = 20,
             DamageType = 'Normal',
-            DisplayName = 'Ion blaster',
+            DisplayName = 'Ion Blaster',
             FireTargetLayerCapsTable = {
                 Land = 'Air',
                 Water = 'Air',
@@ -791,7 +791,7 @@ UnitBlueprint {
             CollideFriendly = false,
             Damage = 20,
             DamageType = 'Normal',
-            DisplayName = 'Ion blaster',
+            DisplayName = 'Ion Blaster',
             FireTargetLayerCapsTable = {
                 Land = 'Air',
                 Water = 'Air',

@@ -165,7 +165,7 @@ UnitBlueprint {
             DamageFriendly = true,
             DamageRadius = 6,
             DamageType = 'Normal',
-            DisplayName = 'Micro singularity artillery',
+            DisplayName = 'Micro Singularity Artillery',
             FireTargetLayerCapsTable = {
                 Air = 'Land|Water|Seabed',
                 Land = 'Land|Water|Seabed',

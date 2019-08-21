@@ -429,7 +429,7 @@ UnitBlueprint {
             DamageFriendly = false,
             DamageRadius = 3,
             DamageType = 'Normal',
-            DisplayName = 'EMP missile',
+            DisplayName = 'EMP Missile',
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
                 Water = 'Land|Water',
@@ -518,7 +518,7 @@ UnitBlueprint {
             CollideFriendly = false,
             Damage = 40,
             DamageType = 'Normal',
-            DisplayName = 'Gattling cannon',
+            DisplayName = 'Gatling Cannon',
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
@@ -615,7 +615,7 @@ UnitBlueprint {
             CollideFriendly = false,
             Damage = 40,
             DamageType = 'Normal',
-            DisplayName = 'Gattling cannon',
+            DisplayName = 'Gatling cannon',
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
@@ -693,7 +693,7 @@ UnitBlueprint {
             Damage = 10,
             DamageRadius = 1,
             DamageType = 'Normal',
-            DisplayName = 'Dark matter gun',
+            DisplayName = 'Dark Matter Gun',
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
@@ -768,7 +768,7 @@ UnitBlueprint {
             Damage = 10,
             DamageRadius = 1,
             DamageType = 'Normal',
-            DisplayName = 'Dark matter gun',
+            DisplayName = 'Dark Matter Gun',
             FireTargetLayerCapsTable = {
                 Air = 'Land|Water|Seabed',
                 Land = 'Land|Water|Seabed',
@@ -844,7 +844,7 @@ UnitBlueprint {
             Damage = 10,
             DamageRadius = 1,
             DamageType = 'Normal',
-            DisplayName = 'Dark matter gun',
+            DisplayName = 'Dark Matter Gun',
             FireTargetLayerCapsTable = {
                 Air = 'Land|Water|Seabed',
                 Land = 'Land|Water|Seabed',
@@ -920,7 +920,7 @@ UnitBlueprint {
             Damage = 10,
             DamageRadius = 1,
             DamageType = 'Normal',
-            DisplayName = 'Dark matter gun',
+            DisplayName = 'Dark Matter Gun',
             FireTargetLayerCapsTable = {
                 Air = 'Land|Water|Seabed',
                 Land = 'Land|Water|Seabed',
@@ -1083,7 +1083,7 @@ UnitBlueprint {
             CountedProjectile = true,
             Damage = 0,
             DamageType = 'BlackholeDamage',
-            DisplayName = 'Strategic missile',
+            DisplayName = 'Strategic Missile',
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',

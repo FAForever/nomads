@@ -364,7 +364,7 @@ UnitBlueprint {
             DamageFriendly = false,
             DamageRadius = 1.5,
             DamageType = 'Normal',
-            DisplayName = 'Tactical rocket artillery',
+            DisplayName = 'Tactical Rocket Artillery',
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
                 Water = 'Land|Water',

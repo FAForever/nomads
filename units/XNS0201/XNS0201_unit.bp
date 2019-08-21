@@ -432,7 +432,7 @@ UnitBlueprint {
             CollideFriendly = false,
             Damage = 100,
             DamageType = 'Normal',
-            DisplayName = 'Submerged mini rail gun',
+            DisplayName = 'Submerged Mini Railgun',
             FireTargetLayerCapsTable = {
                 Water = 'Water|Seabed|Sub',
             },
@@ -507,7 +507,7 @@ UnitBlueprint {
             CollideFriendly = false,
             Damage = 100,
             DamageType = 'Normal',
-            DisplayName = 'Submerged mini rail gun',
+            DisplayName = 'Submerged Mini Railgun',
             FireTargetLayerCapsTable = {
                 Water = 'Water|Seabed|Sub',
             },

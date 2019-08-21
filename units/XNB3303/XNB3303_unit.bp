@@ -199,7 +199,7 @@ UnitBlueprint {
             DamageFriendly = false,
             DamageRadius = 2.5,
             DamageType = 'Normal',
-            DisplayName = 'Tactical rocket artillery',
+            DisplayName = 'Tactical Rocket Artillery',
             EnergyDrainPerSecond = 800,
             EnergyRequired = 2000,
             FireTargetLayerCapsTable = {

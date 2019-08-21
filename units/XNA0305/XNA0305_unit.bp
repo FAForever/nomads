@@ -300,7 +300,7 @@ UnitBlueprint {
             Damage = 200,
             DamageRadius = 2,
             DamageType = 'Normal',
-            DisplayName = 'Annihilator cannon',
+            DisplayName = 'Annihilator Cannon',
             FireTargetLayerCapsTable = {
                 Air = 'Air|Land|Water|Seabed',
                 Land = 'Air|Land|Water|Seabed',
@@ -371,7 +371,7 @@ UnitBlueprint {
             Damage = 200,
             DamageRadius = 2,
             DamageType = 'Normal',
-            DisplayName = 'Annihilator cannon',
+            DisplayName = 'Annihilator Cannon',
             FireTargetLayerCapsTable = {
                 Air = 'Air|Land|Water|Seabed',
                 Land = 'Air|Land|Water|Seabed',

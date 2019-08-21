@@ -1211,7 +1211,7 @@ UnitBlueprint {
             Damage = 450,
             DamageType = 'Normal',
             DamageRadius = 0,
-            DisplayName = 'Kinetic cannon',
+            DisplayName = 'Kinetic Cannon',
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
@@ -1301,7 +1301,7 @@ UnitBlueprint {
             CollideFriendly = false,
             Damage = 60,
             DamageType = 'Normal',
-            DisplayName = 'Gattling cannon',
+            DisplayName = 'Gatling Cannon',
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
@@ -1534,7 +1534,7 @@ UnitBlueprint {
             CollideFriendly = false,
             Damage = 800,
             DamageType = 'Normal',
-            DisplayName = 'Submerged rail gun',
+            DisplayName = 'Submerged Railgun',
             FireTargetLayerCapsTable = {
                 Seabed = 'Seabed|Sub|Water',
             },

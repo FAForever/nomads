@@ -270,7 +270,7 @@ UnitBlueprint {
             DamageRadius = 4,
             DamageToShields = 600,
             DamageType = 'Normal',
-            DisplayName = 'EMPactor',
+            DisplayName = 'EMP Cannon',
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
             },

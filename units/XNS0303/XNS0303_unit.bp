@@ -351,7 +351,7 @@ UnitBlueprint {
             DamageRadius = 3,
             DamageType = 'Normal',
             DetonatesAtTargetHeight = true,
-            DisplayName = 'Rocket flak',
+            DisplayName = 'Rocket Flak',
             FireTargetLayerCapsTable = {
                 Water = 'Air',
             },
@@ -437,7 +437,7 @@ UnitBlueprint {
             DamageRadius = 3,
             DamageType = 'Normal',
             DetonatesAtTargetHeight = true,
-            DisplayName = 'Rocket flak',
+            DisplayName = 'Rocket Flak',
             FireTargetLayerCapsTable = {
                 Water = 'Air',
             },
@@ -524,7 +524,7 @@ UnitBlueprint {
             DamageRadius = 3,
             DamageType = 'Normal',
             DetonatesAtTargetHeight = true,
-            DisplayName = 'Rocket flak',
+            DisplayName = 'Rocket Flak',
             FireTargetLayerCapsTable = {
                 Water = 'Air',
             },
@@ -611,7 +611,7 @@ UnitBlueprint {
             DamageRadius = 3,
             DamageType = 'Normal',
             DetonatesAtTargetHeight = true,
-            DisplayName = 'Rocket flak',
+            DisplayName = 'Rocket Flak',
             FireTargetLayerCapsTable = {
                 Water = 'Air',
             },
@@ -696,7 +696,7 @@ UnitBlueprint {
             CollideFriendly = false,
             Damage = 0.21,
             DamageType = 'Normal',
-            DisplayName = 'Super sonic flak Launcher',
+            DisplayName = 'Supersonic Flak Launcher',
             FireTargetLayerCapsTable = {
                 Land = 'Air',
                 Water = 'Air',
@@ -773,7 +773,7 @@ UnitBlueprint {
             CollideFriendly = false,
             Damage = 0.21,
             DamageType = 'Normal',
-            DisplayName = 'Super sonic flak Launcher',
+            DisplayName = 'Supersonic Flak Launcher',
             FireTargetLayerCapsTable = {
                 Land = 'Air',
                 Water = 'Air',
