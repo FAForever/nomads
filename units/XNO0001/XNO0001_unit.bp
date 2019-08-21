@@ -80,7 +80,7 @@ UnitBlueprint {
             RULEUCC_Repair = false,
             RULEUCC_RetaliateToggle = true,
             RULEUCC_Stop = true,
-            RULEUCC_Tactical = true,
+            RULEUCC_Tactical = false,
             RULEUCC_Transport = false,
         },
         FactionName = 'Nomads',
@@ -156,10 +156,8 @@ UnitBlueprint {
             AutoInitiateAttackCommand = false,
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
-            Damage = 6000,
-            DamageType = 'BlackholeDamage',
-            DisplayName = 'Blackhole Warhead',
-            DamageRadius = 1,
+            Damage = 2000,
+            DamageRadius = 6,
             DamageType = 'Normal',
             DisplayName = 'Fusion Missile',
             FireTargetLayerCapsTable = {
@@ -173,19 +171,157 @@ UnitBlueprint {
             Label = 'OrbitalMissileLauncher',
             ManualFire = true,
             MaxRadius = 99999,
-            MuzzleSalvoDelay = 0.2, --for some reason the unit gets stuck completing its launch order if the delay is less than 0.2, or the total rack firing duration is less than 0.2 seconds
-            MuzzleSalvoSize = 1,
+            MuzzleSalvoDelay = 0.1,
+            MuzzleSalvoSize = 2,
             MuzzleVelocity = 22,
-            NukeBlackHoleMinDuration = 5,
-            NukeBlackHoleFxScale = 1,
-            NukeInnerRingDamage = 6750,
-            NukeInnerRingRadius = 15,
-            NukeInnerRingTicks = 24,
-            NukeInnerRingTotalTime = 0,
-            NukeOuterRingDamage = 250,
-            NukeOuterRingRadius = 25,
-            NukeOuterRingTicks = 20,
-            NukeOuterRingTotalTime = 0,
+            ProjectileId = '/projectiles/NOrbitalMissile1/NOrbitalMissile1_proj.bp',
+            ProjectileLifetimeUsesMultiplier = 1.75,
+            ProjectilesPerOnFire = 1,
+            RackBones = {
+                {
+                    MuzzleBones = {
+                        'MissilePort01',
+                    },
+                    RackBone = 'MissilePort01',
+                },
+                {
+                    MuzzleBones = {
+                        'MissilePort11',
+                    },
+                    RackBone = 'MissilePort11',
+                },
+                {
+                    MuzzleBones = {
+                        'MissilePort02',
+                    },
+                    RackBone = 'MissilePort02',
+                },
+                {
+                    MuzzleBones = {
+                        'MissilePort12',
+                    },
+                    RackBone = 'MissilePort12',
+                },
+                {
+                    MuzzleBones = {
+                        'MissilePort03',
+                    },
+                    RackBone = 'MissilePort03',
+                },
+                {
+                    MuzzleBones = {
+                        'MissilePort13',
+                    },
+                    RackBone = 'MissilePort13',
+                },
+                {
+                    MuzzleBones = {
+                        'MissilePort04',
+                    },
+                    RackBone = 'MissilePort04',
+                },
+                {
+                    MuzzleBones = {
+                        'MissilePort14',
+                    },
+                    RackBone = 'MissilePort14',
+                },
+                {
+                    MuzzleBones = {
+                        'MissilePort05',
+                    },
+                    RackBone = 'MissilePort05',
+                },
+                {
+                    MuzzleBones = {
+                        'MissilePort15',
+                    },
+                    RackBone = 'MissilePort15',
+                },
+                {
+                    MuzzleBones = {
+                        'MissilePort06',
+                    },
+                    RackBone = 'MissilePort06',
+                },
+                {
+                    MuzzleBones = {
+                        'MissilePort16',
+                    },
+                    RackBone = 'MissilePort16',
+                },
+                {
+                    MuzzleBones = {
+                        'MissilePort07',
+                    },
+                    RackBone = 'MissilePort07',
+                },
+                {
+                    MuzzleBones = {
+                        'MissilePort17',
+                    },
+                    RackBone = 'MissilePort17',
+                },
+                {
+                    MuzzleBones = {
+                        'MissilePort08',
+                    },
+                    RackBone = 'MissilePort08',
+                },
+                {
+                    MuzzleBones = {
+                        'MissilePort18',
+                    },
+                    RackBone = 'MissilePort18',
+                },
+            },
+            RackFireTogether = false,
+            RackRecoilDistance = 0,
+            RackReloadTimeout = 0,
+            RackSalvoChargeTime = 0,
+            RackSalvoReloadTime = 0,
+            RackSalvoSize = 1,
+            RackSlavedToTurret = false,
+            RangeCategory = 'UWRC_DirectFire',
+            RateOfFire = 0.4,
+            SlavedToBody = true,
+            TargetCheckInterval = 2,
+            TargetPriorities = {
+                'SPECIALHIGHPRI',
+                'SPECIALLOWPRI',
+                'ALLUNITS',
+            },
+            TargetRestrictDisallow = 'UNTARGETABLE',
+            TrackingRadius = 1,
+            Turreted = false,
+            WeaponCategory = 'Missile',
+            WeaponRepackTimeout = 0,
+            WeaponUnpacks = false,
+        },
+        {
+            AboveWaterTargetsOnly = true,
+            AlwaysRecheckTarget = true,
+            AutoInitiateAttackCommand = false,
+            BallisticArc = 'RULEUBA_None',
+            CollideFriendly = false,
+            Damage = 2000,
+            DamageRadius = 6,
+            DamageType = 'Normal',
+            DisplayName = 'Fusion Missile',
+            FireTargetLayerCapsTable = {
+                Air = 'Land|Water|Seabed',
+                Land = 'Land|Water|Seabed',
+                Water = 'Land|Water|Seabed',
+            },
+            FiringRandomness = 0,
+            FiringTolerance = 360,
+            LeadTarget = true,
+            Label = 'OrbitalMissileLauncherHeavy',
+            ManualFire = true,
+            MaxRadius = 99999,
+            MuzzleSalvoDelay = 0.1,
+            MuzzleSalvoSize = 8,
+            MuzzleVelocity = 22,
             ProjectileId = '/projectiles/NOrbitalMissile1/NOrbitalMissile1_proj.bp',
             ProjectileLifetimeUsesMultiplier = 1.75,
             ProjectilesPerOnFire = 1,

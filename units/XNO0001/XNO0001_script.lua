@@ -1,15 +1,13 @@
 -- The surface support vehicle that's in orbit
 
 local NOrbitUnit = import('/lua/nomadsunits.lua').NOrbitUnit
-local OrbitalMissileWeapon = import('/lua/nomadsweapons.lua').OrbitalMissileWeapon
-local StrategicMissileWeapon = import('/lua/nomadsweapons.lua').StrategicMissileWeapon
-local CreateNomadsBuildSliceBeams = import('/lua/nomadseffectutilities.lua').CreateNomadsBuildSliceBeams
-local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
+local NIFOrbitalBombardmentWeapon = import('/lua/nomadsweapons.lua').NIFOrbitalBombardmentWeapon
 
 
 xno0001 = Class(NOrbitUnit) {
     Weapons = {
-        OrbitalMissileLauncher = Class(OrbitalMissileWeapon) {},
+        OrbitalMissileLauncher = Class(NIFOrbitalBombardmentWeapon) {},
+        OrbitalMissileLauncherHeavy = Class(NIFOrbitalBombardmentWeapon) {},
     },
 
     ConstructionArmAnimManip = nil,
@@ -102,12 +100,38 @@ xno0001 = Class(NOrbitUnit) {
 
 -- =========================================================================================
 -- Orbital striking
--- right now this launches a single missile per target. it could be changed in the weapon BP to fire multiple missiles per target, or more targets could be given to the weapon.
+-- We create a queue in case multiple units order orbital strikes, so that they all get processed.
+-- The weapon scripts then remove their entry from the queue after firing.
+    OrbitalBombardmentQueue = {},
     
-    OnGivenNewTarget = function(self, targetPosition)
-        IssueTactical( {self}, targetPosition )
+    OnGivenNewTarget = function(self, targetPosition, HeavyBombardment)
+        table.insert(self.OrbitalBombardmentQueue,{targetPosition, HeavyBombardment})
+        if not self.BombardmentThread then
+            self.BombardmentThread = self:ForkThread( self.OrbitalBombardmentThread )
+        end
+    end,
+    
+    OrbitalBombardmentThread = function(self)
+        while table.getn(self.OrbitalBombardmentQueue) > 0 do
+            self:LaunchOrbitalStrike(self.OrbitalBombardmentQueue[1][1], self.OrbitalBombardmentQueue[1][2])
+            WaitSeconds(0.1)
+        end
+        self.BombardmentThread = nil
+    end,
+    
+    LaunchOrbitalStrike = function(self, targetPosition, HeavyBombardment)
+        local weaponLabel = 'OrbitalMissileLauncher'
+        if HeavyBombardment then weaponLabel = 'OrbitalMissileLauncherHeavy' end
+        
+        local weapon = self:GetWeaponByLabel(weaponLabel)
+        weapon:SetTargetGround( targetPosition )
+        weapon:OnFire()
     end,
 
+    --this worked perfectly so long as there was only one weapon to fire, now its obsolete
+    OnGivenNewTargetOld = function(self, targetPosition)
+        IssueTactical( {self}, targetPosition )
+    end,
 
 -- =========================================================================================
 -- Spawning Orbital Units (not called constructing to avoid confusion)
