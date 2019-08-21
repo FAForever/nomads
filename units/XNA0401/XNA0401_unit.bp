@@ -120,7 +120,7 @@ UnitBlueprint {
         SubThreatLevel = 20,
         SurfaceThreatLevel = 100,
     },
-    Description = '<LOC XNA0401_desc>Experimental Transport',
+    Description = '<LOC XNA0401_desc>Experimental Air Transport',
     Display = {
         Abilities = {
             '<LOC ability_aa>Anti-Air',
