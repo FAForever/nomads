@@ -71,75 +71,13 @@ UnitBlueprint {
         SubThreatLevel = 9,
         SurfaceThreatLevel = 0,
     },
-    Description = '<LOC XNS0205_desc>Railgun Carrier',
+    Description = '<LOC XNS0102_desc>Railgun Carrier',
     Display = {
         Abilities = {
             '<LOC ability_sonar>Sonar',
             '<LOC ability_underwater_railgun>Submerged Railgun',
             '<LOC ability_tacmissiledef>Tactical Missile Defense',
         },
---[[        AnimationDeath = {
-            {
-                Animation = '/units/XNS0205/XNS0205_Asink01.sca',
-                Weight = 100,
-                Rate = 0.05,
-            },
-            {
-                Animation = '/units/XNS0205/XNS0205_Asink01.sca',
-                Weight = 100,
-                Rate = 0.04,
-            },
-            {
-                Animation = '/units/XNS0205/XNS0205_Asink01.sca',
-                Weight = 100,
-                Rate = 0.03,
-            },
-            {
-                Animation = '/units/XNS0205/XNS0205_Asink02.sca',
-                Weight = 100,
-                Rate = 0.05,
-            },
-            {
-                Animation = '/units/XNS0205/XNS0205_Asink02.sca',
-                Weight = 100,
-                Rate = 0.04,
-            },
-            {
-                Animation = '/units/XNS0205/XNS0205_Asink02.sca',
-                Weight = 100,
-                Rate = 0.03,
-            },
-            {
-                Animation = '/units/XNS0205/XNS0205_Asink03.sca',
-                Weight = 100,
-                Rate = 0.06,
-            },
-            {
-                Animation = '/units/XNS0205/XNS0205_Asink03.sca',
-                Weight = 100,
-                Rate = 0.05,
-            },
-            {
-                Animation = '/units/XNS0205/XNS0205_Asink03.sca',
-                Weight = 100,
-                Rate = 0.04,
-            },
-            {
-                Animation = '/units/XNS0205/XNS0205_Asink04.sca',
-                Weight = 100,
-                Rate = 0.05,
-            },
-            {
-                Animation = '/units/XNS0205/XNS0205_Asink04.sca',
-                Weight = 100,
-                Rate = 0.04,
-            },
-            {
-                Animation = '/units/XNS0205/XNS0205_Asink04.sca',
-                Weight = 100,
-                Rate = 0.03,
-            },
-        },]]
         IdleEffects = {
             Water = {
                 Effects = {
@@ -222,7 +160,7 @@ UnitBlueprint {
         FactionName = 'Nomads',
         Icon = 'sea',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = '<LOC XNS0205_name>Whaler',
+        UnitName = '<LOC XNS0102_name>Whaler',
         UnitWeight = 1,
     },
     Intel = {
@@ -231,7 +169,7 @@ UnitBlueprint {
         WaterVisionRadius = 45,
     },
     Interface = {
-        HelpText = '<LOC XNS0205_help>Uses two railguns under water to attack ships and submarines. Also carries a tactical missile defense turret.',
+        HelpText = '<LOC XNS0102_help>Uses two railguns under water to attack ships and submarines. Also carries a tactical missile defense turret.',
     },
     LifeBarHeight = 0.075,
     LifeBarOffset = 2.45,
