@@ -21,8 +21,6 @@ ProjectileBlueprint {
         'PROJECTILE',
         'TACTICAL',
         'MISSILE',
-        'DIRECTFIRE',
-        'NOSPLASHDAMAGE',
     },
     Defense = {
         Health = 1,
@@ -30,7 +28,7 @@ ProjectileBlueprint {
     },
     Display = {
         ImpactEffects = {
-            Type = 'Medium03',
+            Type = 'Large01',
         },
         Mesh = {
             LODs = {
@@ -51,16 +49,17 @@ ProjectileBlueprint {
         UniformScale = 0.8,
     },
     Economy = {
-        BuildCostEnergy = 200000,
-        BuildCostMass = 2000,
-        BuildTime = 2000,
+        BuildCostEnergy = 20000,
+        BuildCostMass = 200,
+        BuildTime = 200,
     },
     General = {
-        Category = 'Direct Fire',
+        Category = 'Missile',
         EntityCategory = {
             'NOMADS',
             'PROJECTILE',
-            'DIRECTFIRE',
+            'TACTICAL',
+            'MISSILE',
         },
         Faction = 'NOMADS',
         Weapon = 'NomadsOrbitalStrikeMissile01',
@@ -72,43 +71,34 @@ ProjectileBlueprint {
         Acceleration = 5,
         DestroyOnWater = true,
         MaxSpeed = 65,
-        MaxZigZag = 0.5,
+        MaxZigZag = 10,
         RotationalVelocity = 0,
         RotationalVelocityRange = 0,
-        TurnRate = 400,
+        TurnRate = 300,
         TrackTarget = true,
         TrackTargetGround = true,
         UseGravity = false,
         VelocityAlign = true,
         ZigZagFrequency = 1,
-        -- stage 1: horizontal movement high in the air
-        MaxSpeedS1 = 65,
-        MaxZigZagS1 = 10,
-        TurnRateS1 = 400,
-        ZigZagFrequencyS1 = 1,
-        -- stage 2: aim downwards towards target
-        Stage2Distance = 250,  -- stage 2 activates when this far from being on top of the target
-        MaxSpeedS2 = 42,
-        MaxZigZagS2 = 8,
-        TurnRateS2 = 300,
-        ZigZagFrequencyS2 = 0.2,
-        -- stage 3: during descent
-        Stage3Distance = 150,
-        MaxSpeedS3 = 32,
-        MaxZigZagS3 = 6,
+        -- stage 1: aim downwards towards target
+        MaxSpeedS1 = 42,
+        MaxZigZagS1 = 8,
+        TurnRateS1 = 200,
+        ZigZagFrequencyS1 = 0.2,
+        -- stage 2: during descent
+        MaxSpeedS2 = 32,
+        MaxZigZagS2 = 6,
+        TurnRateS2 = 60,
+        ZigZagFrequencyS2 = 0.6,
+        -- stage 3: approaching target
+        MaxSpeedS3 = 18,
+        MaxZigZagS3 = 2,
         TurnRateS3 = 60,
-        ZigZagFrequencyS3 = 0.6,
-        -- stage 4: approaching target
-        Stage4Distance = 60,
+        ZigZagFrequencyS3 = 1,
+        -- stage 4: just before impact
         MaxSpeedS4 = 18,
         MaxZigZagS4 = 2,
-        TurnRateS4 = 60,
+        TurnRateS4 = 100,
         ZigZagFrequencyS4 = 1,
-        -- stage 5: just before impact
-        Stage5Distance = 5,
-        MaxSpeedS5 = 18,
-        MaxZigZagS5 = 0,
-        TurnRateS5 = 60,
-        ZigZagFrequencyS5 = 0,
     },
 }
