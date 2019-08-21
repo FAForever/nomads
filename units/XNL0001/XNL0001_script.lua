@@ -404,30 +404,30 @@ XNL0001 = Class(ACUUnit) {
     -- =====================================================================================================================
     -- ORBITAL ENHANCEMENTS
 
-    SetOrbitalBombardEnabled = function(self, enable)
-        local brain = self:GetAIBrain()
-        brain:SetUnitSpecialAbility(self, 'NomadsAreaBombardment', {Enabled = (enable == true)})
-        if enable then
-            --self.OrbitalUnit:ReturnToStartLocation()
-            self.OrbitalUnit:SetMovementTarget(self)
-        else
-            if not self:HasEnhancement( 'IntelProbe' ) and not self:HasEnhancement( 'IntelProbeAdv' ) then
-                --self.OrbitalUnit:MoveAway()
-                self.OrbitalUnit:SetMovementTarget(false)
-            end
-        end
-    end,
-    
     OrbitalStrikeTargets = function(self, targetPositions)
         -- TODO:Make the acu actually have ammo. Also check if removing ammo for every shot is sane, or if it should be per function call
+        local heavyBombardment = self:HasEnhancement( 'OrbitalBombardmentHeavy' )
+        
         if self.OrbitalUnit then
             for _, location in targetPositions do
                 if self:GetTacticalSiloAmmoCount() > 0 then
                     self:RemoveTacticalSiloAmmo(1)
-                    self.OrbitalUnit:OnGivenNewTarget(location)
+                    self.OrbitalUnit:OnGivenNewTarget(location, heavyBombardment)
                 else
                     WARN('Nomads: Ordered Orbital Bombardment ability on unit with no ammo in storage - aborting launch.')
                 end
+            end
+        end
+    end,
+    
+    SetOrbitalBombardEnabled = function(self, condition)
+        local brain = self:GetAIBrain()
+        brain:SetUnitSpecialAbility(self, 'NomadsAreaBombardment', {Enabled = (true == condition)})
+        if condition then
+            self.OrbitalUnit:SetMovementTarget(self)
+        else
+            if not self:HasEnhancement( 'IntelProbe' ) and not self:HasEnhancement( 'IntelProbeAdv' ) then
+                self.OrbitalUnit:SetMovementTarget(false)
             end
         end
     end,
@@ -438,17 +438,15 @@ XNL0001 = Class(ACUUnit) {
         brain:SetUnitSpecialAbility(self, 'NomadsIntelProbeAdvanced', {Enabled = ('IntelProbeAdv' == condition)})
         brain:SetUnitSpecialAbility(self, 'NomadsIntelProbe', {Enabled = ('IntelProbe' == condition)})
         if condition then
-            --self.OrbitalUnit:ReturnToStartLocation()
             self.OrbitalUnit:SetMovementTarget(self)
-        elseif not self:HasEnhancement( 'OrbitalBombardment' ) then
-            --self.OrbitalUnit:MoveAway()
+        elseif not self:HasEnhancement( 'OrbitalBombardment' ) and not self:HasEnhancement( 'OrbitalBombardmentHeavy' ) then
             self.OrbitalUnit:SetMovementTarget(false)
         end
     end,
     
     RequestProbe = function(self, location, projBp, data)
         if self.OrbitalUnit then
-            self.OrbitalUnit:LaunchProbe(location, projBp, data)
+            self.IntelProbeEntity = self.OrbitalUnit:LaunchProbe(location, projBp, data)
         else
             WARN('WARN:tried to launch probe without orbital unit, aborting.')
         end
@@ -786,6 +784,25 @@ XNL0001 = Class(ACUUnit) {
         end,
         
         OrbitalBombardmentRemove = function(self, bp)
+            self:SetOrbitalBombardEnabled(false)
+            self:AddEnhancementEmitterToBone( false, 'Orbital Bombardment' )
+            --self:RemoveCommandCap('RULEUCC_Tactical')
+            self:RemoveCommandCap('RULEUCC_SiloBuildTactical')
+            self:SetWeaponEnabledByLabel('TargetFinder', false)
+            local amt = self:GetTacticalSiloAmmoCount()
+            self:RemoveTacticalSiloAmmo(amt or 0)
+            self:StopSiloBuild()
+        end,
+        
+        OrbitalBombardmentHeavy = function(self, bp)
+            self:SetOrbitalBombardEnabled(true)
+            self:AddEnhancementEmitterToBone( true, 'Orbital Bombardment' )
+            --self:AddCommandCap('RULEUCC_Tactical')
+            self:AddCommandCap('RULEUCC_SiloBuildTactical')
+            self:SetWeaponEnabledByLabel('TargetFinder', true)
+        end,
+        
+        OrbitalBombardmentHeavyRemove = function(self, bp)
             self:SetOrbitalBombardEnabled(false)
             self:AddEnhancementEmitterToBone( false, 'Orbital Bombardment' )
             --self:RemoveCommandCap('RULEUCC_Tactical')

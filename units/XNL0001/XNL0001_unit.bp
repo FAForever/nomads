@@ -624,6 +624,43 @@ UnitBlueprint {
             },
             Slot = 'Back',
         },
+        OrbitalBombardmentHeavy = {
+            BuildCostEnergy = 150000,
+            BuildCostMass = 3200,
+            BuildTime = 3000,
+            Icon = 'heo',
+            Name = '<LOC NomadsACUEnh_OrbitalBombardment_Help>',
+            Prerequisite = 'OrbitalBombardment',
+            ShowBones = {
+                'Orbital Bombardment',
+            },
+            Slot = 'Back',
+            UpgradeEffectBones = {
+                'ShoulderL',
+                'ElbowPTL',
+                'Orbital Bombardment',
+            },
+            UpgradeUnitAmbientBones = {
+                'Abb1',
+            },
+        },
+        OrbitalBombardmentHeavyRemove = {
+            BuildCostEnergy = 1,
+            BuildCostMass = 1,
+            BuildTime = 0.1,
+            HideBones = {
+                'Orbital Bombardment',
+            },
+            Icon = 'heo',
+            Name = '<LOC NomadsACUEnh_OrbitalBombardment_Remove>',
+            Prerequisite = 'OrbitalBombardmentHeavy',
+            RemoveEnhancements = {
+                 'OrbitalBombardment',
+                 'OrbitalBombardmentHeavy',
+                 'OrbitalBombardmentHeavyRemove',
+            },
+            Slot = 'Back',
+        },
         PowerArmor = {
             AddHealth = 30000,
             AddRegenRate = 50,
