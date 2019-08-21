@@ -2059,26 +2059,3 @@ OrbitalEnergyProj = Class(SinglePolyTrailProjectile) {   -- big energy projectil
         SinglePolyTrailProjectile.OnImpact(self, targetType, targetEntity)
     end,
 }
-
---------------------------------------------------------------------------
--- Flamer projectiles
---------------------------------------------------------------------------
--- Nomads is not using these anymore. Left in here for other modders.
-
-Flamer = Class(EmitterProjectile) {
-
-    FxTrails = {
-        '/effects/emitters/Plasmaflamethrower/NapalmTrailFX.bp',
-        '/effects/emitters/Plasmaflamethrower/NapalmDistort.bp',
-    },
-
-    FxImpactTrajectoryAligned = false,
-
-    -- Hit Effects
-    FxImpactUnit = NomadsEffectTemplate.NPlasmaFlameThrowerHitLand01,
-    FxImpactProp = NomadsEffectTemplate.NPlasmaFlameThrowerHitLand01,
-    FxImpactLand = NomadsEffectTemplate.NPlasmaFlameThrowerHitLand01,
-    FxImpactWater = NomadsEffectTemplate.NPlasmaFlameThrowerHitWater01,
-    FxImpactUnderWater = {},
-}
-
