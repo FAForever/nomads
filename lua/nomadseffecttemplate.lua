@@ -620,7 +620,7 @@ RailgunHitProjectile1 = RailgunHitUnit1
 RailgunHitProp1 = RailgunHitUnit1
 
 --------------------------------------------------------------------------
---  Nomads Under water Railgun
+--  Nomads Underwater Railgun
 --------------------------------------------------------------------------
 
 UnderWaterRailgunMuzzleFx = {
