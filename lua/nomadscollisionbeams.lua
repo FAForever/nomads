@@ -4,7 +4,7 @@ local NomadsEffectTemplate = import ('/lua/nomadseffecttemplate.lua')
 local EffectUtilities = import('/lua/EffectUtilities.lua')
 local Util = import('/lua/utilities.lua')
 
-
+-- TODO:possibly put the CollisionBeam hook into this one instead, no need to hook all the beams just because?
 -- Nomads continuous beam
 NomadsPhaseRay = Class(CollisionBeam) {
 
@@ -28,6 +28,10 @@ NomadsPhaseRay = Class(CollisionBeam) {
     SplatTexture = 'czar_mark01_albedo',
     TerrainImpactScale = 1,
     TerrainImpactType = 'LargeBeam01',
+    
+    
+    EmittersToRecolour = {'FxBeam',},
+    FactionColour = true,
 
     OnImpact = function(self, impactType, targetEntity)
         if impactType == 'Terrain' then
