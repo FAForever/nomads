@@ -360,7 +360,7 @@ UnitBlueprint {
             CollideFriendly = false,
             Damage = 0.21,
             DamageType = 'Normal',
-            DisplayName = 'Super sonic flak Launcher',
+            DisplayName = 'Supersonic flak Launcher',
             FireTargetLayerCapsTable = {
                 Land = 'Air',
                 Water = 'Air',

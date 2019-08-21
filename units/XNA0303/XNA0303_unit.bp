@@ -296,7 +296,7 @@ UnitBlueprint {
             DamageFriendly = false,
             DamageRadius = 0,
             DamageType = 'Normal',
-            DisplayName = 'Ion blaster',
+            DisplayName = 'Ion Blaster',
             FireTargetLayerCapsTable = {
                 Air = 'Air|Land|Water',
                 Land = 'Air|Land|Water',

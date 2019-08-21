@@ -183,7 +183,7 @@ UnitBlueprint {
             CountedProjectile = true,
             Damage = 30,
             DamageType = 'Normal',
-            DisplayName = 'Strategic missile interceptor',
+            DisplayName = 'Strategic Missile Interceptor',
             FireTargetLayerCapsTable = {
                 Land = 'Air',
                 Seabed = 'Air',

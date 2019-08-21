@@ -188,7 +188,7 @@ UnitBlueprint {
             Damage = 300,
             DamageType = 'Normal',
             DamageRadius = 1.5,
-            DisplayName = 'Kinetic cannon',
+            DisplayName = 'Kinetic Cannon',
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',

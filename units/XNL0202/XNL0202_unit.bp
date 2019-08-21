@@ -226,7 +226,7 @@ UnitBlueprint {
             CollideFriendly = false,
             Damage = 100,
             DamageType = 'Normal',
-            DisplayName = 'Particle blaster',
+            DisplayName = 'Particle Blaster',
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',

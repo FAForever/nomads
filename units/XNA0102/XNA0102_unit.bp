@@ -292,7 +292,7 @@ UnitBlueprint {
             CollideFriendly = false,
             Damage = 17,
             DamageType = 'Normal',
-            DisplayName = 'Dark matter gun',
+            DisplayName = 'Dark Matter Gun',
             FireTargetLayerCapsTable = {
                 Air = 'Air|Land',
                 Land = 'Air|Land',

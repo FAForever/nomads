@@ -304,7 +304,7 @@ UnitBlueprint {
             Damage = 250,
             DamageRadius = 2,
             DamageType = 'Normal',
-            DisplayName = 'Plasma cannon',
+            DisplayName = 'Plasma Cannon',
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
             },
@@ -386,7 +386,7 @@ UnitBlueprint {
             Damage = 250,
             DamageRadius = 2,
             DamageType = 'Normal',
-            DisplayName = 'Plasma cannon',
+            DisplayName = 'Plasma Cannon',
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
             },
@@ -604,7 +604,7 @@ UnitBlueprint {
             CollideFriendly = false,
             Damage = 400,
             DamageType = 'Normal',
-            DisplayName = 'Submerged rail gun',
+            DisplayName = 'Submerged Railgun',
             FireTargetLayerCapsTable = {
                 Water = 'Water|Seabed|Sub',
             },
@@ -685,7 +685,7 @@ UnitBlueprint {
             DamageRadius = 3,
             DamageType = 'Normal',
             DetonatesAtTargetHeight = true,
-            DisplayName = 'Rocket flak',
+            DisplayName = 'Rocket Flak',
             FireTargetLayerCapsTable = {
                 Water = 'Air',
             },

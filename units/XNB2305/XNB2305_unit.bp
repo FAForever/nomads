@@ -216,7 +216,7 @@ UnitBlueprint {
             Damage = 0,
             DamageFriendly = true,
             DamageType = 'BlackholeDamage',
-            DisplayName = 'Strategic missile',
+            DisplayName = 'Strategic Missile',
             EnergyDrainPerSecond = 0,
             EnergyRequired = 0,
             FireTargetLayerCapsTable = {

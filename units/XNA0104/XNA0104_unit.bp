@@ -246,7 +246,7 @@ UnitBlueprint {
             DamageFriendly = false,
             DamageRadius = 3,
             DamageType = 'Normal',
-            DisplayName = 'Thruster burn',
+            DisplayName = 'Thruster Burn',
             DummyWeapon = true,
             FiringTolerance = 2,
             Label = 'ThrusterBurn',
