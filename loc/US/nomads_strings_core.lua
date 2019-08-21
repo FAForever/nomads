@@ -114,42 +114,42 @@ tooltipui0497="View an area of the map"
 
 -- ACU
 NomadsACUEnh_DisruptiveField_Description = "Creates a disruptive field around the ACU that damages all enemy units within range."
-NomadsACUEnh_DisruptiveField_Help = "Disruptor field"
-NomadsACUEnh_DisruptiveField_Remove = "Remove disruptor field"
+NomadsACUEnh_DisruptiveField_Help = "Disruptor Field"
+NomadsACUEnh_DisruptiveField_Remove = "Remove Disruptor Field"
 
 NomadsACUEnh_OrbitalStrike_Description = "Adds a device that coordinates attacks from orbit on enemy units near the ACU."
-NomadsACUEnh_OrbitalStrike_Help = "Orbital strike"
-NomadsACUEnh_OrbitalStrike_Remove = "Remove orbital strike"
+NomadsACUEnh_OrbitalStrike_Help = "Orbital Strike"
+NomadsACUEnh_OrbitalStrike_Remove = "Remove Orbital Strike"
 
 NomadsACUEnh_OrbitalBombardment_Description = "Adds the ability to bombard a limited area from orbit. Only an area around the ACU and SCU's can be bombarded."
-NomadsACUEnh_OrbitalBombardment_Help = "Orbital bombardment"
-NomadsACUEnh_OrbitalBombardment_Remove = "Remove orbital bombardment"
+NomadsACUEnh_OrbitalBombardment_Help = "Orbital Bombardment"
+NomadsACUEnh_OrbitalBombardment_Remove = "Remove Orbital Bombardment"
 
-NomadsACUEnh_FlameThrower_Description = "Upgrades the main weapon to a flame thrower that damages all units in a line. Perfect against large groups of small to medium units."
-NomadsACUEnh_FlameThrower_Help = "Flame thrower"
-NomadsACUEnh_FlameThrower_Remove = "Remove flame thrower"
+NomadsACUEnh_FlameThrower_Description = "Upgrades the main weapon to a flamethrower that damages all units in a line. Perfect against large groups of small to medium units."
+NomadsACUEnh_FlameThrower_Help = "Flamethrower"
+NomadsACUEnh_FlameThrower_Remove = "Remove Flamethrower"
 
 NomadsACUEnh_AreaReinforcement_Description = "Allows deploying stationary reinforcements launched from orbit anywhere on the battlefield."
-NomadsACUEnh_AreaReinforcement_Help = "Orbital reinforcement"
-NomadsACUEnh_AreaReinforcement_Remove = "Remove Orbital reinforcement"
+NomadsACUEnh_AreaReinforcement_Help = "Orbital Reinforcement"
+NomadsACUEnh_AreaReinforcement_Remove = "Remove Orbital Reinforcement"
 
 NomadsACUEnh_AreaReinforcement2_Description = "Allows deploying stationary reinforcements launched from orbit anywhere on the battlefield."
-NomadsACUEnh_AreaReinforcement2_Help = "Orbital reinforcement"
-NomadsACUEnh_AreaReinforcement2_Remove = "Remove Orbital reinforcement"
+NomadsACUEnh_AreaReinforcement2_Help = "Orbital Reinforcement"
+NomadsACUEnh_AreaReinforcement2_Remove = "Remove Orbital Reinforcement"
 
 NomadsACUEnh_GunUpgrade_Description = "Increases main cannon's damage output by several factors. Also increases range of main cannon and overcharge."
-NomadsACUEnh_GunUpgrade_Help = "Gun upgrade"
-NomadsACUEnh_GunUpgrade_Remove = "Remove gun upgrade"
+NomadsACUEnh_GunUpgrade_Help = "Antimatter Shells"
+NomadsACUEnh_GunUpgrade_Remove = "Remove Antimatter Shells"
 
 NomadsACUEnh_DoubleGuns_Description = "All main gun damage (excluding overcharge) doubled by installing a second gun barrel next to the main gun."
-NomadsACUEnh_DoubleGuns_Help = "Double guns"
-NomadsACUEnh_DoubleGuns_Remove = "Remove double guns"
+NomadsACUEnh_DoubleGuns_Help = "Extra Barrel"
+NomadsACUEnh_DoubleGuns_Remove = "Remove Extra Barrel"
 
-NomadsACUEnh_RapidRepair_Description = "Increases health and puts a rapid repair device on the ACU. It repairs the ACU automatically at no cost. There's a delay before the repairs start, the device needs to reinitialise each time the ACU is damaged or fires a weapon."
-NomadsACUEnh_RapidRepair_Help = "Rapid repair"
-NomadsACUEnh_RapidRepair_Remove = "Remove rapid repair"
+NomadsACUEnh_RapidRepair_Description = "Increases health and adds a Rapid Repair device to the ACU, repairing the ACU automatically at no cost. There is a delay before repairs start, and the device must reinitialise each time the ACU is damaged or fires a weapon."
+NomadsACUEnh_RapidRepair_Help = "Rapid Repair"
+NomadsACUEnh_RapidRepair_Remove = "Remove Rapid Repair"
 
-NomadsACUEnh_PowerArmor_Description = "Upgrades the armor to powered armor, increasing the max health of the ACU."
+NomadsACUEnh_PowerArmor_Description = "Greatly increases the max health of the ACU."
 NomadsACUEnh_PowerArmor_Help = "Powered Armor"
 NomadsACUEnh_PowerArmor_Remove = "Remove Powered Armor"
 
@@ -166,8 +166,8 @@ NomadsACUEnh_IntelProbeAdv_Help = "Advanced Intel Probe"
 NomadsACUEnh_IntelProbeAdv_Remove = "Remove Advanced Intel Probe"
 
 NomadsACUEnh_MovementSpeedIncrease_Description = "This enhancement improves the locomotor on the ACU so that it can move faster."
-NomadsACUEnh_MovementSpeedIncrease_Help = "Improved locomotor"
-NomadsACUEnh_MovementSpeedIncrease_Remove = "Remove improved locomotor"
+NomadsACUEnh_MovementSpeedIncrease_Help = "Improved Locomotor"
+NomadsACUEnh_MovementSpeedIncrease_Remove = "Remove Improved Locomotor"
 
 NomadsACUEnh_Capacitor_Description = "Allows the ACU to temporarily boost its stats with the capacitor ability for an appropriate energy cost."
 NomadsACUEnh_Capacitor_Help = "Capacitor"
@@ -177,6 +177,7 @@ NomadsACUEnh_AddCapacitor_Description = "Enhances the ACU with an additional cap
 NomadsACUEnh_AddCapacitor_Help = "Additional Capacitor"
 NomadsACUEnh_AddCapacitor_Remove = "Remove Additional Capacitor"
 
+
 -- SCU
 NomadsSCUEnh_MovementSpeedIncrease_Description = "This enhancement improves the locomotor on the Support Commander so that it can move faster."
 NomadsSCUEnh_MovementSpeedIncrease_Help = "Improved Locomotor"
@@ -184,59 +185,59 @@ NomadsSCUEnh_MovementSpeedIncrease_Remove = "Remove Improved Locomotor"
 
 NomadsSCUEnh_RapidRepair_Description = "Increases health and puts a rapid repair device on the SACU. It repairs the SACU automatically at no cost. There's a delay before the repairs start, the device needs to reinitialise each time the SACU is damaged or fires a weapon."
 NomadsSCUEnh_RapidRepair_Help = "Rapid Repair"
-NomadsSCUEnh_RapidRepair_Remove = "Remove rapid Repair"
+NomadsSCUEnh_RapidRepair_Remove = "Remove Rapid Repair"
 
 NomadsSCUEnh_PowerArmor_Description = "Upgrades the armor to powered armor, increasing the max health of the SACU."
 NomadsSCUEnh_PowerArmor_Help = "Powered Armor"
 NomadsSCUEnh_PowerArmor_Remove = "Remove Powered Armor"
 
-NomadsSCUEnh_LeftArmGun_Description = "Enhances the SACU with a kinetic cannon. When the capacitor ability is active the cannon gains a damage-over-time effect."
-NomadsSCUEnh_LeftArmGun_Help = "Left Arm Gun"
-NomadsSCUEnh_LeftArmGun_Remove = "Remove Left Arm Gun"
+NomadsSCUEnh_LeftArmGun_Description = "Enhances the SACU with a Kinetic Cannon. When the capacitor ability is active the cannon gains a damage-over-time effect."
+NomadsSCUEnh_LeftArmGun_Help = "Kinetic Cannon"
+NomadsSCUEnh_LeftArmGun_Remove = "Remove Kinetic Cannon"
 
-NomadsSCUEnh_LeftArmGunUpgrade_Description = "Upgrades the kinetic cannon so it deals more damage."
-NomadsSCUEnh_LeftArmGunUpgrade_Help = "Upgrade Left Arm Gun"
-NomadsSCUEnh_LeftArmGunUpgrade_Remove = "Remove Upgraded Left Arm Gun"
+NomadsSCUEnh_LeftArmGunUpgrade_Description = "Upgrades the Kinetic Cannon so it deals more damage."
+NomadsSCUEnh_LeftArmGunUpgrade_Help = "Overclocked Kinetic Cannon"
+NomadsSCUEnh_LeftArmGunUpgrade_Remove = "Remove Overclocked Kinetic Cannon"
 
-NomadsSCUEnh_RightArmGun_Description = "Enhances the SACU with a rapid fire gattling gun. When the capacitor ability is active the gattling gun deals more damage."
-NomadsSCUEnh_RightArmGun_Help = "Right Arm Gun"
-NomadsSCUEnh_RightArmGun_Remove = "Remove Right Arm Gun"
+NomadsSCUEnh_RightArmGun_Description = "Enhances the SACU with a rapid fire gatling gun. When the capacitor ability is active the gatling gun deals more damage."
+NomadsSCUEnh_RightArmGun_Help = "Gatling Gun"
+NomadsSCUEnh_RightArmGun_Remove = "Remove Gatling Gun"
 
-NomadsSCUEnh_RightArmGunUpgrade_Description = "Upgrades the gattling gun so it deals more damage."
-NomadsSCUEnh_RightArmGunUpgrade_Help = "Upgrade Right Arm Gun"
-NomadsSCUEnh_RightArmGunUpgrade_Remove = "Remove Upgraded Right Arm Gun"
+NomadsSCUEnh_RightArmGunUpgrade_Description = "Upgrades the gatling gun so it deals more damage."
+NomadsSCUEnh_RightArmGunUpgrade_Help = "Improved Gatling Gun"
+NomadsSCUEnh_RightArmGunUpgrade_Remove = "Remove Improved Gatling Gun"
 
 NomadsSCUEnh_LeftArmEngineering_Description = "Enhances the SACU with an additional engineering tool. Also allows the SACU to construct all Nomads structures. When the capacitor ability is active the engineering functions are sped up."
-NomadsSCUEnh_LeftArmEngineering_Help = "Left Arm Engineering"
-NomadsSCUEnh_LeftArmEngineering_Remove = "Remove Left Arm Engineering"
+NomadsSCUEnh_LeftArmEngineering_Help = "Engineering Matrix"
+NomadsSCUEnh_LeftArmEngineering_Remove = "Engineering Matrix"
 
 NomadsSCUEnh_RightArmEngineering_Description = "Enhances the SACU with an additional engineering tool. Also allows the SACU to construct all Nomads structures. When the capacitor ability is active the engineering functions are sped up."
-NomadsSCUEnh_RightArmEngineering_Help = "Right Arm Engineering"
-NomadsSCUEnh_RightArmEngineering_Remove = "Remove Right Arm Engineering"
+NomadsSCUEnh_RightArmEngineering_Help = "Engineering Matrix"
+NomadsSCUEnh_RightArmEngineering_Remove = "Remove Engineering Matrix"
 
-NomadsSCUEnh_Capacitor_Description = "Allows the SACU to temporarily boost its stats with the capacitor ability for an appropriate energy cost."
+NomadsSCUEnh_Capacitor_Description = "Allows the SACU to temporarily boost its stats with the Capacitor ability for an appropriate energy cost."
 NomadsSCUEnh_Capacitor_Help = "Capacitor"
 NomadsSCUEnh_Capacitor_Remove = "Remove Capacitor"
 
-NomadsSCUEnh_AddCapacitor_Description = "Enhances the SACU with an additional capacitor that increases the duration of the capacitor ability."
+NomadsSCUEnh_AddCapacitor_Description = "Enhances the SACU with an additional Capacitor that increases the duration of the capacitor ability."
 NomadsSCUEnh_AddCapacitor_Help = "Additional Capacitor"
 NomadsSCUEnh_AddCapacitor_Remove = "Remove Additional Capacitor"
 
-NomadsSCUEnh_LeftArmRocket_Description = "Enhances the SACU with a rocket launcher attached to the left shoulder that fires salvos of rockets against surface targets. When the capacitor ability is active the rockets gain wider splash damage and damage-over-time effect."
-NomadsSCUEnh_LeftArmRocket_Help = "Left Arm Rocket Launcher"
-NomadsSCUEnh_LeftArmRocket_Remove = "Remove Left Arm Rocket Launcher"
+NomadsSCUEnh_LeftArmRocket_Description = "Enhances the SACU with a rocket launcher attached to the left shoulder that fires salvos of rockets against surface targets. When the Capacitor ability is active the rockets gain wider splash damage and damage-over-time effect."
+NomadsSCUEnh_LeftArmRocket_Help = "Rocket Launcher"
+NomadsSCUEnh_LeftArmRocket_Remove = "Remove Rocket Launcher"
 
-NomadsSCUEnh_RightArmRocket_Description = "Enhances the SACU with a rocket launcher attached to the right shoulder that fires salvos of rockets against surface targets. When the capacitor ability is active the rockets gain wider splash damage and a damage-over-time effect."
-NomadsSCUEnh_RightArmRocket_Help = "Right Arm Rocket Launcher"
-NomadsSCUEnh_RightArmRocket_Remove = "Remove Right Arm Rocket Launcher"
+NomadsSCUEnh_RightArmRocket_Description = "Enhances the SACU with a Rocket Launcher attached to the right shoulder that fires salvos of rockets against surface targets. When the Capacitor ability is active the rockets gain wider splash damage and a damage-over-time effect."
+NomadsSCUEnh_RightArmRocket_Help = "Rocket Launcher"
+NomadsSCUEnh_RightArmRocket_Remove = "Remove Rocket Launcher"
 
-NomadsSCUEnh_LeftArmRailgun_Description = "Enhances the SACU with an under water railgun. When the capacitor ability is active the railgun's rate of fire is faster."
-NomadsSCUEnh_LeftArmRailgun_Help = "Left Arm Under Water Railgun"
-NomadsSCUEnh_LeftArmRailgun_Remove = "Remove Left Arm Under Water Railgun"
+NomadsSCUEnh_LeftArmRailgun_Description = "Enhances the SACU with an Underwater Railgun. When the Capacitor ability is active the Railgun's rate of fire is faster."
+NomadsSCUEnh_LeftArmRailgun_Help = "Underwater Railgun"
+NomadsSCUEnh_LeftArmRailgun_Remove = "Remove Underwater Railgun"
 
-NomadsSCUEnh_ResourceAllocation_Description = "Adds a resource generator to the SACU. This system generates some resources, especially power, which speeds up the capacitor charge time. Because of the volatile nature of this generator, a large explosion is generated when the SACU dies. This enhancement is often used for increased firepower via capacitor."
-NomadsSCUEnh_ResourceAllocation_Help = "Resource Generator"
-NomadsSCUEnh_ResourceAllocation_Remove = "Remove Resource Generator"
+NomadsSCUEnh_ResourceAllocation_Description = "Increases the SACU's resource generation to 10 mass per second and 1000 energy per second, which speeds up the capacitor charge time."
+NomadsSCUEnh_ResourceAllocation_Help = "Resource Allocation System"
+NomadsSCUEnh_ResourceAllocation_Remove = "Remove Resource Allocation System"
 
 
 --------------------------------------------------------
@@ -245,7 +246,7 @@ NomadsSCUEnh_ResourceAllocation_Remove = "Remove Resource Generator"
 
 -- ACU
 XNL0001_desc = "Armored Command Unit"
-XNL0001_help = "Houses Commander. Combination barracks and command center. Contains all the blueprints necessary to build a basic army from scratch."
+XNL0001_help = "Armored Commander is a combination of barracks and command center. Contains all the blueprints necessary to build a basic army from scratch. Upgradeable with combat enhancements, advanced engineering suits, resource allocation system, and capacitor."
 XNL0001_name = "Armored Command Unit"
 
 -- surface operations support
@@ -279,7 +280,7 @@ xno2302_name = "Orbital Artillery Gun"
 
 -- support commander (and enhancement presets)
 xnl0301_desc = "Support Armored Command Unit"
-xnl0301_help = "Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or a combination. This variant is not enhanced during construction and does not have weapons and very limited engineering capabilities."
+xnl0301_help = "This variant is not enhanced during construction and does not have weapons and very limited engineering capabilities."
 xnl0301_name = "Support Armored Command Unit"
 
 xnl0301_combat_desc = "Support Armored Command Unit (Preset: Combat)"
@@ -287,43 +288,43 @@ xnl0301_combat_help = "Houses a Nomads soldier. Can be Customised as a heavy com
 xnl0301_combat_name = "Support Armored Command Unit (Preset: Combat)"
 
 xnl0301_default_desc = "Support Armored Command Unit (Preset: Regular)"
-xnl0301_default_help = "Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or a combination. Enhanced during construction with a weapon on the right arm and engineering capabilities on the left arm."
+xnl0301_default_help = "Enhanced during construction with a Kinetic Cannon on its left arm and an Engineering Matrix on its right arm."
 xnl0301_default_name = "Support Armored Command Unit (Preset: Regular)"
 
 xnl0301_energyrocket_desc = "Support Armored Command Unit (Preset: Energy Rocket Launcher)"
-xnl0301_energyrocket_help= "Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or a combination. Enhanced during construction with a rocket launcher on both shoulders and a resource generator on the back to improve capacitor fill rate."
+xnl0301_energyrocket_help= "Enhanced during construction with a rocket launcher on both shoulders and a resource generator on the back to improve capacitor fill rate."
 xnl0301_energyrocket_name = "Support Armored Command Unit (Preset: Energy Rocket Launcher)"
 
 xnl0301_engineer_desc = "Support Armored Command Unit (Preset: Engineer)"
-xnl0301_engineer_help = "Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or a combination. Enhanced during construction with two engineering arms."
+xnl0301_engineer_help = "Enhanced during construction with an Engineering Matrix on each arm."
 xnl0301_engineer_name = "Support Armored Command Unit (Preset: Engineer)"
 
 xnl0301_fastcombat_desc = "Support Armored Command Unit (Preset: Fast Combat)"
-xnl0301_fastcombat_help = "Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or a combination. Enhanced during construction with a cannon, a machine gun and an improved locomotor."
+xnl0301_fastcombat_help = "Enhanced during construction with a Gatling Gun on the right arm, a Rocket Launcher on the left arm, and an Improved Locomotor."
 xnl0301_fastcombat_name = "Support Armored Command Unit (Preset: Fast Combat)"
 
 xnl0301_gunslinger_desc = "Support Armored Command Unit (Preset: Gunslinger)"
-xnl0301_gunslinger_help = "Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or a combination. Enhanced during construction with an upgraded gun on the left arm and an additional capacitor on the right arm for enhanced firepower."
+xnl0301_gunslinger_help = "Enhanced during construction with an Overclocked Kinetic Cannon on its left arm and an Additional Capacitor on the right arm."
 xnl0301_gunslinger_name = "Support Armored Command Unit (Preset: Gunslinger)"
 
 xnl0301_heavytrooper_desc = "Support Armored Command Unit (Preset: Heavy Trooper)"
-xnl0301_heavytrooper_help = "Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or a combination. Enhanced during construction with an upgraded gun on the left arm, a machine gun and a rapid repair system."
+xnl0301_heavytrooper_help = "Enhanced during construction with an Overclocked Kinetic Cannon on the left arm, a Gatling Gun on the right arm, and a Rapid Repair system."
 xnl0301_heavytrooper_name = "Support Armored Command Unit (Preset: Heavy Trooper)"
 
 xnl0301_naturalproducer_desc = "Support Armored Command Unit (Preset: Producer)"
-xnl0301_naturalproducer_help = "Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or a combination. Enhanced during construction with engineering capabilities on both arms and resource generator on its back."
+xnl0301_naturalproducer_help = "Enhanced during construction with an Engineering Matrix on each arm and a Resource Allocation System."
 xnl0301_naturalproducer_name = "Support Armored Command Unit (Preset: Producer)"
 
 xnl0301_rambo_desc = "Support Armored Command Unit (Preset: Rambo)"
-xnl0301_rambo_help = "Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or a combination. Enhanced during construction with fully upgraded weapons on both arms, rapid repair and power armor on the back."
+xnl0301_rambo_help = "Enhanced during construction with an Additional Capacitor on the right arm, an Overclocked Kinetic Cannon on the left arm, and Powered Armor."
 xnl0301_rambo_name = "Support Armored Command Unit (Preset: Rambo)"
 
 xnl0301_sniper_desc = "Support Armored Command Unit (Preset: Sniper)"
-xnl0301_sniper_help = "Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or a combination. Enhanced during construction with an upgraded weapon on the right arm and the sniper enhancement on its back."
+xnl0301_sniper_help = "Enhanced during construction with an upgraded weapon on the right arm and the sniper enhancement on its back."
 xnl0301_sniper_name = "Support Armored Command Unit (Preset: Sniper)"
 
 xnl0301_rocket_desc = "Support Armored Command Unit (Preset: Rocket Launcher)"
-xnl0301_rocket_help = "Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or a combination. Enhanced during construction with a rocket launcher on both shoulders and improved locomotor."
+xnl0301_rocket_help = "Enhanced during construction with a Rocket Launcher on each arm and an Improved Locomotor."
 xnl0301_rocket_name = "Support Armored Command Unit (Preset: Rocket Launcher)"
 
 xnl0301_trooper_desc = "Support Armored Command Unit (Preset: Trooper)"
@@ -331,13 +332,16 @@ xnl0301_trooper_help = "Houses a Nomads soldier. Can be Customised as a heavy co
 xnl0301_trooper_name = "Support Armored Command Unit (Preset: Trooper)"
 
 xnl0301_antinaval_desc = "Support Armored Command Unit (Preset: Anti-Naval)"
-xnl0301_antinaval_help = "Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or a combination. Enhanced during construction with a railgun on the left arm, an additional capacitor on the right shoulder and an improved locomotor."
+xnl0301_antinaval_help = "Enhanced during construction with an Underwater Railgun on the left arm, an Additional Capacitor on the right arm and an Improved Locomotor."
 xnl0301_antinaval_name = "Support Armored Command Unit (Preset: Anti-Naval)"
 
 xnl0301_amphibious_desc = "Support Armored Command Unit (Preset: Amphibious)"
-xnl0301_amphibious_help = "Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or a combination. Enhanced during construction with a railgun on the left arm, a machine gun on the right arm and an improved locomotor."
+xnl0301_amphibious_help = "Enhanced during construction with an Underwater Railgun on the left arm, a Gatling Gun on the right arm and an Improved Locomotor."
 xnl0301_amphibious_name = "Support Armored Command Unit (Preset: Amphibious)"
 
+xnl0301_ras_desc = "Support Armored Command Unit (Preset: RAS)"
+xnl0301_ras_help = "Enhanced during construction with a Resource Allocation System."
+xnl0301_ras_name = "Support Armored Command Unit (Preset: RAS)"
 --------------------------------------------------------
 ---- T1 UNITS
 --------------------------------------------------------

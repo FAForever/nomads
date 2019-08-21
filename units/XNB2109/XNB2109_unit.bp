@@ -128,7 +128,7 @@ UnitBlueprint {
         Icon = 'sea',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Basic',
-        UnitName = '<LOC XNB2109_name>Sea needle',
+        UnitName = '<LOC XNB2109_name>Sea Needle',
         UnitWeight = 1,
     },
     Intel = {

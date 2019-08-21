@@ -428,7 +428,7 @@ UnitBlueprint {
                 'Railgun_L',
             },
             Icon = 'ses',
-            Name = '<LOC NomadsSCUEnh_LeftArmEngineering_Help>Left Arm Engineering',
+            Name = '<LOC NomadsSCUEnh_LeftArmEngineering_Help>Engineering Matrix',
             ShowBones = {
                 'Bicep_L',
                 'Forearm_L',
@@ -454,7 +454,7 @@ UnitBlueprint {
                 'Engi_L',
             },
             Icon = 'ses',
-            Name = '<LOC NomadsSCUEnh_LeftArmEngineering_Remove>Remove Left Arm Engineering',
+            Name = '<LOC NomadsSCUEnh_LeftArmEngineering_Remove>Remove Engineering Matrix',
             Prerequisite = 'EngineeringLeft',
             RemovesLeftArm = true,
             RemoveEnhancements = {
@@ -473,7 +473,7 @@ UnitBlueprint {
                 'Gatling_R',
             },
             Icon = 'rae',
-            Name = '<LOC NomadsSCUEnh_RightArmEngineering_Help>Right Arm Engineering',
+            Name = '<LOC NomadsSCUEnh_RightArmEngineering_Help>Engineering Matrix',
             ShowBones = {
                 'Bicep_R',
                 'Forearm_R',
@@ -499,7 +499,7 @@ UnitBlueprint {
                 'Engi_R',
             },
             Icon = 'rae',
-            Name = '<LOC NomadsSCUEnh_RightArmEngineering_Remove>Remove Right Arm Engineering',
+            Name = '<LOC NomadsSCUEnh_RightArmEngineering_Remove>Remove Engineering Matrix',
             Prerequisite = 'EngineeringRight',
             RemoveEnhancements = {
                 'EngineeringRight',
@@ -520,7 +520,7 @@ UnitBlueprint {
                 'Railgun_L',
             },
             Icon = 'rag',
-            Name = '<LOC NomadsSCUEnh_LeftArmGun_Help>Left Arm Gun',
+            Name = '<LOC NomadsSCUEnh_LeftArmGun_Help>Kinetic Cannon',
             ShowBones = {
                 'Bicep_L',
                 'Forearm_L',
@@ -544,7 +544,7 @@ UnitBlueprint {
                 'Bicep_L',
             },
             Icon = 'rag',
-            Name = '<LOC NomadsSCUEnh_LeftArmGun_Remove>Remove Left Arm Gun',
+            Name = '<LOC NomadsSCUEnh_LeftArmGun_Remove>Remove Kinetic Cannon',
             Prerequisite = 'GunLeft',
             RemoveEnhancements = {
                 'GunLeft',
@@ -560,7 +560,7 @@ UnitBlueprint {
             BuildCostMass = 700,
             BuildTime = 2200,
             Icon = 'rag2',
-            Name = '<LOC NomadsSCUEnh_LeftArmGunUpgrade_Help>Upgrade Left Arm Gun',
+            Name = '<LOC NomadsSCUEnh_LeftArmGunUpgrade_Help>Overclocked Kinetic Cannon',
             ShowBones = {
                 'MGun2',
             },
@@ -583,7 +583,7 @@ UnitBlueprint {
                 'Bicep_L',
             },
             Icon = 'rag2',
-            Name = '<LOC NomadsSCUEnh_LeftArmGunUpgrade_Remove>Remove Upgraded Left Arm Gun',
+            Name = '<LOC NomadsSCUEnh_LeftArmGunUpgrade_Remove>Remove Overclocked Kinetic Cannon',
             Prerequisite = 'GunLeftUpgrade',
             RemoveEnhancements = {
                 'GunLeft',
@@ -605,7 +605,7 @@ UnitBlueprint {
                 'GatlingBig_R_Barrels',
             },
             Icon = 'acu',
-            Name = '<LOC NomadsSCUEnh_RightArmGun_Help>Right Arm Gun',
+            Name = '<LOC NomadsSCUEnh_RightArmGun_Help>Gatling Gun',
             ShowBones = {
                 'Bicep_R',
                 'Forearm_R',
@@ -629,7 +629,7 @@ UnitBlueprint {
                 'Bicep_R',
             },
             Icon = 'acu',
-            Name = '<LOC NomadsSCUEnh_RightArmGun_Remove>Remove Right Arm Gun',
+            Name = '<LOC NomadsSCUEnh_RightArmGun_Remove>Remove Gatling Gun',
             Prerequisite = 'GunRight',
             RemovesRightArm = true,
             RemoveEnhancements = {
@@ -648,7 +648,7 @@ UnitBlueprint {
                 'GunModule_L',
             },
             Icon = 'lar',
-            Name = '<LOC NomadsSCUEnh_LeftArmRocket_Help>Left Arm Rocket Launcher',
+            Name = '<LOC NomadsSCUEnh_LeftArmRocket_Help>Rocket Launcher',
             ShowBones = {
                 'Missile_L',
             },
@@ -668,7 +668,7 @@ UnitBlueprint {
                 'Missile_L',
             },
             Icon = 'rag',
-            Name = '<LOC NomadsSCUEnh_LeftArmRocket_Remove>Remove Left Arm Rocket Launcher',
+            Name = '<LOC NomadsSCUEnh_LeftArmRocket_Remove>Remove Rocket Launcher',
             Prerequisite = 'LeftRocket',
             RemoveEnhancements = {
                 'LeftRocket',
@@ -762,7 +762,7 @@ UnitBlueprint {
                 'GunModule_L',
             },
             Icon = 'larg',
-            Name = '<LOC NomadsSCUEnh_LeftArmRailgun_Help>Left Arm Under Water Railgun',
+            Name = '<LOC NomadsSCUEnh_LeftArmRailgun_Help>Underwater Railgun',
             ShowBones = {
                 'Bicep_L',
                 'Forearm_L',
@@ -786,7 +786,7 @@ UnitBlueprint {
                 'Bicep_L',
             },
             Icon = 'larg',
-            Name = '<LOC NomadsSCUEnh_LeftArmRailgun_Remove>Remove Left Arm Under Water Railgun',
+            Name = '<LOC NomadsSCUEnh_LeftArmRailgun_Remove>Remove Underwater Railgun',
             Prerequisite = 'Railgun',
             RemoveEnhancements = {
                 'Railgun',
@@ -803,7 +803,7 @@ UnitBlueprint {
             BuildTime = 5000,
             Icon = 'se',
             InterruptRapidRepairByWeaponFired = false,
-            Name = '<LOC NomadsSCUEnh_RapidRepair_Help>Rapid repair',
+            Name = '<LOC NomadsSCUEnh_RapidRepair_Help>Rapid Repair',
             RepairDelay = 10,
             RepairRate = 500,
             ShowBones = {
@@ -825,7 +825,7 @@ UnitBlueprint {
                 'Nano_Chest',
             },
             Icon = 'se',
-            Name = '<LOC NomadsSCUEnh_RapidRepair_Remove>Remove Rapid repair',
+            Name = '<LOC NomadsSCUEnh_RapidRepair_Remove>Remove Rapid Repair',
             Prerequisite = 'RapidRepair',
             RemoveEnhancements = {
                 'RapidRepair',
@@ -838,7 +838,7 @@ UnitBlueprint {
             BuildCostMass = 4500,
             BuildTime = 7200,
             Icon = 'isb',
-            Name = '<LOC NomadsSCUEnh_ResourceAllocation_Help>Resource Generator',
+            Name = '<LOC NomadsSCUEnh_ResourceAllocation_Help>Resource Allocation System',
             NewDeathWeapon = 'RASDeathWeapon',
             ProductionPerSecondEnergy = 1000,
             ProductionPerSecondMass = 10,
@@ -863,7 +863,7 @@ UnitBlueprint {
                 'Backpack',
             },
             Icon = 'isb',
-            Name = '<LOC NomadsSCUEnh_ResourceAllocation_Remove>Remove Resource Generator',
+            Name = '<LOC NomadsSCUEnh_ResourceAllocation_Remove>Remove Resource Allocation System',
             Prerequisite = 'ResourceAllocation',
             RemoveEnhancements = {
                 'ResourceAllocation',
@@ -881,7 +881,7 @@ UnitBlueprint {
                 'Gatling_R',
             },
             Icon = 'rar',
-            Name = '<LOC NomadsSCUEnh_RightArmRocket_Help>Right Arm Rocket Launcher',
+            Name = '<LOC NomadsSCUEnh_RightArmRocket_Help>Rocket Launcher',
             ShowBones = {
                 'Missile_R',
             },
@@ -901,7 +901,7 @@ UnitBlueprint {
                 'Missile_R',
             },
             Icon = 'rar',
-            Name = '<LOC NomadsSCUEnh_RightArmRocket_Remove>Remove Right Arm Rocket Launcher',
+            Name = '<LOC NomadsSCUEnh_RightArmRocket_Remove>Remove Rocket Launcher',
             Prerequisite = 'RightRocket',
             RemoveEnhancements = {
                 'RightRocket',
@@ -937,7 +937,7 @@ UnitBlueprint {
                 'RapidRepair',
                 'PowerArmor',
             },
-            HelpText = '<LOC XNL0301_antinaval_help>Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or combination. Enhanced during construction with a railgun on the left arm, a machine gun on the right arm and an improved locomotor.',
+            HelpText = '<LOC XNL0301_antinaval_help>Enhanced during construction with an Underwater Railgun on the left arm, a Gatling Gun on the right arm and an Improved Locomotor.',
             SelectionPriority = 1,
             SortCategory = 'SORTOTHER',
             UIUnitViewOverrides = {
@@ -955,7 +955,7 @@ UnitBlueprint {
                 'RapidRepair',
                 'PowerArmor',
             },
-            HelpText = '<LOC XNL0301_antinaval_help>Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or combination. Enhanced during construction with a railgun on the left arm, an additional capacitor on the right shoulder and an improved locomotor.',
+            HelpText = '<LOC XNL0301_antinaval_help>Enhanced during construction with an Underwater Railgun on the left arm, an Additional Capacitor on the right arm and an Improved Locomotor.',
             SelectionPriority = 1,
             SortCategory = 'SORTOTHER',
             UIUnitViewOverrides = {
@@ -970,7 +970,7 @@ UnitBlueprint {
                 'EngineeringRight',
                 'GunLeft',
             },
-            HelpText = '<LOC XNL0301_default_help>Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or combination. Enhanced during construction with a weapon on its left arm and engineering capabilities on its right arm.',
+            HelpText = '<LOC XNL0301_default_help>Enhanced during construction with a Kinetic Cannon on its left arm and an Engineering Matrix on its right arm.',
             SortCategory = 'SORTCONSTRUCTION',
             UnitName = '<LOC XNL0301_default_name>Support Armored Command Unit (Preset: Regular)',
         },
@@ -981,7 +981,7 @@ UnitBlueprint {
                 'EngineeringLeft',
                 'EngineeringRight',
             },
-            HelpText = '<LOC XNL0301_engineer_help>Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or combination. Enhanced during construction with two engineering arms.',
+            HelpText = '<LOC XNL0301_engineer_help>Enhanced during construction with an Engineering Matrix on each arm.',
             SortCategory = 'SORTCONSTRUCTION',
             UnitName = '<LOC XNL0301_engineer_name>Support Armored Command Unit (Preset: Engineer)',
         },
@@ -994,7 +994,7 @@ UnitBlueprint {
                 'LeftRocket',
                 'MovementSpeedIncrease',
             },
-            HelpText = '<LOC XNL0301_fastcombat_help>Houses a Nomads soldier. Can be Customised as a heavy combatant, --improved T3 engineer or combination. Enhanced during construction with a machine gun and improved locomotor.',
+            HelpText = '<LOC XNL0301_fastcombat_help>Enhanced during construction with a Gatling Gun on the right arm, a Rocket Launcher on the left arm, and an Improved Locomotor.',
             SelectionPriority = 1,
             SortCategory = 'SORTSTRATEGIC',
             UnitName = '<LOC XNL0301_fastcombat_name>Support Armored Command Unit (Preset: Fast Combat)',
@@ -1008,7 +1008,7 @@ UnitBlueprint {
                 'GunLeft',
                 'GunLeftUpgrade',
             },
-            HelpText = '<LOC XNL0301_gunslinger_help>Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or combination. Enhanced during construction with an upgraded gun on its left arm and an additional capacitor on the right arm for enhanced firepower.',
+            HelpText = '<LOC XNL0301_gunslinger_help>Enhanced during construction with an Overclocked Kinetic Cannon on its left arm and an Additional Capacitor on the right arm.',
             SelectionPriority = 1,
             SortCategory = 'SORTSTRATEGIC',
             UIUnitViewOverrides = {
@@ -1026,7 +1026,7 @@ UnitBlueprint {
                 'RapidRepair',
                 'PowerArmor',
             },
-            HelpText = '<LOC XNL0301_heavytrooper_help>Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or combination. Enhanced during construction with an upgraded gun on the left arm, a machine gun and a rapid repair system.',
+            HelpText = '<LOC XNL0301_heavytrooper_help>Enhanced during construction with an Overclocked Kinetic Cannon on the left arm, a Gatling Gun on the right arm, and a Rapid Repair system.',
             SelectionPriority = 1,
             SortCategory = 'SORTSTRATEGIC',
             UIUnitViewOverrides = {
@@ -1042,7 +1042,7 @@ UnitBlueprint {
                 'EngineeringLeft',
                 'EngineeringRight',
             },
-            HelpText = '<LOC XNL0301_naturalproducer_help>Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or combination. Enhanced during construction with engineering capabilities on both arms and resource generator on its back.',
+            HelpText = '<LOC XNL0301_naturalproducer_help>Enhanced during construction with an Engineering Matrix on each arm and a Resource Allocation System.',
             SortCategory = 'SORTCONSTRUCTION',
             UIUnitViewOverrides = {
                 ProductionPerSecondEnergy = 1000,
@@ -1056,7 +1056,7 @@ UnitBlueprint {
             Enhancements = {
                 'ResourceAllocation',
             },
-            HelpText = '<LOC XNL0301_RAS_help>Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or combination. Enhanced during construction with engineering capabilities on both arms and resource generator on its back.',
+            HelpText = '<LOC XNL0301_RAS_help>Enhanced during construction with a Resource Allocation System.',
             SortCategory = 'SORTCONSTRUCTION',
             UIUnitViewOverrides = {
                 ProductionPerSecondEnergy = 1000,
@@ -1075,7 +1075,7 @@ UnitBlueprint {
                 'RapidRepair',
                 'PowerArmor',
             },
-            HelpText = '<LOC XNL0301_rambo_help>Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or combination. Enhanced during construction with fully upgraded weapons, rapid repair and power armor.',
+            HelpText = '<LOC XNL0301_rambo_help>Enhanced during construction with an Additional Capacitor on the right arm, an Overclocked Kinetic Cannon on the left arm, and Powered Armor.',
             SelectionPriority = 1,
             SortCategory = 'SORTSTRATEGIC',
             UIUnitViewOverrides = {
@@ -1092,7 +1092,7 @@ UnitBlueprint {
                 'RapidRepair',
                 'PowerArmor',
             },
-            HelpText = '<LOC XNL0301_rocket_help>Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or combination. Enhanced during construction with a rocket launcher on both shoulders and improved locomotor.',
+            HelpText = '<LOC XNL0301_rocket_help>Enhanced during construction with a Rocket Launcher on each arm and an Improved Locomotor.',
             SelectionPriority = 1,
             SortCategory = 'SORTOTHER',
             UnitName = '<LOC XNL0301_rocket_name>Support Armored Command Unit (Preset: Rocket Launcher)',
