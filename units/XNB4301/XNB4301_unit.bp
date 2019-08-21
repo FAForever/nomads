@@ -158,7 +158,7 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_ShieldToggle = true,
         },
-        UnitName = '<LOC XNB4301_name>Wave-Shield',
+        UnitName = '<LOC XNB4301_name>Wave Shield',
         UnitWeight = 1,
         UpgradesTo = 'xnb4305',
     },
