@@ -23,7 +23,7 @@ function CreateFlashCustom( obj, bone, army, scale, duration, textureflash, ramp
     CreateLightParticle( obj, bone, army, scale, duration, textureflash, rampflash )
 end
 
-function CreateExplosionMedium(self, pos, army, targetType)
+function CreateImpactMedium(self, pos, army, targetType)
     if targetType == 'Terrain' then
         DamageArea(self, pos, self.DamageData.DamageRadius * 1.2, 1, 'Force', true)
     end
@@ -41,7 +41,7 @@ function CreateExplosionMedium(self, pos, army, targetType)
     end
 end
 
-function CreateArtilleryExplosionLarge(self, pos, army, targetType)
+function CreateArtilleryImpactLarge(self, pos, army, targetType)
     DamageArea(self, pos, self.DamageData.DamageRadius * 3, 1, 'Force', true)
 
     if self.DoImpactFlash then

@@ -28,7 +28,7 @@ NOrbitalMissile1 = Class(NIFMissile) {
     TargetSpread = 10,--This controls the spread of the bombardment projectiles
 
     OnCreate = function(self, inWater)
-        self:SetLifetime(300)
+        self:SetLifetime(100)
         
         NIFMissile.OnCreate(self)
         --Adjust the target location to spread out the missiles, and make them fly above the target first
@@ -63,8 +63,10 @@ NOrbitalMissile1 = Class(NIFMissile) {
             self:SetStage(2)
             WaitSeconds(3)
         elseif dist > 25 and dist <= 60 then
+            self:SetNewTargetGround(self.TargetPos) --target the ground again
             self:SetStage(3)
         elseif dist > 0 and dist <= 25 then
+            self:SetNewTargetGround(self.TargetPos) --target the ground again
             self:SetStage(4)
             KillThread(self.MoveThread)
         end
