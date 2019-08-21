@@ -556,6 +556,8 @@ TRAIL_OUTPUT TrailVS(float3 Pos: POSITION, float3 Direction: TEXCOORD0, float3 L
         Width.y = floor(Width.x) + Width.z; //store repeat rate inside the decimal instead of the size
         Width.x = Width.x % 10; //grab the end off the variable and store it for actual use
     }
+    else Width.y = Width.z;
+    
 	// normalize the offset and scale by the Size from the blueprint
 	offset = normalize(offset) * Width.x;
 	
