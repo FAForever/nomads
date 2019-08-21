@@ -138,8 +138,8 @@ NomadsACUEnh_AreaReinforcement2_Help = "Orbital Reinforcement"
 NomadsACUEnh_AreaReinforcement2_Remove = "Remove Orbital Reinforcement"
 
 NomadsACUEnh_GunUpgrade_Description = "Increases main cannon's damage output by several factors. Also increases range of main cannon and overcharge."
-NomadsACUEnh_GunUpgrade_Help = "Antimatter Shells"
-NomadsACUEnh_GunUpgrade_Remove = "Remove Antimatter Shells"
+NomadsACUEnh_GunUpgrade_Help = "Antimatter Rounds"
+NomadsACUEnh_GunUpgrade_Remove = "Remove Antimatter Rounds"
 
 NomadsACUEnh_DoubleGuns_Description = "All main gun damage (excluding overcharge) doubled by installing a second gun barrel next to the main gun."
 NomadsACUEnh_DoubleGuns_Help = "Extra Barrel"
