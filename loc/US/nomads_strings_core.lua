@@ -797,7 +797,7 @@ znb9603_name = "Naval Factory"
 -- T3 SCU factory
 xnb0304_desc = "SACU Factory"
 xnb0304_help = "Constructs Support Armored Command Units, with custom presets that specialize the role of the units with combinations of enhancements."
-xnb0304_name = "SACU Factory"
+xnb0304_name = "Chop Shop"
 
 -- power generator
 xnb1301_desc = "Power Generator"
