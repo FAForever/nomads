@@ -837,7 +837,7 @@ xnb4201_name = "Vindicator"
 -- shield
 xnb4301_desc = "Heavy Shield Generator"
 xnb4301_help = "Generates a heavy shield around units and structures within its radius."
-xnb4301_name = "Wave-Shield"
+xnb4301_name = "Wave Shield"
 
 -- shield + stealthfield
 xnb4305_desc = "Heavy Stealth Shield Generator"
