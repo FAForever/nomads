@@ -128,7 +128,6 @@ UnitBlueprint {
         ToggleCaps = {
             RULEUTC_ProductionToggle = true,
         },
-        UnitName = '<LOC XNB1302_name>Mass Extractor',
         UnitWeight = 1,
         UpgradesFrom = 'XNB1202',
     },
