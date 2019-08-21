@@ -145,7 +145,7 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
-        UnitName = '<LOC XNB0304_name>SACU Factory',
+        UnitName = '<LOC XNB0304_name>Chop Shop',
         UnitWeight = 1,
     },
     Intel = {
