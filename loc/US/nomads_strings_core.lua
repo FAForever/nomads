@@ -870,17 +870,17 @@ xnb2302_name = "Desolator"
 --------------------------------------------------------
 
 -- transport
-xna0401_desc = "Experimental Transport"
+xna0401_desc = "Experimental Air Transport"
 xna0401_help = "Experimental transport. High transport capacity with the ability to carry most naval units, as well as the Beamer."
 xna0401_name = "Comet"
 
 -- missile tank
 xnl0403_desc = "Experimental Missile Tank"
-xnl0403_help = "Experimental hover unit designed for long range attacks. Equipped with long range EMP missiles that saturate enemy tactical defenses and supress armies, as well as short range gattling guns for self defense. Equipped with a nuclear missile silo."
+xnl0403_help = "Experimental hover unit designed for long range attacks. Equipped with long range EMP missiles that saturate enemy tactical defenses and suppress armies, as well as short range gatling guns for self defense. Equipped with a nuclear missile silo."
 xnl0403_name = "Crawler"
 
 -- beam tank
-xnl0402_desc = "Experimental Assault Unit"
+xnl0402_desc = "Experimental Assault Tank"
 xnl0402_help = "Armed with an experimental plasma beam weapon designed to engage any surface units. Is able to be loaded on, and fire from, the experimental transport."
 xnl0402_name = "Beamer"
 
