@@ -51,10 +51,11 @@ function RequestOrbitalSpawnThread(self, constructedBP, offsetAmount, blueprint,
     OrbitalUnit:Destroy()
 end
 
-FindOrbitalUnit = function(self, cats)
+FindOrbitalUnit = function(self, cats, range)
     local position = self:GetPosition()
     local unitCats = cats or categories.xno0001
-    local units = Utils.GetOwnUnitsInSphere(position, 500, self:GetArmy(), unitCats)
+    local searchRange = range or 500
+    local units = Utils.GetOwnUnitsInSphere(position, searchRange, self:GetArmy(), unitCats)
     local ChosenUnit = false
     
     local ShortestQueueLength = 4 --if the queues get too long for some absurd reason, spawn a new frigate instead of clogging up the rest

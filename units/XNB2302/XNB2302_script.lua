@@ -53,7 +53,8 @@ XNB2302 = Class(NStructureUnit) {
         end
         
         if ArtilleryAssigned == false then
-            local OrbitalFrigate = FindOrbitalUnit(self)
+            --search in a certain range so it doesnt take too long for the satellites to arrive
+            local OrbitalFrigate = FindOrbitalUnit(self, categories.xno0001, 350)
             if OrbitalFrigate then
                 OrbitalFrigate:AddToSpawnQueue( 'xno2302', self )
             else
