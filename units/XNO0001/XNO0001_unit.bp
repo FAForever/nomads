@@ -91,6 +91,8 @@ UnitBlueprint {
     },
     Intel = {
         VisionRadius = 0,
+        Cloak = true,
+        RadarStealth = true,
     },
     Interface = {
         HelpText = '<LOC xno0001_help>Orbital Support Spacecraft',
