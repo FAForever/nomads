@@ -55,7 +55,9 @@ NIFOrbitalBombardmentWeapon = Class(DefaultProjectileWeapon) {
 
 }
 
-
+NIFTargetFinderWeapon = Class(DefaultProjectileWeapon) {
+    FxMuzzleFlash = {},
+}
 
 
 -- -----------------------------------------------------------------------------------------------------

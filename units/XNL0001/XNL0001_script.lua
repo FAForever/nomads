@@ -18,7 +18,7 @@ local NWeapons = import('/lua/nomadsweapons.lua')
 local APCannon1 = NWeapons.APCannon1
 local APCannon1_Overcharge = NWeapons.APCannon1_Overcharge
 local DeathNuke = NWeapons.DeathNuke
-local TacticalMissileWeapon2 = import('/lua/nomadsweapons.lua').TacticalMissileWeapon2
+local NIFTargetFinderWeapon = import('/lua/nomadsweapons.lua').NIFTargetFinderWeapon
 
 APCannon1 = AddCapacitorAbilityToWeapon(APCannon1)
 APCannon1_Overcharge = AddCapacitorAbilityToWeapon(APCannon1_Overcharge)
@@ -73,11 +73,13 @@ XNL0001 = Class(ACUUnit) {
 
         DeathWeapon = Class(DeathNuke) {},
 
-        --TODO: Refactor this into the shield pointer weapons if possible
-        TargetFinder = Class(TacticalMissileWeapon2) {
+        --Instead of creating the projectile, we order the frigate to strike there.
+        TargetFinder = Class(NIFTargetFinderWeapon) {
             FxMuzzleFlash = {},
 
             CreateProjectileAtMuzzle = function(self, muzzle)
+                local target = self:GetCurrentTargetPos()
+                self.unit:OrbitalStrikeTargets({target})
             end,
         },
     },
@@ -777,7 +779,7 @@ XNL0001 = Class(ACUUnit) {
         
         OrbitalBombardment = function(self, bp)
             self:SetOrbitalBombardEnabled(true)
-            --self:AddCommandCap('RULEUCC_Tactical')
+            self:AddCommandCap('RULEUCC_Tactical')
             self:AddEnhancementEmitterToBone( true, 'Orbital Bombardment' )
             self:AddCommandCap('RULEUCC_SiloBuildTactical')
             self:SetWeaponEnabledByLabel('TargetFinder', true)
@@ -786,7 +788,7 @@ XNL0001 = Class(ACUUnit) {
         OrbitalBombardmentRemove = function(self, bp)
             self:SetOrbitalBombardEnabled(false)
             self:AddEnhancementEmitterToBone( false, 'Orbital Bombardment' )
-            --self:RemoveCommandCap('RULEUCC_Tactical')
+            self:RemoveCommandCap('RULEUCC_Tactical')
             self:RemoveCommandCap('RULEUCC_SiloBuildTactical')
             self:SetWeaponEnabledByLabel('TargetFinder', false)
             local amt = self:GetTacticalSiloAmmoCount()
@@ -797,7 +799,7 @@ XNL0001 = Class(ACUUnit) {
         OrbitalBombardmentHeavy = function(self, bp)
             self:SetOrbitalBombardEnabled(true)
             self:AddEnhancementEmitterToBone( true, 'Orbital Bombardment' )
-            --self:AddCommandCap('RULEUCC_Tactical')
+            self:AddCommandCap('RULEUCC_Tactical')
             self:AddCommandCap('RULEUCC_SiloBuildTactical')
             self:SetWeaponEnabledByLabel('TargetFinder', true)
         end,
@@ -805,7 +807,7 @@ XNL0001 = Class(ACUUnit) {
         OrbitalBombardmentHeavyRemove = function(self, bp)
             self:SetOrbitalBombardEnabled(false)
             self:AddEnhancementEmitterToBone( false, 'Orbital Bombardment' )
-            --self:RemoveCommandCap('RULEUCC_Tactical')
+            self:RemoveCommandCap('RULEUCC_Tactical')
             self:RemoveCommandCap('RULEUCC_SiloBuildTactical')
             self:SetWeaponEnabledByLabel('TargetFinder', false)
             local amt = self:GetTacticalSiloAmmoCount()

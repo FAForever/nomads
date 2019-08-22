@@ -1254,10 +1254,10 @@ UnitBlueprint {
             Turreted = false,
             WeaponCategory = 'Death',
         },
-        { -- THIS IS THE TARGET FINDER FOR THE SLAVE UNIT IN ORBIT.
+        { -- This builds the projectile and fires at a target. The data is then passed to the orbital unit, which then creates the projectiles.
             AboveWaterTargetsOnly = true,
             AimsStraightOnDisable = true,
-            ArtilleryShieldBlocks = true,
+            ArtilleryShieldBlocks = false,
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
             CountedProjectile = true,
