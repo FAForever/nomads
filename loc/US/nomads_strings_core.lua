@@ -714,7 +714,7 @@ xnl0209_name = "Scarab"
 
 -- T3 tracked tank
 xnl0305_desc = "Armored Assault Tank"
-xnl0305_help = "Tank that carries dual cannons and heavy armor."
+xnl0305_help = "Heavy tank equipped with dual plasma cannons and heavy ablative armor."
 xnl0305_name = "Slugger"
 
 

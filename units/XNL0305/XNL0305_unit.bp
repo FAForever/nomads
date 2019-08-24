@@ -147,7 +147,7 @@ UnitBlueprint {
         VisionRadius = 26,
     },
     Interface = {
-        HelpText = '<LOC XNL0305_help>Tracked tank unit that carries a dual plasma cannon and very heavy armor.',
+        HelpText = '<LOC XNL0305_help>Heavy tank equipped with dual plasma cannons and heavy ablative armor.',
     },
     LifeBarHeight = 0.07,
     LifeBarOffset = 0.9,
