@@ -5,14 +5,12 @@ local OrbitalGun = import('/lua/nomadsweapons.lua').OrbitalGun
 
 xno2302 = Class(NOrbitUnit) {
     Weapons = {
-        MainGun = Class(OrbitalGun) {
-        },
+        MainGun = Class(OrbitalGun) {},
     },
 
     OnCreate = function(self)
         NOrbitUnit.OnCreate(self)
         self:SetWeaponEnabledByLabel('MainGun', false)
-        self:SetUnSelectable(true)
         
         self.parent = nil
         self.parentCallbacks = {}
@@ -47,7 +45,6 @@ xno2302 = Class(NOrbitUnit) {
         self:EnableWeapon(false)
         self.parentCallbacks[ 'OnWeaponFired' ] = false
         self.parentCallbacks[ 'OnKilledUnit' ] = false
-        self:SetUnSelectable(true)
         IssueClearCommands( {self} )
         self.Unused = true
     end,

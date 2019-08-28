@@ -1,7 +1,7 @@
 -- T3 artillery
 local NStructureUnit = import('/lua/nomadsunits.lua').NStructureUnit
 local GetOwnUnitsInSphere = import('/lua/utilities.lua').GetOwnUnitsInSphere
-local DefaultProjectileWeapon = import('/lua/sim/defaultweapons.lua').DefaultProjectileWeapon
+local NIFTargetFinderWeapon = import('/lua/nomadsweapons.lua').NIFTargetFinderWeapon
 local NUtils = import('/lua/nomadsutils.lua')
 local CreateOrbitalUnit = NUtils.CreateOrbitalUnit
 local RequestOrbitalSpawnThread = NUtils.RequestOrbitalSpawnThread
@@ -9,12 +9,32 @@ local FindOrbitalUnit = NUtils.FindOrbitalUnit
 
 XNB2302 = Class(NStructureUnit) {
     Weapons = {
+        --Instead of creating the projectile, we order the satellite to strike there.
+        TargetFinder = Class(NIFTargetFinderWeapon) {
+            CreateProjectileAtMuzzle = function(self, muzzle)
+                local target = self:GetCurrentTargetPos()
+                self.unit:StrikeTarget(target)
+            end,
+        },
     },
 
+    StrikeTarget = function(self, target)
+        if self.ArtilleryUnit then
+            self.LaunchOrbitalStrike(self.ArtilleryUnit, target)
+        else
+            WARN('Nomads: attempt to fire T3 artillery without satellite - aborting')
+        end
+    end,
+    
+    LaunchOrbitalStrike = function(unit, targetPosition)
+        local weapon = unit:GetWeaponByLabel('MainGun')
+        weapon:SetTargetGround( targetPosition )
+        weapon:OnFire()
+    end,
+    
     OnCreate = function(self)
         NStructureUnit.OnCreate(self)
         self.ArtilleryUnit = nil
-        self.CanSetNewArtilleryUnitTarget = true
     end,
 
     OnKilled = function(self, instigator, type, overkillRatio)
@@ -86,12 +106,11 @@ XNB2302 = Class(NStructureUnit) {
     OnArtilleryUnitAssigned = function(self, gun)
         self.ArtilleryUnit = gun
 
-        -- position artillery gun above us
-        gun:SetUnSelectable(true)
+        -- Set the satellite to ground fire so we can tell it where to shoot
         gun:SetFireState(import('/lua/game.lua').FireState.GROUND_FIRE)
         IssueClearCommands( {gun} )
 
-        -- tell the gun unit we're it's parent
+        -- tell the satellite we're it's parent and position it above us
         gun:OnSetParent(self, self.OnArtilleryUnitKilledUnit )
         IssueMove( {gun}, self:GetPosition() )
 
