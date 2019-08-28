@@ -631,8 +631,8 @@ UnitBlueprint {
             BuildCostEnergy = 150000,
             BuildCostMass = 3200,
             BuildTime = 3000,
-            Icon = 'heo',
-            Name = '<LOC NomadsACUEnh_OrbitalBombardment_Help>',
+            Icon = 'hoa',
+            Name = '<LOC NomadsACUEnh_HeavyOrbitalBombardment_Help>',
             Prerequisite = 'OrbitalBombardment',
             ShowBones = {
                 'Orbital Bombardment',
@@ -654,8 +654,8 @@ UnitBlueprint {
             HideBones = {
                 'Orbital Bombardment',
             },
-            Icon = 'heo',
-            Name = '<LOC NomadsACUEnh_OrbitalBombardment_Remove>',
+            Icon = 'hoa',
+            Name = '<LOC NomadsACUEnh_HeavyOrbitalBombardment_Remove>',
             Prerequisite = 'OrbitalBombardmentHeavy',
             RemoveEnhancements = {
                  'OrbitalBombardment',
