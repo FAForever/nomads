@@ -7,114 +7,32 @@ local EffectUtil = import('/lua/EffectUtilities.lua')
 local Buff = import('/lua/sim/Buff.lua')
 local AddRapidRepair = import('/lua/nomadsutils.lua').AddRapidRepair
 local AddRapidRepairToWeapon = import('/lua/nomadsutils.lua').AddRapidRepairToWeapon
-local AddCapacitorAbility = import('/lua/nomadsutils.lua').AddCapacitorAbility
-local AddCapacitorAbilityToWeapon = import('/lua/nomadsutils.lua').AddCapacitorAbilityToWeapon
 local AddAkimbo = import('/lua/nomadsutils.lua').AddAkimbo
 
-local NWalkingLandUnit = import('/lua/nomadsunits.lua').NWalkingLandUnit
+local NCommandUnit = import('/lua/nomadsunits.lua').NCommandUnit
 
 local APCannon1 = import('/lua/nomadsweapons.lua').APCannon1
-local GattlingWeapon1 = import('/lua/nomadsweapons.lua').GattlingWeapon1
+local EMPGun = import('/lua/nomadsweapons.lua').EMPGun
 local UnderwaterRailgunWeapon1 = import('/lua/nomadsweapons.lua').UnderwaterRailgunWeapon1
-local RocketWeapon1 = import('/lua/nomadsweapons.lua').RocketWeapon4
 local DeathEnergyBombWeapon = import('/lua/nomadsweapons.lua').DeathEnergyBombWeapon
 
-APCannon1 = AddCapacitorAbilityToWeapon(APCannon1)
-GattlingWeapon1 = AddCapacitorAbilityToWeapon(GattlingWeapon1)
-UnderwaterRailgunWeapon1 = AddCapacitorAbilityToWeapon(UnderwaterRailgunWeapon1)
-RocketWeapon1 = AddCapacitorAbilityToWeapon(RocketWeapon1)
 NCommandUnit = AddAkimbo(AddRapidRepair(NCommandUnit))
 
 
 XNL0301 = Class(NCommandUnit) {
 
     Weapons = {
-        GunLeft = Class(AddRapidRepairToWeapon(APCannon1)) {
-
-            OnCreate = function(self)
-                APCannon1.OnCreate(self)
-                self.MuzzleOverride_1B = false
-            end,
-
-            SetMuzzleOverride = function(self, ForceOneBarrel)
-                if ForceOneBarrel ~= nil then
-                    self.MuzzleOverride_1B = (ForceOneBarrel == true)
-                end
-            end,
-
-            -- 2 functions below: a quick way (hack) to fire from the correct weapons/bones, but not the best way...
-            CreateProjectileAtMuzzle = function(self, muzzle)
-                if self.MuzzleOverride_1B then
-                    muzzle = 'MGun_Recoil'
-                end
-                APCannon1.CreateProjectileAtMuzzle(self, muzzle)
-            end,
-
-            PlayRackRecoil = function(self, rackList)
-                if self.MuzzleOverride_1B then
-                    local bp = self:GetBlueprint()
-                    rackList = { bp.RackBones[1], }
-                end
-                APCannon1.PlayRackRecoil(self, rackList)
-            end,
-
-            CapGetWepAffectingEnhancementBP = function(self)
-                if self.unit:HasEnhancement('GunLeftUpgrade') then
-                    return self.unit:GetBlueprint().Enhancements['GunLeftUpgrade']
-                else
-                    return {}
-                end
-            end,
-
-            SetEnabled = function(self, enable)
-                -- disabling the main gun also disables the gattling, this works better
-                self.IsEnabled = enable
-                self:AimManipulatorSetEnabled(self.IsEnabled)
-                self:UpdateMaxRadius()
-            end,
-
-            --TODO: Replace this with a pointer weapon instead, which would be better. probably.
-            UpdateMaxRadius = function(self)
-                -- the max radius when disabled should be that of the longest range weapon. Otherwise the unit
-                -- will walk up to the target and not attack from range, exposing it unnecessarily. This is an
-                -- issue with rocket and railgun enhancements
-                if self.IsEnabled then
-                    self:ChangeMaxRadius(self._MaxRadius, true)
-                else
-                    self:ChangeMaxRadius(self.unit:GetAllWeaponMaxRadius(), true)
-                end
-            end,
-
-            ChangeMaxRadius = function(self, val, ignore)
-                -- added ignore flag to not update the internally used MaxRadius value, we'll need this when
-                -- changing range while disabled (see above).
-                if ignore then
-                    local before = self._MaxRadius
-                    APCannon1.ChangeMaxRadius(self, val)
-                    self._MaxRadius = before
-                else
-                    APCannon1.ChangeMaxRadius(self, val)
-                end
-            end,
-        },
-        GunRight = Class(AddRapidRepairToWeapon(GattlingWeapon1)) {
-
-            CapGetWepAffectingEnhancementBP = function(self)
-                if self.unit:HasEnhancement('GunRightUpgrade') then
-                    return self.unit:GetBlueprint().Enhancements['GunRightUpgrade']
-                else
-                    return {}
-                end
-            end,
-        },
-        RocketRight = Class(AddRapidRepairToWeapon(RocketWeapon1)) {},
-        RocketLeft = Class(AddRapidRepairToWeapon(RocketWeapon1)) {},
-        RailGun = Class(AddRapidRepairToWeapon(UnderwaterRailgunWeapon1)) {},
+        MainGun = Class(AddRapidRepairToWeapon(APCannon1)) {},
+        EMPWeapon = Class(AddRapidRepairToWeapon(EMPGun)) {},
+        Torpedo = Class(AddRapidRepairToWeapon(UnderwaterRailgunWeapon1)) {},
+        Rocket = Class(AddRapidRepairToWeapon(UnderwaterRailgunWeapon1)) {},
         RASDeathWeapon = Class(DeathEnergyBombWeapon) {},
     },
 
-    CapFxBones = { [1] = 'Torso', [2] = 'Torso', },
-    CapFxBonesOffsets = { [1] = { 0.14, 0.52, 0, }, [2] = { -0.14, 0.52, 0, }, },
+    __init = function(self)
+        NCommandUnit.__init(self, 'MainGun')
+    end,
+    
     DestructionPartsLowToss = { 'Torso', 'Head', },
 
     OnCreate = function(self)
@@ -132,20 +50,12 @@ XNL0301 = Class(NCommandUnit) {
 
         -- enhancement related
         self:RemoveToggleCap('RULEUTC_SpecialToggle')
-        self:SetWeaponEnabledByLabel( 'RocketRight', false )
-        self:SetWeaponEnabledByLabel( 'RocketLeft', false )
-        self:SetWeaponEnabledByLabel( 'RailGun', false )
-        self:SetWeaponEnabledByLabel( 'GunRight', false )
-        self:SetWeaponEnabledByLabel( 'GunLeft', false )
-        self:GetWeaponByLabel('GunLeft'):SetMuzzleOverride(true)
-        self:RemoveCommandCap('RULEUCC_Attack')
-        self:RemoveCommandCap('RULEUCC_RetaliateToggle')
-        self.HasLeftArm = false
-        self.HasRightArm = false
+        self:SetWeaponEnabledByLabel( 'Torpedo', false )
+        self:SetWeaponEnabledByLabel( 'Rocket', false )
+        self:SetWeaponEnabledByLabel( 'EMPWeapon', false )
         self:SetRapidRepairParams( 'NomadsSCURapidRepair', bp.Enhancements.RapidRepair.RepairDelay, bp.Enhancements.RapidRepair.InterruptRapidRepairByWeaponFired)
     
         self.Sync.Abilities = self:GetBlueprint().Abilities
-        self:HasCapacitorAbility(false)
     end,
 
     OnStartBeingBuilt = function(self, builder, layer)
@@ -170,30 +80,6 @@ XNL0301 = Class(NCommandUnit) {
             self.AlertAnimManip:SetRate(1)
             WaitFor(self.AlertAnimManip)
         end
-    end,
-
-    SetWeaponEnabledByLabel = function(self, label, bool)
-        NWalkingLandUnit.SetWeaponEnabledByLabel(self, label, bool)
-        if label ~= 'GunLeft' then
-            self:GetWeaponByLabel('GunLeft'):UpdateMaxRadius()  -- keep primary weapon range correct
-        end
-    end,
-
-    GetAllWeaponMaxRadius = function(self)
-        -- returns the biggest max radius of any weapon that's currently enabled
-        local wep, rad
-        local maxRad = 1
-        local n = self:GetWeaponCount()
-        for i=1, n do
-            wep = self:GetWeapon(i)
-            if wep and wep.IsEnabled then
-                rad = self._MaxRadius
-                if rad > maxRad then
-                    maxRad = rad
-                end
-            end
-        end
-        return maxRad
     end,
 
     -- =====================================================================================================================
@@ -237,111 +123,17 @@ XNL0301 = Class(NCommandUnit) {
 
 -- =================================================================================================================
 
-    OnPrepareArmToBuild = function(self)
-        NWalkingLandUnit.OnPrepareArmToBuild(self)
-        self:BuildManipulatorSetEnabled(true)
-        self.BuildArmManipulator:SetPrecedence(20)
-        self:ForBuildEnableWeapons(false)
-        self.BuildArmManipulator:SetHeadingPitch( self:GetWeaponManipulatorByLabel('GunLeft'):GetHeadingPitch() )
+
+    CreateCaptureEffects = function( self, target )
+        EffectUtil.PlayCaptureEffects( self, target, self:GetBuildBones() or {0,}, self.CaptureEffectsBag )
     end,
 
-    OnStopCapture = function(self, target)
-        NWalkingLandUnit.OnStopCapture(self, target)
-        self:BuildManipulatorSetEnabled(false)
-        self.BuildArmManipulator:SetPrecedence(0)
-        self:ForBuildEnableWeapons(true)
-        self:GetWeaponManipulatorByLabel('GunLeft'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
-    end,
-
-    OnFailedCapture = function(self, target)
-        NWalkingLandUnit.OnFailedCapture(self, target)
-        self:BuildManipulatorSetEnabled(false)
-        self.BuildArmManipulator:SetPrecedence(0)
-        self:ForBuildEnableWeapons(true)
-        self:GetWeaponManipulatorByLabel('GunLeft'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
-    end,
-
-    OnStopReclaim = function(self, target)
-        NWalkingLandUnit.OnStopReclaim(self, target)
-        self:BuildManipulatorSetEnabled(false)
-        self.BuildArmManipulator:SetPrecedence(0)
-        self:ForBuildEnableWeapons(true)
-        self:GetWeaponManipulatorByLabel('GunLeft'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
-    end,
-
-    OnStartBuild = function(self, unitBeingBuilt, order)
-        self.UnitBeingBuilt = unitBeingBuilt
-        self.UnitBuildOrder = order
-        self.BuildingUnit = true
-        NWalkingLandUnit.OnStartBuild(self, unitBeingBuilt, order)
-    end,
-
-    OnStopBuild = function(self, unitBeingBuilt)
-        NWalkingLandUnit.OnStopBuild(self, unitBeingBuilt)
-        self.UnitBeingBuilt = nil
-        self.UnitBuildOrder = nil
-        self.BuildingUnit = false
-        self:ForBuildEnableWeapons(true)
-        self:GetWeaponManipulatorByLabel('GunLeft'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
-    end,
-
-    OnFailedToBuild = function(self)
-        NWalkingLandUnit.OnFailedToBuild(self)
-        self:BuildManipulatorSetEnabled(false)
-        self.BuildArmManipulator:SetPrecedence(0)
-        self:ForBuildEnableWeapons(true)
-        self:GetWeaponManipulatorByLabel('GunLeft'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
-    end,
-
-    -- TODO: After making sACU sane again, replace all "self:GetBuildBones() or {0,}" with "self.BuildEffectBones"
-    CreateBuildEffects = function(self, unitBeingBuilt, order)
-        NomadsEffectUtil.CreateNomadsBuildSliceBeams(self, unitBeingBuilt, self:GetBuildBones() or {0,}, self.BuildEffectsBag)
-    end,
-
-    CreateReclaimEffects = function(self, target)
-        NomadsEffectUtil.PlayNomadsReclaimEffects(self, target, self:GetBuildBones() or {0,}, self.ReclaimEffectsBag)
-    end,
-
-    CreateReclaimEndEffects = function(self, target)
-        NomadsEffectUtil.PlayNomadsReclaimEndEffects(self, target, self.ReclaimEffectsBag)
-    end,
-
-    CreateCaptureEffects = function(self, target)
-        EffectUtil.PlayCaptureEffects(self, target, self:GetBuildBones() or {0,}, self.CaptureEffectsBag)
-    end,
-
-    OnPaused = function(self)
-        NWalkingLandUnit.OnPaused(self)
-        if self.BuildingUnit then
-            NWalkingLandUnit.StopBuildingEffects(self, self.UnitBeingBuilt)
-        end
-    end,
-
-    OnUnpaused = function(self)
-        if self.BuildingUnit then
-            NWalkingLandUnit.StartBuildingEffects(self, self.UnitBeingBuilt, self.UnitBuildOrder)
-        end
-        NWalkingLandUnit.OnUnpaused(self)
-    end,
-
-    ForBuildEnableWeapons = function(self, enable)
-        self:SetWeaponEnabledByLabel('GunLeft', (enable and (self:HasEnhancement('GunLeft') or self:HasEnhancement('GunLeftUpgrade'))) )
-        self:SetWeaponEnabledByLabel('GunRight', (enable and self:HasEnhancement('GunRight')) )
-    end,
-
+    --overwrite the GetBuildBones to allow for enhancement support
     GetBuildBones = function(self)
-        -- a known engine limitation or bug where a single variable is used for all units of the same type is causing problems with the build bones.
-        -- to remedy this I'm dynamically determining what bones to use by checking what enhancements are available.
         local bones = table.deepcopy( self:GetBlueprint().General.BuildBones.BuildEffectBones )
-        if self:HasEnhancement('EngineeringRight') then
-            table.insert( bones, 'Engi_R_Muzzle')
+        if self:HasEnhancement('EngineeringSuite') then
             table.insert( bones, 'Engi_R_Muzzle.001')
             table.insert( bones, 'Engi_R_Muzzle.002')
-         end
-        if self:HasEnhancement('EngineeringLeft') then
-            table.insert( bones, 'Engi_L_Muzzle')
-            table.insert( bones, 'Engi_L_Muzzle.001')
-            table.insert( bones, 'Engi_L_Muzzle.002')
         end
         return bones
     end,
@@ -387,84 +179,17 @@ XNL0301 = Class(NCommandUnit) {
             -- self:SetIntelProbeEnabled( false, true )
         -- end,
     -- },
+    
     EnhancementBehaviours = {
-        GunLeft = function(self, bp)
-            self:GetWeaponByLabel('GunLeft'):SetMuzzleOverride(true)
-            if bp.EnableWeapon then
-                self:SetWeaponEnabledByLabel( bp.EnableWeapon, true )
-                self:AddCommandCap('RULEUCC_Attack')
-                self:AddCommandCap('RULEUCC_RetaliateToggle')
-            end
+        EMPWeapon = function(self, bp)
+            self:SetWeaponEnabledByLabel( 'EMPWeapon', true )
         end,
         
-        GunLeftRemove = function(self, bp)
-            local ubp = self:GetBlueprint()
-            if ubp.Enhancements.GunLeft.EnableWeapon then
-                self:SetWeaponEnabledByLabel( ubp.Enhancements.GunLeft.EnableWeapon, false )
-                if not self:HasEnhancement('GunRight') and not self:HasEnhancement('GunRightUpgrade') and not self:HasEnhancement('RightRocket') then
-                    self:RemoveCommandCap('RULEUCC_Attack')
-                    self:RemoveCommandCap('RULEUCC_RetaliateToggle')
-                end
-            end
+        EMPWeaponRemove = function(self, bp)
+            self:SetWeaponEnabledByLabel( 'EMPWeapon', false )
         end,
         
-        GunLeftUpgrade = function(self, bp)
-            local wep = self:GetWeaponByLabel('GunLeft')
-            local wbp = wep:GetBlueprint()
-            local rof = wbp.RateOfFire * (bp.RateOfFireMulti or 1)
-
-            if bp.RateOfFireMulti then
-                if not Buffs['NOMADSCULeftArmGunUpgrade'] then
-                    BuffBlueprint {
-                        Name = 'NOMADSCULeftArmGunUpgrade',
-                        DisplayName = 'NOMADSCULeftArmGunUpgrade',
-                        BuffType = 'SCUGUNUPGRADE',
-                        Stacks = 'ADD',
-                        Duration = -1,
-                        Affects = {
-                            RateOfFireSpecifiedWeapons = {
-                                Mult = 1 / (bp.RateOfFireMulti or 1), -- here a value of 0.5 is actually doubling ROF
-                            },
-                        },
-                    }
-                end
-                if Buff.HasBuff( self, 'NOMADSCULeftArmGunUpgrade' ) then
-                    Buff.RemoveBuff( self, 'NOMADSCULeftArmGunUpgrade' )
-                end
-                Buff.ApplyBuff(self, 'NOMADSCULeftArmGunUpgrade')
-            end
-
-            -- adjust main gun
-            wep:AddDamageMod( (bp.NewDamage or wbp.Damage) - wbp.Damage )
-            wep:ChangeMaxRadius(bp.NewMaxRadius or wbp.MaxRadius)
-            wep:SetMuzzleOverride(false)
-            wep.RackRecoilReturnSpeed = wbp.RackRecoilReturnSpeed or math.abs( wbp.RackRecoilDistance / (( 1 / rof ) - (wbp.MuzzleChargeDelay or 0))) * 1.25
-
-        end,
-        
-        GunLeftUpgradeRemove = function(self, bp)
-            Buff.RemoveBuff(self, 'NOMADSCULeftArmGunUpgrade')
-
-            -- adjust main gun
-            local wep = self:GetWeaponByLabel('GunLeft')
-            local wbp = wep:GetBlueprint()
-            wep:AddDamageMod( -((bp.NewDamage or wbp.Damage) - wbp.Damage) )
-            wep:ChangeMaxRadius(wbp.MaxRadius)
-            wep:SetMuzzleOverride(true)
-            wep.RackRecoilReturnSpeed = wbp.RackRecoilReturnSpeed or math.abs( wbp.RackRecoilDistance / (( 1 / wbp.RateOfFire ) - (wbp.MuzzleChargeDelay or 0))) * 1.25
-
-            -- and disable it
-            local ubp = self:GetBlueprint()
-            if ubp.Enhancements.GunLeft.EnableWeapon then
-                self:SetWeaponEnabledByLabel( ubp.Enhancements.GunLeft.EnableWeapon, false )
-                if not self:HasEnhancement('GunRight') and not self:HasEnhancement('GunRightUpgrade') and not self:HasEnhancement('RightRocket') then
-                    self:RemoveCommandCap('RULEUCC_Attack')
-                    self:RemoveCommandCap('RULEUCC_RetaliateToggle')
-                end
-            end
-        end,
-        
-        EngineeringLeft = function(self, bp)
+        EngineeringSuite = function(self, bp)
             if not Buffs['NOMADSCULeftArmBuildRate'] then
                 BuffBlueprint {
                     Name = 'NOMADSCULeftArmBuildRate',
@@ -487,128 +212,26 @@ XNL0301 = Class(NCommandUnit) {
             Buff.ApplyBuff(self, 'NOMADSCULeftArmBuildRate')
         end,
         
-        EngineeringLeftRemove = function(self, bp)
+        EngineeringSuiteRemove = function(self, bp)
             if Buff.HasBuff( self, 'NOMADSCULeftArmBuildRate' ) then
                 Buff.RemoveBuff( self, 'NOMADSCULeftArmBuildRate' )
             end
         end,
         
-        LeftRocket = function(self, bp)
-            if bp.EnableWeapon then
-                self:SetWeaponEnabledByLabel( bp.EnableWeapon, true )
-                self:AddCommandCap('RULEUCC_Attack')
-                self:AddCommandCap('RULEUCC_RetaliateToggle')
-            end
+        Torpedo = function(self, bp)
+            self:SetWeaponEnabledByLabel( 'Torpedo', true )
+            self:SetWeaponEnabledByLabel( 'Rocket', true )
         end,
         
-        LeftRocketRemove = function(self, bp)
-            local ubp = self:GetBlueprint()
-            if ubp.Enhancements.LeftRocket.EnableWeapon then
-                self:SetWeaponEnabledByLabel( ubp.Enhancements.LeftRocket.EnableWeapon, false )
-                if not self:HasEnhancement('GunRight') and not self:HasEnhancement('GunRightUpgrade') and not self:HasEnhancement('RightRocket') then
-                    self:RemoveCommandCap('RULEUCC_Attack')
-                    self:RemoveCommandCap('RULEUCC_RetaliateToggle')
-                end
-            end
-        end,
-        
-        Railgun = function(self, bp)
-            if bp.EnableWeapon then
-                self:SetWeaponEnabledByLabel( bp.EnableWeapon, true )
-                self:AddCommandCap('RULEUCC_Attack')
-                self:AddCommandCap('RULEUCC_RetaliateToggle')
-            end
-        end,
-        
-        RailgunRemove = function(self, bp)
-            local ubp = self:GetBlueprint()
-            if ubp.Enhancements.Railgun.EnableWeapon then
-                self:SetWeaponEnabledByLabel( ubp.Enhancements.Railgun.EnableWeapon, false )
-                if not self:HasEnhancement('GunRight') and not self:HasEnhancement('GunRightUpgrade') and not self:HasEnhancement('RightRocket') then
-                    self:RemoveCommandCap('RULEUCC_Attack')
-                    self:RemoveCommandCap('RULEUCC_RetaliateToggle')
-                end
-            end
-        end,
-        
-        Capacitor = function(self, bp)
-            self:HasCapacitorAbility(true)
-        end,
-        
-        CapacitorRemove = function(self, bp)
-            self:ResetCapacitor()
-            self:HasCapacitorAbility(false)
-        end,
-        
-        AdditionalCapacitor = function(self, bp)
-            self:ResetCapacitor()
-            self:HasCapacitorAbility(true)
-            if bp.CapacitorNewChargeEnergyCost then
-                self.ChargeEnergyCost = bp.CapacitorNewChargeEnergyCost
-            end
-            if bp.CapacitorNewDuration then
-                self.CapDuration = bp.CapacitorNewDuration
-            end
-            if bp.CapacitorNewChargeTime then
-                self.CapChargeTime = bp.CapacitorNewChargeTime
-            end
-            if bp.DecayNewTime then
-                self.CapChargeTime = bp.DecayNewTime
-            end
-        end,
-        
-        AdditionalCapacitorRemove = function(self, bp)
-            self:ResetCapacitor()
-            self:HasCapacitorAbility(false)
-            local orgBp = self:GetBlueprint()
-            local obp = orgBp.Enhancements.AdditionalCapacitor
-            if obp.CapacitorNewChargeEnergyCost then
-                self.ChargeEnergyCost = orgBp.Abilities.Capacitor.ChargeEnergyCost
-            end
-            if obp.CapacitorNewDuration then
-                self.CapDuration = orgBp.Abilities.Capacitor.Duration
-            end
-            if obp.CapacitorNewChargeTime then
-                self.CapChargeTime = orgBp.Abilities.Capacitor.ChargeTime
-            end
-            if obp.DecayNewTime then
-                self.DecayTime = orgBp.Abilities.Capacitor.DecayNewTime
-            end
-        end,
-        
-        MovementSpeedIncrease = function(self, bp)
-            if not Buffs['NomadsSCUSpeedIncrease'] then
-                BuffBlueprint {
-                    Name = 'NomadsSCUSpeedIncrease',
-                    DisplayName = 'NomadsSCUSpeedIncrease',
-                    BuffType = 'NOMADSCUSPEEDINC',
-                    Stacks = 'ALWAYS',
-                    Duration = -1,
-                    Affects = {
-                        MoveMult = {
-                            Add = 0,
-                            Mult = bp.SpeedMulti or 1.1,
-                        },
-                    },
-                }
-            end
-            Buff.ApplyBuff(self, 'NomadsSCUSpeedIncrease')
-        end,
-        
-        MovementSpeedIncreaseRemove = function(self, bp)
-            if Buff.HasBuff( self, 'NomadsSCUSpeedIncrease' ) then
-                Buff.RemoveBuff( self, 'NomadsSCUSpeedIncrease' )
-            else
-                LOG('*DEBUG: SCU enhancement movement speed increase removed but buff wasnt')
-            end
+        TorpedoRemove = function(self, bp)
+            self:SetWeaponEnabledByLabel( 'Torpedo', false )
+            self:SetWeaponEnabledByLabel( 'Rocket', false )
         end,
         
         ResourceAllocation = function(self, bp)
             local bpEcon = self:GetBlueprint().Economy
             self:SetProductionPerSecondEnergy(bp.ProductionPerSecondEnergy + bpEcon.ProductionPerSecondEnergy or 0)
             self:SetProductionPerSecondMass(bp.ProductionPerSecondMass + bpEcon.ProductionPerSecondMass or 0)
-            
-            -- TODO: show effect on bones Backpack_Fx1 and 2
         end,
         
         ResourceAllocationRemove = function(self, bp)
@@ -701,7 +324,7 @@ XNL0301 = Class(NCommandUnit) {
         PowerArmorRemove = function(self, bp)
             local ubp = self:GetBlueprint()
             if bp.Mesh then
-                self:SetMesh( ubp.Display.MeshBlueprint, true)
+                self:SetMesh( ubp.Display.MeshBlueprint, true) --this doesnt actually work --TODO:fix it
             end
             if Buff.HasBuff( self, 'NomadsSCUPowerArmor' ) then
                 Buff.RemoveBuff( self, 'NomadsSCUPowerArmor' )
@@ -715,202 +338,34 @@ XNL0301 = Class(NCommandUnit) {
             end
         end,
         
-        GunRight = function(self, bp)
-            if bp.EnableWeapon then
-                self:SetWeaponEnabledByLabel( bp.EnableWeapon, true )
-                self:AddCommandCap('RULEUCC_Attack')
-                self:AddCommandCap('RULEUCC_RetaliateToggle')
-            end
+        GunUpgrade = function(self, bp)
+            local wep = self:GetWeaponByLabel('MainGun')
+            wep:AddDamageMod(bp.MainGunDamageMod)
+            wep:ChangeMaxRadius(bp.NewMaxRadius or 30)
         end,
         
-        GunRightRemove = function(self, bp)
-            local ubp = self:GetBlueprint()
-            if ubp.Enhancements.GunRight.EnableWeapon then
-                self:SetWeaponEnabledByLabel( ubp.Enhancements.GunRight.EnableWeapon, false )
-                if not self:HasEnhancement('GunLeft') and not self:HasEnhancement('GunLeftUpgrade') and not self:HasEnhancement('LeftRocket') and not self:HasEnhancement('Railgun') then
-                    self:RemoveCommandCap('RULEUCC_Attack')
-                    self:RemoveCommandCap('RULEUCC_RetaliateToggle')
-                end
-            end
-        end,
-        
-        GunRightUpgrade = function(self, bp) --Retard: looks like this doesnt do anything, consider removing
-            -- adjust gattling
-            -- local wep = self:GetWeaponByLabel('GunRight')
-            WARN('Todo: SCU right arm upgrade')
-        end,
-        
-        GunRightUpgradeRemove = function(self, bp) --Retard: looks like this doesnt do anything, consider removing
-            -- adjust gattling
-            -- local wep = self:GetWeaponByLabel('GunRight')
-
-            -- and disable it
-            local ubp = self:GetBlueprint()
-            if ubp.Enhancements.GunRight.EnableWeapon then
-                self:SetWeaponEnabledByLabel( ubp.Enhancements.GunRight.EnableWeapon, false )
-                if not self:HasEnhancement('GunLeft') and not self:HasEnhancement('GunLeftUpgrade') and not self:HasEnhancement('LeftRocket') and not self:HasEnhancement('Railgun') then
-                    self:RemoveCommandCap('RULEUCC_Attack')
-                    self:RemoveCommandCap('RULEUCC_RetaliateToggle')
-                end
-            end
-        end,
-        
-        EngineeringRight = function(self, bp)
-            if not Buffs['NOMADSCURightArmBuildRate'] then
-                BuffBlueprint {
-                    Name = 'NOMADSCURightArmBuildRate',
-                    DisplayName = 'NOMADSCURightArmBuildRate',
-                    BuffType = 'SCUBUILDRATERIGHT',
-                    Stacks = 'ADD',
-                    Duration = -1,
-                    Affects = {
-                        BuildRate = {
-                            Add =  bp.AddBuildRate,
-                            Mult = 1,                            
-                        },
-                    },
-                }
-            end
-            if Buff.HasBuff( self, 'NOMADSCURightArmBuildRate' ) then
-                Buff.RemoveBuff( self, 'NOMADSCURightArmBuildRate' )
-            end
-
-            Buff.ApplyBuff(self, 'NOMADSCURightArmBuildRate')
-        end,
-        
-        EngineeringRightRemove = function(self, bp)
-            if Buff.HasBuff( self, 'NOMADSCULeftArmBuildRate' ) then
-                Buff.RemoveBuff( self, 'NOMADSCULeftArmBuildRate' )
-            end
-        end,
-        
-        RightRocket = function(self, bp)
-            if bp.EnableWeapon then
-                self:SetWeaponEnabledByLabel( bp.EnableWeapon, true )
-                self:AddCommandCap('RULEUCC_Attack')
-                self:AddCommandCap('RULEUCC_RetaliateToggle')
-            end
-        end,
-        
-        RightRocketRemove = function(self, bp)
-            local ubp = self:GetBlueprint()
-            if ubp.Enhancements.RightRocket.EnableWeapon then
-                self:SetWeaponEnabledByLabel( ubp.Enhancements.RightRocket.EnableWeapon, false )
-                if not self:HasEnhancement('GunLeft') and not self:HasEnhancement('GunLeftUpgrade') and not self:HasEnhancement('LeftRocket') and not self:HasEnhancement('Railgun') then
-                    self:RemoveCommandCap('RULEUCC_Attack')
-                    self:RemoveCommandCap('RULEUCC_RetaliateToggle')
-                end
-            end
+        GunUpgradeRemove = function(self, bp)
+            local wep = self:GetWeaponByLabel('MainGun')
+            wep:AddDamageMod(-bp.MainGunDamageMod)
+            local bpDisrupt = self:GetBlueprint().Weapon[1].MaxRadius --needs to map to the main weapon in the table, update if you change the weapon list
+            wep:ChangeMaxRadius(bpDisrupt or 25)
         end,
         
         Generic = function(self, bp)
         end,
     },
     
-    
     CreateEnhancement = function(self, enh)
         NCommandUnit.CreateEnhancement(self, enh)
         local bp = self:GetBlueprint().Enhancements[enh]
         if not bp then return end
-
-        -- show or hide repair geometry on arms of model, depending on presence of certain enhancements
-        if enh == 'RapidRepair' or enh == 'PowerArmor' or enh == 'AdditionalCapacitor' or enh == 'ResourceAllocation' or enh == 'LeftRocket' or enh == 'RightRocket'
-             or bp.CreatesLeftArm or bp.CreatesRightArm or bp.RemovesLeftArm or bp.RemovesRightArm then
-
-            -- need to check presence of enhancements and presence of arms, then either hide or show bones. It's more complex than you would
-            -- think.
-            local RR = (self:HasEnhancement('RapidRepair') or enh == 'RapidRepair')
-            local PA = (self:HasEnhancement('PowerArmor') or enh == 'PowerArmor')
-            local C = (self:HasEnhancement('AdditionalCapacitor') or enh == 'AdditionalCapacitor')
-            local RAS = (self:HasEnhancement('ResourceAllocation') or enh == 'ResourceAllocation')
-            local MSLL = (self:HasEnhancement('LeftRocket') or enh == 'LeftRocket')
-            local MSLR = (self:HasEnhancement('RightRocket') or enh == 'RightRocket')
-
-            if bp.CreatesLeftArm then
-                self.HasLeftArm = true
-            elseif bp.RemovesLeftArm then
-                self.HasLeftArm = false
-            end
-            if bp.CreatesRightArm then
-                self.HasRightArm = true
-            elseif bp.RemovesRightArm then
-                self.HasRightArm = false
-            end
-
-            -- left arm + rapid repair or left arm + power armor
-            if RR and self.HasLeftArm then
-                self:ShowBone( 'Nano_LArm', true )
-            else
-                self:HideBone( 'Nano_LArm', true )
-            end
-            if PA and self.HasLeftArm then
-                self:ShowBone( 'Nano_LPauld', true )
-            else
-                self:HideBone( 'Nano_LPauld', true )
-            end
-            if self.HasLeftArm then
-                self:HideBone( 'SGun', true )
-            end
-            -- no left arm but missile launcher icw rapid repair and power armor
-            if RR and MSLL then
-                self:ShowBone( 'Nano_MissileL', true )
-            else
-                self:HideBone( 'Nano_MissileL', true )
-            end
-            if PA and MSLL then
-                self:ShowBone( 'Nano_MissileL2', true )
-            else
-                self:HideBone( 'Nano_MissileL2', true )
-            end
-            -- right arm + rapid repair, or right arm + power armor
-            if RR and self.HasRightArm then
-                self:ShowBone( 'Nano_RArm', true )
-            else
-                self:HideBone( 'Nano_RArm', true )
-            end
-            if PA and self.HasRightArm then
-                self:ShowBone( 'Nano_RPauld', true )
-            else
-                self:HideBone( 'Nano_RPauld', true )
-            end
-            -- no right arm but capacitor icw rapid repair, power armor and RAS
-            if RR and C then
-                self:ShowBone( 'Capacitor_Nano2', true )
-            else
-                self:HideBone( 'Capacitor_Nano2', true )
-            end
-            if PA and C then
-                self:ShowBone( 'Capacitor_Nano', true )
-            else
-                self:HideBone( 'Capacitor_Nano', true )
-            end
-            if RAS and C then
-                self:ShowBone( 'CapacitorTube', true )
-            else
-                self:HideBone( 'CapacitorTube', true )
-            end
-            -- no right arm but missile launcher icw rapid repair and power armor
-            if RR and MSLR then
-                self:ShowBone( 'Nano_MissileR', true )
-            else
-                self:HideBone( 'Nano_MissileR', true )
-            end
-            if PA and MSLR then
-                self:ShowBone( 'Nano_MissileR2', true )
-            else
-                self:HideBone( 'Nano_MissileR2', true )
-            end
-        end
-
+        
         if self.EnhancementBehaviours[enh] then
             self.EnhancementBehaviours[enh](self, bp)
         else
             WARN('Nomads: Enhancement '..repr(enh)..' has no script support.')
         end
     end,
-
-
-
     
 -- =================================================================================================================
 
@@ -918,7 +373,7 @@ XNL0301 = Class(NCommandUnit) {
         -- explosions at these bones
         local bones = { 'Thigh_L', 'Thigh_R', 'Midleg_L', 'Midleg_R', 'Foreleg_L', 'Foreleg_R', }
         -- explosion at these bones and then hide them. As if the explosion destroys that part of the unit
-        local hideBones = { 'Engi_Basic', 'Head', 'Pauldron_L', 'Pauldron_R', }
+        local hideBones = { 'Head', 'Pauldron_L', 'Pauldron_R', }
 
         -- check all enhancements to find bones we can use for effects
         local bp = self:GetBlueprint()
