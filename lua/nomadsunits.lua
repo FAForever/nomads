@@ -23,7 +23,7 @@ local ShieldStructureUnit = DefaultUnitsFile.ShieldStructureUnit
 local SonarUnit = DefaultUnitsFile.SonarUnit
 local StructureUnit = DefaultUnitsFile.StructureUnit
 local SubUnit = DefaultUnitsFile.SubUnit
-local WalkingLandUnit = DefaultUnitsFile.WalkingLandUnit
+local CommandUnit = DefaultUnitsFile.CommandUnit
 local WallStructureUnit = DefaultUnitsFile.WallStructureUnit
 local QuantumGateUnit = DefaultUnitsFile.QuantumGateUnit
 local RadarJammerUnit = DefaultUnitsFile.RadarJammerUnit
@@ -228,23 +228,17 @@ NAirTransportUnit = Class(AirTransport) {
 ---------------------------------------------------------------
 --  LAND UNITS
 ---------------------------------------------------------------
-NLandUnit = Class(LandUnit) {
-
-}
+NLandUnit = Class(LandUnit) {}
 
 ---------------------------------------------------------------
 --  AMPHIBIOUS UNITS
 ---------------------------------------------------------------
-NAmphibiousUnit = Class(NLandUnit) {
-    -- on water speed multiplier moved to unit.lua per build 41
-}
+NAmphibiousUnit = Class(NLandUnit) {}
 
 ---------------------------------------------------------------
 --  HOVER LAND UNITS
 ---------------------------------------------------------------
 NHoverLandUnit = Class(HoverLandUnit) {
-
-    -- The code below for speed reduction and weapon disabling in water should be the same as the amphibious unit class, above
 
     OnStartBeingBuilt = function(self, builder, layer)
         HoverLandUnit.OnStartBeingBuilt(self, builder, layer)
@@ -381,9 +375,9 @@ NSeaUnit = Class(SeaUnit) {
 }
 
 ---------------------------------------------------------------
---  WALKING LAND UNITS
+--  WALKING COMMAND UNITS (only scu for now)
 ---------------------------------------------------------------
-NWalkingLandUnit = Class(WalkingLandUnit) {
+NCommandUnit = Class(CommandUnit) {
 
     WalkingAnimRate = 1,
     IdleAnimRate = 1,
@@ -392,15 +386,22 @@ NWalkingLandUnit = Class(WalkingLandUnit) {
     CreateBuildEffects = function( self, unitBeingBuilt, order )
         -- If we are assisting an upgrading unit, or repairing a unit, play seperate effects
         local UpgradesFrom = unitBeingBuilt:GetBlueprint().General.UpgradesFrom
+        local bones = self:GetBuildBones()
+        
         if (order == 'Repair' and not unitBeingBuilt:IsBeingBuilt()) or (UpgradesFrom and UpgradesFrom ~= 'none' and self:IsUnitState('Guarding'))then
-            self.BuildEffectsBag:Add( NomadsEffectUtil.CreateRepairBuildBeams( self, unitBeingBuilt, self:GetBlueprint().General.BuildBones.BuildEffectBones, self.BuildEffectsBag ) )
+            self.BuildEffectsBag:Add( NomadsEffectUtil.CreateRepairBuildBeams( self, unitBeingBuilt, bones, self.BuildEffectsBag ) )
         else
-            self.BuildEffectsBag:Add( NomadsEffectUtil.CreateNomadsBuildSliceBeams( self, unitBeingBuilt, self:GetBlueprint().General.BuildBones.BuildEffectBones, self.BuildEffectsBag ) )
+            self.BuildEffectsBag:Add( NomadsEffectUtil.CreateNomadsBuildSliceBeams( self, unitBeingBuilt, bones, self.BuildEffectsBag ) )
         end
+    end,
+    
+    GetBuildBones = function(self) --we can then hook this to adapt build bones as needed
+        local bones = self:GetBlueprint().General.BuildBones.BuildEffectBones
+        return bones
     end,
 
     OnStopBuild = function(self, unitBuilding)
-        WalkingLandUnit.OnStopBuild(self, unitBuilding)
+        CommandUnit.OnStopBuild(self, unitBuilding)
         if self.BuildRotator then
             self.BuildRotator:SetGoal(0)
         end
