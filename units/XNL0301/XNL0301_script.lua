@@ -19,14 +19,14 @@ local UnderwaterRailgunWeapon1 = import('/lua/nomadsweapons.lua').UnderwaterRail
 local RocketWeapon1 = import('/lua/nomadsweapons.lua').RocketWeapon4
 local DeathEnergyBombWeapon = import('/lua/nomadsweapons.lua').DeathEnergyBombWeapon
 
-NWalkingLandUnit = AddAkimbo(AddCapacitorAbility(AddRapidRepair(NWalkingLandUnit)))
 APCannon1 = AddCapacitorAbilityToWeapon(APCannon1)
 GattlingWeapon1 = AddCapacitorAbilityToWeapon(GattlingWeapon1)
 UnderwaterRailgunWeapon1 = AddCapacitorAbilityToWeapon(UnderwaterRailgunWeapon1)
 RocketWeapon1 = AddCapacitorAbilityToWeapon(RocketWeapon1)
+NCommandUnit = AddAkimbo(AddRapidRepair(NCommandUnit))
 
 
-XNL0301 = Class(NWalkingLandUnit) {
+XNL0301 = Class(NCommandUnit) {
 
     Weapons = {
         GunLeft = Class(AddRapidRepairToWeapon(APCannon1)) {
@@ -118,7 +118,7 @@ XNL0301 = Class(NWalkingLandUnit) {
     DestructionPartsLowToss = { 'Torso', 'Head', },
 
     OnCreate = function(self)
-        NWalkingLandUnit.OnCreate(self)
+        NCommandUnit.OnCreate(self)
 
         local bp = self:GetBlueprint()
 
@@ -149,7 +149,7 @@ XNL0301 = Class(NWalkingLandUnit) {
     end,
 
     OnStartBeingBuilt = function(self, builder, layer)
-        NWalkingLandUnit.OnStartBeingBuilt(self, builder, layer)
+        NCommandUnit.OnStartBeingBuilt(self, builder, layer)
 
         local bp = self:GetBlueprint()
         if bp.Display.AnimationAlert then
@@ -160,7 +160,7 @@ XNL0301 = Class(NWalkingLandUnit) {
     end,
 
     StopBeingBuiltEffects = function(self, builder, layer)
-        NWalkingLandUnit.StopBeingBuiltEffects(self, builder, layer)
+        NCommandUnit.StopBeingBuiltEffects(self, builder, layer)
 
         if self:HasEnhancement('PowerArmor') then
             local bp = self:GetBlueprint().Enhancements['PowerArmor']
@@ -215,7 +215,7 @@ XNL0301 = Class(NWalkingLandUnit) {
         -- only create wreckage if death weapon allows it
         local DeathWep = self:GetDeathWeaponBP()
         if not DeathWep.NoWreckage then
-            NWalkingLandUnit.CreateWreckage(self, overkillRatio)
+            NCommandUnit.CreateWreckage(self, overkillRatio)
         end
     end,
 
@@ -351,18 +351,18 @@ XNL0301 = Class(NWalkingLandUnit) {
     OnAttachedToTransport = function(self, transport, transportBone)
         -- disable head rotation. Coming of the transport, the head gets a weird rotation
         self.HeadRotationEnabled = false
-        NWalkingLandUnit.OnAttachedToTransport(self, transport, transportBone)
+        NCommandUnit.OnAttachedToTransport(self, transport, transportBone)
     end,
 
     OnDetachedFromTransport = function(self, transport, transportBone)
         -- disable head rotation. Coming of the transport, the head gets a weird rotation
         self.HeadRotationEnabled = false
-        NWalkingLandUnit.OnDetachedFromTransport(self, transport, transportBone)
+        NCommandUnit.OnDetachedFromTransport(self, transport, transportBone)
     end,
 
     UpdateMovementEffectsOnMotionEventChange = function( self, new, old )
         self.HeadRotationEnabled = true
-        NWalkingLandUnit.UpdateMovementEffectsOnMotionEventChange( self, new, old )
+        NCommandUnit.UpdateMovementEffectsOnMotionEventChange( self, new, old )
     end,
 
 -- =================================================================================================================
@@ -371,7 +371,7 @@ XNL0301 = Class(NWalkingLandUnit) {
         if self:HasEnhancement('PowerArmor') then
             return false
         end
-        return NWalkingLandUnit.CanBeStunned(self)
+        return NCommandUnit.CanBeStunned(self)
     end,
 
 
@@ -809,7 +809,7 @@ XNL0301 = Class(NWalkingLandUnit) {
     
     
     CreateEnhancement = function(self, enh)
-        NWalkingLandUnit.CreateEnhancement(self, enh)
+        NCommandUnit.CreateEnhancement(self, enh)
         local bp = self:GetBlueprint().Enhancements[enh]
         if not bp then return end
 

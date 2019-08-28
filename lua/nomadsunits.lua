@@ -18,7 +18,7 @@ local ShieldStructureUnit = DefaultUnitsFile.ShieldStructureUnit
 local SonarUnit = DefaultUnitsFile.SonarUnit
 local StructureUnit = DefaultUnitsFile.StructureUnit
 local SubUnit = DefaultUnitsFile.SubUnit
-local WalkingLandUnit = DefaultUnitsFile.WalkingLandUnit
+local CommandUnit = DefaultUnitsFile.CommandUnit
 local WallStructureUnit = DefaultUnitsFile.WallStructureUnit
 local RadarJammerUnit = DefaultUnitsFile.RadarJammerUnit
 local HoverLandUnit = DefaultUnitsFile.HoverLandUnit
@@ -221,16 +221,12 @@ NExperimentalAirTransportUnit = Class(NAirTransportUnit) {
 ---------------------------------------------------------------
 --  LAND UNITS
 ---------------------------------------------------------------
-NLandUnit = Class(LandUnit) {
-
-}
+NLandUnit = Class(LandUnit) {}
 
 ---------------------------------------------------------------
 --  AMPHIBIOUS UNITS
 ---------------------------------------------------------------
-NAmphibiousUnit = Class(NLandUnit) {
-    -- on water speed multiplier moved to unit.lua per build 41
-}
+NAmphibiousUnit = Class(NLandUnit) {}
 
 ---------------------------------------------------------------
 --  HOVER LAND UNITS
@@ -366,12 +362,48 @@ NSeaUnit = Class(SeaUnit) {
 }
 
 ---------------------------------------------------------------
---  WALKING LAND UNITS
+--  WALKING COMMAND UNITS (only scu for now)
 ---------------------------------------------------------------
-NWalkingLandUnit = Class(WalkingLandUnit) {
+NCommandUnit = Class(CommandUnit) {
+
     WalkingAnimRate = 1,
     IdleAnimRate = 1,
     DisabledBones = {},
+
+    CreateBuildEffects = function( self, unitBeingBuilt, order )
+        -- If we are assisting an upgrading unit, or repairing a unit, play seperate effects
+        local UpgradesFrom = unitBeingBuilt:GetBlueprint().General.UpgradesFrom
+        local bones = self:GetBuildBones()
+        
+        if (order == 'Repair' and not unitBeingBuilt:IsBeingBuilt()) or (UpgradesFrom and UpgradesFrom ~= 'none' and self:IsUnitState('Guarding'))then
+            self.BuildEffectsBag:Add( NomadsEffectUtil.CreateRepairBuildBeams( self, unitBeingBuilt, bones, self.BuildEffectsBag ) )
+        else
+            self.BuildEffectsBag:Add( NomadsEffectUtil.CreateNomadsBuildSliceBeams( self, unitBeingBuilt, bones, self.BuildEffectsBag ) )
+        end
+    end,
+    
+    GetBuildBones = function(self) --we can then hook this to adapt build bones as needed
+        local bones = self:GetBlueprint().General.BuildBones.BuildEffectBones
+        return bones
+    end,
+
+    OnStopBuild = function(self, unitBuilding)
+        CommandUnit.OnStopBuild(self, unitBuilding)
+        if self.BuildRotator then
+            self.BuildRotator:SetGoal(0)
+        end
+        if self.BuildArmManipulator then
+            self.BuildArmManipulator:SetAimingArc(-180, 180, 360, -180, 180, 360)
+        end
+    end,
+
+    CreateReclaimEffects = function( self, target )
+        NomadsEffectUtil.PlayNomadsReclaimEffects( self, target, self:GetBlueprint().General.BuildBones.BuildEffectBones or {0,}, self.ReclaimEffectsBag )
+    end,
+
+    CreateReclaimEndEffects = function( self, target )
+        NomadsEffectUtil.PlayNomadsReclaimEndEffects( self, target, self.ReclaimEffectsBag )
+    end,
 }
 
 ---------------------------------------------------------------
