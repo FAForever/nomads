@@ -312,12 +312,14 @@ UnitBlueprint {
                 Weight = 100,
             },
         },
+        TransportAnimationSpeed = 2,
         TransportDropAnimation = {
             {
                 Animation = '/units/XNL0001/XNL0001_Fold.sca',
                 Weight = 100,
             },
         },
+        TransportDropAnimationSpeed = 0.95,
         UniformScale = 0.185,
     },
     Economy = {

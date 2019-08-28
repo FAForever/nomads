@@ -379,30 +379,6 @@ XNL0001 = Class(ACUUnit) {
         ACUUnit.UpdateMovementEffectsOnMotionEventChange( self, new, old )
     end,
 
-    -------- TRANSPORT ANIM --------
-    OnStartTransportBeamUp = function(self, transport, bone)
-        local slot = transport.slots[bone]
-        if slot then
-            self:GetAIBrain():OnTransportFull()
-            IssueClearCommands({self})
-            return
-        end
-        self:DestroyIdleEffects()
-        self:DestroyMovementEffects()
-        local army =  self:GetArmy()
-        table.insert( self.TransportBeamEffectsBag, AttachBeamEntityToEntity(self, -1, transport, bone, army, EffectTemplate.TTransportBeam01))
-        table.insert( self.TransportBeamEffectsBag, AttachBeamEntityToEntity( transport, bone, self, -1, army, EffectTemplate.TTransportBeam02))
-        table.insert( self.TransportBeamEffectsBag, CreateEmitterAtBone( transport, bone, army, EffectTemplate.TTransportGlow01) )
-        self:TransportAnimation(2)
-    end,
-    
-    OnDetachedFromTransport = function(self, transport, bone)
-        self:TransportAnimation(-0.95)
-        self:MarkWeaponsOnTransport(false)
-        self:EnableShield()
-        self:EnableDefaultToggleCaps()
-        self:DoUnitCallbacks( 'OnDetachedFromTransport', transport, bone)
-    end,
     -- =====================================================================================================================
     -- ORBITAL ENHANCEMENTS
 
