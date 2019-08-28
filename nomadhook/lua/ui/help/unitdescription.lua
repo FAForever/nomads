@@ -14,6 +14,7 @@ Description = table.merged( Description, {
     ['xnl0001-df'] = "<LOC NomadsACUEnh_DisruptiveField_Description>Creates a disruptive field around the ACU that damages all enemy units within range.",
     ['xnl0001-mlg'] = "<LOC NomadsACUEnh_OrbitalStroke_Description>Adds a device that coordinates attacks from orbit on enemy units near the ACU.",
     ['xnl0001-heo'] = "<LOC NomadsACUEnh_OrbitalBombardment_Description>Adds the ability to bombard an area from orbit.",
+	['xnl0001-hoa'] = "<LOC NomadsACUEnh_HeavyOrbitalBombardment_Description>Increases the number of missiles in the bombardment, as well as the area.",
     ['xnl0001-fltr'] = "<LOC NomadsACUEnh_FlameThrower_Description>Adds flamethrower",
     ['xnl0001-ed'] = "<LOC NomadsACUEnh_AreaReinforcement_Description>Allows deploying stationary reinforcements launched from orbit anywhere on the battlefield.",
     ['xnl0001-hamc2'] = "<LOC NomadsACUEnh_DoubleGuns_Description>All main gun damage (including overcharge) doubled by installing a second gun barrel next to the main gun.",

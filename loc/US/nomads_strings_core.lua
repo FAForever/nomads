@@ -125,6 +125,10 @@ NomadsACUEnh_OrbitalBombardment_Description = "Adds the ability to bombard a lim
 NomadsACUEnh_OrbitalBombardment_Help = "Orbital Bombardment"
 NomadsACUEnh_OrbitalBombardment_Remove = "Remove Orbital Bombardment"
 
+NomadsACUEnh_HeavyOrbitalBombardment_Description = "Increases the number of missiles in the bombardment, as well as the area."
+NomadsACUEnh_HeavyOrbitalBombardment_Help = "Heavy Orbital Bombardment"
+NomadsACUEnh_HeavyOrbitalBombardment_Remove = "Remove Heavy Orbital Bombardment"
+
 NomadsACUEnh_FlameThrower_Description = "Upgrades the main weapon to a flamethrower that damages all units in a line. Perfect against large groups of small to medium units."
 NomadsACUEnh_FlameThrower_Help = "Flamethrower"
 NomadsACUEnh_FlameThrower_Remove = "Remove Flamethrower"
