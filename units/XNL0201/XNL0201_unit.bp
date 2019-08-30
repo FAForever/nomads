@@ -80,7 +80,7 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 1,
     },
-    Description = '<LOC XNL0201_desc>Medium tank',
+    Description = '<LOC XNL0201_desc>Medium Tank',
     Display = {
         BuildEffect = {
             ExtendsFront = 0.03,
