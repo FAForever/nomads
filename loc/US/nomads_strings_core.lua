@@ -724,9 +724,9 @@ xnl0305_name = "Slugger"
 
 -- Air units
 -- Spy place
-xnl0302_desc = "Spy Plane"
-xnl0302_help = "State-of-the-art reconnaissance aircraft."
-xnl0302_name = "Beholder"
+xna0302_desc = "Spy Plane"
+xna0302_help = "State-of-the-art reconnaissance aircraft."
+xna0302_name = "Beholder"
 
 -- ASF
 xna0303_desc = "Air-Superiority Fighter"

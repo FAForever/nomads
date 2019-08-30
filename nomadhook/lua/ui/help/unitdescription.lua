@@ -183,7 +183,7 @@ Description = table.merged( Description, {
     ['xna0203'] = "<LOC xna0203_help>Torpedo Gunship",
     ['xna0104'] = "<LOC xna0104_help>Air Transport",
 
-    ['xnl0302'] = "<LOC xnl0302_help>Spy Plane",
+    ['xna0302'] = "<LOC xna0302_help>Spy Plane",
     ['xna0303'] = "<LOC xna0303_help>Air-Superiority Fighter",
     ['xna0304'] = "<LOC xna0304_help>Strategic Bomber",
     ['xna0305'] = "<LOC xna0305_help>Heavy Gunship",

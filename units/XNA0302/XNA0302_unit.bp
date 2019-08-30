@@ -220,7 +220,7 @@ UnitBlueprint {
         FactionName = 'Nomads',
         Icon = 'air',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = '<LOC XNA03021_name>Beholder',
+        UnitName = '<LOC XNA0302_name>Beholder',
         UnitWeight = 1,
     },
     Intel = {
@@ -230,7 +230,7 @@ UnitBlueprint {
         VisionRadius = 64,
     },
     Interface = {
-        HelpText = '<LOC XNA0302_help>Spy Plane',
+        HelpText = '<LOC XNA0302_help>State-of-the-art reconnaissance aircraft.',
     },
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.8,
