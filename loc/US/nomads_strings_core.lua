@@ -368,7 +368,7 @@ xnl0106_help = "Lightly armored hovering vehicle. Provides direct-fire support a
 xnl0106_name = "Grasshopper"
 
 -- T1 medium tank
-xnl0201_desc = "Medium tank"
+xnl0201_desc = "Medium Tank"
 xnl0201_help = "Armored medium tank. Armed with a single cannon, useful against lower tier units."
 xnl0201_name = "Orbis"
 
