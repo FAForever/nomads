@@ -167,7 +167,7 @@ UnitBlueprint {
         VisionRadius = 26,
     },
     Interface = {
-        HelpText = '<LOC XNL0302_help>Mobile AA',
+        HelpText = '<LOC XNL0302_help>Launches anti-air missiles at enemy aircraft.',
     },
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.4,

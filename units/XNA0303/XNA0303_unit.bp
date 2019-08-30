@@ -234,7 +234,7 @@ UnitBlueprint {
         VisionRadius = 32,
     },
     Interface = {
-        HelpText = '<LOC XNA0303_help>Air-Superiority Fighter',
+        HelpText = '<LOC XNA0303_help>Fast and agile anti-air fighter. Designed to engage all aircraft.',
     },
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.65,
