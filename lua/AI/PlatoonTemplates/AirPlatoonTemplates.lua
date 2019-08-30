@@ -409,7 +409,7 @@ PlatoonTemplate {
             { 'xsa0302', 1, 1, 'scout', 'GrowthFormation' }
         },
         Nomads = {
-            { 'xnl0302', 1, 1, 'scout', 'GrowthFormation' }
+            { 'xna0302', 1, 1, 'scout', 'GrowthFormation' }
         },
     }
 }

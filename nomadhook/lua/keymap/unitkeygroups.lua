@@ -567,7 +567,7 @@ unitkeygroups = {
 "uea0302",
 "ura0302",
 "xsa0302",
-"xnl0302",
+"xna0302",
 },
 ["T3_Air_Superiority_Fighter"] = {
 "uaa0303",
