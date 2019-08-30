@@ -5,6 +5,7 @@ UnitBlueprint {
         TargetLocation = {
             AreaOfEffect = 25,
             MaxRadius = -1,
+            AvailableNowUnit = 1, --Instantly available when enabled
         },
     },
 }
