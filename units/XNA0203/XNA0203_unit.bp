@@ -234,7 +234,7 @@ UnitBlueprint {
         VisionRadius = 32,
     },
     Interface = {
-        HelpText = '<LOC XNA0203_help>Torpedo Gunship',
+        HelpText = '<LOC XNA0203_help>Versatile anti-surface and anti-submarine gunship. Carries a gun and a torpedo launcher.',
     },
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.5,

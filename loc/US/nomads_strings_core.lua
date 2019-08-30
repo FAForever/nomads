@@ -545,7 +545,7 @@ xna0202_name = "Spitfire"
 
 -- T2 torpedo gunship
 xna0203_desc = "Torpedo Gunship"
-xna0203_help = "Versatile anti-surface and anti-submarine gunship. Carries a gun, a torpedo launcher."
+xna0203_help = "Versatile anti-surface and anti-submarine gunship. Carries a gun and a torpedo launcher."
 xna0203_name = "Vanguard"
 
 -- T2 transport
