@@ -146,8 +146,10 @@ XNL0001 = Class(ACUUnit) {
 		
         self.MassProduction = bp.Economy.ProductionPerSecondMass
         self.EnergyProduction = bp.Economy.ProductionPerSecondEnergy
-        self.RASMassProduction = bp.Enhancements.ResourceAllocation.ProductionPerSecondMass
-        self.RASEnergyProduction = bp.Enhancements.ResourceAllocation.ProductionPerSecondEnergy
+        self.RASMassProductionLow = bp.Enhancements.ResourceAllocation.ProductionPerSecondMassLow
+        self.RASEnergyProductionLow = bp.Enhancements.ResourceAllocation.ProductionPerSecondEnergyLow
+        self.RASMassProductionHigh = bp.Enhancements.ResourceAllocation.ProductionPerSecondMassHigh
+        self.RASEnergyProductionHigh = bp.Enhancements.ResourceAllocation.ProductionPerSecondEnergyHigh
     end,
 
 
@@ -542,15 +544,16 @@ XNL0001 = Class(ACUUnit) {
         
         ResourceAllocation = function(self, bp)
             self:AddToggleCap('RULEUTC_ProductionToggle')
-            self:SetProductionPerSecondEnergy(self.RASEnergyProduction)
+            self:SetProductionPerSecondEnergy(self.RASEnergyProductionLow)
+            self:SetProductionPerSecondMass(self.RASMassProductionHigh)
             self:SetScriptBit('RULEUTC_ProductionToggle', false)
         end,
         
         ResourceAllocationRemove = function(self, bp)
             self:SetScriptBit('RULEUTC_ProductionToggle', true)
             self:RemoveToggleCap('RULEUTC_ProductionToggle')
-            self:SetProductionPerSecondEnergy(20)
-            self:SetProductionPerSecondMass(1)
+            self:SetProductionPerSecondEnergy(self.EnergyProduction)
+            self:SetProductionPerSecondMass(self.MassProduction)
         end,
         
         RapidRepair = function(self, bp)
@@ -809,8 +812,8 @@ XNL0001 = Class(ACUUnit) {
     
     OnScriptBitSet = function(self, bit)
         if bit == 4 then -- Production toggle
-            self:SetProductionPerSecondMass(self.RASMassProduction)
-            self:SetProductionPerSecondEnergy(self.EnergyProduction)
+            self:SetProductionPerSecondMass(self.RASMassProductionLow)
+            self:SetProductionPerSecondEnergy(self.RASEnergyProductionHigh)
         else
             ACUUnit.OnScriptBitSet(self, bit)
         end
@@ -818,8 +821,8 @@ XNL0001 = Class(ACUUnit) {
 
     OnScriptBitClear = function(self, bit)
         if bit == 4 then -- Production toggle
-            self:SetProductionPerSecondMass(self.MassProduction)
-            self:SetProductionPerSecondEnergy(self.RASEnergyProduction)
+            self:SetProductionPerSecondMass(self.RASMassProductionHigh)
+            self:SetProductionPerSecondEnergy(self.RASEnergyProductionLow)
         else
             ACUUnit.OnScriptBitClear(self, bit)
         end
