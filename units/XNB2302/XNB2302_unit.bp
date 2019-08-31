@@ -56,8 +56,8 @@ UnitBlueprint {
         AirThreatLevel = 0,
         ArmorType = 'Structure',
         EconomyThreatLevel = 1190,
-        Health = 10000,
-        MaxHealth = 10000,
+        Health = 11500,
+        MaxHealth = 11500,
         RegenRate = 0,
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
@@ -97,9 +97,9 @@ UnitBlueprint {
         UniformScale = 0.48,
     },
     Economy = {
-        BuildCostEnergy = 1000000,
-        BuildCostMass = 82000,
-        BuildTime = 130000,
+        BuildCostEnergy = 900000,
+        BuildCostMass = 72000,
+        BuildTime = 115000,
         RebuildBonusIds = {
             'xnb2302',
         },
@@ -187,7 +187,7 @@ UnitBlueprint {
             ArtilleryShieldBlocks = false,
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
-            Damage = 3500,
+            Damage = 1000,
             DamageFriendly = true,
             DamageRadius = 6,
             DamageType = 'Normal',
@@ -205,8 +205,8 @@ UnitBlueprint {
             MaxRadius = 825,
             MinRadius = 150,
             MuzzleSalvoDelay = 0.1,
-            MuzzleSalvoSize = 1,
-            MuzzleVelocity = 72,
+            MuzzleSalvoSize = 6,
+            MuzzleVelocity = 70,
             ProjectileId = '/projectiles/NOrbitalMissile1/NOrbitalMissile1_proj.bp',
             RackBones = {
                 {
@@ -224,7 +224,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
             RangeCategory = 'UWRC_IndirectFire',
-            RateOfFire = 0.2,
+            RateOfFire = 0.1,
             RenderFireClock = true,
             TargetCheckInterval = 1,
             TargetPriorities = {

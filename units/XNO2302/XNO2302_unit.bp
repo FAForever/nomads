@@ -117,7 +117,6 @@ UnitBlueprint {
             RULEUCC_Transport = false,
         },
         FactionName = 'Nomads',
-        Icon = 'land',
         TechLevel = 'RULEUTL_Secret',
         UnitName = '<LOC xno2302>Orbital Artillery Gun',
         UnitWeight = 1,
@@ -164,8 +163,6 @@ UnitBlueprint {
     SizeX = 0.65,
     SizeY = 0.4,
     SizeZ = 0.9,
-    StrategicIconName = 'icon_structure3_artillery',
-    StrategicIconSortPriority = 175,
     Veteran = {
         Level1 = 30,
         Level2 = 60,
@@ -188,7 +185,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CannotAttackGround = false,
             CollideFriendly = false,
-            Damage = 3500,
+            Damage = 1000,
             DamageFriendly = true,
             DamageRadius = 6,
             DamageType = 'Normal',
@@ -204,9 +201,9 @@ UnitBlueprint {
             ManualFire = true,
             MaxRadius = 825,
             MinRadius = 150,
-            MuzzleChargeDelay = 0.5, --This should be set to the amount of time to turn half of a circle - this also means that turn rate should be high.
-            MuzzleSalvoDelay = 0,
-            MuzzleSalvoSize = 1,
+			MuzzleChargeDelay = 0.5, --This should be set to the amount of time to turn half of a circle - this also means that turn rate should be high.
+            MuzzleSalvoDelay = 0.1,
+            MuzzleSalvoSize = 6,
             MuzzleVelocity = 70,
             ProjectileId = '/projectiles/NArtilleryShell2/NArtilleryShell2_proj.bp',
             ProjectileLifetimeUsesMultiplier = 1.75,
