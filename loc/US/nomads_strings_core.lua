@@ -880,7 +880,7 @@ xna0401_name = "Comet"
 
 -- missile tank
 xnl0403_desc = "Experimental Missile Tank"
-xnl0403_help = "Experimental hover unit designed for long range attacks. Equipped with long range EMP missiles that saturate enemy tactical defenses and suppress armies, as well as short range gatling guns for self defense. Equipped with a nuclear missile silo."
+xnl0403_help = "Experimental hover unit designed for long range attacks. Equipped with long range missiles that saturate enemy tactical defenses and suppress armies, as well as short range gatling guns for self defense. Equipped with a nuclear missile silo."
 xnl0403_name = "Crawler"
 
 -- beam tank
