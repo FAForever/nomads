@@ -12,8 +12,8 @@ local AddAkimbo = import('/lua/nomadsutils.lua').AddAkimbo
 local NCommandUnit = import('/lua/nomadsunits.lua').NCommandUnit
 
 local APCannon1 = import('/lua/nomadsweapons.lua').APCannon1
-local EMPGun = import('/lua/nomadsweapons.lua').EMPGun
 local UnderwaterRailgunWeapon1 = import('/lua/nomadsweapons.lua').UnderwaterRailgunWeapon1
+local RocketWeapon1 = import('/lua/nomadsweapons.lua').RocketWeapon1
 local DeathEnergyBombWeapon = import('/lua/nomadsweapons.lua').DeathEnergyBombWeapon
 
 NCommandUnit = AddAkimbo(AddRapidRepair(NCommandUnit))
@@ -22,10 +22,19 @@ NCommandUnit = AddAkimbo(AddRapidRepair(NCommandUnit))
 XNL0301 = Class(NCommandUnit) {
 
     Weapons = {
-        MainGun = Class(AddRapidRepairToWeapon(APCannon1)) {},
-        EMPWeapon = Class(AddRapidRepairToWeapon(EMPGun)) {},
+        Rocket = Class(AddRapidRepairToWeapon(RocketWeapon1)) {
+		    OnCreate = function(self)
+                RocketWeapon1.OnCreate(self)
+                self:DisableBuff('STUN')
+            end,
+		},
         Torpedo = Class(AddRapidRepairToWeapon(UnderwaterRailgunWeapon1)) {},
-        Rocket = Class(AddRapidRepairToWeapon(UnderwaterRailgunWeapon1)) {},
+        MainGun = Class(AddRapidRepairToWeapon(APCannon1)) {
+            OnCreate = function(self)
+                APCannon1.OnCreate(self)
+                self:DisableBuff('STUN')
+            end,
+		},
         RASDeathWeapon = Class(DeathEnergyBombWeapon) {},
     },
 
@@ -52,7 +61,6 @@ XNL0301 = Class(NCommandUnit) {
         self:RemoveToggleCap('RULEUTC_SpecialToggle')
         self:SetWeaponEnabledByLabel( 'Torpedo', false )
         self:SetWeaponEnabledByLabel( 'Rocket', false )
-        self:SetWeaponEnabledByLabel( 'EMPWeapon', false )
         self:SetRapidRepairParams( 'NomadsSCURapidRepair', bp.Enhancements.RapidRepair.RepairDelay, bp.Enhancements.RapidRepair.InterruptRapidRepairByWeaponFired)
     
         self.Sync.Abilities = self:GetBlueprint().Abilities
@@ -181,12 +189,18 @@ XNL0301 = Class(NCommandUnit) {
     -- },
     
     EnhancementBehaviours = {
-        EMPWeapon = function(self, bp)
-            self:SetWeaponEnabledByLabel( 'EMPWeapon', true )
+        EMPWeapon = function(self, bp) --TODO: make this add splash and change projectiles for certain weapons
+            local wep = self:GetWeaponByLabel('MainGun')
+			local wbp = self:GetWeaponByLabel('Rocket')
+			wep:ReEnableBuff('STUN')
+            wbp:ReEnableBuff('STUN')
         end,
         
         EMPWeaponRemove = function(self, bp)
-            self:SetWeaponEnabledByLabel( 'EMPWeapon', false )
+            local wep = self:GetWeaponByLabel('MainGun')
+			local wbp = self:GetWeaponByLabel('Rocket')
+			wep:DisableBuff('STUN')
+            wbp:DisableBuff('STUN')
         end,
         
         EngineeringSuite = function(self, bp)
@@ -199,7 +213,7 @@ XNL0301 = Class(NCommandUnit) {
                     Duration = -1,
                     Affects = {
                         BuildRate = {
-                            Add =  bp.AddBuildRate,
+                            Add =  bp.NewBuildRate - self:GetBlueprint().Economy.BuildRate,
                             Mult = 1,
                         },
                     },
@@ -340,15 +354,14 @@ XNL0301 = Class(NCommandUnit) {
         
         GunUpgrade = function(self, bp)
             local wep = self:GetWeaponByLabel('MainGun')
-            wep:AddDamageMod(bp.MainGunDamageMod)
+            wep:ChangeRateOfFire(bp.NewRateOfFire)
             wep:ChangeMaxRadius(bp.NewMaxRadius or 30)
         end,
         
         GunUpgradeRemove = function(self, bp)
             local wep = self:GetWeaponByLabel('MainGun')
-            wep:AddDamageMod(-bp.MainGunDamageMod)
-            local bpDisrupt = self:GetBlueprint().Weapon[1].MaxRadius --needs to map to the main weapon in the table, update if you change the weapon list
-            wep:ChangeMaxRadius(bpDisrupt or 25)
+            wep:ChangeRateOfFire(self:GetBlueprint().Weapon[3].RateOfFire or 0.667)
+            wep:ChangeMaxRadius(self:GetBlueprint().Weapon[3].MaxRadius or 25)
         end,
         
         Generic = function(self, bp)
