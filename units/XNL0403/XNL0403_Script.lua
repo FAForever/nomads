@@ -3,7 +3,7 @@
 local AddLights = import('/lua/nomadsutils.lua').AddLights
 local NExperimentalHoverLandUnit = import('/lua/nomadsunits.lua').NExperimentalHoverLandUnit
 local NomadsWeaponsFile = import('/lua/nomadsweapons.lua')
-local EMPMissileWeapon = NomadsWeaponsFile.EMPMissileWeapon
+local TacticalMissileWeapon1 = import('/lua/nomadsweapons.lua').TacticalMissileWeapon1
 local MissileWeapon1 = NomadsWeaponsFile.MissileWeapon1
 local GattlingWeapon1 = NomadsWeaponsFile.GattlingWeapon1
 local StrategicMissileWeapon = import('/lua/nomadsweapons.lua').StrategicMissileWeapon
@@ -18,11 +18,11 @@ local SlowHover = import('/lua/defaultunits.lua').SlowHoverLandUnit
 XNL0403 = Class(NExperimentalHoverLandUnit, SlowHover) {
 
     Weapons = {
-        MainGun = Class(EMPMissileWeapon) {
+        MainGun = Class(TacticalMissileWeapon1) {
 
             TargetPool = {},
 
-            RackSalvoFiringState = State( EMPMissileWeapon.RackSalvoFiringState ) {
+            RackSalvoFiringState = State(TacticalMissileWeapon1.RackSalvoFiringState ) {
                 Main = function(self)
 
                     -- get the targets of all weapons and add them to the pool
@@ -38,12 +38,12 @@ XNL0403 = Class(NExperimentalHoverLandUnit, SlowHover) {
                         end
                     end
 
-                    EMPMissileWeapon.RackSalvoFiringState.Main( self )
+                    TacticalMissileWeapon1.RackSalvoFiringState.Main( self )
                 end,
             },
 
             CreateProjectileAtMuzzle = function(self, muzzle)
-                local proj = EMPMissileWeapon.CreateProjectileAtMuzzle(self, muzzle)
+                local proj = TacticalMissileWeapon1.CreateProjectileAtMuzzle(self, muzzle)
 
                 if table.getsize( self.TargetPool ) >= 1 then
                     local keys = table.keys( self.TargetPool )
