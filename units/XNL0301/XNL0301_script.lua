@@ -12,8 +12,8 @@ local AddAkimbo = import('/lua/nomadsutils.lua').AddAkimbo
 local NCommandUnit = import('/lua/nomadsunits.lua').NCommandUnit
 
 local APCannon1 = import('/lua/nomadsweapons.lua').APCannon1
-local EMPGun = import('/lua/nomadsweapons.lua').EMPGun
 local UnderwaterRailgunWeapon1 = import('/lua/nomadsweapons.lua').UnderwaterRailgunWeapon1
+local RocketWeapon1 = import('/lua/nomadsweapons.lua').RocketWeapon1
 local DeathEnergyBombWeapon = import('/lua/nomadsweapons.lua').DeathEnergyBombWeapon
 
 NCommandUnit = AddAkimbo(AddRapidRepair(NCommandUnit))
@@ -22,10 +22,21 @@ NCommandUnit = AddAkimbo(AddRapidRepair(NCommandUnit))
 XNL0301 = Class(NCommandUnit) {
 
     Weapons = {
-        MainGun = Class(AddRapidRepairToWeapon(APCannon1)) {},
-        EMPWeapon = Class(AddRapidRepairToWeapon(EMPGun)) {},
+        MainGun = Class(AddRapidRepairToWeapon(APCannon1)) {
+            OnCreate = function(self)
+                APCannon1.OnCreate(self)
+                -- Disable buff
+                self:DisableBuff('STUN')
+            end,
+		},
         Torpedo = Class(AddRapidRepairToWeapon(UnderwaterRailgunWeapon1)) {},
-        Rocket = Class(AddRapidRepairToWeapon(UnderwaterRailgunWeapon1)) {},
+        Rocket = Class(AddRapidRepairToWeapon(RocketWeapon1)) {
+		    OnCreate = function(self)
+                RocketWeapon1.OnCreate(self)
+                -- Disable buff
+                self:DisableBuff('STUN')
+            end,
+		},
         RASDeathWeapon = Class(DeathEnergyBombWeapon) {},
     },
 
@@ -49,7 +60,6 @@ XNL0301 = Class(NCommandUnit) {
         self:RemoveToggleCap('RULEUTC_SpecialToggle')
         self:SetWeaponEnabledByLabel( 'Torpedo', false )
         self:SetWeaponEnabledByLabel( 'Rocket', false )
-        self:SetWeaponEnabledByLabel( 'EMPWeapon', false )
         self:SetRapidRepairParams( 'NomadsSCURapidRepair', bp.Enhancements.RapidRepair.RepairDelay, bp.Enhancements.RapidRepair.InterruptRapidRepairByWeaponFired)
     
         self.Sync.Abilities = self:GetBlueprint().Abilities
@@ -178,11 +188,13 @@ XNL0301 = Class(NCommandUnit) {
     
     EnhancementBehaviours = {
         EMPWeapon = function(self, bp)
-            self:SetWeaponEnabledByLabel( 'EMPWeapon', true )
+            self:GetWeaponByLabel('MainGun'):ReEnableBuff('STUN')
+            self:GetWeaponByLabel('Rocket'):ReEnableBuff('STUN')
         end,
         
         EMPWeaponRemove = function(self, bp)
-            self:SetWeaponEnabledByLabel( 'EMPWeapon', false )
+            self:GetWeaponByLabel('MainGun'):DisableBuff('STUN')
+            self:GetWeaponByLabel('Rocket'):DisableBuff('STUN')
         end,
         
         EngineeringSuite = function(self, bp)
