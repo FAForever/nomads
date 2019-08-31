@@ -201,7 +201,7 @@ UnitBlueprint {
             ManualFire = true,
             MaxRadius = 825,
             MinRadius = 150,
-			MuzzleChargeDelay = 0.5, --This should be set to the amount of time to turn half of a circle - this also means that turn rate should be high.
+            MuzzleChargeDelay = 0.5, --This should be set to the amount of time to turn half of a circle - this also means that turn rate should be high.
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 6,
             MuzzleVelocity = 70,
