@@ -5,7 +5,15 @@ local OrbitalGun = import('/lua/nomadsweapons.lua').OrbitalGun
 
 xno2302 = Class(NOrbitUnit) {
     Weapons = {
-        MainGun = Class(OrbitalGun) {},
+        MainGun = Class(OrbitalGun) {
+            CreateProjectileAtMuzzle = function(self, muzzle)
+                local bp = self:GetBlueprint()
+                if bp.Audio.FireSpecial then
+                    self:PlaySound(bp.Audio.FireSpecial)
+                end
+                OrbitalGun.CreateProjectileAtMuzzle(self, muzzle)
+            end,
+        },
     },
 
     OnCreate = function(self)

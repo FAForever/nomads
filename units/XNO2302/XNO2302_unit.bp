@@ -176,7 +176,7 @@ UnitBlueprint {
             AimsStraightOnDisable = true,
             ArtilleryShieldBlocks = true,			
             Audio = {
-                Fire = Sound {
+                FireSpecial = Sound {
                     Bank = 'NomadsWeapons',
                     Cue = 'EnergyCannon_Muzzle',
                     LodCutoff = 'Weapon_LodCutoff',
