@@ -507,6 +507,11 @@ xnl0208_desc = "Engineer"
 xnl0208_help = "Tech 2 amphibious construction, repair, capture and reclamation unit."
 xnl0208_name = "Engineer"
 
+-- T2 field engineer
+xnl0209_desc = "Field Engineer"
+xnl0209_help = "Tech 2 hover construction, repair, capture and reclamation unit armed with a Flak Launcher, radar, and tactical missile defense. Can only build offensive buildings, no economy."
+xnl0209_name = "Scarab"
+
 -- T2 light tank
 xnl0203_desc = "Fast Assault Tank"
 xnl0203_help = "Assault tank, has a high movement speed and fast firing cannons."
@@ -710,11 +715,6 @@ xnl0304_name = "Mauler"
 xnl0302_desc = "Mobile Anti-Air Missile Launcher"
 xnl0302_help = "Launches anti-air missiles at enemy aircraft."
 xnl0302_name = "Watchman"
-
--- T2 mobile missile defense
-xnl0209_desc = "Field Engineer"
-xnl0209_help = "Hover unit equipped with engineering capabilities and a tactical missile defense installation. Can only construct offensive and defensive structures."
-xnl0209_name = "Scarab"
 
 -- T3 tracked tank
 xnl0305_desc = "Armored Assault Tank"
