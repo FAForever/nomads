@@ -509,7 +509,7 @@ xnl0208_name = "Engineer"
 
 -- T2 field engineer
 xnl0209_desc = "Field Engineer"
-xnl0209_help = "Tech 2 hover construction, repair, capture and reclamation unit armed with a Flak Launcher, radar, and tactical missile defense. Can only build offensive buildings, no economy."
+xnl0209_help = "Tech 2 hover construction, repair, capture and reclamation unit armed with radar and tactical missile defense. Can only build offensive buildings, no economy."
 xnl0209_name = "Scarab"
 
 -- T2 light tank
