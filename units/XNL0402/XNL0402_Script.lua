@@ -194,7 +194,7 @@ XNL0402 = Class(NLandUnit) {
         local fn = function(self)
             local army, emitrate, emitters, emit = self:GetArmy(), 0, {}, nil
             for k, v in NomadsEffectTemplate.PhaseRayChargeUpFxPerm do
-                emit = CreateAttachedEmitter(self, 'circle', army, v):OffsetEmitter(0, 0.1, 0)
+                emit = CreateAttachedEmitter(self, 'ReactorBeam01', army, v):OffsetEmitter(0, 0.1, 0)
                 table.insert( emitters, emit )
                 self.BeamChargeUpFxBag:Add( emit )
                 self.Trash:Add( emit )
@@ -226,14 +226,14 @@ XNL0402 = Class(NLandUnit) {
 
         local army, emit, beam = self:GetArmy(), nil, nil
         for k, v in NomadsEffectTemplate.PhaseRayFakeBeamMuzzle do
-            emit = CreateAttachedEmitter( self, 'beamstart', army, v ):OffsetEmitter(0, 0.1, 0)
+            emit = CreateAttachedEmitter( self, 'TurretYaw', army, v ):OffsetEmitter(0, 0.1, 0)
             self.BeamHelperFxBag:Add( emit )
             self.Trash:Add( emit )
         end
 
         -- create a beam between the body of the unit and the tiny aimer thing
         for k, v in NomadsEffectTemplate.PhaseRayFakeBeam do
-            beam = AttachBeamEntityToEntity(self, 'circle', self, "aim", army, v )
+            beam = AttachBeamEntityToEntity(self, 'ReactorBeam01', self, "XNL0402", army, v )
             self.BeamHelperFxBag:Add( beam )
             self.Trash:Add( beam )
         end
@@ -249,7 +249,7 @@ XNL0402 = Class(NLandUnit) {
     PlayAfterBeamEffects = function(self)
         local army = self:GetArmy()
         for k, v in NomadsEffectTemplate.PhaseRayFakeBeamMuzzleBeamingStopped do
-            emit = CreateAttachedEmitter( self, 'circle', army, v ):OffsetEmitter(0, 0.1, 0)
+            emit = CreateAttachedEmitter( self, 'ReactorBeam01', army, v ):OffsetEmitter(0, 0.1, 0)
         end
     end,
 
@@ -270,14 +270,14 @@ XNL0402 = Class(NLandUnit) {
 
         -- extra effect: explosion at the thingy that redirects the beam
         if self.Beaming then
-            Explosion.CreateDefaultHitExplosionAtBone(self, 'drone', 0.5 )
-            self:HideBone( 'drone', false)
+            Explosion.CreateDefaultHitExplosionAtBone(self, 'TurretPitch', 0.5 )
+            self:HideBone( 'TurretPitch', false)
         end
 
         WaitTicks( Random(2, 3) )
 
         -- Create Initial explosion effects
-        Explosion.CreateFlash( self, 'beamstart', 3, army )
+        Explosion.CreateFlash( self, 'ReactorBeam01', 3, army )
         CreateAttachedEmitter(self, 0, army, '/effects/emitters/destruction_explosion_concussion_ring_03_emit.bp'):ScaleEmitter(0.5)
         CreateAttachedEmitter(self, 0, army, '/effects/emitters/explosion_fire_sparks_02_emit.bp')
         CreateAttachedEmitter(self, 0, army, '/effects/emitters/distortion_ring_01_emit.bp'):ScaleEmitter(0.5)
@@ -306,7 +306,7 @@ XNL0402 = Class(NLandUnit) {
         local army = self:GetArmy()
 
         -- Create Initial explosion effects
-        Explosion.CreateFlash( self, 'beamstart', 2, army )
+        Explosion.CreateFlash( self, 'ReactorBeam01', 2, army )
         CreateAttachedEmitter(self, 0, army, '/effects/emitters/explosion_fire_sparks_02_emit.bp')
         CreateAttachedEmitter(self, 0, army, '/effects/emitters/distortion_ring_01_emit.bp'):ScaleEmitter(0.2)
         self:ShakeCamera(30, 4, 0, 1)
