@@ -772,6 +772,7 @@ XNL0001 = Class(ACUUnit) {
             self:AddCommandCap('RULEUCC_Tactical')
             self:AddCommandCap('RULEUCC_SiloBuildTactical')
             self:SetWeaponEnabledByLabel('TargetFinder', true)
+            self:GetWeaponByLabel('TargetFinder'):ChangeProjectileBlueprint('/projectiles/NIFOrbitalMissile02/NIFOrbitalMissile02_proj.bp')
         end,
         
         OrbitalBombardmentHeavyRemove = function(self, bp)
@@ -780,6 +781,7 @@ XNL0001 = Class(ACUUnit) {
             self:RemoveCommandCap('RULEUCC_Tactical')
             self:RemoveCommandCap('RULEUCC_SiloBuildTactical')
             self:SetWeaponEnabledByLabel('TargetFinder', false)
+            self:GetWeaponByLabel('TargetFinder'):ChangeProjectileBlueprint('/projectiles/NIFOrbitalMissile01/NIFOrbitalMissile01_proj.bp')
             local amt = self:GetTacticalSiloAmmoCount()
             self:RemoveTacticalSiloAmmo(amt or 0)
             self:StopSiloBuild()
