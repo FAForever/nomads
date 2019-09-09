@@ -183,98 +183,58 @@ UnitBlueprint {
                 {
                     MuzzleBones = {
                         'MissilePort01',
+                        'MissilePort02',
                     },
                     RackBone = 'MissilePort01',
                 },
                 {
                     MuzzleBones = {
                         'MissilePort11',
+                        'MissilePort12',
                     },
                     RackBone = 'MissilePort11',
                 },
                 {
                     MuzzleBones = {
-                        'MissilePort02',
-                    },
-                    RackBone = 'MissilePort02',
-                },
-                {
-                    MuzzleBones = {
-                        'MissilePort12',
-                    },
-                    RackBone = 'MissilePort12',
-                },
-                {
-                    MuzzleBones = {
                         'MissilePort03',
+                        'MissilePort04',
                     },
                     RackBone = 'MissilePort03',
                 },
                 {
                     MuzzleBones = {
                         'MissilePort13',
+                        'MissilePort14',
                     },
                     RackBone = 'MissilePort13',
                 },
                 {
                     MuzzleBones = {
-                        'MissilePort04',
-                    },
-                    RackBone = 'MissilePort04',
-                },
-                {
-                    MuzzleBones = {
-                        'MissilePort14',
-                    },
-                    RackBone = 'MissilePort14',
-                },
-                {
-                    MuzzleBones = {
                         'MissilePort05',
+                        'MissilePort06',
                     },
                     RackBone = 'MissilePort05',
                 },
                 {
                     MuzzleBones = {
                         'MissilePort15',
+                        'MissilePort16',
                     },
                     RackBone = 'MissilePort15',
                 },
                 {
                     MuzzleBones = {
-                        'MissilePort06',
-                    },
-                    RackBone = 'MissilePort06',
-                },
-                {
-                    MuzzleBones = {
-                        'MissilePort16',
-                    },
-                    RackBone = 'MissilePort16',
-                },
-                {
-                    MuzzleBones = {
                         'MissilePort07',
+                        'MissilePort08',
                     },
                     RackBone = 'MissilePort07',
                 },
                 {
                     MuzzleBones = {
                         'MissilePort17',
-                    },
-                    RackBone = 'MissilePort17',
-                },
-                {
-                    MuzzleBones = {
-                        'MissilePort08',
-                    },
-                    RackBone = 'MissilePort08',
-                },
-                {
-                    MuzzleBones = {
                         'MissilePort18',
                     },
-                    RackBone = 'MissilePort18',
+                    RackBone = 'MissilePort17',
                 },
             },
             RackFireTogether = false,
@@ -326,103 +286,33 @@ UnitBlueprint {
             MuzzleVelocity = 22,
             ProjectileId = '/projectiles/NOrbitalMissile1/NOrbitalMissile1_proj.bp',
             ProjectileLifetimeUsesMultiplier = 1.75,
-            ProjectilesPerOnFire = 1,
+            ProjectilesPerOnFire = 8,
             RackBones = {
                 {
                     MuzzleBones = {
                         'MissilePort01',
+                        'MissilePort02',
+                        'MissilePort03',
+                        'MissilePort04',
+                        'MissilePort05',
+                        'MissilePort06',
+                        'MissilePort07',
+                        'MissilePort08',
                     },
                     RackBone = 'MissilePort01',
                 },
                 {
                     MuzzleBones = {
                         'MissilePort11',
-                    },
-                    RackBone = 'MissilePort11',
-                },
-                {
-                    MuzzleBones = {
-                        'MissilePort02',
-                    },
-                    RackBone = 'MissilePort02',
-                },
-                {
-                    MuzzleBones = {
                         'MissilePort12',
-                    },
-                    RackBone = 'MissilePort12',
-                },
-                {
-                    MuzzleBones = {
-                        'MissilePort03',
-                    },
-                    RackBone = 'MissilePort03',
-                },
-                {
-                    MuzzleBones = {
                         'MissilePort13',
-                    },
-                    RackBone = 'MissilePort13',
-                },
-                {
-                    MuzzleBones = {
-                        'MissilePort04',
-                    },
-                    RackBone = 'MissilePort04',
-                },
-                {
-                    MuzzleBones = {
                         'MissilePort14',
-                    },
-                    RackBone = 'MissilePort14',
-                },
-                {
-                    MuzzleBones = {
-                        'MissilePort05',
-                    },
-                    RackBone = 'MissilePort05',
-                },
-                {
-                    MuzzleBones = {
                         'MissilePort15',
-                    },
-                    RackBone = 'MissilePort15',
-                },
-                {
-                    MuzzleBones = {
-                        'MissilePort06',
-                    },
-                    RackBone = 'MissilePort06',
-                },
-                {
-                    MuzzleBones = {
                         'MissilePort16',
-                    },
-                    RackBone = 'MissilePort16',
-                },
-                {
-                    MuzzleBones = {
-                        'MissilePort07',
-                    },
-                    RackBone = 'MissilePort07',
-                },
-                {
-                    MuzzleBones = {
                         'MissilePort17',
-                    },
-                    RackBone = 'MissilePort17',
-                },
-                {
-                    MuzzleBones = {
-                        'MissilePort08',
-                    },
-                    RackBone = 'MissilePort08',
-                },
-                {
-                    MuzzleBones = {
                         'MissilePort18',
                     },
-                    RackBone = 'MissilePort18',
+                    RackBone = 'MissilePort11',
                 },
             },
             RackFireTogether = false,
