@@ -57,6 +57,10 @@ NIFOrbitalBombardmentWeapon = Class(DefaultProjectileWeapon) {
 
 NIFTargetFinderWeapon = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = {},
+    CreateProjectileAtMuzzle = function(self, muzzle)
+        local target = self:GetCurrentTargetPos()
+        self.unit:OrbitalStrikeTargets({target})
+    end,
 }
 
 

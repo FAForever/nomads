@@ -72,16 +72,7 @@ XNL0001 = Class(ACUUnit) {
         },
 
         DeathWeapon = Class(DeathNuke) {},
-
-        --Instead of creating the projectile, we order the frigate to strike there.
-        TargetFinder = Class(NIFTargetFinderWeapon) {
-            FxMuzzleFlash = {},
-
-            CreateProjectileAtMuzzle = function(self, muzzle)
-                local target = self:GetCurrentTargetPos()
-                self.unit:OrbitalStrikeTargets({target})
-            end,
-        },
+        TargetFinder = Class(NIFTargetFinderWeapon) {},
     },
 
     __init = function(self)
