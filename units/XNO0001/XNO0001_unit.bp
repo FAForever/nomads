@@ -176,7 +176,7 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 2,
             MuzzleVelocity = 22,
-            ProjectileId = '/projectiles/NOrbitalMissile1/NOrbitalMissile1_proj.bp',
+            ProjectileId = '/projectiles/NIFOrbitalMissile01/NIFOrbitalMissile01_proj.bp',
             ProjectileLifetimeUsesMultiplier = 1.75,
             ProjectilesPerOnFire = 1,
             RackBones = {
@@ -284,7 +284,7 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 8,
             MuzzleVelocity = 22,
-            ProjectileId = '/projectiles/NOrbitalMissile1/NOrbitalMissile1_proj.bp',
+            ProjectileId = '/projectiles/NIFOrbitalMissile01/NIFOrbitalMissile01_proj.bp',
             ProjectileLifetimeUsesMultiplier = 1.75,
             ProjectilesPerOnFire = 8,
             RackBones = {

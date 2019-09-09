@@ -1,0 +1,95 @@
+ProjectileBlueprint {
+    Audio = {
+        Impact = Sound {
+            Bank = 'Impacts',
+            Cue = 'CYB_Expl_Med_Impact',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+        ImpactTerrain = Sound {
+            Bank = 'Impacts',
+            Cue = 'Impact_Land_Gen_CYBRAN',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+        ImpactWater = Sound {
+            Bank = 'Impacts',
+            Cue = 'Impact_Water_Splash_CYBRAN',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+    },
+    Categories = {
+        'NOMADS',
+        'PROJECTILE',
+        'INDIRECTFIRE',
+        'TACTICAL',
+        'MISSILE',
+    },
+    Defense = {
+        Health = 1,
+        MaxHealth = 1,
+    },
+    Display = {
+        ImpactEffects = {
+            Type = 'Large01',
+        },
+        Mesh = {
+            LODs = {
+                {
+                    AlbedoName = '/projectiles/CDFRocketIridium01/CDFRocketIridium01_albedo.dds',
+                    LODCutoff = 150,
+                    MeshName = '/projectiles/CDFRocketIridium01/CDFRocketIridium01_lod0.scm',
+                    ShaderName = 'TMeshAlpha',
+                },
+            },
+        },
+        StrategicIconSize = 2,
+        Trail = {
+            -- A trail that is added to the projectile when it supposedly enters the planets (denser) atmosphere
+            AtmosphereHeight = 65,
+            Effect = 'OrbitalStrikeMissile_AtmosphereTrail',
+        },
+        UniformScale = 0.8,
+    },
+    Economy = {
+        BuildCostEnergy = 40000,
+        BuildCostMass = 400,
+        BuildTime = 200,
+    },
+    General = {
+        Category = 'Missile',
+        EntityCategory = {
+            'NOMADS',
+            'PROJECTILE',
+            'INDIRECTFIRE',
+            'TACTICAL',
+            'MISSILE',
+        },
+        Faction = 'NOMADS',
+    },
+    Interface = {
+        HelpText = 0,
+    },
+    Physics = {
+        Acceleration = 5,
+        DestroyOnWater = true,
+        MaxSpeed = 65,
+        MaxZigZag = 3,
+        TurnRate = 300,
+        TrackTarget = true,
+        TrackTargetGround = true,
+        UseGravity = false,
+        VelocityAlign = true,
+        ZigZagFrequency = 1,
+        -- stage 1: aim across towards target
+        MaxSpeedS1 = 22,
+        TurnRateS2 = 50,
+        ZigZagFrequencyS1 = 0.4,
+        -- stage 2: aim downwards
+        MaxSpeedS2 = 18,
+        TurnRateS2 = 50,
+        ZigZagFrequencyS2 = 1,
+        -- stage 3: just before impact
+        MaxSpeedS3 = 18,
+        TurnRateS3 = 90,
+        ZigZagFrequencyS3 = 1,
+    },
+}
