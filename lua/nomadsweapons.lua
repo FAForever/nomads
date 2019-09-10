@@ -63,6 +63,153 @@ NIFTargetFinderWeapon = Class(DefaultProjectileWeapon) {
     end,
 }
 
+-- -----------------------------------------------------------------------------------------------------
+-- Beam Weapons
+-- -----------------------------------------------------------------------------------------------------
+NDFPlasmaBeamWeapon = Class(DefaultBeamWeapon) {
+    BeamType = NomadsCollisionBeamFile.NomadsPhaseRay,
+    FxChargeMuzzleFlash = NomadsEffectTemplate.PhaseRayMuzzle,
+    
+    DoChargeUpEffects = function(self)
+        -- this plays when the unit packs and unpacks, so both directions
+        local fn = function(self)
+            local frac, oldfrac = 0, -1
+            if self.UnpackAnimator then frac = self.UnpackAnimator:GetAnimationFraction() end
+            self.unit:PlayBeamChargeUpSequence()
+            self.unit:ScaleBeamChargeupEffects( frac )
+            while self and self.unit and not self.unit.Dead do
+                if self.UnpackAnimator then
+                    frac = self.UnpackAnimator:GetAnimationFraction()
+                    self.unit:ScaleBeamChargeupEffects( math.min(frac, 1) )
+                    if (frac >= 1 and oldfrac < frac) or (frac <= 0 and oldfrac > frac) then break end
+                    oldfrac = frac
+                end
+                WaitTicks(1)
+            end
+            if frac < 1 then  -- leaving the effects cleaned up by another process if we're charging up
+                self.unit:DestroyBeamChargeUpEffects()
+            end
+        end
+        self.unit.BeamHelperFxBag:Add( self:ForkThread( fn ) )
+    end,
+
+    PlayFxBeamStart = function(self, muzzle)
+
+        local beam = false
+        for k, v in self.Beams do   -- find beam
+            if v.Muzzle == muzzle then
+                beam = v.Beam
+                break
+            end
+        end
+
+        if beam and not beam:IsEnabled() then  -- beam exists but is not active
+
+            -- ativate beam
+            beam:Enable()
+            self.unit.Trash:Add(beam)
+            self.unit.Beaming = true
+
+            -- additional effects
+            self.unit:DestroyBeamChargeUpEffects()
+            self.unit:PlayFakeBeamEffects()
+            local bp = self:GetBlueprint()
+            if bp.Audio.BeamStart then self:PlaySound(bp.Audio.BeamStart) end
+            if bp.Audio.BeamLoop and self.Beams[1].Beam then self.Beams[1].Beam:SetAmbientSound(bp.Audio.BeamLoop, nil) end
+
+            -- check for hold fire
+            if not bp.ContinuousBeam and bp.BeamLifetime > 0 then
+                self:ForkThread( self.BeamLifetimeThread, beam, bp.BeamLifetime or 1)
+            else
+                self.HoldFireThread = self:ForkThread(self.WatchForHoldFire, beam)
+            end
+
+        elseif beam then  -- nothing to do
+            return
+
+        else  -- no beam exist, error
+            error('*ERROR: We have a beam created that does not coincide with a muzzle bone.  Internal Error, aborting beam weapon.', 2)
+        end
+    end,
+
+    PlayFxBeamEnd = function(self, beam)
+
+        if self.HoldFireThread then
+            KillThread( self.HoldFireThread )
+        end
+
+        -- destroy unit effects and beam
+        self.unit:DestroyBeamChargeUpEffects()
+        self.unit:DestroyFakeBeamEffects()
+        local bp = self:GetBlueprint()
+        if bp.Audio.BeamStop and self.unit.Beaming then self:PlaySound(bp.Audio.BeamStop) end
+        if bp.Audio.BeamLoop and self.Beams[1].Beam then self.Beams[1].Beam:SetAmbientSound(nil, nil) end
+
+        -- find current beam(s) and disable them
+        if beam then
+            beam:Disable()
+        else
+            for k, v in self.Beams do
+                v.Beam:Disable()
+            end
+        end
+        self.unit.Beaming = false
+    end,
+
+    BeamLifetimeThread = function(self, beam, lifeTime)  -- this is used for a beams lifetime
+        WaitSeconds(lifeTime)
+        self:PlayFxBeamEnd(beam)
+    end,
+
+    WatchForHoldFire = function(self, beam)
+        while true do
+            WaitSeconds(1)
+            if self.unit and self.unit:GetFireState() == 1 then   --if we're at hold fire, stop beam
+                self.BeamStarted = false
+                self:PlayFxBeamEnd(beam)
+            end
+        end
+    end,
+
+    PlayFxWeaponUnpackSequence = function(self)
+        -- this is forked by another process. Injecting the charge up effect.
+        self:DoChargeUpEffects()
+
+        -- play charge up sound, but only when it should
+        local bp = self:GetBlueprint()
+        if bp.Audio.ChargingBeam and not self.ChargeSoundPlayed and (not self.UnpackAnimator or self.UnpackAnimator:GetAnimationFraction() <= 0.1) then
+            self:PlaySound(bp.Audio.ChargingBeam)
+            self.ChargeSoundPlayed = true
+        end
+
+        DefaultBeamWeapon.PlayFxWeaponUnpackSequence(self)
+
+        -- default script bug fix: it doesn't handle properly if we're packing when this function is called. Making
+        -- sure we unpack before firing. Also requires the code in WeaponUnpackingState
+        if self.UnpackAnimator then
+            self.UnpackAnimator:SetRate(bp.WeaponUnpackAnimationRate)
+            WaitFor(self.UnpackAnimator)
+            self.ChargeSoundPlayed = false
+        end
+    end,
+
+    WeaponUnpackingState = State(DefaultBeamWeapon.WeaponUnpackingState) {
+        Main = function(self)
+            -- the next line is also part of the bug fix mentioned in PlayFxWeaponUnpackSequence()
+            self:PlayFxWeaponUnpackSequence()
+            return DefaultBeamWeapon.WeaponUnpackingState.Main(self)
+        end,
+    },
+
+    WeaponPackingState = State(DefaultBeamWeapon.WeaponPackingState) {
+         -- shut down beam before packing up
+         Main = function(self)
+            WaitTicks(1)   -- wait a tick before shutting down the beam, in case we suddenly have another target
+            self:PlayFxBeamEnd(self.Beams[1].Beam)
+            return DefaultBeamWeapon.WeaponPackingState.Main(self)
+        end,
+    },
+}
 
 -- -----------------------------------------------------------------------------------------------------
 -- LEGACY WEAPONS - These are used by older versions of nomads, and as such have an older organisation structure.
