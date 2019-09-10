@@ -5,6 +5,7 @@ local NDFPlasmaBeamWeapon = import('/lua/nomadsweapons.lua').NDFPlasmaBeamWeapon
 local Explosion = import('/lua/defaultexplosions.lua')
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
+local RenameBeamEmitterToColoured = import('/lua/nomadsutils.lua').RenameBeamEmitterToColoured
 
 XNL0402 = Class(NLandUnit) {
 
@@ -84,7 +85,8 @@ XNL0402 = Class(NLandUnit) {
 
         -- create a beam between the body of the unit and the tiny aimer thing
         for k, v in NomadsEffectTemplate.PhaseRayFakeBeam do
-            beam = AttachBeamEntityToEntity(self, 'ReactorBeam01', self, "XNL0402", army, v )
+            local beamBp = RenameBeamEmitterToColoured(v,self.ColourIndex) --our beam is coloured so we recolour the emitter as well.
+            beam = AttachBeamEntityToEntity(self, 'ReactorBeam01', self, "XNL0402", army, beamBp )
             self.BeamHelperFxBag:Add( beam )
             self.Trash:Add( beam )
         end
