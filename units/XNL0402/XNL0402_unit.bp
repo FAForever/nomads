@@ -1,6 +1,15 @@
 -- T4 Beamer
 
 UnitBlueprint {
+    AI = {
+        TargetBones = {
+            'BeamWeaponFrame',
+            'ExhaustPorts01',
+            'ExhaustPorts11',
+            'RearEngine01',
+            'RearEngine11',
+        },
+    },
     Audio = {
         AmbientMove = Sound {
             Bank = 'UEL',
