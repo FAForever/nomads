@@ -5,7 +5,6 @@ local NDFPlasmaBeamWeapon = import('/lua/nomadsweapons.lua').NDFPlasmaBeamWeapon
 local Explosion = import('/lua/defaultexplosions.lua')
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
-local RandomFloat = import('/lua/utilities.lua').GetRandomFloat
 
 XNL0402 = Class(NLandUnit) {
 
@@ -22,11 +21,22 @@ XNL0402 = Class(NLandUnit) {
     end,
 
     OnDestroy = function(self)
-        self:DestroyBeamChargeUpEffects()
         self:DestroyFakeBeamEffects()
         NLandUnit.OnDestroy(self)
     end,
 
+    OnGotTarget = function(self, Weapon)
+        NLandUnit.OnGotTarget(self, Weapon)
+        self:PlayFakeBeamEffects()
+        self.Beaming = true
+    end,
+
+    OnLostTarget = function(self, Weapon)
+        NLandUnit.OnLostTarget(self, Weapon)
+        self:DestroyFakeBeamEffects()
+        self.Beaming = false
+    end,
+    
     OnDetachedFromTransport = function(self, transport, transportBone)
         NLandUnit.OnDetachedFromTransport(self, transport, transportBone)
 
@@ -44,7 +54,7 @@ XNL0402 = Class(NLandUnit) {
         local fn = function(self)
             local army, emitrate, emitters, emit = self:GetArmy(), 0, {}, nil
             for k, v in NomadsEffectTemplate.PhaseRayChargeUpFxPerm do
-                emit = CreateAttachedEmitter(self, 'ReactorBeam01', army, v):OffsetEmitter(0, 0.1, 0)
+                emit = CreateAttachedEmitter(self, 'ReactorBeam01', army, v):OffsetEmitter(0, 0.1, 0) --flashing light
                 table.insert( emitters, emit )
                 self.BeamChargeUpFxBag:Add( emit )
                 self.Trash:Add( emit )
@@ -63,17 +73,8 @@ XNL0402 = Class(NLandUnit) {
         self.BeamChargeUpFxBag:Add( thread )
     end,
 
-    ScaleBeamChargeupEffects = function(self, scale)
-        self.BeamChargeupEffectScale = scale
-    end,
-
-    DestroyBeamChargeUpEffects = function(self)
-        self.BeamChargeUpFxBag:Destroy()
-    end,
-
     PlayFakeBeamEffects = function(self)
         -- this is just for the beam that emits from the unit body to the 'mirror' on floating above the unit
-
         local army, emit, beam = self:GetArmy(), nil, nil
         for k, v in NomadsEffectTemplate.PhaseRayFakeBeamMuzzle do
             emit = CreateAttachedEmitter( self, 'TurretYaw', army, v ):OffsetEmitter(0, 0.1, 0)
@@ -91,15 +92,12 @@ XNL0402 = Class(NLandUnit) {
 
     DestroyFakeBeamEffects = function(self)
         self.BeamHelperFxBag:Destroy()
+        self.BeamChargeUpFxBag:Destroy()
         if self.Beaming then
-            self:PlayAfterBeamEffects()
-        end
-    end,
-
-    PlayAfterBeamEffects = function(self)
-        local army = self:GetArmy()
-        for k, v in NomadsEffectTemplate.PhaseRayFakeBeamMuzzleBeamingStopped do
-            emit = CreateAttachedEmitter( self, 'ReactorBeam01', army, v ):OffsetEmitter(0, 0.1, 0)
+            local army = self:GetArmy()
+            for k, v in NomadsEffectTemplate.PhaseRayFakeBeamMuzzleBeamingStopped do
+                emit = CreateAttachedEmitter( self, 'ReactorBeam01', army, v ):OffsetEmitter(0, 0.1, 0) --fading light
+            end
         end
     end,
 
