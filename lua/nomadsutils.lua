@@ -176,14 +176,17 @@ SetBeamsToColoured = function(self, BeamsToColour) --Replace specified emitter b
     for _, EmitterList in BeamsToColour do
         if self[EmitterList] then
             for k, Emitter in self[EmitterList] do
-                if string.sub(Emitter,-3) == '.bp' then
-                    self[EmitterList][k] = string.sub(Emitter,1,-4) .. math.floor(100*self.ColourIndex)
-                else
-                    self[EmitterList][k] = string.sub(Emitter,1,-6) .. math.floor(100*self.ColourIndex)
-                end
+                self[EmitterList][k] = RenameBeamEmitterToColoured(Emitter, self.ColourIndex)
             end
         end
     end
+end
+
+RenameBeamEmitterToColoured = function(BeamName, ArmyColourIndex)
+    if string.sub(BeamName,-3) == '.bp' then
+        return string.sub(BeamName,1,-4) .. math.floor(100*ArmyColourIndex)
+    end
+    return string.sub(BeamName,1,-6) .. math.floor(100*ArmyColourIndex)
 end
 
 --TODO:Rename self.FactionColour, and set it to allow individual blueprints
