@@ -11,7 +11,6 @@ XNL0402 = Class(NLandUnit) {
 
     Weapons = {
         MainGun = Class(NDFPlasmaBeamWeapon) {},
-        MainGunTransported = Class(NDFPlasmaBeamWeapon) {},
     },
 
     OnCreate = function(self)
@@ -22,32 +21,30 @@ XNL0402 = Class(NLandUnit) {
     end,
 
     OnDestroy = function(self)
-        self:DestroyFakeBeamEffects()
+        if not self.BeamDisableThread then
+            self.BeamDisableThread = self:ForkThread( self.BeamEffectsDisableThread )
+        end
         NLandUnit.OnDestroy(self)
     end,
 
     OnGotTarget = function(self, Weapon)
         NLandUnit.OnGotTarget(self, Weapon)
-        self:PlayFakeBeamEffects()
+        --in case we are disabling the beam effects, cancel the thread instead of recreating
+        if self.BeamDisableThread then
+            KillThread(self.BeamDisableThread)
+            self.BeamDisableThread = nil
+        else
+            self:PlayFakeBeamEffects()
+        end
         self.Beaming = true
     end,
 
     OnLostTarget = function(self, Weapon)
         NLandUnit.OnLostTarget(self, Weapon)
-        self:DestroyFakeBeamEffects()
-        self.Beaming = false
-    end,
-    
-    OnDetachedFromTransport = function(self, transport, transportBone)
-        NLandUnit.OnDetachedFromTransport(self, transport, transportBone)
-
-        -- reset weapon in case it was firing from transport
-        local wep = self:GetWeaponByLabel('MainGunTransported')
-        if wep and self.Beaming then
-            wep.AllowBeamShutdown = true
-            wep:PlayFxBeamEnd()
-            wep:ResetTarget()
+        if not self.BeamDisableThread and self.Beaming then
+            self.BeamDisableThread = self:ForkThread( self.BeamEffectsDisableThread )
         end
+        self.Beaming = false
     end,
 
     PlayBeamChargeUpSequence = function(self)
@@ -76,6 +73,13 @@ XNL0402 = Class(NLandUnit) {
 
     PlayFakeBeamEffects = function(self)
         -- this is just for the beam that emits from the unit body to the 'mirror' on floating above the unit
+
+        -- play charge up sound, but only when it should
+        local bp = self:GetBlueprint()
+        if bp.Audio.ChargeBeam then
+            self:PlaySound(bp.Audio.ChargeBeam)
+        end
+        
         local army, emit, beam = self:GetArmy(), nil, nil
         for k, v in NomadsEffectTemplate.PhaseRayFakeBeamMuzzle do
             emit = CreateAttachedEmitter( self, 'TurretYaw', army, v ):OffsetEmitter(0, 0.1, 0)
@@ -92,7 +96,10 @@ XNL0402 = Class(NLandUnit) {
         end
     end,
 
-    DestroyFakeBeamEffects = function(self)
+    --wait time needed to allow the beamer to retarget without the fake beam being turned on and off all the time
+    --currently this relies on completing everything instantly after the wait time. if this changes, more thinking is needed
+    BeamEffectsDisableThread = function(self)
+        WaitTicks(10)
         self.BeamHelperFxBag:Destroy()
         self.BeamChargeUpFxBag:Destroy()
         if self.Beaming then
@@ -101,6 +108,8 @@ XNL0402 = Class(NLandUnit) {
                 emit = CreateAttachedEmitter( self, 'ReactorBeam01', army, v ):OffsetEmitter(0, 0.1, 0) --fading light
             end
         end
+        
+        self.BeamDisableThread = nil
     end,
 
     -- ---------------------------------------------------------------------------------------------------------------

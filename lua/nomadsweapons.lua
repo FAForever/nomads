@@ -70,6 +70,7 @@ NDFPlasmaBeamWeapon = Class(DefaultBeamWeapon) {
     BeamType = NomadsCollisionBeamFile.NomadsPhaseRay,
     FxChargeMuzzleFlash = NomadsEffectTemplate.PhaseRayMuzzle,
     
+    --TODO:refactor this away, we shouldnt need to scale effects every tick like that
     DoChargeUpEffects = function(self)
         -- this plays when the unit packs and unpacks, so both directions
         local fn = function(self)
@@ -94,34 +95,34 @@ NDFPlasmaBeamWeapon = Class(DefaultBeamWeapon) {
     end,
 
     PlayFxWeaponUnpackSequence = function(self)
-        -- this is forked by another process. Injecting the charge up effect.
         self:DoChargeUpEffects()
-
-        -- play charge up sound, but only when it should
-        local bp = self:GetBlueprint()
-        if bp.Audio.ChargingBeam and not self.ChargeSoundPlayed and (not self.UnpackAnimator or self.UnpackAnimator:GetAnimationFraction() <= 0.1) then
-            self:PlaySound(bp.Audio.ChargingBeam)
-            self.ChargeSoundPlayed = true
-        end
-
         DefaultBeamWeapon.PlayFxWeaponUnpackSequence(self)
-
-        -- default script bug fix: it doesn't handle properly if we're packing when this function is called. Making
-        -- sure we unpack before firing. Also requires the code in WeaponUnpackingState
-        if self.UnpackAnimator then
-            self.UnpackAnimator:SetRate(bp.WeaponUnpackAnimationRate)
-            WaitFor(self.UnpackAnimator)
-            self.ChargeSoundPlayed = false
-        end
     end,
-
-    WeaponUnpackingState = State(DefaultBeamWeapon.WeaponUnpackingState) {
-        Main = function(self)
-            -- the next line is also part of the bug fix mentioned in PlayFxWeaponUnpackSequence()
-            self:PlayFxWeaponUnpackSequence()
-            return DefaultBeamWeapon.WeaponUnpackingState.Main(self)
-        end,
-    },
+    
+    -- we swap the unpack animation when we are loaded into the transport
+    SetOnTransport = function(self, transportstate)--true when on transport
+        DefaultBeamWeapon.SetOnTransport(self, transportstate)
+        self:SetWeaponEnabled(false)
+        self:ForkThread( self.TransportAnimationThread, transportstate)
+    end,
+    
+    TransportAnimationThread = function(self, transportstate)--true when on transport
+        local bp = self:GetBlueprint()
+        if not self.UnpackAnimator then
+            self.UnpackAnimator = CreateAnimator(self.unit)
+        end
+        if self.UnpackAnimator:GetAnimationFraction() > 0 then
+            self.UnpackAnimator:SetRate(-bp.WeaponUnpackAnimationRate)
+            WaitFor(self.UnpackAnimator)
+        end
+        if transportstate then
+            self.UnpackAnimator:PlayAnim(bp.WeaponUnpackAnimationTransported):SetRate(0)
+        else
+            self.UnpackAnimator:PlayAnim(bp.WeaponUnpackAnimation):SetRate(0)
+        end
+        self:SetWeaponEnabled(true)
+        self:ResetTarget()
+    end,
 }
 
 -- -----------------------------------------------------------------------------------------------------
