@@ -5,13 +5,17 @@ local NDFPlasmaBeamWeapon = import('/lua/nomadsweapons.lua').NDFPlasmaBeamWeapon
 local Explosion = import('/lua/defaultexplosions.lua')
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
-local RenameBeamEmitterToColoured = import('/lua/nomadsutils.lua').RenameBeamEmitterToColoured
+local NomadsUtils = import('/lua/nomadsutils.lua')
+local RenameBeamEmitterToColoured = NomadsUtils.RenameBeamEmitterToColoured
+local CreateAttachedEmitterColoured = NomadsUtils.CreateAttachedEmitterColoured
 
 XNL0402 = Class(NLandUnit) {
 
     Weapons = {
         MainGun = Class(NDFPlasmaBeamWeapon) {},
     },
+    
+    FactionColour = true, --allow emitters to be recoloured on this unit
 
     OnCreate = function(self)
         NLandUnit.OnCreate(self)
@@ -52,7 +56,7 @@ XNL0402 = Class(NLandUnit) {
         local fn = function(self)
             local army, emitrate, emitters, emit = self:GetArmy(), 0, {}, nil
             for k, v in NomadsEffectTemplate.PhaseRayChargeUpFxPerm do
-                emit = CreateAttachedEmitter(self, 'ReactorBeam01', army, v):OffsetEmitter(0, 0.1, 0) --flashing light
+                emit = CreateAttachedEmitterColoured(self, 'ReactorBeam02', army, v)--:OffsetEmitter(0, 0.1, 0) --flashing light
                 table.insert( emitters, emit )
                 self.BeamChargeUpFxBag:Add( emit )
                 self.Trash:Add( emit )
@@ -83,7 +87,7 @@ XNL0402 = Class(NLandUnit) {
         self.BeamHelperFxBag:Destroy() --clear any existing effects in case of stacking
         local army, emit, beam = self:GetArmy(), nil, nil
         for k, v in NomadsEffectTemplate.PhaseRayFakeBeamMuzzle do
-            emit = CreateAttachedEmitter( self, 'TurretYaw', army, v ):OffsetEmitter(0, 0.1, 0)
+            emit = CreateAttachedEmitterColoured( self, 'ReactorBeam01', army, v )--:OffsetEmitter(0, 0.1, 0)
             self.BeamHelperFxBag:Add( emit )
             self.Trash:Add( emit )
         end
@@ -91,7 +95,7 @@ XNL0402 = Class(NLandUnit) {
         -- create a beam between the body of the unit and the tiny aimer thing
         for k, v in NomadsEffectTemplate.PhaseRayFakeBeam do
             local beamBp = RenameBeamEmitterToColoured(v,self.ColourIndex) --our beam is coloured so we recolour the emitter as well.
-            beam = AttachBeamEntityToEntity(self, 'ReactorBeam01', self, "XNL0402", army, beamBp )
+            beam = AttachBeamEntityToEntity(self, 'ReactorBeam01', self, "ReactorBeam02", army, beamBp )
             self.BeamHelperFxBag:Add( beam )
             self.Trash:Add( beam )
         end
@@ -106,7 +110,7 @@ XNL0402 = Class(NLandUnit) {
         if self.Beaming then
             local army = self:GetArmy()
             for k, v in NomadsEffectTemplate.PhaseRayFakeBeamMuzzleBeamingStopped do
-                emit = CreateAttachedEmitter( self, 'ReactorBeam01', army, v ):OffsetEmitter(0, 0.1, 0) --fading light
+                emit = CreateAttachedEmitterColoured( self, 'ReactorBeam01', army, v )--:OffsetEmitter(0, 0.1, 0) --fading light
             end
         end
         
