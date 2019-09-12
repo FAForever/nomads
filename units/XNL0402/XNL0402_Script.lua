@@ -80,6 +80,7 @@ XNL0402 = Class(NLandUnit) {
             self:PlaySound(bp.Audio.ChargeBeam)
         end
         
+        self.BeamHelperFxBag:Destroy() --clear any existing effects in case of stacking
         local army, emit, beam = self:GetArmy(), nil, nil
         for k, v in NomadsEffectTemplate.PhaseRayFakeBeamMuzzle do
             emit = CreateAttachedEmitter( self, 'TurretYaw', army, v ):OffsetEmitter(0, 0.1, 0)
