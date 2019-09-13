@@ -6,7 +6,7 @@ local GetWorldViews = import('/lua/ui/game/worldview.lua').GetWorldViews
 
 function GetRangeCheckUnitsScript( TaskName )
     local army = GetFocusArmy()
-    return GetAbilityUnitsFromTable(ArmyUnitAbilitiesTable[army], TaskName)
+    return GetAbilityUnitsFromTable(ArmyUnitAbilitiesTable[army], TaskName, true)
 end
 
 function MapReticulesToUnitIdsScript( TaskName, ReticulePositions, Units, UnitIds )
