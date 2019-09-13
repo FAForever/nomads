@@ -49,8 +49,6 @@ AIBrain = Class(oldAIBrain) {
     --]]
     
     
-    BrainSpecialAbilities = {},
-    UnitSpecialAbilities = {},
     
     --abilities get added, removed, changed
     SetSpecialAbility = function(self, abilityName, data)
@@ -76,7 +74,6 @@ AIBrain = Class(oldAIBrain) {
     SetUnitSpecialAbility = function(self, unit, abilityName, data)
         local unitId = unit:GetEntityId()
         --replace unit argument with unitId argument?
-        
         if data == 'Remove' then
             if self.UnitSpecialAbilities[unitId][abilityName] then
                 self.UnitSpecialAbilities[unitId][abilityName] = nil
@@ -88,13 +85,10 @@ AIBrain = Class(oldAIBrain) {
                 self.UnitSpecialAbilities[unitId] = {}
             end
             if not self.UnitSpecialAbilities[unitId][abilityName] then
-                self.UnitSpecialAbilities[unitId][abilityName] = data
-            else
-                --TODO: some table.merged?
-                for key,value in data do
-                    self.UnitSpecialAbilities[unitId][abilityName][key] = value
-                end
+                self.UnitSpecialAbilities[unitId][abilityName] = {}
             end
+            
+            self.UnitSpecialAbilities[unitId][abilityName] = table.merged(self.UnitSpecialAbilities[unitId][abilityName], data)
         else
             WARN('Nomads: SetUnitSpecialAbility: Attempt to set special ability '..repr(abilityName)..' on unit ['..repr(unit:GetUnitId())..'] with malformed data! | data =  ('..repr(data)..')')
         end
@@ -133,7 +127,6 @@ AIBrain = Class(oldAIBrain) {
     
     --this makes sure that the abilities table matches the units, both in listed and currently available abilities.
     CheckAbilities = function(self)
-        --dont run more than once per tick (danger - make sure it doesnt miss any updates - add a queue function and a loop. the queue function sets to true, the loop runs the check and then resets the queue function.)
         --add any missing abilities
         --remove any unused abilities
         
@@ -151,7 +144,6 @@ AIBrain = Class(oldAIBrain) {
             for AbilityName, Ability in abilityTypes do
                 --discount disabled abilities. if all units have it disabled, the ability disappears from the panel.
                 if Ability.Enabled == false then continue end
-                
                 if not AbilityUpdateQueue[AbilityName] then
                     AbilityUpdateQueue[AbilityName] = 0
                 end
@@ -163,6 +155,7 @@ AIBrain = Class(oldAIBrain) {
             end
         end
         
+        --update and remove abilities from the brain table
         for Ability, AbilityData in self.BrainSpecialAbilities do
             if AbilityUpdateQueue[Ability] then
                 --self.BrainSpecialAbilities[Ability]['AvailableNow'] = AbilityUpdateQueue[Ability]
@@ -185,6 +178,7 @@ AIBrain = Class(oldAIBrain) {
     end,
 
 
+    --TODO: refactor these away, they arent used as part of the new abilities code.
     SpecialAbilities = {},
     SpecialAbilityUnits = {},
     SpecialAbilityRangeCheckUnits = {},
@@ -235,11 +229,6 @@ AIBrain = Class(oldAIBrain) {
         return units
     end,
 
-    GetSpecialAbilityRangeCheckUnitIds = function(self, type)
-        self:GetSpecialAbilityRangeCheckUnits(type)  -- only for cleaning up the table, not interested in the results of this call
-        return self.SpecialAbilityRangeCheckUnits[type]
-    end,
-
     GetSpecialAbilityParam = function(self, type, param1, param2)
         local r
         if type and param1 and self.SpecialAbilities[ type ][ param1 ] then
@@ -250,38 +239,6 @@ AIBrain = Class(oldAIBrain) {
             end
         end
         return r
-    end,
-
-    -- ================================================================================================================
-    -- ORBITAL REINFORCEMENT
-    -- ================================================================================================================
-
-    OrbitalReinforcementReady = false,
-
-    PrepareOrbitalReinforcement = function(self)
-        -- has the ship construct a reinforcement unit which can then be used with the special ability.
-        if not self.OrbitalReinforcementReady and Factions[self:GetFactionIndex()].Category == 'NOMADS' then
-            StartAbilityCoolDown( self:GetArmyIndex(), 'NomadsAreaReinforcement' )
-            local ship = self.NomadsMothership
-            local unitType = self:GetSpecialAbilityParam( 'NomadsAreaReinforcement', 'UnitType' ) or AbilityDefinition['NomadsAreaReinforcement']['ExtraInfo']['UnitType'] or 'xna0203'
-            local readyFn = function(self)      -- self is the constructed unit, not the brain
-                local brain = self:GetAIBrain()
-                --brain:AddSpecialAbilityUnit( self, 'NomadsAreaReinforcement', false )
-                brain:SetOrbitalReinforcementReady(true)
-            end
-            ship:AddToConstructionQueue( unitType, readyFn )
-        else
-            --DisableSpecialAbility( 'NomadsAreaReinforcement' )
-        end
-    end,
-
-    SetOrbitalReinforcementReady = function(self, ready)
-        self.OrbitalReinforcementReady = (ready == true)
-        if self.OrbitalReinforcementReady then
-            --EnableSpecialAbility( 'NomadsAreaReinforcement' )
-        else
-            --DisableSpecialAbility( 'NomadsAreaReinforcement' )
-        end
     end,
 
     -- ================================================================================================================
@@ -296,6 +253,9 @@ AIBrain = Class(oldAIBrain) {
         self.CapEnergyNeeded = 0
         self.CapLastFrac = -1
         self.CapEconIsOk = true
+        
+        self.BrainSpecialAbilities = {}
+        self.UnitSpecialAbilities = {}
 
         oldAIBrain.CreateBrainShared(self, planName)
 
