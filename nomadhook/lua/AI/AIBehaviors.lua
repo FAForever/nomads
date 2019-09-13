@@ -433,7 +433,7 @@ function CommanderBombardThread(cdr, platoon)
         -- decide if we need to do range checks
         DoRangeCheck = AbilityDef.ExtraInfo.DoRangeCheck
         if DoRangeCheck then
-            AbilityRangeCheckUnits = brain:GetSpecialAbilityRangeCheckUnits( AbilityName )
+            AbilityRangeCheckUnits = brain:GetUnitsWithAbility(abilityName)
             for k, unit in AbilityRangeCheckUnits do
                 if unit:GetBlueprint().SpecialAbilities[AbilityName].MaxRadius == -1 then
                     DoRangeCheck = false
@@ -647,7 +647,7 @@ function CommanderBombardThread(cdr, platoon)
 
 
             -- launch bombardment at found location
-            IssueScript( brain:GetSpecialAbilityUnits( AbilityName ), commandData )
+            IssueScript( brain:GetUnitsWithAbility(abilityName), commandData )
 
             target = nil
             targetUnits = nil
@@ -846,7 +846,7 @@ function CommanderIntelProbeThread(cdr, platoon)
                 Location = location,
                 TaskName = AbilityName,
             }
-            IssueScript( brain:GetSpecialAbilityUnits( AbilityName ), commandData )
+            IssueScript( brain:GetUnitsWithAbility(abilityName), commandData )
 
             -- Wait till ability is available again
             WaitSeconds( AbilityDef.ExtraInfo.CoolDownTime + 0.5 )

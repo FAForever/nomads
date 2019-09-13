@@ -177,58 +177,19 @@ AIBrain = Class(oldAIBrain) {
         end
     end,
 
+    --returns a list of units that have an ability and are ready to use it. Used by AI
+    GetUnitsWithAbility = function(self, AbilityName)
+        local AbilityUnitsList = {}
+        for unitID,abilityTypes in self.UnitSpecialAbilities do
+            if abilityTypes[abilityName] and abilityTypes[abilityName]['AvailableNow'] and abilityTypes[abilityName]['Enabled'] ~= false then
+                table.insert(AbilityUnitsList,unitID)
+            end
+        end
+        return AbilityUnitsList
+    end,
 
-    --TODO: refactor these away, they arent used as part of the new abilities code.
+    --TODO: refactor this away, its arent used as part of the new abilities code.
     SpecialAbilities = {},
-    SpecialAbilityUnits = {},
-    SpecialAbilityRangeCheckUnits = {},
-
-    GetSpecialAbilityUnits = function(self, type)
-        local units = {}
-        if self.SpecialAbilityUnits[type] then
-            local remove = {}
-
-            -- compile list of units in this type of special ability
-            for uid, available in self.SpecialAbilityUnits[type] do
-                local unit = GetEntityById(uid)
-                if unit and not unit:BeenDestroyed() then
-                    table.insert( units, unit )
-                else
-                    table.insert( remove, uid )
-                end
-            end
-
-            -- remove bad entries from the table so we won't get them next time
-            for k, uid in remove do
-                self.SpecialAbilityUnits[type][uid] = nil
-            end
-        end
-        return units
-    end,
-
-    GetSpecialAbilityRangeCheckUnits = function(self, type)
-        local units = {}
-        if self.SpecialAbilityRangeCheckUnits[type] then
-            local remove = {}
-
-            -- compile list of units in this type of special ability
-            for k, v in self.SpecialAbilityRangeCheckUnits[type] do
-                local unit = GetEntityById(v)
-                if unit and not unit:BeenDestroyed() then
-                    table.insert( units, unit )
-                else
-                    table.insert( remove, v )
-                end
-            end
-
-            -- remove bad entries from the table so we won't get them next time
-            for k, v in remove do
-                table.removeByValue( self.SpecialAbilityRangeCheckUnits[type], v )
-            end
-        end
-        return units
-    end,
-
     GetSpecialAbilityParam = function(self, type, param1, param2)
         local r
         if type and param1 and self.SpecialAbilities[ type ][ param1 ] then
@@ -244,15 +205,7 @@ AIBrain = Class(oldAIBrain) {
     -- ================================================================================================================
 
     CreateBrainShared = function(self, planName)
-        self.RequestedUnitPool = {}
-        self.SpecialAbilities = {}
-        self.SpecialAbilityUnits = {}
-        self.CapacitorUnits = {}
-        self.CapNumOfUnits = 0
-        self.CapNumOfUnitsCharging = 0
-        self.CapEnergyNeeded = 0
-        self.CapLastFrac = -1
-        self.CapEconIsOk = true
+        self.SpecialAbilities = {}--TODO:refactor this away
         
         self.BrainSpecialAbilities = {}
         self.UnitSpecialAbilities = {}
