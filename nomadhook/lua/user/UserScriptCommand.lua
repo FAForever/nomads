@@ -26,7 +26,7 @@ function VerifyScriptCommand(data)
 
     -- get units associated with this task
     if abilDef.GetAllUnitsFile then
-        result.UnitIds = GetAvailableAbilityUnits( TaskName )
+        result.UnitIds = GetAvailableAbilityUnits(TaskName, true)
         for k, id in result.UnitIds do
             table.insert( result.Units, GetUnitById(id) )
         end

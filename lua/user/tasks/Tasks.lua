@@ -4,11 +4,6 @@ local AbilityDefinition = import('/lua/abilitydefinition.lua').abilities
 local GetWorldViews = import('/lua/ui/game/worldview.lua').GetWorldViews
 --local CM = import('/lua/ui/game/commandmode.lua')
 
-function GetRangeCheckUnitsScript( TaskName )
-    local army = GetFocusArmy()
-    return GetAbilityUnitsFromTable(ArmyUnitAbilitiesTable[army], TaskName, true)
-end
-
 function MapReticulesToUnitIdsScript( TaskName, ReticulePositions, Units, UnitIds )
     -- Maps units to reticule positions so each unit can be given the most optimal position to fire its ability on. This is quite complex
     -- because we want to use the nearest unit for each reticule and also we consider the number of reticules the unit can handle at the
@@ -72,7 +67,6 @@ end
 -- --------------------------------------------------
 
 AbilityUnits = {}
-AbilityRangeCheckUnits = {}
 ArmyUnitAbilitiesTable = {}
 --[[
 ArmyUnitAbilitiesTable = {
@@ -91,11 +85,14 @@ UpdateArmyUnitsTable = function(unitAbilitiesTable)
     ArmyUnitAbilitiesTable[army] = unitAbilitiesTable
 end
 
-GetAvailableAbilityUnits = function(abilityName)
-    -- TODO: consider energy needs. The Eye of Rianne needs energy to run so we may want to dynamically filter out units
-    -- based on the current supply and energy available.
+GetAvailableAbilityUnits = function(abilityName, selectFilter)
     local army = GetFocusArmy()
-    return DoUnitSelectedFilter(abilityName, GetAbilityUnitsFromTable(ArmyUnitAbilitiesTable[army], abilityName, true))
+    local unitsList = GetAbilityUnitsFromTable(ArmyUnitAbilitiesTable[army], abilityName, true)
+    if selectFilter then
+        return DoUnitSelectedFilter(abilityName, unitsList)
+    end
+    
+    return unitsList
 end
 
 --filters out units with abilities from a table.
@@ -119,25 +116,6 @@ DoUnitSelectedFilter = function(abilityName, unitIds)
         unitIds = table.filter(unitIds, function(v) return table.find(mode[2].SelectedUnits, v) end)
     end
     return unitIds
-end
-
-SetAbilityRangeCheckUnits = function(abilityName, army, unitIds)
-    -- used to add a single unit id for range checking, or more than one (provided as a table)
-    --LOG('*DEBUG: SetAbilityRangeCheckUnits() abilityName = '..repr(abilityName)..' army = '..repr(army)..' unitIds = '..repr(unitIds))
-    if army and unitIds and army >= 0 and army <= 16 and AbilityDefinition[abilityName] then
-        if not AbilityRangeCheckUnits[abilityName] then
-            AbilityRangeCheckUnits[abilityName] = {}
-        end
-        if not AbilityRangeCheckUnits[abilityName][army] then
-            AbilityRangeCheckUnits[abilityName][army] = {}
-        end
-
-        AbilityRangeCheckUnits[abilityName][army] = unitIds
-        --LOG('*DEBUG: SetAbilityRangeCheckUnits() result = '..repr(AbilityRangeCheckUnits[abilityName][army]))
-        return true
-    end
-    --LOG('*DEBUG: SetAbilityRangeCheckUnits() bad values')
-    return false
 end
 
 -- internal - MapReticulesToUnitIdsScript

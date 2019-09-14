@@ -7,9 +7,7 @@ local Utilities = import('/lua/utilities.lua')
 --TODO: rename the tasks file to something else, or possibly remove it entirely
 TasksFile = import( '/lua/user/tasks/Tasks.lua' )
 VerifyScriptCommand2 = TasksFile.VerifyScriptCommand
---MapReticulesToUnitIdsScript = TasksFile.MapReticulesToUnitIdsScript
 GetAvailableAbilityUnits = TasksFile.GetAvailableAbilityUnits
-GetRangeCheckUnitsScript = TasksFile.GetRangeCheckUnitsScript
 
 ReticuleSizeCorrection = 1.4
 ReticuleIdCounter = 0
@@ -32,7 +30,6 @@ WorldView = Class(oldWorldView) {
     OnDestroy = function(self)
         self:DestroyTargetReticules()
         self:DestroyRangeDecals()
-        self:DestroyActiveReticules()
         oldWorldView.OnDestroy(self)
     end,
 
@@ -61,7 +58,7 @@ WorldView = Class(oldWorldView) {
             end
             self:SetCursorImg(mousePos)
         else
-            if self.AbilityCommandMode ~= false then  -- also run UnsetAbility when variable is nil (after game start)
+            if self.AbilityCommandMode ~= false then  -- also run when variable is nil (after game start)
                 self:UnsetAbility()
             end
             oldWorldView.OnUpdateCursor(self)
@@ -124,7 +121,7 @@ WorldView = Class(oldWorldView) {
                     local dx = mousePos[1] - self.DragStartPos[1]
                     local dz = mousePos[3] - self.DragStartPos[3]
                     self.DragAngle = (90 - ((math.atan2(dz, dx) * 180) / math.pi)) / 180 * math.pi
-                    local maxDelta = self:GetDragMaxDelta()
+                    local maxDelta = self.TargetReticuleSize / 2
                     self.DragDelta = VDist2(self.DragStartPos[1], self.DragStartPos[3], mousePos[1], mousePos[3] )
                     self.UseMaxSpread = false
                     if self.DragDelta > maxDelta then
@@ -225,15 +222,14 @@ WorldView = Class(oldWorldView) {
             self.AllowDraging = false
             self.AbilityCommandMode = false
             self.AbilityData = nil
+            self.AbilityUnitsList = nil
         end
     end,
 
-    GetAbilityData = function(self, name)
     -- TODO: Try to get rid of this function as much as possible
+    GetAbilityData = function(self, name)
         if self.AbilityData then
-            if not name then
-                return self.AbilityData
-            elseif name == 'DoRangeCheck' then
+            if name == 'DoRangeCheck' then
                 if self.AbilityData.ExtraInfo.DoRangeCheck then
                     return self.AbilityData.ExtraInfo.DoRangeCheck
                 else
@@ -269,7 +265,7 @@ WorldView = Class(oldWorldView) {
         local i = table.getsize(self.TargetReticules)
         if i < self.ReticuleCountMax then
             for k=(i+1), self.ReticuleCountMax do
-                self:CreateTargetReticule(worldPos)
+                self:CreateTargetReticule(Vector(0,0,0))
             end
             -- TODO: find out why its needed to update twice here. if not done twice when adding a reticule (left click) it is put in a weird position
             self:UpdateTargetReticules(worldPos, offset, angle)
@@ -340,9 +336,8 @@ WorldView = Class(oldWorldView) {
         if offset and DragAngle and UseNumReticules and reticuleNumber then
             local angleInc = (2*math.pi) / UseNumReticules
             local offsetAmount = offset
-            --if UseNumReticules < 4 or not self.UseMaxSpread then
             if not (UseNumReticules >= 4 and self.UseMaxSpread) then
-                offsetAmount = math.min(offset, self:GetDragMaxDelta())
+                offsetAmount = math.min(offset, ReticulePosOffset)
             end
         
             local r = (DragAngle + (angleInc * reticuleNumber))
@@ -353,7 +348,7 @@ WorldView = Class(oldWorldView) {
         
         reticule.InRange = true
         reticule.Position = worldPosition
-        reticule:SetPosition(table.copy({ worldPosition[1] + ReticulePosOffset, worldPosition[2], worldPosition[3] + ReticulePosOffset })) --why is this table.copy?
+        reticule:SetPosition(table.copy({ worldPosition[1] + ReticulePosOffset, worldPosition[2], worldPosition[3] + ReticulePosOffset }))
         reticule:SetScale(Vector(self.TargetReticuleSize, 1, self.TargetReticuleSize))
     end,
 
@@ -375,7 +370,7 @@ WorldView = Class(oldWorldView) {
     end,
 
     GetUnitsThatCanFireOn = function(self, pos, offset)
-        local units = self:GetAbilityUnits()
+        local units = self:GetAbilityUnits(true)
         if self:GetAbilityData('DoRangeCheck') then
             local name = self:GetAbilityData('Name')
             local UnitsInRange = {}
@@ -425,7 +420,7 @@ WorldView = Class(oldWorldView) {
 
         -- check unit can be aided by range extender. If yes, check if position is within range
         if CanUseRangeExtenders then
-            local decals = self:GetRangeDecals()
+            local decals = self.RangeDecals
             for k, decal in decals do
                 MaxRadius = decal.MaxRadius
                 if MaxRadius <= 0 then
@@ -475,7 +470,7 @@ WorldView = Class(oldWorldView) {
     CreateRangeDecals = function(self)
         if self:GetAbilityData('DoRangeCheck') then
             self.RangeDecals = {}
-            local units = self:GetRangeCheckUnits()
+            local units = self:GetAbilityUnits(true)
             if units then
                 for id, unit in units do
                     self:CreateRangeDecal(unit)
@@ -485,7 +480,7 @@ WorldView = Class(oldWorldView) {
     end,
 
     UpdateRangeDecals = function(self)
-        local decals = self:GetRangeDecals()
+        local decals = self.RangeDecals
         local upos
         for k, decal in decals do
             if decal and decal.UnitAttached and not decal.UnitAttached:IsDead() and decal.UnitAttached.GetPosition then
@@ -499,7 +494,7 @@ WorldView = Class(oldWorldView) {
     end,
 
     DestroyRangeDecals = function(self)
-        local decals = self:GetRangeDecals()
+        local decals = self.RangeDecals
         if decals then
             for k, decal in decals do
                 decal:Destroy()
@@ -522,37 +517,11 @@ WorldView = Class(oldWorldView) {
         end
     end,
 
-    GetRangeDecals = function(self)
-        return self.RangeDecals
-    end,
-
-    GetTargetReticuleSize = function(self)
-        return self.TargetReticuleSize
-    end,
-
-    GetDragMaxDelta = function(self)
-        return (self.TargetReticuleSize / 2)
-    end,
-
-    GetAbilityUnits = function(self)
+    GetAbilityUnits = function(self, selectionFilter)
         local name = self:GetAbilityData('Name')
-        local unitIds = GetAvailableAbilityUnits(name) or {}
+        local unitIds = GetAvailableAbilityUnits(name, selectionFilter) or {}
         local units = {}
         local unit
-        for k, unitId in unitIds do
-            unit = GetUnitById(unitId)
-            if unit then
-                units[ unitId ] = unit
-            end
-        end
-        return units
-    end,
-
-    GetRangeCheckUnits = function(self)
-        local name = self:GetAbilityData('Name')
-        local unitIds = GetRangeCheckUnitsScript(name) or {}
-        local unit
-        local units = {}
         for k, unitId in unitIds do
             unit = GetUnitById(unitId)
             if unit then
@@ -565,24 +534,28 @@ WorldView = Class(oldWorldView) {
     InitializeVariables = function(self)
         self:DetermineTargetReticuleSize()
 
+        self.DragAngle = 0
+        self.DragDelta = math.max(0, math.min(1, self.Behavior.DragDelta or 0)) * self.TargetReticuleSize / 2
+        if self.Behavior.DragDelta > 1 and self.Behavior.AllowMaxSpread ~= false then
+            self.DragDelta = self.TargetReticuleSize
+            self.UseMaxSpread = true
+        end
+        self:UpdateVariables()
+    end,
+    
+    UpdateVariables = function(self)
+        self.AbilityUnitsList = self:GetAbilityUnits(true) --TODO:make this correspond to the selection criteria
         self:DetermineTargetReticuleCountMinMax()
         if self.Behavior.AllReticulesAtStart then
             self.ReticuleCount = self.ReticuleCountMax
         else
             self.ReticuleCount = self.ReticuleCountMin
         end
-
-        self.DragAngle = 0
-        self.DragDelta = math.max(0, math.min(1, self.Behavior.DragDelta or 0)) * self:GetDragMaxDelta()
-        if self.Behavior.DragDelta > 1 and self.Behavior.AllowMaxSpread ~= false then
-            self.DragDelta = self.TargetReticuleSize
-            self.UseMaxSpread = true
-        end
     end,
 
     DetermineTargetReticuleCountMinMax = function(self)
         -- initialize reticule count, basically go through units and see how many they can offer
-        local units = self:GetAbilityUnits()
+        local units = self:GetAbilityUnits(true)
         if units then
             self.ReticuleCountMax = 0
             self.ReticuleCountMin = 99999
@@ -610,7 +583,7 @@ WorldView = Class(oldWorldView) {
             self.TargetReticuleSize = self.Behavior.ReticuleSizeOverride * 2  -- correction radius diameter
         else
             self.TargetReticuleSize = 0
-            local units = self:GetAbilityUnits()
+            local units = self:GetAbilityUnits(true)
             if units then
                 local ubp
                 local name = self:GetAbilityData('Name')
@@ -634,7 +607,6 @@ WorldView = Class(oldWorldView) {
     end,
 
     GetTargetLocations = function(self)
---        local reticules = self.ActiveReticules
         local reticules = self.TargetReticules
         local positions = {}
         if reticules then
@@ -645,21 +617,6 @@ WorldView = Class(oldWorldView) {
             end
         end
         return positions
-    end,
-
-    DeriveActiveReticulesFromTargetReticules = function(self)
-        self.ActiveReticules = table.deepcopy(self.TargetReticules)
-        self.TargetReticules = nil
-    end,
-
-    DestroyActiveReticules = function(self)
-        local reticules = self.ActiveReticules
-        if reticules then
-            for k, reticule in reticules do
-                reticule:Destroy()
-            end
-        end
-        self.ActiveReticules = nil
     end,
 }
 
