@@ -83,6 +83,10 @@ ArmyUnitAbilitiesTable = {
 UpdateArmyUnitsTable = function(unitAbilitiesTable)
     local army = GetFocusArmy()
     ArmyUnitAbilitiesTable[army] = unitAbilitiesTable
+    --update any world views with the new list of units
+    for k, view in GetWorldViews() do
+        view:OnAbilityUnitsListUpdated()
+    end
 end
 
 GetAvailableAbilityUnits = function(abilityName, selectFilter)
