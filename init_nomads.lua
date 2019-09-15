@@ -17,7 +17,7 @@ local function clear_cache()
     local dir = SHGetFolderPath('LOCAL_APPDATA') .. 'Gas Powered Games\\Supreme Commander Forged Alliance\\cache\\'
     LOG('Clearing cached shader files in: ' .. dir)
     for _,file in io.dir(dir .. '**') do
-        if string.find(file, 'mesh') then
+        if string.find(file, 'mesh') or string.find(file, 'particle') then
             os.remove(dir .. file)
         end
     end
