@@ -383,7 +383,6 @@ WorldView = Class(oldWorldView) {
         local Name = self:GetAbilityData('Name')
         local MaxRadius = -1
         local MinRadius = -1
-        local CanUseRangeExtenders = false
 
         -- get unit bp data
         local bp = unit:GetBlueprint().SpecialAbilities
@@ -398,7 +397,6 @@ WorldView = Class(oldWorldView) {
                     MinRadius = MinRadius + offset
                 end
             end
-            CanUseRangeExtenders = bp[ Name ].CanUseRangeExtenders or (MaxRadius == 0) or false
         end
 
         -- check position is within range of unit
@@ -409,24 +407,6 @@ WorldView = Class(oldWorldView) {
         if MaxRadius < 0 or dist <= MaxRadius then
             if MinRadius <= 0 or dist >= MinRadius then
                 return true
-            end
-        end
-
-        -- check unit can be aided by range extender. If yes, check if position is within range
-        --TODO:refactor this away, we dont need range extenders anymore
-        if CanUseRangeExtenders then
-            local decals = self.RangeDecals
-            for k, decal in decals do
-                MaxRadius = decal.MaxRadius
-                if MaxRadius <= 0 then
-                    return true
-                elseif offset and offset > 0 then  -- consider reticule offset from center
-                    MaxRadius = MaxRadius - offset
-                end
-                upos = decal.UnitAttached:GetPosition()
-                if VDist2(pos[1], pos[3], upos[1], upos[3]) <= MaxRadius then
-                    return true
-                end
             end
         end
 
