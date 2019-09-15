@@ -370,7 +370,7 @@ WorldView = Class(oldWorldView) {
             local UnitsInRange = {}
             for k, unit in units do
                 if self:CheckUnitCanFireAtPosition(unit, pos, offset) then
-                    UnitsInRange[k] = unit
+                    UnitsInRange[unit:GetEntityId()] = unit
                 end
             end
             return UnitsInRange
@@ -418,13 +418,9 @@ WorldView = Class(oldWorldView) {
         local decal = UserDecal {}
         decal.Id = GetIdForNewReticule()
         decal.Size = size
-        decal.Position = worldPos
         decal:SetTexture('/textures/ui/common/game/AreaTargetDecal/weapon_icon_small.dds')
         decal:SetScale(Vector(size, 1, size))
-        decal:SetPosition(table.copy({ worldPos[1] + (size/2), worldPos[2], worldPos[3] + (size/2) }))
-        local k = 1 + table.getsize(self.TargetReticules)
-        self.TargetReticules[k] = decal
-        return decal
+        self.TargetReticules[1 + table.getsize(self.TargetReticules)] = decal
     end,
 
     CheckPosInRange = function(self, pos)
@@ -455,14 +451,22 @@ WorldView = Class(oldWorldView) {
     end,
 
     UpdateRangeDecals = function(self)
+        local unitsInRange = table.copy(self:GetUnitsThatCanFireOn(GetMouseWorldPos(),self.DragDelta))
         local decals = self.RangeDecals
         for k, decal in decals do
-            if decal and decal.UnitAttached and not decal.UnitAttached:IsDead() and decal.UnitAttached.GetPosition then
+            local isUnitInRange = unitsInRange[decal.UnitAttached:GetEntityId()]
+            if decal and decal.UnitAttached and not decal.UnitAttached:IsDead() and decal.UnitAttached.GetPosition and isUnitInRange then
                 decal:SetPosition(table.copy( decal.UnitAttached:GetPosition() ))
+                unitsInRange[decal.UnitAttached:GetEntityId()] = nil --remove unit from the list
             else
                 decals[k]:Destroy()
                 decals[k] = nil
             end
+        end
+        
+        --any leftover units are missing decals, and need to be added
+        for k, unit in unitsInRange do
+            self:CreateRangeDecal(unit)
         end
     end,
 
@@ -482,9 +486,8 @@ WorldView = Class(oldWorldView) {
         if maxRadius and maxRadius > 0 then
             local decal = UserDecal {}
             decal:SetTexture('/textures/ui/common/game/AreaTargetDecal/AbilityRange.dds')
-            decal:SetScale(Vector(maxRadius * 2, 1, maxRadius * 2))  -- the * 2 is to convert to radius
+            decal:SetScale(Vector(4 * 2, 1, 4 * 2))  -- the * 2 is to convert from radius
             decal.UnitAttached = unit
-            decal.MaxRadius = maxRadius --this is used to check for range extenders. remove or replace with something sane?
             table.insert(self.RangeDecals, decal)
             return decal
         end
