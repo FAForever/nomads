@@ -136,11 +136,12 @@ local ACUUpgradeNames = {
     MovementSpeedIncrease = {false, 'LCH', {'nomads'}},
     Capacitor = {false, 'Back', {'nomads'}},
     OrbitalBombardment = {false, 'Back', {'nomads'}},
+    OrbitalBombardmentHeavy = {'OrbitalBombardment', 'Back', {'nomads'}},
     PowerArmor = {'RapidRepair', 'Back', {'nomads'}},
     RapidRepair = {false, 'Back', {'nomads'}},
 }
 -- Table for upgrade requirements for SACU
-
+--TODO: update the scu table after updating the upgrade lists for it
 local SACUUpgradeNames = {
     Capacitor = {false, 'RCH', {'nomads'}},
     AdditionalCapacitor = {'Capacitor', 'RCH', {'nomads'}},
