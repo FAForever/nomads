@@ -69,6 +69,7 @@ abilities = table.merged( abilities, {
         enabled = true,
         ExtraInfo = {
             DoRangeCheck = true,
+            NumReticules = 1,
         },
         UIHelpText = 'specabil_launch_tacmissile',
         UISlot = 2,
@@ -101,7 +102,6 @@ abilities = table.merged( abilities, {
         usage = 'Valid',
 
         UIBehaviorSingleClick = {
-            AllReticulesAtStart = false,
             DragDelta = 0,
             UseSelected = true,
         },
@@ -137,11 +137,12 @@ abilities = table.merged( abilities, {
         usage = 'Event',
 
         UIBehaviorSingleClick = {
-            AllReticulesAtStart = true,
             DragDelta = 1,
             UseSelected = true,
         },
         UIBehaviorDoubleClick = {
+            AllowDraging = true,
+            AllowMaxSpread = true,
             AllReticulesAtStart = true,
             DragDelta = 2,
             UseSelected = true,
