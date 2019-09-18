@@ -237,8 +237,8 @@ DarkMatterAirWeaponTrail = {}
 
 DarkMatterAirWeaponPolyTrails = {
     EmtBpPathNomads .. 'nomads_DarkMatterWeapon_polytrail_01_emit_air.bp',
-    EmtBpPathNomads .. 'nomads_DarkMatterWeapon_polytrail_02_emit_air.bp',
-    EmtBpPathNomads .. 'nomads_DarkMatterWeapon_polytrail_03_emit_air.bp',
+    --EmtBpPathNomads .. 'nomads_DarkMatterWeapon_polytrail_02_emit_air.bp',
+    --EmtBpPathNomads .. 'nomads_DarkMatterWeapon_polytrail_03_emit_air.bp',
 }
 
 DarkMatterAirWeaponHitNone1 = {

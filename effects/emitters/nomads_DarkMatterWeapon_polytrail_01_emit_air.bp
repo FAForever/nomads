@@ -9,4 +9,5 @@ TrailEmitterBlueprint {
     LODCutoff = 160,
     RampTexture = [[/textures/particles/blackbolt_munition_01.dds]],
     RepeatTexture = [[/textures/particles/ramp_bullets.dds]],
+    RecolourByArmyColour = true, --Summon the most unholy code seen by man in order to get past engine limitations and break through to the realm of the shaders.
 }

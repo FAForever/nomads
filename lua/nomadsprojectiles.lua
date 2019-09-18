@@ -747,6 +747,9 @@ DarkMatterProj = Class(MultiPolyTrailProjectile) {
     PolyTrails = NomadsEffectTemplate.DarkMatterAirWeaponPolyTrails,
     PolyTrailOffset = {0,0,0,0,},
     RandomPolyTrails = 1,
+    
+    FactionColour = true,
+    BeamsToRecolour = {'PolyTrails',},
 }
 
 DarkMatterProj2 = Class(MultiPolyTrailProjectile) {
@@ -779,6 +782,8 @@ DarkMatterProj2 = Class(MultiPolyTrailProjectile) {
     PolyTrails = NomadsEffectTemplate.DarkMatterAirWeaponPolyTrails,
     PolyTrailOffset = {0,0,0,0,},
     RandomPolyTrails = 1,
+    FactionColour = true,
+    BeamsToRecolour = {'PolyTrails',},
 }
 
 DarkMatterProjAir = Class(MultiPolyTrailProjectile) {
@@ -797,6 +802,8 @@ DarkMatterProjAir = Class(MultiPolyTrailProjectile) {
     PolyTrails = NomadsEffectTemplate.DarkMatterAirWeaponPolyTrails,
     PolyTrailOffset = {0,0,0,0,},
     RandomPolyTrails = 1,
+    FactionColour = true,
+    BeamsToRecolour = {'PolyTrails',},
 }
 
 IonBlast = Class(SinglePolyTrailProjectile) {
