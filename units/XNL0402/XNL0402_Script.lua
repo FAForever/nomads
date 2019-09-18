@@ -22,6 +22,10 @@ XNL0402 = Class(NLandUnit) {
         self.Beaming = false
         self.BeamChargeUpFxBag = TrashBag()
         self.BeamHelperFxBag = TrashBag()
+        if not self.AnimationManipulator then
+            self.AnimationManipulator = CreateAnimator(self):PlayAnim('/units/XNL0402/XNL0402_Charge.sca'):SetRate(0)
+            self.Trash:Add(self.AnimationManipulator)
+        end
     end,
 
     OnDestroy = function(self)
@@ -41,6 +45,9 @@ XNL0402 = Class(NLandUnit) {
             self:PlayFakeBeamEffects()
         end
         self.Beaming = true
+        if self.AnimationManipulator then
+            self.AnimationManipulator:SetRate(1)
+        end
     end,
 
     OnLostTarget = function(self, Weapon)
@@ -49,6 +56,9 @@ XNL0402 = Class(NLandUnit) {
             self.BeamDisableThread = self:ForkThread( self.BeamEffectsDisableThread )
         end
         self.Beaming = false
+        if self.AnimationManipulator then
+            self.AnimationManipulator:SetRate(-1)
+        end
     end,
 
     PlayBeamChargeUpSequence = function(self)
