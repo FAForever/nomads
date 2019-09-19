@@ -514,7 +514,7 @@ xnl0209_name = "Scarab"
 
 -- T2 light tank
 xnl0203_desc = "Fast Assault Tank"
-xnl0203_help = "Assault tank, has a high movement speed and fast firing cannons."
+xnl0203_help = "Fast Assault Tank designed to weave around enemy units and quickly get past defensive structures."
 xnl0203_name = "Rogue"
 
 -- T2 Missile launcher
@@ -702,8 +702,8 @@ xnl0303_help = "Heavy amphibious tank. Equipped with heavy armor, a rocket launc
 xnl0303_name = "Nova"
 
 -- T3 artillery
-xnl0304_desc = "Mobile Heavy artillery"
-xnl0304_help = "Attacks targets at great range. Able to fire while moving."
+xnl0304_desc = "Mobile Heavy Artillery"
+xnl0304_help = "Slow moving Heavy Artillery. Able to fire while moving."
 xnl0304_name = "Mauler"
 
 -- T3 orbital fire command
@@ -713,34 +713,34 @@ xnl0304_name = "Mauler"
 
 -- T3 anti air unit
 xnl0302_desc = "Mobile Anti-Air Missile Launcher"
-xnl0302_help = "Launches anti-air missiles at enemy aircraft."
+xnl0302_help = "Mobile Anti-Air tank. Launches high damage missiles, excellent against slow targets."
 xnl0302_name = "Watchman"
 
 -- T3 tracked tank
 xnl0305_desc = "Armored Assault Tank"
-xnl0305_help = "Heavy tank equipped with dual plasma cannons and heavy ablative armor."
+xnl0305_help = "Heavy Tank. Equipped with dual plasma cannons and heavy ablative armor."
 xnl0305_name = "Slugger"
 
 
 -- Air units
 -- Spy place
 xna0302_desc = "Spy Plane"
-xna0302_help = "State-of-the-art reconnaissance aircraft."
+xna0302_help = "Extremely Fast Spy Plane with large visual radius, good radar, good sonar, and a small omni sensor."
 xna0302_name = "Beholder"
 
 -- ASF
 xna0303_desc = "Air-Superiority Fighter"
-xna0303_help = "Fast and agile anti-air fighter. Designed to engage all aircraft."
+xna0303_help = "High-end air fighter. Designed to engage air units of any type."
 xna0303_name = "Thunder"
 
 -- Bomber
-xna0304_desc = "Heavy Bomber"
-xna0304_help = "Drops a very large fiery bomb. Excels at taking out bases, a formation of smaller units and very big targets. Weak against individual targets."
+xna0304_desc = "Strategic Bomber"
+xna0304_help = "Strategic bomber designed to destroy swathes of territory."
 xna0304_name = "Red Rage"
 
 -- Gunship
 xna0305_desc = "Heavy Gunship"
-xna0305_help = "Equipped with a dual anti-surface cannon, a stingray gun, an anti-air missile launcher. Excels at taking out single units and structures."
+xna0305_help = "Heavily armed gunship."
 xna0305_name = "Hornet"
 
 -- Naval units
