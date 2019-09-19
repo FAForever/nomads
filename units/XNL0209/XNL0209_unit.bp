@@ -331,7 +331,7 @@ UnitBlueprint {
     SizeX = 0.9,
     SizeY = 0.3,
     SizeZ = 0.9,
-    StrategicIconName = 'icon_land2_engineer',
+    StrategicIconName = 'icon_land2_antimissile',
     StrategicIconSortPriority = 200,
     Transport = {
         CanFireFromTransport = false,
