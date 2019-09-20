@@ -107,7 +107,6 @@ UnitBlueprint {
         'ANTIAIR',
         'VISIBLETORECON',
         'RECLAIMABLE',
-        'INTELLIGENCE',
         'RADAR',
         'OVERLAYANTIAIR',
         'OVERLAYRADAR',
