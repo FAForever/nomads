@@ -119,10 +119,10 @@ Description = table.merged( Description, {
 
     -- ECONOMIC STRUCTURES
     ['xnb1101'] = "<LOC xnb1101_help>Generates Energy. Construct next to other structures for adjacency bonus.",
-    ['XNB1103'] = "<LOC XNB1103_help>Extracts Mass. Must be constructed on Mass deposits. Construct structures next to Mass extractor for adjacency bonus.",
+    ['xnb1103'] = "<LOC xnb1103_help>Extracts Mass. Must be constructed on Mass deposits. Construct structures next to Mass extractor for adjacency bonus.",
     ['xnb1105'] = "<LOC xnb1105_help>Stores Energy. Construct next to power generators for adjacency bonus.",
     ['xnb1106'] = "<LOC xnb1106_help>Stores Mass. Construct next to extractors or fabricators for adjacency bonus.",
-    ['XNB1102'] = "<LOC XNB1102_help>Generates Energy. Must be constructed on hydrocarbon deposits. Construct structures next to Hydrocarbon power plant for adjacency bonus.",
+    ['xnb1102'] = "<LOC xnb1102_help>Generates Energy. Must be constructed on hydrocarbon deposits. Construct structures next to Hydrocarbon power plant for adjacency bonus.",
     ['xnb1201'] = "<LOC xnb1201_help>Mid-level power generator. Construct next to other structures for adjacency bonus.",
     ['xnb1202'] = "<LOC xnb1202_help>Mid-level Mass extractor. Must be constructed on Mass deposits. Construct structures next to Mass extractor for adjacency bonus.",
     ['xnb1104'] = "<LOC xnb1104_help>Creates Mass. Requires large amounts of Energy. Construct next to other structures for adjacency bonus.",

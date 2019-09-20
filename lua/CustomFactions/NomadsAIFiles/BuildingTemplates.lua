@@ -7,7 +7,7 @@ BuildingTemplates = {
         },
         {
             'T1HydroCarbon',
-            'XNB1102',
+            'xnb1102',
         },
         {
             'T2EnergyProduction',
