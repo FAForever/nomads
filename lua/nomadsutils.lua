@@ -1444,6 +1444,7 @@ end
 -- AKIMBO
 -- ================================================================================================================
 
+--TODO: Refactor this, or just remove it.
 function AddAkimbo( SuperClass )
     return Class(SuperClass) {
 
@@ -1536,15 +1537,6 @@ function AddAkimbo( SuperClass )
             local wepCurTargetAngle = {}
             local PrimaryWeaponTarget = nil
 
---            local wep1 = self:GetWeaponByLabel( bp.FirstWeapon )
---            local wep1Bp = wep1:GetBlueprint()
---            local wep1YawRangeMin = wep1Bp.TurretYaw - (wep1Bp.TurretYawRange * yawRangeMarginMulti) + math.min(3, wep1Bp.TurretYawRange * yawRangeMarginMulti) -- second half of this line is also for safety
---            local wep1YawRangeMax = wep1Bp.TurretYaw + (wep1Bp.TurretYawRange * yawRangeMarginMulti) - math.min(3, wep1Bp.TurretYawRange * yawRangeMarginMulti) -- second half of this line is also for safety
---            local wep2 = self:GetWeaponByLabel( bp.SecondWeapon )  -- this weapon might be forced to retarget
---            local wep2Bp = wep2:GetBlueprint()
---            local wep2YawRangeMin = wep2Bp.TurretYaw - (wep2Bp.TurretYawRange * yawRangeMarginMulti) + math.min(3, wep2Bp.TurretYawRange * yawRangeMarginMulti) -- second half of this line is also for safety
---            local wep2YawRangeMax = wep2Bp.TurretYaw + (wep2Bp.TurretYawRange * yawRangeMarginMulti) - math.min(3, wep2Bp.TurretYawRange * yawRangeMarginMulti) -- second half of this line is also for safety
-
             local nav = self:GetNavigator()  -- can tell us where the unit is heading
 
             if doHeadRotation then
@@ -1566,8 +1558,6 @@ function AddAkimbo( SuperClass )
                 torsoDir = Utils.NormalizeVector( Vector( torsoX, 0, torsoZ) )
 
                 -- find current target for weapon 1. We mainly need the position of the target, but the target unit is stored in case we need to retarget wep 2
---                wep1TargetPos, wep1Target = GetWepTargetPos(wep1)
---                wep2TargetPos = GetWepTargetPos(wep2)
                 local PrimaryWeaponTarget = nil
                 local PrimaryWeaponKey = -1
                 for k, wep in weps do
@@ -1590,20 +1580,9 @@ function AddAkimbo( SuperClass )
                     end
                 end
 
---                wep1CurTargetAngle = GetTargetAngle( self, wep1TargetPos, torsoDir )
---                wep2CurTargetAngle = GetTargetAngle( self, wep2TargetPos, torsoDir )
-
-                -- if one weapon doesn't have a current target angle then take the one from the other weapon
---                if wep1CurTargetAngle == nil and wep2CurTargetAngle ~= nil then
---                    wep1CurTargetAngle = wep2CurTargetAngle
---                elseif wep2CurTargetAngle == nil and wep1CurTargetAngle ~= nil then
---                    wep2CurTargetAngle = wep1CurTargetAngle
---                end
-
                 -- now find the best rotation for the torso. Ideally the torso rotates so it's in between both targets. In case this is not
                 -- possible because the targets too far apart then weapon 1 is prefered and weapon 2 gets the target of weapon 1. If there's just
                 -- 1 target then it's easy, and if there is no target at all then just rotate to normal position.
---                if wep2CurTargetAngle == nil and wep1CurTargetAngle == nil then
                 if NumWepWithCurTargetAngle == 0 then
                     torsoIntendRot = 0  -- no target means no rotation needed
 
@@ -1627,115 +1606,33 @@ function AddAkimbo( SuperClass )
                         -- for limiting torso rotation (if so intended)
                         torsoIntendRot = math.max( minTorsoRotLimit, math.min( maxTorsoRotLimit, CurTargetAngleSum / NumWepWithCurTargetAngle ))
 
---                        torsoIntendRot = math.max( minTorsoRotLimit, math.min( maxTorsoRotLimit, (wep1CurTargetAngle + wep2CurTargetAngle) / 2))
-
                         -- Ok, so now we have determined the best ideal angle for the torso. Now checking if it allows both weapons to hit target. If
                         -- not then adjust the angle.
                         -- First weapon 1. If it can't hit target then wep 2 will have to retarget.
 
                         for k, wep in weps do
-
                             if not wepCurTargetAngle[k] then
                                 continue
-
-                            elseif (wepCurTargetAngle[k] - torsoIntendRot) <= wepYawRangeMin[k] then
-                                -- wep 2 can't hit. Check if wep 2 can hit if torso rotates a bit more. If not, retarget or use best rotation possible
---                                local wep1YawRemaining = math.min( math.abs(torsoIntendRot + wep1YawRangeMin - wep1CurTargetAngle), math.abs(torsoIntendRot + wep1YawRangeMax - wep1CurTargetAngle) )
---                                local wep2YawNeeded = wep2CurTargetAngle - torsoIntendRot - wep2YawRangeMin
---                                if math.abs(wep2YawNeeded) < wep1YawRemaining then
---                                    torsoIntendRot = torsoIntendRot + wep2YawNeeded  -- rotate a bit more for wep 2
---                                    torsoIntendRot = math.max( minTorsoRotLimit, math.min( torsoIntendRot, maxTorsoRotLimit)) -- abide torso rotation limit
---                                elseif allowRetarget and wep1Target then  -- retarget wep 2, only if there is a target
-
-                                if allowRetarget and PrimaryWeaponTarget then  -- retarget wep 2, only if there is a target
-                                    wep:SetTargetEntity( PrimaryWeaponTarget )
-                                    torsoIntendRot = wepCurTargetAngle[PrimaryWeaponKey]
-                                    torsoIntendRot = math.max( minTorsoRotLimit, math.min( torsoIntendRot, maxTorsoRotLimit)) -- abide torso rotation limit
-                                else  -- no valid target, at least let wep 1 fire. Rotate so target 1 is just in firing arc for wep 1
-                                    torsoIntendRot = torsoIntendRot + (wepCurTargetAngle[PrimaryWeaponKey] - torsoIntendRot - wepYawRangeMin[PrimaryWeaponKey])  -- min!
-                                    torsoIntendRot = math.max( minTorsoRotLimit, math.min( torsoIntendRot, maxTorsoRotLimit)) -- abide torso rotation limit
-                                end
-
-                            elseif (wepCurTargetAngle[k] - torsoIntendRot) >= wepYawRangeMax[k] then
-                                -- wep 2 can't hit. Check if wep 2 can hit if torso rotates a bit more. If not, retarget or use best rotation possible
---                                local wep1YawRemaining = math.min( math.abs(torsoIntendRot + wep1YawRangeMin - wep1CurTargetAngle), math.abs(torsoIntendRot + wep1YawRangeMax - wep1CurTargetAngle) )
---                                local wep2YawNeeded = wep2CurTargetAngle - torsoIntendRot - wep2YawRangeMax
---                                if math.abs(wep2YawNeeded) < wep1YawRemaining then
---                                    torsoIntendRot = torsoIntendRot + wep2YawNeeded  -- rotate a bit more for wep 2
---                                    torsoIntendRot = math.max( minTorsoRotLimit, math.min( torsoIntendRot, maxTorsoRotLimit)) -- abide torso rotation limit
---                                elseif allowRetarget and wep1Target then  -- retarget wep 2, only if there is a target
-
-                                if allowRetarget and PrimaryWeaponTarget then  -- retarget wep 2, only if there is a target
-                                    wep:SetTargetEntity( PrimaryWeaponTarget )
-                                    torsoIntendRot = wepCurTargetAngle[PrimaryWeaponKey]
-                                    torsoIntendRot = math.max( minTorsoRotLimit, math.min( torsoIntendRot, maxTorsoRotLimit)) -- abide torso rotation limit
-                                else  -- no valid target, at least let wep 1 fire. Rotate so target 1 is just in firing arc for wep 1
-                                    torsoIntendRot = torsoIntendRot + (wepCurTargetAngle[PrimaryWeaponKey] - torsoIntendRot - wepYawRangeMax[PrimaryWeaponKey])  -- max!
-                                    torsoIntendRot = math.max( minTorsoRotLimit, math.min( torsoIntendRot, maxTorsoRotLimit)) -- abide torso rotation limit
-                                end
                             end
-
+                            
+                            local wepYawRangeType = wepYawRangeMin[PrimaryWeaponKey]
+                            local angleDifference = wepCurTargetAngle[k] - torsoIntendRot
+                            
+                            if angleDifference >= wepYawRangeMax[k] then
+                                wepYawRangeType = wepYawRangeMax[PrimaryWeaponKey]
+                            end
+                            
+                            if (angleDifference <= wepYawRangeMin[k]) or (angleDifference >= wepYawRangeMax[k]) then
+                                if allowRetarget and PrimaryWeaponTarget then  -- retarget wep 2, only if there is a target
+                                    wep:SetTargetEntity( PrimaryWeaponTarget )
+                                    torsoIntendRot = wepCurTargetAngle[PrimaryWeaponKey]
+                                else  -- no valid target, at least let wep 1 fire. Rotate so target 1 is just in firing arc for wep 1
+                                    torsoIntendRot = torsoIntendRot + (wepCurTargetAngle[PrimaryWeaponKey] - torsoIntendRot - wepYawRangeType)
+                                end
+                                
+                                torsoIntendRot = math.max( minTorsoRotLimit, math.min( torsoIntendRot, maxTorsoRotLimit)) -- abide torso rotation limit
+                            end
                         end
-
-
-
---                        if (wep1CurTargetAngle - torsoIntendRot) <= wep1YawRangeMin then
---                            -- weapon 1 can't hit target with new rotation - have weapon 2 also target weapon 1's target
---                            if allowRetarget and wep1Target then  -- if weapon 1 has a valid target have wep 2 also target that
---                                wep2:SetTargetEntity( wep1Target )
---                                torsoIntendRot = wep1CurTargetAngle
---                                torsoIntendRot = math.max( minTorsoRotLimit, math.min( torsoIntendRot, maxTorsoRotLimit)) -- abide torso rotation limit
---                            else  -- if no valid target then at least give wep 1 the room to fire. Rotate so target 1 is just in firing arc for wep 1
---                                torsoIntendRot = torsoIntendRot + (wep1CurTargetAngle - torsoIntendRot - wep1YawRangeMin)  -- min!
---                                torsoIntendRot = math.max( minTorsoRotLimit, math.min( torsoIntendRot, maxTorsoRotLimit)) -- abide torso rotation limit
---                            end
-
---                        elseif (wep1CurTargetAngle - torsoIntendRot) >= wep1YawRangeMax then
---                            -- weapon 1 can't hit target with new rotation - have weapon 2 also target weapon 1's target
---                            if allowRetarget and wep1Target then  -- if weapon 1 has a valid target have wep 2 also target that
---                                wep2:SetTargetEntity( wep1Target )
---                                torsoIntendRot = wep1CurTargetAngle
---                                torsoIntendRot = math.max( minTorsoRotLimit, math.min( torsoIntendRot, maxTorsoRotLimit)) -- abide torso rotation limit
---                            else  -- if no valid target then at least give wep 1 the room to fire. Rotate so target 1 is just in firing arc for wep 1
---                                torsoIntendRot = torsoIntendRot + (wep1CurTargetAngle - torsoIntendRot - wep1YawRangeMax)  -- max!
---                                torsoIntendRot = math.max( minTorsoRotLimit, math.min( torsoIntendRot, maxTorsoRotLimit)) -- abide torso rotation limit
---                            end
-
-                        -- Now check weapon 2. If it can't hit the target perhaps rotating the torso a bit more will do it, so check if that's
-                        -- possible. If not, retarget.
-
---                        elseif (wep2CurTargetAngle - torsoIntendRot) <= wep2YawRangeMin then
---                            -- wep 2 can't hit. Check if wep 2 can hit if torso rotates a bit more. If not, retarget or use best rotation possible
---                            local wep1YawRemaining = math.min( math.abs(torsoIntendRot + wep1YawRangeMin - wep1CurTargetAngle), math.abs(torsoIntendRot + wep1YawRangeMax - wep1CurTargetAngle) )
---                            local wep2YawNeeded = wep2CurTargetAngle - torsoIntendRot - wep2YawRangeMin
---                            if math.abs(wep2YawNeeded) < wep1YawRemaining then
---                                torsoIntendRot = torsoIntendRot + wep2YawNeeded  -- rotate a bit more for wep 2
---                                torsoIntendRot = math.max( minTorsoRotLimit, math.min( torsoIntendRot, maxTorsoRotLimit)) -- abide torso rotation limit
---                            elseif allowRetarget and wep1Target then  -- retarget wep 2, only if there is a target
---                                wep2:SetTargetEntity( wep1Target )
---                                torsoIntendRot = wep1CurTargetAngle
---                                torsoIntendRot = math.max( minTorsoRotLimit, math.min( torsoIntendRot, maxTorsoRotLimit)) -- abide torso rotation limit
---                            else  -- no valid target, at least let wep 1 fire. Rotate so target 1 is just in firing arc for wep 1
---                                torsoIntendRot = torsoIntendRot + (wep1CurTargetAngle - torsoIntendRot - wep1YawRangeMin)  -- min!
---                                torsoIntendRot = math.max( minTorsoRotLimit, math.min( torsoIntendRot, maxTorsoRotLimit)) -- abide torso rotation limit
---                            end
-
---                        elseif (wep2CurTargetAngle - torsoIntendRot) >= wep2YawRangeMax then
---                            -- wep 2 can't hit. Check if wep 2 can hit if torso rotates a bit more. If not, retarget or use best rotation possible
---                            local wep1YawRemaining = math.min( math.abs(torsoIntendRot + wep1YawRangeMin - wep1CurTargetAngle), math.abs(torsoIntendRot + wep1YawRangeMax - wep1CurTargetAngle) )
---                            local wep2YawNeeded = wep2CurTargetAngle - torsoIntendRot - wep2YawRangeMax
---                            if math.abs(wep2YawNeeded) < wep1YawRemaining then
---                                torsoIntendRot = torsoIntendRot + wep2YawNeeded  -- rotate a bit more for wep 2
---                                torsoIntendRot = math.max( minTorsoRotLimit, math.min( torsoIntendRot, maxTorsoRotLimit)) -- abide torso rotation limit
---                            elseif allowRetarget and wep1Target then  -- retarget wep 2, only if there is a target
---                                wep2:SetTargetEntity( wep1Target )
---                                torsoIntendRot = wep1CurTargetAngle
---                                torsoIntendRot = math.max( minTorsoRotLimit, math.min( torsoIntendRot, maxTorsoRotLimit)) -- abide torso rotation limit
---                            else  -- no valid target, at least let wep 1 fire. Rotate so target 1 is just in firing arc for wep 1
---                                torsoIntendRot = torsoIntendRot + (wep1CurTargetAngle - torsoIntendRot - wep1YawRangeMax)  -- max!
---                                torsoIntendRot = math.max( minTorsoRotLimit, math.min( torsoIntendRot, maxTorsoRotLimit)) -- abide torso rotation limit
---                            end
---                        end
                     end
 
                     torsoIntendRot = torsoRot + torsoIntendRot  -- don't forget current torso rotation!
