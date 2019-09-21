@@ -5,6 +5,7 @@ local NDFPlasmaBeamWeapon = import('/lua/nomadsweapons.lua').NDFPlasmaBeamWeapon
 local Explosion = import('/lua/defaultexplosions.lua')
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
+local RandomFloat = import('/lua/utilities.lua').GetRandomFloat
 local NomadsUtils = import('/lua/nomadsutils.lua')
 local RenameBeamEmitterToColoured = NomadsUtils.RenameBeamEmitterToColoured
 local CreateAttachedEmitterColoured = NomadsUtils.CreateAttachedEmitterColoured
