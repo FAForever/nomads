@@ -123,6 +123,11 @@ NDFPlasmaBeamWeapon = Class(DefaultBeamWeapon) {
         self:SetWeaponEnabled(true)
         self:ResetTarget()
     end,
+    
+    PlayFxBeamEnd = function(self, beam)
+        DefaultBeamWeapon.PlayFxBeamEnd(self, beam)
+        self.ContBeamOn = false --switch the beam to off, fixing a bug where beam weapons cant cancel their packing sequence midway
+    end,
 }
 
 -- -----------------------------------------------------------------------------------------------------
