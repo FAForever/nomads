@@ -46,8 +46,8 @@ XNL0402 = Class(NLandUnit) {
             self:PlayFakeBeamEffects()
         end
         self.Beaming = true
-        if self.AnimationManipulator then
-            self.AnimationManipulator:SetRate(1)
+        if self.AnimationManipulator and not self.Dead then
+            self.AnimationManipulator:SetRate(0.8)
         end
     end,
 
@@ -57,8 +57,8 @@ XNL0402 = Class(NLandUnit) {
             self.BeamDisableThread = self:ForkThread( self.BeamEffectsDisableThread )
         end
         self.Beaming = false
-        if self.AnimationManipulator then
-            self.AnimationManipulator:SetRate(-1)
+        if self.AnimationManipulator and not self.Dead then
+            self.AnimationManipulator:SetRate(-0.5)
         end
     end,
 
@@ -115,7 +115,7 @@ XNL0402 = Class(NLandUnit) {
     --wait time needed to allow the beamer to retarget without the fake beam being turned on and off all the time
     --currently this relies on completing everything instantly after the wait time. if this changes, more thinking is needed
     BeamEffectsDisableThread = function(self)
-        WaitTicks(10)
+        WaitTicks(20)
         self.BeamHelperFxBag:Destroy()
         self.BeamChargeUpFxBag:Destroy()
         if self.Beaming then
