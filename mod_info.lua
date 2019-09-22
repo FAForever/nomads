@@ -1,9 +1,9 @@
 name = "Nomads"
-version = 83
+version = 84
 copyright = "brute51"
 description = "Adds a new faction to the game"
 author = "CookieNoob, Exotic_Retard, Brute51, original nomads team"
-uid = "49863424-fgoi-g5xc-sfgh-nomadsv00083"
+uid = "68133717-784c-46b3-a3c6-nomadsv00084"
 url = ""
 icon = ""
 identifier = ""
