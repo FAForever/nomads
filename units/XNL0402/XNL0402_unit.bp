@@ -104,6 +104,7 @@ UnitBlueprint {
         MovementEffects = {
             Land = {},
         },
+        AnimationActivate = '/units/xnl0402/XNL0402_Activate.sca',
     Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -176,7 +177,7 @@ UnitBlueprint {
             LAYER_Water = true,
         },
         DragCoefficient = 0.2,
-        Elevation = 0.3,
+        Elevation = 0, --its set to 0.3 via scripts, change it there
         MaxAcceleration = 2,
         MaxBrake = 2,
         MaxSpeed = 2,
