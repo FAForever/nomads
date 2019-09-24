@@ -7,7 +7,6 @@ local EffectTemplate = import('/lua/EffectTemplates.lua')
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local RandomFloat = import('/lua/utilities.lua').GetRandomFloat
 local NomadsUtils = import('/lua/nomadsutils.lua')
-local GetVectorLength = import('/lua/utilities.lua').GetVectorLength
 local RenameBeamEmitterToColoured = NomadsUtils.RenameBeamEmitterToColoured
 local CreateAttachedEmitterColoured = NomadsUtils.CreateAttachedEmitterColoured
 
@@ -40,24 +39,20 @@ XNL0402 = Class(NLandUnit) {
         for boneNumber, bone in self.EngineBones do
             self.EngineRotators[bone] = CreateRotator(self, bone, 'z', 0, 30)
         end
-
-        -- fork a thread to set their goals in relation to the speed.
-        self:ForkThread(self.SpeedThread)
     end,
     
-    SpeedThread = function(self)
-        while not self.Dead do
-            local goal = 0
-            if GetVectorLength(Vector(self:GetVelocity())) > 0.1 then goal = 30 end
-            
-            for boneName, rotator in self.EngineRotators do
-                if boneName == 'FrontEngineBlock01' or boneName == 'FrontEngineBlock02' then
-                    rotator:SetGoal(goal*0.3)
-                else
-                    rotator:SetGoal(goal)
-                end
+    OnMotionHorzEventChange = function(self, new, old)
+        NLandUnit.OnMotionHorzEventChange(self, new, old)
+        --rotate the engine bones based on the speed of the unit
+        local goal = 0
+        if new == 'TopSpeed' then goal = 30 end
+        
+        for boneName, rotator in self.EngineRotators do
+            if boneName == 'FrontEngineBlock01' or boneName == 'FrontEngineBlock02' then
+                rotator:SetGoal(goal*0.3)
+            else
+                rotator:SetGoal(goal)
             end
-            WaitTicks(10)
         end
     end,
     
