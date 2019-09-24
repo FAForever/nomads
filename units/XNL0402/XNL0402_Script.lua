@@ -33,6 +33,21 @@ XNL0402 = Class(NLandUnit) {
 
     OnStopBeingBuilt = function(self,builder,layer)
         NLandUnit.OnStopBeingBuilt(self,builder,layer)
+        
+        if not self.ActivationManipulator then
+            self.ActivationManipulator = CreateAnimator(self):PlayAnim(self:GetBlueprint().Display.AnimationActivate):SetRate(0.3)
+            self.Trash:Add(self.ActivationManipulator)
+            
+            self:ForkThread(function()
+                for i=1,15 do --we have to do this dumb thing because hover units have their elevation set instantly
+                    WaitTicks(2)
+                    self:SetElevation(0.02*i)
+                end
+                WaitFor(self.ActivationManipulator)
+                self.ActivationManipulator:Destroy()
+            end)
+        end
+        
         self.EngineRotators = {}
 
         -- create rotators
