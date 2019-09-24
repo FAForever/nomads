@@ -169,6 +169,19 @@ XNL0402 = Class(NLandUnit) {
         
         self.BeamDisableThread = nil
     end,
+    
+    -- ---------------------------------------------------------------------------------------------------------------
+    OnStartTransportBeamUp = function(self, transport, bone)
+        NLandUnit.OnStartTransportBeamUp(self, transport, bone)
+        self:MarkWeaponsOnTransport(true) --mark the weapons early so that the animation finishes faster.
+    end,
+    
+    TransportBeamThread = function(self)
+        NLandUnit.TransportBeamThread(self)
+        if not self.InTransport and self.TransAnimation and self.TransAnimThread then
+            self:MarkWeaponsOnTransport(false)
+        end
+    end,
 
     -- ---------------------------------------------------------------------------------------------------------------
 
