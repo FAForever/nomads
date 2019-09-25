@@ -257,3 +257,12 @@ PlatoonTemplate {
         },
     }
 }
+
+PlatoonTemplate {
+    Name = 'T3SubKiller',
+    FactionSquads = {
+        Seraphim = {
+            { 'xss0304', 1, 1, 'attack', 'None' },
+        },
+    },
+}
