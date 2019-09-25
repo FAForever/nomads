@@ -2,11 +2,9 @@
 
 local NCivilianStructureUnit = import('/lua/nomadsunits.lua').NCivilianStructureUnit
 local NCommandFrigateUnit = import('/lua/nomadsunits.lua').NCommandFrigateUnit
-local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 
 
 XNC0001 = Class(NCivilianStructureUnit, NCommandFrigateUnit) {
-
     OnCreate = function(self)
         self.BuildEffectsBag = TrashBag()
         self.EngineEffectsBag = TrashBag()

@@ -549,18 +549,20 @@ NCommandFrigateUnit = Class() {
         local bp = self:GetBlueprint().Rotators
         if not self.RotatorOuter then
             self.RotatorOuter = CreateRotator( self, 'Deflector Edge', 'z' )
-            self.RotatorOuter:SetAccel( bp.OuterAcceleration )
-            self.RotatorOuter:SetTargetSpeed( bp.OuterSpeed )
-            self.RotatorOuter:SetSpeed( bp.OuterSpeed )
             self.Trash:Add( self.RotatorOuter )
         end
         if not self.RotatorInner then
             self.RotatorInner = CreateRotator( self, 'Deflector Centre', 'z' )
-            self.RotatorInner:SetAccel( bp.InnerAcceleration )
-            self.RotatorInner:SetTargetSpeed( bp.InnerSpeed )
-            self.RotatorInner:SetSpeed( bp.InnerSpeed )
             self.Trash:Add( self.RotatorInner )
         end
+        
+        self.RotatorOuter:SetAccel( bp.OuterAcceleration )
+        self.RotatorOuter:SetTargetSpeed( bp.OuterSpeed )
+        self.RotatorOuter:SetSpeed( bp.OuterSpeed )
+        
+        self.RotatorInner:SetAccel( bp.InnerAcceleration )
+        self.RotatorInner:SetTargetSpeed( bp.InnerSpeed )
+        self.RotatorInner:SetSpeed( bp.InnerSpeed )
     end,
 
     StopRotators = function(self)
@@ -602,10 +604,6 @@ NCommandFrigateUnit = Class() {
         '/effects/emitters/aeon_t1eng_groundfx01_emit.bp',
     },
 
-    StartEngines = function(self)
-        self:AddEffects(self.EngineFireEffects, self.EngineExhaustBones, self.EngineEffectsBag, 0.3)
-    end,
-
     StopEngines = function(self)
         self.EngineEffectsBag:Destroy()
         self:AddEffects(self.EnginePartialEffects, self.EngineExhaustBones, self.EngineEffectsBag)
@@ -613,7 +611,7 @@ NCommandFrigateUnit = Class() {
         self.EngineEffectsBag:Destroy()
     end,
     
-    Landing = function (self, EnableThrusters)
+    Landing = function(self, EnableThrusters)
         self:HideBone(0, true)
         --start rotators
         self:SetupRotators()
@@ -630,26 +628,35 @@ NCommandFrigateUnit = Class() {
     LandingThread = function(self, EnableThrusters)
         WaitSeconds(0.1)
         self:ShowBone(0, true)
-        WaitSeconds(3.5)
+        WaitSeconds(4.5)
+        self:StopEngines()
         if EnableThrusters then
             self:AddEffects(self.ThrusterEffects, self.ThrusterExhaustBones, self.ThrusterEffectsBag)
         end
-        WaitSeconds(1)
-        self:StopEngines()
+        WaitFor(self.LaunchAnim)
+        self.LaunchAnim:Destroy()
     end,
 
-    TakeOff = function (self)
+    TakeOff = function(self)
         self.LaunchAnim = CreateAnimator(self):PlayAnim('/units/xno0001/XNO0001_TakeOff01.sca')
         self.LaunchAnim:SetAnimationFraction(0)
         self.LaunchAnim:SetRate(0.1)
         self.Trash:Add(self.LaunchAnim)
-        ForkThread(function()
-            WaitSeconds(0.3)
-            self:StartEngines()
-        end)
+        self:StartRotators()
+        
+        self:ForkThread(self.TakeOffThread)
+    end,
+    
+    TakeOffThread = function(self)
+        WaitSeconds(0.2)
+        self.ThrusterEffectsBag:Destroy()
+        WaitSeconds(0.1)
+        self:AddEffects(self.EngineFireEffects, self.EngineExhaustBones, self.EngineEffectsBag, 0.3)
+        --WaitFor(self.LaunchAnim)
+        --self:HideBone(0, true)
     end,
 
-    AddEffects = function (self, effects, bones, bag, delay)
+    AddEffects = function(self, effects, bones, bag, delay)
         local army, emit = self:GetArmy()
         for _, effect in effects do
             for _, bone in bones do

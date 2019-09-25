@@ -30,7 +30,6 @@ xno0001 = Class(NOrbitUnit, NCommandFrigateUnit) {
         self.OrbitalStrikeCurWepTarget = {}
         self.OrbitalStrikeDbKey = {}
         self.OrbitalSpawnQueue = {}
-        --self.returnposition = Vector(self:GetPosition()[1], self:GetPosition()[2], self:GetPosition()[3]) --why is this like this
         self:Landing(false)
     end,
 
@@ -38,6 +37,7 @@ xno0001 = Class(NOrbitUnit, NCommandFrigateUnit) {
         NCommandFrigateUnit.LandingThread(self, EnableThrusters)
         self.MovementThread(self) --after landing enable following its target
     end,
+
 -- =========================================================================================
 -- Probes
 
