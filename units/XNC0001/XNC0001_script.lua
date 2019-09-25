@@ -100,7 +100,7 @@ xnc0001 = Class(NCivilianStructureUnit) {
         self:StopRotators() --start slowing them down
         
         self:AddEffects(self.EngineFireEffects, self.EngineExhaustBones, self.EngineEffectsBag)
-        self.LaunchAnim = CreateAnimator(self):PlayAnim('/units/xno0001/xno0001_entry01.sca')
+        self.LaunchAnim = CreateAnimator(self):PlayAnim('/units/xno0001/XNO0001_WarpEntry01.sca')
         --self.LaunchAnim:SetAnimationFraction(0.3)
         self.LaunchAnim:SetRate(0.1)
         self.Trash:Add(self.LaunchAnim)
