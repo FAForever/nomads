@@ -74,6 +74,7 @@ UnitBlueprint {
         'NOMADS',
         'MOBILE',
         'LAND',
+        'HOVER',
         'EXPERIMENTAL',
         'DIRECTFIRE',
         'NEEDMOBILEBUILD',
