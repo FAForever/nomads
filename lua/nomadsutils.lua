@@ -34,19 +34,23 @@ end
 
 --a thread for spawning the orbital frigate, requesting a build from it, and then despawning the frigate.
 --self:ForkThread( RequestOrbitalSpawnThread, constructedBP, offsetAmount, blueprint, unitArmy, pos )
-function RequestOrbitalSpawnThread(self, constructedBP, offsetAmount, blueprint, unitArmy, pos)
-    local OrbitalUnit = CreateOrbitalUnit(self, offsetAmount, blueprint, unitArmy, pos)
+function RequestOrbitalSpawnThread(parent, constructedBP, offsetAmount, blueprint, unitArmy, pos)
+    local OrbitalUnit = CreateOrbitalUnit(parent, offsetAmount, blueprint, unitArmy, pos)
     WaitSeconds(2)
-    --do some animation here
+    WaitFor(OrbitalUnit.LaunchAnim)
     
-    OrbitalUnit:AddToSpawnQueue( constructedBP, self ) --request the construction of the unit
+    OrbitalUnit:AddToSpawnQueue( constructedBP, parent ) --request the construction of the unit
     WaitSeconds(2)
-    -- while OrbitalUnit.UnitBeingBuilt do
-    -- WARN('waiting for frigate to finish its thing')
-    -- WaitSeconds(0.1)
-    -- end
-    WaitSeconds(3)
-    --do some takeoff animation here
+    while OrbitalUnit.UnitBeingBuilt or table.getn(table.keys(OrbitalUnit.OrbitalSpawnQueue)) > 0 do
+        WaitSeconds(0.5)
+    end
+    
+    --once the queue is empty, we lock down the building queue so no other units try to add anything before takeoff.
+    OrbitalUnit.UnitBeingBuilt = true
+    OrbitalUnit.OrbitalSpawnQueue = {1,1,1,1}
+    
+    OrbitalUnit:TakeOff()
+    WaitFor(OrbitalUnit.LaunchAnim)
     
     OrbitalUnit:Destroy()
 end
