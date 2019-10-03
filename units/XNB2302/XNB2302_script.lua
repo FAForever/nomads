@@ -36,10 +36,19 @@ XNB2302 = Class(NStructureUnit) {
         NStructureUnit.OnCreate(self)
         self.ArtilleryUnit = nil
     end,
+    
+    OnDestroy = function(self)
+        if self.ArtilleryUnit then
+            self.ArtilleryUnit:OnParentKilled()
+            self.ArtilleryUnit = nil
+        end
+        NStructureUnit.OnDestroy(self)
+    end,
 
     OnKilled = function(self, instigator, type, overkillRatio)
         if self.ArtilleryUnit then
             self.ArtilleryUnit:OnParentKilled()
+            self.ArtilleryUnit = nil
         end
         NStructureUnit.OnKilled(self, instigator, type, overkillRatio)
     end,
@@ -121,8 +130,6 @@ XNB2302 = Class(NStructureUnit) {
                     local gunPos = gun:GetPosition()
                     if math.abs(pos[1] - gunPos[1]) < 2 and math.abs(pos[3] - gunPos[3]) < 2 then
                         stillMoving = false
-                        gun:SetUnSelectable(false)
-                        gun:SetImmobile(true)
                     end
                     WaitSeconds(2)
                 end
