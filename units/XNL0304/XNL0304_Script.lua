@@ -3,9 +3,7 @@
 local NLandUnit = import('/lua/nomadsunits.lua').NLandUnit
 local ArtilleryWeapon = import('/lua/nomadsweapons.lua').ArtilleryWeapon
 local Utilities = import('/lua/utilities.lua')
-local SupportedArtilleryWeapon = import('/lua/nomadsutils.lua').SupportedArtilleryWeapon
 local EffectUtil = import('/lua/EffectUtilities.lua')
-local ArtilleryWeapon = SupportedArtilleryWeapon( ArtilleryWeapon )
 
 XNL0304 = Class(NLandUnit) {
     Weapons = {

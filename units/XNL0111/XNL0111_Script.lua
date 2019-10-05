@@ -1,15 +1,13 @@
 -- T2 mobile missile launcher
 
 --local AddBombardModeToUnit = import('/lua/nomadsutils.lua').AddBombardModeToUnit
---local SupportedArtilleryWeapon = import('/lua/nomadsutils.lua').SupportedArtilleryWeapon
 local NAmphibiousUnit = import('/lua/nomadsunits.lua').NAmphibiousUnit
 local TacticalMissileWeapon1 = import('/lua/nomadsweapons.lua').TacticalMissileWeapon1
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local EffectUtilities = import('/lua/EffectUtilities.lua')
 local SlowHover = import('/lua/defaultunits.lua').SlowHoverLandUnit
 
---removed these for now since tracking projectiles dont have firing randomness, but in case we want to redo the bombard and arty support to change other things its nice to have a reminder of this here.
---TacticalMissileWeapon1 = SupportedArtilleryWeapon( TacticalMissileWeapon1 )
+--removed these for now since tracking projectiles dont have firing randomness, but in case we want to redo the bombard to change other things its nice to have a reminder of this here.
 --NAmphibiousUnit = AddBombardModeToUnit(NAmphibiousUnit)
 
 XNL0111 = Class(NAmphibiousUnit, SlowHover) {
