@@ -1,12 +1,10 @@
 -- T1 gunship
 
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
-local SupportingArtilleryAbility = import('/lua/nomadsutils.lua').SupportingArtilleryAbility
 --local NAirTransportUnit = import('/lua/nomadsunits.lua').NAirTransportUnit
 local DarkMatterWeapon1 = import('/lua/nomadsweapons.lua').DarkMatterWeapon1
 local NAirUnit = import('/lua/nomadsunits.lua').NAirUnit
 
-NAirUnit = SupportingArtilleryAbility( NAirUnit )
 
 XNA0105 = Class(NAirUnit) {
     Weapons = {
