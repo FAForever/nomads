@@ -40,13 +40,25 @@ C:\ProgramData\FAForever\bin\ForgedAlliance.exe /init init_nomads.lua /log C:\Pr
 
 How do I start contributing?
 ----------------------------
-If you want to contribute, then you'll need to know how **git** works. 
-Here is a nice short [tutorial](http://wiki.faforever.com/index.php?title=FAF_Dev_School_Git) to get you started.
-More information for when you want to use the desktop app: [Github desktop guides](https://help.github.com/desktop/guides/)
+Nomads uses **Github** for development, which makes it easy to update and collaborate on the code. To make it easy to contribute, you need to set up the code on your computer first.
 
-You should get local copies of both **FAForever/fa** and **Nomads-Project/nomads**.
 
-#### Use your lua code in a game
+##Setting up the repositories on your computer
+You need to get local copies of the FAF and Nomads code, as well as a way to look through them easily and make changes. This section will get you everything you need to be able to edit nomads code, and even upload your changes to github.
+
+1. Download the FA repository [here](https://github.com/FAForever/fa/archive/develop.zip) and save it in a suitable place on your computer
+1. Download the Nomads repository [here](https://github.com/FAForever/nomads/archive/develop.zip) and save it in a suitable place on your computer (next to the FA repository)
+   - These links can also be found by clicking the green *Clone or Download* button at the top of this page, and choosing download zip
+1. Download the github desktop legacy client [here](https://github-windows.s3.amazonaws.com/GitHubSetup.exe) and install it. If you have a github account log in, if not register.
+   - You can use any github client you want, but we recommend using this one which we find is easy for beginners, and is the easiest to set up. This client is old but we feel its better than the new github desktop.
+1. Open the github desktop client and add both the FA and nomads repositories, by clicking on the + in the top right corner, selecting the *Add* tab and locating the repositories you downloaded earlier.
+
+Congratulations, you now have everything you need to start contributing! Do check the sections below on how to set up your game to run automatically with your changes, and how to get them to the Nomads team so they can be integrated.
+
+- Here is an [explanation](https://git-scm.com/book/en/v1/Getting-Started-Git-Basics) of what git does and the important concepts behind it, after you understand that, you can move onto the practical tutorials on how to use it.
+- Here is a [tutorial](https://guides.github.com/activities/hello-world/) on how to use the github website to make code changes. You can propose changes to Nomads right now! Doing this from the desktop allows you to make more complex changes, as well as running the game with them.
+
+#### Run the game from the Nomads lua code
 You should have a local copy of the code _- both FAForever/fa and Nomads-Project/nomads -_ on your computer.
 Now you'll want to set up your test environment, i.e. running the game based on your local copies.
 
@@ -54,8 +66,8 @@ Now you'll want to set up your test environment, i.e. running the game based on 
 2. You will need to open the file and edit the file paths to match the locations of where you put the local copies of the code. The lines are at the start of the file, so you can't miss them.
    - *( Make sure you don't edit the original file, to avoid problems later )*
    - Make sure you pay attention to the double slashes in the file paths, and put them into the paths or they will not work!
-   - `dev_path = 'E:\\GITS\\fa'` corresponds to the fa path
-   - `dev_pathnomads = 'E:\\GITS\\nomads'` corresponds to the nomads path
+   - `dev_path = 'E:\\GITS\\fa'` corresponds to the path to the FA repository
+   - `dev_pathnomads = 'E:\\GITS\\nomads'` corresponds to the path to the Nomads repository
 
 3. Inside the same folder, ```C:\ProgramData\FAForever\bin\```, you'll find `ForgedAlliance.exe`
 4. Make a shortcut for it either by right clicking on the file and putting it in an easily accessable place or right clicking in the folder you want the shortcut to be in and making a new shortcut there. *(For example your desktop)*
@@ -111,16 +123,7 @@ To run the Map Editor with nomads units you need to do the following steps:
 
 Some common issues and how to solve them
 ----------------------------------------
-#### 1. Unknown technique NomadsUnit
-If you encounter an error like this: 
-```
-WARNING: attempt to retrieve annotation from unknown technique NomadsUnit
-WARNING: c:\work\rts\main\code\src\libs\gpggal\EffectD3D9.cpp(89) invalid effect technique requested: NomadsUnit
-```
-Try to run the `shader_cleaner.bat` file to fix it.
-You can find this file inside your local copy of **Nomads-Project/nomads**.
-
-#### 2. HostGame: expected 1 args, but got 2
+#### 1. HostGame: expected 1 args, but got 2
 If you encounter an error like this: 
 ```
 WARNING: Error running OnFrame script in CScriptObject at 10043640: void CLobby.HostGame(self)
@@ -129,8 +132,17 @@ WARNING: Error running OnFrame script in CScriptObject at 10043640: void CLobby.
              [C]: in function `HostGame'
              "\documents\github\fa\lua\ui\lobby\lobby.lua(6310): in function `HostGame'
 ```
-Make sure you are using a copy of `init_devnomads.lua` from this repository and not the outdated `init_nomads.lua`
+- Make sure that inside the `init_devnomads.lua` you have changed the lines that correspond to the locations of your github repositories for both nomads and FA. Triple-check that you have put in double slashes instead of single slashes everywhere. This is the most common cause of the problem
+- Make sure you are using a copy of `init_devnomads.lua` from this repository and not `init_nomads.lua`
 
+#### 2. Unknown technique NomadsUnit
+If you encounter an error like this: 
+```
+WARNING: attempt to retrieve annotation from unknown technique NomadsUnit
+WARNING: c:\work\rts\main\code\src\libs\gpggal\EffectD3D9.cpp(89) invalid effect technique requested: NomadsUnit
+```
+Try to run the `shader_cleaner.bat` file to fix it.
+You can find this file inside your local copy of **Nomads-Project/nomads**.
 
 Implementing Nomads in FAF (update the current version)
 ----------------------------------------
