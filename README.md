@@ -43,7 +43,7 @@ How do I start contributing?
 Nomads uses **Github** for development, which makes it easy to update and collaborate on the code. To make it easy to contribute, you need to set up the code on your computer first.
 
 
-##Setting up the repositories on your computer
+#### Setting up the repositories on your computer
 You need to get local copies of the FAF and Nomads code, as well as a way to look through them easily and make changes. This section will get you everything you need to be able to edit nomads code, and even upload your changes to github.
 
 1. Download the FA repository [here](https://github.com/FAForever/fa/archive/develop.zip) and save it in a suitable place on your computer
