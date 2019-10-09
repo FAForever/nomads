@@ -45,10 +45,6 @@ Weapon = Class(oldWeapon) {
         oldWeapon.ChangeRateOfFire(self, newROF)
     end,
 
-    OnLayerChange = function(self, new, old)
-        --LOG('*DEBUG: Weapon OnLayerChange new = '..repr(new)..' old = '..repr(old))
-    end,
-
     -- allowing the unit stun script to halt fire of this weapon
     OnHaltFire = function(self)
         self.HaltFireOrdered = true

@@ -69,7 +69,6 @@ Unit = Class(oldUnit) {
         oldUnit.OnStopBeingBuilt(self, builder, layer)
         self:RegisterSpecialAbilities()
         self:MonitorAmmoCount()
-        self:UpdateWeaponLayers(layer, 'None')
     end,
 
     OnDestroy = function(self)
@@ -78,25 +77,6 @@ Unit = Class(oldUnit) {
         end
         self.AbilitiesCleared = nil --just in case its not cleared
         oldUnit.OnDestroy(self)
-    end,
-
-
-    UpdateWeaponLayers = function(self, new, old)
-        -- TODO: this could/should include the SetValidTargetsForCurrentLayer part from OnLayerChange()
-        local NewIsWater = (new == 'Water' or new == 'Sub' or new == 'Seabed')
-        local OldIsWater = (old == 'Water' or old == 'Sub' or old == 'Seabed')
-        local c = self:GetWeaponCount()
-        local wep, wepbp, label
-        for w=1, c do
-            wep = self:GetWeapon(w)
-            if NewIsWater ~= OldIsWater then
-                wepbp = wep:GetBlueprint()
-                if wepbp.OnWaterDisable then
-                    self:SetWeaponEnabledByLabel( wepBp.Label, not NewIsWater )
-                end
-            end
-            wep:OnLayerChange(new, old)
-        end
     end,
 
     -- ================================================================================================================
