@@ -44,36 +44,17 @@ XNS0304 = Class(NSubUnit) {
         NSubUnit.OnCreate(self)
     end,
 
-    OnStopBeingBuilt = function(self, builder, layer)
-        NSubUnit.OnStopBeingBuilt(self, builder, layer)
-
-        local layer = self:GetCurrentLayer()
-        if layer == 'Water' then
-            self:OnWater()
-        elseif layer == 'Sub' then
-            self:OnInWater()
+    OnLayerChange = function(self, new, old)
+        NSubUnit.OnLayerChange(self, new, old)
+        if new == 'Water' then
+            if self.OnInWaterBuff then
+                Buff.RemoveBuff(self, self.OnInWaterBuff, true)
+            end
+        elseif new == 'Sub' or new == 'Seabed' then
+            if self.OnInWaterBuff then
+                Buff.ApplyBuff(self, self.OnInWaterBuff)
+            end
         end
-    end,
-
-    OnInWater = function(self)
-        if self.OnInWaterBuff then
-            Buff.ApplyBuff(self, self.OnInWaterBuff)
-        end
-        return NSubUnit.OnInWater(self)
-    end,
-
-    OnWater = function(self)
-        if self.OnInWaterBuff then
-            Buff.RemoveBuff(self, self.OnInWaterBuff, true)
-        end
-        return NSubUnit.OnWater(self)
-    end,
-
-    OnLand = function(self)
-        if self.OnInWaterBuff then
-            Buff.RemoveBuff(self, self.OnInWaterBuff, true)
-        end
-        return NSubUnit.OnLand(self)
     end,
 }
 

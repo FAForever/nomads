@@ -970,26 +970,13 @@ function AddNavalLights(SuperClass)
         LightBone_Left = nil,
         LightBone_Right = nil,
 
-        OnStopBeingBuilt = function(self, builder, layer)
-            SuperClass.OnStopBeingBuilt(self, builder, layer)
-            if layer == 'Sub' or layer == 'Seabed' then
-                self:RemoveLights()
-            end
-        end,
-
-        OnLand = function(self)
-            self:AddLights()
-            return SuperClass.OnInWater(self)
-        end,
-
-        OnWater = function(self)
-            self:AddLights()
-            return SuperClass.OnInWater(self)
-        end,
-
-        OnInWater = function(self)
+        OnLayerChange = function(self, new, old)
+            SuperClass.OnLayerChange(self, new, old)
+            if new == 'Water' or 'Land' then
+                self:AddLights()
+            elseif new == 'Sub' or 'Seabed' then
             self:RemoveLights()
-            return SuperClass.OnInWater(self)
+            end
         end,
 
         OnMotionVertEventChange = function(self, new, old)
