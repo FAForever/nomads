@@ -38,7 +38,7 @@ abilities = table.merged( abilities, {
 
     LaunchNuke = {
         UIBitmapId = 'nuke',
-        cursor = 'SPECABIL_Nuke',
+        cursor = 'RULEUCC_Tactical',
         enabled = true,
         ExtraInfo = {},
         UIHelpText = 'specabil_launch_nuke',
@@ -91,7 +91,7 @@ abilities = table.merged( abilities, {
 
     NomadsIntelOvercharge = {
         UIBitmapId = 'radar-boost',
-        cursor = 'RULEUCC_Script',
+        cursor = 'RULEUCC_SpecialAction',
         enabled = true,
         ExtraInfo = {
             DoRangeCheck = true,
@@ -156,7 +156,7 @@ abilities = table.merged( abilities, {
 
     NomadsIntelProbe = {
         UIBitmapId = 'intelprobe',
-        cursor = 'SPECABIL_Eye',
+        cursor = 'RULEUCC_SpecialAction',
         enabled = true,
         ExtraInfo = {
             ArtillerySupportRadius = 70,
@@ -199,7 +199,7 @@ abilities = table.merged( abilities, {
 
     NomadsIntelProbeAdvanced = {
         UIBitmapId = 'intelprobe',
-        cursor = 'SPECABIL_Eye',
+        cursor = 'RULEUCC_SpecialAction',
         enabled = true,
         ExtraInfo = {
             ArtillerySupportRadius = 35,
