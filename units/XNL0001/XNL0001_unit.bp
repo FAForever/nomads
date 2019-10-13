@@ -320,7 +320,7 @@ UnitBlueprint {
             },
         },
         TransportDropAnimationSpeed = 0.95,
-        UniformScale = 0.185,
+        UniformScale = 0.16,
     },
     Economy = {
         BuildCostEnergy = 5000000,
