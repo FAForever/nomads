@@ -1452,24 +1452,19 @@ function AddCapacitorAbility( SuperClass )
         end,
         
         ResetCapacitor = function(self)
-            self.CapChargeFraction = 0
-            self.Sync.CapacitorState = 'Unfilled'
-            self:UpdateCapacitorFraction()
-            
-            if self.Chargethread then
-                KillThread(self.Chargethread)
-                self.Chargethread = nil
+            if self.CapChargeFraction == 1 then
+                self.CapChargeFraction = 0.99
             end
-            if self.CapStateThreadHandle then
-                KillThread(self.CapStateThreadHandle)
-                self.CapStateThreadHandle = nil
+            if self.CapDischargeThread then
+                KillThread(self.CapDischargeThread)
+                self:RemoveCapacitorBuffs()
             end
-            self.CapFxBag:Destroy()
+            self.CapacitorSwitchStates['Charging'](self) --set it to the decay state
         end,
         
         SetAutoCapacitor = function(self, autoCap)
             self.Sync.AutoCapacitor = autoCap
-            if autoCap and self.Sync.CapacitorState == 'Unfilled' then
+            if autoCap and self.Sync.CapacitorState == 'Unfilled' and self.Sync.HasCapacitorAbility then
                 self.CapacitorSwitchStates[self.Sync.CapacitorState](self)
             end
         end,
@@ -1587,10 +1582,8 @@ function AddCapacitorAbility( SuperClass )
                     self.Sync.CapacitorState = 'Unfilled'
                     
                     self.CapFxBag:Destroy()
-                    --self:PlayCapEffects(self.CapFxEmptyTemplate)
                     self:StopUnitAmbientSound('CapacitorInUseLoop')
                     self:PlayUnitSound('CapacitorEmpty')
-                    -- AddVOUnitEvent(self, 'CapacitorEmpty')
                     
                     --start charging if we have autocap on.
                     if self.Sync.AutoCapacitor then

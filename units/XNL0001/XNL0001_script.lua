@@ -133,8 +133,8 @@ XNL0001 = Class(ACUUnit) {
         self:SetRapidRepairParams( 'NomadsACURapidRepair', bp.Enhancements.RapidRepair.RepairDelay, bp.Enhancements.RapidRepair.InterruptRapidRepairByWeaponFired)
 
         self.Sync.Abilities = self:GetBlueprint().Abilities
-        self:HasCapacitorAbility(false)
-		
+        self.Sync.HasCapacitorAbility = false
+
         self.MassProduction = bp.Economy.ProductionPerSecondMass
         self.EnergyProduction = bp.Economy.ProductionPerSecondEnergy
         self.RASMassProductionLow = bp.Enhancements.ResourceAllocation.ProductionPerSecondMassLow
@@ -525,12 +525,12 @@ XNL0001 = Class(ACUUnit) {
         end,
         
         Capacitor = function(self, bp)
-            self:HasCapacitorAbility(true)
+            self.Sync.HasCapacitorAbility = true
         end,
         
         CapacitorRemove = function(self, bp)
             self:ResetCapacitor()
-            self:HasCapacitorAbility(false)
+            self.Sync.HasCapacitorAbility = false
         end,
         
         ResourceAllocation = function(self, bp)
