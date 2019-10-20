@@ -12,7 +12,6 @@ URL0303 = Class(oldURL0303) {
             RedirectRateOfFire = bp.RedirectRateOfFire
         }
         self.Trash:Add(self.AntiMissile)
-        self.UnitComplete = true
     end,
 
     OnStunned = function(self, duration)
