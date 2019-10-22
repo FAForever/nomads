@@ -212,14 +212,10 @@ UnitBlueprint {
         UpgradesTo = 'xnb3201',
     },
     Intel = {
-        OverchargeDamageMulti = 3,
-        OverchargeEnergyCost = 500,
-        OverchargeEnergyDrainPerSecond = 50,
-        OverchargeTime = 15,
-        OverchargeType = 'Radar',
         RadarRadius = 115,
-        ReactivateTime = 10,
-        ShowIntelOnSelect = true,
+        EnergyDrainBoosted = 50,
+        IntelBoostMult = 1.5,
+        ShowIntelOnSelect = true,--why is this here
         VisionRadius = 20,
     },
     Interface = {
