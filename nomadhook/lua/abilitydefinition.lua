@@ -299,28 +299,30 @@ abilities = table.merged( abilities, {
                 self:Enable()
             end
             
-            --capacitor switches icon to production when filled.
-            if CapacitorState == 'Filled' then
-                local bitmapId = "production"
-                local button_prefix = "/game/orders/" .. bitmapId .. "_btn_"
-                self:SetNewTextures(
-                        UIUtil.SkinnableFile(button_prefix .. "up.dds", true),
-                        UIUtil.SkinnableFile(button_prefix .. "up_sel.dds", true),
-                        UIUtil.SkinnableFile(button_prefix .. "over.dds", true),
-                        UIUtil.SkinnableFile(button_prefix .. "over_sel.dds", true),
-                        UIUtil.SkinnableFile(button_prefix .. "dis.dds", true),
-                        UIUtil.SkinnableFile(button_prefix .. "dis_sel.dds", true))
-            else
-                local bitmapId = "toggle-capacitor"
-                local button_prefix = "/game/orders/" .. bitmapId .. "_btn_"
-                self:SetNewTextures(
-                        UIUtil.SkinnableFile(button_prefix .. "up.dds", true),
-                        UIUtil.SkinnableFile(button_prefix .. "up_sel.dds", true),
-                        UIUtil.SkinnableFile(button_prefix .. "over.dds", true),
-                        UIUtil.SkinnableFile(button_prefix .. "over_sel.dds", true),
-                        UIUtil.SkinnableFile(button_prefix .. "dis.dds", true),
-                        UIUtil.SkinnableFile(button_prefix .. "dis_sel.dds", true))
+            --setting textures is a bit of a mess. There are 4 states but toggle buttons have two. So we need to mess with them a bit.
+            
+            local bitmapId = CapacitorState or "unfilled"
+            local button_prefix = "/game/orders/" .. bitmapId .. "_btn_"
+            local textures = {
+                button_prefix .. "up.dds",
+                button_prefix .. "up_sel.dds",
+                button_prefix .. "over.dds",
+                button_prefix .. "over.dds",
+                button_prefix .. "dis.dds",
+                button_prefix .. "dis.dds",
+            }
+            --make the discharging capacitor icon green, even though its disabled
+            if CapacitorState == "Discharging" then
+                textures[6] = textures[2]
             end
+            
+            self:SetNewTextures(
+                    UIUtil.SkinnableFile(textures[1], true),
+                    UIUtil.SkinnableFile(textures[2], true),
+                    UIUtil.SkinnableFile(textures[3], true),
+                    UIUtil.SkinnableFile(textures[4], true),
+                    UIUtil.SkinnableFile(textures[5], true),
+                    UIUtil.SkinnableFile(textures[6], true))
             
             if self._isAutoMode then
                 self.autoModeIcon:SetAlpha(1)
