@@ -138,6 +138,7 @@ UnitBlueprint {
         BuildCostMass = 2400,
         BuildTime = 2575,
         MaintenanceConsumptionPerSecondEnergy = 2000,
+        MaintenanceConsumptionPerSecondEnergyBoosted = 4000,
         RebuildBonusIds = {
             'xnb3301',
         },
@@ -187,14 +188,9 @@ UnitBlueprint {
         UpgradesFrom = 'xnb3201',
     },
     Intel = {
-        OverchargeDamageMulti = 3,
-        OverchargeEnergyCost = 10000,
-        OverchargeEnergyDrainPerSecond = 500,
-        OverchargeTime = 20,
-        OverchargeType = 'Radar',
         OmniRadius = 200,
         RadarRadius = 600,
-        ReactivateTime = 10,
+        RadarRadiusBoosted = 800,
         ShowIntelOnSelect = true,
         VisionRadius = 30,
     },
