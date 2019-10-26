@@ -162,8 +162,8 @@ UnitBlueprint {
         BuildableCategory = {
             'xnb3201',
         },
-        MaintenanceConsumptionPerSecondEnergy = 20,
-        MaintenanceConsumptionPerSecondEnergyBoosted = 50,
+        MaintenanceConsumptionPerSecondEnergy = 5,
+        MaintenanceConsumptionPerSecondEnergyBoosted = 20,
         RebuildBonusIds = {
             'xnb3101',
         },
@@ -213,8 +213,8 @@ UnitBlueprint {
         UpgradesTo = 'xnb3201',
     },
     Intel = {
-        RadarRadius = 115,
-        RadarRadiusBoosted = 175,
+        RadarRadius = 80,
+        RadarRadiusBoosted = 115,
         ShowIntelOnSelect = true,
         VisionRadius = 20,
     },

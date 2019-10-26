@@ -150,7 +150,7 @@ UnitBlueprint {
             'xnb3301',
         },
         MaintenanceConsumptionPerSecondEnergy = 150,
-        MaintenanceConsumptionPerSecondEnergyBoosted = 300,
+        MaintenanceConsumptionPerSecondEnergyBoosted = 600,
         RebuildBonusIds = {
             'xnb3201',
         },

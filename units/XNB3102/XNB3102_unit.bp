@@ -109,8 +109,8 @@ UnitBlueprint {
         BuildableCategory = {
             'xnb3202',
         },
-        MaintenanceConsumptionPerSecondEnergy = 10,
-        MaintenanceConsumptionPerSecondEnergyBoosted = 50,
+        MaintenanceConsumptionPerSecondEnergy = 5,
+        MaintenanceConsumptionPerSecondEnergyBoosted = 20,
         RebuildBonusIds = {
             'xnb3102',
         },
@@ -160,8 +160,8 @@ UnitBlueprint {
     },
     Intel = {
         ShowIntelOnSelect = true,
-        SonarRadius = 115,
-        SonarRadiusBoosted = 175,
+        SonarRadius = 80,
+        SonarRadiusBoosted = 115,
         VisionRadius = 20,
     },
     Interface = {
