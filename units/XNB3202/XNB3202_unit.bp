@@ -113,6 +113,7 @@ UnitBlueprint {
             'xnb3302',
         },
         MaintenanceConsumptionPerSecondEnergy = 100,
+        MaintenanceConsumptionPerSecondEnergyBoosted = 250,
         RebuildBonusIds = {
             'xnb3202',
         },
@@ -162,14 +163,9 @@ UnitBlueprint {
         UpgradesTo = 'xnb3302',
     },
     Intel = {
-        OverchargeDamageMulti = 3,
-        OverchargeEnergyCost = 2500,
-        OverchargeEnergyDrainPerSecond = 250,
-        OverchargeTime = 15,
-        OverchargeType = 'Sonar',
-        ReactivateTime = 10,
         ShowIntelOnSelect = true,
         SonarRadius = 230,
+        SonarRadiusBoosted = 280,
         VisionRadius = 25,
     },
     Interface = {
