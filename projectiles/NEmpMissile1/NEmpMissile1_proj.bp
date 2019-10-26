@@ -24,8 +24,8 @@ ProjectileBlueprint {
         'NOSPLASHDAMAGE',
     },
     Defense = {
-        Health = 2,
-        MaxHealth = 2,
+        Health = 1,
+        MaxHealth = 1,
     },
     Display = {
         -- ImpactEffects = {
@@ -45,7 +45,7 @@ ProjectileBlueprint {
         UniformScale = 1,
     },
     General = {
-        Category = 'Artillery',
+        Category = 'MISSILE',
         EntityCategory = {
             'NOMADS',
             'TACTICAL',
@@ -60,18 +60,17 @@ ProjectileBlueprint {
         HelpText = 0,
     },
     Physics = {
-        Acceleration = 6,
-        DestroyOnWater = true,
-        InitialSpeed = 14,
-        LeadTarget = false,
-        LifetimeAfterTargetLost = 8,
-        MaxSpeed = 21.5,
-        MaxZigZag = 2,
+        Acceleration = 3,
+        DestroyOnWater = false,
+        InitialSpeed = 3,
+        LifeTime = 30,
+        MaxSpeed = 12,
+        RotationalVelocity = 0,
+        RotationalVelocityRange = 0,
         TrackTarget = true,
         TrackTargetGround = true,
-        TurnRate = 200,
+        TurnRate = 0,
         UseGravity = false,
         VelocityAlign = true,
-        ZigZagFrequency = 10,
     },
 }
