@@ -1299,6 +1299,7 @@ UnitBlueprint {
             TargetRestrictDisallow = 'UNTARGETABLE',
             Turreted = false,
             WeaponCategory = 'Missile',
+            WeaponRepackTimeout = 5,
         },
     },
 }
