@@ -774,7 +774,7 @@ NRadarUnit = Class(RadarUnit) {
 
     IntelBoostFxBone = 0, -- bone used for overcharge and overcharge recovery effects. Also for charging effects if that bone isn't set (see next line)
     OverchargeExplosionFxBone = 0, -- bone for the explosion effect played when the unit is destroyed while boosting radar
-    IntelType = 'Radar',
+    IntelType = 'Radar',--the type of intel to toggle
 
     IntelBoostFx = NomadsEffectTemplate.T1RadarOvercharge,
     --OverchargeRecoveryFx = NomadsEffectTemplate.T1RadarOverchargeRecovery,
@@ -788,15 +788,13 @@ NRadarUnit = Class(RadarUnit) {
     OnCreate = function(self)
         RadarUnit.OnCreate(self)
         self.IntelBoostEffects = TrashBag()
-        self.IntelOverchargeExplosionEffects = TrashBag()
-        self.IntelOverchargeInRecoveryTime = false
-        self.IsIntelOverchargeChargingUp = false
+        self.IntelBoostExplosionEffects = TrashBag()
         
         local bp = self:GetBlueprint()
-        self.IntelRadiusBoosted = bp.Intel.RadarRadiusBoosted or bp.Intel.SonarRadiusBoosted --a bit messy but this means we can reuse the same code for radars and sonars
-        self.IntelRadiusDefault = bp.Intel.RadarRadius or bp.Intel.SonarRadius
+        self.IntelRadiusBoosted = bp.Intel[self.IntelType..'RadiusBoosted']
+        self.IntelRadiusDefault = bp.Intel[self.IntelType..'Radius']
         self.EnergyDrainDefault = bp.Economy.MaintenanceConsumptionPerSecondEnergy
-        self.EnergyDrainBoosted = bp.Economy.MaintenanceConsumptionPerSecondEnergyBoosted
+        self.EnergyDrainBoosted = bp.Economy.MaintenanceConsumptionPerSecondEnergyBoosted or self.EnergyDrainDefault * 2
         
         self:SetScriptBit('RULEUTC_WeaponToggle', true) --this makes the toggle button look off by default
     end,
@@ -818,8 +816,6 @@ NRadarUnit = Class(RadarUnit) {
             self.IntelBoostEndThreadHandle = self:ForkThread( self.IntelBoostEndThread )
         end
     end,
-
-    --TODO: remove OverchargeDamageMulti from blueprints
 
     OnKilled = function(self, instigator, type, overkillRatio)
         self.IntelBoostEffects:Destroy()
@@ -917,14 +913,14 @@ NRadarUnit = Class(RadarUnit) {
         for k, v in self.OverchargeExplosionFx do
             emit = CreateEmitterAtBone( self, self.OverchargeExplosionFxBone or self.IntelBoostFxBone, army, v )
             emit:ScaleEmitter( self.OverchargeExplosionFxScale or 1 )
-            self.IntelOverchargeExplosionEffects:Add( emit )
+            self.IntelBoostExplosionEffects:Add( emit )
         end
     end,
 }
 
 
 --SonarUnit = AddNomadsBeingBuiltEffects(SonarUnit)
-NSonarUnit = Class(RadarUnit) {
+NSonarUnit = Class(NRadarUnit) {
     IntelType = 'Sonar',
 }
 
