@@ -89,37 +89,37 @@ EmitterBlueprint {
     SizeCurve = {
         XRange = 3.00,
         Keys = {
-            { x=1.500,y=0.000,z=0.000 },
+            { x=1.5,y=0.2,z=0.000 },
         },
     },
     XPosCurve = {
         XRange = 3.00,
         Keys = {
-            { x=1.530,y=0.000,z=0.000 },
+            { x=1.5,y=0.000,z=0.000 },
         },
     },
     YPosCurve = {
         XRange = 3.00,
         Keys = {
-            { x=1.500,y=0.100,z=0.000 },
+            { x=1.5,y=0.100,z=0.000 },
         },
     },
     ZPosCurve = {
         XRange = 3.00,
         Keys = {
-            { x=1.530,y=0.000,z=0.000 },
+            { x=1.5,y=0.000,z=0.000 },
         },
     },
     StartSizeCurve = {
         XRange = 3.00,
         Keys = {
-            { x=0.000,y=0.000,z=0.000 },
+            { x=1.5,y=1,z=0.000 },
         },
     },
     EndSizeCurve = {
         XRange = 3.00,
         Keys = {
-            { x=1.470,y=30.000,z=5.000 },
+            { x=1.5,y=2,z=5.000 },
         },
     },
     InitialRotationCurve = {
@@ -153,3 +153,4 @@ EmitterBlueprint {
         },
     },
 }
+
