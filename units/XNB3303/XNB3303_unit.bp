@@ -98,7 +98,7 @@ UnitBlueprint {
     },
     Economy = {
         BuildCostEnergy = 40000,
-        BuildCostMass = 2000,
+        BuildCostMass = 4000,
         BuildTime = 4000,
         RebuildBonusIds = {
             'xnb3303',
@@ -208,8 +208,8 @@ UnitBlueprint {
             FiringRandomness = 0.8,
             FiringTolerance = 1,
             Label = 'MainGun',
-            MaxRadius = 175,
-            MinRadius = 15,
+            MaxRadius = 128,
+            MinRadius = 50,
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 2,
             MuzzleSalvoSize = 2,
