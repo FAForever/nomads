@@ -767,28 +767,165 @@ NRadarJammerUnit = Class(RadarJammerUnit) {
 }
 
 ---------------------------------------------------------------
---  RADAR STRUCTURES
+--  INTEL STRUCTURES
 ---------------------------------------------------------------
 RadarUnit = AddNomadsBeingBuiltEffects(RadarUnit)
 NRadarUnit = Class(RadarUnit) {
 
-    OverchargeFxBone = 0,
-    OverchargeChargingFxBone = 0,
+    IntelBoostFxBone = 0, -- bone used for overcharge and overcharge recovery effects. Also for charging effects if that bone isn't set (see next line)
+    OverchargeExplosionFxBone = 0, -- bone for the explosion effect played when the unit is destroyed while boosting radar
+    IntelType = 'Radar',
 
-    OverchargeFx = NomadsEffectTemplate.T1RadarOvercharge,
-    OverchargeRecoveryFx = NomadsEffectTemplate.T1RadarOverchargeRecovery,
-    OverchargeChargingFx = NomadsEffectTemplate.T1RadarOverchargeCharging,
-    OverchargeFxScale = 1,
-    OverchargeRecoveryFxScale = 1,
-    OverchargeChargingFxScale = 1,
+    IntelBoostFx = NomadsEffectTemplate.T1RadarOvercharge,
+    --OverchargeRecoveryFx = NomadsEffectTemplate.T1RadarOverchargeRecovery,
+    --OverchargeChargingFx = NomadsEffectTemplate.T1RadarOverchargeCharging,
+    OverchargeExplosionFx = NomadsEffectTemplate.T1RadarOverchargeExplosion,
+    IntelBoostFxScale = 1,
+    --OverchargeRecoveryFxScale = 1,
+    --OverchargeChargingFxScale = 1,
+    OverchargeExplosionFxScale = 1,
+
+    OnCreate = function(self)
+        RadarUnit.OnCreate(self)
+        self.IntelBoostEffects = TrashBag()
+        self.IntelOverchargeExplosionEffects = TrashBag()
+        self.IntelOverchargeInRecoveryTime = false
+        self.IsIntelOverchargeChargingUp = false
+        
+        local bp = self:GetBlueprint()
+        self.IntelRadiusBoosted = bp.Intel.RadarRadiusBoosted or bp.Intel.SonarRadiusBoosted --a bit messy but this means we can reuse the same code for radars and sonars
+        self.IntelRadiusDefault = bp.Intel.RadarRadius or bp.Intel.SonarRadius
+        self.EnergyDrainDefault = bp.Economy.MaintenanceConsumptionPerSecondEnergy
+        self.EnergyDrainBoosted = bp.Economy.MaintenanceConsumptionPerSecondEnergyBoosted
+        
+        self:SetScriptBit('RULEUTC_WeaponToggle', true) --this makes the toggle button look off by default
+    end,
+
+    OnScriptBitClear = function(self, bit)
+        RadarUnit.OnScriptBitClear(self, bit)
+        if bit == 1 then
+            self:SetIntelRadius(self.IntelType, self.IntelRadiusBoosted or 170)
+            self:SetConsumptionPerSecondEnergy(self.EnergyDrainBoosted)
+            self.IntelBoostStartThreadHandle = self:ForkThread( self.IntelBoostStartThread )
+        end
+    end,
+    
+    OnScriptBitSet = function(self, bit)
+        RadarUnit.OnScriptBitSet(self, bit)
+        if bit == 1 then
+            self:SetIntelRadius(self.IntelType, self.IntelRadiusDefault or 115)
+            self:SetConsumptionPerSecondEnergy(self.EnergyDrainDefault)
+            self.IntelBoostEndThreadHandle = self:ForkThread( self.IntelBoostEndThread )
+        end
+    end,
+
+    --TODO: remove OverchargeDamageMulti from blueprints
+
+    OnKilled = function(self, instigator, type, overkillRatio)
+        self.IntelBoostEffects:Destroy()
+        self:FireIntelBoostDeathWeapon()
+        RadarUnit.OnKilled(self, instigator, type, overkillRatio)
+    end,
+
+    OnDestroy = function(self)
+        self.IntelBoostEffects:Destroy()
+        RadarUnit.OnDestroy(self)
+    end,
+
+    FireIntelBoostDeathWeapon = function(self)
+        if self.IsIntelOvercharging then
+            local bp, wbp = self:GetBlueprint().Weapon, false
+            for k, wepBp in bp do
+                if wepBp.Label == 'IntelOverchargeDeathWeapon' then
+                    wbp = bp[k]
+                    break
+                end
+            end
+            if wbp then
+                -- play fx
+                self:PlayIntelBoostExplosionEffects()
+                -- do regular damage
+                DamageArea( self, self:GetPosition(), wbp.DamageRadius, wbp.Damage, wbp.DamageType, wbp.DamageFriendly, false )
+                -- Handling buffs (emp)
+                if wbp.Buffs then
+                    for k, buffTable in wbp.Buffs do
+                        self:AddBuff(buffTable)
+                    end
+                end
+
+                -- Play weapon sound
+                local snd = wbp.Audio['Fire']
+                if snd then
+                    self:PlaySound(snd)
+                end
+
+                return true
+            end
+        end
+        return false
+    end,
+
+    --self.IntelBoostStartThreadHandle = self:ForkThread( self.IntelBoostStartThread )
+    IntelBoostStartThread = function(self) --the intel is boosted immediately, this is purely visual stuff
+        self.IsIntelOvercharging = true
+        if self.IntelBoostEndThreadHandle then KillThread( self.IntelBoostEndThreadHandle ) end
+        self:DestroyIdleEffects()  -- remove the radar effect, the lines coming from the antennae
+        
+        if self.IntelBoostManipulator then --handle any animations here
+            self:PlayUnitSound('IntelOverchargeChargingStart')
+            self:PlayUnitAmbientSound('IntelOverchargeChargingLoop')
+            self.IntelBoostManipulator:SetRate(1)
+            WaitFor(self.IntelBoostManipulator)
+            self:StopUnitAmbientSound('IntelOverchargeChargingLoop')
+            self:PlayUnitSound('IntelOverchargeChargingStop')
+        end
+        
+        self:PlayUnitSound('IntelOverchargeActivated')
+        self:PlayUnitAmbientSound('IntelOverchargeActiveLoop')
+        
+        self:PlayIntelBoostEffects()
+    end,
+    
+    --self.IntelBoostEndThreadHandle = self:ForkThread( self.IntelBoostEndThread )
+    IntelBoostEndThread = function(self)
+        self.IsIntelOvercharging = false
+        if self.IntelBoostStartThreadHandle then KillThread( self.IntelBoostStartThreadHandle ) end
+        self.IntelBoostEffects:Destroy()
+        self:StopUnitAmbientSound('IntelOverchargeActiveLoop')
+        self:PlayUnitSound('IntelOverchargeStopped')
+        
+        if self.IntelBoostManipulator then --handle any animations here
+            self.IntelBoostManipulator:SetRate(-1)
+            WaitFor(self.IntelBoostManipulator)
+        end
+        
+        self:CreateIdleEffects()
+    end,
+
+    PlayIntelBoostEffects = function(self)
+        local army, emit = self:GetArmy()
+        for k, v in self.IntelBoostFx do
+            emit = CreateAttachedEmitter( self, self.IntelBoostFxBone, army, v )
+            emit:ScaleEmitter( self.IntelBoostFxScale or 1 )
+            self.IntelBoostEffects:Add( emit )
+            self.Trash:Add( emit )
+        end
+    end,
+
+    PlayIntelBoostExplosionEffects = function(self)
+        local army, emit = self:GetArmy()
+        for k, v in self.OverchargeExplosionFx do
+            emit = CreateEmitterAtBone( self, self.OverchargeExplosionFxBone or self.IntelBoostFxBone, army, v )
+            emit:ScaleEmitter( self.OverchargeExplosionFxScale or 1 )
+            self.IntelOverchargeExplosionEffects:Add( emit )
+        end
+    end,
 }
 
----------------------------------------------------------------
---  SONAR STRUCTURES
----------------------------------------------------------------
-SonarUnit = AddNomadsBeingBuiltEffects(SonarUnit)
-NSonarUnit = Class(SonarUnit) {
 
+--SonarUnit = AddNomadsBeingBuiltEffects(SonarUnit)
+NSonarUnit = Class(RadarUnit) {
+    IntelType = 'Sonar',
 }
 
 ---------------------------------------------------------------
