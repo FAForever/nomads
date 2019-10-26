@@ -204,7 +204,6 @@ UnitBlueprint {
             CollideFriendly = false,
             Damage = 300,
             DamageFriendly = false,
-            DamageRadius = 1,
             DamageType = 'Normal',
             DisplayName = 'Kinetic Cannon',
             FireTargetLayerCapsTable = {
