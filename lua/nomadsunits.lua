@@ -803,7 +803,8 @@ NRadarUnit = Class(RadarUnit) {
         RadarUnit.OnScriptBitClear(self, bit)
         if bit == 1 then
             self:SetIntelRadius(self.IntelType, self.IntelRadiusBoosted or 170)
-            self:SetConsumptionPerSecondEnergy(self.EnergyDrainBoosted)
+            self.EnergyMaintenanceConsumptionOverride = self.EnergyDrainBoosted
+            self:UpdateConsumptionValues()
             self.IntelBoostStartThreadHandle = self:ForkThread( self.IntelBoostStartThread )
         end
     end,
@@ -812,7 +813,8 @@ NRadarUnit = Class(RadarUnit) {
         RadarUnit.OnScriptBitSet(self, bit)
         if bit == 1 then
             self:SetIntelRadius(self.IntelType, self.IntelRadiusDefault or 115)
-            self:SetConsumptionPerSecondEnergy(self.EnergyDrainDefault)
+            self.EnergyMaintenanceConsumptionOverride = self.EnergyDrainDefault
+            self:UpdateConsumptionValues()
             self.IntelBoostEndThreadHandle = self:ForkThread( self.IntelBoostEndThread )
         end
     end,
