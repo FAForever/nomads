@@ -1,0 +1,87 @@
+ProjectileBlueprint {
+    Audio = {
+        ExistLoop = Sound {
+            Bank = 'UELWeapon',
+            Cue = 'UEF_Nuke_Flight',
+            LodCutoff = 'DefaultLodCutoff',
+        },
+        ImpactTerrain = Sound {
+            Bank = 'Explosions',
+            Cue = 'UEF_Nuke_Impact',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+        ImpactWater = Sound {
+            Bank = 'Explosions',
+            Cue = 'UEF_Nuke_Impact',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+        NukeExplosion = Sound {
+            Bank = 'Explosions',
+            Cue = 'UEF_Nuke_Impact',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+    },
+    Categories = {
+        'NOMADS',
+        'PROJECTILE',
+        'INDIRECTFIRE',
+        'TACTICAL',
+        'MISSILE',
+        'NOSPLASHDAMAGE',
+    },
+    Defense = {
+        Health = 2,
+        MaxHealth = 2,
+    },
+    Description = 'Nomads Strategic Missile',
+    DesiredShooterCap = 1,
+    Display = {
+        CameraFollowTimeout = 5,
+        CameraFollowsProjectile = true,
+        Mesh = {
+            IconFadeInZoom = 200,
+            LODs = {
+                {
+                    AlbedoName = '/projectiles/TIFMissileNuke01/TIFMissileNuke01_albedo.dds',
+                    LODCutoff = 150,
+                    MeshName = '/projectiles/NStrategicMissile1/NStratMissile_Lod0.scm',
+                    ShaderName = 'TMeshGlow',
+                },
+            },
+        },
+        StrategicIconSize = 3,
+        UniformScale = 0.05,
+    },
+    Economy = {
+        BuildCostEnergy = 316300,
+        BuildCostMass = 3000,
+        BuildTime = 3060,
+    },
+    General = {
+        Category = 'Missile',
+        EntityCategory = {
+            'NOMADS',
+            'PROJECTILE',
+            'INDIRECTFIRE',
+            'TACTICAL',
+            'MISSILE',
+            'NOSPLASHDAMAGE',
+        },
+        Faction = 'NOMADS',
+    },
+    Interface = {
+        HelpText = 'Nomad Tactical Blackhole Missile',
+    },
+    Physics = {
+        Acceleration = 3,
+        DestroyOnWater = false,
+        InitialSpeed = 3,
+        MaxSpeed = 12,
+        MaxZigZag = 0,
+        TrackTarget = false,
+        TrackTargetGround = true,
+        TurnRate = 0,
+        UseGravity = false,
+        VelocityAlign = true,
+    },
+}
