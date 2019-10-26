@@ -189,6 +189,7 @@ UnitBlueprint {
     },
     Intel = {
         OmniRadius = 200,
+        OmniRadiusBoosted = 300,
         RadarRadius = 600,
         RadarRadiusBoosted = 800,
         ShowIntelOnSelect = true,

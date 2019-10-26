@@ -21,6 +21,9 @@ XNB3301 = Class(NRadarUnit) {
         self.Rotator = CreateRotator(self, 'rotator', 'y')
         self.Rotator:SetAccel(5)
         self.Trash:Add(self.Rotator)
+        
+        self.OmniRadiusBoosted = bp.Intel.OmniRadiusBoosted
+        self.OmniRadiusDefault = bp.Intel.OmniRadius
     end,
 
     OnStopBeingBuilt = function(self, builder, layer)
@@ -50,6 +53,21 @@ XNB3301 = Class(NRadarUnit) {
         NRadarUnit.OnIntelEnabled(self)
         self.Rotator:SetSpeed(10)
     end,
+    
+    OnScriptBitClear = function(self, bit)
+        NRadarUnit.OnScriptBitClear(self, bit)
+        if bit == 1 then
+            self:SetIntelRadius('Omni', self.OmniRadiusBoosted or 300)
+        end
+    end,
+    
+    OnScriptBitSet = function(self, bit)
+        NRadarUnit.OnScriptBitSet(self, bit)
+        if bit == 1 then
+            self:SetIntelRadius('Omni', self.OmniRadiusDefault or 200)
+        end
+    end,
+
 }
 
 TypeClass = XNB3301
