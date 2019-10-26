@@ -203,12 +203,6 @@ UnitBlueprint {
     SizeX = 0.8,
     SizeY = 0.8,
     SizeZ = 0.8,
-    SpecialAbilities = {
-        NomadsIntelOvercharge = {
-            AreaOfEffect = 5,
-            MaxRadius = 300,
-        },
-    },
     StrategicIconName = 'icon_structure2_intel',
     StrategicIconSortPriority = 230,
     Weapon = {

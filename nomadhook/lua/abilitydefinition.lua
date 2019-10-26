@@ -89,40 +89,6 @@ abilities = table.merged( abilities, {
         GetAllUnitsFile = '/lua/user/tasks/Tasks.lua',
     },
 
-    NomadsIntelOvercharge = {
-        UIBitmapId = 'radar-boost',
-        cursor = 'RULEUCC_SpecialAction',
-        enabled = true,
-        ExtraInfo = {
-            DoRangeCheck = true,
-        },
-        UIHelpText = 'specabil_intelovercharge',
-        UISlot = 3,
-        script = 'NomadsIntelOvercharge',
-        usage = 'Valid',
-
-        UIBehaviorSingleClick = {
-            DragDelta = 0,
-            UseSelected = true,
-        },
-        UIBehaviorDoubleClick = {
-            AllowDraging = false,
-            AllowMaxSpread = false,
-            AllReticulesAtStart = true,
-            DragDelta = 1,
-            UseSelected = false,
-        },
--- TODO: make ActivateImmediately work
---        UIBehaviorSingleClickRight = {
---            ActivateImmediately = true,
---        },
-
-        SoundReady = 'IntelBoostReady',
-        SoundLaunched = 'IntelBoostInitiated',
-
-        GetAllUnitsFile = '/lua/user/tasks/Tasks.lua',
-    },
-
     NomadsAreaBombardment = {
         UIBitmapId = 'area-assist',
         cursor = 'RULEUCC_SpecialAction',
@@ -132,7 +98,7 @@ abilities = table.merged( abilities, {
             NumReticules = 1,
         },
         UIHelpText = 'specabil_areabombardment',
-        UISlot = 5,
+        UISlot = 3,
         script = 'NomadsAreaBombardment',
         usage = 'Event',
 

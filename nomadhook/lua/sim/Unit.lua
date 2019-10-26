@@ -624,13 +624,6 @@ Unit = Class(oldUnit) {
     end,
 
     -- ================================================================================================================
-    -- INTEL OVERCHARGE
-
-    CanIntelOvercharge = function(self)  -- so all units have this function
-        return false
-    end,
-
-    -- ================================================================================================================
     -- BOMBARDMENT MODE
 
     OnBombardmentModeChanged = function( self, enabled, changedByTransport )

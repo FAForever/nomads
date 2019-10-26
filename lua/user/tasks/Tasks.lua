@@ -123,7 +123,6 @@ DoUnitSelectedFilter = function(abilityName, unitIds)
 end
 
 -- internal - MapReticulesToUnitIdsScript
---NomadsIntelOvercharge.lua
 UnitCanFireAtPos = function(abilityName, unit, pos)
     local MaxRadius = -1
     local MinRadius = -1
