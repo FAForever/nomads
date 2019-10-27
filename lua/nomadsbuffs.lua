@@ -166,20 +166,3 @@ BuffBlueprint {
         },
     },
 }
-
-BuffBlueprint {
-    Name = 'IntelOvercharge',
-    DisplayName = 'IntelOvercharge',
-    BuffType = 'INTELOVERCHARGE',
-    Stacks = 'REPLACE',
-    Duration = -1,
-    Affects = {
-        RadarRadius = {
-            Mult = 1.5,
-        },
-        SonarRadius = {
-            Mult = 1.5,
-        },
-    },
-}
-
