@@ -350,14 +350,14 @@ Unit = Class(oldUnit) {
         if self:CanBeStunned() or forced then
             local fn = function(self, duration)
                 WaitSeconds( duration )
-                self._IsStunned = false
+                self.IsStunned = false
                 self:OnStunnedOver(self)
             end
             if self.StunnedThread then  -- if unit it hit twice by stun weapon then this ensures the second hit prolongs the stun
                 KillThread( self.StunnedThread )
                 self.StunnedThread = nil
             end
-            self._IsStunned = true
+            self.IsStunned = true
             self.StunnedThread = self:ForkThread(fn, duration)
             self:OnStunned(duration)
             return oldUnit.SetStunned(self, duration) or true
@@ -366,7 +366,7 @@ Unit = Class(oldUnit) {
     end,
 
     IsStunned = function(self)
-        return self._IsStunned or false
+        return self.IsStunned or false
     end,
 
     OnStunned = function(self, duration)

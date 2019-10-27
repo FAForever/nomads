@@ -501,7 +501,7 @@ function AddFlares(SuperClass)
         CanFireFlares = function(self)
             -- checks if we can fire the flares again. No if we just did it (flare launcher is reloading)
             --if self.FlaresEnabled and not self:IsStunned() then
-            if self.FlaresEnabled and not self._IsStunned then
+            if self.FlaresEnabled and not self.IsStunned then
 				local tick = GetGameTick()
                 if tick >= (self.FlareFireTick + self.FlareTimeout) then
                     return true
@@ -951,7 +951,7 @@ function AddAkimbo( SuperClass )
             while not self.Dead do
 
                 -- if we're EMP-ed then wait till we're no longer EMP-ed
-                while self._IsStunned do
+                while self.IsStunned do
                     WaitSeconds( 0.2 )
                 end
 
@@ -1254,7 +1254,7 @@ function AddCapacitorAbility( SuperClass )
         end,
         
         CapacitorDischargeThread  = function(self)
-            while self._IsStunned do  -- dont waste capacitor time being stunned
+            while self.IsStunned do  -- dont waste capacitor time being stunned
                 WaitTicks(1)
             end
             while self.CapChargeFraction > 0 do
