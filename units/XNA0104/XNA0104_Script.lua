@@ -1,11 +1,10 @@
 -- T2 transport
 
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
-local AddFlares = import('/lua/nomadsutils.lua').AddFlares
 local AddLights = import('/lua/nomadsutils.lua').AddLights
 local NAirTransportUnit = import('/lua/nomadsunits.lua').NAirTransportUnit
 
-NAirTransportUnit = AddFlares( AddLights( NAirTransportUnit ) )
+NAirTransportUnit = AddLights( NAirTransportUnit )
 
 XNA0104 = Class(NAirTransportUnit) {
     DestructionTicks = 250,
@@ -27,7 +26,6 @@ XNA0104 = Class(NAirTransportUnit) {
         self.UnfoldAnim:SetAnimationFraction(0)
         self.Trash:Add(self.UnfoldAnim)
 
-        self:SetFlaresEnabled(false)
     end,
 
     OnDestroy = function(self)
@@ -69,13 +67,11 @@ XNA0104 = Class(NAirTransportUnit) {
         -- special abilities only available when on cruising height
         if new == 'Top' then
             -- unit reaching target altitude, coming from surface
-            self:SetFlaresEnabled(true)
             self:DestroyThrusterBurnEffects()
             self:PlayThrusterEffects()
 
         elseif new == 'Down' then
             -- unit starts landing
-            self:SetFlaresEnabled(false)
             self:DestroyThrusterEffects()
             self:DestroyThrusterBurnEffects()
             self:PlayThrusterBurnEffects()
@@ -259,11 +255,6 @@ XNA0104 = Class(NAirTransportUnit) {
     end,
 
     -- =============================================
-
-    -- When one of our attached units gets killed, detach it
-    OnAttachedKilled = function(self, attached)
-        attached:DetachFrom()
-    end,
 
     Fold = function(self, DoUnfold)
         if not self.Dead then

@@ -107,14 +107,6 @@ UnitBlueprint {
     },
     Defense = {
         AirThreatLevel = 1.5,
-        AntiMissileFlares = {
-            BeSmart = false,
-            Bones = { 'Flare01', 'Flare02', 'Flare03', 'Flare04', 'Flare05', 'Flare06', },
-            ProjectileBlueprint = '/projectiles/NAAMissileFlare1/NAAMissileFlare1_proj.bp',
-            Radius = 10,
-            RateOfFire = 0.2,
-            Speed = 10,
-        },
         ArmorType = 'Light',
         EconomyThreatLevel = 0,
         Health = 1500,
