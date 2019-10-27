@@ -1,21 +1,16 @@
 local EMPMissile = import('/lua/nomadsprojectiles.lua').EMPMissile
-local RandomFloat = import('/lua/utilities.lua').GetRandomFloat
+local RandomOffsetTrackingTarget = import('/lua/utilities.lua').RandomOffsetTrackingTarget
 
 NEmpMissile1 = Class(EMPMissile) {
 
     OnCreate = function(self, inWater)
-        self.TargetSpread = 10
-        self.TargetPos = self:GetCurrentTargetPosition()
-        self.TargetPos[1] = self.TargetPos[1] + RandomFloat(-self.TargetSpread,self.TargetSpread)
-        self.TargetPos[3] = self.TargetPos[3] + RandomFloat(-self.TargetSpread,self.TargetSpread)
         EMPMissile.OnCreate(self, inWater)
         self:ForkThread(self.MovementThread)        
     end,
-
     
-    MovementThread = function(self)        
+    MovementThread = function(self)
         self.WaitTime = 0.1
-        self:SetNewTargetGround(self.TargetPos)
+        self:SetNewTargetGround(RandomOffsetTrackingTarget(self, 10))
         self:SetTurnRate(8)
         WaitSeconds(0.3)        
         while not self:BeenDestroyed() do

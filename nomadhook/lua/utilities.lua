@@ -92,3 +92,11 @@ function Get2DDistanceBetweenTwoEntities(entity1, entity2)
     local pos2 = entity2:GetPosition()
     return VDist2(pos1[1], pos1[3], pos2[1], pos2[3])
 end
+
+--for use in projectile scripts
+RandomOffsetTrackingTarget = function(self, spread)
+    local pos = self:GetCurrentTargetPosition()
+    pos[1] = pos[1] + GetRandomFloat(-spread,spread)
+    pos[3] = pos[3] + GetRandomFloat(-spread,spread)
+    return pos
+end

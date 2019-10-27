@@ -14,7 +14,9 @@ local Projectile = import('/lua/sim/Projectile.lua').Projectile
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 
-local RandomFloat = import('/lua/utilities.lua').GetRandomFloat
+local UtilsFile = import('/lua/utilities.lua')
+local RandomFloat = UtilsFile.GetRandomFloat
+local RandomOffsetTrackingTarget = UtilsFile.RandomOffsetTrackingTarget
 local NomadsExplosions = import('/lua/nomadsexplosions.lua')
 
 
@@ -116,9 +118,7 @@ NIFOrbitalMissile = Class(NIFMissile) {
         
         NIFMissile.OnCreate(self)
         --Save the target location to spread out the missiles
-        self.TargetPos = self:GetCurrentTargetPosition()
-        self.TargetPos[1] = self.TargetPos[1] + RandomFloat(-self.TargetSpread,self.TargetSpread)
-        self.TargetPos[3] = self.TargetPos[3] + RandomFloat(-self.TargetSpread,self.TargetSpread)
+        self.TargetPos = RandomOffsetTrackingTarget(self, self.TargetSpread)
         
         self:ForkThread(self.TrailThread)
     end,
