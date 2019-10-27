@@ -61,7 +61,7 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
     },
-    Description = '<LOC XNL0205_desc>Mobile AA Artillery',
+    Description = '<LOC XNL0205_desc>Mobile AA Flak Artillery',
     Display = {
         Abilities = {
             '<LOC ability_aa>Anti-Air',
