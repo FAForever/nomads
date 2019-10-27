@@ -365,10 +365,6 @@ Unit = Class(oldUnit) {
         return false
     end,
 
-    IsStunned = function(self)
-        return self.IsStunned or false
-    end,
-
     OnStunned = function(self, duration)
         local bp = self:GetBlueprint()
 
