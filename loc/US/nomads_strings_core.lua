@@ -523,7 +523,7 @@ xnl0111_help = "Amphibious missile launcher, fires low yield tactical rockets. D
 xnl0111_name = "Avalanche"
 
 -- T2 AA gun
-xnl0205_desc = "Mobile AA Artillery"
+xnl0205_desc = "Mobile AA Flak Artillery"
 xnl0205_help = "Mobile AA unit. Armed with rocket artillery."
 xnl0205_name = "Skyshell"
 
