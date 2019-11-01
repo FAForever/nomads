@@ -8,10 +8,6 @@ local Entity = import('/lua/sim/Entity.lua').Entity
 
 
 Meteor = Class(NullShell) {
-
-    Damage = 10000,
-    DamageFriendly = true,
-    DamageRadius = 10,
     InitialHeight = 300,
 
     FxScale = 1,
@@ -32,33 +28,10 @@ Meteor = Class(NullShell) {
     end,
 
     Start = function(self, ImpactPos, Time)
-        --self:SetVisuals()
         self:SetAudio()
         self:SetPosAndVelocity(ImpactPos, Time)
         self:DescentEffects()
         self:MonitorDescent(ImpactPos)
-    end,
-
-    SetVisuals = function(self)
-        if Random(0,5) == 0 then
-            self:SetMesh('/effects/Entities/Meteor/Meteor6_mesh.bp')
-            self:SetDrawScale(0.03 * self.FxScale)
-        elseif Random(0,4) == 0 then
-            self:SetMesh('/effects/Entities/Meteor/Meteor5_mesh.bp')
-            self:SetDrawScale(0.05 * self.FxScale)
-        elseif Random(0,3) == 0 then
-            self:SetMesh('/effects/Entities/Meteor/Meteor4_mesh.bp')
-            self:SetDrawScale(0.05 * self.FxScale)
-        elseif Random(0,2) == 0 then
-            self:SetMesh('/effects/Entities/Meteor/Meteor3_mesh.bp')
-            self:SetDrawScale(0.05 * self.FxScale)
-        elseif Random(0,1) == 0 then
-            self:SetMesh('/effects/Entities/Meteor/Meteor2_mesh.bp')
-            self:SetDrawScale(0.025 * self.FxScale)
-        else
-            self:SetMesh('/effects/Entities/Meteor/Meteor1_mesh.bp')
-            self:SetDrawScale(0.05 * self.FxScale)
-        end
     end,
 
     SetAudio = function(self)
@@ -159,15 +132,9 @@ Meteor = Class(NullShell) {
         elseif targetType == 'Terrain' or targetType == 'UnderWater' then
             local x,y,z = unpack(self:GetPosition())
             local ImpactSeabed = GetTerrainHeight(x, z) < GetSurfaceHeight(x, z)
-            self:DoDamage()
             self:ImpactEffects(self:GetPosition(), ImpactSeabed, self.FxScale)
             self:Destroy()
         end
-    end,
-
-    DoDamage = function(self)
-        local pos = self:GetPosition()
-        DamageArea(self, pos, self.DamageRadius, self.Damage, 'Normal', self.DamageFriendly, false)
     end,
 
     ImpactWaterSurfaceEffects = function(self, position, scale)
@@ -203,8 +170,8 @@ Meteor = Class(NullShell) {
         end
 
         -- Knockdown force rings
-        DamageRing(self, position, 0.1, (12 * scale), 1, 'Force', true)
-        DamageRing(self, position, 0.1, (12 * scale), 1, 'Force', true)
+        --DamageRing(self, position, 0.1, (12 * scale), 1, 'Force', true)
+        --DamageRing(self, position, 0.1, (12 * scale), 1, 'Force', true)
 
         self:CreateOuterRingWaveSmokeRing(scale)
     end,
@@ -215,6 +182,7 @@ Meteor = Class(NullShell) {
         local emitters = {}
         local emit
 
+        DamageRing(self, position, .1, 11, 100, 'Force', false, false)
         -- Create ground decals
         local orientation = RandomFloat( 0, 2 * math.pi )
         if scale == 1 then
@@ -250,14 +218,7 @@ Meteor = Class(NullShell) {
             end
 
             -- Knockdown force rings
-            DamageRing(self, position, 0.1, (19 * scale), 1, 'Fire', true)
-            DamageRing(self, position, 0.1, (15 * scale), 1, 'Force', true)
-            DamageRing(self, position, 0.1, (15 * scale), 1, 'Force', true)
-
-            -- Additional effects
-           -- self:CreateOuterRingWaveSmokeRing(scale*0.1)
-           -- self:ResidualSmokeEffects(self:GetPosition(), scale)
-
+            ForkThread(self.ForceDamageThread, self, position)
         else
 
             local bpAud = self:GetBlueprint().Audio
@@ -276,70 +237,23 @@ Meteor = Class(NullShell) {
 
         end
     end,
+    
+    ForceDamageThread = function(self, position)
+        --This complicated procedure is identical to the other factions, and ensures that trees are knocked down properly at the starting area.
+        --DamageRing(self, position, .1, 11, 100, 'Force', false, false)
+        --WaitSeconds(.1)
+        DamageRing(self, position, .1, 11, 100, 'Force', false, false)
 
-    CreateOuterRingWaveSmokeRing = function(self, scale)
+        -- Knockdown force rings
+        WaitSeconds(0.39)
+        DamageRing(self, position, 11, 20, 1, 'Force', false, false)
+        WaitSeconds(.1)
+        DamageRing(self, position, 11, 20, 1, 'Force', false, false)
+        WaitSeconds(0.5)
 
-        local sides = 24
-        local velocity = 4
-        local offset = 4 * scale
-        local angle = (2*math.pi) / sides
-
-        local projectiles = {}
-        local x, z, proj
-
-        for i = 1, sides do
-            x = math.sin(i*angle)
-            z = math.cos(i*angle)
-            proj = self:CreateProjectile('/effects/entities/MeteorDustCloud/MeteorDustCloud_proj.bp', x * offset , 2.5, z * offset, x, 0, z)
-            proj:SetVelocity(velocity)
-            table.insert( projectiles, proj )
-        end
-
-        local fn = function(self, projectiles)
-            WaitSeconds( 1 )
-            for k, v in projectiles do
-                v:SetAcceleration(-0.4)
-            end
-            WaitSeconds(11)
-            for k, v in projectiles do
-                v:Destroy()
-            end
-        end
-        ForkThread(fn, self, projectiles)
-    end,
-
-    ResidualSmokeEffects = function(self, centerPos, scale)
-        local x, y, z, a, t, e, o, ent
-        local n = Random(0,4)
-        local emitters = {}
-        local army = self:GetArmy()
-        local maxOffset = 18 * scale
-
-        for i=1, n do
-
-            o = maxOffset * RandomFloat(0.2, 1)
-            a = RandomFloat( 0, 2 * math.pi )
-            x = centerPos[1] + (math.sin(a) * o)
-            z = centerPos[3] + (math.cos(a) * o)
-            y = GetSurfaceHeight(x,z)
-
-            if Random(0,2) == 0 then
-                t = self.ResidualSmoke1
-            elseif Random(0,1) == 0 then
-                t = self.ResidualSmoke2
-            else
-                t = self.ResidualSmoke3
-            end
-
-            for k, v in t do
-                ent = Entity()
-                ent:SetPosition( Vector(x,y,z), true)
-                e = CreateEmitterAtEntity(ent, army, v)
-                table.insert(emitters, e)
-                ent:Destroy()
-            end
-
-        end
+        -- Scorch decal and light some trees on fire
+        WaitSeconds(0.3)
+        DamageRing(self, position, 20, 27, 1, 'Fire', false, false)
     end,
 }
 

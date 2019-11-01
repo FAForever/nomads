@@ -35,18 +35,6 @@ NomadsACUDropMeteor = Class(Meteor) {
 
         Warp(droppod, Vector(x,y,z))
     end,
-
-    DoDamage = function(self)
-        local pos = self:GetPosition()
-        DamageRing(self, pos, .1, 11, 100, 'Force', false, false)
-        DamageRing(self, pos, .1, 11, 100, 'Force', false, false)
-        DamageRing(self, pos, 11, 20, 1, 'Force', false, false)
-        DamageRing(self, pos, 11, 20, 1, 'Force', false, false)
-        DamageRing(self, pos, 20, 27, 1, 'Fire', false, false)
-    end,
-
-    SetVisuals = function(self)
-    end,
 }
 
 TypeClass = NomadsACUDropMeteor
