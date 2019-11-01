@@ -98,11 +98,6 @@ Unit = Class(oldUnit) {
         end
     end,
 
-    NukeCreatedAtUnit = function(self)
-        -- when the unit launches a counted nuke.
-        oldUnit.NukeCreatedAtUnit(self)
-    end,
-
     TacMissileCreatedAtUnit = function(self)
         -- when the unit launches a counted tactical missile.
     end,
