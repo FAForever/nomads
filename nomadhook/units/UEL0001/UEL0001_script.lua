@@ -5,14 +5,11 @@ UEL0001 = Class(oldUEL0001) {
         oldUEL0001.CreateEnhancement(self, enh)
 
         if enh =='TacticalMissile' then
-            self:GetBlueprint().SpecialAbilities.LaunchTacMissile.Enabled = true
-            self:RegisterSpecialAbilities()
+            self:GetAIBrain():SetUnitSpecialAbility(self, 'LaunchTacMissile', {Enabled = true})
         elseif enh == 'TacticalNukeMissile' then
-            self:GetBlueprint().SpecialAbilities.LaunchTacMissile.Enabled = false
-            self:UnregisterSpecialAbilities()
+            self:GetAIBrain():SetUnitSpecialAbility(self, 'LaunchTacMissile', {Enabled = false})
         elseif enh == 'TacticalMissileRemove' then
-            self:GetBlueprint().SpecialAbilities.LaunchTacMissile.Enabled = false
-            self:UnregisterSpecialAbilities()
+            self:GetAIBrain():SetUnitSpecialAbility(self, 'LaunchTacMissile', {Enabled = false})
         end
     end
 }

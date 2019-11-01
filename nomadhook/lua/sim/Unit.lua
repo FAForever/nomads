@@ -82,52 +82,32 @@ Unit = Class(oldUnit) {
     -- ================================================================================================================
     -- AMMO EVENTS
 
-    OnAmmoCountIncreased = function(self, NewCount)
-        -- event fires when the counted projectile weapon ammo count increased whatever reason. Polls every 2 ticks.
-        --LOG('*DEBUG: OnAmmoCountIncreased NewCount = '..repr(NewCount))
-        if NewCount > 0 then
-            self:SpecialAbilitySetAvailability(1)
-        end
-    end,
-
-    OnAmmoCountDecreased = function(self, NewCount)
-        -- event fires when the counted projectile weapon ammo count decreased after firing a missile.
-        --LOG('*DEBUG: OnAmmoCountDecreased NewCount = '..repr(NewCount))
-        if NewCount < 1 then
-            self:SpecialAbilitySetAvailability(0)
-        end
-    end,
-
     TacMissileCreatedAtUnit = function(self)
         -- when the unit launches a counted tactical missile.
     end,
 
     GiveNukeSiloAmmo = function(self, count)
-        --LOG('*DEBUG: GiveNukeSiloAmmo calling OnAmmoCountIncreased')
-        local NewCount = count + self:GetNukeSiloAmmoCount()
         oldUnit.GiveNukeSiloAmmo(self, count)
-        self:OnAmmoCountIncreased(NewCount)
+        --self:GetAIBrain():SetUnitSpecialAbility(self, 'LaunchNuke', {AvailableNowUnit = self:GetNukeSiloAmmoCount(),})
+        self:SetSpecialAbilityAvailability('LaunchNuke', self:GetNukeSiloAmmoCount())
     end,
 
     GiveTacticalSiloAmmo = function(self, count)
-        --LOG('*DEBUG: GiveTacticalSiloAmmo calling OnAmmoCountIncreased')
-        local NewCount = count + self:GetTacticalSiloAmmoCount()
         oldUnit.GiveTacticalSiloAmmo(self, count)
-        self:OnAmmoCountIncreased(NewCount)
+        --self:GetAIBrain():SetUnitSpecialAbility(self, 'LaunchTacMissile', {AvailableNowUnit = self:GetTacticalSiloAmmoCount(),})
+        self:SetSpecialAbilityAvailability('LaunchTacMissile', self:GetTacticalSiloAmmoCount())
     end,
 
     RemoveNukeSiloAmmo = function(self, count)
-        --LOG('*DEBUG: RemoveNukeSiloAmmo calling OnAmmoCountDecreased')
-        local NewCount = self:GetNukeSiloAmmoCount() - count
         oldUnit.RemoveNukeSiloAmmo(self, count)
-        self:OnAmmoCountDecreased(NewCount)
+        --self:GetAIBrain():SetUnitSpecialAbility(self, 'LaunchNuke', {AvailableNowUnit = self:GetNukeSiloAmmoCount(),})
+        self:SetSpecialAbilityAvailability('LaunchNuke', self:GetNukeSiloAmmoCount())
     end,
 
     RemoveTacticalSiloAmmo = function(self, count)
-        --LOG('*DEBUG: RemoveTacticalSiloAmmo calling OnAmmoCountDecreased')
-        local NewCount = self:GetTacticalSiloAmmoCount() - count
         oldUnit.RemoveTacticalSiloAmmo(self, count)
-        self:OnAmmoCountDecreased(NewCount)
+        --self:GetAIBrain():SetUnitSpecialAbility(self, 'LaunchTacMissile', {AvailableNowUnit = self:GetTacticalSiloAmmoCount(),})
+        self:SetSpecialAbilityAvailability('LaunchTacMissile', self:GetTacticalSiloAmmoCount())
     end,
 
     MonitorAmmoCount = function(self)
@@ -150,14 +130,16 @@ Unit = Class(oldUnit) {
                 local old, new = 0, 0
                 WaitTicks(2)
                 while self and not self.Dead do
+                    local AbilityName = 'LaunchTacMissile'
                     if nuke then
                         new = self:GetNukeSiloAmmoCount()
+                        AbilityName = 'LaunchNuke'
                     else
                         new = self:GetTacticalSiloAmmoCount()
                     end
                     if new > old then
-                        --LOG('*DEBUG: MonitorAmmoCount calling OnAmmoCountIncreased')
-                        self:OnAmmoCountIncreased(new)
+                        --self:GetAIBrain():SetUnitSpecialAbility(self, AbilityName, {AvailableNowUnit = new,})
+                        self:SetSpecialAbilityAvailability(AbilityName, new)
                     end
                     old = new
                     WaitTicks(2)
@@ -646,13 +628,12 @@ Unit = Class(oldUnit) {
     end,
 
     --why does this loop through all the abilities of a unit and set them to the same thing?
-    SpecialAbilitySetAvailability = function(self, Availability)
+    SetSpecialAbilityAvailability = function(self, AbilityName, Availability)
         local bp = self:GetBlueprint()
-        if bp.SpecialAbilities then
-            local brain = self:GetAIBrain()
-            for abilityName, abilityBp in bp.SpecialAbilities do
-                brain:SetUnitSpecialAbility(self, abilityName, {AvailableNowUnit = Availability,})
-            end
+        if bp.SpecialAbilities and bp.SpecialAbilities[AbilityName]then
+            self:GetAIBrain():SetUnitSpecialAbility(self, AbilityName, {AvailableNowUnit = Availability,})
+        else
+            WARN('Nomads: SetSpecialAbilityAvailability called with ability name that isnt in the unit blueprint: '..(tostring(AbilityName or 'nil')))
         end
     end,
 
