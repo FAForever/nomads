@@ -22,6 +22,7 @@ XNB3301 = Class(NRadarUnit) {
         self.Rotator:SetAccel(5)
         self.Trash:Add(self.Rotator)
         
+        local bp = self:GetBlueprint()
         self.OmniRadiusBoosted = bp.Intel.OmniRadiusBoosted
         self.OmniRadiusDefault = bp.Intel.OmniRadius
     end,
