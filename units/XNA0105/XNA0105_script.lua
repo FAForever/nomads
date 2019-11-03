@@ -38,16 +38,6 @@ XNA0105 = Class(NAirUnit) {
     OnMotionVertEventChange = function( self, new, old )
         NAirUnit.OnMotionVertEventChange( self, new, old )
         self:UpdateHoverEmitter(new, old)
-
-        -- special abilities only available when on cruising height
-        if new == 'Top' then
-            -- unit reaching target altitude, coming from surface
-            self:EnableArtillerySupport(true)
-
-        elseif new == 'Down' then
-            -- unit starts landing
-            self:EnableArtillerySupport(false)
-        end
     end,
 
     WatchBarrelAnim = function(self, fraction)

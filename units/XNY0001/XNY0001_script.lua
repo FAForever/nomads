@@ -10,12 +10,6 @@ OnCreate = function(self)
 NStructureUnit.OnCreate(self)
 end,
 
-    OnStopBeingBuilt = function(self, builder, layer)
-        NStructureUnit.OnStopBeingBuilt(self, builder, layer)
-        self:EnableArtillerySupport(true)
---        self:ForkThread( self.PointAntennaStraightUp )
-    end,
-
     OnKilled = function(self, instigator, type, overkillRatio)
         if self.BuoyParent and not self.BuoyParent:BeenDestroyed() then
             self.BuoyParent:Kill()
