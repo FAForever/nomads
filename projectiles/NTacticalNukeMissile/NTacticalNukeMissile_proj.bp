@@ -80,7 +80,7 @@ ProjectileBlueprint {
         MaxZigZag = 0,
         TrackTarget = false,
         TrackTargetGround = true,
-        TurnRate = 0,
+        TurnRate = 50,
         UseGravity = false,
         VelocityAlign = true,
     },

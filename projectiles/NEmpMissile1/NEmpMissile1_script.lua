@@ -4,6 +4,7 @@ local RandomOffsetTrackingTarget = import('/lua/utilities.lua').RandomOffsetTrac
 NEmpMissile1 = Class(EMPMissile) {
 
     OnCreate = function(self, inWater)
+        self:SetTurnRate(0)
         EMPMissile.OnCreate(self, inWater)
         self:ForkThread(self.MovementThread)        
     end,
