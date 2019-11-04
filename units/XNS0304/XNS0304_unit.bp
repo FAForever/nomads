@@ -346,6 +346,12 @@ UnitBlueprint {
     SizeX = 1.2,
     SizeY = 0.75,
     SizeZ = 6,
+    SpecialAbilities = {
+        LaunchNuke = {
+            AreaOfEffect = 25,
+            MaxRadius = -1,
+        },
+    },
     StrategicIconName = 'icon_sub3_missile',
     StrategicIconSortPriority = 145,
     Veteran = {
