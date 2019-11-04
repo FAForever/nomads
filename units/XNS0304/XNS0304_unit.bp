@@ -411,10 +411,10 @@ UnitBlueprint {
                 },
             },
             CollideFriendly = false,
-            Damage = 500,
+            Damage = 100,
             DamageFriendly = false,
             DamageRadius = 4,
-            DamageToShields = 1000,
+            DamageToShields = 900,
             DamageType = 'Normal',
             DisplayName = 'EMP Missiles',
             FireTargetLayerCapsTable = {
@@ -427,7 +427,7 @@ UnitBlueprint {
             MaxRadius = 256,
             MinRadius = 15,
             MuzzleSalvoDelay = 0.7,
-            MuzzleSalvoSize = 6,
+            MuzzleSalvoSize = 4,
             MuzzleVelocity = 5,
             MuzzleVelocityReduceDistance = 50,
             NotExclusive = true,
@@ -442,8 +442,6 @@ UnitBlueprint {
                        'Missile2',
                        'Missile3',
                        'Missile4',
-                       'Missile5',
-                       'Missile6',
                     },
                     RackBone = 0,
                 },
@@ -480,7 +478,7 @@ UnitBlueprint {
             },
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
-            Damage = 200,
+            Damage = 150,
             DamageType = 'Normal',
             DisplayName = 'Torpedo',
             FireTargetLayerCapsTable = {
@@ -562,7 +560,7 @@ UnitBlueprint {
             InitialProjectileStorage = 0,
             Label = 'TacNukeMissile',
             ManualFire = true,
-            MaxProjectileStorage = 6,
+            MaxProjectileStorage = 2,
             MaxRadius = 256,
             MinRadius = 15,
             MuzzleSalvoDelay = 0,
@@ -584,30 +582,6 @@ UnitBlueprint {
             ProjectileLifetime = 80,
             ProjectilesPerOnFire = 1,
             RackBones = {
-                {
-                    MuzzleBones = {
-                       'Missile1',
-                    },
-                    RackBone = 0,
-                },
-                {
-                    MuzzleBones = {
-                       'Missile2',
-                    },
-                    RackBone = 0,
-                },
-                {
-                    MuzzleBones = {
-                       'Missile3',
-                    },
-                    RackBone = 0,
-                },
-                {
-                    MuzzleBones = {
-                       'Missile4',
-                    },
-                    RackBone = 0,
-                },
                 {
                     MuzzleBones = {
                        'Missile5',
