@@ -3,6 +3,12 @@ local StrategicMissile = import('/lua/nomadsprojectiles.lua').StrategicMissile
 
 NTacticalNukeMissile = Class(StrategicMissile) {
 
+    OnCreate = function(self, inWater)
+        self:SetTurnRate(0)
+        StrategicMissile.OnCreate(self, inWater)
+        self:ForkThread(self.MovementThread)        
+    end,
+
     MovementThread = function(self)
 
         -- wait till exitting water
