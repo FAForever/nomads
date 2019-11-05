@@ -1,15 +1,6 @@
 -- T1 gunship
 
 UnitBlueprint {
-    Abilities = {
-        ArtillerySupport = {
-            LockoutDuration = 1,
-            MaxSimultaniousArtillerySupport = -1,
-            Range = 18,  -- keeping range equal to weapons range so we have a nice ring overlay. Alternative: use a dummy weapon
-            SupportGroundTargetting = true,
-            TargetCategory = 'ALLUNITS',
-        },
-    },
     Air = {
         AutoLandTime = 1,
         BankFactor = 0.1,
