@@ -12,7 +12,6 @@ XNA0105 = Class(NAirUnit) {
         Gun2 = Class(DarkMatterWeapon1) {},
     },
 
-    ArtillerySupportFxBone = 'Dome',
     BeamHoverExhaustCruise = NomadsEffectTemplate.AirThrusterLargeCruisingBeam,
     BeamHoverExhaustIdle = NomadsEffectTemplate.AirThrusterLargeIdlingBeam,
 
