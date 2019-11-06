@@ -1,15 +1,6 @@
 -- T1 gunship
 
 UnitBlueprint {
-    Abilities = {
-        ArtillerySupport = {
-            LockoutDuration = 1,
-            MaxSimultaniousArtillerySupport = -1,
-            Range = 18,  -- keeping range equal to weapons range so we have a nice ring overlay. Alternative: use a dummy weapon
-            SupportGroundTargetting = true,
-            TargetCategory = 'ALLUNITS',
-        },
-    },
     Air = {
         AutoLandTime = 1,
         BankFactor = 0.1,
@@ -114,7 +105,6 @@ UnitBlueprint {
         'VISIBLETORECON',
         'RECLAIMABLE',
         'OVERLAYDIRECTFIRE',
-        'ARTILLERYSUPPORT',
     },
     CollisionOffsetY = -0.1,
     CollisionOffsetZ = -0.3,
@@ -130,9 +120,6 @@ UnitBlueprint {
     },
     Description = '<LOC XNA0105_desc>Light Gunship',
     Display = {
-        Abilities = {
-            '<LOC ability_artillerysupport>Artillery Support',
-        },
         BuildEffect = {
             ExtendsFront = 0.05,
         },
