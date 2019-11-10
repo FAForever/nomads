@@ -243,9 +243,9 @@ UnitBlueprint {
         BuildTime = 30000,
     },
     Footprint = {
-        MaxSlope = 0.25,
-        SizeX = 20,
-        SizeZ = 20,
+        MaxSlope = 1,
+        SizeX = 5,
+        SizeZ = 10,
     },
     General = {
         Category = 'Experimental',
@@ -301,6 +301,10 @@ UnitBlueprint {
         MeshExtentsZ = 20,
         MinSpeedPercent = 0.5,
         MotionType = 'RULEUMT_Air',
+        SkirtOffsetX = -1,
+        SkirtOffsetZ = -5,
+        SkirtSizeX = 7,
+        SkirtSizeZ = 20,
         TurnRadius = 120,
         TurnRate = 80,
         WobbleFactor = 0,
