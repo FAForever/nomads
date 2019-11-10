@@ -4,12 +4,16 @@ local Explosion = import('/lua/defaultexplosions.lua')
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local NAirTransportUnit = import('/lua/nomadsunits.lua').NAirTransportUnit
 local RocketWeapon1 = import('/lua/nomadsweapons.lua').RocketWeapon1
+local DarkMatterWeapon1 = import('/lua/nomadsweapons.lua').DarkMatterWeapon1
 
 XNA0401 = Class(NAirTransportUnit) {
 
     Weapons = {
-        AARockets = Class(RocketWeapon1) {},
-        AGRockets = Class(RocketWeapon1) {},
+        ChainGun01 = Class(DarkMatterWeapon1) {},
+        ChainGun02 = Class(DarkMatterWeapon1) {},
+        ChainGun03 = Class(DarkMatterWeapon1) {},
+        ChainGun04 = Class(DarkMatterWeapon1) {},
+        --AGRockets = Class(RocketWeapon1) {},
     },
 
     DestroyNoFallRandomChance = 1.1,  -- don't blow up in air when killed
