@@ -17,6 +17,9 @@ XNA0401 = Class(NAirTransportUnit) {
     },
 
     DestroyNoFallRandomChance = 1.1,  -- don't blow up in air when killed
+    --the actual engines
+    EngineRotateBonesYaw = {'EngineRotatorRight01', 'EngineRotatorRight02', 'EngineRotatorRight03', 'EngineRotatorRight04',
+        'EngineRotatorLeft01', 'EngineRotatorLeft02', 'EngineRotatorLeft03', 'EngineRotatorLeft04', },
 
     OnCreate = function(self)
         NAirTransportUnit.OnCreate(self)
@@ -30,6 +33,19 @@ XNA0401 = Class(NAirTransportUnit) {
 
     OnStopBeingBuilt = function(self, builder, layer)
         NAirTransportUnit.OnStopBeingBuilt(self, builder, layer)
+        self.EngineManipulators = {}
+
+        --  create the engine thrust manipulators
+        for k, v in self.EngineRotateBonesYaw do
+            table.insert(self.EngineManipulators, CreateThrustController(self, "thruster", v))
+        end
+
+        -- set up the thrusting arcs for the engines
+        for keys,values in self.EngineManipulators do
+            --                      XMAX,XMIN,YMAX,YMIN,ZMAX,ZMIN, TURNMULT, TURNSPEED
+            values:SetThrustingParam(-0.0, 0.0, -0.75, 0.75, -0.2, 0.2, 1.0, 0.08)
+        end
+        
 
         end
 
