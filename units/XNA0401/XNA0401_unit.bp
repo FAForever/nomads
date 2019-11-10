@@ -5,8 +5,8 @@ UnitBlueprint {
         BeaconName = 'UEB5102',
         GuardReturnRadius = 175,
         GuardScanRadius = 125,
-        TargetBones = {
-            'INA4001',
+        TargetBones = { --TODO: add some target bones
+            'XNL0401',
         },
     },
     Air = {
@@ -189,8 +189,7 @@ UnitBlueprint {
                     ShaderName = 'NomadsUnit',
                     SpecularName = '/units/XNA0401/XNA0401_SpecTeam.dds',
                 },
-                {
--- TODO: LOD1 model
+                {-- TODO: LOD1 model
                     AlbedoName = '/units/XNA0401/XNA0401_Albedo.dds',
                     LODCutoff = 1000,
                     MeshName = '/units/XNA0401/XNA0401_Lod0.scm',
@@ -201,37 +200,37 @@ UnitBlueprint {
             },
         },
         MovementEffects = {
-           Air = {
-               Effects = {
-                   {
-                       Bones = {
-                           'EngineRotatorRight01',
-                           'EngineRotatorRight02',
-                           'EngineRotatorRight03',
-                           'EngineRotatorRight04',
-                           'EngineRotatorLeft01',
-                           'EngineRotatorLeft02',
-                           'EngineRotatorLeft03',
-                           'EngineRotatorLeft04',
-                       },
-                       Type = 'AirMoveExhaust02',
-                   },
-               },
-           },
-           BeamExhaust = {
-               Bones = {
-                   'EngineRotatorRight01',
-                   'EngineRotatorRight02',
-                   'EngineRotatorRight03',
-                   'EngineRotatorRight04',
-                   'EngineRotatorLeft01',
-                   'EngineRotatorLeft02',
-                   'EngineRotatorLeft03',
-                   'EngineRotatorLeft04',
-               },
-               Cruise = true,
-               Idle = true,
-           },
+           -- Air = { --TODO: add effects to these bones, make the effects face the right way, also add bones to rear engines and effects for them
+               -- Effects = {
+                   -- {
+                       -- Bones = {
+                           -- 'EngineRotatorRight01',
+                           -- 'EngineRotatorRight02',
+                           -- 'EngineRotatorRight03',
+                           -- 'EngineRotatorRight04',
+                           -- 'EngineRotatorLeft01',
+                           -- 'EngineRotatorLeft02',
+                           -- 'EngineRotatorLeft03',
+                           -- 'EngineRotatorLeft04',
+                       -- },
+                       --Type = 'AirMoveExhaust02',
+                   -- },
+               -- },
+           -- },
+           --BeamExhaust = {
+               --Bones = {
+                   -- 'EngineRotatorRight01',
+                   -- 'EngineRotatorRight02',
+                   -- 'EngineRotatorRight03',
+                   -- 'EngineRotatorRight04',
+                   -- 'EngineRotatorLeft01',
+                   -- 'EngineRotatorLeft02',
+                   -- 'EngineRotatorLeft03',
+                   -- 'EngineRotatorLeft04',
+               --},
+               --Cruise = true,
+               --Idle = true,
+           --},
         },
         PlaceholderMeshName = 'UXA0009',
         SpawnRandomRotation = false,
@@ -310,13 +309,12 @@ UnitBlueprint {
         WobbleFactor = 0,
         WobbleSpeed = 0,
     },
-    SelectionSizeX = 4,
-    SelectionSizeZ = 13,
+    SelectionSizeX = 8,
+    SelectionSizeZ = 19,
     SelectionThickness = 0.15,
-    --CollisionOffsetY = -0.4,
-    CollisionOffsetY = -1.5,
+    CollisionOffsetY = -1.0,
     SizeX = 9,
-    SizeY = 6,
+    SizeY = 5,
     SizeZ = 32,
     StrategicIconName = 'icon_experimental_generic',
     StrategicIconSortPriority = 55,
@@ -329,10 +327,10 @@ UnitBlueprint {
     },
     Transport = {
         AirClass = true,
-        ClassGenericUpTo = 2,
+        ClassGenericUpTo = 1,
         Class1AttachSize = 1,
-        Class2AttachSize = 1,
-        Class3AttachSize = 2,
+        Class2AttachSize = 2,
+        Class3AttachSize = 4,
         Class4AttachSize = 1,
         ClassSAttachSize = 1,
         --DontUseForcedAttachPoints = true,

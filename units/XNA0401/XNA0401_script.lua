@@ -3,8 +3,8 @@
 local Explosion = import('/lua/defaultexplosions.lua')
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local NAirTransportUnit = import('/lua/nomadsunits.lua').NAirTransportUnit
-local RocketWeapon1 = import('/lua/nomadsweapons.lua').RocketWeapon1
 local DarkMatterWeapon1 = import('/lua/nomadsweapons.lua').DarkMatterWeapon1
+local MissileWeapon1 = import('/lua/nomadsweapons.lua').MissileWeapon1
 
 XNA0401 = Class(NAirTransportUnit) {
 
@@ -13,23 +13,20 @@ XNA0401 = Class(NAirTransportUnit) {
         ChainGun02 = Class(DarkMatterWeapon1) {},
         ChainGun03 = Class(DarkMatterWeapon1) {},
         ChainGun04 = Class(DarkMatterWeapon1) {},
-        --AGRockets = Class(RocketWeapon1) {},
+        SAM01 = Class(MissileWeapon1) {},
+        SAM02 = Class(MissileWeapon1) {},
     },
 
     DestroyNoFallRandomChance = 1.1,  -- don't blow up in air when killed
+    
+    --the bones that can tilt side to side
+    EngineRotateBonesRoll = {'EngineArmRotatorRight01', 'EngineArmRotatorRight02', 'EngineArmRotatorRight03', 'EngineArmRotatorRight04',
+        'EngineArmRotatorLeft01', 'EngineArmRotatorLeft02', 'EngineArmRotatorLeft03', 'EngineArmRotatorLeft04', },
+    EngineRotateBonesRoll2 = {'EngineArmRotatorLeft01', 'EngineArmRotatorLeft02', },
+    
     --the actual engines
     EngineRotateBonesYaw = {'EngineRotatorRight01', 'EngineRotatorRight02', 'EngineRotatorRight03', 'EngineRotatorRight04',
         'EngineRotatorLeft01', 'EngineRotatorLeft02', 'EngineRotatorLeft03', 'EngineRotatorLeft04', },
-
-    OnCreate = function(self)
-        NAirTransportUnit.OnCreate(self)
-        self.ThrusterEffectsBag = TrashBag()
-    end,
-
-    OnDestroy = function(self)
-        self:DestroyThrusterEffects()
-        NAirTransportUnit.OnDestroy(self)
-    end,
 
     OnStopBeingBuilt = function(self, builder, layer)
         NAirTransportUnit.OnStopBeingBuilt(self, builder, layer)
@@ -46,7 +43,18 @@ XNA0401 = Class(NAirTransportUnit) {
             values:SetThrustingParam(-0.0, 0.0, -0.75, 0.75, -0.2, 0.2, 1.0, 0.08)
         end
         
+        self.EngineManipulatorsInner = {}
 
+        --  create the engine thrust manipulators
+        for k, v in self.EngineRotateBonesRoll do
+            --getting these to work properly is still a work in progress, needs a lot of pain, and model edits.
+            --table.insert(self.EngineManipulatorsInner, CreateThrustController(self, "thruster", v))
+        end
+
+        -- set up the thrusting arcs for the engines
+        for keys,values in self.EngineManipulatorsInner do
+            --                      XMAX,XMIN,YMAX,YMIN,ZMAX,ZMIN, TURNMULT, TURNSPEED
+            values:SetThrustingParam(-0.2, 0.2, -0.0, 0.0, -1.0, 1.0, 1.0, 0.08)
         end
 
         -- self.LandingAnimManip = CreateAnimator(self)
@@ -65,36 +73,9 @@ XNA0401 = Class(NAirTransportUnit) {
             --self.LandingAnimManip:SetRate(1)
         end
     end,
-
-    OnKilled = function(self, instigator, type, overkillRatio)
--- TODO: investigate destroying parts of the model while falling to earth. Probably requires vertex groups used on model (not sure if that's the case) and
--- then hiding certain bones. The wreckage needs to have these bones hidden aswell (not sure if that goes automatically).
-        self:DestroyThrusterEffects()
-        self:ForkThread( self.CrashingThread )
-        NAirTransportUnit.OnKilled(self, instigator, type, overkillRatio)
-    end,
     
-    
-
-
-    PlayThrusterEffects = function(self)
-        -- normal thruster effects, probably on all the time
-
-        if self:GetFractionComplete() < 1 then return end
-
-        local army, emit = self:GetArmy()
-        for k, v in NomadsEffectTemplate.ExpTransportThrusters do
-            for _, bone in self.ThrusterBurnBones do
-                emit = CreateAttachedEmitter( self, bone, army, v )
-                self.ThrusterEffectsBag:Add( emit )
-                self.Trash:Add( emit )
-            end
-        end
-    end,
-
-    DestroyThrusterEffects = function(self)
-        self.ThrusterEffectsBag:Destroy()
-    end,
+    BeamExhaustCruise = '/effects/emitters/transport_thruster_beam_01_emit.bp',
+    BeamExhaustIdle = '/effects/emitters/transport_thruster_beam_02_emit.bp',
 
 
     --TODO: redo the crashing thread so its just as awesome but also makes sense with the new model:
@@ -109,82 +90,24 @@ XNA0401 = Class(NAirTransportUnit) {
     2. create explosions at the engine bones that correspond to the anim block (work out how to do this)
     3. add parts falling from the transport, and engines being displaced, ect. as the transport crashes
     --]]
+
+    OnKilled = function(self, instigator, type, overkillRatio)
+        self:ForkThread( self.CrashingThread )
+        NAirTransportUnit.OnKilled(self, instigator, type, overkillRatio)
+    end,
     
     CrashingThread = function(self)
 
         -- create detector so we know when we hit the surface with what bone
         self.detector = CreateCollisionDetector(self)
         self.Trash:Add(self.detector)
-        self.detector:WatchBone('Attachpoint01')
-        self.detector:WatchBone('Attachpoint02')
-        self.detector:WatchBone('Attachpoint03')
-        self.detector:WatchBone('Attachpoint04')
-        self.detector:WatchBone('Attachpoint05')
-        self.detector:WatchBone('Attachpoint06')
-        self.detector:WatchBone('Attachpoint07')
-        self.detector:WatchBone('Attachpoint08')
-        self.detector:WatchBone('Attachpoint09')
-        self.detector:WatchBone('Attachpoint10')
-        self.detector:WatchBone('Attachpoint11')
-        self.detector:WatchBone('Attachpoint12')
-        self.detector:WatchBone('Attachpoint13')
-        self.detector:WatchBone('Attachpoint14')
-        self.detector:WatchBone('Attachpoint15')
-        self.detector:WatchBone('Attachpoint16')
-        self.detector:WatchBone('Attachpoint17')
-        self.detector:WatchBone('Attachpoint18')
-        for k, bone in self.ThrusterBurnBones do
-            self.detector:WatchBone( bone )
-        end
+        self.detector:WatchBone('Attachpoint_Lrg_01')
+        self.detector:WatchBone('Attachpoint_Lrg_05')
+        self.detector:WatchBone('Attachpoint_Lrg_09')
+        self.detector:WatchBone('Attachpoint_Lrg_13')
+        self.detector:WatchBone('Attachpoint_Lrg_17')
         self.detector:EnableTerrainCheck(true)
         self.detector:Enable()
-
-        -- set up all thruster emitters again, then keep checking over time which thruster bones are lowest and disable those thrusters
-        local army, emits, emit = self:GetArmy(), {}
-        for i, bone in self.ThrusterBurnBones do
-            emits[i] = {}
-            for k, v in NomadsEffectTemplate.ExpTransportThrusters do
-                emit = CreateAttachedEmitter( self, bone, army, v )
-                table.insert( emits[i], emit )
-                self.Trash:Add( emit )
-            end
-        end
-
-        WaitTicks( 2 )
-
-        -- check which thrusters are lowest and which are highest
-        local avg, height, bAvgList, aAvgList, pos = 0, {}, {}, {}
-        for i, bone in self.ThrusterBurnBones do
-            pos = self:GetPosition(bone)
-            height[i] = pos[2]
-            avg = avg + height[i]
-        end
-        avg = avg / table.getsize( self.ThrusterBurnBones )
-        for i, bone in self.ThrusterBurnBones do
-            if height[i] < avg then
-                table.insert( bAvgList, i )
-            else
-                table.insert( aAvgList, i )
-            end
-        end
-
-        -- the bAvgList (belowAvererageList) contains the thruster numbers that should quickly be disabled
-        for k, i in RandomIter( bAvgList ) do
-            WaitTicks( Random(1, 3) )
-            for k, emit in emits[i] do
-                emit:Destroy()
-            end
-        end
-
-        WaitTicks( 5 )
-
-        -- the aAvgList (aboveAvererageList) contains the thruster numbers that are still active. Over random periods disable these
-        for k, i in RandomIter( aAvgList ) do
-            WaitTicks( Random(1, 7) )
-            for k, emit in emits[i] do
-                emit:Destroy()
-            end
-        end
     end,
 
     OnAnimTerrainCollision = function(self, bone, x, y, z)
