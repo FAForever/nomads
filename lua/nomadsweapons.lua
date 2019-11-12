@@ -96,7 +96,17 @@ NDFPlasmaBeamWeapon = Class(DefaultBeamWeapon) {
 
     PlayFxWeaponUnpackSequence = function(self)
         self:DoChargeUpEffects()
+        self.CurrentlyUnpacking = true
         DefaultBeamWeapon.PlayFxWeaponUnpackSequence(self)
+        self.CurrentlyUnpacking = false
+    end,
+    
+    PlayFxWeaponPackSequence = function(self)
+        if self.CurrentlyUnpacking then
+            WARN('Nomads beamer: trying to pack weapon while already unpacking, skipping the pack call for now')
+        else
+            DefaultBeamWeapon.PlayFxWeaponPackSequence(self)
+        end
     end,
     
     -- we swap the unpack animation when we are loaded into the transport

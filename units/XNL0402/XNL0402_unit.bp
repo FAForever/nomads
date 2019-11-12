@@ -321,7 +321,6 @@ UnitBlueprint {
             WeaponUnpackAnimation = '/units/XNL0402/XNL0402_Unpack.sca',
             WeaponUnpackAnimationTransported = '/units/XNL0402/XNL0402_UnpackAir.sca',
             WeaponUnpackAnimationRate = 0.6,
-            WeaponUnpackChargeUpAnimation = false,
             WeaponUnpackLocksMotion = false,
             WeaponUnpacks = true,
         },
