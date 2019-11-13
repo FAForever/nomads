@@ -2,62 +2,24 @@
 local oldModBlueprints = ModBlueprints
 function ModBlueprints(all_bps)
 
-    local EXP, LAND, MOBILE, NAVAL, T3, USEBUILDPRESETS
-    local PresetUnitBPs = {}
     for _, bp in all_bps.Unit do
-
-        if not bp.Categories then
-            continue
+        -- Set up units to be transported by the T4 transport. All naval units need transporting, as well as selected experimentals.
+        if bp.Transport and bp.Transport.TransportClass then continue end--skip units which already have their class set explicitly
+        
+        local transClassToSet = false
+        
+        if bp.CategoriesHash.NAVAL and bp.CategoriesHash.MOBILE and not bp.CategoriesHash.EXPERIMENTAL then
+            transClassToSet = 4 --fits into AttachSpecial slot
         end
-
-        -- check for the correct categories
-        EXP = false
-        LAND = false
-        MOBILE = false
-        NAVAL = false
-        T3 = false
-        USEBUILDPRESETS = false
-        for k, cat in bp.Categories do
-            if cat == 'EXPERIMENTAL' then
-                EXP = true
-            elseif cat == 'LAND' then
-                LAND = true
-            elseif cat == 'MOBILE' then
-                MOBILE = true
-            elseif cat == 'NAVAL' then
-                NAVAL = true
-            elseif cat == 'TECH3' then
-                T3 = true
-            elseif cat == 'USEBUILDPRESETS' then
-                USEBUILDPRESETS = true
-            end
-            if EXP and LAND and MOBILE and NAVAL and T3 and USEBUILDPRESETS then break end
-        end
-
-
-        -- Making sure only experimentals that have the transport item in the blueprint can be transported.
-        -- Set an invalid transport class on other land experimentals. This prevents them from being transported.
-        if EXP and LAND and (not bp.Transport or not bp.Transport.TransportClass) then
-
+        
+        if transClassToSet then
             if not bp.General then bp.General = {} end
             if not bp.General.CommandCaps then bp.General.CommandCaps = {} end
-            bp.General.CommandCaps[ 'RULEUCC_CallTransport' ] = false
-
-            if not bp.Transport then bp.Transport = {} end
-            bp.Transport[ 'TransportClass' ] = 10
-        end
-
-        -- Making ships transportable by the Comet
-        if NAVAL and MOBILE and not EXP and (not bp.Transport or not bp.Transport.TransportClass) then
-            -- making the unit transportable
-
-            if not bp.General then bp.General = {} end
-            if not bp.General.CommandCaps then bp.General.CommandCaps = {} end
-            bp.General.CommandCaps[ 'RULEUCC_CallTransport' ] = true
+            bp.General.CommandCaps[ 'RULEUCC_CallTransport' ] = (transClassToSet ~= 10) --set to false if we specify class 10
 
             if not bp.Transport then bp.Transport = {} end
             bp.Transport[ 'CanFireFromTransport' ] = false
-            bp.Transport[ 'TransportClass' ] = 4
+            bp.Transport[ 'TransportClass' ] = transClassToSet
         end
 
         BlueprintLoaderUpdateProgress()
