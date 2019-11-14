@@ -1,10 +1,9 @@
 -- carrier
 
-local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local NSeaUnit = import('/lua/nomadsunits.lua').NSeaUnit
 local AircraftCarrier = import('/lua/defaultunits.lua').AircraftCarrier
 local ParticleBlaster1 = import('/lua/nomadsweapons.lua').ParticleBlaster1
-local HVFlakWeapon = import('/lua/nomadsweapons.lua').HVFlakWeapon
+local NAMFlakWeapon = import('/lua/nomadsweapons.lua').NAMFlakWeapon
 
 XNS0303 = Class(NSeaUnit, AircraftCarrier) {
 
@@ -33,147 +32,12 @@ XNS0303 = Class(NSeaUnit, AircraftCarrier) {
                 self.AimControl:SetAimHeadingOffset(0.5)
             end,
         },
-        TMD1 = Class(HVFlakWeapon) {
-            IdleState = State(HVFlakWeapon.IdleState) {
-                Main = function(self)
-                    HVFlakWeapon.IdleState.Main(self)
-                    self.unit:OnTargetLost()
-                    if self.IdleReloadThread then
-                        KillThread(self.IdleReloadThread)
-                    end
-                    self.IdleReloadThread = self:ForkThread(self.ReloadThread)
-                end,
+        TMD1 = Class(NAMFlakWeapon) {
+            TMDEffectBones = {'TMD1_Fx1', 'TMD1_Fx2',},
 
-
-                ReloadThread = function(self)
-                    --WARN('waiting in idle reload')
-                    WaitSeconds(1)
-                    if not self.PlayingTAEffects then
-                        --WARN('idle reload time elapsed successfully')
-                        self.counter = 0
-                    else
-                        --WARN('idle reload time reset with counter: '..self.counter)
-                    end
-                    --self.RackSalvoFireReadyState.Main(self)
-                end,
-            },
-
-            RackSalvoReloadState = State(HVFlakWeapon.RackSalvoReloadState) {
-                Main = function(self)
-                    ForkThread(function()
-                        --WARN("reloading")
-                        WaitSeconds(1)
-                        --WARN('wait time elapsed')
-                        HVFlakWeapon.RackSalvoReloadState.Main(self)
-                        self.unit:OnTargetLost()
-                    end)
-                end,
-            },
-
-            RackSalvoFireReadyState = State(HVFlakWeapon.RackSalvoFireReadyState ) {
-                Main = function(self)
-                    HVFlakWeapon.RackSalvoFireReadyState.Main(self)
-                    self.unit:OnTargetAcquired()
-                end,
-            },
-
-            RackSalvoFiringState = State(HVFlakWeapon.RackSalvoFiringState ) {
-                Main = function(self)
-                    if not self.counter then
-                        self.counter = 0
-                    end
-                    self.counter = self.counter + 1
-                    if self.counter > 5 then
-                        --WARN("reseting counter from: "..self.counter)
-                        self.counter = 0
-                        self.RackSalvoReloadState.Main(self)
-                    else
-                        self:PlaySound(self.Audio.FireSpecial)
-                        --WARN('fire counter: '..self.counter)
-                        HVFlakWeapon.RackSalvoFiringState.Main(self)
-                        self.unit:OnTargetAcquired()
-                    end
-                end,
-
-                Audio = {
-                    FireSpecial = Sound {
-                        Bank = 'NomadsWeapons',
-                        Cue = 'DarkMatterCannon2_Muzzle',
-                        LodCutoff = 'Weapon_LodCutoff',
-                    },
-                },
-            },
         },
-        TMD2 = Class(HVFlakWeapon) {
-            IdleState = State(HVFlakWeapon.IdleState) {
-                Main = function(self)
-                    HVFlakWeapon.IdleState.Main(self)
-                    self.unit:OnTargetLost()
-                    if self.IdleReloadThread then
-                        KillThread(self.IdleReloadThread)
-                    end
-                    self.IdleReloadThread = self:ForkThread(self.ReloadThread)
-                end,
-
-
-                ReloadThread = function(self)
-                    --WARN('waiting in idle reload')
-                    WaitSeconds(1.2)
-                    if not self.PlayingTAEffects then
-                        --WARN('idle reload time elapsed successfully')
-                        self.counter = 0
-                    else
-                        --WARN('idle reload time reset with counter: '..self.counter)
-                    end
-                    --self.RackSalvoFireReadyState.Main(self)
-                end,
-            },
-
-            RackSalvoReloadState = State(HVFlakWeapon.RackSalvoReloadState) {
-                Main = function(self)
-                    ForkThread(function()
-                        --WARN("reloading")
-                        WaitSeconds(1.2)
-                        --WARN('wait time elapsed')
-                        HVFlakWeapon.RackSalvoReloadState.Main(self)
-                        self.unit:OnTargetLost()
-                    end)
-                end,
-            },
-
-            RackSalvoFireReadyState = State(HVFlakWeapon.RackSalvoFireReadyState ) {
-                Main = function(self)
-                    HVFlakWeapon.RackSalvoFireReadyState.Main(self)
-                    self.unit:OnTargetAcquired()
-                end,
-            },
-
-            RackSalvoFiringState = State(HVFlakWeapon.RackSalvoFiringState ) {
-                Main = function(self)
-                    if not self.counter then
-                        self.counter = 0
-                    end
-                    self.counter = self.counter + 1
-                    if self.counter > 5 then
-                        --WARN("reseting counter from: "..self.counter)
-                        self.counter = 0
-                        self.RackSalvoReloadState.Main(self)
-                    else
-                        self:PlaySound(self.Audio.FireSpecial)
-                        --WARN('fire counter: '..self.counter)
-                        HVFlakWeapon.RackSalvoFiringState.Main(self)
-                        self.unit:OnTargetAcquired()
-                    end
-                end,
-
-                Audio = {
-                    FireSpecial = Sound {
-                        Bank = 'NomadsWeapons',
-                        Cue = 'DarkMatterCannon2_Muzzle',
-                        LodCutoff = 'Weapon_LodCutoff',
-                    },
-                },
-            },
+        TMD2 = Class(NAMFlakWeapon) {
+            TMDEffectBones = {'TMD2_Fx1', 'TMD2_Fx2',},
         },
     },
 
@@ -185,13 +49,9 @@ XNS0303 = Class(NSeaUnit, AircraftCarrier) {
     },
 --    LightBone_Left = 'Light_03',
 --    LightBone_Right = 'Light_02',
-    TMDEffectBones = { { 'TMD1_Fx1', 'TMD1_Fx2', }, { 'TMD2_Fx1', 'TMD2_Fx2', }, },
 
     OnCreate = function(self)
         NSeaUnit.OnCreate(self)
-
-        self.TAEffectsBag = TrashBag()
-        self.PlayingTAEffects = false
 
         self:NextBuildAttachBone()
 
@@ -203,11 +63,6 @@ XNS0303 = Class(NSeaUnit, AircraftCarrier) {
             self.Trash:Add( self.OpenAnimManips[n] )
             n = n + 1
         end
-    end,
-
-    OnDestroy = function(self)
-        self:DestroyTAEffects()
-        NSeaUnit.OnDestroy(self)
     end,
 
     OnStopBeingBuilt = function(self,builder,layer)
@@ -224,42 +79,6 @@ XNS0303 = Class(NSeaUnit, AircraftCarrier) {
 
         self:PlayAllOpenAnims(true)
         self:AutoClose()
-    end,
-
-    OnTargetAcquired = function(self, TMD)
-        --LOG('OnTargetAcquired')
-        self:PlayTAEffects(TMD)
-    end,
-
-    OnTargetLost = function(self, TMD)
-        --LOG('OnTargetLost')
-        self:DestroyTAEffects()
-    end,
-
-    PlayTAEffects = function(self, TMD)
-        if not self.PlayingTAEffects then
-            local army, emit = self:GetArmy()
-            for _, bone in self.TMDEffectBones[TMD] do
-                for k, v in NomadsEffectTemplate.T2MobileTacticalMissileDefenseTargetAcquired do
-                    emit = CreateAttachedEmitter(self, bone, army, v)
-                    self.TAEffectsBag:Add(emit)
-                    self.Trash:Add(emit)
-                end
-            end
-            local thread = function(self)
-                WaitSeconds(1)
-                self:DestroyTAEffects()
-            end
-            self.PlayingTAEffectsThread = self:ForkThread( thread )
-            self.PlayingTAEffects = true
-        end
-    end,
-
-    DestroyTAEffects = function(self)
-        -- TODO: bug here. We destroy all effects, not the effects for a specific TMD. The other TMD migth not want its effects destroyed yet.
-        -- minor problem at best.
-        self.TAEffectsBag:Destroy()
-        self.PlayingTAEffects = false
     end,
 
     AutoClose = function(self)

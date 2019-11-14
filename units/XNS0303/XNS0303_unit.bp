@@ -684,7 +684,7 @@ UnitBlueprint {
         {
             AimsStraightOnDisable = true,
             Audio = {
-                FireSpecial = Sound {
+                Fire = Sound {
                     Bank = 'NomadsWeapons',
                     Cue = 'DarkMatterCannon2_Muzzle',
                     LodCutoff = 'Weapon_LodCutoff',
@@ -732,7 +732,7 @@ UnitBlueprint {
             },
             RackFireTogether = false,
             RackRecoilDistance = 0,
-            RackReloadTimeout = 10,
+            RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
@@ -756,12 +756,12 @@ UnitBlueprint {
             Turreted = true,
             WeaponCategory = 'Defense',
             WeaponRepackTimeout = 1,
-            WeaponUnpacks = true,
+            WeaponUnpacks = false,
         },
         {
             AimsStraightOnDisable = true,
             Audio = {
-                FireSpecial = Sound {
+                Fire = Sound {
                     Bank = 'NomadsWeapons',
                     Cue = 'DarkMatterCannon2_Muzzle',
                     LodCutoff = 'Weapon_LodCutoff',
@@ -809,7 +809,7 @@ UnitBlueprint {
             },
             RackFireTogether = false,
             RackRecoilDistance = 0,
-            RackReloadTimeout = 10,
+            RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
@@ -833,7 +833,7 @@ UnitBlueprint {
             Turreted = true,
             WeaponCategory = 'Defense',
             WeaponRepackTimeout = 1,
-            WeaponUnpacks = true,
+            WeaponUnpacks = false,
         },
     },
     Wreckage = {
