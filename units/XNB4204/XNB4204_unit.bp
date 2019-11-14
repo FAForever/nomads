@@ -161,7 +161,7 @@ UnitBlueprint {
         {
             AimsStraightOnDisable = true,
             Audio = {
-                FireSpecial = Sound {
+                Fire = Sound {
                     Bank = 'NomadsWeapons',
                     Cue = 'DarkMatterCannon2_Muzzle',
                     LodCutoff = 'Weapon_LodCutoff',
@@ -184,10 +184,9 @@ UnitBlueprint {
             MaximumBeamLength = 42,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            NeedPrep = true,
             ProjectilesPerOnFire = 1,
             RackBones = {
-            {
+                {
                     MuzzleBones = {
                         'Muzzle1',
                     },
@@ -220,7 +219,7 @@ UnitBlueprint {
             },
             RackFireTogether = false,
             RackRecoilDistance = 0,
-            RackReloadTimeout = 10,
+            RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
             RackSalvoSize = 1,
@@ -243,7 +242,6 @@ UnitBlueprint {
             TurretYawSpeed = 720,
             Turreted = true,
             WeaponCategory = 'Defense',
-            WeaponUnpacks = false,
         },
     },
     Wreckage = {
