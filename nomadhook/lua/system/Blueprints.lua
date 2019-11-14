@@ -4,7 +4,7 @@ function ModBlueprints(all_bps)
 
     for _, bp in all_bps.Unit do
         -- Set up units to be transported by the T4 transport. All naval units need transporting, as well as selected experimentals.
-        if bp.Transport and bp.Transport.TransportClass then continue end--skip units which already have their class set explicitly
+        if bp.Transport and bp.Transport.TransportClass and not (bp.CategoriesHash.NAVALCARRIER or bp.CategoriesHash.AIRSTAGINGPLATFORM) then continue end--skip units which already have their class set explicitly
         
         local transClassToSet = false
         
