@@ -253,7 +253,7 @@ UnitBlueprint {
         Classification = 'RULEUC_MilitaryShip',
         CommandCaps = {
             RULEUCC_Attack = true,
-            RULEUCC_CallTransport = false,
+            RULEUCC_CallTransport = true,
             RULEUCC_Capture = false,
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
@@ -325,7 +325,7 @@ UnitBlueprint {
     Transport = {
         ClassGenericUpTo = 3,
         StorageSlots = 50,
-        TransportClass = 10,
+        TransportClass = 4,
     },
     Veteran = {
         Level1 = 32,

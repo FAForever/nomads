@@ -2,10 +2,11 @@
 
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local NSeaUnit = import('/lua/nomadsunits.lua').NSeaUnit
+local AircraftCarrier = import('/lua/defaultunits.lua').AircraftCarrier
 local ParticleBlaster1 = import('/lua/nomadsweapons.lua').ParticleBlaster1
 local HVFlakWeapon = import('/lua/nomadsweapons.lua').HVFlakWeapon
 
-XNS0303 = Class(NSeaUnit) {
+XNS0303 = Class(NSeaUnit, AircraftCarrier) {
 
     Weapons = {
         AAGun1 = Class(ParticleBlaster1) {
