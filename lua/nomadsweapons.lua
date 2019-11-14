@@ -140,6 +140,96 @@ NDFPlasmaBeamWeapon = Class(DefaultBeamWeapon) {
     end,
 }
 
+--High velocity flak for use as TMD
+NAMFlakWeapon = Class(DefaultBeamWeapon) {
+--This has an amount of ammo stored. When its depleted, the weapon goes into a reload cycle.
+--When the weapon has no targets, it will also go into a reload cycle. Otherwise it will fire off its unfilled rack.
+    BeamType = NomadsCollisionBeamFile.HVFlakCollisionBeam,
+    FxMuzzleFlash = {
+        '/effects/emitters/cannon_muzzle_fire_01_emit.bp',
+        --'/effects/emitters/cannon_muzzle_smoke_03_emit.bp',
+        '/effects/emitters/cannon_muzzle_smoke_04_emit.bp',
+        '/effects/emitters/cannon_muzzle_water_shock_01_emit.bp',
+        '/effects/emitters/cannon_muzzle_flash_09_emit.bp',
+        '/effects/emitters/cannon_muzzle_flash_08_emit.bp',
+    },
+    
+    TMDEffectBones = {}, --Change these in the weapon script when hooking to the correct bones for that unit.
+    MaxSalvoSize = 5, --Change this to the correct amount for the weapon.
+    SalvoReloadTime = 1, --Change this to the correct amount for the weapon.
+
+    OnCreate = function(self)
+        DefaultBeamWeapon.OnCreate(self)
+        self.TAEffectsBag = TrashBag()
+        self.PlayingTAEffects = false
+        self.ReloadLimitCounter = self.MaxSalvoSize
+        self.LastTimeFired = GetGameTick()
+    end,
+    
+    OnDestroy = function(self)
+        self:DestroyTAEffects()
+        DefaultBeamWeapon.OnDestroy(self)
+    end,
+    
+    --track the last time the weapon fired. If its too soon and its out of ammo, make it reload.
+    RackSalvoFireReadyState = State(DefaultBeamWeapon.RackSalvoFireReadyState ) {
+        Main = function(self)
+            local ReloadTimeElapsed = GetGameTick() - self.LastTimeFired
+            
+            if ReloadTimeElapsed >= self.SalvoReloadTime*10 then
+                self.ReloadLimitCounter = self.MaxSalvoSize
+            elseif self.ReloadLimitCounter <= 0 then
+                self.WeaponCanFire = false
+                WaitTicks(self.SalvoReloadTime*10 - ReloadTimeElapsed)
+                self.WeaponCanFire = true
+                self.ReloadLimitCounter = self.MaxSalvoSize
+            end
+            
+            DefaultBeamWeapon.RackSalvoFireReadyState.Main(self)
+        end,
+    },
+
+    RackSalvoFiringState = State(DefaultBeamWeapon.RackSalvoFiringState ) {
+        Main = function(self)
+            self.ReloadLimitCounter = self.ReloadLimitCounter - 1
+            self.LastTimeFired = GetGameTick()
+            DefaultBeamWeapon.RackSalvoFiringState.Main(self)
+        end,
+    },
+    
+    --add some effects when the weapon has a target
+    IdleState = State(DefaultBeamWeapon.IdleState) {
+        Main = function(self)
+            DefaultBeamWeapon.IdleState.Main(self)
+            self:DestroyTAEffects()
+        end,
+        
+        OnGotTarget = function(self)
+            DefaultBeamWeapon.OnGotTarget(self)
+            self:PlayTAEffects()
+        end,
+    },
+
+    PlayTAEffects = function(self, TMD)
+        if not self.PlayingTAEffects then
+            local army, emit = self.unit:GetArmy()
+            for _, bone in self.TMDEffectBones do
+                for k, v in NomadsEffectTemplate.T2MobileTacticalMissileDefenseTargetAcquired do
+                    emit = CreateAttachedEmitter(self.unit, bone, army, v)
+                    self.TAEffectsBag:Add(emit)
+                end
+            end
+            self.PlayingTAEffects = true
+        end
+    end,
+
+    DestroyTAEffects = function(self)
+        self.TAEffectsBag:Destroy()
+        self.PlayingTAEffects = false
+    end,
+}
+
+
 -- -----------------------------------------------------------------------------------------------------
 -- LEGACY WEAPONS - These are used by older versions of nomads, and as such have an older organisation structure.
 -- Where possible, create new projectiles and tie them into the new structure instead, so that the old ones eventually dont need to be used.
@@ -283,38 +373,7 @@ AAGun = Class(DefaultProjectileWeapon) {
     },
 }
 
-HVFlakWeapon = Class(DefaultBeamWeapon) {
---high velocity flak for use as tmd
-    BeamType = NomadsCollisionBeamFile.HVFlakCollisionBeam,
-    FxMuzzleFlash = {
-        '/effects/emitters/cannon_muzzle_fire_01_emit.bp',
-        --'/effects/emitters/cannon_muzzle_smoke_03_emit.bp',
-        '/effects/emitters/cannon_muzzle_smoke_04_emit.bp',
-        '/effects/emitters/cannon_muzzle_water_shock_01_emit.bp',
-        '/effects/emitters/cannon_muzzle_flash_09_emit.bp',
-        '/effects/emitters/cannon_muzzle_flash_08_emit.bp',
-    },
 
-    OnCreate = function(self)
-        DefaultBeamWeapon.OnCreate(self)
-
-
-    end,
-
-    IdleState = State (DefaultBeamWeapon.IdleState) {
-        Main = function(self)
-            DefaultBeamWeapon.IdleState.Main(self)
-        end,
-
-        OnGotTarget = function(self)
-            DefaultBeamWeapon.IdleState.OnGotTarget(self)
-        end,
-    },
-
-    OnLostTarget = function(self)
-        DefaultBeamWeapon.OnLostTarget(self)
-    end,
-}
 
 MissileWeapon1 = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = NomadsEffectTemplate.MissileMuzzleFx,
