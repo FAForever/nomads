@@ -2,201 +2,139 @@ local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local RandomFloat = import('/lua/utilities.lua').GetRandomFloat
 local Prop = import('/lua/sim/Prop.lua').Prop
 
--- Redone the trees quite significantly. This may be a bit destructive but else I couldn't get the trees working like I wanted.
+-- Redone the trees quite significantly. This is necessary because the original tree prop was pretty cursed, and this one has a lot better mod support
+-- Sadly this means the prop is overwritten pretty much.
+-- We no longer use states, instead using a table of OnDamage functions, and also this means we can control what happens to the trees more.
+-- For instance we handle burning and falling separately so a tree can be in both "states" at once. Also, mods can mod/add damage types and behaviours super easily now.
 local oldTree = Tree
-Tree = Class(oldTree) {
-    OnCreate = function(self)
-        oldTree.OnCreate(self)
-        self.Fallen = false
-        self.Burning = false
-        self.BurnTime = Random(10, 30)
-        ChangeState(self, self.UprightState)
-    end,
 
-    OnCollision = function(self, other, nx, ny, nz, depth)
-        self:StateVariable({nx, ny, nz})
-        self:PlayUprootingEffect(other)
-        ChangeState(self, self.FallingOutwardsState)
-    end,
-
-    OnDamage = function(self, instigator, armormod, direction, type)
-        self:CheckForBlackHoleDamage(instigator, type)
-        oldTree.OnDamage(self, instigator, armormod, direction, type)
-    end,
-
-    OnBlackHoleSuckingIn = function(self, blackhole)
-        oldTree.OnBlackHoleSuckingIn(self, blackhole)
-        self:DestroyFireEffects()  -- fire < black hole
-    end,
-
-    CheckForBlackHoleDamage = function(self, instigator, type)
-        if not self.CanTakeDamage then return end
-
-        if type == 'BlackholeDamage' or type == 'BlackholeDeathNuke' then
-            if not self.BlackholeSuckedIn then
-                self.BlackholeSuckedIn = true
-                instigator.NukeEntity:OnPropBeingSuckedIn(self)
-                self:OnBlackHoleSuckingIn(instigator)
-            end
-        end
-    end,
-
-    UprightState = State {
-        Main = function(self)
-            self.Burning = false
-            self:DestroyFireEffects()
+--call with: DamageBehaviours[damageType](self, instigator, armormod, direction, damageType)
+DamageBehaviours = {
+        BlackholeDamage = function(self, instigator, armormod, direction, damageType)
+            if not self.CanTakeDamage then return end
+            self:DoBlackHoleCallbacks(self, instigator)
+            
+            --call the standard nuke code, which destroys the prop
+            DamageBehaviours['Nuke'](self, instigator, armormod, direction, damageType)
         end,
-
-        OnDamage = function(self, instigator, armormod, direction, type)
-            if self:DamageIsForce(type) then
-                if GetGameTimeSeconds() < 10 then  -- game start, trees should be gone where ACU spawns
-                    ChangeState(self, self.ObliteratedState)
-                else
-                    self:StateVariable(direction)
-                    if type == 'ForceInwards' then
-                        ChangeState(self, self.FallingInwardsState)
-                    else
-                        ChangeState(self, self.FallingOutwardsState)
-                    end
-                end
-            elseif self:DamageIsFire(type) then
-                if not self.Burning and (type ~= 'ForestFire' or Random(1, 5) <= 1) then
-                    self.Burning = true
-                    self.BigFireFx = (type == 'BigFire')
-                    self:PlayFireEffects()
-                end
-            elseif self:DamageIsDisintegrate(type) then
-                ChangeState(self, self.DisintegrateState)
-            elseif self:DamageIsObliterate() or Random(1, 8) <= 1 then
-                ChangeState(self, self.ObliteratedState)
-            end
-
-            self:CheckForBlackHoleDamage(instigator, type)
-        end,
-    },
-
-    FallenState = State {
-        Main = function(self)
-            self.Fallen = true
-            self.Burning = false
-            self:DestroyFireEffects()
-
-            -- Fixes trees not disappearing.
-            WaitSeconds(30)
-            self:SinkAway(-.1)
-            self.Motor = nil
-            WaitSeconds(10)
-            self:Destroy()
-        end,
-
-        OnDamage = function(self, instigator, armormod, direction, type)
-            if self:DamageIsFire(type) then
-                if not self.Burning and (type ~= 'ForestFire' or Random(1, 3) <= 1) then
-                    self.Burning = true
-                    self.BigFireFx = (type == 'BigFire')
-                    self:PlayFireEffects()
-                end
-            elseif self:DamageIsDisintegrate(type) then
-                ChangeState(self, self.DisintegrateState)
-            elseif self:DamageIsObliterate() or (not self:DamageIsForce(type) and Random(1, 4) <= 1) then
-                ChangeState(self, self.ObliteratedState)
-            end
-
-            self:CheckForBlackHoleDamage(instigator, type)
-        end,
-    },
-
-    FallingInwardsState = State {
-        Main = function(self)
-            local direction = self:StateVariable()
-            self.Motor = self.Motor or self:FallDown()
-            self.Motor:Whack(-direction[1], direction[2], -direction[3], 1, true)
-            self:SetMesh(self:GetBlueprint().Display.MeshBlueprintWrecked)
-            ChangeState(self, self.FallenState)
-        end,
-    },
-
-    FallingOutwardsState = State {
-        Main = function(self)
-            local direction = self:StateVariable()
-            self.Motor = self.Motor or self:FallDown()
-            self.Motor:Whack(direction[1], direction[2], direction[3], 1, true)
-            self:SetMesh(self:GetBlueprint().Display.MeshBlueprintWrecked)
-            ChangeState(self, self.FallenState)
-        end,
-    },
-
-    SinkingState = State {
-        Main = function(self)
-            self.Burning = false
-            self:DestroyFireEffects()
-            if not self.Motor then
-                self.Motor = self.Motor or self:FallDown()
-            end
-            self:SinkAway(-.1)
-            self.Motor = nil
-            WaitSeconds(10)
-            self:Destroy()
-        end,
-
-        OnCollisionCheck = function(self, other)
-            return false
-        end,
-
-        OnCollision = function(self, other, nx, ny, nz, depth)
-        end,
-
-        OnDamage = function(self, instigator, armormod, direction, type)
-            if self:DamageIsDisintegrate(type) then
-                ChangeState(self, self.DisintegrateState)
-            elseif not self:DamageIsForce(type) and not self:DamageIsFire(type) then
-                ChangeState(self, self.ObliteratedState)
-            end
-
-            self:CheckForBlackHoleDamage(instigator, type)
-        end,
-    },
-
-    DisintegrateState = State {
-        Main = function(self)
-            self.Burning = false
-            self:DestroyFireEffects()
-            self:Destroy()
-        end,
-    },
-
-    ObliteratedState = State {
-        Main = function(self)
+        
+        Nuke = function(self, instigator, armormod, direction, damageType)
             local templ = NomadsEffectTemplate.TreeDisintegrate
             if self.Fallen then templ = NomadsEffectTemplate.FallenTreeDisintegrate end
             for k, v in templ do
                 CreateEmitterAtBone(self, 0, -1, v) -- the effects must have a limited life...
             end
+            
+            --disintegrate the tree
+            DamageBehaviours['Disintegrate'](self, instigator, armormod, direction, damageType)
+        end,
+        
+        Disintegrate = function(self, instigator, armormod, direction, damageType)
             self.Burning = false
             self:DestroyFireEffects()
             self:Destroy()
         end,
-    },
+        
+        --Force
+        
+        Force = function(self, instigator, armormod, direction, damageType)
+            if self.Fallen then return end --TODO: change this so it disappears if damaged again?
+            self:FallOver(direction, 1, true)
+        end,
+        
+        ForceInwards = function(self, instigator, armormod, direction, damageType)
+            direction = -direction[1], direction[2], -direction[3]
+            DamageBehaviours['Force'](self, instigator, armormod, direction, damageType)
+        end,
+        
+        --Fire
+        
+        Fire = function(self, instigator, armormod, direction, damageType)
+            if self.Burning then return end
+            self.Burning = true
+            self.BigFireFx = (damageType == 'BigFire')
+            self:PlayFireEffects()
+        end,
+        
+        ForestFire = function(self, instigator, armormod, direction, damageType)
+            if self.Burning or (Random(1, 5) > 1) then return end
+            DamageBehaviours['Fire'](self, instigator, armormod, direction, damageType)
+        end,
+        
+        Generic = function(self, instigator, armormod, direction, damageType)
+        end,
+}
 
-    StateVariable = function(self, var)
-        if var then self._StateVariable = var end
-        return self._StateVariable
+--set up duplicate functions
+DamageBehaviours.BlackholeDeathNuke = DamageBehaviours.BlackholeDamage
+DamageBehaviours.Deathnuke = DamageBehaviours.Nuke
+DamageBehaviours.BigFire = DamageBehaviours.Fire
+DamageBehaviours.ExperimentalFootfall = DamageBehaviours.Force -- knock over trees by exp footsteps
+
+Tree = Class(oldTree) {
+    
+    OnCreate = function(self)
+        oldTree.OnCreate(self)
+        self.Fallen = false
+        self.Burning = false
+        self.BurnTime = Random(10, 30)
+    end,
+
+    OnCollision = function(self, other, nx, ny, nz, depth)
+        local direction = {nx, ny, nz}
+        self:PlayUprootingEffect(other)
+        
+        local otherbp = other:GetBlueprint()
+        local is_big = (otherbp.SizeX * otherbp.SizeZ) > 0.2
+        if is_big then
+            self:FallOver(direction, depth, true)
+        else
+            self:FallOver(direction, 0.05, false)
+        end
+    end,
+
+    OnDamage = function(self, instigator, armormod, direction, type)
+        if DamageBehaviours[type] then
+            if self.Fallen and (not self:DamageIsForce(type) and Random(1, 4) <= 1) then --a chance that fallen trees are destroyed
+                DamageBehaviours['Nuke'](self, instigator, armormod, direction, type)
+            else
+                DamageBehaviours[type](self, instigator, armormod, direction, type)
+            end
+        elseif Random(1, 8) <= 1 then --a chance to destroy trees when they get damaged by regular AOE
+            DamageBehaviours['Fire'](self, instigator, armormod, direction, type)
+        elseif Random(1, 8) <= 1 then --a chance to knock over trees when they get damaged by regular AOE
+            DamageBehaviours['Force'](self, instigator, armormod, direction, type)
+        end
+    end,
+    
+    FallOver = function(self, direction, speed, toggle)
+        self.Fallen = true
+        
+        self.Motor = self.Motor or self:FallDown()
+        self.Motor:Whack(direction[1], direction[2], direction[3], speed or 1, toggle or true)
+        self:SetMesh(self:GetBlueprint().Display.MeshBlueprintWrecked)
+        
+        self:ForkThread(self.FallenTreeThread)
+    end,
+    
+    FallenTreeThread = function(self)
+        WaitSeconds(30)
+        self:SinkAway(-.1)
+        self.Motor = nil
+        WaitSeconds(10)
+        self:Destroy()
+    end,
+    
+    DoBlackHoleCallbacks = function(self, instigator)
+        if not self.BlackholeSuckedIn then
+            self.BlackholeSuckedIn = true
+            instigator.NukeEntity:OnPropBeingSuckedIn(self)
+            self:DestroyFireEffects()  -- fire < black hole
+        end
     end,
 
     DamageIsForce = function(self, type)
         return (type == 'Force' or type == 'ForceInwards' or type == 'ExperimentalFootfall') -- exp footfall so the trees fall by steps from experimentals
-    end,
-
-    DamageIsFire = function(self, type)
-        return (type == 'Fire' or type == 'BigFire' or type == 'ForestFire')
-    end,
-
-    DamageIsDisintegrate = function(self, type)
-        return type == 'Disintegrate'
-    end,
-
-    DamageIsObliterate = function(self, type)
-        return (type == 'BlackholeDeathNuke' or type =='BlackholeDamage' or type == 'Deathnuke' or type == 'Nuke')
     end,
 
     PlayFireEffects = function(self, initialScale, curveParam)
@@ -209,8 +147,7 @@ Tree = Class(oldTree) {
 
         if not initialScale or initialScale <= 0 then initialScale = 1 end
         if not curveParam or curveParam <= 0 then curveParam = 2 end
-        if not self.FireEffects then self.FireEffects = {} end
-        if not self.BurnTimeOrg then self.BurnTimeOrg = self.BurnTime end
+        self.FireEffects = self.FireEffects or {}
 
         local templ = NomadsEffectTemplate.TreeFire
         if self.BigFireFx and self.Fallen then
@@ -220,55 +157,46 @@ Tree = Class(oldTree) {
         elseif self.Fallen then
             templ = NomadsEffectTemplate.FallenTreeFire
         end
-
+        
+        --self:SetMesh(self:GetBlueprint().Display.MeshBlueprintWrecked) --not working for some reason here?
         local fn = function(self, templ, initialScale, curveParam)
             local scale, frac, curve, dmgTime, emit = initialScale, 1, 1, 1
-            -- FIXME: this seems to put the flames on a wrong place
-            -- local offset = RandomFloat(0, 1)
-            -- local dx, dy, dz = self:GetBoneDirection(0)
-
             self:PlayPropSound('BurnStart')
             self:PlayPropAmbientSound('BurnLoop')
 
             for k, v in templ do
                 emit = CreateAttachedEmitter(self, 0, -1, v):ScaleEmitter(scale)
-                -- emit:OffsetEmitter(dx * offset, dy * offset, dz * offset)
                 table.insert(self.FireEffects, emit)
                 self.Trash:Add(emit)
             end
 
-            self:SetMesh(self:GetBlueprint().Display.MeshBlueprintWrecked)
             if not self.ScorchMarkCreated then
                 self.ScorchMarkCreated = true
                 DefaultExplosions.CreateScorchMarkSplat(self, 0.5, -1)
             end
 
-            while self and self.BurnTime > 0 do
-                frac = self.BurnTime / self.BurnTimeOrg
+            for i = self.BurnTime,1,-1 do
+                frac = i / self.BurnTime
                 curve = (-curveParam * math.pow(frac, 2)) + (curveParam * frac) + 1
                 scale = initialScale * frac * curve
                 for k, v in self.FireEffects do
                     v:ScaleEmitter(scale)
                 end
-                -- TODO: disabled for performance reasons. remove completely?
-                -- if dmgTime <= 0 then
-                --     DamageArea(self, self:GetCachePosition(), 1, 1, 'ForestFire', true)
-                --     dmgTime = Random(140, 200)
-                --     if self.BigFireFx then
-                --         dmgTime = dmgTime * 0.75
-                --     end
-                -- end
-                WaitTicks(10)
-                self.BurnTime = self.BurnTime - 1
-                -- dmgTime = dmgTime - 10
+                WaitSeconds(1)
             end
-
+            
             self:PlayPropAmbientSound(nil)
 
             for k, v in self.FireEffects do
                 v:Destroy()
             end
-
+            
+            --topple some trees after theyre done burning
+            local randomF = GetRandomFloat(-1, 1)
+            if randomF < -0.5 then
+                local direction = {randomF, 0, GetRandomFloat(-1, 1)}
+                self:FallOver(direction, 0.05, true)
+            end
             self:PlayAfterFireEffects()
         end
 
