@@ -38,7 +38,9 @@ DamageBehaviours = {
         --Force
         
         Force = function(self, instigator, armormod, direction, damageType)
-            if self.Fallen then return end --TODO: change this so it disappears if damaged again?
+            --TODO: replace the warp in effects with a disintegrate radius so this doesnt need to be here. also i actually dont know how the original does this.
+            if GetGameTick() < 100 then DamageBehaviours['Disintegrate'](self, instigator, armormod, direction, damageType) return end
+            if self.Fallen then return end
             self:FallOver(direction, 1, true)
         end,
         
@@ -232,7 +234,7 @@ local oldTreeGroup = TreeGroup
 TreeGroup = Class(TreeGroup) {
     OnDamage = function(self, instigator, armormod, direction, type)
         -- making all new damage types break up the tree group so each tree properly handles the damage type
-        if type == 'ForceInwards' or type == 'Fire' or type == 'BigFire' then
+        if type == 'ForceInwards' or type == 'Force' or type == 'Fire' or type == 'BigFire' then
             self:Breakup()
         else
             oldTreeGroup.OnDamage(self, instigator, armormod, direction, type)
