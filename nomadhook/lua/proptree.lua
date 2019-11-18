@@ -114,7 +114,7 @@ Tree = Class(oldTree) {
         
         self.Motor = self.Motor or self:FallDown()
         self.Motor:Whack(direction[1], direction[2], direction[3], speed or 1, toggle or true)
-        self:SetMesh(self:GetBlueprint().Display.MeshBlueprintWrecked)
+        self:SetMesh(self:GetBlueprint().Display.MeshBlueprintWrecked) --note: this doesnt seem to apply until the prop starts tipping for some reason.
         
         self:ForkThread(self.FallenTreeThread)
     end,
@@ -160,7 +160,6 @@ Tree = Class(oldTree) {
             templ = NomadsEffectTemplate.FallenTreeFire
         end
         
-        --self:SetMesh(self:GetBlueprint().Display.MeshBlueprintWrecked) --not working for some reason here?
         local fn = function(self, templ, initialScale, curveParam)
             local scale, frac, curve, dmgTime, emit = initialScale, 1, 1, 1
             self:PlayPropSound('BurnStart')
@@ -197,7 +196,7 @@ Tree = Class(oldTree) {
             local randomF = GetRandomFloat(-1, 1)
             if randomF < -0.5 then
                 local direction = {randomF, 0, GetRandomFloat(-1, 1)}
-                self:FallOver(direction, 0.05, true)
+                self:FallOver(direction, 0.01, true)
             end
             self:PlayAfterFireEffects()
         end
