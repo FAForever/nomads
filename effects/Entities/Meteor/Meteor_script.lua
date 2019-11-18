@@ -169,10 +169,6 @@ Meteor = Class(NullShell) {
             self:PlaySound(bpAud.Impact)
         end
 
-        -- Knockdown force rings
-        --DamageRing(self, position, 0.1, (12 * scale), 1, 'Force', true)
-        --DamageRing(self, position, 0.1, (12 * scale), 1, 'Force', true)
-
         self:CreateOuterRingWaveSmokeRing(scale)
     end,
 
@@ -182,7 +178,6 @@ Meteor = Class(NullShell) {
         local emitters = {}
         local emit
 
-        DamageRing(self, position, .1, 11, 100, 'Force', false, false)
         -- Create ground decals
         local orientation = RandomFloat( 0, 2 * math.pi )
         if scale == 1 then
@@ -240,8 +235,10 @@ Meteor = Class(NullShell) {
     
     ForceDamageThread = function(self, position)
         --This complicated procedure is identical to the other factions, and ensures that trees are knocked down properly at the starting area.
-        --DamageRing(self, position, .1, 11, 100, 'Force', false, false)
-        --WaitSeconds(.1)
+        --The two rounds of force are there to first break tree groups, and then to knock over the broken trees. yeah.
+        position[2] = position[2] + 5 --Raise the AOE effect above the collision boxes of the trees to prevent collisions not being checked
+        DamageRing(self, position, .1, 11, 100, 'Force', false, false)
+        WaitSeconds(.1)
         DamageRing(self, position, .1, 11, 100, 'Force', false, false)
 
         -- Knockdown force rings
