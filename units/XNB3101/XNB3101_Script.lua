@@ -12,6 +12,12 @@ XNB3101 = Class(NRadarUnit) {
     OverchargeRecoveryFx = NomadsEffectTemplate.T1RadarOverchargeRecovery,
     OverchargeChargingFx = NomadsEffectTemplate.T1RadarOverchargeCharging,
     OverchargeExplosionFx = NomadsEffectTemplate.T1RadarOverchargeExplosion,
+
+    OnStopBeingBuilt = function(self, builder, layer)
+        NRadarUnit.OnStopBeingBuilt(self, builder, layer)
+        --toggle the radar boost on, since it boosted is the same range as other factions radars
+        self:SetScriptBit('RULEUTC_WeaponToggle', false)
+    end,
 }
 
 TypeClass = XNB3101
