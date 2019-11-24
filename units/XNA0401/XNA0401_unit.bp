@@ -2,7 +2,7 @@
 
 UnitBlueprint {
     AI = {
-        BeaconName = 'UEB5102',
+        BeaconName = 'UEB5102', --This is galactic war reinforcements support, I think. Also Nomads needs its own beacon.
         GuardReturnRadius = 175,
         GuardScanRadius = 125,
         TargetBones = { --TODO: add some target bones
@@ -127,9 +127,6 @@ UnitBlueprint {
             '<LOC ability_unstunable>Immune to EMP',
             '<LOC ability_transport>Transport',
             '<LOC ability_transport_experimental>Transports Experimentals',
-            '<LOC ability_radar>Radar',
-            '<LOC ability_sonar>Sonar',
-            '<LOC ability_notcap>Not Capturable',
         },
         ForcedBuildSpin = 0,
         IdleEffects = {
@@ -731,8 +728,8 @@ UnitBlueprint {
             TurretBonePitch = 'SamTurret01Pitch',
             TurretBoneYaw = 'SamTurret01Yaw',
             TurretDualManipulators = false,
-            TurretPitch = 0,
-            TurretPitchRange = 50,
+            TurretPitch = -45,
+            TurretPitchRange = 45,
             TurretPitchSpeed = 180,
             TurretYaw = 0,
             TurretYawRange = 180,
@@ -825,8 +822,8 @@ UnitBlueprint {
             TurretBonePitch = 'SamTurret02Pitch',
             TurretBoneYaw = 'SamTurret02Yaw',
             TurretDualManipulators = false,
-            TurretPitch = 0,
-            TurretPitchRange = 50,
+            TurretPitch = -45,
+            TurretPitchRange = 45,
             TurretPitchSpeed = 180,
             TurretYaw = 0,
             TurretYawRange = 180,
