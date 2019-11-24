@@ -19,42 +19,36 @@ XNA0401 = Class(NAirTransportUnit) {
 
     DestroyNoFallRandomChance = 1.1,  -- don't blow up in air when killed
     
-    --the bones that can tilt side to side
-    EngineRotateBonesRoll = {'EngineArmRotatorRight01', 'EngineArmRotatorRight02', 'EngineArmRotatorRight03', 'EngineArmRotatorRight04',
-        'EngineArmRotatorLeft01', 'EngineArmRotatorLeft02', 'EngineArmRotatorLeft03', 'EngineArmRotatorLeft04', },
-    EngineRotateBonesRoll2 = {'EngineArmRotatorLeft01', 'EngineArmRotatorLeft02', },
-    
-    --the actual engines
-    EngineRotateBonesYaw = {'EngineRotatorRight01', 'EngineRotatorRight02', 'EngineRotatorRight03', 'EngineRotatorRight04',
-        'EngineRotatorLeft01', 'EngineRotatorLeft02', 'EngineRotatorLeft03', 'EngineRotatorLeft04', },
+    --engine bones that tilt side to side, and forwards/backwards
+    EngineThrustControllerBones = {
+        EngineArmRotatorLeft02 = false,
+        EngineArmRotatorLeft01 = false,
+        EngineArmRotatorRight01 = false,
+        EngineArmRotatorRight02 = false,
+        
+        --the actual engines
+        EngineRotatorRight01 = true,
+        EngineRotatorRight02 = true,
+        EngineRotatorRight03 = true,
+        EngineRotatorRight04 = true,
+        EngineRotatorLeft01 = true,
+        EngineRotatorLeft02 = true,
+        EngineRotatorLeft03 = true,
+        EngineRotatorLeft04 = true,
+    },
 
     OnStopBeingBuilt = function(self, builder, layer)
         NAirTransportUnit.OnStopBeingBuilt(self, builder, layer)
-        self.EngineManipulators = {}
-
-        --  create the engine thrust manipulators
-        for k, v in self.EngineRotateBonesYaw do
-            table.insert(self.EngineManipulators, CreateThrustController(self, "thruster", v))
-        end
 
         -- set up the thrusting arcs for the engines
-        for keys,values in self.EngineManipulators do
-            --                      XMAX,XMIN,YMAX,YMIN,ZMAX,ZMIN, TURNMULT, TURNSPEED
-            values:SetThrustingParam(-0.0, 0.0, -0.75, 0.75, -0.2, 0.2, 1.0, 0.08)
-        end
-        
-        self.EngineManipulatorsInner = {}
-
-        --  create the engine thrust manipulators
-        for k, v in self.EngineRotateBonesRoll do
-            --getting these to work properly is still a work in progress, needs a lot of pain, and model edits.
-            --table.insert(self.EngineManipulatorsInner, CreateThrustController(self, "thruster", v))
-        end
-
-        -- set up the thrusting arcs for the engines
-        for keys,values in self.EngineManipulatorsInner do
-            --                      XMAX,XMIN,YMAX,YMIN,ZMAX,ZMIN, TURNMULT, TURNSPEED
-            values:SetThrustingParam(-0.2, 0.2, -0.0, 0.0, -1.0, 1.0, 1.0, 0.08)
+        for boneName,tiltForwards in self.EngineThrustControllerBones do
+            local controller = CreateThrustController(self, "thruster", boneName)
+            if tiltForwards == true then
+                --                      XMAX,XMIN,YMAX,YMIN,ZMAX,ZMIN, TURNMULT, TURNSPEED
+                controller:SetThrustingParam(-0.0, 0.0, -0.75, 0.75, -0.2, 0.2, 1.0, 0.08)
+            elseif tiltForwards == false then
+                controller:SetThrustingParam(-0.15, 0.15, -1.0, 1.0, -0.0, 0.0, 1.0, 0.08)
+            end
         end
 
         -- self.LandingAnimManip = CreateAnimator(self)
