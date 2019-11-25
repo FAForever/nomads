@@ -16,6 +16,7 @@ local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 
 local UtilsFile = import('/lua/utilities.lua')
 local RandomFloat = UtilsFile.GetRandomFloat
+local XZDist = UtilsFile.XZDistanceTwoVectors
 local RandomOffsetTrackingTarget = UtilsFile.RandomOffsetTrackingTarget
 local NomadsExplosions = import('/lua/nomadsexplosions.lua')
 
@@ -36,10 +37,108 @@ local NomadsExplosions = import('/lua/nomadsexplosions.lua')
 -- -----------------------------------------------------------------------------------------------------
 -- Missiles
 -- -----------------------------------------------------------------------------------------------------
+-- Base missile classes
+
+-- Missiles that lead target units, while not homing in on the units themselves. Not a standalone class.
+NIFTargetLeadingMissile = Class() {
+    LeadTargetGroundThread = function(self)
+        local trackingTarget = self:GetTrackingTarget()
+        if trackingTarget and IsUnit(trackingTarget) and trackingTarget:GetCurrentLayer() == 'Land' then
+            WaitSeconds(0.1)
+            --Save the target incase we need to turn on target tracking later
+            self.TargetUnit = trackingTarget
+            
+            local targetData = {pos=self.TargetUnit:GetPosition(), vel=VMult(Vector(self.TargetUnit:GetVelocity()), 10)}
+            local deltaDistance = XZDist(self:GetPosition(), self.TargetUnit:GetPosition())
+            local deltaVelocity = XZDist(VMult(Vector(self:GetVelocity()), 10), targetData.vel)
+            
+            if deltaVelocity == 0 then return end
+            
+            local deltaTime = deltaDistance / deltaVelocity
+            
+            -- find out where the target will be when the projectile will hit it
+            targetData.tpos = {targetData.pos[1] + deltaTime * targetData.vel[1], 0, targetData.pos[3] + deltaTime * targetData.vel[3]}
+            targetData.tpos[2] = GetSurfaceHeight(targetData.tpos[1], targetData.tpos[3])
+            self:SetNewTargetGround(targetData.tpos)
+        end
+    end,
+}
 
 -- Anti Air Missiles
 
+NAAMissile = Class(SingleCompositeEmitterProjectile) { --TODO:give it a better name?
+
+    BeamName = NomadsEffectTemplate.MissileBeam,
+
+    FxImpactAirUnit = NomadsEffectTemplate.MissileHitAirUnit1,
+    FxImpactLand = NomadsEffectTemplate.MissileHitLand1,
+    FxImpactNone = NomadsEffectTemplate.MissileHitNone1,
+    FxImpactProp = NomadsEffectTemplate.MissileHitProp1,
+    FxImpactShield = NomadsEffectTemplate.MissileHitShield1,
+    FxImpactUnit = NomadsEffectTemplate.MissileHitUnit1,
+    FxImpactWater = NomadsEffectTemplate.MissileHitWater1,
+    FxImpactProjectile = NomadsEffectTemplate.MissileHitProjectile1,
+    FxImpactUnderWater = NomadsEffectTemplate.MissileHitUnderWater1,
+
+    FxTrails = NomadsEffectTemplate.MissileTrail,
+    PolyTrail = NomadsEffectTemplate.MissilePolyTrail,
+
+    OnImpact = function(self, targetType, targetEntity)
+        SingleCompositeEmitterProjectile.OnImpact(self, targetType, targetEntity)
+
+        -- create some additional effects
+        local army = self:GetArmy()
+        local ok = (targetType ~= 'Water' and targetType ~= 'Shield' and targetType ~= 'Air' and targetType ~= 'UnitAir' and targetType ~= 'UnitUnderwater')
+        if ok then
+            local rotation = RandomFloat(0,2*math.pi)
+            local size = RandomFloat(1.5, 2.5)
+            local life = Random(40, 60)
+            CreateDecal(self:GetPosition(), rotation, 'Scorch_012_albedo', '', 'Albedo', size, size, 300, life, self:GetArmy())
+        end    
+    end,
+}
+
 -- Direct Fire Missiles
+
+-- These can enter the water and act as torpedoes
+NDFAmphibiousMissile = Class(NAAMissile, NIFTargetLeadingMissile) {
+    EnterWaterSound = 'Torpedo_Enter_Water_01',
+    FxTrailsWater = {'/effects/emitters/torpedo_munition_trail_01_emit.bp',},
+    FxEnterWater= EffectTemplate.WaterSplash01,
+    
+    OnCreate = function(self, inWater)
+        NAAMissile.OnCreate(self)
+        self:ForkThread(NIFTargetLeadingMissile.LeadTargetGroundThread)
+    end,
+    
+    OnEnterWater = function(self)
+        NAAMissile.OnEnterWater(self)
+        self:TrackTarget(true)
+        self:StayUnderwater(true)
+        self:SetMaxSpeed(5)
+        self:ChangeMaxZigZag(0)
+        self:SetTurnRate(360)
+        if self.TargetUnit and IsUnit(self.TargetUnit) then
+            self:SetNewTarget(self.TargetUnit) --turn on full-on tracking if we are targeting stuff in the water
+        end
+        --play some water effects
+        local army = self:GetArmy()
+        for i in self.FxTrailsWater do
+            CreateEmitterOnEntity(self, army, self.FxTrailsWater[i]):ScaleEmitter(self.FxTrailScale):OffsetEmitter(0, 0, self.FxTrailOffset)
+        end
+
+        for k, v in self.FxEnterWater do
+            CreateEmitterAtEntity(self,army,v)
+        end
+        
+        self:ForkThread(self.WaterEntryThread)
+    end,
+    
+    WaterEntryThread = function(self)
+        WaitSeconds(0.2)
+        self:SetMaxSpeed(10)     
+    end,
+}
 
 -- Cruise Missiles -- MML TML, indirect fire
 
