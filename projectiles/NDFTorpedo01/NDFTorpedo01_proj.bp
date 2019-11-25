@@ -1,0 +1,61 @@
+ProjectileBlueprint {
+    Audio = {
+        Impact = Sound {
+            Bank = 'Impacts',
+            Cue = 'CYB_Expl_Med_Impact',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+        ImpactTerrain = Sound {
+            Bank = 'Impacts',
+            Cue = 'Impact_Land_Gen_CYBRAN',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+        ImpactWater = Sound {
+            Bank = 'Impacts',
+            Cue = 'Impact_Water_Splash_CYBRAN',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+    },
+    Categories = {
+        'NOMADS',
+        'PROJECTILE',
+        'ANTINAVY',
+    },
+    Display = {
+        Mesh = {
+            LODs = {
+                {
+                    AlbedoName = '/projectiles/CDFRocketIridium01/CDFRocketIridium01_albedo.dds',
+                    LODCutoff = 150,
+                    MeshName = '/projectiles/CDFRocketIridium01/CDFRocketIridium01_lod0.scm',
+                    ShaderName = 'TMeshAlpha',
+                },
+            },
+        },
+        StrategicIconSize = 1,
+        UniformScale = 0.3,
+    },
+    General = {
+        Category = 'Anti Navy',
+        Faction = 'Nomads',
+        Weapon = 'Angler Torpedo',
+    },
+    Interface = {
+        HelpText = 0,
+    },
+    Physics = {
+        Acceleration = 6,
+        DestroyOnWater = false,
+        InitialSpeed = 20,
+        LeadTarget = true,
+        MaxSpeed = 50,
+        MaxZigZag = 30,
+        RotationalVelocityRange = 200,
+        TrackTarget = true,
+        TrackTargetGround = false,
+        TurnRate = 240,
+        UseGravity = false,
+        VelocityAlign = true,
+        ZigZagFrequency = 1,
+    },
+}
