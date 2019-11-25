@@ -339,7 +339,9 @@ UnitBlueprint {
             TargetCheckInterval = 2.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'MOBILE',
+                'COMMAND',
+                'EXPERIMENTAL'
+                'MOBILE TECH3 ANTIAIR',
                 'TECH3 STRUCTURE',
                 'TECH2 STRUCTURE',
                 'TECH1 STRUCTURE',

@@ -333,6 +333,13 @@ UnitBlueprint {
             TargetCheckInterval = 0.16,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
+                'LAND ANTIAIR',
+                'TECH3 MOBILE',
+                'TECH2 MOBILE',
+                'TECH1 MOBILE',
+                'TECH3 ENERGYPRODUCTION',
+                'TECH2 ENERGYPRODUCTION',
+                'TECH1 ENERGYPRODUCTION',
                 'SPECIALLOWPRI',
                 'ALLUNITS',
             },
