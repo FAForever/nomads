@@ -106,7 +106,7 @@ UnitBlueprint {
             Land = {},
         },
         AnimationActivate = '/units/xnl0402/XNL0402_Activate.sca',
-    Mesh = {
+        Mesh = {
             IconFadeInZoom = 130,
             LODs = {
                 {
