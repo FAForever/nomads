@@ -329,7 +329,12 @@ UnitBlueprint {
             TargetCheckInterval = 1,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'MOBILE',
+                'RADAR',
+                'MOBILE ENGINNER',
+                'COMMAND',                --ACU hight priority for ghetto sniping
+                'TECH1 MOBILE',
+                'TECH2 MOBILE',
+                'TECH3 MOBILE',
                 'STRUCTURE DEFENSE',
                 'SPECIALLOWPRI',
                 'ALLUNITS',
