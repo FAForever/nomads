@@ -340,7 +340,7 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'COMMAND',
-                'EXPERIMENTAL'
+                'EXPERIMENTAL',
                 'MOBILE TECH3 ANTIAIR',
                 'TECH3 STRUCTURE',
                 'TECH2 STRUCTURE',

@@ -331,7 +331,7 @@ UnitBlueprint {
                 'SPECIALHIGHPRI',
                 'RADAR',
                 'MOBILE ENGINNER',
-                'COMMAND',                --ACU hight priority for ghetto sniping
+                'COMMAND',                --Prioritise ACU for ghetto sniping
                 'TECH1 MOBILE',
                 'TECH2 MOBILE',
                 'TECH3 MOBILE',

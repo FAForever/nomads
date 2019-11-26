@@ -245,7 +245,7 @@ UnitBlueprint {
             TargetCheckInterval = 2.5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'COMMAND',            --acu is hight priority
+                'COMMAND',
                 'STRUCTURE DEFENSE',
                 'TECH3 MOBILE',
                 'TECH2 MOBILE',
