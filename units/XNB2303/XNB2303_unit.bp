@@ -249,7 +249,7 @@ UnitBlueprint {
             TargetPriorities = {
                 'SPECIALHIGHPRI',
                 'EXPERIMENTAL',
-                'STRUCTURE SHIELD'
+                'STRUCTURE SHIELD',
                 'TECH3 ENERGYPRODUCTION',
                 'TECH2 ENERGYPRODUCTION',
                 'STRUCTURE',
