@@ -248,6 +248,10 @@ UnitBlueprint {
             TargetCheckInterval = 5,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
+                'EXPERIMENTAL',
+                'STRUCTURE SHIELD'
+                'TECH3 ENERGYPRODUCTION',
+                'TECH2 ENERGYPRODUCTION',
                 'STRUCTURE',
                 'SPECIALLOWPRI',
                 'ALLUNITS',
