@@ -283,9 +283,9 @@ UnitBlueprint {
             TargetCheckInterval = 0.25,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
-                'MOBILE HOVER ARTILLERY'
+                'MOBILE HOVER ARTILLERY',
                 'MOBILE SHIELD',
-                'MOBILE HOVER'
+                'MOBILE HOVER',
                 'NAVAL MOBILE STEALTHFIELD',
                 'SPECIALLOWPRI',
                 'ALLUNITS',
