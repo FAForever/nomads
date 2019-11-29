@@ -380,7 +380,7 @@ xnl0103_name = "Barrager"
 -- T1 tank destroyer
 xnl0107_desc = "Tank Destroyer"
 xnl0107_help = "Carries a long range cannon that kills almost any lower tier unit with one direct hit."
-xnl0107_name = "Assassin"
+xnl0107_name = "Marksman"
 
 
 -- Air units
