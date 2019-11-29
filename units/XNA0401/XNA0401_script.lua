@@ -51,20 +51,38 @@ XNA0401 = Class(NAirTransportUnit) {
             end
         end
 
-        -- self.LandingAnimManip = CreateAnimator(self)
-        -- self.LandingAnimManip:SetPrecedence(0)
-        -- self.Trash:Add(self.LandingAnimManip)
-        -- self.LandingAnimManip:PlayAnim(self:GetBlueprint().Display.AnimationLand):SetRate(1)
-        self:ForkThread(self.ExpandThread)
+        self.LandingAnimManip = CreateAnimator(self)
+        self.LandingAnimManip:SetPrecedence(0)
+        self.Trash:Add(self.LandingAnimManip)
+        self.LandingAnimManip:PlayAnim(self:GetBlueprint().Display.AnimationLand):SetRate(0)
+        
+        self.HolderArmManip = CreateAnimator(self)
+        self.HolderArmManip:SetPrecedence(1)
+        self.Trash:Add(self.HolderArmManip)
+        self.HolderArmManip:PlayAnim(self:GetBlueprint().Display.AnimationHolder):SetRate(0.5)
     end,
     
+    OnTransportAttach = function(self, attachBone, unit)
+        NAirTransportUnit.OnTransportAttach(self, attachBone, unit)
+        if EntityCategoryContains(categories.NAVAL + categories.EXPERIMENTAL, unit) and self.HolderArmManip then
+            self.HolderArmManip:SetRate(-1)
+        end
+    end,
 
+    OnTransportDetach = function(self, attachBone, unit)
+        NAirTransportUnit.OnTransportDetach(self, attachBone, unit)
+        if EntityCategoryContains(categories.NAVAL + categories.EXPERIMENTAL, unit) and self.HolderArmManip then
+            self.HolderArmManip:SetRate(0.5)
+        end
+    end,
+    
     OnMotionVertEventChange = function(self, new, old)
         NAirTransportUnit.OnMotionVertEventChange(self, new, old)
-        if (new == 'Down') then
-            --self.LandingAnimManip:SetRate(-1)
+        WARN(new)
+        if (new == 'Hover') then
+            self.LandingAnimManip:SetRate(1)
         elseif (new == 'Up') then
-            --self.LandingAnimManip:SetRate(1)
+            self.LandingAnimManip:SetRate(-1)
         end
     end,
     
