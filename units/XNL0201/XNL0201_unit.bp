@@ -1,4 +1,4 @@
--- T1 tank Orbis
+-- T1 tank Eclipse
 
 UnitBlueprint {
     Audio = {
@@ -200,7 +200,7 @@ UnitBlueprint {
         FactionName = 'Nomads',
         Icon = 'land',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = '<LOC XNL0201_name>Orbis',
+        UnitName = '<LOC XNL0201_name>Eclipse',
         UnitWeight = 1,
     },
     Intel = {

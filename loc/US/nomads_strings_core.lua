@@ -370,7 +370,7 @@ xnl0106_name = "Grasshopper"
 -- T1 medium tank
 xnl0201_desc = "Medium Tank"
 xnl0201_help = "Armored medium tank. Armed with a single cannon, useful against lower tier units."
-xnl0201_name = "Orbis"
+xnl0201_name = "Eclipse"
 
 -- T1 AA gun / artillery
 xnl0103_desc = "Mobile Anti-Air Gun / Artillery"
