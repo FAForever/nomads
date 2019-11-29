@@ -136,7 +136,7 @@ UnitBlueprint {
         FactionName = 'Nomads',
         Icon = 'land',
         TechLevel = 'RULEUTL_Basic',
-        UnitName = '<LOC XNL0107_name>Assassin',
+        UnitName = '<LOC XNL0107_name>Marksman',
         UnitWeight = 1,
     },
     Intel = {
