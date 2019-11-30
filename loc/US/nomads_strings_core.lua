@@ -68,17 +68,17 @@ tooltip_lobby_unit_restriction_nonomads_desc = ""
 tooltip_radar_boost_title = "Radar Boost Toggle"
 tooltip_radar_boost_desc = "Starts/stops charging radar boosting for the selection units. When finished charging up radar boost initiates automatically. Charging up requires energy."
 tooltip_bombardmode_title = "Bombard Mode Toggle"
-tooltip_bombardmode_desc = "Bombardment mode decreases the reload time by 50% but increases the fireing randomness."
+tooltip_bombardmode_desc = "Bombardment mode decreases the reload time by 50% but increases the firing randomness."
 tooltip_no_air_title = "Anti-Air Toggle"
-tooltip_no_air_desc ="Turn the selection units anti-air attack on/off"
+tooltip_no_air_desc ="Turn the selected unit's anti-air attack on/off"
 tooltip_snipermode_title = "Sniper Mode Toggle"
 tooltip_snipermode_desc = "Turn sniper mode on/off"
 tooltip_usecapacitor_title = "Capacitor Toggle"
-tooltip_usecapacitor_desc = "Boost unit temporarily (firepower, build power, regeneration) using the capacitor ability"
+tooltip_usecapacitor_desc = "Boost unit's stats temporarily (firepower, build power, regeneration) using the capacitor ability"
 tooltip_anchor_title = "Anchor Toggle"
 tooltip_anchor_desc = "Immobilizes the unit and increases weapon range, vision, radar and build rate by 30%."
 tooltip_stealthshield_title = "Stealth Shield Toggle"
-tooltip_stealthshield_desc = "Turn the select units shield and stealth field on/off"
+tooltip_stealthshield_desc = "Turn the selected unit's shield and stealth field on/off"
 
 SpecAbil_LaunchNuke_title = "Quick nuke launch"
 SpecAbil_LaunchNuke_desc = "Launch a nuke. Single click to launch a nuke from 1 launcher, double click to launch a nuke from all available launchers in a wide spread pattern. The attack can be adjusted by clicking the middle mouse button."
@@ -98,7 +98,7 @@ SpecAbil_AreaReinforcement2_title = "Area reinforcement"
 SpecAbil_AreaReinforcement2_desc = "Reinforces an area from orbit."
 
 SpecAbil_IntelProbe_title = "Intel Probe"
-SpecAbil_IntelProbe_desc = "Launches a probe to the designated destination."
+SpecAbil_IntelProbe_desc = "Launches an intel probe to the designated destination, revealing enemy units and structures in a wide radius."
 
 SpecAbil_RemoteViewing_title = "Scry"
 SpecAbil_RemoteViewing_desc = "View an area of the map using all (selected) scrying capable units. Double click to use a wide spread pattern. Use the middle mouse button to adjust the pattern."
@@ -133,15 +133,15 @@ NomadsACUEnh_FlameThrower_Description = "Upgrades the main weapon to a flamethro
 NomadsACUEnh_FlameThrower_Help = "Flamethrower"
 NomadsACUEnh_FlameThrower_Remove = "Remove Flamethrower"
 
-NomadsACUEnh_AreaReinforcement_Description = "Allows deploying stationary reinforcements launched from orbit anywhere on the battlefield."
+NomadsACUEnh_AreaReinforcement_Description = "Allows the deployment of stationary reinforcements launched from orbit anywhere on the battlefield."
 NomadsACUEnh_AreaReinforcement_Help = "Orbital Reinforcement"
 NomadsACUEnh_AreaReinforcement_Remove = "Remove Orbital Reinforcement"
 
-NomadsACUEnh_AreaReinforcement2_Description = "Allows deploying stationary reinforcements launched from orbit anywhere on the battlefield."
+NomadsACUEnh_AreaReinforcement2_Description = "Allows the deployment of stationary reinforcements launched from orbit anywhere on the battlefield."
 NomadsACUEnh_AreaReinforcement2_Help = "Orbital Reinforcement"
 NomadsACUEnh_AreaReinforcement2_Remove = "Remove Orbital Reinforcement"
 
-NomadsACUEnh_GunUpgrade_Description = "Increases the Kinetic Cannon's damage output by several factors. Also increases range of the Kinetic Cannon and Overcharge."
+NomadsACUEnh_GunUpgrade_Description = "Increases the Kinetic Cannon's damage output by several factors. Also increases the range of the Kinetic Cannon and Overcharge."
 NomadsACUEnh_GunUpgrade_Help = "Antimatter Rounds"
 NomadsACUEnh_GunUpgrade_Remove = "Remove Antimatter Rounds"
 
@@ -149,7 +149,7 @@ NomadsACUEnh_DoubleGuns_Description = "All Kinetic Cannon damage (excluding Over
 NomadsACUEnh_DoubleGuns_Help = "Extra Barrel"
 NomadsACUEnh_DoubleGuns_Remove = "Remove Extra Barrel"
 
-NomadsACUEnh_RapidRepair_Description = "Increases health and adds a Rapid Repair device to the ACU, repairing the ACU automatically at no cost. There is a delay before repairs start, and the device must reinitialise each time the ACU is damaged or fires a weapon."
+NomadsACUEnh_RapidRepair_Description = "Increases health and adds a Rapid Repair device to the ACU, repairing the ACU automatically at no cost. There is a delay before repairs start, and the device must reinitialize each time the ACU is damaged or fires a weapon."
 NomadsACUEnh_RapidRepair_Help = "Rapid Repair"
 NomadsACUEnh_RapidRepair_Remove = "Remove Rapid Repair"
 
@@ -183,7 +183,7 @@ NomadsACUEnh_AddCapacitor_Remove = "Remove Additional Capacitor"
 
 
 -- SCU
-NomadsSCUEnh_MovementSpeedIncrease_Description = "Greatly improves the SACU's move speed."
+NomadsSCUEnh_MovementSpeedIncrease_Description = "Greatly improves the SACU's movement speed."
 NomadsSCUEnh_MovementSpeedIncrease_Help = "Improved Locomotor"
 NomadsSCUEnh_MovementSpeedIncrease_Remove = "Remove Improved Locomotor"
 
@@ -195,11 +195,11 @@ NomadsSCUEnh_PowerArmor_Description = "Greatly increases the max health of the A
 NomadsSCUEnh_PowerArmor_Help = "Powered Armor"
 NomadsSCUEnh_PowerArmor_Remove = "Remove Powered Armor"
 
-NomadsSCUEnh_LeftArmGun_Description = "Enhances the SACU with a Kinetic Cannon. When the Capacitor ability is active the cannon gains a damage-over-time effect."
+NomadsSCUEnh_LeftArmGun_Description = "Enhances the SACU with a Kinetic Cannon. When the Capacitor ability is active, the cannon gains a damage-over-time effect."
 NomadsSCUEnh_LeftArmGun_Help = "Kinetic Cannon"
 NomadsSCUEnh_LeftArmGun_Remove = "Remove Kinetic Cannon"
 
-NomadsSCUEnh_LeftArmGunUpgrade_Description = "Upgrades the Kinetic Cannon so it deals more damage."
+NomadsSCUEnh_LeftArmGunUpgrade_Description = "Upgrades the Kinetic Cannon, allowing it to deal more damage."
 NomadsSCUEnh_LeftArmGunUpgrade_Help = "Overclocked Kinetic Cannon"
 NomadsSCUEnh_LeftArmGunUpgrade_Remove = "Remove Overclocked Kinetic Cannon"
 
@@ -211,11 +211,11 @@ NomadsSCUEnh_RightArmGunUpgrade_Description = "Upgrades the gatling gun so it de
 NomadsSCUEnh_RightArmGunUpgrade_Help = "Improved Gatling Gun"
 NomadsSCUEnh_RightArmGunUpgrade_Remove = "Remove Improved Gatling Gun"
 
-NomadsSCUEnh_LeftArmEngineering_Description = "Enhances the SACU with an additional engineering tool. Also allows the SACU to construct all Nomads structures. When the capacitor ability is active the engineering functions are sped up."
+NomadsSCUEnh_LeftArmEngineering_Description = "Enhances the SACU with an additional engineering tool. Also allows the SACU to construct all Nomads structures. When the capacitor ability is active, the engineering functions are sped up."
 NomadsSCUEnh_LeftArmEngineering_Help = "Engineering Matrix"
 NomadsSCUEnh_LeftArmEngineering_Remove = "Engineering Matrix"
 
-NomadsSCUEnh_RightArmEngineering_Description = "Enhances the SACU with an additional engineering tool. Also allows the SACU to construct all Nomads structures. When the capacitor ability is active the engineering functions are sped up."
+NomadsSCUEnh_RightArmEngineering_Description = "Enhances the SACU with an additional engineering tool. Also allows the SACU to construct all Nomads structures. When the capacitor ability is active, the engineering functions are sped up."
 NomadsSCUEnh_RightArmEngineering_Help = "Engineering Matrix"
 NomadsSCUEnh_RightArmEngineering_Remove = "Remove Engineering Matrix"
 
@@ -268,13 +268,13 @@ xnc0002_name = "Orbital Cruiser"
 
 
 -- orbital dropship
-xna0001_desc = "Drop pod"
-xna0001_help = "Transports units to the planets surface. Acts like a meteor."
+xna0001_desc = "Drop Pod"
+xna0001_help = "Transports units to the planet's surface. Acts like a meteor."
 xna0001_name = "Meteor"
 
 -- area reinforcement unit
-xna2101_desc = "Area reinforcement"
-xna2101_help = "Stand alone unit that automatically attacks enemies in range. Has a limited lifetime, the unit crashes when out of fuel."
+xna2101_desc = "Area Reinforcement"
+xna2101_help = "Standalone unit that automatically attacks enemies in range. Has a limited lifespan, and crashes when out of fuel."
 xna2101_name = "Fanatic"
 
 -- orbital artillery gun (slave unit for T3 heavy artillery)
@@ -284,11 +284,11 @@ xno2302_name = "Orbital Artillery Gun"
 
 -- support commander (and enhancement presets)
 xnl0301_desc = "Support Armored Command Unit"
-xnl0301_help = "This variant is not enhanced during construction and does not have weapons and very limited engineering capabilities."
+xnl0301_help = "This variant is not enhanced during construction, does not have weapons and has very limited engineering capabilities."
 xnl0301_name = "Support Armored Command Unit"
 
 xnl0301_combat_desc = "Support Armored Command Unit (Preset: Combat)"
-xnl0301_combat_help = "Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or a combination. Enhanced during construction with an upgraded main cannon on the left arm and close combat machine gun on the right arm."
+xnl0301_combat_help = "Houses a Nomads soldier. Can be customized as a heavy combatant, improved T3 engineer or a combination. Enhanced during construction with an upgraded main cannon on the left arm and close combat machine gun on the right arm."
 xnl0301_combat_name = "Support Armored Command Unit (Preset: Combat)"
 
 xnl0301_default_desc = "Support Armored Command Unit (Preset: Regular)"
@@ -369,7 +369,7 @@ xnl0106_name = "Grasshopper"
 
 -- T1 medium tank
 xnl0201_desc = "Medium Tank"
-xnl0201_help = "Armored medium tank. Armed with a single cannon, useful against lower tier units."
+xnl0201_help = "Armored medium tank. Armed with a single cannon, designed to engage lower tier units."
 xnl0201_name = "Eclipse"
 
 -- T1 AA gun / artillery
@@ -379,7 +379,7 @@ xnl0103_name = "Barrager"
 
 -- T1 tank destroyer
 xnl0107_desc = "Tank Destroyer"
-xnl0107_help = "Carries a long range cannon that kills almost any lower tier unit with one direct hit."
+xnl0107_help = "Carries a long range cannon, capable of killing almost any lower tier unit with one direct hit."
 xnl0107_name = "Marksman"
 
 
@@ -391,7 +391,7 @@ xna0101_name = "Peeper"
 
 -- T1 interceptor
 xna0102_desc = "Interceptor"
-xna0102_help = "Anti-air fighter. Useful for intercepting lower tier air units."
+xna0102_help = "Low-end anti-air fighter. Useful for intercepting lower tier air units."
 xna0102_name = "Falcon"
 
 -- T1 bomber
@@ -406,7 +406,7 @@ xna0105_name = "Golem"
 
 -- T1 transport
 xna0107_desc = "Light Air Transport"
-xna0107_help = "An unarmed, small capacity transport with a high speed. Carries land units through the air."
+xna0107_help = "An unarmed, small capacity transport with high speed. Carries land units through the air."
 xna0107_name = "Diligence"
 
 
@@ -414,12 +414,12 @@ xna0107_name = "Diligence"
 
 -- submarine
 xns0203_desc = "Attack Submarine"
-xns0203_help = "Has torpedo launchers to attack naval units from below the water surface."
+xns0203_help = "Low-tier submarine, equipped with torpedo launchers to attack naval units from below the water surface."
 xns0203_name = "Buccaneer Class"
 
 -- frigate
 xns0103_desc = "Frigate"
-xns0103_help = "Low-end naval unit. Has a single fast firing cannon and an anti-air missile launcher."
+xns0103_help = "Low-end naval unit. Armed with a singular fast firing cannon and an anti-air missile launcher."
 xns0103_name = "Lance Class"
 
 
@@ -482,12 +482,12 @@ xnb2109_name = "Sea Needle"
 
 -- t1 radar
 xnb3101_desc = "Radar System"
-xnb3101_help = "Radar system with minimal range. Detects and tracks surface and air units. Can boost its range for a short time."
+xnb3101_help = "Radar system with minimal range. Detects and tracks surface and air units. Can boost its range for a short time at the cost of Energy."
 xnb3101_name = "Sibyl 1"
 
 -- T1 sonar
 xnb3102_desc = "Sonar System"
-xnb3102_help = "Sonar system with minimal range. Detects and tracks naval units. Can boost its range for a short time."
+xnb3102_help = "Sonar system with minimal range. Detects and tracks naval units. Can boost its range for a short time at the cost of Energy."
 xnb3102_name = "Echo 1"
 
 -- wall
@@ -509,12 +509,12 @@ xnl0208_name = "Engineer"
 
 -- T2 field engineer
 xnl0209_desc = "Field Engineer"
-xnl0209_help = "Tech 2 hover construction, repair, capture and reclamation unit armed with radar and tactical missile defense. Can only build offensive buildings, no economy."
+xnl0209_help = "Tech 2 hover construction, repair, capture and reclamation unit armed with radar and tactical missile defense. Can only build offensive structures, incapable of building economy structures."
 xnl0209_name = "Scarab"
 
 -- T2 light tank
 xnl0203_desc = "Fast Assault Tank"
-xnl0203_help = "Fast Assault Tank designed to weave around enemy units and quickly get past defensive structures."
+xnl0203_help = "Fast assault tank designed to weave around enemy units and quickly get past defensive structures."
 xnl0203_name = "Rogue"
 
 -- T2 Missile launcher
@@ -524,12 +524,12 @@ xnl0111_name = "Avalanche"
 
 -- T2 AA gun
 xnl0205_desc = "Mobile AA Flak Artillery"
-xnl0205_help = "Mobile AA unit. Armed with rocket artillery."
+xnl0205_help = "Mobile AA unit. Armed with rocket artillery designed to engage mid-level aricraft."
 xnl0205_name = "Skyshell"
 
 -- T2 heavy tank
 xnl0202_desc = "Heavy Tank"
-xnl0202_help = "Heavy tank armed with powerful weapons and heavy armour."
+xnl0202_help = "Mid-level heavy tank, armed with a singular high-power cannon and tough armour."
 xnl0202_name = "Brute"
 
 -- T2 assault bot
@@ -539,18 +539,18 @@ xnl0202_name = "Brute"
 
 -- T2 EMP tank
 xnl0306_desc = "EMP Tank"
-xnl0306_help = "Equipped with EMP cannons, that stun enemy units and deal additional damage to shields. Useful for supressing groups of enemies."
+xnl0306_help = "Equipped with EMP cannons that stun enemy units and deal additional damage to shields. Useful for supressing groups of enemies."
 xnl0306_name = "Dominator"
 
 -- Air units
 -- T2 F/B
 xna0202_desc = "Fighter/Bomber"
-xna0202_help = "Multipurpose unit that uses its rocket launchers on either side against air or surface units."
+xna0202_help = "Multipurpose unit that can utilize its rocket launchers on against aerial or surface units."
 xna0202_name = "Spitfire"
 
 -- T2 torpedo gunship
 xna0203_desc = "Torpedo Gunship"
-xna0203_help = "Versatile anti-surface and anti-submarine gunship. Carries a gun and a torpedo launcher."
+xna0203_help = "Versatile anti-surface and anti-submarine gunship. Carries a cannon and a torpedo launcher."
 xna0203_name = "Vanguard"
 
 -- T2 transport
@@ -563,17 +563,17 @@ xna0104_name = "Scalestor"
 
 -- destroyer
 xns0201_desc = "Destroyer"
-xns0201_help = "Carries heavy cannons and medium railguns to deal with light submerged units. Does not have anti-air weapons."
+xns0201_help = "Mid-level destroyer. Carries heavy cannons and medium railguns to deal with light submerged units. Does not have anti-air weapons."
 xns0201_name = "Firestorm Class"
 
 -- cruiser
 xns0202_desc = "Cruiser"
-xns0202_help = "Equipped with anti-air missiles, manual tactical missile launchers. Armed with an EMP weapon that deals additional damage to shields and suppresses enemy forces."
+xns0202_help = "Mid-tier cruiser. Equipped with anti-air missiles and a manual tactical missile launcher. Armed with an EMP weapon that deals additional damage to shields and suppresses enemy forces."
 xns0202_name = "Mercenary Class"
 
 -- torpedo boat
 xns0102_desc = "Railgun Carrier"
-xns0102_help = "Anti-submarine ship. Uses underwater railguns to attack submarines and ships. Also carries a tactical missile defense turret."
+xns0102_help = "Dedicated anti-submarine ship. Uses underwater railguns to attack submarines and ships. Also carries a tactical missile defense turret."
 xns0102_name = "Whaler Class"
 
 
@@ -703,7 +703,7 @@ xnl0303_name = "Nova"
 
 -- T3 artillery
 xnl0304_desc = "Mobile Heavy Artillery"
-xnl0304_help = "Slow moving Heavy Artillery. Able to fire while moving."
+xnl0304_help = "Slow-moving Heavy Artillery. Able to fire while moving."
 xnl0304_name = "Mauler"
 
 -- T3 orbital fire command
@@ -713,19 +713,19 @@ xnl0304_name = "Mauler"
 
 -- T3 anti air unit
 xnl0302_desc = "Mobile Anti-Air Missile Launcher"
-xnl0302_help = "Mobile Anti-Air tank. Launches high damage missiles, excellent against slow targets."
+xnl0302_help = "Mobile Anti-Air tank. Launches high damage anti-air missiles, excellent against slow targets."
 xnl0302_name = "Watchman"
 
 -- T3 tracked tank
 xnl0305_desc = "Armored Assault Tank"
-xnl0305_help = "Heavy Tank. Equipped with dual plasma cannons and heavy ablative armor."
+xnl0305_help = "High-end Armored Assault Tank. Equipped with dual plasma cannons and heavy ablative armor."
 xnl0305_name = "Slugger"
 
 
 -- Air units
 -- Spy place
 xna0302_desc = "Spy Plane"
-xna0302_help = "Extremely Fast Spy Plane with large visual radius, good radar, good sonar, and a small omni sensor."
+xna0302_help = "Extremely fast Spy Plane with large visual radius, good radar, good sonar, and a small omni sensor."
 xna0302_name = "Beholder"
 
 -- ASF
@@ -740,7 +740,7 @@ xna0304_name = "Red Rage"
 
 -- Gunship
 xna0305_desc = "Heavy Gunship"
-xna0305_help = "Heavily armed gunship."
+xna0305_help = "Heavily armed gunship, equipped with anti-air missiles and an area-of-effect cannon."
 xna0305_name = "Hornet"
 
 -- Naval units
@@ -757,12 +757,12 @@ xns0304_name = "Leviathan Class"
 
 -- carrier
 xns0303_desc = "Aircraft Carrier"
-xns0303_help = "Aircraft Carrier"
+xns0303_help = "Aircraft carrier. Armed with light anti-air weaponry. Can store, repair and refuel aircraft."
 xns0303_name = "Mastodon Class"
 
 -- battleship
 xns0302_desc = "Battleship"
-xns0302_help = "Long-range Surface Bombardment Ship. Has two long range plasma cannons, two smaller cannons, AA defense and a submerged railgun."
+xns0302_help = "Long-range Surface Bombardment Ship. Equipped with two long range plasma cannons, two smaller cannons, AA defense and a submerged railgun."
 xns0302_name = "Juggernaut Class"
 
 
@@ -875,12 +875,12 @@ xnb2302_name = "Desolator"
 
 -- transport
 xna0401_desc = "Experimental Air Transport"
-xna0401_help = "Experimental transport. High transport capacity with the ability to carry most naval units, as well as the Beamer."
+xna0401_help = "Experimental transport. High transport capacity with the ability to carry most naval units, as well as the Beamer. Equipped with anti-air weaponry and light anti-surface gatling guns."
 xna0401_name = "Comet"
 
 -- missile tank
 xnl0403_desc = "Experimental Missile Tank"
-xnl0403_help = "Experimental hover unit designed for long range attacks. Equipped with long range missiles that saturate enemy tactical defenses and suppress armies, as well as short range gatling guns for self defense. Equipped with a nuclear missile silo."
+xnl0403_help = "Experimental hover unit designed for long range attacks. Equipped with long range missiles that saturate enemy tactical defenses and suppress armies, as well as short range gatling guns for self defense. Features a nuclear missile silo."
 xnl0403_name = "Crawler"
 
 -- beam tank
@@ -890,7 +890,7 @@ xnl0402_name = "Beamer"
 
 -- experimental tank
 xnl0401_desc = "Experimental Heavy Tank"
-xnl0401_help = "Hover tank experimental equipped with a large cannon, a gattling cannon, a set of smaller guns and two AA guns. Designed to engage all surface threats."
+xnl0401_help = "Experimental amphibious tank equipped with a large cannon, a gatling cannon, a set of smaller guns and two AA guns. Designed to engage all surface threats."
 xnl0401_name = "Bullfrog"
 
 -- planetary defense cannon
@@ -900,7 +900,7 @@ xnb2304_name = "Big Bertha"
 
 -- Drop off point
 xnb0401_desc = "Experimental Factory"
-xnb0401_help = "A place where reinforcements built in orbit are set down."
+xnb0401_help = "A location for reinforcements built in orbit to be set down."
 xnb0401_name = "Dropoff"
 
 
@@ -943,8 +943,8 @@ NTaunts_MP1_010_018 = '[{i Nichols}]: I\'m afraid, we\'re out of mercy today. Ho
 NTaunts_MP1_010_019 = '[{i Nichols}]: It is amazing that you made it this far without hurting yourself.'
 
 Benson = "Benson"
-NTaunts_MP1_011_010 = '[{i Benson}]: Even my ships docking sensors have better aim than your gun.'
-NTaunts_MP1_011_011 = '[{i Benson}]: When we came back to the earth empire space we expected an advanced civilization, but you merely progressed beyond bow and arrow.'
+NTaunts_MP1_011_010 = '[{i Benson}]: Even my ship\'s docking sensors have better aim than your gun.'
+NTaunts_MP1_011_011 = '[{i Benson}]: When we came back to the Earth Empire space we expected an advanced civilization, but you merely progressed beyond bow and arrow.'
 NTaunts_MP1_011_012 = '[{i Benson}]: A 5 year old kid would design more sophisticated war machines than those you call \'experimentals\'.'
 NTaunts_MP1_011_013 = '[{i Benson}]: You had 1000 years to develop a war machine and THIS is what you\'ve come up with?'
 NTaunts_MP1_011_014 = '[{i Benson}]: How many mountainsides have you managed to gate into so far?'
