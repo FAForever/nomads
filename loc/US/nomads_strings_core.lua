@@ -74,7 +74,7 @@ tooltip_no_air_desc ="Turn the selected unit's anti-air attack on/off"
 tooltip_snipermode_title = "Sniper Mode Toggle"
 tooltip_snipermode_desc = "Turn sniper mode on/off"
 tooltip_usecapacitor_title = "Capacitor Toggle"
-tooltip_usecapacitor_desc = "Boost unit's stats temporarily (firepower, build power, regeneration) using the capacitor ability"
+tooltip_usecapacitor_desc = "Temporarily boost unit's stats (firepower, build power, regeneration) using the capacitor ability"
 tooltip_anchor_title = "Anchor Toggle"
 tooltip_anchor_desc = "Immobilizes the unit and increases weapon range, vision, radar and build rate by 30%."
 tooltip_stealthshield_title = "Stealth Shield Toggle"
@@ -524,7 +524,7 @@ xnl0111_name = "Avalanche"
 
 -- T2 AA gun
 xnl0205_desc = "Mobile AA Flak Artillery"
-xnl0205_help = "Mobile AA unit. Armed with rocket artillery designed to engage mid-level aricraft."
+xnl0205_help = "Mobile AA unit. Armed with rocket artillery designed to engage mid-level aircraft."
 xnl0205_name = "Skyshell"
 
 -- T2 heavy tank
