@@ -586,23 +586,6 @@ Unit = Class(oldUnit) {
     end,
 
     -- ================================================================================================================
-    -- ARTILLERY SUPPORT
-
-    OnWeaponSupported = function(self, supportingUnit, weapon, targetPos, target)
-        -- A weapon on this unit is supported by another unit
-    end,
-
-    OnSupportingArtillery = function(self, artillery, targetPos, target)
-        -- This unit supports a weapon on another unit
-    end,
-
-    -- ================================================================================================================
-    -- BOMBARDMENT MODE
-
-    OnBombardmentModeChanged = function( self, enabled, changedByTransport )
-    end,
-
-    -- ================================================================================================================
     -- SPECIAL ABILITIES
     
     RegisterSpecialAbilities = function(self)

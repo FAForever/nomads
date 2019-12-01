@@ -34,49 +34,6 @@ BuffBlueprint {
 }
 
 BuffBlueprint {
-    Name = 'BombardMode',
-    DisplayName = 'BombardMode',
-    BuffType = 'BOMBARDMODE',
-    Stacks = 'REPLACE',
-    Duration = -1,
-    Affects = {
-        BombardFiringRandomness = {
-            Add = 1.25,
-            Mult = 1.25,
-        },
-        BombardMaxRadius = {
-            Mult = 1,
-        },
-        BombardRateOfFire = {
-            Mult = 0.666,  -- remember that values below 1 actually boost the rof!
-        },
-    },
-}
-
-BuffBlueprint {
-    Name = 'BombardModeImmobilize',
-    DisplayName = 'BombardModeImmobilize',
-    BuffType = 'BOMBARDMODE',
-    Stacks = 'REPLACE',
-    Duration = -1,
-    Affects = {
-        BombardFiringRandomness = {
-            Add = 1.25,
-            Mult = 1.5,
-        },
-        BombardMaxRadius = {
-            Mult = 1,
-        },
-        BombardRateOfFire = {
-            Mult = 1,
-        },
-        Immobilize = {
-            DeactivateDelay = 4,
-        },
-    },
-}
-
-BuffBlueprint {
     Name = 'CapacitorEngineering',
     DisplayName = 'CapacitorEngineering',
     BuffType = 'CAPACITORBUILDRATE',

@@ -29,10 +29,6 @@ local NomadsTooltips = {
         title = "<LOC tooltip_radar_boost_title>Radar Toggle",
         description = "<LOC tooltip_radar_boost_desc>Turn the selection units radar on/off",
     },
-    toggle_bombardmode = {
-        title = "<LOC tooltip_bombardmode_title>Bombard Mode Toggle",
-        description = "<LOC tooltip_bombardmode_desc>Turn the selection units bombard mode on/off",
-    },
     toggle_weapon_no_air = {
         title = "<LOC tooltip_no_air_title>Anti-Air Toggle",
         description = "<LOC tooltip_no_air_desc>Turn the selection units anti-air attack on/off",

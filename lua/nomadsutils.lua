@@ -235,150 +235,6 @@ CreateEmitterOnEntityColoured = function(self, ...) -- Hook the engine CreateEmi
 end
 
 -- ================================================================================================================
--- Bombard mode stuff
--- ================================================================================================================
-
-function AddBombardModeToUnit(SuperClass)
-    return Class(SuperClass) {
-
-        HasBombardModeAbility = true,
-
-        OnStopBeingBuilt = function(self, builder, layer)
-            SuperClass.OnStopBeingBuilt(self, builder, layer)
-
-            self.BombardmentMode = false
-
-            -- disable weapons that shouldn't be disabled at this time.
-            for i = 1, self:GetWeaponCount() do
-                local wep = self:GetWeapon(i)
-                local bp = wep:GetBlueprint()
-                if (bp.BombardDisable and self.BombardmentMode) or (bp.BombardEnable and not self.BombardmentMode) then
-                    self:SetWeaponEnabledByLabel( bp.Label, false )
-                end
-            end
-        end,
-
-        OnBombardmentModeChanged = function( self, enabled, changedByTransport )
-            SuperClass.OnBombardmentModeChanged( self, enabled, changedByTransport )
-        end,
-
-        OnAttachedToTransport = function(self, transport, transportBone)
-            self:SetBombardmentMode(false, true)
-            SuperClass.OnAttachedToTransport(self, transport, transportBone)
-        end,
-
-        OnDetachedFromTransport = function(self, transport, transportBone)
-            SuperClass.OnDetachedFromTransport(self, transport, transportBone)
-            self:SetBombardmentMode(false, true)
-        end,
-
-        SetBombardmentMode = function(self, enable, changedByTransport)
-
-            enable = (enable == true)  -- making sure enable is a boolean
-            local prevState = self.BombardmentMode
-
-            if enable ~= prevState then
-
-                local unitBp = self:GetBlueprint()
-                local BuffName = unitBp.Abilities.BombardMode.Buff or 'BombardMode'
-                if enable then
-                    Buff.ApplyBuff(self, BuffName)    -- bonuses for ROF, range, etc. are handled via a unit buff
-                else
-                    Buff.RemoveBuff(self, BuffName)
-                end
-
-                -- go through all weapons and see if they need bombardment mode specific actions
-                for k, bp in unitBp.Weapon do
-
-                    if bp.BombardDisable then
-                        self:SetWeaponEnabledByLabel( bp.Label, not enable )
-
-                    else
-                        if bp.BombardEnable then
-                            self:SetWeaponEnabledByLabel( bp.Label, enable )
-                        end
-
-                        if bp.Turreted and bp.BombardSwingTurret and not bp.DummyWeapon then
-                            if bp.TurretBoneYaw and (not bp.BombardTurretRotationSpeed or bp.BombardTurretRotationSpeed > 0) and (not bp.BombardTurretYawRange or bp.BombardTurretYawRange > 0) then
-                                if enable then
-                                    self:StartRotatingWeaponTurret( bp.Label )
-                                else
-                                    self:StopRotatingWeaponTurret( bp.Label )
-                                end
-                            end
-                        end
-                    end
-
-                    local wep = self:GetWeaponByLabel( bp.Label )
-                    if wep.OnBombardmentModeChanged then
-                        wep:OnBombardmentModeChanged( enable, changedByTransport or false )
-                    end
-                end
-
-                self.BombardmentMode = enable
-
-                self:OnBombardmentModeChanged( enable, changedByTransport or false )
-            end
-        end,
-
-        StartRotatingWeaponTurret = function(self, label)
-            -- start turret rotation
-
-            -- this is a local function that does the rotating of the turret
-            local RotationThread = function(self, label)
-
-                local turret = self:GetWeaponByLabel( label )
-                local bp = turret:GetBlueprint()
-
-                -- kill old rotator if any. Also create a warning since this should not be normal behaviour.
-                if self.TurretRotators and self.TurretRotators[ label ] then
-                    WARN('Bombardment mode: This turret already has a rotator! Overriding it. Unit = '..repr(self:GetUnitId())..' turret = '..repr(label))
-                    self.TurretRotators[ label ]:Destroy()
-                elseif not self.TurretRotators then
-                    self.TurretRotators = {}
-                end
-
-                -- set up new turret rotator
-                local MaxYaw = bp.BombardTurretYawRange or math.ceil( bp.TurretYawRange * 0.08 )
-                local speed = bp.BombardTurretRotationSpeed or bp.RateOfFire * 8
-                local rotator = CreateRotator( self, bp.TurretBoneYaw, 'y' ):SetSpeed( speed ) :SetPrecedence( 25 )
-                self.Trash:Add( rotator )
-                self.TurretRotators[ label ] = rotator
-
-                -- keep spinning the turret.
-                -- bombardment mode is probably started on a group of units at once. To prevent all turrets rotating at the same
-                -- time and hitting the same area we start with a random goal and direction so the turrets of all participating
-                -- units spread their fire nicely.
-                local direction = ( Random(0,1) * 2 ) - 1
-                local goal = MaxYaw * direction * RandomFloat(0, 0.5)
-                while self and not self:BeenDestroyed() and not self.Dead and self.BombardmentMode do
-                    rotator:SetGoal( goal )
-                    WaitFor(rotator)
-                    WaitTicks(2)
-                    direction = direction * -1
-                    goal = MaxYaw * direction
-                end
-            end
-
-            -- store the handles for all threats in a table for easy access
-            if not self.TurretRotationHandles then
-                self.TurretRotationHandles = {}
-            end
-            self.TurretRotationHandles[ label ] = self:ForkThread( RotationThread, label )
-        end,
-
-        StopRotatingWeaponTurret = function(self, label)
-            -- stop turret rotation
-            if self.TurretRotators[ label ] then
-                KillThread( self.TurretRotationHandles[ label ] )
-                self.TurretRotators[ label ]:Destroy()
-                self.TurretRotators[ label ] = nil
-            end
-        end,
-    }
-end
-
--- ================================================================================================================
 -- Lights class stuff
 -- ================================================================================================================
 
@@ -401,13 +257,6 @@ function AddLights(SuperClass)
         OnKilled = function(self, instigator, type, overkillRatio)
             self:RemoveLights()
             SuperClass.OnKilled(self, instigator, type, overkillRatio)
-        end,
-
-        OnBombardmentModeChanged = function( self, enabled, changedByTransport )
-            SuperClass.OnBombardmentModeChanged( self, enabled, changedByTransport )
-
-            -- refresh lights
-            self:AddLights()
         end,
 
         AddLights = function(self)
@@ -434,9 +283,6 @@ function AddLights(SuperClass)
         end,
 
         GetLightTemplate = function(self, n)
-            if self.BombardmentMode then
-                return NomadsEffectTemplate['AntennaeLights_'..tostring(n)..'_Bombard']
-            end
             return NomadsEffectTemplate['AntennaeLights'..tostring(n)]
         end,
 
@@ -495,12 +341,6 @@ function AddNavalLights(SuperClass)
         end,
 
         GetLightTemplate = function(self, n)
-            if self.BombardmentMode then
-                if n == 0 then
-                    return NomadsEffectTemplate.NavalAntennaeLights_Left_Bombard
-                end
-                return NomadsEffectTemplate.NavalAntennaeLights_Right_Bombard
-            end
             if n == 0 then
                 return NomadsEffectTemplate.NavalAntennaeLights_Left
             end

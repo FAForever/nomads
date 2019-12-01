@@ -64,9 +64,7 @@ tooltip_lobby_unit_restriction_nonomads_title = "No Nomads"
 tooltip_lobby_unit_restriction_nonomads_desc = ""
 
 tooltip_radar_boost_title = "Radar Boost Toggle"
-tooltip_radar_boost_desc = "Starts/stops charging radar boosting for the selection units. When finished charging up radar boost initiates automatically. Charging up requires energy."
-tooltip_bombardmode_title = "Bombard Mode Toggle"
-tooltip_bombardmode_desc = "Bombardment mode decreases the reload time by 50% but increases the firing randomness."
+tooltip_radar_boost_desc = "Toggles boost for selected units. Increases radar radius and greatly increases energy drain. Affects Omni radius if present."
 tooltip_no_air_title = "Anti-Air Toggle"
 tooltip_no_air_desc ="Turn the selected unit's anti-air attack on/off"
 tooltip_snipermode_title = "Sniper Mode Toggle"
@@ -742,11 +740,6 @@ xna0305_help = "Heavily armed gunship, equipped with anti-air missiles and an ar
 xna0305_name = "Hornet"
 
 -- Naval units
-
--- battleship
--- xns0301_desc = "Battleship"
--- xns0301_help = "Battleship. Has bombardment mode, useful for supressing groups of enemies." -- TODO: finish this description when the unit is implemented
--- xns0301_name = "Battleship"
 
 -- submarine
 xns0304_desc = "Tactical Submarine"
