@@ -78,7 +78,6 @@ XNA0401 = Class(NAirTransportUnit) {
     
     OnMotionVertEventChange = function(self, new, old)
         NAirTransportUnit.OnMotionVertEventChange(self, new, old)
-        WARN(new)
         if (new == 'Hover') then
             self.LandingAnimManip:SetRate(1)
         elseif (new == 'Up') then
@@ -109,31 +108,25 @@ XNA0401 = Class(NAirTransportUnit) {
     end,
     
     CrashingThread = function(self)
-
         -- create detector so we know when we hit the surface with what bone
         self.detector = CreateCollisionDetector(self)
         self.Trash:Add(self.detector)
         self.detector:WatchBone('Attachpoint_Lrg_01')
-        self.detector:WatchBone('Attachpoint_Lrg_05')
-        self.detector:WatchBone('Attachpoint_Lrg_09')
-        self.detector:WatchBone('Attachpoint_Lrg_13')
+        self.detector:WatchBone('Attachpoint_Lrg_02')
         self.detector:WatchBone('Attachpoint_Lrg_17')
+        self.detector:WatchBone('Attachpoint_Lrg_18')
         self.detector:EnableTerrainCheck(true)
         self.detector:Enable()
     end,
 
     OnAnimTerrainCollision = function(self, bone, x, y, z)
-        -- happens when detector detects collision with surface
-        self:KilledAndBoneHitsSurface( bone, Vector(x, y, z) )
-    end,
-
-    KilledAndBoneHitsSurface = function(self, bone, pos )
         local bp = self:GetBlueprint()
 
         -- do damage
         for k, wep in bp.Weapon do
             if wep.Label == 'ImpactWithSurface' then
-                DamageArea( self, pos, wep.DamageRadius, wep.Damage, wep.DamageType, wep.DamageFriendly, false)
+                DamageArea( self, Vector(x, y, z), wep.DamageRadius, wep.Damage, wep.DamageType, wep.DamageFriendly, false)
+                DamageRing(self, Vector(x, y, z), 1, 4, 1, 'Force', true)
                 break
             end
         end
