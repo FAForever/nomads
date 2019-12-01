@@ -72,9 +72,6 @@ UnitBlueprint {
     },
     Description = '<LOC XNL0304_desc>Mobile Heavy Artillery',
     Display = {
-        Abilities = {
-            '<LOC ability_supportedartillerygun>Supported Artillery Gun',
-        },
         AnimationOpen = '/units/XNL0304/XNL0304_aunpack.sca',
         BuildEffect = {
             ExtendsFront = 0.27,

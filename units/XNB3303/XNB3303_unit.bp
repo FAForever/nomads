@@ -62,9 +62,6 @@ UnitBlueprint {
     },
     Description = '<LOC XNB3303_desc>Rocket Artillery Installation',
     Display = {
-        Abilities = {
-            '<LOC ability_supportedartillerygun>Supported Artillery Gun',
-        },
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {

@@ -80,7 +80,6 @@ UnitBlueprint {
         Abilities = {
             '<LOC ability_amphibious>Amphibious',
             '<LOC ability_submergedsurfaceattack>Attacks from under water',
-            '<LOC ability_supportedartillerygun>Supported Artillery Gun',
         },
         BuildEffect = {
             ExtendsFront = 0.05,
