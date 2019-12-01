@@ -1,15 +1,6 @@
 -- T3 spy plane
 
 UnitBlueprint {
-    Abilities = {
-        ArtillerySupport = {
-            LockoutDuration = 1,
-            MaxSimultaniousArtillerySupport = -1,
-            Range = 30,
-            SupportGroundTargetting = true,
-            TargetCategory = 'ALLUNITS',
-        },
-    },
     Air = {
         AutoLandTime = 1,
         BankFactor = 2,
@@ -116,7 +107,6 @@ UnitBlueprint {
     Description = '<LOC XNA0302_desc>Spy Plane',
     Display = {
         Abilities = {
-            '<LOC ability_artillerysupport>Artillery Support',
             '<LOC ability_omni>Omni Sensor',
             '<LOC ability_radar>Radar',
             '<LOC ability_sonar>Sonar',

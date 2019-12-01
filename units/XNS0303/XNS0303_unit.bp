@@ -36,11 +36,6 @@ UnitBlueprint {
             Cue = 'XES0307_Move_Stop',
             LodCutoff = 'UnitMove_LodCutoff',
         },
-        SupportingArtilleryPing = Sound {
-            Bank = 'NomadsMisc',
-            Cue = 'ArtillerySupportPinger',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
         UISelection = Sound {
             Bank = 'NomadsInterface',
             Cue = 'Nomads_Select_Naval',

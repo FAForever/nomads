@@ -70,11 +70,6 @@ UnitBlueprint {
             Cue = 'UEA0203_Move_Stop',
             LodCutoff = 'UnitMove_LodCutoff',
         },
-        SupportingArtilleryPing = Sound {
-            Bank = 'NomadsMisc',
-            Cue = 'ArtillerySupportPinger',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
         Thruster = Sound {
             Bank = 'UEA',
             Cue = 'UEA0203_Thruster',

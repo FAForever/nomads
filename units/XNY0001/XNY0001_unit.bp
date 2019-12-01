@@ -1,13 +1,4 @@
 UnitBlueprint {
-    Abilities = {
-        ArtillerySupport = {
-            LockoutDuration = 1,
-            MaxSimultaniousArtillerySupport = 1,
-            Range = 70,
-            SupportGroundTargetting = true,
-            TargetCategory = 'ALLUNITS',
-        },
-    },
     Audio = {
         SupportingArtilleryPing = Sound {
             Bank = 'NomadsMisc',
@@ -25,7 +16,6 @@ UnitBlueprint {
         'SIZE4',
         'VISIBLETORECON',
         'RECLAIMABLE',
-        'ARTILLERYSUPPORT',
     },
     CollisionOffsetY = -0.25,
     Defense = {
