@@ -136,6 +136,7 @@ abilities = table.merged( abilities, {
             enabled = false,
         },
         UISlot = 4,
+        preferredSlot = 10,
         script = 'NomadsIntelProbe',
         usage = 'Event',
 
@@ -152,6 +153,10 @@ abilities = table.merged( abilities, {
         },
 
         GetAllUnitsFile = '/lua/user/tasks/Tasks.lua',
+        
+        AbilityRequirement = function(unit)
+            return UnitData[unit:GetEntityId()].HasIntelProbeAbility
+        end,
     },
 
     NomadsIntelProbeAdvanced = {
@@ -170,6 +175,7 @@ abilities = table.merged( abilities, {
             enabled = false,
         },
         UISlot = 4,
+        preferredSlot = 10,
         script = 'NomadsIntelProbeAdvanced',
         usage = 'Event',
 
@@ -187,6 +193,10 @@ abilities = table.merged( abilities, {
         },
 
         GetAllUnitsFile = '/lua/user/tasks/Tasks.lua',
+        
+        AbilityRequirement = function(unit)
+            return UnitData[unit:GetEntityId()].HasIntelProbeAdvancedAbility
+        end,
     },
 
     TargetLocation = {
