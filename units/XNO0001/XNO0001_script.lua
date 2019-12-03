@@ -41,24 +41,26 @@ xno0001 = Class(NOrbitUnit, NCommandFrigateUnit) {
 -- =========================================================================================
 -- Probes
 
-    LaunchProbe = function(self, location, projBp, data)
-        if not location or not projBp or not data then
-            WARN('Nomads: LaunchProbe missing information. Location = '..repr(location)..' projBp = '..repr(projBp)..' data = '..repr(data))
+    LaunchProbe = function(self, location, probeType, data)
+        if not location or not probeType or not data then
+            WARN('Nomads: LaunchProbe missing information. Location = '..repr(location)..' Probe type = '..repr(probeType)..' data = '..repr(data))
             return nil
         end
-
+        local projectileBpID = '/projectiles/NIntelProbe1/NIntelProbe1_proj.bp'
         local bone = 'MissilePort08'
         local dx, dy, dz = self:GetBoneDirection( bone )
         local pos = self:GetPosition( bone )
-        local proj = self:CreateProjectile( projBp, pos.x, pos.y, pos.z, dx, dy, dz )
-        proj:PassData( data )
+        local proj = self:CreateProjectile( projectileBpID, pos.x, pos.y, pos.z, dx, dy, dz )
         Warp( proj, pos )
         local projBp = proj:GetBlueprint()
         proj:SetVelocity( dx, dy, dz )
-        proj:SetVelocity( data.FlightSpeed or projBp.InitialSpeed or projBp.Speed or projBp.MaxSpeed or 5 )
+        proj:SetVelocity( projBp.InitialSpeed or projBp.Speed or projBp.MaxSpeed or 5 )
         proj:SetNewTargetGround( location )
         proj:TrackTarget(true)
-        return proj
+        
+        local probeUnit = proj:AddProbeUnit(probeType)
+        probeUnit.Lifetime = data.Lifetime
+        return probeUnit
     end,
 
 -- =========================================================================================

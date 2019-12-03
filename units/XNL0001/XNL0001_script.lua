@@ -414,10 +414,10 @@ XNL0001 = Class(ACUUnit) {
             self.OrbitalUnit:SetMovementTarget(false)
         end
     end,
-    
-    RequestProbe = function(self, location, projBp, data)
+
+    RequestProbe = function(self, location, probeType, data)
         if self.OrbitalUnit then
-            self.IntelProbeEntity = self.OrbitalUnit:LaunchProbe(location, projBp, data)
+            self.IntelProbeEntity = self.OrbitalUnit:LaunchProbe(location, probeType, data)
         else
             WARN('WARN:tried to launch probe without orbital unit, aborting.')
         end
