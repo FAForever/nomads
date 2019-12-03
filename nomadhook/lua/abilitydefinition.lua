@@ -200,7 +200,7 @@ abilities = table.merged( abilities, {
     },
 
     TargetLocation = {
-        UIBitmapId = 'intelprobe',
+        UIBitmapId = 'skry-target',
         cursor = 'RULEUCC_SpecialAction',
         enabled = true,
         ExtraInfo = {
@@ -223,14 +223,16 @@ abilities = table.merged( abilities, {
         UIBehaviorSingleClick = {
             AllowDraging = true,
             AllowMaxSpread = true,
-            AllReticulesAtStart = true,
+            AllReticulesAtStart = false,
             DragDelta = 1,
             UseSelected = true,
         },
 
         UIBehaviorDoubleClick = {
+            AllowDraging = false,
+            AllowMaxSpread = false,
             AllReticulesAtStart = true,
-            DragDelta = 2,
+            DragDelta = 1,
             UseSelected = false,
         },
 
@@ -238,7 +240,7 @@ abilities = table.merged( abilities, {
     },
     
     Capacitor = {
-        preferredSlot = 8,
+        preferredSlot = 9,
         onframe = function (self, deltaTime)
             local UIUtil = import('/lua/ui/uiutil.lua')
             
