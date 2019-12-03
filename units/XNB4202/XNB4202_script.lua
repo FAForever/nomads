@@ -13,6 +13,7 @@ XNB4202 = Class(NShieldStructureUnit) {
     end,
 
     OnShieldEnabled = function(self)
+        NShieldStructureUnit.OnShieldEnabled(self)
         if self.ShieldEffectsBag then
             for k, v in self.ShieldEffectsBag do
                 v:Destroy()
