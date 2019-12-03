@@ -632,7 +632,7 @@ function AddAkimbo( SuperClass )
             while not self.Dead do
 
                 -- if we're EMP-ed then wait till we're no longer EMP-ed
-                while self.IsStunned do
+                while self:IsStunned() do
                     WaitSeconds( 0.2 )
                 end
 
@@ -935,7 +935,7 @@ function AddCapacitorAbility( SuperClass )
         end,
         
         CapacitorDischargeThread  = function(self)
-            while self.IsStunned do  -- dont waste capacitor time being stunned
+            while self:IsStunned() do  -- dont waste capacitor time being stunned
                 WaitTicks(1)
             end
             while self.CapChargeFraction > 0 do

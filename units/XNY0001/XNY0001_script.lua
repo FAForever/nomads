@@ -16,6 +16,17 @@ XNY0001 = Class(NStructureUnit) {
             Vision = 35,
             WaterVision = 35,
         },
+        IntelProbeCapacitor = {
+            Radar = 100,
+            Sonar = 100,
+        },
+        IntelProbeAdvancedCapacitor = {
+            Omni = 55,
+            Radar = 100,
+            Sonar = 100,
+            Vision = 55,
+            WaterVision = 55,
+        },
     },
 
     OnKilled = function(self, instigator, type, overkillRatio)
@@ -34,9 +45,11 @@ XNY0001 = Class(NStructureUnit) {
         end
         
         for intel, radius in self.IntelData[intelType] do
-            if radius and intel ~= 'Lifetime' then
+            if radius then
                 self:InitIntel(army, intel, radius)
                 self:EnableIntel(intel)
+            else
+                self:DisableIntel(intel)
             end
         end
     end,
