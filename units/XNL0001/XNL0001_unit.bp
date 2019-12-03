@@ -17,6 +17,14 @@ UnitBlueprint {
             bitmapId = 'unfilled',
             helpText = 'toggle_capacitor',
         },
+        NomadsIntelProbe = {
+            bitmapId = 'intelprobe',
+            helpText = 'specabil_intelprobe',
+        },
+        NomadsIntelProbeAdvanced = {
+            bitmapId = 'intelprobe',
+            helpText = 'specabil_intelprobe',
+        },
     },
     AI = {
         GuardRadius = 10,

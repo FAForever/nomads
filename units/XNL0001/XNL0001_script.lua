@@ -440,30 +440,35 @@ XNL0001 = Class(ACUUnit) {
             self:AddEnhancementEmitterToBone( true, 'IntelProbe1' )
             self:SetIntelProbe( 'IntelProbe' )
             self:SetIntelRadius('Omni', bp.NewOmniRadius or 60)
+            self.Sync.HasIntelProbeAbility = true
         end,
-        
+
         IntelProbeRemove = function(self, bp)
             self:AddEnhancementEmitterToBone( false, 'IntelProbe1' )
             self:SetIntelProbe(false)
             self:SetIntelRadius('Omni', bp.OmniRadius or 26)
+            self.Sync.HasIntelProbeAbility = false
         end,
-        
+
         IntelProbeAdv = function(self, bp)
 --            self:AddEnhancementEmitterToBone( true, 'IntelProbe1' )
             self:SetIntelProbe( 'IntelProbeAdv' )
             self:SetIntelRadius('Omni', bp.AdvOmniRadius or 100)
+            self.Sync.HasIntelProbeAbility = false
+            self.Sync.HasIntelProbeAdvancedAbility = true
         end,
-        
+
         IntelProbeAdvRemove = function(self, bp)
             self:AddEnhancementEmitterToBone( false, 'IntelProbe1' )
             self:SetIntelProbe(false)
             self:SetIntelRadius('Omni', bp.OmniRadius or 26)
+            self.Sync.HasIntelProbeAdvancedAbility = false
         end,
-        
+
         GunUpgrade = function(self, bp)
             local wep = self:GetWeaponByLabel('MainGun')
             local wbp = wep:GetBlueprint()
-            
+
             -- adjust main gun
             wep:AddDamageRadiusMod(bp.NewDamageRadius or 3)
             wep:ChangeMaxRadius(bp.NewMaxRadius or wbp.MaxRadius)
