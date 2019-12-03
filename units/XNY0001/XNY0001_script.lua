@@ -1,32 +1,13 @@
--- Nomads regular intel probe deployed
+-- Nomads intel probe deployed
 
 local NStructureUnit = import('/lua/nomadsunits.lua').NStructureUnit
---[[
-the ability script tells the acu to launch the intel probe
-the acu tells the command frigate to launch the intel probe
-
-The command frigate creates the projectile and launches it.
-The projectile creates the intel probe unit, attaches it to the projectile and returns that to the acu.
-
-The acu sets itself to be the parent of that probe
-
-
-When the probe is destroyed, it destroys the projectile if there is one
-When the projectile is destroyed, it destroys the probe if there is one
-
-
-
---]]
 
 XNY0001 = Class(NStructureUnit) {
     
     IntelData = {
         IntelProbe = {
-            --Omni = false,
             Radar = 70,
             Sonar = 70,
-            --Vision = false,
-            --WaterVision = false,
         },
         IntelProbeAdvanced = {
             Omni = 35,
@@ -37,19 +18,11 @@ XNY0001 = Class(NStructureUnit) {
         },
     },
 
-    OnCreate = function(self)
-        NStructureUnit.OnCreate(self)
-    end,
-
     OnKilled = function(self, instigator, type, overkillRatio)
-        if self.BuoyProjectile and not self.BuoyProjectile:BeenDestroyed() then
-            self.BuoyProjectile:Destroy()
+        if self.Projectile and not self.Projectile:BeenDestroyed() then
+            self.Projectile:Destroy()
         end
         NStructureUnit.OnKilled(self, instigator, type, overkillRatio)
-    end,
-
-    SetParentProjectile = function(self, projectile)
-        self.BuoyProjectile = projectile
     end,
     
     SetIntel = function(self, probeType)
@@ -60,7 +33,6 @@ XNY0001 = Class(NStructureUnit) {
             intelType = 'IntelProbe'
         end
         
-        for k,v in self.IntelData do WARN(k) WARN(v) end
         for intel, radius in self.IntelData[intelType] do
             if radius and intel ~= 'Lifetime' then
                 self:InitIntel(army, intel, radius)
@@ -70,9 +42,7 @@ XNY0001 = Class(NStructureUnit) {
     end,
     
     LifetimeThread = function(self)
-        local duration = self.Lifetime
-        WARN('wait time starting')
-        if not duration then WARN('lifetime on probe missing, assuming 30 seconds') duration = 30 end
+        local duration = self.Lifetime or 30
         WaitSeconds(duration)
         self:Destroy()
     end,

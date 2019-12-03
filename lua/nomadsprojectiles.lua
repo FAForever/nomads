@@ -1956,31 +1956,12 @@ Buoy1 = Class(SinglePolyTrailProjectile) {
         SinglePolyTrailProjectile.OnImpact(self, targetType, targetEntity)
         local ok = (targetType ~= 'Water' and targetType ~= 'None' and targetType ~= 'Shield' and targetType ~= 'Air' and targetType ~= 'UnitAir')
         if ok then
-            local spec = self:GetSpec( targetType, targetEntity )
-            self:CreateBuoy( spec, targetType, targetEntity )
 
             local rotation = RandomFloat(0,2*math.pi)
             local size = RandomFloat(1.5, 2.25)
             local life = Random(75, 100)
             CreateDecal(self:GetPosition(), rotation, 'Scorch_005_albedo', '', 'Albedo', size, size, 300, life, self:GetArmy())
         end
-    end,
-
-    GetSpec = function(self, targetType, targetEntity)
-        local pos = self:GetPosition()
-        pos[2] = GetTerrainHeight(pos[1], pos[3]) + GetTerrainTypeOffset(pos[1], pos[3])
-        local spec = {
-            Activated = true,  -- buoy should activate immediately
-            AttachTo = nil,    -- unit to attach the buoy to, if any
-            Lifetime = 60,     -- how long the buoy lives
-            Owner = self:GetLauncher() or self:GetArmy() or self,
-            Pos = pos,
-            RealArmy = self:GetArmy() or -1, -- using RealArmy iso Army, see remarks in buoy.lua
-        }
-        return spec
-    end,
-
-    CreateBuoy = function(self, spec, targetType, targetEntity)
     end,
 }
 
