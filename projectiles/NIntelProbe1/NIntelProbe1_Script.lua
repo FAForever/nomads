@@ -10,34 +10,27 @@ NIntelProbe1 = Class(Buoy1) {
         Buoy1.OnCreate(self)
         self:SetCollisionShape('Sphere', 0, 0, 0, 2.0)  -- so the probe can be shot down by TMD
     end,
-
-    GetSpec = function(self, targetType, targetEntity)
-
-        -- setting up additional buoy specifications
-        local spec = Buoy1.GetSpec(self, targetType, targetEntity)
-        spec = table.merged( spec, {
-            Lifetime = self.Data.Lifetime or 60,
-
-            ActiveFx = NomadsEffectTemplate.IntelProbeSurfaceActive,
-            DestroyedFx = NomadsEffectTemplate.IntelProbeSurfaceDestroyed,
-            LightsFx = NomadsEffectTemplate.IntelProbeSurfaceLights,
-
-            Radius = self.Data.Radius or 10,
-            Omni = self.Data.Omni or false,
-            Radar = self.Data.Radar or true,
-            Sonar = self.Data.Sonar or true,
-            Vision = self.Data.Vision or false,
-            WaterVision = self.Data.WaterVision or self.Data.Vision or false,
-        })
-        if not self.Data.CanBeKilledByAllFriendlyFire then   -- the army parameter determines what weapons can kill the buoy. If 'Army' is used
-            spec['Army'] = spec.RealArmy                     -- then weapons with DamageFriendly turned on don't damage it
-        end
-
-        return spec
+    
+    AddProbeUnit = function(self, probeType)
+        local pos = self:GetPosition()
+        self.probeType = probeType
+        self.ProbeUnit = CreateUnitHPR('XNY0001', self:GetArmy(), pos[1], pos[2], pos[3], 0, 0, 0 )
+        self.ProbeUnit:AttachTo(self,0)
+        return self.ProbeUnit
     end,
-
-    CreateBuoy = function(self, spec, targetType, targetEntity)
-        return import('/lua/nomadsbuoys.lua').NCameraBuoy(spec)
+    
+    OnImpact = function(self, targetType, targetEntity)
+        self.Impacted = true
+        self.ProbeUnit:SetIntel(self.probeType)
+        ForkThread(self.ProbeUnit.LifetimeThread, self.ProbeUnit)
+        Buoy1.OnImpact(self, targetType, targetEntity)
+    end,
+    
+    OnDestroy = function(self)
+        if self.ProbeUnit and not self.Impacted then
+            self.ProbeUnit:Destroy()
+        end
+        Buoy1.OnDestroy(self)
     end,
 }
 
