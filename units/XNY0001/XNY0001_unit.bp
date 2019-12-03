@@ -1,13 +1,13 @@
 UnitBlueprint {
     Audio = {
-        SupportingArtilleryPing = Sound {
+        UISelection = Sound {
             Bank = 'NomadsMisc',
             Cue = 'ArtillerySupportPinger',
             LodCutoff = 'UnitMove_LodCutoff',
         },
     },
     Categories = {
-        'SELECTABLE',
+        --'SELECTABLE',
         'NOMADS',
         'STRUCTURE',
         'INTELLIGENCE',
@@ -16,6 +16,9 @@ UnitBlueprint {
         'SIZE4',
         'VISIBLETORECON',
         'RECLAIMABLE',
+        'OVERLAYRADAR',
+        'OVERLAYSONAR',
+        'OVERLAYOMNI',
     },
     CollisionOffsetY = -0.25,
     Defense = {
@@ -51,7 +54,6 @@ UnitBlueprint {
         BuildCostEnergy = 320,
         BuildCostMass = 32,
         BuildTime = 40,
---        MaintenanceConsumptionPerSecondEnergy = 20,
     },
     General = {
         Category = 'Intelligence',
@@ -77,13 +79,12 @@ UnitBlueprint {
         UnitWeight = 1,
     },
     Intel = {
-        ShowIntelOnSelect = true,
         RadarRadius = 70,
         SonarRadius = 70,
         VisionRadius = 0,
     },
     Interface = {
-        HelpText = '<LOC XNY0001_help>Intelligence Probe (activated)',
+        HelpText = '<LOC XNY0001_help>Intelligence Probe',
     },
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.3,
@@ -114,7 +115,7 @@ UnitBlueprint {
     SizeX = 0.1,
     SizeY = 0.7,
     SizeZ = 0.15,
-    StrategicIconName = 'icon_artillerysupportprobe1',
+    --StrategicIconName = 'icon_artillerysupportprobe1',
     StrategicIconSortPriority = 235,
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
