@@ -936,26 +936,30 @@ NShieldStructureUnit = Class(ShieldStructureUnit) {
 
     OnStopBeingBuilt = function(self, builder, layer)
         ShieldStructureUnit.OnStopBeingBuilt(self,builder,layer)
-
         local bone = self:GetBlueprint().Display.ShieldOnRotatingBone
         if bone then
             self.RotatorManip = CreateRotator(self, bone, 'y', nil, nil, 2, self.RotationSpeed)
             self.Trash:Add(self.RotatorManip)
         end
         if self.RotatorManip and builder and EntityCategoryContains(categories.SHIELD, builder) then
-            local speed = builder.RotationSpeed or self.RotationSpeed
-            self.RotatorManip:SetSpeed(speed)
+            self.RotatorManip:SetSpeed(self.RotationSpeed)
             self.RotatorManip:SetCurrentAngle(builder.RotatorManip:GetCurrentAngle())
         end
     end,
 
     OnShieldEnabled = function(self)
         ShieldStructureUnit.OnShieldEnabled(self)
+        if self.RotatorManip then
+            self.RotatorManip:SetTargetSpeed(self.RotationSpeed)
+        end
         self:PlayUnitAmbientSound('ShieldActiveLoop')
     end,
 
     OnShieldDisabled = function(self)
         ShieldStructureUnit.OnShieldDisabled(self)
+        if self.RotatorManip then
+            self.RotatorManip:SetTargetSpeed(0)
+        end
         self:StopUnitAmbientSound('ShieldActiveLoop')
     end,
 
