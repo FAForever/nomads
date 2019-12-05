@@ -46,12 +46,12 @@ Nomads uses **Github** for development, which makes it easy to update and collab
 #### Setting up the repositories on your computer
 You need to get local copies of the FAF and Nomads code, as well as a way to look through them easily and make changes. This section will get you everything you need to be able to edit nomads code, and even upload your changes to github.
 
-1. Download the FA repository [here](https://github.com/FAForever/fa/archive/develop.zip) and save it in a suitable place on your computer
-1. Download the Nomads repository [here](https://github.com/FAForever/nomads/archive/develop.zip) and save it in a suitable place on your computer (next to the FA repository)
-   - These links can also be found by clicking the green *Clone or Download* button at the top of this page, and choosing download zip
 1. Download the github desktop legacy client [here](https://github-windows.s3.amazonaws.com/GitHubSetup.exe) and install it. If you have a github account log in, if not register.
    - You can use any github client you want, but we recommend using this one which we find is easy for beginners, and is the easiest to set up. This client is old but we feel its better than the new github desktop.
-1. Open the github desktop client and add both the FA and nomads repositories, by clicking on the + in the top right corner, selecting the *Add* tab and locating the repositories you downloaded earlier.
+1. Download the FA repositry by clicking this link. The desktop client should recognize it and let you pick where to save it to your computer. [github-windows://openRepo/https://github.com/FAForever/fa](github-windows://openRepo/https://github.com/FAForever/fa)
+1. Download the Nomads repositry by clicking this link. The desktop client should recognize it and let you pick where to save it to your computer. (Put it next to the FA repository) [github-windows://openRepo/https://github.com/FAForever/nomads](github-windows://openRepo/https://github.com/FAForever/nomads)
+   - These links are for being opened with the github desktop client from above. If you want to use a different client you will need to either click the green *Clone or Download* button at the top of this page, and choose Open in desktop, or if you are using a completely different client then work it out on your own.
+
 
 Congratulations, you now have everything you need to start contributing! Do check the sections below on how to set up your game to run automatically with your changes, and how to get them to the Nomads team so they can be integrated.
 
@@ -75,7 +75,8 @@ Now you'll want to set up your test environment, i.e. running the game based on 
 ```
 C:\ProgramData\FAForever\bin\ForgedAlliance.exe /init init_devnomads.lua /EnableDiskWatch /showlog /log C:\ProgramData\FAForever\logs\dev.log
 ```
-  - By adding `/showlog` then the log window will automaticaly appear. There is an ingame keybind to summon the log window aswell. So it depends on your own prefence if you want it from the start or not.
+  - You need to be running the game in windowed mode for the log window to work properly.
+  - By adding `/showlog` then the log window will automaticaly appear. There is an ingame keybind to summon the log window as well. So it depends on your own prefence if you want it from the start or not.
 `/EnableDiskWatch` will ask FA to reload your changes whenever the file is changed - skipping the need to reload your game.
 `/log C:\ProgramData\FAForever\logs\dev.log` will save the log in the specified location. Usefull for sharing logs incase of issues.
 
