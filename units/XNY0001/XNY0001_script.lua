@@ -37,9 +37,12 @@ XNY0001 = Class(NStructureUnit) {
     end,
     
     SetIntel = function(self, probeType)
+        if not self.IntelAllowed then return end
         local army = self:GetArmy()
-        local intelType = probeType
-        if not self.IntelData[probeType] then
+        local intelType = probeType or self.probeType or 'IntelProbe'
+        if self.CapacitorBoostEnabled then intelType = intelType..'Capacitor' end
+        
+        if not self.IntelData[intelType] then
             WARN('Nomads: Invalid intel probe type, assuming default')
             intelType = 'IntelProbe'
         end

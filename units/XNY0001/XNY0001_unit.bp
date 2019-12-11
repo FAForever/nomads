@@ -79,8 +79,8 @@ UnitBlueprint {
         UnitWeight = 1,
     },
     Intel = {
-        RadarRadius = 70,
-        SonarRadius = 70,
+        RadarRadius = 0,
+        SonarRadius = 0,
         VisionRadius = 0,
     },
     Interface = {

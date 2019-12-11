@@ -809,6 +809,11 @@ function AddCapacitorAbility( SuperClass )
                 Buff.RemoveBuff( self, buffName )
             end
 
+            if self.IntelProbeEntity then
+                self.IntelProbeEntity.CapacitorBoostEnabled = false
+                self.IntelProbeEntity:SetIntel()
+            end
+            
             -- notify weapons again
             for i = 1, self:GetWeaponCount() do
                 local wep = self:GetWeapon(i)
@@ -829,6 +834,11 @@ function AddCapacitorAbility( SuperClass )
             -- apply buffs
             for k, buffName in buffs do
                 Buff.ApplyBuff( self, buffName )
+            end
+            
+            if self.IntelProbeEntity then
+                self.IntelProbeEntity.CapacitorBoostEnabled = true
+                self.IntelProbeEntity:SetIntel()
             end
 
             -- notify weapons

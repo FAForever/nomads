@@ -17,12 +17,14 @@ NIntelProbe1 = Class(Buoy1) {
         self.ProbeUnit = CreateUnitHPR('XNY0001', self:GetArmy(), pos[1], pos[2], pos[3], 0, 0, 0 )
         self.ProbeUnit:AttachTo(self,0)
         self.ProbeUnit.Projectile = self
+        self.ProbeUnit.probeType = probeType
         return self.ProbeUnit
     end,
     
     OnImpact = function(self, targetType, targetEntity)
         self.Impacted = true
-        self.ProbeUnit:SetIntel(self.probeType)
+        self.ProbeUnit.IntelAllowed = true
+        self.ProbeUnit:SetIntel()
         ForkThread(self.ProbeUnit.LifetimeThread, self.ProbeUnit)
         Buoy1.OnImpact(self, targetType, targetEntity)
     end,
