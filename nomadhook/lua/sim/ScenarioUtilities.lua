@@ -6,7 +6,6 @@
 ----[             Created from examples provided by Jeff Petkau.                  ]--
 ----[                                                                             ]--
 ----[  Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.             ]--
-local Entity = import('/lua/sim/Entity.lua').Entity
 local Factions = import('/lua/factions.lua').GetFactions(true)
 
 -- We replace the original function with this one that supports any faction number, and is also faster, and more robust.
@@ -47,7 +46,6 @@ function FactionConvert(template, factionIndex)
             
             template[i][1] = string.gsub(template[i][1], "(%w)(%w)(%w%d%d%d%d)", factionKeyString)
         end
-        i = i + 1
     end
     return template
 end
