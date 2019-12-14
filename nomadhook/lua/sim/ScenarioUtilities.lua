@@ -30,7 +30,7 @@ local FactionConversionTable = {
 function FactionConvert(template, factionIndex)
     local factionKey = Factions[factionIndex].Key
     for i = 3,table.getn(template) do --start from the third item in the list onwards, for whatever reason
-        if template[i][1] == FactionConversionTable[factionKey][template[i][1]] then
+        if FactionConversionTable[factionKey][template[i][1]] then
             template[i][1] = FactionConversionTable[factionKey][template[i][1]]
         else
             --grab first two characters from the faction bp code, we use BuildingIdPrefixes for that.
