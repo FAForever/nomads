@@ -24,16 +24,16 @@ NEmpMissile1 = Class(EMPMissile) {
         local dist = self:GetDistanceToTarget()
         if dist > 50 then        
             WaitSeconds(2)
-            self:SetTurnRate(20)
+            self:SetTurnRate(40)
         elseif dist > 64 and dist <= 107 then
-            self:SetTurnRate(30)
+            self:SetTurnRate(60)
             WaitSeconds(1.5)
-            self:SetTurnRate(30)
+            self:SetTurnRate(80)
         elseif dist > 21 and dist <= 53 then
             WaitSeconds(0.3)
-            self:SetTurnRate(50)
+            self:SetTurnRate(100)
         elseif dist > 0 and dist <= 21 then          
-            self:SetTurnRate(100)   
+            self:SetTurnRate(200)   
             KillThread(self.MoveThread)         
         end
     end,        
