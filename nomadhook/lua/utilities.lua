@@ -98,5 +98,6 @@ RandomOffsetTrackingTarget = function(self, spread)
     local pos = self:GetCurrentTargetPosition()
     pos[1] = pos[1] + GetRandomFloat(-spread,spread)
     pos[3] = pos[3] + GetRandomFloat(-spread,spread)
+    pos[2] = GetTerrainHeight(pos[1], pos[3])
     return pos
 end

@@ -242,13 +242,14 @@ NIFOrbitalMissile = Class(NIFMissile) {
         local dist = self:GetDistanceToTarget()
         if dist > 250 then
             self:SetStage(0)
-            WaitSeconds(4)
+            WaitSeconds(0.5)
         elseif dist > 60 and dist <= 250 then
             self:SetStage(1)
-            WaitSeconds(2)
+            WaitSeconds(1)
         elseif dist > 25 and dist <= 60 then
             self:SetNewTargetGround(self.TargetPos) --target the ground again
             self:SetStage(2)
+            WaitSeconds(0.1)
         elseif dist > 0 and dist <= 25 then
             self:SetNewTargetGround(self.TargetPos) --target the ground again
             self:SetStage(3)
