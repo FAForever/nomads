@@ -17,9 +17,9 @@ XNA0101 = Class(NAirUnit) {
 
     OnMotionVertEventChange = function(self, new, old)
         NAirUnit.OnMotionVertEventChange(self, new, old)
-        if (new == 'Down') then
+        if new == 'Down' then
             self.LandingAnimManip:SetRate(-1)
-        elseif (new == 'Up') then
+        elseif new == 'Up' or new == 'Top' then
             self.LandingAnimManip:SetRate(1)
         end
     end,
