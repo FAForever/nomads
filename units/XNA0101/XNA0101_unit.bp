@@ -105,6 +105,7 @@ UnitBlueprint {
             '<LOC ability_radar>Radar',
             '<LOC ability_sonar>Sonar',
         },
+        AnimationLand = '/units/XNA0101/XNA0101_Unpack01.sca',
         BuildEffect = {
             ExtendsFront = 0.1,
             ExtendsRear = -0.02,
