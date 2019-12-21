@@ -18,55 +18,7 @@ local SlowHover = import('/lua/defaultunits.lua').SlowHoverLandUnit
 XNL0403 = Class(NExperimentalHoverLandUnit, SlowHover) {
 
     Weapons = {
-        MainGun = Class(TacticalMissileWeapon1) {
-
-            TargetPool = {},
-
-            RackSalvoFiringState = State(TacticalMissileWeapon1.RackSalvoFiringState ) {
-                Main = function(self)
-
-                    -- get the targets of all weapons and add them to the pool
-                    self.TargetPool = {}
-                    local numWeapons = self.unit:GetWeaponCount()
-                    for i=1, numWeapons do
-                        local wep = self.unit:GetWeapon(i)
-                        if wep ~= self then
-                            local target = wep:GetCurrentTarget()
-                            if target then
-                                table.insert( self.TargetPool, target)
-                            end
-                        end
-                    end
-
-                    TacticalMissileWeapon1.RackSalvoFiringState.Main( self )
-                end,
-            },
-
-            CreateProjectileAtMuzzle = function(self, muzzle)
-                local proj = TacticalMissileWeapon1.CreateProjectileAtMuzzle(self, muzzle)
-
-                if table.getsize( self.TargetPool ) >= 1 then
-                    local keys = table.keys( self.TargetPool )
-                    local target = self.TargetPool[ keys[1] ]
-                    if target and not target:BeenDestroyed() and target.IsDead and not target.Dead then
-                        local maxDist = self:GetBlueprint().MaxRadius
-                        if self:GetDistanceToTarget( target ) <= maxDist then
-                            proj:SetNewTarget( target )
-                        end
-                    end
-                    self.TargetPool[ keys[1] ] = nil
-                end
-
-                return proj
-            end,
-
-            GetDistanceToTarget = function(self, target)
-                local tpos = target:GetPosition()
-                local mpos = self.unit:GetPosition()
-                local dist = VDist2(mpos[1], mpos[3], tpos[1], tpos[3])
-                return dist
-            end,
-        },
+        MainGun = Class(TacticalMissileWeapon1) {},
         NukeMissiles = Class(StrategicMissileWeapon) {
 
             OnCreate = function(self)
