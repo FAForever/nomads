@@ -59,6 +59,7 @@ UnitBlueprint {
         'SHOWQUEUE',
         'OVERLAYRADAR',
         'SORTINTEL',
+        'CQUEMOV', --enables the selection and move commands during construction
     },
     Defense = {
         AirThreatLevel = 0,
