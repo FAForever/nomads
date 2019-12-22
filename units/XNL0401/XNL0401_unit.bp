@@ -81,6 +81,7 @@ UnitBlueprint {
         'OVERLAYDIRECTFIRE',
         'NEEDMOBILEBUILD',
         'OVERLAYANTIAIR',
+        'CQUEMOV', --enables the selection and move commands during construction
     },
     CollisionOffsetZ = -0.75,
     Defense = {

@@ -108,6 +108,7 @@ UnitBlueprint {
         'OVERLAYANTIAIR',
         'CANNOTUSEAIRSTAGING',
         'UNSTUNABLE',
+        'CQUEMOV', --enables the selection and move commands during construction
     },
     CollisionOffsetZ = 0,
     Defense = {

@@ -95,6 +95,7 @@ UnitBlueprint {
         'NUKE',
         'SILO',
         'SHOWATTACKRETICLE',
+        'CQUEMOV', --enables the selection and move commands during construction
     },
     CollisionOffsetZ = -0.2,
     Defense = {
