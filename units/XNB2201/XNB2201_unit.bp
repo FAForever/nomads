@@ -50,6 +50,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'OVERLAYDIRECTFIRE',
         'SORTDEFENSE',
+        'CQUEMOV', --enables the selection and move commands during construction
     },
     Defense = {
         AirThreatLevel = 0,

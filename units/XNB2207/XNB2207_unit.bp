@@ -53,6 +53,7 @@ UnitBlueprint {
         'SORTDEFENSE',
         'INTELLIGENCE',
         'SONAR',
+        'CQUEMOV', --enables the selection and move commands during construction
     },
     CollisionOffsetY = -0.75,
     CollisionOffsetZ = -0.2,
@@ -286,9 +287,9 @@ UnitBlueprint {
         WreckageLayers = {
             Air = false,
             Land = false,
-            Seabed = true, #from false
-            Sub = true, #from false,
-            Water = true, #from false,
+            Seabed = true,
+            Sub = true,
+            Water = true,
         },
     },
 }
