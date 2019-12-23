@@ -12,7 +12,11 @@ local oldTree = Tree
 DamageBehaviours = {
         BlackholeDamage = function(self, instigator, armormod, direction, damageType)
             if not self.CanTakeDamage then return end
-            self:DoBlackHoleCallbacks(self, instigator)
+            
+            if not self.BlackholeSuckedIn then
+                self.BlackholeSuckedIn = true
+                instigator.NukeEntity:OnPropBeingSuckedIn(self)
+            end
             
             --call the standard nuke code, which destroys the prop
             DamageBehaviours['Nuke'](self, instigator, armormod, direction, damageType)
@@ -125,14 +129,6 @@ Tree = Class(oldTree) {
         self.Motor = nil
         WaitSeconds(10)
         self:Destroy()
-    end,
-    
-    DoBlackHoleCallbacks = function(self, instigator)
-        if not self.BlackholeSuckedIn then
-            self.BlackholeSuckedIn = true
-            instigator.NukeEntity:OnPropBeingSuckedIn(self)
-            self:DestroyFireEffects()  -- fire < black hole
-        end
     end,
 
     DamageIsForce = function(self, type)
