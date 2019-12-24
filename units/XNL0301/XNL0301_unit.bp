@@ -151,7 +151,6 @@ UnitBlueprint {
         'CONSTRUCTION',
         'REPAIR',
         'RECLAIM',
-        'REBUILDER',
         'BUILTBYQUANTUMGATE',
         'ENGINEER',
         'DIRECTFIRE',
