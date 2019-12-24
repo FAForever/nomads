@@ -63,9 +63,9 @@ Nomadsunitkeygroups = {
         "xnb1102",
     },
     ["Mass_Extractor"] = {
-        "xnb1103",
-        "xnb1202",
         "xnb1302",
+        "xnb1202",
+        "xnb1103",
     },
     ["Mass_Fabricator"] = {
         "xnb1104",
