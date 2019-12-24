@@ -40,7 +40,6 @@ xno2302 = Class(NOrbitUnit) {
 
     OnSetParent = function(self, parent, cbKilledUnit)
         self.parent = parent
-        self.Unused = false
         self.parentCallbacks[ 'OnKilledUnit' ] = cbKilledUnit or false
     end,
 
