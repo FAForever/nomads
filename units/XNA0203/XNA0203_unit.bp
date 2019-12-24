@@ -105,7 +105,6 @@ UnitBlueprint {
         'DIRECTFIRE',
         'VISIBLETORECON',
         'RECLAIMABLE',
-        'INTELLIGENCE',
         'SONAR',
         'OVERLAYSONAR',
         'OVERLAYDIRECTFIRE',
