@@ -138,7 +138,7 @@ BuildingTemplates = {
         },
         {
             'T2GroundDefense',
-            'xnb2201',
+            'xnb2301',
         },
 
         -- -Air Defense

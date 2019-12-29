@@ -621,9 +621,9 @@ xnb1104_help = "Creates Mass. Requires large amounts of Energy. Construct next t
 xnb1104_name = "Mass Fabricator"
 
 -- point defense
-xnb2201_desc = "Point Defense"
-xnb2201_help = "Heavily armored defensive tower that attacks land- and sea-based units. Does not engage aircraft or submerged units."
-xnb2201_name = "Piercer"
+xnb2301_desc = "Point Defense"
+xnb2301_help = "Heavily armored defensive tower that attacks land- and sea-based units. Does not engage aircraft or submerged units."
+xnb2301_name = "Piercer"
 
 -- aa gun
 xnb2202_desc = "Anti-Air Heavy Turret"

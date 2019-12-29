@@ -78,7 +78,7 @@ Nomadsunitkeygroups = {
         "xnb1106",
     },
     ["Point_Defense"] = {
-        "xnb2201",
+        "xnb2301",
         "xnb2101",
     },
     ["Anti_Air"] = {
