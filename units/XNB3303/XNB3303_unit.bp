@@ -214,6 +214,7 @@ UnitBlueprint {
             MuzzleVelocity = 30,
             MuzzleVelocityReduceDistance = 1,
             ProjectilesPerOnFire = 8,
+            ProjectileUIStatsOverride = 8, --a new version of PerOnFire - this one is only needed if you have a script multiplying projectile count
             ProjectileId = '/projectiles/NTacticalMissile3_HighArc/NTacticalMissile3_HighArc_proj.bp',
             ProjectileLifetime = 30,
             ProjectileLifetimeUsesMultiplier = 5,
