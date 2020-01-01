@@ -24,8 +24,8 @@ ProjectileBlueprint {
         'MISSILE',
     },
     Defense = {
-        Health = 1,
-        MaxHealth = 1,
+        Health = 2,
+        MaxHealth = 2,
     },
     Display = {
         CameraFollowTimeout = 2,
@@ -66,11 +66,11 @@ ProjectileBlueprint {
         HelpText = 0,
     },
     Physics = {
-        Acceleration = 2,
+        Acceleration = 3,
         DestroyOnWater = false,
-        InitialSpeed = 3,
+        InitialSpeed = 5,
         LifeTime = 30,
-        MaxSpeed = 12,
+        MaxSpeed = 20,
         RotationalVelocity = 0,
         RotationalVelocityRange = 0,
         TrackTarget = true,
