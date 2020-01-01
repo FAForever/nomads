@@ -19,9 +19,9 @@ ProjectileBlueprint {
     Categories = {
         'NOMADS',
         'PROJECTILE',
+        'INDIRECTFIRE',
         'TACTICAL',
         'MISSILE',
-        'NOSPLASHDAMAGE',
     },
     Defense = {
         Health = 1,
@@ -50,12 +50,11 @@ ProjectileBlueprint {
         EntityCategory = {
             'NOMADS',
             'PROJECTILE',
-			'INDIRECTFIRE',
-			'TACTICAL',
+            'INDIRECTFIRE',
+            'TACTICAL',
             'MISSILE',
         },
         Faction = 'NOMADS',
-        Weapon = 'NArtilleryRocket1',
     },
     Interface = {
         HelpText = 0,
