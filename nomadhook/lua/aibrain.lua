@@ -72,7 +72,7 @@ AIBrain = Class(oldAIBrain) {
     --units update themselves in the list when they gain, change or lose abilities
     --brain:SetUnitSpecialAbility(self, 'OrbitalBombardment', {AvailableNowUnit = 1,})
     SetUnitSpecialAbility = function(self, unit, abilityName, data)
-        local unitId = unit:GetEntityId()
+        local unitId = unit.EntityId
         --replace unit argument with unitId argument?
         if data == 'Remove' then
             if self.UnitSpecialAbilities[unitId][abilityName] then

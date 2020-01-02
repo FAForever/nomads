@@ -31,7 +31,7 @@ ScriptTask = Class(oldScriptTask) {
             self.TargetLocations = {}
             self.Targets = {}
             local unit = self:GetUnit()
-            local unitId = unit:GetEntityId()
+            local unitId = unit.EntityId
 
             for _, data in commandData.ExtraInfo.Targets do
                 if data.UnitId == unitId then

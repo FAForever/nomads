@@ -348,7 +348,7 @@ function OrbitalBombardmentThread(cdr, platoon)
                         end
 
                         -- dont persist attacking, if we didnt kill it in the previous 3 times we probably wont the next time either.
-                        if table.count( LastTargets, targetUnit:GetEntityId() ) >= 3 then
+                        if table.count( LastTargets, targetUnit.EntityId ) >= 3 then
                             continue
                         end
 
@@ -364,7 +364,7 @@ function OrbitalBombardmentThread(cdr, platoon)
                             continue
                         end
 
-                        target = GetUnitById( targetUnit:GetEntityId() )
+                        target = GetUnitById( targetUnit.EntityId )
                         break
                     end
 
@@ -391,7 +391,7 @@ function OrbitalBombardmentThread(cdr, platoon)
                     end
 
                     -- dont persist attacking, if we didnt kill it in the previous 3 times we probably wont the next time either.
-                    if table.count( LastTargets, targetUnit:GetEntityId() ) >= 3 then
+                    if table.count( LastTargets, targetUnit.EntityId ) >= 3 then
                         continue
                     end
 
@@ -409,7 +409,7 @@ function OrbitalBombardmentThread(cdr, platoon)
                         continue
                     end
 
-                    target = GetUnitById( targetUnit:GetEntityId() )
+                    target = GetUnitById( targetUnit.EntityId )
                     break
                 end
 
@@ -426,7 +426,7 @@ function OrbitalBombardmentThread(cdr, platoon)
 
         if target then
 
-            LastTargets[ LastTargetsCounter ] = target:GetEntityId()
+            LastTargets[ LastTargetsCounter ] = target.EntityId
             LastTargetsCounter = LastTargetsCounter + 1
             if LastTargetsCounter > 10 then
                LastTargetsCounter = 1
@@ -453,7 +453,7 @@ function OrbitalBombardmentThread(cdr, platoon)
                         end
                     end
                     if UnitAdjNum > BestUnitAdjNum then
-                        BestUnit = GetUnitById( targetUnit:GetEntityId() )
+                        BestUnit = GetUnitById( targetUnit.EntityId )
                         BestUnitAdjNum = UnitAdjNum
                     end
                 end
@@ -473,7 +473,7 @@ function OrbitalBombardmentThread(cdr, platoon)
             end
 
             -- prepare script command
-            local UnitId = brain.NomadsMothership:GetEntityId()
+            local UnitId = brain.NomadsMothership.EntityId
             local ExtraInfo = AbilityDef.ExtraInfo
             local angle = RandomFloat(0, math.pi)
             if DoSpreadAttack then
