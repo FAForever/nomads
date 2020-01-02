@@ -103,8 +103,8 @@ xno0001 = Class(NOrbitUnit, NCommandFrigateUnit) {
         -- puts on the build queue to create a unit of the given type. If a callback is passed it will be run when the unit is
         -- constructed.
         if unitType and type(unitType) == 'string' then
-            if parentUnit and parentUnit:GetEntityId() then
-                self.OrbitalSpawnQueue[parentUnit:GetEntityId()] = { unitType = unitType, parentUnit = parentUnit or false, attachBone = attachBone or 0, }
+            if parentUnit and parentUnit.EntityId then
+                self.OrbitalSpawnQueue[parentUnit.EntityId] = { unitType = unitType, parentUnit = parentUnit or false, attachBone = attachBone or 0, }
             else
                 WARN('Nomads: parent unit is missing or misformated when requesting orbital spawn! Attempting to spawn unit without parent.')
                 --normally the entity ID is unique. with no parent, we create a unique identifier for this table

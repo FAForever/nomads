@@ -44,7 +44,7 @@ function AddVOUnitEvent(unit, event)
     if unit and event then
         local army = unit:GetArmy()
         if army ~= nil then
-            table.insert(Sync.VOUnitEvents, { Army = army, UnitId = unit:GetEntityId(), Event = event })
+            table.insert(Sync.VOUnitEvents, { Army = army, UnitId = unit.EntityId, Event = event })
         end
     end
 end

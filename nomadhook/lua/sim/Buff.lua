@@ -96,7 +96,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 
                 wep:ChangeMaxRadius(val)
 
-                --LOG('*BUFF: Unit ', repr(unit:GetEntityId()), ' buffed max radius to ', repr(val))
+                --LOG('*BUFF: Unit ', repr(unit.EntityId), ' buffed max radius to ', repr(val))
             end
 
         elseif atype == 'RateOfFire'
