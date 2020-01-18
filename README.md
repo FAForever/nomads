@@ -14,7 +14,7 @@ We can use all the help we can get :
 
 To play the coop campaign see the coop missions repository [here](https://github.com/FAForever/NomadMissions).
 
-Be sure to visit our discord server [here](https://discord.gg/eV3wmAX) where you can help out, comment or simply keep up with progress on the mod. Everyone is welcome!
+Be sure to visit our discord server [here](https://discord.gg/Tqar3cu) where you can help out, comment or simply keep up with progress on the mod. Everyone is welcome!
 
 How do I play Nomads?
 ----------------------------
