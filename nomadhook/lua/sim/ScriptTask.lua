@@ -64,6 +64,7 @@ ScriptTask = Class(oldScriptTask) {
     StartTask = function(self)
     end,
 
+    --TODO:refactor these away.
     GetAIBrain = function(self)
         return GetArmyBrain( self:GetArmy() )
     end,
@@ -75,12 +76,6 @@ ScriptTask = Class(oldScriptTask) {
     IsEnabled = function(self)
         local brain = self:GetAIBrain()
         return (brain.BrainSpecialAbilities[self.CommandData.TaskName] ~= nil) or false
-    end,
-
-    IsCoolingDown = function(self)
-        local brain = self:GetAIBrain()
-        local CooledDownTick = brain.BrainSpecialAbilities[self.CommandData.TaskName]['CooledDownTick'] or -1
-        return (GetGameTick() < CooledDownTick)
     end,
 
     IsInRange = function(self, loc)
@@ -125,7 +120,7 @@ ScriptTask = Class(oldScriptTask) {
 
     -- checks if the brain allows running this taskscript. If yes, do it. If no, display warning of potential cheating.
     IfBrainAllowsRun = function(self)
-        if self:IsEnabled() and not self:IsCoolingDown() then
+        if self:IsEnabled() then
             -- check range if specified and use it to allow or disallow this
             local locations = self.TargetLocations
             for _, loc in locations do
@@ -141,16 +136,6 @@ ScriptTask = Class(oldScriptTask) {
         WARN('Army '..repr(self:GetAIBrain():GetArmyIndex())..' tried to invoke currently unavailable task script '..self.CommandData.TaskName)
         self:SetAIResult(AIRESULT.Fail)
         return false
-    end,
-
-    StartCooldown = function(self)
-        local params = self.CommandData.ExtraInfo
-        if params.CoolDownTime and params.CoolDownTime > 0 then
-            local tick = GetGameTick() + ( params.CoolDownTime * 10 )    -- 10 because seconds -> ticks
-            local brain = self:GetAIBrain()
-            brain:SetSpecialAbility( self.CommandData.TaskName, {CooledDownTick = tick,} )
-            StartAbilityCoolDown( brain:GetArmyIndex(), self.CommandData.TaskName )
-        end
     end,
 
     TaskTick = function(self)

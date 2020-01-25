@@ -7,7 +7,6 @@ TargetLocation = Class(ScriptTask) {
     StartTask = function(self)
         self.ScriptIsDone = false
         if self:IfBrainAllowsRun() then
-            self:StartCooldown()
             self:ScryLocation()
         else
             self:SetAIResult(AIRESULT.Ignored)

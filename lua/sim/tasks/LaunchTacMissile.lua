@@ -7,7 +7,6 @@ LaunchTacMissile = Class(ScriptTask) {
     StartTask = function(self)
         self.ScriptIsDone = false
         if self:IfBrainAllowsRun() then
-            self:StartCooldown()
             self:LaunchMissile()
         else
             self:SetAIResult(AIRESULT.Ignored)

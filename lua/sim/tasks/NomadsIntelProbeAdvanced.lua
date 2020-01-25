@@ -6,7 +6,6 @@ NomadsIntelProbeAdvanced = Class(ScriptTask) {
 
     StartTask = function(self)
         if self:IfBrainAllowsRun() then
-            self:StartCooldown()
             self:IntelProbe()
         else
             self:SetAIResult(AIRESULT.Ignored)
