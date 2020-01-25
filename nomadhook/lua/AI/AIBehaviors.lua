@@ -276,7 +276,6 @@ function OrbitalBombardmentThread(cdr, platoon)
     local brain = cdr:GetAIBrain()
     local AbilityName = 'NomadsAreaBombardment'
     local AbilityDef = import('/lua/abilitydefinition.lua').abilities[AbilityName]
-    local AbilityCooldown = AbilityDef.ExtraInfo.CoolDownTime + 1
     local TargetLocDeviation = 0
     local LastTargets = {}
     local LastTargetsCounter = 1
@@ -295,10 +294,8 @@ function OrbitalBombardmentThread(cdr, platoon)
     local AIpersonality = ScenarioInfo.ArmySetup[brain.Name].AIPersonality
     if AIpersonality == 'easy' then
         TargetLocDeviation = 6
-        AbilityCooldown = AbilityCooldown * 3
     elseif AIpersonality == 'medium' then
         TargetLocDeviation = 3
-        AbilityCooldown = AbilityCooldown * 2
     end
 
     while not cdr.Dead do
@@ -534,7 +531,7 @@ function OrbitalBombardmentThread(cdr, platoon)
             BestUnit = nil
 
             -- Wait till ability is available again
-            WaitSeconds( AbilityCooldown )
+            WaitSeconds( 10 )
 
         else
             -- no suitable location found for bombardment: wait a bit before checking for another location
