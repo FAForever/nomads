@@ -28,7 +28,6 @@ abilities = table.merged( abilities, {
 
         --any information contained in this table will be available in the task script.. in commandData
         ExtraInfo = {
-            CoolDownTime = 10,
             AbilMinRange = 10,  -- minimum range, 0 means no range limit, def = 0
             AbilMaxRange = 100, -- maximum range, 0 means no range limit, def = 0
         },
@@ -125,15 +124,12 @@ abilities = table.merged( abilities, {
         cursor = 'RULEUCC_SpecialAction',
         enabled = true,
         ExtraInfo = {
-            CoolDownTime = 60,
             DoRangeCheck = false,
             Lifetime = 60,
         },
         UIHelpText = 'specabil_intelprobe',
         ActiveDecal = {
--- TODO: enable this once decal is done
---            enabled = true,
-            enabled = false,
+            enabled = false, -- TODO: enable this once decal is done
         },
         UISlot = 4,
         preferredSlot = 10,
@@ -164,15 +160,12 @@ abilities = table.merged( abilities, {
         cursor = 'RULEUCC_SpecialAction',
         enabled = true,
         ExtraInfo = {
-            CoolDownTime = 60,
             DoRangeCheck = false,
             Lifetime = 30,
         },
         UIHelpText = 'specabil_intelprobe',
         ActiveDecal = {
--- TODO: enable this once decal is done
---            enabled = true,
-            enabled = false,
+            enabled = false, -- TODO: enable this once decal is done
         },
         UISlot = 4,
         preferredSlot = 10,

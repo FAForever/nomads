@@ -418,9 +418,16 @@ XNL0001 = Class(ACUUnit) {
     RequestProbe = function(self, location, probeType, data)
         if self.OrbitalUnit then
             self.IntelProbeEntity = self.OrbitalUnit:LaunchProbe(location, probeType, data)
+            self:ForkThread(self.ProbeCoolDownThread)
         else
             WARN('WARN:tried to launch probe without orbital unit, aborting.')
         end
+    end,
+    
+    ProbeCoolDownThread = function(self, reloadTime)
+        self:SetSpecialAbilityAvailability('NomadsIntelProbe', 0)
+        WaitSeconds(60)
+        self:SetSpecialAbilityAvailability('NomadsIntelProbe', 1)
     end,
 
     -- =====================================================================================================================
