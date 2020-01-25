@@ -8,8 +8,6 @@ function ResetSyncTable()
     Sync.UpdateSpecialAbilityUI = {}
     
     -- legacy special ability syncs
-    Sync.StartAbilityCoolDown = {}
-    Sync.StopAbilityCoolDown = {}
     Sync.RemoveStaticDecal = {}
 
     Sync.VOUnitEvents = {}
@@ -19,18 +17,6 @@ end
 UpdateSpecialAbilityUI = function(army, brainSpecialAbilities, unitSpecialAbilities)
     if army ~= nil and brainSpecialAbilities and unitSpecialAbilities then
         table.insert(Sync.UpdateSpecialAbilityUI, {BrainAbilitiesTable = brainSpecialAbilities, UnitAbilitiesTable = unitSpecialAbilities, Army = army})
-    end
-end
-
-StartAbilityCoolDown = function(army, ability)
-    if army ~= nil and ability then
-        table.insert(Sync.StartAbilityCoolDown, { AbilityName = ability, Army = army })
-    end
-end
-
-StopAbilityCoolDown = function(army, ability)
-    if army ~= nil and Ability then
-        table.insert(Sync.StopAbilityCoolDown, { AbilityName = ability, Army = army })
     end
 end
 

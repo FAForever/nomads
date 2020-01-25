@@ -12,19 +12,6 @@ function OnSync()
         end
     end
 
-    for k, v in Sync.StartAbilityCoolDown do
-        local army = v.Army
-        if army == GetFocusArmy() then
-            import('/lua/ui/ability_panel/abilities.lua').DisableButtonStartCoolDown(v.AbilityName)
-        end
-    end
-    for k, v in Sync.StopAbilityCoolDown do
-        local army = v.Army
-        if army == GetFocusArmy() then
-            import('/lua/ui/ability_panel/abilities.lua').EnableButtonStopCoolDown(v.AbilityName)
-        end
-    end
-
     for k, v in Sync.RemoveStaticDecal do
         local army = v.Army
         if army == GetFocusArmy() and v['DecalKeys'] then
