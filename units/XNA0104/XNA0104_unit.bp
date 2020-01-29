@@ -232,20 +232,7 @@ UnitBlueprint {
         Level5 = 15,
     },
     Weapon = {
-        {
-            AboveWaterTargetsOnly = true,
-            Damage = 50,
-            DamageFriendly = false,
-            DamageRadius = 3,
-            DamageType = 'Normal',
-            DisplayName = 'Thruster Burn',
-            DummyWeapon = true,
-            FiringTolerance = 2,
-            Label = 'ThrusterBurn',
-            RateOfFire = 2,
-            WeaponCategory = 'Movement',
-        },
-        {
+       {
             AboveWaterTargetsOnly = true,
             Damage = 25,
             DamageFriendly = true,
