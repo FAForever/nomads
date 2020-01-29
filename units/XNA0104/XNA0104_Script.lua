@@ -37,16 +37,6 @@ XNA0104 = Class(NAirTransportUnit) {
     OnStopBeingBuilt = function(self,builder,layer)
         NAirTransportUnit.OnStopBeingBuilt(self,builder,layer)
 
-        -- find thruster burn weapon. It's a dummy so we can't use getweaponbylabel
-        local wepBp, n = self:GetBlueprint().Weapon, -1
-        self.ThrusterBurnBpNum = nil
-        for k, v in wepBp do
-            if v.Label == 'ThrusterBurn' then
-                self.ThrusterBurnBpNum = k
-                break
-            end
-        end
-
         -- effects
         self:PlayThrusterEffects()
         self:Fold(true)
@@ -122,7 +112,6 @@ XNA0104 = Class(NAirTransportUnit) {
     end,
 
     PlayThrusterBurnEffects = function(self)
-        -- do a thruster burn, damaging the units below the transport
 
         if self:GetFractionComplete() < 1 then return end
 
