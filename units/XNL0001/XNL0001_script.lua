@@ -418,8 +418,18 @@ XNL0001 = Class(ACUUnit) {
     RequestProbe = function(self, location, probeType, data)
         if self.OrbitalUnit then
             self.IntelProbeEntity = self.OrbitalUnit:LaunchProbe(location, probeType, data)
+            self:ForkThread(self.ProbeCooldownThread, data.CoolDownTime)
         else
             WARN('WARN:tried to launch probe without orbital unit, aborting.')
+        end
+    end,
+    
+    ProbeCooldownThread = function(self, duration)
+        local cooldown = duration
+        while cooldown >= 0 and not self:BeenDestroyed() and not self.unit.Dead do
+            self:SetWorkProgress(1 - cooldown / duration)
+            cooldown = cooldown - 0.1
+            WaitSeconds(0.1)
         end
     end,
 

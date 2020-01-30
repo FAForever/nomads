@@ -17,6 +17,7 @@ NomadsIntelProbeAdvanced = Class(ScriptTask) {
         local brain = self:GetAIBrain()
         local data = {
             Lifetime = brain:GetSpecialAbilityParam( self.CommandData.TaskName, 'Lifetime') or self.CommandData.ExtraInfo['Lifetime'] or 60,
+            CoolDownTime = brain:GetSpecialAbilityParam( self.CommandData.TaskName, 'CoolDownTime') or self.CommandData.ExtraInfo['CoolDownTime'] or 60,
         }
 
         local location = self.TargetLocations[1]
