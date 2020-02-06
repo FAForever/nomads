@@ -145,13 +145,13 @@ NomadsACUEnh_DoubleGuns_Description = "All Kinetic Cannon damage (excluding Over
 NomadsACUEnh_DoubleGuns_Help = "Extra Barrel"
 NomadsACUEnh_DoubleGuns_Remove = "Remove Extra Barrel"
 
-NomadsACUEnh_RapidRepair_Description = "Increases health and adds a Rapid Repair device to the ACU, repairing the ACU automatically at no cost. There is a delay before repairs start, and the device must reinitialize each time the ACU is damaged or fires a weapon."
-NomadsACUEnh_RapidRepair_Help = "Rapid Repair"
-NomadsACUEnh_RapidRepair_Remove = "Remove Rapid Repair"
+NomadsACUEnh_RapidRepair_Description = "Increases health and adds a Emergency Repair device to the ACU, repairing the ACU automatically at no cost. There is a delay before repairs start, and the device must reinitialize each time the ACU is damaged or fires a weapon."
+NomadsACUEnh_RapidRepair_Help = "Emergency Repair System"
+NomadsACUEnh_RapidRepair_Remove = "Remove Emergency Repair System"
 
-NomadsACUEnh_PowerArmor_Description = "Greatly increases the max health of the ACU."
-NomadsACUEnh_PowerArmor_Help = "Powered Armor"
-NomadsACUEnh_PowerArmor_Remove = "Remove Powered Armor"
+NomadsACUEnh_PowerArmor_Description = "Greatly increases the max health of the ACU and the efficiency of the Repair device."
+NomadsACUEnh_PowerArmor_Help = "Autonomous Repair System"
+NomadsACUEnh_PowerArmor_Remove = "Remove Autonomous Repair System"
 
 NomadsACUEnh_SniperMode_Description = "Allows the ACU to enable and disable sniper mode at will. Sniper mode increases the range and damage of the ACU's main weapon but disables overcharge. Stacks with the gun enhancements."
 NomadsACUEnh_SniperMode_Help = "Sniper Mode"
@@ -183,13 +183,13 @@ NomadsSCUEnh_MovementSpeedIncrease_Description = "Greatly improves the SACU's mo
 NomadsSCUEnh_MovementSpeedIncrease_Help = "Improved Locomotor"
 NomadsSCUEnh_MovementSpeedIncrease_Remove = "Remove Improved Locomotor"
 
-NomadsSCUEnh_RapidRepair_Description = "Increases health and adds a Rapid Repair device to the SACU, repairing the SACU automatically at no cost. There is a delay before repairs start, and the device must reinitialise each time the SACU is damaged or fires a weapon."
-NomadsSCUEnh_RapidRepair_Help = "Rapid Repair"
-NomadsSCUEnh_RapidRepair_Remove = "Remove Rapid Repair"
+NomadsSCUEnh_RapidRepair_Description = "Increases health and adds a Emergency Repair device to the SACU, repairing the SACU automatically at no cost. There is a delay before repairs start, and the device must reinitialise each time the SACU is damaged or fires a weapon."
+NomadsSCUEnh_RapidRepair_Help = "Emergency Repair System"
+NomadsSCUEnh_RapidRepair_Remove = "Remove Emergency Repair System"
 
-NomadsSCUEnh_PowerArmor_Description = "Greatly increases the max health of the ACU."
-NomadsSCUEnh_PowerArmor_Help = "Powered Armor"
-NomadsSCUEnh_PowerArmor_Remove = "Remove Powered Armor"
+NomadsSCUEnh_PowerArmor_Description = "Greatly increases the max health of the SACU and the efficiency of the Repair device."
+NomadsSCUEnh_PowerArmor_Help = "Autonomous Repair System"
+NomadsSCUEnh_PowerArmor_Remove = "Remove Autonomous Repair System"
 
 NomadsSCUEnh_LeftArmGun_Description = "Enhances the SACU with a Kinetic Cannon. When the Capacitor ability is active, the cannon gains a damage-over-time effect."
 NomadsSCUEnh_LeftArmGun_Help = "Kinetic Cannon"
