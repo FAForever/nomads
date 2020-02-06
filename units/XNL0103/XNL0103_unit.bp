@@ -413,7 +413,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
-            Damage = 50,
+            Damage = 25,
             DamageType = 'Normal',
             DisplayName = 'Rocket (AA)',
             EffectiveRadius = 0,
