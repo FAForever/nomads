@@ -144,9 +144,6 @@ function CreateNomadsBuildSliceBeams( builder, unitBeingBuilt, BuildEffectBones,
     end
 
     WaitSeconds( 0.1 ) -- some time to continue displaying the effects. Is sometimes nice when something is constructed in 1 tick or less (build walls with ACU T3 enh..)
-
-    -- destroy beams cause no longer needed
-    BuildEffectsBag:Destroy()
 end
 
 function CreateRepairBuildBeams( builder, unitBeingBuilt, BuildEffectBones, BuildEffectsBag, BeamXWarpScale, BeamYWarpScale, BeamZWarpScale )
@@ -184,9 +181,6 @@ function CreateRepairBuildBeams( builder, unitBeingBuilt, BuildEffectBones, Buil
         end
         WaitSeconds( 0.5 )
     end
-
-    -- destroy beams cause no longer needed
-    BuildEffectsBag:Destroy()
 end
 
 function CreateBuildCubeThread( unitBeingBuilt, builder, OnBeingBuiltEffectsBag, BuildBones, noFlashing )
