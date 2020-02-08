@@ -278,7 +278,7 @@ function AddLights(SuperClass)
                     end
                 end
             else
-                WARN('AddLights: No light emitter bones specified. '..repr(self:GetUnitId()))
+                WARN('AddLights: No light emitter bones specified. '..repr(self.UnitId))
             end
         end,
 
@@ -336,7 +336,7 @@ function AddNavalLights(SuperClass)
                     self.LightsBag:Add( emit )
                 end
             else
-                WARN('AddLights: No light emitter bones specified. '..repr(self:GetUnitId()))
+                WARN('AddLights: No light emitter bones specified. '..repr(self.UnitId))
             end
         end,
 
@@ -986,11 +986,11 @@ function AddCapacitorAbility( SuperClass )
         
         -- don't do shield things
         EnableShield = function(self)
-            WARN('Nomads: EnableShield: Shields disabled by capacitor ability on unit ['..repr(self:GetUnitId() or "Unknown")..'].!')
+            WARN('Nomads: EnableShield: Shields disabled by capacitor ability on unit ['..repr(self.UnitId or "Unknown")..'].!')
         end,
 
         DisableShield = function(self)
-            WARN('Nomads: DisableShield: Shields disabled by capacitor ability on unit ['..repr(self:GetUnitId() or "Unknown")..'].!')
+            WARN('Nomads: DisableShield: Shields disabled by capacitor ability on unit ['..repr(self.UnitId or "Unknown")..'].!')
         end,
     }
 end

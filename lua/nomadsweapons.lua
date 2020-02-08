@@ -300,7 +300,7 @@ EnergyCannon1 = Class(DefaultProjectileWeapon) {
         DefaultProjectileWeapon.OnCreate(self)
         local bp = self:GetBlueprint()
         if not bp.DoTPulses or not bp.DoTTime then
-            WARN('EnergyCannon1: unit '..repr(self.unit:GetUnitId())..' does not have correct DoT values in blueprint!')
+            WARN('EnergyCannon1: unit '..repr(self.unit.UnitId)..' does not have correct DoT values in blueprint!')
         end
     end,
 }
@@ -320,10 +320,10 @@ GattlingWeapon1 = Class(DefaultProjectileWeapon) {
         self.Rotates = (bp.GattlingBarrelBone ~= nil)
         if self.Rotates then
             if not bp.GattlingBarrelBone then
-                WARN('GattlingWeapon: no barrel bone defined in weapon blueprint for unit '..repr(self.unit:GetUnitId()))
+                WARN('GattlingWeapon: no barrel bone defined in weapon blueprint for unit '..repr(self.unit.UnitId))
                 self.Rotates = false
             elseif not bp.WeaponUnpacks then
-                WARN('GattlingWeapon: weapon need to unpack spinning barrels, on  unit '..repr(self.unit:GetUnitId()))
+                WARN('GattlingWeapon: weapon need to unpack spinning barrels, on  unit '..repr(self.unit.UnitId))
                 self.Rotates = false
             else
                 local bone = bp.GattlingBarrelBone
@@ -490,7 +490,7 @@ EnergyBombWeapon = Class(DefaultProjectileWeapon) {
         DefaultProjectileWeapon.OnCreate(self)
         local bp = self:GetBlueprint()
         if not bp.DoTPulses or not bp.DoTTime then
-            WARN('EnergyCannon1: unit '..repr(self.unit:GetUnitId())..' does not have correct DoT values in blueprint!')
+            WARN('EnergyCannon1: unit '..repr(self.unit.UnitId)..' does not have correct DoT values in blueprint!')
         end
     end,
 }

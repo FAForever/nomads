@@ -44,7 +44,7 @@ ScriptTask = Class(oldScriptTask) {
             end
 
             if table.getsize(self.TargetLocations) < 1 then
-                WARN('*DEBUG: ScriptTask: was invoked but no reticule specified for unit '..repr(unit:GetUnitId())..' '..repr(unitId)..' '..repr(commandData))
+                WARN('*DEBUG: ScriptTask: was invoked but no reticule specified for unit '..repr(unit.UnitId)..' '..repr(unitId)..' '..repr(commandData))
                 self:SetAIResult(AIRESULT.Fail)
             end
         else

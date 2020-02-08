@@ -164,11 +164,11 @@ function CometTryExpGhettoGunship(self)
 
     local unit = GetExperimentalUnit(self)
 
-    if unit:GetUnitId() ~= 'xna0401' then
+    if unit.UnitId ~= 'xna0401' then
         return
     end
 
-    --LOG('*DEBUG: AI starting CometTryExpGhettoGunship for unit '..repr(unit:GetUnitId()))
+    --LOG('*DEBUG: AI starting CometTryExpGhettoGunship for unit '..repr(unit.UnitId))
 
     local BeamerCat = ParseEntityCategory( 'xnl0402' )  -- this unit can be used to form exp ghetto gunship
     local BeamerFindRadius = 30
@@ -268,7 +268,7 @@ CommanderBombardPriorityList = {
 }
 
 function OrbitalBombardmentThread(cdr, platoon)
-    if cdr:GetUnitId() ~= 'xnl0001' then return end
+    if cdr.UnitId ~= 'xnl0001' then return end
 
     WaitTicks( Random(50,650) )  -- to avoid the artificial appearance when all AI players use their intel probe at the same time
 
@@ -455,7 +455,7 @@ function OrbitalBombardmentThread(cdr, platoon)
                 end
             end
 
-            --LOG('*DEBUG: AI orbital bombardment targetting '..repr(BestUnit:GetUnitId())..', number of nearby units is '..repr(BestUnitAdjNum)..', real target is '..repr(target:GetUnitId()))
+            --LOG('*DEBUG: AI orbital bombardment targetting '..repr(BestUnit.UnitId)..', number of nearby units is '..repr(BestUnitAdjNum)..', real target is '..repr(target.UnitId))
             location = table.copy( BestUnit:GetPosition() )
             DoSpreadAttack = (BestUnit:GetMaxHealth() <= Damage) or (BestUnit:GetHealth() <= (Damage * 0.75))
         end
@@ -544,7 +544,7 @@ function OrbitalBombardmentThreadSorian(cdr, platoon)
 end
 
 function CommanderIntelProbeThread(cdr, platoon)
-    if cdr:GetUnitId() ~= 'xnl0001' then
+    if cdr.UnitId ~= 'xnl0001' then
         return
     end
 

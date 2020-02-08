@@ -193,7 +193,7 @@ XNL0001 = Class(ACUUnit) {
         self:SetActiveConsumptionActive()
         self:PlayUnitSound('Construct')
         self:PlayUnitAmbientSound('ConstructLoop')
-        if bp.General.UpgradesTo and unitBeingBuilt:GetUnitId() == bp.General.UpgradesTo and order == 'Upgrade' then
+        if bp.General.UpgradesTo and unitBeingBuilt.UnitId == bp.General.UpgradesTo and order == 'Upgrade' then
             unitBeingBuilt.DisallowCollisions = true
         end
 
