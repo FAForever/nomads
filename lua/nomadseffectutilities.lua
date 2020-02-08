@@ -1,15 +1,10 @@
 -- TODO: go over this again
-
-local util = import('utilities.lua')
 local Entity = import('/lua/sim/Entity.lua').Entity
-local EffectTemplate = import('/lua/EffectTemplates.lua')
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local RandomFloat = import('/lua/utilities.lua').GetRandomFloat
 
 function CreateAmbientShieldEffects( unit, EffectsBag )
-
-    local shield, bp, emit = unit.MyShield, unit:GetBlueprint()
-    local bone = 0
+    local shield, bp = unit.MyShield, unit:GetBlueprint()
 
     -- determining the interval is crucial. We have two shields, the regular one and the stealth shield. Both have a different interval so we
     -- have to detect the shield type.
@@ -24,21 +19,16 @@ function CreateAmbientShieldEffects( unit, EffectsBag )
     local offset = bp.Defense.Shield.ShieldSize - (bp.Defense.Shield.ShieldVerticalOffset or 0)
     while unit and not unit:BeenDestroyed() and not unit.Dead do
         for k, v in effectTable do
-            emit = CreateEmitterAtBone( unit, bone, unit.Army, v ):OffsetEmitter(0, offset, 0)
+            local emit = CreateEmitterAtBone( unit, 0, unit.Army, v ):OffsetEmitter(0, offset, 0)
             EffectsBag:Add( emit )
         end
     end
 end
 
--- ---------------------------------------------------------------------------------------------------------------
-
-function CreateBeamEntities( builder, unitBeingBuilt, BuildEffectBones, BuildEffectsBag, BeamXWarpScale, BeamYWarpScale, BeamZWarpScale, ConstructionBeams, ConstructionBeamStartPoint, ConstructionBeamEndPoints )
-
+function CreateBeamEntities( builder, unitBeingBuilt, BuildEffectBones, BuildEffectsBag, ConstructionBeams, ConstructionBeamStartPoint, ConstructionBeamEndPoints )
     -- the beams work like this:
     -- an entity is created on the unit that's being built. A beam emitter is created between the build bone and the entity.
     -- the entity is being instantly moved around on the unit that's being built
-
-    local bp = unitBeingBuilt:GetBlueprint()
     local ox, oy, oz = unpack(unitBeingBuilt:GetPosition())
     local endEntityTable = {}
 
@@ -47,31 +37,28 @@ function CreateBeamEntities( builder, unitBeingBuilt, BuildEffectBones, BuildEff
     end
 
     -- Create build beams
-    if BuildEffectBones ~= nil then
+    local beamsPerBone = builder:GetBlueprint().Display.NumberOfBuildBeams or NomadsEffectTemplate.ConstructionBeamsPerBuildBone or 1
+    local beamEffect = nil
+    for i, BuildBone in BuildEffectBones do
 
-        local beamsPerBone = builder:GetBlueprint().Display.NumberOfBuildBeams or NomadsEffectTemplate.ConstructionBeamsPerBuildBone or 1
-        local beamEffect = nil
-        for i, BuildBone in BuildEffectBones do
+        for j=1, beamsPerBone do
 
-            for j=1, beamsPerBone do
+            local BeamEndEntity = Entity()
+            BeamEndEntity.counter = 0
+            Warp( BeamEndEntity, Vector(ox, oy, oz))
+            table.insert(endEntityTable, BeamEndEntity)
+            BuildEffectsBag:Add( BeamEndEntity )
 
-                local BeamEndEntity = Entity()
-                BeamEndEntity.counter = 0
-                Warp( BeamEndEntity, Vector(ox, oy, oz))
-                table.insert(endEntityTable, BeamEndEntity)
-                BuildEffectsBag:Add( BeamEndEntity )
+            -- beam
+            for k, v in ConstructionBeams do
+                local beamEffect = AttachBeamEntityToEntity(builder, BuildBone, BeamEndEntity, -1, builder.Army, v)
+                BuildEffectsBag:Add( beamEffect)
+            end
 
-                -- beam
-                for k, v in ConstructionBeams do
-                    local beamEffect = AttachBeamEntityToEntity(builder, BuildBone, BeamEndEntity, -1, builder.Army, v)
-                    BuildEffectsBag:Add( beamEffect)
-                end
-
-                -- beam endpoint emitters
-                for _, ebp in ConstructionBeamEndPoints do
-                    local sparks = CreateEmitterOnEntity( BeamEndEntity, builder.Army, ebp )
-                    BuildEffectsBag:Add( sparks )
-                end
+            -- beam endpoint emitters
+            for _, ebp in ConstructionBeamEndPoints do
+                local sparks = CreateEmitterOnEntity( BeamEndEntity, builder.Army, ebp )
+                BuildEffectsBag:Add( sparks )
             end
         end
     end
@@ -99,7 +86,6 @@ end
 -- beams coming from engineers and ACU when constructing
 --TODO:rewrite this.
 function CreateNomadsBuildSliceBeams( builder, unitBeingBuilt, BuildEffectBones, BuildEffectsBag )
-
     if not unitBeingBuilt.BuilderList then
         unitBeingBuilt.BuilderList = {}
     end
@@ -113,21 +99,20 @@ function CreateNomadsBuildSliceBeams( builder, unitBeingBuilt, BuildEffectBones,
     local BeamYWarpScale = ubbBp.Display.BuildEffect.HeightScale or 1
     local BeamZWarpScale = ubbBp.Display.BuildEffect.WidthScale or 1
 
-    local endEntityTable = CreateBeamEntities( builder, unitBeingBuilt, BuildEffectBones, BuildEffectsBag, BeamXWarpScale, BeamYWarpScale, BeamZWarpScale, NomadsEffectTemplate.ConstructionBeams, NomadsEffectTemplate.ConstructionBeamStartPoint, NomadsEffectTemplate.ConstructionBeamEndPoints )
+    local endEntityTable = CreateBeamEntities( builder, unitBeingBuilt, BuildEffectBones, BuildEffectsBag, NomadsEffectTemplate.ConstructionBeams, NomadsEffectTemplate.ConstructionBeamStartPoint, NomadsEffectTemplate.ConstructionBeamEndPoints )
     local ox, oy, oz = unpack(unitBeingBuilt:GetPosition())
-    local x, y, z, bx, by, bz
     local maxDiff = 0.25
     local ok = true  -- this threaded function keeps running even if the trashbag it's in is destroyed. This boolean is used to prevent this.
 
     while not builder:BeenDestroyed() and not unitBeingBuilt:BeenDestroyed() and unitBeingBuilt:GetFractionComplete() < 1 and ok or builder:GetBlueprint().BlueprintId == 'xnc0001' do
-        bx, by, bz = builder.GetRandomOffset(unitBeingBuilt, 1 )
+        local bx, by, bz = builder.GetRandomOffset(unitBeingBuilt, 1 )
         local randWaitTime = Random(10,30)
         for k, v in endEntityTable do
             if not v:BeenDestroyed() then
                 if endEntityTable[k].counter <= 0 then
-                    x = (bx + RandomFloat(-maxDiff, maxDiff)) * (BeamXWarpScale or 1)
-                    y = (by + RandomFloat(-maxDiff, maxDiff)) * (BeamYWarpScale or 1)
-                    z = (bz + RandomFloat(-maxDiff, maxDiff)) * (BeamZWarpScale or 1)
+                    local x = (bx + RandomFloat(-maxDiff, maxDiff)) * (BeamXWarpScale or 1)
+                    local y = (by + RandomFloat(-maxDiff, maxDiff)) * (BeamYWarpScale or 1)
+                    local z = (bz + RandomFloat(-maxDiff, maxDiff)) * (BeamZWarpScale or 1)
                     Warp( v, Vector(ox + x, oy + y, oz + z))
                     endEntityTable[k].counter = Random(0, math.min(7, randWaitTime))
                     PlaySparkleEffectAtUnitBeingBuilt( builder, unitBeingBuilt, 'ConstructSparkle' )
@@ -149,7 +134,6 @@ function CreateNomadsBuildSliceBeams( builder, unitBeingBuilt, BuildEffectBones,
 end
 
 function CreateRepairBuildBeams( builder, unitBeingBuilt, BuildEffectBones, BuildEffectsBag, BeamXWarpScale, BeamYWarpScale, BeamZWarpScale )
-
     WaitSeconds(0.3)
     if not unitBeingBuilt or unitBeingBuilt:BeenDestroyed() then return end
 
@@ -158,7 +142,7 @@ function CreateRepairBuildBeams( builder, unitBeingBuilt, BuildEffectBones, Buil
     local BeamYWarpScale = ubbBp.Display.BuildEffect.HeightScale or 1
     local BeamZWarpScale = ubbBp.Display.BuildEffect.WidthScale or 1
 
-    local endEntityTable = CreateBeamEntities( builder, unitBeingBuilt, BuildEffectBones, BuildEffectsBag, BeamXWarpScale, BeamYWarpScale, BeamZWarpScale, NomadsEffectTemplate.ConstructionBeams, NomadsEffectTemplate.ConstructionBeamStartPoint, NomadsEffectTemplate.ConstructionBeamEndPoints )
+    local endEntityTable = CreateBeamEntities( builder, unitBeingBuilt, BuildEffectBones, BuildEffectsBag, NomadsEffectTemplate.ConstructionBeams, NomadsEffectTemplate.ConstructionBeamStartPoint, NomadsEffectTemplate.ConstructionBeamEndPoints )
     local ox, oy, oz = unpack(unitBeingBuilt:GetPosition())
     local ok = true  -- this threaded function keeps running even if the trashbag it's in is destroyed. This boolean is used to prevent this.
 
@@ -188,8 +172,7 @@ function CreateRepairBuildBeams( builder, unitBeingBuilt, BuildEffectBones, Buil
     BuildEffectsBag:Destroy()
 end
 
-function CreateBuildCubeThread( unitBeingBuilt, builder, OnBeingBuiltEffectsBag, BuildBones, noFlashing )
-
+function CreateBuildCubeThread( unitBeingBuilt, builder, OnBeingBuiltEffectsBag )
     unitBeingBuilt:ShowBone(0, true)
     unitBeingBuilt:HideLandBones()
     unitBeingBuilt.BeingBuiltShowBoneTriggered = true
@@ -240,16 +223,6 @@ function CreateBuildCubeThread( unitBeingBuilt, builder, OnBeingBuiltEffectsBag,
     local z = bp.Physics.MeshExtentsZ or (bp.Footprint.SizeZ * mul)
     local y = bp.Physics.MeshExtentsY or (0.5 + (x + z) * 0.1)
 
--- TODO: create multiple effects for larger units
---[[    if not noFlashing then
-        local emitters = import('/lua/EffectUtilities.lua').CreateEffects(unitBeingBuilt, unitBeingBuilt.Army, NomadsEffectTemplate.ConstructionPulsingFlash)
-        for k, emit in emitters do
-            emit:ScaleEmitter( math.min(x or 1, z or 1) )
-            OnBeingBuiltEffectsBag:Add( emit )
-            unitBeingBuilt.Trash:Add( emit )
-        end
-    end]]
-
     WaitSeconds(0.1)
 
     if unitBeingBuilt.Dead then
@@ -257,7 +230,6 @@ function CreateBuildCubeThread( unitBeingBuilt, builder, OnBeingBuiltEffectsBag,
     end
 
     if unitBeingBuilt:GetFractionComplete() >= 1 then
---        unitBeingBuilt:ShowBone(0, true)
         unitBeingBuilt:HideLandBones()
         unitBeingBuilt.BeingBuiltShowBoneTriggered = true
         return
@@ -266,24 +238,20 @@ function CreateBuildCubeThread( unitBeingBuilt, builder, OnBeingBuiltEffectsBag,
     -- not sure why we're waiting here...
     WaitSeconds( 0.8 )
 
---    unitBeingBuilt:ShowBone(0, true)
     unitBeingBuilt:HideLandBones()
     unitBeingBuilt.BeingBuiltShowBoneTriggered = true
 end
 
 function CreateSelfRepairEffects( unit, EffectsBag, numEffects)
-
-    local emit
-    local emitters = {}
-
     if not numEffects then
         numEffects = unit:GetBlueprint().Display.NumberOfBuildBeams or NomadsEffectTemplate.ConstructionBeamsPerBuildBone or 3
     end
 
+    local emitters = {}
     for i=1, numEffects do
         local emits = {}
         for k, v in NomadsEffectTemplate.RepairSelf do
-            emit = CreateEmitterOnEntity( unit, unit.Army, v )
+            local emit = CreateEmitterOnEntity( unit, unit.Army, v )
             EffectsBag:Add( emit )
             table.insert( emits, emit )
         end
@@ -313,20 +281,18 @@ function CreateSelfRepairEffects( unit, EffectsBag, numEffects)
 end
 
 CreateFactoryBuildBeams = function(builder, unitBeingBuilt, BuildEffectBones, BuildEffectsBag )
-
     -- create a flashing kind of effect at the pad where the unit is being built
-    local emit
     for k, v in NomadsEffectTemplate.ConstructionDefaultBeingBuiltEffectsMobile do
-        emit = CreateAttachedEmitter( unitBeingBuilt, 0, builder.Army, v )
+        local emit = CreateAttachedEmitter( unitBeingBuilt, 0, builder.Army, v )
         BuildEffectsBag:Add( emit )
         unitBeingBuilt.Trash:Add(emit)
     end
 
     -- create the orange build rect used by the factory if it doesn't exist yet
-    local builderbp, entity = builder:GetBlueprint()
+    local builderbp = builder:GetBlueprint()
     if BuildEffectBones ~= nil then
         for k, bone in BuildEffectBones do
-            entity = import('/lua/sim/Entity.lua').Entity()
+            local entity = import('/lua/sim/Entity.lua').Entity()
             Warp( entity, builder:GetPosition(bone))
             entity:AttachBoneTo(-1, builder, bone)
             entity:SetMesh('/effects/entities/NomadsBuildEffect/NomadsBuildField_mesh')
@@ -340,7 +306,6 @@ CreateFactoryBuildBeams = function(builder, unitBeingBuilt, BuildEffectBones, Bu
 end
 
 function PlayNomadsReclaimEffects( reclaimer, reclaimed, BuildEffectBones, EffectsBag )
-
     WaitSeconds(0.3)
     if not reclaimer or not reclaimed then return end
 
@@ -353,7 +318,7 @@ function PlayNomadsReclaimEffects( reclaimer, reclaimed, BuildEffectBones, Effec
     local sx, sy, sz = (rBp.SizeX or 1)/2, (rBp.SizeY or 1)/2, (rBp.SizeZ or 1)/2
 
     -- create beam entities
-    local endEntityTable = CreateBeamEntities( reclaimer, reclaimed, BuildEffectBones, EffectsBag, sx, sy, sz, NomadsEffectTemplate.ReclaimBeams, NomadsEffectTemplate.ReclaimBeamStartPoint, NomadsEffectTemplate.ReclaimBeamEndPoints )
+    local endEntityTable = CreateBeamEntities( reclaimer, reclaimed, BuildEffectBones, EffectsBag, NomadsEffectTemplate.ReclaimBeams, NomadsEffectTemplate.ReclaimBeamStartPoint, NomadsEffectTemplate.ReclaimBeamEndPoints )
 
     -- additional effects
     for k, v in NomadsEffectTemplate.ReclaimObjectAOE do
@@ -365,17 +330,15 @@ function PlayNomadsReclaimEffects( reclaimer, reclaimed, BuildEffectBones, Effec
     pos[2] = GetSurfaceHeight(pos[1], pos[3])
 
     local ox, oy, oz = unpack(pos)
-    local x, y, z
     local ok = true  -- this threaded function keeps running even if the trashbag it's in is destroyed. This boolean is used to prevent this.
 
     while not reclaimer:BeenDestroyed() and not reclaimer.Dead and not reclaimed:BeenDestroyed() and ok do
-
         for k, v in endEntityTable do
             if not v:BeenDestroyed() then
                 if endEntityTable[k].counter <= 0 then
-                    x = ox + RandomFloat(-sx, sx)
-                    y = oy + RandomFloat(0, 2*sy)
-                    z = oz + RandomFloat(-sz, sz)
+                    local x = ox + RandomFloat(-sx, sx)
+                    local y = oy + RandomFloat(0, 2*sy)
+                    local z = oz + RandomFloat(-sz, sz)
                     Warp( v, Vector(x, y, z))
                     endEntityTable[k].counter = Random(0, 2)
                     PlaySparkleEffectAtUnitBeingBuilt( reclaimer, reclaimed, 'ReclaimSparkle' )
@@ -393,7 +356,6 @@ end
 
 function PlayNomadsReclaimEndEffects( reclaimer, reclaimed, EffectsBag )
     -- GPG version modified to show Nomads reclaim effects
-
     local army = -1
     if reclaimer then
         army = reclaimer.Army

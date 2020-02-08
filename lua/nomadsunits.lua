@@ -53,7 +53,7 @@ function AddNomadsBeingBuiltEffects( SuperClass )
         -- starts the build effect thread, which creates the build cube and the flashing. The flashing is avoided if the unit is upgrading.
         local UpgradesFrom = self:GetBlueprint().General.UpgradesFrom or false
         local IsUpgrade = (UpgradesFrom == builder.UnitId)
-        self.OnBeingBuiltEffectsBag:Add( self:ForkThread( CreateBuildCubeThread, builder, self.OnBeingBuiltEffectsBag, nil, IsUpgrade))
+        self.OnBeingBuiltEffectsBag:Add( self:ForkThread( CreateBuildCubeThread, builder, self.OnBeingBuiltEffectsBag))
         if not IsUpgrade then
             self:SetMesh(self:GetBlueprint().Display.BuildMeshBlueprint, true)
         else
