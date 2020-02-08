@@ -25,7 +25,6 @@ NEnergyBomb = Class(NullShell) {
     end,
 
     EffectThread = function(self)
-        local army = self:GetArmy()
         local position = self:GetPosition()
         local scale = self.FxScale or 1
         local surface = GetTerrainHeight(position[1], position[3]) + GetTerrainTypeOffset(position[1], position[3])
@@ -39,16 +38,16 @@ NEnergyBomb = Class(NullShell) {
 
         -- Create ground decals
         local orientation = RandomFloat( 0, 2 * math.pi )
-        CreateDecal(position, orientation, 'Crater01_albedo', '', 'Albedo', (20 * scale), (20 * scale), 1200, 0, army)
-        CreateDecal(position, orientation, 'Crater01_normals', '', 'Normals', (20 * scale), (20 * scale), 1200, 0, army)
-        CreateDecal(position, orientation, 'nuke_scorch_003_albedo', '', 'Albedo', (20 * scale), (20 * scale), 1200, 0, army)
+        CreateDecal(position, orientation, 'Crater01_albedo', '', 'Albedo', (20 * scale), (20 * scale), 1200, 0, self.Army)
+        CreateDecal(position, orientation, 'Crater01_normals', '', 'Normals', (20 * scale), (20 * scale), 1200, 0, self.Army)
+        CreateDecal(position, orientation, 'nuke_scorch_003_albedo', '', 'Albedo', (20 * scale), (20 * scale), 1200, 0, self.Army)
 
         -- Plasma bomb effects
         local templ = self.EnergyBombSurfaceFx
         if underWater then
             templ = self.EnergyBombUnderWaterFx
         end
-        local emitters = EffectUtilities.CreateEffects( self, army, templ )
+        local emitters = EffectUtilities.CreateEffects( self, self.Army, templ )
         for k, emit in emitters do
             emit:ScaleEmitter( scale )
         end
@@ -74,7 +73,7 @@ NEnergyBomb = Class(NullShell) {
             elseif n == 4 then
                 templ = NomadsEffectTemplate.EnergyBombResidualFlames_Var4
             end
-            local emitters = EffectUtilities.CreateEffectsWithOffset( self, army, templ, RandomFloat(-maxOffset, maxOffset), 0, RandomFloat(-maxOffset, maxOffset) )
+            local emitters = EffectUtilities.CreateEffectsWithOffset( self, self.Army, templ, RandomFloat(-maxOffset, maxOffset), 0, RandomFloat(-maxOffset, maxOffset) )
             local scl = RandomFloat(0.75, 1.25)
             for k, emit in emitters do
                 emit:ScaleEmitter( scl )

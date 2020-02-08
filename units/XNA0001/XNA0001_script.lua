@@ -73,20 +73,18 @@ XNA0001 = Class(Unit) {
     end,
 
     PlayCoverOpenFx = function(self)
-        local army = self:GetArmy()
         local emitters, emit = {}
         for k, v in self.CoverOpenFx do
-            emit = CreateEmitterAtBone(self, 'Cover', army, v)
+            emit = CreateEmitterAtBone(self, 'Cover', self.Army, v)
             table.insert(emitters, emit)
         end
         return emitters
     end,
 
     PlayCoverLaunchFx = function(self, CoverEnt)
-        local army = self:GetArmy()
         local emitters, emit = {}
         for k, v in self.CoverLaunchFx do
-            emit = CreateAttachedEmitter(CoverEnt, 0, army, v)
+            emit = CreateAttachedEmitter(CoverEnt, 0, self.Army, v)
             table.insert(emitters, emit)
         end
         return emitters

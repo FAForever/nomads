@@ -16,7 +16,7 @@ XNL0111 = Class(NAmphibiousUnit, SlowHover) {
                 local proj = TacticalMissileWeapon1.CreateProjectileAtMuzzle(self, muzzle)
                 local layer = self.unit:GetCurrentLayer()
                 if layer == 'Sub' or layer == 'Seabed' then   -- add under water effects
-                    EffectUtilities.CreateBoneEffects( self.unit, muzzle, self.unit:GetArmy(), NomadsEffectTemplate.TacticalMissileMuzzleFxUnderWaterAddon )
+                    EffectUtilities.CreateBoneEffects( self.unit, muzzle, self.unit.Army, NomadsEffectTemplate.TacticalMissileMuzzleFxUnderWaterAddon )
                 end
                 return proj
             end,

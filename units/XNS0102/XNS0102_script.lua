@@ -58,7 +58,7 @@ xns0102 = Class(NSeaUnit) {
     end,
 
     PlayMovementSmokeEffects = function(self, type)
-        local army, EffectTable, emit = self:GetArmy()
+        local EffectTable, emit
 
         if type == 'Stopping' then
             EffectTable = NomadsEffectTemplate.RailgunBoat_Stopping_Smoke
@@ -70,7 +70,7 @@ xns0102 = Class(NSeaUnit) {
 
         for _, bone in self.SmokeEmitterBones do
             for k, v in EffectTable do
-                emit = CreateAttachedEmitter( self, bone, army, v )
+                emit = CreateAttachedEmitter( self, bone, self.Army, v )
                 self.SmokeEmitters:Add( emit )
                 self.Trash:Add( emit )
             end

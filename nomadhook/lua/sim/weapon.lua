@@ -77,7 +77,7 @@ Weapon = Class(oldWeapon) {
 
                 -- Need to store these three for later, in case the missile lands after the launcher dies
                 proj.Launcher = self.unit
-                proj.Army = self.unit:GetArmy()
+                proj.Army = self.unit.Army
                 proj.Brain = self.unit:GetAIBrain()
             end
         end

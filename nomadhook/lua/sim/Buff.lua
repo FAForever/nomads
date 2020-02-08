@@ -57,7 +57,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
             local val = BuffCalculate(unit, buffName, 'SonarRadius', sonarrad)
             if val > 0 then
                 if not unit:IsIntelEnabled('Sonar') then
-                    unit:InitIntel(unit:GetArmy(),'Sonar', val)
+                    unit:InitIntel(unit.Army,'Sonar', val)
                     unit:EnableIntel('Sonar')
                 else
                     unit:SetIntelRadius('Sonar', val)
@@ -136,7 +136,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
             local val = BuffCalculate(unit, buffName, 'RadarRadius', radarrad)
             if val > 0 then
                 if not unit:IsIntelEnabled('Radar') then
-                    unit:InitIntel(unit:GetArmy(), 'Radar', val)
+                    unit:InitIntel(unit.Army, 'Radar', val)
                     unit:EnableIntel('Radar')
                 else
                     unit:SetIntelRadius('Radar', val)
@@ -153,7 +153,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
             local val = BuffCalculate(unit, buffName, 'OmniRadius', omnirad)
             if val > 0 then
                 if not unit:IsIntelEnabled('Omni') then
-                    unit:InitIntel(unit:GetArmy(), 'Omni', val)
+                    unit:InitIntel(unit.Army, 'Omni', val)
                     unit:EnableIntel('Omni')
                 else
                     unit:SetIntelRadius('Omni', val)

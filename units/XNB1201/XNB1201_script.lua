@@ -36,24 +36,23 @@ XNB1201 = Class(NEnergyCreationUnit) {
 
     OnStopBeingBuilt = function(self, builder, layer)
         -- antennae lights
-        local army, emit = self:GetArmy()
         for k, v in NomadsEffectTemplate.AntennaeLights1 do
-            self.Trash:Add( CreateAttachedEmitter(self, 'blinklight.001', army, v) )
+            self.Trash:Add( CreateAttachedEmitter(self, 'blinklight.001', self.Army, v) )
         end
         for k, v in NomadsEffectTemplate.AntennaeLights4 do
-            self.Trash:Add( CreateAttachedEmitter(self, 'blinklight.002', army, v) )
+            self.Trash:Add( CreateAttachedEmitter(self, 'blinklight.002', self.Army, v) )
         end
         for k, v in NomadsEffectTemplate.AntennaeLights7 do
-            self.Trash:Add( CreateAttachedEmitter(self, 'blinklight.003', army, v) )
+            self.Trash:Add( CreateAttachedEmitter(self, 'blinklight.003', self.Army, v) )
         end
         for k, v in NomadsEffectTemplate.AntennaeLights1 do
-            self.Trash:Add( CreateAttachedEmitter(self, 'blinklight.004', army, v) )
+            self.Trash:Add( CreateAttachedEmitter(self, 'blinklight.004', self.Army, v) )
         end
         for k, v in NomadsEffectTemplate.AntennaeLights4 do
-            self.Trash:Add( CreateAttachedEmitter(self, 'blinklight.005', army, v) )
+            self.Trash:Add( CreateAttachedEmitter(self, 'blinklight.005', self.Army, v) )
         end
         for k, v in NomadsEffectTemplate.AntennaeLights7 do
-            self.Trash:Add( CreateAttachedEmitter(self, 'blinklight.006', army, v) )
+            self.Trash:Add( CreateAttachedEmitter(self, 'blinklight.006', self.Army, v) )
         end
 
         NEnergyCreationUnit.OnStopBeingBuilt( self, builder, layer )
@@ -99,9 +98,9 @@ XNB1201 = Class(NEnergyCreationUnit) {
 
     RandomDischarges = function(self, bone, delay)
         WaitTicks( delay )
-        local army, emit = self:GetArmy()
+        local emit
         for k, v in NomadsEffectTemplate.T2PGAmbient do
-            emit = CreateAttachedEmitter(self, bone, army, v)
+            emit = CreateAttachedEmitter(self, bone, self.Army, v)
             self.ActiveEffectsBag:Add( emit )
             self.Trash:Add( emit )
         end
@@ -115,7 +114,7 @@ XNB1201 = Class(NEnergyCreationUnit) {
         local boneList = { { 'electric.001', 'electric.008', }, { 'electric.002', 'electric.009', }, { 'electric.003', 'electric.010', },
                            { 'electric.004', 'electric.011', }, { 'electric.005', 'electric.012', }, { 'electric.006', 'electric.007', }, }
 
-        local army, emit, bone1, bone2, i, beam = self:GetArmy()
+        local bone1, bone2, i, beam
         local waitMin, waitMax = math.floor( intervalMean * (1 - intervalDeviation)), math.ceil( intervalMean * (1 + intervalDeviation))
         WaitTicks( Random( waitMin, waitMax ) )
 
@@ -134,7 +133,7 @@ XNB1201 = Class(NEnergyCreationUnit) {
             end
 
             -- create beam
-            beam = CreateBeamEntityToEntity( self, bone1, self, bone2, army, NomadsEffectTemplate.T2PGAmbientDischargeBeam )
+            beam = CreateBeamEntityToEntity( self, bone1, self, bone2, self.Army, NomadsEffectTemplate.T2PGAmbientDischargeBeam )
             self.ActiveEffectsBag:Add( beam )
             self.Trash:Add( beam )
 

@@ -45,18 +45,18 @@ XNB1302 = Class(NMassCollectionUnit) {
     end,
 
     PlayActiveEffects = function(self)
-        local army, emit, beam = self:GetArmy()
+        local emit, beam
 
         -- start emitters
         for k, v in NomadsEffectTemplate.T3MassExtractorActiveEffects do
-            emit = CreateAttachedEmitter( self, -1, army, v )
+            emit = CreateAttachedEmitter( self, -1, self.Army, v )
             self.ActiveEffectsBag:Add( emit )
             self.Trash:Add( emit )
         end
 
         -- start beams
         for k, v in NomadsEffectTemplate.T3MassExtractorActiveBeams do
-            beam = CreateBeamEntityToEntity( self, 'muzzle', self, 0, army, v )
+            beam = CreateBeamEntityToEntity( self, 'muzzle', self, 0, self.Army, v )
             self.ActiveEffectsBag:Add( beam )
             self.Trash:Add( beam )
         end

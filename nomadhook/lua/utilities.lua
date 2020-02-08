@@ -41,7 +41,7 @@ function GetOwnUnitsInSphere(position, radius, army, unitCats)
     if UnitsinRec then
         for k, v in UnitsinRec do
             local dist = VDist3(position, v:GetPosition())
-            if dist <= radius and army == v:GetArmy() and EntityCategoryContains(cats, v) then
+            if dist <= radius and army == v.Army and EntityCategoryContains(cats, v) then
                 table.insert(RadEntities, v)
             end
         end
@@ -70,7 +70,6 @@ function GetTrueEnemyUnitsInCylinder(unit, position, radius, height, unitCats)
     end
 
     local RadEntities = {}
-    local unitArmy = unit:GetArmy()
     local cats = unitCats or categories.ALLUNITS
     for _, v in UnitsinRec do
         local vpos = v:GetPosition()
@@ -78,7 +77,7 @@ function GetTrueEnemyUnitsInCylinder(unit, position, radius, height, unitCats)
         if dist <= radius then --its less cpu time like this or something
             local vdist = math.abs(position[2] - vpos[2])
             local vArmy = v:GetArmy()
-            if vdist <= cylHeight and unitArmy ~= vArmy and not IsAlly(unitArmy, vArmy) and EntityCategoryContains(cats, v) then
+            if vdist <= cylHeight and unit.Army ~= vArmy and not IsAlly(unit.Army, vArmy) and EntityCategoryContains(cats, v) then
                 table.insert(RadEntities, v)
             end
         end

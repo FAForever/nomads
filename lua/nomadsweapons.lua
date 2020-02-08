@@ -212,10 +212,10 @@ NAMFlakWeapon = Class(DefaultBeamWeapon) {
 
     PlayTAEffects = function(self, TMD)
         if not self.PlayingTAEffects then
-            local army, emit = self.unit:GetArmy()
+            local emit
             for _, bone in self.TMDEffectBones do
                 for k, v in NomadsEffectTemplate.T2MobileTacticalMissileDefenseTargetAcquired do
-                    emit = CreateAttachedEmitter(self.unit, bone, army, v)
+                    emit = CreateAttachedEmitter(self.unit, bone, self.unit.Army, v)
                     self.TAEffectsBag:Add(emit)
                 end
             end
@@ -582,11 +582,10 @@ DeathNuke = Class(BareBonesWeapon) {
 
         local launcher = self.unit
         local pos = self.proj:GetPosition()
-        local army = launcher:GetArmy()
         local brain = launcher:GetAIBrain()
         local damageType = bp.DamageType
-        self.proj.InnerRing:DoNukeDamage(launcher, pos, brain, army, damageType)
-        self.proj.OuterRing:DoNukeDamage(launcher, pos, brain, army, damageType)
+        self.proj.InnerRing:DoNukeDamage(launcher, pos, brain, launcher.Army, damageType)
+        self.proj.OuterRing:DoNukeDamage(launcher, pos, brain, launcher.Army, damageType)
     end,
 }
 

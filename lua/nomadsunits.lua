@@ -99,7 +99,7 @@ function NomadsSharedFactory( SuperClass )
     CreateBuildEffects = function( self, unitBeingBuilt, order )
         if self:GetBlueprint().General.BuildBones.BuildEffectBones then
 
-            local bp, army, emit, offset, unitHeight = self:GetBlueprint(), self:GetArmy()
+            local bp, army, emit, offset, unitHeight = self:GetBlueprint(), self.Army
             local bones = bp.General.BuildBones.BuildEffectBones
             local emitrate = math.ceil((bp.Economy.BuildRate or 1) / 2)
 
@@ -335,7 +335,7 @@ NExperimentalHoverLandUnit = Class(NHoverLandUnit) {
 
     DoCrushDamage = function(self, pos, bpDamage)
         -- To determine the offset in the units blueprint you can use this line:
-        -- CreateUnitHPR('xnl0101', self:GetArmy(), pos[1], pos[2], pos[3], 0,0,0)
+        -- CreateUnitHPR('xnl0101', self.Army, pos[1], pos[2], pos[3], 0,0,0)
         DamageArea(self, pos, bpDamage.Radius, bpDamage.Amount, bpDamage.Type, bpDamage.DamageFriendly )
     end,
 }
@@ -657,10 +657,10 @@ NCommandFrigateUnit = Class() {
     end,
 
     AddEffects = function(self, effects, bones, bag, delay)
-        local army, emit = self:GetArmy()
+        local emit
         for _, effect in effects do
             for _, bone in bones do
-                emit = CreateAttachedEmitter(self, bone, army, effect)
+                emit = CreateAttachedEmitter(self, bone, self.Army, effect)
                 bag:Add(emit)
                 self.Trash:Add(emit)
                 if delay then --you need to fork the thread for that!
@@ -706,9 +706,9 @@ NEnergyCreationUnit = Class(EnergyCreationUnit) {
     PlayActiveEffects = function(self)
         -- emitters
         if self.ActiveEffectTemplateName and self.ActiveEffectBone then
-            local army, emit = self:GetArmy()
+            local emit
             for k, v in NomadsEffectTemplate[ self.ActiveEffectTemplateName ] do
-                emit = CreateAttachedEmitter(self, self.ActiveEffectBone, army, v)
+                emit = CreateAttachedEmitter(self, self.ActiveEffectBone, self.Army, v)
                 self.ActiveEffectsBag:Add( emit )
                 self.Trash:Add( emit )
             end
@@ -901,9 +901,9 @@ NRadarUnit = Class(RadarUnit) {
     end,
 
     PlayIntelBoostEffects = function(self)
-        local army, emit = self:GetArmy()
+        local emit
         for k, v in self.IntelBoostFx do
-            emit = CreateAttachedEmitter( self, self.IntelBoostFxBone, army, v )
+            emit = CreateAttachedEmitter( self, self.IntelBoostFxBone, self.Army, v )
             emit:ScaleEmitter( self.IntelBoostFxScale or 1 )
             self.IntelBoostEffects:Add( emit )
             self.Trash:Add( emit )
@@ -911,9 +911,9 @@ NRadarUnit = Class(RadarUnit) {
     end,
 
     PlayIntelBoostExplosionEffects = function(self)
-        local army, emit = self:GetArmy()
+        local emit
         for k, v in self.OverchargeExplosionFx do
-            emit = CreateEmitterAtBone( self, self.OverchargeExplosionFxBone or self.IntelBoostFxBone, army, v )
+            emit = CreateEmitterAtBone( self, self.OverchargeExplosionFxBone or self.IntelBoostFxBone, self.Army, v )
             emit:ScaleEmitter( self.OverchargeExplosionFxScale or 1 )
             self.IntelBoostExplosionEffects:Add( emit )
         end

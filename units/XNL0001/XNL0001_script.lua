@@ -54,7 +54,7 @@ XNL0001 = Class(ACUUnit) {
                 -- create extra effect
                 local bone = self:GetBlueprint().RackBones[1]['RackBone']
                 for k, v in EffectTemplate.TCommanderOverchargeFlash01 do
-                    CreateAttachedEmitter(self.unit, bone, self.unit:GetArmy(), v):ScaleEmitter(self.FxMuzzleFlashScale)
+                    CreateAttachedEmitter(self.unit, bone, self.unit.Army, v):ScaleEmitter(self.FxMuzzleFlashScale)
                 end
             end,
         },
@@ -66,7 +66,7 @@ XNL0001 = Class(ACUUnit) {
                 -- create extra effect
                 local bone = self:GetBlueprint().RackBones[1]['RackBone']
                 for k, v in EffectTemplate.TCommanderOverchargeFlash01 do
-                    CreateAttachedEmitter(self.unit, bone, self.unit:GetArmy(), v):ScaleEmitter(self.FxMuzzleFlashScale)
+                    CreateAttachedEmitter(self.unit, bone, self.unit.Army, v):ScaleEmitter(self.FxMuzzleFlashScale)
                 end
             end,
         },
@@ -155,7 +155,7 @@ XNL0001 = Class(ACUUnit) {
         self.PlayCommanderWarpInEffectFlag = nil
         --if the acu is spawned in, find an orbital unit that works.
         if not self.OrbitalUnit then
-            local units = Utils.GetOwnUnitsInSphere(self:GetPosition(), 500, self:GetArmy(), categories.xno0001)
+            local units = Utils.GetOwnUnitsInSphere(self:GetPosition(), 500, self.Army, categories.xno0001)
             if units[1] then
                 self.OrbitalUnit = units[1]
             else
@@ -277,10 +277,9 @@ XNL0001 = Class(ACUUnit) {
         self:HideBone('BuildArm3', true)--these need to be updated in the other list as well, maybe add a function for this?
 
         local totalBones = self:GetBoneCount() - 1
-        local army = self:GetArmy()
         for k, v in EffectTemplate.UnitTeleportSteam01 do
             for bone = 1, totalBones do
-                CreateAttachedEmitter(self,bone,army, v)
+                CreateAttachedEmitter(self, bone, self.Army, v)
             end
         end
 
@@ -361,7 +360,7 @@ XNL0001 = Class(ACUUnit) {
         -- add the effect if desired
         if add then
             local emitBp = self:GetBlueprint().Display.EnhancementBoneEmitter
-            local emit = CreateAttachedEmitter( self, bone, self:GetArmy(), emitBp )
+            local emit = CreateAttachedEmitter( self, bone, self.Army, emitBp )
             self.EnhancementBoneEffectsBag[ bone ] = emit
             self.Trash:Add( self.EnhancementBoneEffectsBag[ bone ] )
         end

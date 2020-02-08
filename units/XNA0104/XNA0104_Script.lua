@@ -97,10 +97,10 @@ XNA0104 = Class(NAirTransportUnit) {
 
         if self:GetFractionComplete() < 1 then return end
 
-        local army, emit = self:GetArmy()
+        local emit
         for k, v in NomadsEffectTemplate.T2TransportThrusters do
             for _, bone in self.ThrusterBurnBones do
-                emit = CreateAttachedEmitter( self, bone, army, v )
+                emit = CreateAttachedEmitter( self, bone, self.Army, v )
                 self.ThrusterEffectsBag:Add( emit )
                 self.Trash:Add( emit )
             end
@@ -115,10 +115,10 @@ XNA0104 = Class(NAirTransportUnit) {
 
         if self:GetFractionComplete() < 1 then return end
 
-        local army, emit = self:GetArmy()
+        local emit
         for k, v in NomadsEffectTemplate.T2TransportThrusterBurn do
             for _, bone in self.ThrusterBurnBones do
-                emit = CreateAttachedEmitter( self, bone, army, v )
+                emit = CreateAttachedEmitter( self, bone, self.Army, v )
                 self.ThrusterBurnEffectsBag:Add( emit )
                 self.Trash:Add( emit )
             end

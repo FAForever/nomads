@@ -107,9 +107,9 @@ XNL0402 = Class(NLandUnit) {
     PlayBeamChargeUpSequence = function(self)
         -- plays the flashing effects at the body
         local fn = function(self)
-            local army, emitrate, emitters, emit = self:GetArmy(), 0, {}, nil
+            local emitrate, emitters, emit = 0, {}, nil
             for k, v in NomadsEffectTemplate.PhaseRayChargeUpFxPerm do
-                emit = CreateAttachedEmitterColoured(self, 'ReactorBeam02', army, v)--:OffsetEmitter(0, 0.1, 0) --flashing light
+                emit = CreateAttachedEmitterColoured(self, 'ReactorBeam02', self.Army, v)--:OffsetEmitter(0, 0.1, 0) --flashing light
                 table.insert( emitters, emit )
                 self.BeamChargeUpFxBag:Add( emit )
                 self.Trash:Add( emit )
@@ -138,9 +138,9 @@ XNL0402 = Class(NLandUnit) {
         end
         
         self.BeamHelperFxBag:Destroy() --clear any existing effects in case of stacking
-        local army, emit, beam = self:GetArmy(), nil, nil
+        local emit, beam = nil, nil
         for k, v in NomadsEffectTemplate.PhaseRayFakeBeamMuzzle do
-            emit = CreateAttachedEmitterColoured( self, 'ReactorBeam01', army, v )--:OffsetEmitter(0, 0.1, 0)
+            emit = CreateAttachedEmitterColoured( self, 'ReactorBeam01', self.Army, v )--:OffsetEmitter(0, 0.1, 0)
             self.BeamHelperFxBag:Add( emit )
             self.Trash:Add( emit )
         end
@@ -148,7 +148,7 @@ XNL0402 = Class(NLandUnit) {
         -- create a beam between the body of the unit and the tiny aimer thing
         for k, v in NomadsEffectTemplate.PhaseRayFakeBeam do
             local beamBp = RenameBeamEmitterToColoured(v,self.ColourIndex) --our beam is coloured so we recolour the emitter as well.
-            beam = AttachBeamEntityToEntity(self, 'ReactorBeam01', self, "ReactorBeam02", army, beamBp )
+            beam = AttachBeamEntityToEntity(self, 'ReactorBeam01', self, "ReactorBeam02", self.Army, beamBp )
             self.BeamHelperFxBag:Add( beam )
             self.Trash:Add( beam )
         end
@@ -161,9 +161,8 @@ XNL0402 = Class(NLandUnit) {
         self.BeamHelperFxBag:Destroy()
         self.BeamChargeUpFxBag:Destroy()
         if self.Beaming then
-            local army = self:GetArmy()
             for k, v in NomadsEffectTemplate.PhaseRayFakeBeamMuzzleBeamingStopped do
-                emit = CreateAttachedEmitterColoured( self, 'ReactorBeam01', army, v )--:OffsetEmitter(0, 0.1, 0) --fading light
+                emit = CreateAttachedEmitterColoured( self, 'ReactorBeam01', self.Army, v )--:OffsetEmitter(0, 0.1, 0) --fading light
             end
         end
         
@@ -211,15 +210,14 @@ XNL0402 = Class(NLandUnit) {
         -- slightly inspired by the monkeylords effect
 
         self:PlayUnitSound('Killed')
-        local army = self:GetArmy()
         
         -- Create Initial explosion effects
-        Explosion.CreateFlash( self, 'ReactorBeam01', 2, army )
-        CreateAttachedEmitter(self, 0, army, '/effects/emitters/explosion_fire_sparks_02_emit.bp')
-        CreateAttachedEmitter(self, 0, army, '/effects/emitters/distortion_ring_01_emit.bp'):ScaleEmitter(0.2)
+        Explosion.CreateFlash( self, 'ReactorBeam01', 2, self.Army )
+        CreateAttachedEmitter(self, 0, self.Army, '/effects/emitters/explosion_fire_sparks_02_emit.bp')
+        CreateAttachedEmitter(self, 0, self.Army, '/effects/emitters/distortion_ring_01_emit.bp'):ScaleEmitter(0.2)
         self:ShakeCamera(30, 4, 0, 1)
 
-        self:CreateExplosionDebris( 0, army )
+        self:CreateExplosionDebris( 0, self.Army )
 
         -- damage ring to push trees
         local x, y, z = unpack(self:GetPosition())
@@ -232,17 +230,17 @@ XNL0402 = Class(NLandUnit) {
         for i=Random(1,3), 3 do
             local bone = Random( 0, numBones )
             Explosion.CreateDefaultHitExplosionAtBone( self, bone, RandomFloat( 1.0, 2.0) )
-            self:CreateExplosionDebris( bone, army )
+            self:CreateExplosionDebris( bone, self.Army )
             WaitTicks( 13 - i - Random(0, 2) )
         end
 
         -- final explosion
-        Explosion.CreateFlash( self, 0, 3, army )
+        Explosion.CreateFlash( self, 0, 3, self.Army )
         self:ShakeCamera(2.5, 1.25, 0, 0.15)
         self:PlayUnitSound('Destroyed')
 
-        self:CreateExplosionDebris( 0, army )
-        self:CreateExplosionDebris( 0, army )
+        self:CreateExplosionDebris( 0, self.Army )
+        self:CreateExplosionDebris( 0, self.Army )
 
         -- Finish up force ring to push trees
         DamageRing(self, {x,y,z}, 0.1, 3, 1, 'Force', true)

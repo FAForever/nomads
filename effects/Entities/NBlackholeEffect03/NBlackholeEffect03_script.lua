@@ -18,13 +18,13 @@ NBlackholeEffect03 = Class(EmitterProjectile) {
     EffectThread = function(self)
         local scale = RandomFloat(0.5, 1.5)
         local scaleDecStep = scale / Random(15,150)
-        local army, emit = self:GetArmy()
+        local emit
         local emitters = {}
 
         self:SetBallisticAcceleration( -2 )  -- "gravity"
 
         for k, v in NomadsEffectTemplate.NukeBlackholeFireball do
-            emit = CreateEmitterOnEntity(self, army, v ):ScaleEmitter( scale )
+            emit = CreateEmitterOnEntity(self, self.Army, v ):ScaleEmitter( scale )
             table.insert( emitters, emit )
             self.Trash:Add( emit )
         end
@@ -48,9 +48,8 @@ NBlackholeEffect03 = Class(EmitterProjectile) {
     end,
 
     OnImpact = function(self, targetType, targetEntity)
-        local army = self:GetArmy()
         for k, v in NomadsEffectTemplate.NukeBlackholeFireballHit do
-            CreateEmitterAtEntity(self, army, v )
+            CreateEmitterAtEntity(self, self.Army, v )
         end
         if self.DamageData then
             local dmg = self.DamageData['Damage'] or 100

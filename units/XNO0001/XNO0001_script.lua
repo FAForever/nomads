@@ -146,8 +146,8 @@ xno0001 = Class(NOrbitUnit, NCommandFrigateUnit) {
 
         -- TODO: When the unit is ready and it has proper bones then uncomment these 2 lines and remove the createUnitHPR line with x + 5 in it
         local x, y, z =  unpack(self:GetPosition( attachBone ))
-        -- local unit = CreateUnitHPR( unitBp, self:GetArmy(), x, y, z, 0, 0, 0 )
-        local unit = CreateUnitHPR( unitBp, self:GetArmy(), x + 5, y, z, 0, 0, 0 )
+        -- local unit = CreateUnitHPR( unitBp, self.Army, x, y, z, 0, 0, 0 )
+        local unit = CreateUnitHPR( unitBp, self.Army, x + 5, y, z, 0, 0, 0 )
         self.UnitBeingBuilt = unit
         unit:SetIsValidTarget(false)
         unit:SetImmobile(true)

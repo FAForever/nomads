@@ -31,9 +31,9 @@ XNL0202 = Class(NLandUnit) {
     end,
 
     CreateSensorEmitter = function(self)
-        local bone, army, emit = 'Sensors', self:GetArmy()
+        local emit
         for k, v in NomadsEffectTemplate.AntennaeLights1 do
-            emit = CreateAttachedEmitter(self, bone, army, v)
+            emit = CreateAttachedEmitter(self, 'Sensors', self.Army, v)
             self.Trash:Add(emit)
         end
     end,

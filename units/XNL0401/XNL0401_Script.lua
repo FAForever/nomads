@@ -201,17 +201,16 @@ XNL0401 = Class(NExperimentalHoverLandUnit, SlowHover) {
         -- slightly inspired by the monkeylords effect
 
         self:PlayUnitSound('Killed')
-        local army = self:GetArmy()
 
         -- Create Initial explosion effects
-        explosion.CreateFlash( self, 0, 2, army )
-        CreateAttachedEmitter(self, 0, army, '/effects/emitters/destruction_explosion_concussion_ring_03_emit.bp'):ScaleEmitter(0.5)
-        CreateAttachedEmitter(self, 0, army, '/effects/emitters/explosion_fire_sparks_02_emit.bp')
-        CreateAttachedEmitter(self, 0, army, '/effects/emitters/distortion_ring_01_emit.bp'):ScaleEmitter(0.5)
+        explosion.CreateFlash( self, 0, 2, self.Army )
+        CreateAttachedEmitter(self, 0, self.Army, '/effects/emitters/destruction_explosion_concussion_ring_03_emit.bp'):ScaleEmitter(0.5)
+        CreateAttachedEmitter(self, 0, self.Army, '/effects/emitters/explosion_fire_sparks_02_emit.bp')
+        CreateAttachedEmitter(self, 0, self.Army, '/effects/emitters/distortion_ring_01_emit.bp'):ScaleEmitter(0.5)
         self:ShakeCamera(50, 5, 0, 1)
 
-        self:CreateExplosionDebris( 0, army )
-        self:CreateExplosionDebris( 0, army )
+        self:CreateExplosionDebris( 0, self.Army )
+        self:CreateExplosionDebris( 0, self.Army )
 
         -- damage ring to push trees
         local x, y, z = unpack(self:GetPosition())
@@ -230,17 +229,17 @@ XNL0401 = Class(NExperimentalHoverLandUnit, SlowHover) {
         for i=Random(1,3), 8 do
             local bone = Random( 0, numBones )
             explosion.CreateDefaultHitExplosionAtBone( self, bone, GetRandomInt( 1.0, 4.0) )
-            self:CreateExplosionDebris( bone, army )
+            self:CreateExplosionDebris( bone, self.Army )
             WaitTicks( 13 - i - Random(0, 3) )
         end
 
         -- final explosion
-        explosion.CreateFlash( self, 0, 3, army )
+        explosion.CreateFlash( self, 0, 3, self.Army )
         self:ShakeCamera(3, 2, 0, 0.15)
         self:PlayUnitSound('Destroyed')
 
-        self:CreateExplosionDebris( 0, army )
-        self:CreateExplosionDebris( 0, army )
+        self:CreateExplosionDebris( 0, self.Army )
+        self:CreateExplosionDebris( 0, self.Army )
 
         -- Finish up force ring to push trees
         DamageRing(self, {x,y,z}, 0.1, 3, 1, 'Force', true)
