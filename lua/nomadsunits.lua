@@ -52,7 +52,7 @@ function AddNomadsBeingBuiltEffects( SuperClass )
     StartBeingBuiltEffects = function(self, builder, layer)
         -- starts the build effect thread, which creates the build cube and the flashing. The flashing is avoided if the unit is upgrading.
         local UpgradesFrom = self:GetBlueprint().General.UpgradesFrom or false
-        local IsUpgrade = (UpgradesFrom == builder:GetUnitId())
+        local IsUpgrade = (UpgradesFrom == builder.UnitId)
         self.OnBeingBuiltEffectsBag:Add( self:ForkThread( CreateBuildCubeThread, builder, self.OnBeingBuiltEffectsBag, nil, IsUpgrade))
         if not IsUpgrade then
             self:SetMesh(self:GetBlueprint().Display.BuildMeshBlueprint, true)
@@ -144,10 +144,10 @@ function NomadsSharedFactory( SuperClass )
     MovingArmsThread = function(self)
         -- moves the arm  back and forth as long as a unit is being constructed
         if not self.UnitBeingBuilt or self.UnitBeingBuilt:BeenDestroyed() then
-            --WARN('NLandFactoryUnit -> MovingArmsThread: no unit being built '..repr(self:GetUnitId()))
+            --WARN('NLandFactoryUnit -> MovingArmsThread: no unit being built '..repr(self.UnitId))
             return
         elseif not self.ArmSlider1 then
-            --wARN('NLandFactoryUnit -> MovingArmsThread: No arm slider '..repr(self:GetUnitId()))
+            --wARN('NLandFactoryUnit -> MovingArmsThread: No arm slider '..repr(self.UnitId))
             return
         end
 

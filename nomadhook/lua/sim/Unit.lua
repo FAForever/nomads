@@ -38,7 +38,7 @@ Unit = Class(oldUnit) {
             end
 
             if not vTypeGroup.Bones or (vTypeGroup.Bones and (table.getn(vTypeGroup.Bones) == 0)) then
-                WARN('*WARNING: No effect bones defined for layer group ',repr(self:GetUnitId()),', Add these to a table in Display.[EffectGroup].', self:GetCurrentLayer(), '.Effects { Bones ={} } in unit blueprint.' )
+                WARN('*WARNING: No effect bones defined for layer group ',repr(self.UnitId),', Add these to a table in Display.[EffectGroup].', self:GetCurrentLayer(), '.Effects { Bones ={} } in unit blueprint.' )
             else
                 for kb, vBone in vTypeGroup.Bones do
                     for ke, vEffect in effects do
@@ -296,9 +296,9 @@ Unit = Class(oldUnit) {
             if val < 1 then
                 val = math.sqrt(val)
             end
-            --LOG('*DEBUG: SetSpeedMult '..repr(self:GetUnitId())..' '..repr(val))
+            --LOG('*DEBUG: SetSpeedMult '..repr(self.UnitId)..' '..repr(val))
         else
-            WARN('Nomads: SetSpeedMult: Can\'t set SpeedMult to unit ['..repr(self:GetUnitId() or "Unknown")..']. val=nil!')
+            WARN('Nomads: SetSpeedMult: Can\'t set SpeedMult to unit ['..repr(self.UnitId or "Unknown")..']. val=nil!')
             return
         end
         return oldUnit.SetSpeedMult(self, val)

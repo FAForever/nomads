@@ -78,7 +78,7 @@ AIBrain = Class(oldAIBrain) {
             if self.UnitSpecialAbilities[unitId][abilityName] then
                 self.UnitSpecialAbilities[unitId][abilityName] = nil
             else
-                SPEW('Nomads: SetUnitSpecialAbility: Attempt to remove non existent special ability '..repr(abilityName)..' from unit ['..repr(unit:GetUnitId())..']')
+                SPEW('Nomads: SetUnitSpecialAbility: Attempt to remove non existent special ability '..repr(abilityName)..' from unit ['..repr(unit.UnitId)..']')
             end
         elseif type(data) == 'table' then
             if not self.UnitSpecialAbilities[unitId] then
@@ -90,7 +90,7 @@ AIBrain = Class(oldAIBrain) {
             
             self.UnitSpecialAbilities[unitId][abilityName] = table.merged(self.UnitSpecialAbilities[unitId][abilityName], data)
         else
-            WARN('Nomads: SetUnitSpecialAbility: Attempt to set special ability '..repr(abilityName)..' on unit ['..repr(unit:GetUnitId())..'] with malformed data! | data =  ('..repr(data)..')')
+            WARN('Nomads: SetUnitSpecialAbility: Attempt to set special ability '..repr(abilityName)..' on unit ['..repr(unit.UnitId)..'] with malformed data! | data =  ('..repr(data)..')')
         end
         
         self.QueueAbilityPanelUpdate = true

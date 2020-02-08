@@ -17,7 +17,7 @@ Weapon = Class(oldWeapon) {
     DetermineColourIndex = function(self)
         --we determine the index once on create then save it in the entity table to save on sim slowdown
         if not self.unit.ColourIndex then
-            WARN('crazy unit is crazy - no colour index despite when its set OnPreCreate! blueprintID: ' .. self.unit:GetUnitId())
+            WARN('crazy unit is crazy - no colour index despite when its set OnPreCreate! blueprintID: ' .. self.unit.UnitId)
         end
         self.ColourIndex = self.unit.ColourIndex or 383.999
     end,
@@ -153,7 +153,7 @@ Weapon = Class(oldWeapon) {
                         -- do BP checks
                         for n, rack in bp.RackBones do
                             if rack.TurretBoneDualManip ~= 'Left' and rack.TurretBoneDualManip ~= 'Right' then
-                                WARN('*DEBUG: unit '..self.unit:GetUnitId()..', TurretBoneDualManip should have value Left or Right, not '..repr(switchTo)..' in weapon rack '..repr(self.CurrentRackSalvoNumber)..' of weapon '..bp.DisplayName)
+                                WARN('*DEBUG: unit '..self.unit.UnitId..', TurretBoneDualManip should have value Left or Right, not '..repr(switchTo)..' in weapon rack '..repr(self.CurrentRackSalvoNumber)..' of weapon '..bp.DisplayName)
                             end
                         end
                     end
@@ -236,7 +236,7 @@ Weapon = Class(oldWeapon) {
                 self.AimLeft:SetFiringArc(turretyawmin/12, turretyawmax/12, turretyawspeed, turretpitchmin, turretpitchmax, turretpitchspeed)
             end
         else
-            local strg = '*ERROR: TRYING TO SETUP A TURRET WITHOUT ALL TURRET NUMBERS IN BLUEPRINT, ABORTING TURRET SETUP. WEAPON: ' .. self:GetBlueprint().Label .. ' UNIT: '.. self.unit:GetUnitId()
+            local strg = '*ERROR: TRYING TO SETUP A TURRET WITHOUT ALL TURRET NUMBERS IN BLUEPRINT, ABORTING TURRET SETUP. WEAPON: ' .. self:GetBlueprint().Label .. ' UNIT: '.. self.unit.UnitId
             error(strg, 2)
         end
 

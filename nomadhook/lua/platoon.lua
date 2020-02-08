@@ -12,7 +12,7 @@ Platoon = Class(oldPlatoon) {
         local experimental = self:GetPlatoonUnits()[1]
         if experimental then
             local behaviors = import('/lua/ai/AIBehaviors.lua')
-            local ID = experimental:GetUnitId()
+            local ID = experimental.UnitId
             --LOG('*DEBUG: AI choosing behavior for nomads experimental '..repr(ID))
             if ID == 'xna0401' then
                 return behaviors.CometBehavior(self)
@@ -38,7 +38,7 @@ Platoon = Class(oldPlatoon) {
 
         local experimental = self:GetPlatoonUnits()[1]
         if experimental then
-            local ID = experimental:GetUnitId()
+            local ID = experimental.UnitId
 
             if ID == 'xna0401' or ID == 'xnl0402' or ID == 'xnl0403' or ID == 'xnl0401' then
 
