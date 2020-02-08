@@ -26,7 +26,7 @@ XNB4301 = Class(NShieldStructureUnit) {
             self.ShieldEffectsBag = {}
         end
         for k, v in self.ShieldEffects do
-            table.insert( self.ShieldEffectsBag, CreateAttachedEmitter( self, 'shield', self:GetArmy(), v ):ScaleEmitter(0.75) )
+            table.insert( self.ShieldEffectsBag, CreateAttachedEmitter( self, 'shield', self.Army, v ):ScaleEmitter(0.75) )
         end
     end,
 

@@ -56,9 +56,9 @@ XNL0107 = Class(NLandUnit) {
     PlayWeaponFiredEffects = function(self)
         local fn = function(self)
             WaitSeconds( self.ExhaustAnimDelay or 1 )
-            local army, emit = self:GetArmy()
+            local emit
             for k, v in NomadsEffectTemplate.TankBusterWeaponFired do
-                emit = CreateEmitterAtBone(self, 'Exhaust', army, v)
+                emit = CreateEmitterAtBone(self, 'Exhaust', self.Army, v)
                 self.WeaponFiredEffectsBag:Add(emit)
                 self.Trash:Add(emit)
             end

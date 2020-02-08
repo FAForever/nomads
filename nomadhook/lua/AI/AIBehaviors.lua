@@ -173,7 +173,6 @@ function CometTryExpGhettoGunship(self)
     local BeamerCat = ParseEntityCategory( 'xnl0402' )  -- this unit can be used to form exp ghetto gunship
     local BeamerFindRadius = 30
     local brain = unit:GetAIBrain()
-    local army = unit:GetArmy()
     local cargo, ExpInCargo, HasCargo, healthFrac, pos, beamer
 
     -- if we dont have a beamer attached then keep scanning the area to find one. If so, pick it up
@@ -199,7 +198,7 @@ function CometTryExpGhettoGunship(self)
             pos = unit:GetPosition()
             unit:IssueClearCommands()
             unit:IssueTransportUnload( cargo, pos )
-            unit:IssueMove( AIUtils.AIGetStartLocations(brain)[army] )
+            unit:IssueMove( AIUtils.AIGetStartLocations(brain)[unit.Army] )
 
         elseif not ExpInCargo and healthFrac >= 0.35 then
             -- no exp in cargo: find beamer

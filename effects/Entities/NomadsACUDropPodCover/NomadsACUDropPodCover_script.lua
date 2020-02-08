@@ -52,13 +52,12 @@ NomadsACUDropPodCover = Class(NullShell) {
         NullShell.OnImpact(self, targetType, targetEntity)
 
         -- create some additional effects
-        local army = self:GetArmy()
         local ok = (targetType ~= 'Water' and targetType ~= 'Shield' and targetType ~= 'Air' and targetType ~= 'UnitAir' and targetType ~= 'UnitUnderwater')
         if ok then
             local rotation = RandomFloat(0,2*math.pi)
             local size = RandomFloat(5, 6.5)
             local life = Random(40, 60)
-            CreateDecal(self:GetPosition(), rotation, 'Scorch_010_albedo', '', 'Albedo', size, size, 300, life, self:GetArmy())
+            CreateDecal(self:GetPosition(), rotation, 'Scorch_010_albedo', '', 'Albedo', size, size, 300, life, self.Army)
         end    
     end,
 

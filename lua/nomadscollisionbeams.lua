@@ -52,7 +52,6 @@ NomadsPhaseRay = Class(CollisionBeam) {
     end,
 
     ScorchThread = function(self, impactType)
-        local army = self:GetArmy()
         local size = 1.2 + (Random() * 1.5)
         local CurrentPosition = self:GetPosition(1)
         local LastPosition = Vector(0,0,0)
@@ -62,7 +61,7 @@ NomadsPhaseRay = Class(CollisionBeam) {
 
                 -- only create splat if it makes sense to make one on the surface
                 if impactType ~= 'Air' and impactType ~= 'Nothing' then
-                    CreateSplat( CurrentPosition, Util.GetRandomFloat(0,2*math.pi), self.SplatTexture, size, size, 100, 100, army )
+                    CreateSplat( CurrentPosition, Util.GetRandomFloat(0,2*math.pi), self.SplatTexture, size, size, 100, 100, self.Army )
                 end
 
                 LastPosition = CurrentPosition

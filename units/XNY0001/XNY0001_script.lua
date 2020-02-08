@@ -38,7 +38,6 @@ XNY0001 = Class(NStructureUnit) {
     
     SetIntel = function(self, probeType)
         if not self.IntelAllowed then return end
-        local army = self:GetArmy()
         local intelType = probeType or self.probeType or 'IntelProbe'
         if self.CapacitorBoostEnabled then intelType = intelType..'Capacitor' end
         
@@ -49,7 +48,7 @@ XNY0001 = Class(NStructureUnit) {
         
         for intel, radius in self.IntelData[intelType] do
             if radius then
-                self:InitIntel(army, intel, radius)
+                self:InitIntel(self.Army, intel, radius)
                 self:EnableIntel(intel)
             else
                 self:DisableIntel(intel)

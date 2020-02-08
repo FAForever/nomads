@@ -14,7 +14,7 @@ NIntelProbe1 = Class(Buoy1) {
     AddProbeUnit = function(self, probeType)
         local pos = self:GetPosition()
         self.probeType = probeType
-        self.ProbeUnit = CreateUnitHPR('XNY0001', self:GetArmy(), pos[1], pos[2], pos[3], 0, 0, 0 )
+        self.ProbeUnit = CreateUnitHPR('XNY0001', self.Army, pos[1], pos[2], pos[3], 0, 0, 0 )
         self.ProbeUnit:AttachTo(self,0)
         self.ProbeUnit.Projectile = self
         self.ProbeUnit.probeType = probeType

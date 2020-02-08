@@ -18,7 +18,7 @@ Unit = Class(oldUnit) {
     OnPreCreate = function(self)
     --we determine the index once on create then save it in the entity table to save on sim slowdown
         if not self.ColourIndex then
-            local hexColour = colourslist[ScenarioInfo.ArmySetup[ListArmies()[self:GetArmy()]].ArmyColor]
+            local hexColour = colourslist[ScenarioInfo.ArmySetup[ListArmies()[self.Army]].ArmyColor]
             self.ColourIndex = DetermineColourIndex(hexColour)
         end
 
@@ -26,7 +26,6 @@ Unit = Class(oldUnit) {
     end,
 
     CreateTerrainTypeEffects = function( self, effectTypeGroups, FxBlockType, FxBlockKey, TypeSuffix, EffectBag, TerrainType )
-        local army = self:GetArmy()
         local pos = self:GetPosition()
         local effects = {}
         local emit
@@ -43,7 +42,7 @@ Unit = Class(oldUnit) {
             else
                 for kb, vBone in vTypeGroup.Bones do
                     for ke, vEffect in effects do
-                        emit = CreateAttachedEmitter(self,vBone,army,vEffect):ScaleEmitter(vTypeGroup.Scale or 1)
+                        emit = CreateAttachedEmitter(self,vBone,self.Army,vEffect):ScaleEmitter(vTypeGroup.Scale or 1)
                         if vTypeGroup.Offset then
                             emit:OffsetEmitter(vTypeGroup.Offset[1] or 0, vTypeGroup.Offset[2] or 0,vTypeGroup.Offset[3] or 0)
                         end

@@ -8,7 +8,7 @@ local RandomFloat = import('/lua/utilities.lua').GetRandomFloat
 
 function CreateAmbientShieldEffects( unit, EffectsBag )
 
-    local shield, bp, army, emit = unit.MyShield, unit:GetBlueprint(), unit:GetArmy()
+    local shield, bp, emit = unit.MyShield, unit:GetBlueprint()
     local bone = 0
 
     -- determining the interval is crucial. We have two shields, the regular one and the stealth shield. Both have a different interval so we
@@ -24,7 +24,7 @@ function CreateAmbientShieldEffects( unit, EffectsBag )
     local offset = bp.Defense.Shield.ShieldSize - (bp.Defense.Shield.ShieldVerticalOffset or 0)
     while unit and not unit:BeenDestroyed() and not unit.Dead do
         for k, v in effectTable do
-            emit = CreateEmitterAtBone( unit, bone, army, v ):OffsetEmitter(0, offset, 0)
+            emit = CreateEmitterAtBone( unit, bone, unit.Army, v ):OffsetEmitter(0, offset, 0)
             EffectsBag:Add( emit )
         end
     end
@@ -39,7 +39,6 @@ function CreateBeamEntities( builder, unitBeingBuilt, BuildEffectBones, BuildEff
     -- the entity is being instantly moved around on the unit that's being built
 
     local bp = unitBeingBuilt:GetBlueprint()
-    local army = builder:GetArmy()
     local ox, oy, oz = unpack(unitBeingBuilt:GetPosition())
     local endEntityTable = {}
 
@@ -64,13 +63,13 @@ function CreateBeamEntities( builder, unitBeingBuilt, BuildEffectBones, BuildEff
 
                 -- beam
                 for k, v in ConstructionBeams do
-                    local beamEffect = AttachBeamEntityToEntity(builder, BuildBone, BeamEndEntity, -1, army, v)
+                    local beamEffect = AttachBeamEntityToEntity(builder, BuildBone, BeamEndEntity, -1, builder.Army, v)
                     BuildEffectsBag:Add( beamEffect)
                 end
 
                 -- beam endpoint emitters
                 for _, ebp in ConstructionBeamEndPoints do
-                    local sparks = CreateEmitterOnEntity( BeamEndEntity, army, ebp )
+                    local sparks = CreateEmitterOnEntity( BeamEndEntity, builder.Army, ebp )
                     BuildEffectsBag:Add( sparks )
                 end
             end
@@ -80,7 +79,7 @@ function CreateBeamEntities( builder, unitBeingBuilt, BuildEffectBones, BuildEff
     -- beam startpoint emitters
     for index, bone in BuildEffectBones do
         for k, v in ConstructionBeamStartPoint do
-            local starteffect = CreateAttachedEmitter(builder, bone , builder:GetArmy(), v)
+            local starteffect = CreateAttachedEmitter(builder, bone , builder.Army, v)
             BuildEffectsBag:Add(starteffect)
         end
     end
@@ -229,7 +228,7 @@ function CreateBuildCubeThread( unitBeingBuilt, builder, OnBeingBuiltEffectsBag,
 
     -- create emitters
     for k, v in EffectTable do
-        local emit = CreateAttachedEmitter(unitBeingBuilt, 0, unitBeingBuilt:GetArmy(), v)
+        local emit = CreateAttachedEmitter(unitBeingBuilt, 0, unitBeingBuilt.Army, v)
         emit:OffsetEmitter(ox, oy, oz)
         emit:ScaleEmitter(scale)
         OnBeingBuiltEffectsBag:Add( emit )
@@ -243,7 +242,7 @@ function CreateBuildCubeThread( unitBeingBuilt, builder, OnBeingBuiltEffectsBag,
 
 -- TODO: create multiple effects for larger units
 --[[    if not noFlashing then
-        local emitters = import('/lua/EffectUtilities.lua').CreateEffects(unitBeingBuilt, unitBeingBuilt:GetArmy(), NomadsEffectTemplate.ConstructionPulsingFlash)
+        local emitters = import('/lua/EffectUtilities.lua').CreateEffects(unitBeingBuilt, unitBeingBuilt.Army, NomadsEffectTemplate.ConstructionPulsingFlash)
         for k, emit in emitters do
             emit:ScaleEmitter( math.min(x or 1, z or 1) )
             OnBeingBuiltEffectsBag:Add( emit )
@@ -274,7 +273,7 @@ end
 
 function CreateSelfRepairEffects( unit, EffectsBag, numEffects)
 
-    local army, emit = unit:GetArmy()
+    local emit
     local emitters = {}
 
     if not numEffects then
@@ -284,7 +283,7 @@ function CreateSelfRepairEffects( unit, EffectsBag, numEffects)
     for i=1, numEffects do
         local emits = {}
         for k, v in NomadsEffectTemplate.RepairSelf do
-            emit = CreateEmitterOnEntity( unit, army, v )
+            emit = CreateEmitterOnEntity( unit, unit.Army, v )
             EffectsBag:Add( emit )
             table.insert( emits, emit )
         end
@@ -316,9 +315,9 @@ end
 CreateFactoryBuildBeams = function(builder, unitBeingBuilt, BuildEffectBones, BuildEffectsBag )
 
     -- create a flashing kind of effect at the pad where the unit is being built
-    local army, emit = builder:GetArmy()
+    local emit
     for k, v in NomadsEffectTemplate.ConstructionDefaultBeingBuiltEffectsMobile do
-        emit = CreateAttachedEmitter( unitBeingBuilt, 0, army, v )
+        emit = CreateAttachedEmitter( unitBeingBuilt, 0, builder.Army, v )
         BuildEffectsBag:Add( emit )
         unitBeingBuilt.Trash:Add(emit)
     end
@@ -345,7 +344,6 @@ function PlayNomadsReclaimEffects( reclaimer, reclaimed, BuildEffectBones, Effec
     WaitSeconds(0.3)
     if not reclaimer or not reclaimed then return end
 
-    local army = reclaimer:GetArmy()
     local rBp = reclaimed:GetBlueprint()
 
     if not rBp then
@@ -359,7 +357,7 @@ function PlayNomadsReclaimEffects( reclaimer, reclaimed, BuildEffectBones, Effec
 
     -- additional effects
     for k, v in NomadsEffectTemplate.ReclaimObjectAOE do
-        EffectsBag:Add( CreateEmitterOnEntity( reclaimed, army, v ) )
+        EffectsBag:Add( CreateEmitterOnEntity( reclaimed, reclaimer.Army, v ) )
     end
 
     -- start animation, move beam entities around
@@ -398,7 +396,7 @@ function PlayNomadsReclaimEndEffects( reclaimer, reclaimed, EffectsBag )
 
     local army = -1
     if reclaimer then
-        army = reclaimer:GetArmy()
+        army = reclaimer.Army
     end
     for k, v in NomadsEffectTemplate.ReclaimBeamEndPoints do
         EffectsBag:Add( CreateEmitterAtEntity( reclaimed, army, v ) )

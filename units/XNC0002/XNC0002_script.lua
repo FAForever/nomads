@@ -117,10 +117,10 @@ xnc0002 = Class(NCivilianStructureUnit) {
     end,
 
     AddEffects = function (self, effects, bones, bag, delay)
-        local army, emit = self:GetArmy()
+        local emit
         for _, effect in effects do
             for _, bone in bones do
-                emit = CreateAttachedEmitter(self, bone, army, effect)
+                emit = CreateAttachedEmitter(self, bone, self.Army, effect)
                 bag:Add(emit)
                 self.Trash:Add(emit)
                 if delay then --you need to fork the thread for that!

@@ -16,7 +16,7 @@ local Entity = import('/lua/sim/Entity.lua').Entity
 --CreateOrbitalUnit = function(self, offsetAmount, blueprint, unitArmy, pos)
 function CreateOrbitalUnit(self, offsetAmount, blueprint, unitArmy, pos)
     local bp = blueprint or 'xno0001'
-    local army = unitArmy or self:GetArmy()
+    local army = unitArmy or self.Army
     local position = pos or self:GetPosition()
     local heading = self:GetHeading()
     
@@ -59,7 +59,7 @@ FindOrbitalUnit = function(self, cats, range)
     local position = self:GetPosition()
     local unitCats = cats or categories.xno0001
     local searchRange = range or 500
-    local units = Utils.GetOwnUnitsInSphere(position, searchRange, self:GetArmy(), unitCats)
+    local units = Utils.GetOwnUnitsInSphere(position, searchRange, self.Army, unitCats)
     local ChosenUnit = false
     
     local ShortestQueueLength = 4 --if the queues get too long for some absurd reason, spawn a new frigate instead of clogging up the rest
@@ -263,14 +263,14 @@ function AddLights(SuperClass)
             -- adds light emitters to the light bones
             self:RemoveLights()
             if self.LightBones then
-                local army, emit, templ = self:GetArmy(), nil, nil
+                local emit, templ = nil, nil
 
                 for i=1, table.getn(self.LightBones) do
                     if self.LightBones[i] then
                         for _, bone in self.LightBones[i] do
                             templ = self:GetLightTemplate(i)
                             for k, v in templ do
-                                emit = CreateAttachedEmitter(self, bone, army, v)
+                                emit = CreateAttachedEmitter(self, bone, self.Army, v)
                                 self.LightsBag:Add( emit )
                                 self.Trash:Add( emit )
                             end
@@ -323,15 +323,15 @@ function AddNavalLights(SuperClass)
             -- adds light emitters to the antennae bones
             self:RemoveLights()
             if self.LightBone_Left and self.LightBone_Right then
-                local army, templ, emit = self:GetArmy(), self:GetLightTemplate(0), nil
+                local templ, emit = self:GetLightTemplate(0), nil
                 for k, v in templ do
-                    emit = CreateAttachedEmitter(self, self.LightBone_Left, army, v)
+                    emit = CreateAttachedEmitter(self, self.LightBone_Left, self.Army, v)
                     self.Trash:Add( emit )
                     self.LightsBag:Add( emit )
                 end
                 templ = self:GetLightTemplate(1)
                 for k, v in templ do
-                    emit = CreateAttachedEmitter(self, self.LightBone_Right, army, v)
+                    emit = CreateAttachedEmitter(self, self.LightBone_Right, self.Army, v)
                     self.Trash:Add( emit )
                     self.LightsBag:Add( emit )
                 end
@@ -971,13 +971,13 @@ function AddCapacitorAbility( SuperClass )
         PlayCapEffects = function(self, effects)
             self.CapFxBag:Destroy()
             local ox, oy, oz
-            local army, emit = self:GetArmy()
+            local emit
             for bk, bone in self.CapFxBones do
                 ox = self.CapFxBonesOffsets[bk][1] or 0
                 oy = self.CapFxBonesOffsets[bk][2] or 0
                 oz = self.CapFxBonesOffsets[bk][3] or 0
                 for k, v in effects do
-                    emit = CreateAttachedEmitter(self, bone, army, v)
+                    emit = CreateAttachedEmitter(self, bone, self.Army, v)
                     emit:OffsetEmitter(ox, oy, oz)
                     self.CapFxBag:Add(emit)
                 end

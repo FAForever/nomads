@@ -10,18 +10,17 @@ XNB1301 = Class(NEnergyCreationUnit) {
 
     OnStopBeingBuilt = function(self, builder, layer)
         -- antennae lights
-        local army, emit = self:GetArmy()
         for k, v in NomadsEffectTemplate.AntennaeLights1 do
-            self.Trash:Add( CreateAttachedEmitter(self, 'blinklight.001', army, v) )
+            self.Trash:Add( CreateAttachedEmitter(self, 'blinklight.001', self.Army, v) )
         end
         for k, v in NomadsEffectTemplate.AntennaeLights3 do
-            self.Trash:Add( CreateAttachedEmitter(self, 'blinklight.002', army, v) )
+            self.Trash:Add( CreateAttachedEmitter(self, 'blinklight.002', self.Army, v) )
         end
         for k, v in NomadsEffectTemplate.AntennaeLights5 do
-            self.Trash:Add( CreateAttachedEmitter(self, 'blinklight.003', army, v) )
+            self.Trash:Add( CreateAttachedEmitter(self, 'blinklight.003', self.Army, v) )
         end
         for k, v in NomadsEffectTemplate.AntennaeLights7 do
-            self.Trash:Add( CreateAttachedEmitter(self, 'blinklight.004', army, v) )
+            self.Trash:Add( CreateAttachedEmitter(self, 'blinklight.004', self.Army, v) )
         end
 
         NEnergyCreationUnit.OnStopBeingBuilt( self, builder, layer )

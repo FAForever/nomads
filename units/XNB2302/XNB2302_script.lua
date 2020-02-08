@@ -63,7 +63,7 @@ XNB2302 = Class(NStructureUnit) {
 
     FindArtillerySatellite = function(self)
         self.ArtilleryAlreadyRequested = true
-        local satellites = GetOwnUnitsInSphere(self:GetPosition(), 500, self:GetArmy(), categories.xno2302)
+        local satellites = GetOwnUnitsInSphere(self:GetPosition(), 500, self.Army, categories.xno2302)
         
         for _,satellite in satellites do
             if satellite.Unused == true then
@@ -138,7 +138,7 @@ XNB2302 = Class(NStructureUnit) {
         if self.ArtilleryUnit ~= nil then
             newUnit.ArtilleryAlreadyRequested = true
             local pos = self.ArtilleryUnit:GetPosition()
-            ChangeUnitArmy(self.ArtilleryUnit, (newUnit:GetAIBrain()):GetArmyIndex() ) --why not newUnit:GetArmy()
+            ChangeUnitArmy(self.ArtilleryUnit, (newUnit:GetAIBrain()):GetArmyIndex() ) --why not newUnit.Army
             for _ , unit in GetUnitsInRect( Rect(pos[1]-2.5, pos[3]-2.5, pos[1]+2.5, pos[3]+2.5) ) do
                 if string.find(unit:GetBlueprint().BlueprintId, 'xno2302') then
                     newUnit:OnArtilleryUnitAssigned(unit)

@@ -941,11 +941,10 @@ XNL0301 = Class(NWalkingLandUnit) {
         end
 
         -- base effect
-        local army = self:GetArmy()
         local emitters = {}
         local emit, rs, k
         for k, v in TemplReg do
-            emit = CreateEmitterAtBone(self, 'Torso', army, v)
+            emit = CreateEmitterAtBone(self, 'Torso', self.Army, v)
             table.insert(emitters, emit)
         end
 
@@ -973,7 +972,7 @@ XNL0301 = Class(NWalkingLandUnit) {
             end
 
             for k, v in TemplSmall do
-                emit = CreateEmitterAtBone(self, bone, army, v):ScaleEmitter(rs):OffsetEmitter(rx, ry, rz)
+                emit = CreateEmitterAtBone(self, bone, self.Army, v):ScaleEmitter(rs):OffsetEmitter(rx, ry, rz)
                 table.insert(emitters, emit)
             end
 

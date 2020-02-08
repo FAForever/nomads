@@ -17,13 +17,12 @@ NomadsACUDropMeteor = Class(Meteor) {
     ImpactEffects = function(self, position, InWater, scale)
         Meteor.ImpactEffects(self, position, InWater, scale)
 
-        local army = self:GetArmy()
         local ori = self:GetOrientation()
         local pos = self:GetPosition()
         local x,y,z = unpack(pos)
         local terrain = GetTerrainHeight(x, z)
         y = terrain
-        local droppod = CreateUnitHPR('XNA0001', army, x, y, z, 0, 0, 0)
+        local droppod = CreateUnitHPR('XNA0001', self.Army, x, y, z, 0, 0, 0)
         --self.Trash:Add(droppod)
 
         -- adjusting droppod elevation to make the unit appear under water if we need it there. Since it is an air unit

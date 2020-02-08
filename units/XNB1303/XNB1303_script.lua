@@ -40,9 +40,9 @@ XNB1303 = Class(NMassFabricationUnit) {
     end,
 
     PlayActiveEffects = function(self)
-        local army, emit = self:GetArmy()
+        local emit
         for k, v in self.ActiveEffectsTemplate do
-            emit = CreateEmitterAtBone(self, 'Core', army, v)
+            emit = CreateEmitterAtBone(self, 'Core', self.Army, v)
             self.ActiveEffectsBag:Add( emit )
             self.Trash:Add( emit )
         end

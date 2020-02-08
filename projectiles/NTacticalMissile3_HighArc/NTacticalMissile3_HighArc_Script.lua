@@ -49,7 +49,7 @@ NTacticalMissile3_HighArc = Class(ArcingTacticalMissile) {
 
         -- Split effects
         for k, v in NomadsEffectTemplate.ArcingTacticalMissileSpeedupFlash do
-            CreateEmitterAtEntity( self, self:GetArmy(), v )
+            CreateEmitterAtEntity( self, self.Army, v )
         end
 
         self:Destroy()
