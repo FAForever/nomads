@@ -18,13 +18,12 @@ NBlackholeEffect03 = Class(EmitterProjectile) {
     EffectThread = function(self)
         local scale = RandomFloat(0.5, 1.5)
         local scaleDecStep = scale / Random(15,150)
-        local emit
-        local emitters = {}
 
         self:SetBallisticAcceleration( -2 )  -- "gravity"
 
+        local emitters = {}
         for k, v in NomadsEffectTemplate.NukeBlackholeFireball do
-            emit = CreateEmitterOnEntity(self, self.Army, v ):ScaleEmitter( scale )
+            local emit = CreateEmitterOnEntity(self, self.Army, v ):ScaleEmitter( scale )
             table.insert( emitters, emit )
             self.Trash:Add( emit )
         end
