@@ -1,17 +1,14 @@
 local CollisionBeam = import('/lua/sim/CollisionBeam.lua').CollisionBeam
 local SCCollisionBeam = import('/lua/defaultcollisionbeams.lua').SCCollisionBeam
 local NomadsEffectTemplate = import ('/lua/nomadseffecttemplate.lua')
-local EffectUtilities = import('/lua/EffectUtilities.lua')
 local Util = import('/lua/utilities.lua')
 
 -- TODO:possibly put the CollisionBeam hook into this one instead, no need to hook all the beams just because?
 -- Nomads continuous beam
 NomadsPhaseRay = Class(CollisionBeam) {
-
     -- The only beam in the Nomads mod!
     -- there was some crazy stuff in here that would allow healing of units. This never seemed to work and since I don't care
     -- for healing units (we're removing the fancy stuff remember!) it got deleted.
-
     FxBeamStartPoint = NomadsEffectTemplate.PhaseRayMuzzle,
     FxBeam = NomadsEffectTemplate.PhaseRayBeam,
     FxBeamEndPoint = NomadsEffectTemplate.PhaseRayBeamEnd,
@@ -28,8 +25,7 @@ NomadsPhaseRay = Class(CollisionBeam) {
     SplatTexture = 'czar_mark01_albedo',
     TerrainImpactScale = 1,
     TerrainImpactType = 'LargeBeam01',
-    
-    
+
     EmittersToRecolour = {'FxBeam',},
     FactionColour = true,
 
@@ -98,7 +94,5 @@ HVFlakCollisionBeam = Class(SCCollisionBeam) {
         '/effects/emitters/targeting_beam_invisible.bp'
     },
     FxBeamEndPoint = NomadsEffectTemplate.MissileHitNone1,
-
-    --FxImpactNone = NomadsEffectTemplate.MissileHitNone1,
 }
 
