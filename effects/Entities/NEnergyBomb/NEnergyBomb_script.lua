@@ -1,6 +1,5 @@
 local NullShell = import('/lua/sim/defaultprojectiles.lua').NullShell
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
-local EffectTemplate = import('/lua/EffectTemplates.lua')
 local EffectUtilities = import('/lua/EffectUtilities.lua')
 local Util = import('/lua/utilities.lua')
 local RandomFloat = Util.GetRandomFloat
@@ -59,20 +58,11 @@ NEnergyBomb = Class(NullShell) {
 
         -- Residual smoke and fire
         WaitSeconds(1.9)
-        local emitters, templ, n, m
+
         local maxOffset = 5
         local m = Random(-4, 5)
-        for i=1, m do
-            n = Random(1, 4)
-            if n == 1 then
-                templ = NomadsEffectTemplate.EnergyBombResidualFlames_Var1
-            elseif n == 2 then
-                templ = NomadsEffectTemplate.EnergyBombResidualFlames_Var2
-            elseif n == 3 then
-                templ = NomadsEffectTemplate.EnergyBombResidualFlames_Var3
-            elseif n == 4 then
-                templ = NomadsEffectTemplate.EnergyBombResidualFlames_Var4
-            end
+        for i = 1, m do
+            local templ = NomadsEffectTemplate.['EnergyBombResidualFlames_Var' .. Random(1, 4)]
             local emitters = EffectUtilities.CreateEffectsWithOffset( self, self.Army, templ, RandomFloat(-maxOffset, maxOffset), 0, RandomFloat(-maxOffset, maxOffset) )
             local scl = RandomFloat(0.75, 1.25)
             for k, emit in emitters do
