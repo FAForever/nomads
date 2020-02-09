@@ -18,7 +18,7 @@ Unit = Class(oldUnit) {
     OnPreCreate = function(self)
     --we determine the index once on create then save it in the entity table to save on sim slowdown
         if not self.ColourIndex then
-            local hexColour = colourslist[ScenarioInfo.ArmySetup[ListArmies()[self.Army]].ArmyColor]
+            local hexColour = colourslist[ScenarioInfo.ArmySetup[ListArmies()[self:GetArmy()]].ArmyColor]
             self.ColourIndex = DetermineColourIndex(hexColour)
         end
 
