@@ -14,6 +14,7 @@ Projectile = Class(oldProjectile) {
         SetBeamsToColoured(self, self.BeamsToRecolour)
         oldProjectile.OnCreate(self, inWater)
         self.ImpactOnType = "Unknown"
+        self.Army = self:GetArmy() --TODO:Remove this one relevant PR in faf is merged
     end,
 
     --fill this table with emitters to recolour. This one works on trails and beams.

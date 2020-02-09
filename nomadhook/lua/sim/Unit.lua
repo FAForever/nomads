@@ -62,6 +62,10 @@ Unit = Class(oldUnit) {
         oldUnit.OnCreate(self)
         self._IsSuckedInBlackHole = false
         self.SpeedMulti = 1
+        
+        --TODO: remove these once FAF merges in the relevant PR
+        self.Army = self:GetArmy()
+        self.Sync.army = self.Army
     end,
 
     OnStopBeingBuilt = function(self, builder, layer)

@@ -3,6 +3,12 @@ do
 
 local NomadsShieldChanges = function(SuperClass)
     return Class(SuperClass) {
+    
+    --TODO:Remove this once Relevant PR is merged
+    OnCreate = function(self, spec)
+        SuperClass.OnCreate(self, spec)
+        self.Army = self:GetArmy()
+    end,
 
     OnDamage =  function(self,instigator,amount,vector,type)
         -- experimental footfall damage shouldn't damage the shield. This type of damage is also done by hover experimentals such as the crawler

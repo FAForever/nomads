@@ -20,7 +20,13 @@ local oldCollisionBeam = CollisionBeam
 CollisionBeam = Class(oldCollisionBeam) {
     --fill this table with emitters to recolour. Works on beams and trails for now
     EmittersToRecolour = {},
-
+    
+    --TODO:Remove this after relevant FAF PR is merged
+    OnCreate = function(self)
+        oldCollisionBeam.OnCreate(self)
+        self.Army = self:GetArmy()
+    end,
+    
     OnEnable = function(self)
         SetBeamsToColoured(self, self.EmittersToRecolour)
         oldCollisionBeam.OnEnable(self)
