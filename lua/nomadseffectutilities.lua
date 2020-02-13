@@ -25,52 +25,41 @@ function CreateAmbientShieldEffects( unit, EffectsBag )
     end
 end
 
-function CreateBeamEntities( builder, unitBeingBuilt, BuildEffectBones, BuildEffectsBag, ConstructionBeams, ConstructionBeamStartPoint, ConstructionBeamEndPoints )
+function CreateBeamEntities(builder, unitBeingBuilt, BuildEffectBones, BuildEffectsBag, ConstructionBeams, ConstructionBeamStartPoint, ConstructionBeamEndPoints)
     -- the beams work like this:
     -- an entity is created on the unit that's being built. A beam emitter is created between the build bone and the entity.
     -- the entity is being instantly moved around on the unit that's being built
-    local ox, oy, oz = unpack(unitBeingBuilt:GetPosition())
+    local pos = unitBeingBuilt:GetPosition()
     local endEntityTable = {}
 
-    if builder.BuildBones then
-        BuildEffectBones = builder.BuildBones
-    end
-
     -- Create build beams
-    local beamsPerBone = builder:GetBlueprint().Display.NumberOfBuildBeams or NomadsEffectTemplate.ConstructionBeamsPerBuildBone or 1
-    local beamEffect = nil
+    local beamsPerBone = NomadsEffectTemplate.ConstructionBeamsPerBuildBone
     for i, BuildBone in BuildEffectBones do
-
-        for j=1, beamsPerBone do
-
+        for j = 1, beamsPerBone do
+            -- Create the entity that is attached to the unitBeingBuilt
             local BeamEndEntity = Entity()
             BeamEndEntity.counter = 0
-            Warp( BeamEndEntity, Vector(ox, oy, oz))
+            Warp(BeamEndEntity, pos)
             table.insert(endEntityTable, BeamEndEntity)
-            BuildEffectsBag:Add( BeamEndEntity )
+            BuildEffectsBag:Add(BeamEndEntity)
 
             -- beam
-            for k, v in ConstructionBeams do
-                local beamEffect = AttachBeamEntityToEntity(builder, BuildBone, BeamEndEntity, -1, builder.Army, v)
-                BuildEffectsBag:Add( beamEffect)
+            for _, v in ConstructionBeams do
+                BuildEffectsBag:Add(AttachBeamEntityToEntity(builder, BuildBone, BeamEndEntity, -1, builder.Army, v))
             end
 
             -- beam endpoint emitters
             for _, ebp in ConstructionBeamEndPoints do
-                local sparks = CreateEmitterOnEntity( BeamEndEntity, builder.Army, ebp )
-                BuildEffectsBag:Add( sparks )
+                BuildEffectsBag:Add(CreateEmitterOnEntity(BeamEndEntity, builder.Army, ebp))
             end
         end
-    end
 
-    -- beam startpoint emitters
-    for index, bone in BuildEffectBones do
-        for k, v in ConstructionBeamStartPoint do
-            local starteffect = CreateAttachedEmitter(builder, bone , builder.Army, v)
+        -- beam startpoint emitters
+        for _, v in ConstructionBeamStartPoint do
+            local starteffect = CreateAttachedEmitter(builder, BuildBone, builder.Army, v)
             BuildEffectsBag:Add(starteffect)
         end
     end
-
     return endEntityTable
 end
 
