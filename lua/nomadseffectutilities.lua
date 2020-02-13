@@ -208,63 +208,47 @@ function CreateFactoryBuildBeams(builder, unitBeingBuilt, BuildEffectBones, Buil
     end
 end
 
-function PlayNomadsReclaimEffects( reclaimer, reclaimed, BuildEffectBones, EffectsBag )
-    WaitSeconds(0.3)
-    if not reclaimer or not reclaimed then return end
-
+function PlayNomadsReclaimEffects(reclaimer, reclaimed, BuildEffectBones, EffectsBag)
     local rBp = reclaimed:GetBlueprint()
-
-    if not rBp then
-        return
-    end
-
     local sx, sy, sz = (rBp.SizeX or 1)/2, (rBp.SizeY or 1)/2, (rBp.SizeZ or 1)/2
 
     -- create beam entities
-    local endEntityTable = CreateBeamEntities( reclaimer, reclaimed, BuildEffectBones, EffectsBag, NomadsEffectTemplate.ReclaimBeams, NomadsEffectTemplate.ReclaimBeamStartPoint, NomadsEffectTemplate.ReclaimBeamEndPoints )
+    local endEntityTable = CreateBeamEntities(reclaimer, reclaimed, BuildEffectBones, EffectsBag, NomadsEffectTemplate.ReclaimBeams, NomadsEffectTemplate.ReclaimBeamStartPoint, NomadsEffectTemplate.ReclaimBeamEndPoints)
 
     -- additional effects
     for k, v in NomadsEffectTemplate.ReclaimObjectAOE do
-        EffectsBag:Add( CreateEmitterOnEntity( reclaimed, reclaimer.Army, v ) )
+        EffectsBag:Add(CreateEmitterOnEntity(reclaimed, reclaimer.Army, v))
     end
 
+    local ox, oy, oz = unpack(reclaimed:GetPosition())
+    oy = GetTerrainHeight(ox, oz)
+
     -- start animation, move beam entities around
-    local pos = reclaimed:GetPosition()
-    pos[2] = GetSurfaceHeight(pos[1], pos[3])
-
-    local ox, oy, oz = unpack(pos)
-    local ok = true  -- this threaded function keeps running even if the trashbag it's in is destroyed. This boolean is used to prevent this.
-
-    while not reclaimer:BeenDestroyed() and not reclaimer.Dead and not reclaimed:BeenDestroyed() and ok do
-        for k, v in endEntityTable do
-            if not v:BeenDestroyed() then
-                if endEntityTable[k].counter <= 0 then
-                    local x = ox + RandomFloat(-sx, sx)
-                    local y = oy + RandomFloat(0, 2*sy)
-                    local z = oz + RandomFloat(-sz, sz)
-                    Warp( v, Vector(x, y, z))
-                    endEntityTable[k].counter = Random(0, 2)
-                    PlaySparkleEffectAtUnitBeingBuilt( reclaimer, reclaimed, 'ReclaimSparkle' )
-                else
-                    endEntityTable[k].counter = endEntityTable[k].counter - 5
-                end
+    while not reclaimer:BeenDestroyed() and not reclaimed:BeenDestroyed() do
+        for _, entity in endEntityTable do
+            if entity.counter <= 0 then
+                local x = ox + RandomFloat(-sx, sx)
+                local y = oy + RandomFloat(0, 2*sy)
+                local z = oz + RandomFloat(-sz, sz)
+                Warp(entity, Vector(x, y, z))
+                entity.counter = Random(0, 2)
+                PlaySparkleEffectAtUnitBeingBuilt(reclaimer, reclaimed, 'ReclaimSparkle')
             else
-                ok = false
-                break
+                entity.counter = entity.counter - 5
             end
         end
-        WaitSeconds( 0.5 )
+        WaitSeconds(0.5)
     end
 end
 
-function PlayNomadsReclaimEndEffects( reclaimer, reclaimed, EffectsBag )
+function PlayNomadsReclaimEndEffects(reclaimer, reclaimed, EffectsBag)
     -- GPG version modified to show Nomads reclaim effects
     local army = -1
     if reclaimer then
         army = reclaimer.Army
     end
-    for k, v in NomadsEffectTemplate.ReclaimBeamEndPoints do
-        EffectsBag:Add( CreateEmitterAtEntity( reclaimed, army, v ) )
+    for _, v in NomadsEffectTemplate.ReclaimBeamEndPoints do
+        EffectsBag:Add( CreateEmitterAtEntity(reclaimed, army, v))
     end
-    CreateLightParticleIntel( reclaimed, -1, army, 4, 6, 'glow_02', 'ramp_flare_02' )
+    CreateLightParticleIntel(reclaimed, -1, army, 4, 6, 'glow_02', 'ramp_flare_02')
 end
