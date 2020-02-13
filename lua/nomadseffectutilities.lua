@@ -84,92 +84,24 @@ function PlaySparkleEffectAtUnitBeingBuilt( builder, unitBeingBuilt, snd )
 end
 
 -- beams coming from engineers and ACU when constructing
---TODO:rewrite this.
-function CreateNomadsBuildSliceBeams( builder, unitBeingBuilt, BuildEffectBones, BuildEffectsBag )
-    if not unitBeingBuilt.BuilderList then
-        unitBeingBuilt.BuilderList = {}
-    end
-
-    WaitSeconds(0.3)
-
-    if not unitBeingBuilt or unitBeingBuilt:BeenDestroyed() then return end
-
-    local ubbBp = unitBeingBuilt:GetBlueprint()
-    local BeamXWarpScale = ubbBp.Display.BuildEffect.WidthScale or 1
-    local BeamYWarpScale = ubbBp.Display.BuildEffect.HeightScale or 1
-    local BeamZWarpScale = ubbBp.Display.BuildEffect.WidthScale or 1
-
-    local endEntityTable = CreateBeamEntities( builder, unitBeingBuilt, BuildEffectBones, BuildEffectsBag, NomadsEffectTemplate.ConstructionBeams, NomadsEffectTemplate.ConstructionBeamStartPoint, NomadsEffectTemplate.ConstructionBeamEndPoints )
+function CreateNomadsBuildSliceBeams(builder, unitBeingBuilt, BuildEffectBones, BuildEffectsBag)
+    local endEntityTable = CreateBeamEntities(builder, unitBeingBuilt, BuildEffectBones, BuildEffectsBag, NomadsEffectTemplate.ConstructionBeams, NomadsEffectTemplate.ConstructionBeamStartPoint, NomadsEffectTemplate.ConstructionBeamEndPoints)
     local ox, oy, oz = unpack(unitBeingBuilt:GetPosition())
-    local maxDiff = 0.25
-    local ok = true  -- this threaded function keeps running even if the trashbag it's in is destroyed. This boolean is used to prevent this.
 
-    while not builder:BeenDestroyed() and not unitBeingBuilt:BeenDestroyed() and unitBeingBuilt:GetFractionComplete() < 1 and ok or builder:GetBlueprint().BlueprintId == 'xnc0001' do
-        local bx, by, bz = builder.GetRandomOffset(unitBeingBuilt, 1 )
-        local randWaitTime = Random(10,30)
-        for k, v in endEntityTable do
-            if not v:BeenDestroyed() then
-                if endEntityTable[k].counter <= 0 then
-                    local x = (bx + RandomFloat(-maxDiff, maxDiff)) * (BeamXWarpScale or 1)
-                    local y = (by + RandomFloat(-maxDiff, maxDiff)) * (BeamYWarpScale or 1)
-                    local z = (bz + RandomFloat(-maxDiff, maxDiff)) * (BeamZWarpScale or 1)
-                    Warp( v, Vector(ox + x, oy + y, oz + z))
-                    endEntityTable[k].counter = Random(0, math.min(7, randWaitTime))
-                    PlaySparkleEffectAtUnitBeingBuilt( builder, unitBeingBuilt, 'ConstructSparkle' )
-                else
-                    endEntityTable[k].counter = endEntityTable[k].counter - 20
-                end
+    while not builder:BeenDestroyed() and not unitBeingBuilt:BeenDestroyed() do
+        local randWaitTime = Random(10, 30)
+        for _, entity in endEntityTable do
+            if entity.counter <= 0 then
+                local x, y, z = builder.GetRandomOffset(unitBeingBuilt, 1)
+                Warp( entity, Vector(ox + x, oy + y, oz + z))
+                entity.counter = Random(0, math.min(7, randWaitTime))
+                PlaySparkleEffectAtUnitBeingBuilt( builder, unitBeingBuilt, 'ConstructSparkle')
             else
-                ok = false
-                break
+                entity.counter = entity.counter - 20
             end
         end
-        WaitSeconds( randWaitTime/20 )
+        WaitSeconds(randWaitTime / 20)
     end
-
-    WaitSeconds( 0.1 ) -- some time to continue displaying the effects. Is sometimes nice when something is constructed in 1 tick or less (build walls with ACU T3 enh..)
-
-    -- destroy beams cause no longer needed
-    BuildEffectsBag:Destroy()
-end
-
-function CreateRepairBuildBeams( builder, unitBeingBuilt, BuildEffectBones, BuildEffectsBag, BeamXWarpScale, BeamYWarpScale, BeamZWarpScale )
-    WaitSeconds(0.3)
-    if not unitBeingBuilt or unitBeingBuilt:BeenDestroyed() then return end
-
-    local ubbBp = unitBeingBuilt:GetBlueprint()
-    local BeamXWarpScale = ubbBp.Display.BuildEffect.WidthScale or 1
-    local BeamYWarpScale = ubbBp.Display.BuildEffect.HeightScale or 1
-    local BeamZWarpScale = ubbBp.Display.BuildEffect.WidthScale or 1
-
-    local endEntityTable = CreateBeamEntities( builder, unitBeingBuilt, BuildEffectBones, BuildEffectsBag, NomadsEffectTemplate.ConstructionBeams, NomadsEffectTemplate.ConstructionBeamStartPoint, NomadsEffectTemplate.ConstructionBeamEndPoints )
-    local ox, oy, oz = unpack(unitBeingBuilt:GetPosition())
-    local ok = true  -- this threaded function keeps running even if the trashbag it's in is destroyed. This boolean is used to prevent this.
-
-    while not builder:BeenDestroyed() and not builder.Dead and not unitBeingBuilt:BeenDestroyed() and ok do
-        for k, v in endEntityTable do
-            if not v:BeenDestroyed() then
-                if endEntityTable[k].counter <= 0 then
-                    local x, y, z = builder.GetRandomOffset(unitBeingBuilt, 1 )
-                    x = x * (BeamXWarpScale or 1)
-                    y = y * (BeamYWarpScale or 1)    -- some units are 'low' when constructed and pop out with an animation when finsihed. In this case the build beams should not go higher in the air
-                    z = z * (BeamZWarpScale or 1)
-                    Warp( v, Vector(ox + x, oy + y, oz + z))
-                    endEntityTable[k].counter = Random(0, 7)
-                    PlaySparkleEffectAtUnitBeingBuilt( builder, unitBeingBuilt, 'ConstructSparkle' )
-                else
-                    endEntityTable[k].counter = endEntityTable[k].counter - 5
-                end
-            else
-                ok = false
-                break
-            end
-        end
-        WaitSeconds( 0.5 )
-    end
-
-    -- destroy beams cause no longer needed
-    BuildEffectsBag:Destroy()
 end
 
 function CreateBuildCubeThread( unitBeingBuilt, builder, OnBeingBuiltEffectsBag )
