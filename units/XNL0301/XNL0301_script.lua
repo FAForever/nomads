@@ -122,6 +122,9 @@ XNL0301 = Class(NWalkingLandUnit) {
 
         local bp = self:GetBlueprint()
 
+        -- TODO: Remove once related change gets released in the game patch
+        self.BuildEffectBones = bp.General.BuildBones.BuildEffectBones
+
         self.HeadRotationEnabled = false -- initially disable head rotation to prevent initial wrong rotation
 
         self:SetCapturable(false)
@@ -290,27 +293,21 @@ XNL0301 = Class(NWalkingLandUnit) {
         self:GetWeaponManipulatorByLabel('GunLeft'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
     end,
 
-    CreateBuildEffects = function( self, unitBeingBuilt, order )
-        local UpgradesFrom = unitBeingBuilt:GetBlueprint().General.UpgradesFrom
-        local bones = self:GetBuildBones() or {0}
-        -- If we are assisting an upgrading unit, or repairing a unit, play seperate effects
-        if (order == 'Repair' and not unitBeingBuilt:IsBeingBuilt()) or (UpgradesFrom and UpgradesFrom ~= 'none' and self:IsUnitState('Guarding'))then
-            NomadsEffectUtil.CreateRepairBuildBeams( self, unitBeingBuilt, bones, self.BuildEffectsBag )
-        else
-            NomadsEffectUtil.CreateNomadsBuildSliceBeams( self, unitBeingBuilt, bones, self.BuildEffectsBag )
-        end
+    -- TODO: After making sACU sane again, replace all "self:GetBuildBones() or {0,}" with "self.BuildEffectBones"
+    CreateBuildEffects = function(self, unitBeingBuilt, order)
+        NomadsEffectUtil.CreateRepairBuildBeams(self, unitBeingBuilt, self:GetBuildBones() or {0,}, self.BuildEffectsBag)
     end,
 
-    CreateReclaimEffects = function( self, target )
-        NomadsEffectUtil.PlayNomadsReclaimEffects( self, target, self:GetBlueprint().General.BuildBones.BuildEffectBones or {0,}, self.ReclaimEffectsBag )
+    CreateReclaimEffects = function(self, target)
+        NomadsEffectUtil.PlayNomadsReclaimEffects(self, target, self:GetBuildBones() or {0,}, self.ReclaimEffectsBag)
     end,
 
-    CreateReclaimEndEffects = function( self, target )
-        NomadsEffectUtil.PlayNomadsReclaimEndEffects( self, target, self.ReclaimEffectsBag )
+    CreateReclaimEndEffects = function(self, target)
+        NomadsEffectUtil.PlayNomadsReclaimEndEffects(self, target, self.ReclaimEffectsBag)
     end,
 
-    CreateCaptureEffects = function( self, target )
-        EffectUtil.PlayCaptureEffects( self, target, self:GetBuildBones() or {0,}, self.CaptureEffectsBag )
+    CreateCaptureEffects = function(self, target)
+        EffectUtil.PlayCaptureEffects(self, target, self:GetBuildBones() or {0,}, self.CaptureEffectsBag)
     end,
 
     OnPaused = function(self)

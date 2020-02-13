@@ -71,6 +71,9 @@ function NomadsSharedFactory( SuperClass )
         OnCreate = function(self)
             SuperClass.OnCreate(self)
 
+            -- TODO: Remove once related change gets released in the game patch
+            self.BuildEffectBones = self:GetBlueprint().General.BuildBones.BuildEffectBones
+
             self.ArmSlider1 = CreateSlider(self, self.SliderBone, 0,0,0,0, true)
             self.ArmSlider1:SetWorldUnits(true)
             self.Trash:Add(self.ArmSlider1)
@@ -92,16 +95,15 @@ function NomadsSharedFactory( SuperClass )
         end,
 
         CreateBuildEffects = function( self, unitBeingBuilt, order )
-            local bp = self:GetBlueprint()
-            if bp.General.BuildBones.BuildEffectBones then
-                local bones = bp.General.BuildBones.BuildEffectBones
+            if self.BuildEffectBones then
+                local bp = self:GetBlueprint()
                 local emitrate = math.ceil((bp.Economy.BuildRate or 1) / 2)
 
                 -- creates the orange build fields
-                self.BuildEffectsBag:Add( self:ForkThread(NomadsEffectUtil.CreateFactoryBuildBeams, unitBeingBuilt, bones, self.BuildEffectsBag) )
+                self.BuildEffectsBag:Add( self:ForkThread(NomadsEffectUtil.CreateFactoryBuildBeams, unitBeingBuilt, self.BuildEffectBones, self.BuildEffectsBag) )
 
                 -- add effects to the build field
-                for k, bone in bones do
+                for k, bone in self.BuildEffectBones do
                     local offset, unitHeight = self:GetEffectOffsetRange(bone)
                     for _, v in NomadsEffectTemplate.FactoryConstructionField do
                         local emit = CreateAttachedEmitter( self, bone, self.Army, v)
@@ -372,34 +374,6 @@ NWalkingLandUnit = Class(WalkingLandUnit) {
     WalkingAnimRate = 1,
     IdleAnimRate = 1,
     DisabledBones = {},
-
-    CreateBuildEffects = function( self, unitBeingBuilt, order )
-        -- If we are assisting an upgrading unit, or repairing a unit, play seperate effects
-        local UpgradesFrom = unitBeingBuilt:GetBlueprint().General.UpgradesFrom
-        if (order == 'Repair' and not unitBeingBuilt:IsBeingBuilt()) or (UpgradesFrom and UpgradesFrom ~= 'none' and self:IsUnitState('Guarding'))then
-            self.BuildEffectsBag:Add( NomadsEffectUtil.CreateRepairBuildBeams( self, unitBeingBuilt, self:GetBlueprint().General.BuildBones.BuildEffectBones, self.BuildEffectsBag ) )
-        else
-            self.BuildEffectsBag:Add( NomadsEffectUtil.CreateNomadsBuildSliceBeams( self, unitBeingBuilt, self:GetBlueprint().General.BuildBones.BuildEffectBones, self.BuildEffectsBag ) )
-        end
-    end,
-
-    OnStopBuild = function(self, unitBuilding)
-        WalkingLandUnit.OnStopBuild(self, unitBuilding)
-        if self.BuildRotator then
-            self.BuildRotator:SetGoal(0)
-        end
-        if self.BuildArmManipulator then
-            self.BuildArmManipulator:SetAimingArc(-180, 180, 360, -180, 180, 360)
-        end
-    end,
-
-    CreateReclaimEffects = function( self, target )
-        NomadsEffectUtil.PlayNomadsReclaimEffects( self, target, self:GetBlueprint().General.BuildBones.BuildEffectBones or {0,}, self.ReclaimEffectsBag )
-    end,
-
-    CreateReclaimEndEffects = function( self, target )
-        NomadsEffectUtil.PlayNomadsReclaimEndEffects( self, target, self.ReclaimEffectsBag )
-    end,
 }
 
 ---------------------------------------------------------------
@@ -411,14 +385,14 @@ NSubUnit = Class(SubUnit) {}
 --  Construction Units
 ---------------------------------------------------------------
 NConstructionUnit = Class(ConstructionUnit) {
-    CreateBuildEffects = function( self, unitBeingBuilt, order )
-        if not unitBeingBuilt then return end
-        local UpgradesFrom = unitBeingBuilt:GetBlueprint().General.UpgradesFrom
-        if (not unitBeingBuilt:IsBeingBuilt()) or (UpgradesFrom and UpgradesFrom ~= 'none' and self:IsUnitState('Guarding')) then
-            CreateRepairBuildBeams( self, unitBeingBuilt, self:GetBlueprint().General.BuildBones.BuildEffectBones, self.BuildEffectsBag )
-        else
-            CreateNomadsBuildSliceBeams( self, unitBeingBuilt, self:GetBlueprint().General.BuildBones.BuildEffectBones, self.BuildEffectsBag )
-        end
+    -- TODO: Remove once related change gets released in the game patch
+    OnCreate = function(self)
+        ConstructionUnit.OnCreate(self)
+        self.BuildEffectBones = self:GetBlueprint().General.BuildBones.BuildEffectBones
+    end,
+
+    CreateBuildEffects = function(self, unitBeingBuilt, order)
+        CreateNomadsBuildSliceBeams(self, unitBeingBuilt, self.BuildEffectBones, self.BuildEffectsBag)
     end,
 
     OnStopBuild = function(self, unitBuilding)
@@ -431,12 +405,12 @@ NConstructionUnit = Class(ConstructionUnit) {
         end
     end,
 
-    CreateReclaimEffects = function( self, target )
-        NomadsEffectUtil.PlayNomadsReclaimEffects( self, target, self:GetBlueprint().General.BuildBones.BuildEffectBones or {0,}, self.ReclaimEffectsBag )
+    CreateReclaimEffects = function(self, target)
+        NomadsEffectUtil.PlayNomadsReclaimEffects(self, target, self.BuildEffectBones, self.ReclaimEffectsBag)
     end,
 
-    CreateReclaimEndEffects = function( self, target )
-        NomadsEffectUtil.PlayNomadsReclaimEndEffects( self, target, self.ReclaimEffectsBag )
+    CreateReclaimEndEffects = function(self, target)
+        NomadsEffectUtil.PlayNomadsReclaimEndEffects(self, target, self.ReclaimEffectsBag)
     end,
 
     -- The code below for speed reduction and weapon disabling in water should be the same as the amphibious unit class, above

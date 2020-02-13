@@ -101,11 +101,13 @@ XNL0001 = Class(ACUUnit) {
 
         local bp = self:GetBlueprint()
 
+        -- TODO: Remove once related change gets released in the game patch
+        self.BuildEffectBones = bp.General.BuildBones.BuildEffectBones
+
         -- vars
         self.DoubleBarrels = false
         self.DoubleBarrelOvercharge = false
         self.EnhancementBoneEffectsBag = {}
-        self.BuildBones = bp.General.BuildBones.BuildEffectBones
         self.HeadRotationEnabled = false -- disable head rotation to prevent initial wrong rotation
         self.AllowHeadRotation = false
         self.UseRunWalkAnim = false
@@ -173,47 +175,16 @@ XNL0001 = Class(ACUUnit) {
         ACUUnit.OnKilled(self, instigator, type, overkillRatio)
     end,
 
-    
-    OnStartBuild = function(self, unitBeingBuilt, order)
-
-       local bp = self:GetBlueprint()
-
-        if order ~= 'Upgrade' or bp.Display.ShowBuildEffectsDuringUpgrade then
-
-            -- If we are assisting an upgrading unit, or repairing a unit, play seperate effects
-            local UpgradesFrom = unitBeingBuilt:GetBlueprint().General.UpgradesFrom
-            if (order == 'Repair' and not unitBeingBuilt:IsBeingBuilt()) or (UpgradesFrom and UpgradesFrom ~= 'none' and self:IsUnitState('Guarding')) or (order == 'Repair'  and self:IsUnitState('Guarding') and not unitBeingBuilt:IsBeingBuilt()) then
-                self:ForkThread( NomadsEffectUtil.CreateRepairBuildBeams, unitBeingBuilt, self.BuildBones, self.BuildEffectsBag )
-            else
-                self:ForkThread( NomadsEffectUtil.CreateNomadsBuildSliceBeams, unitBeingBuilt, self.BuildBones, self.BuildEffectsBag )
-            end
-        end
-
-        self:DoOnStartBuildCallbacks(unitBeingBuilt)
-        self:SetActiveConsumptionActive()
-        self:PlayUnitSound('Construct')
-        self:PlayUnitAmbientSound('ConstructLoop')
-        if bp.General.UpgradesTo and unitBeingBuilt.UnitId == bp.General.UpgradesTo and order == 'Upgrade' then
-            unitBeingBuilt.DisallowCollisions = true
-        end
-
-        if unitBeingBuilt:GetBlueprint().Physics.FlattenSkirt and not unitBeingBuilt:HasTarmac() then
-            if self.TarmacBag and self:HasTarmac() then
-                unitBeingBuilt:CreateTarmac(true, true, true, self.TarmacBag.Orientation, self.TarmacBag.CurrentBP )
-            else
-                unitBeingBuilt:CreateTarmac(true, true, true, false, false)
-            end
-        end
-
-        self.UnitBeingBuilt = unitBeingBuilt
-        self.UnitBuildOrder = order
-        self.BuildingUnit = true
+    CreateBuildEffects = function(self, unitBeingBuilt, order)
+        NomadsEffectUtil.CreateNomadsBuildSliceBeams(self, unitBeingBuilt, self.BuildEffectBones, self.BuildEffectsBag)
     end,
 
-    --TODO: change this so it works for all relevant nomads units
-    -- use our own reclaim animation
-    CreateReclaimEffects = function( self, target )
-        NomadsEffectUtil.PlayNomadsReclaimEffects( self, target, self:GetBlueprint().General.BuildBones.BuildEffectBones or {0,}, self.ReclaimEffectsBag )
+    CreateReclaimEffects = function(self, target)
+        NomadsEffectUtil.PlayNomadsReclaimEffects(self, target, self.BuildEffectBones, self.ReclaimEffectsBag)
+    end,
+
+    CreateReclaimEndEffects = function(self, target)
+        NomadsEffectUtil.PlayNomadsReclaimEndEffects(self, target, self.ReclaimEffectsBag)
     end,
 
     -- =====================================================================================================================
@@ -463,7 +434,7 @@ XNL0001 = Class(ACUUnit) {
         end,
 
         IntelProbeAdv = function(self, bp)
---            self:AddEnhancementEmitterToBone( true, 'IntelProbe1' )
+            --self:AddEnhancementEmitterToBone( true, 'IntelProbe1' )
             self:SetIntelProbe( 'IntelProbeAdv' )
             self:SetIntelRadius('Omni', bp.AdvOmniRadius or 100)
             self.Sync.HasIntelProbeAbility = false
@@ -663,7 +634,7 @@ XNL0001 = Class(ACUUnit) {
         
         AdvancedEngineering = function(self, bp)
             -- new build FX bone available
-            table.insert( self.BuildBones, 'BuildBeam2' )
+            table.insert(self.BuildEffectBones, 'BuildBeam2')
 
             -- make new structures available
             local cat = ParseEntityCategory(bp.BuildableCategoryAdds)
@@ -700,7 +671,7 @@ XNL0001 = Class(ACUUnit) {
         
         AdvancedEngineeringRemove = function(self, bp)
             -- remove extra build bone
-            table.removeByValue( self.BuildBones, 'BuildBeam2' )
+            table.removeByValue(self.BuildEffectBones, 'BuildBeam2')
 
             -- buffs
             if Buff.HasBuff( self, 'NOMADSACUT2BuildRate' ) then
@@ -716,7 +687,7 @@ XNL0001 = Class(ACUUnit) {
         
         T3Engineering = function(self, bp)
             -- new build FX bone available
-            table.insert( self.BuildBones, 'BuildBeam3' )
+            table.insert(self.BuildEffectBones, 'BuildBeam3')
             -- make new structures available
             local cat = ParseEntityCategory(bp.BuildableCategoryAdds)
             self:RemoveBuildRestriction(cat)
@@ -751,8 +722,8 @@ XNL0001 = Class(ACUUnit) {
         
         T3EngineeringRemove = function(self, bp)
             -- remove extra build bone
-            table.removeByValue( self.BuildBones, 'BuildBeam3' )
-            table.removeByValue( self.BuildBones, 'BuildBeam2' )
+            table.removeByValue(self.BuildEffectBones, 'BuildBeam3')
+            table.removeByValue(self.BuildEffectBones, 'BuildBeam2')
             -- remove buff
             if Buff.HasBuff( self, 'NOMADSACUT3BuildRate' ) then
                 Buff.RemoveBuff( self, 'NOMADSACUT3BuildRate' )
