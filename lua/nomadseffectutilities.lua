@@ -183,20 +183,20 @@ function CreateSelfRepairEffects( unit, EffectsBag, numEffects)
     end
 end
 
-CreateFactoryBuildBeams = function(builder, unitBeingBuilt, BuildEffectBones, BuildEffectsBag )
+function CreateFactoryBuildBeams(builder, unitBeingBuilt, BuildEffectBones, BuildEffectsBag)
     -- create a flashing kind of effect at the pad where the unit is being built
-    for k, v in NomadsEffectTemplate.ConstructionDefaultBeingBuiltEffectsMobile do
-        local emit = CreateAttachedEmitter( unitBeingBuilt, 0, builder.Army, v )
-        BuildEffectsBag:Add( emit )
+    for _, v in NomadsEffectTemplate.ConstructionDefaultBeingBuiltEffectsMobile do
+        local emit = CreateAttachedEmitter(unitBeingBuilt, 0, builder.Army, v)
+        BuildEffectsBag:Add(emit)
         unitBeingBuilt.Trash:Add(emit)
     end
 
     -- create the orange build rect used by the factory if it doesn't exist yet
     local builderbp = builder:GetBlueprint()
     if BuildEffectBones ~= nil then
-        for k, bone in BuildEffectBones do
-            local entity = import('/lua/sim/Entity.lua').Entity()
-            Warp( entity, builder:GetPosition(bone))
+        for _, bone in BuildEffectBones do
+            local entity = Entity()
+            Warp(entity, builder:GetPosition(bone))
             entity:AttachBoneTo(-1, builder, bone)
             entity:SetMesh('/effects/entities/NomadsBuildEffect/NomadsBuildField_mesh')
             entity:SetScale(builderbp.General.BuildEffectScaleX or 0.01, builderbp.General.BuildEffectScaleY or 0.5, builderbp.General.BuildEffectScaleZ or 0.5)
