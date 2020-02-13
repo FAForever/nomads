@@ -104,14 +104,9 @@ function CreateNomadsBuildSliceBeams(builder, unitBeingBuilt, BuildEffectBones, 
     end
 end
 
-function CreateBuildCubeThread( unitBeingBuilt, builder, OnBeingBuiltEffectsBag )
+function CreateBuildCubeThread(unitBeingBuilt, builder, OnBeingBuiltEffectsBag)
     unitBeingBuilt:ShowBone(0, true)
     unitBeingBuilt:HideLandBones()
-    unitBeingBuilt.BeingBuiltShowBoneTriggered = true
-    if unitBeingBuilt:GetFractionComplete() >= 1 then
-        return
-    end
-
     local bp = unitBeingBuilt:GetBlueprint()
 
     -- Build cube stuff
@@ -119,15 +114,15 @@ function CreateBuildCubeThread( unitBeingBuilt, builder, OnBeingBuiltEffectsBag 
     local oy = bp.Display.BuildEffect.OffsetY or 0
     local oz = bp.Display.BuildEffect.OffsetZ or 0
     local scale = bp.Display.BuildEffect.Scale or 1
-    if table.find( bp.Categories, 'SIZE4') then
+    if bp.CategoriesHash.SIZE4 then
         scale = scale * 0.25
-    elseif table.find( bp.Categories, 'SIZE8') then
+    elseif bp.CategoriesHash.SIZE8 then
         scale = scale * 0.4
-    elseif table.find( bp.Categories, 'SIZE12') then
+    elseif bp.CategoriesHash.SIZE12 then
         scale = scale * 0.8
-    elseif table.find( bp.Categories, 'SIZE16') then
+    elseif bp.CategoriesHash.SIZE16 then
         scale = scale * 1
-    elseif table.find( bp.Categories, 'SIZE20') then
+    elseif bp.CategoriesHash.SIZE20 then
         scale = scale * 1.3
     end
 
@@ -142,36 +137,12 @@ function CreateBuildCubeThread( unitBeingBuilt, builder, OnBeingBuiltEffectsBag 
     end
 
     -- create emitters
-    for k, v in EffectTable do
+    for _, v in EffectTable do
         local emit = CreateAttachedEmitter(unitBeingBuilt, 0, unitBeingBuilt.Army, v)
         emit:OffsetEmitter(ox, oy, oz)
         emit:ScaleEmitter(scale)
-        OnBeingBuiltEffectsBag:Add( emit )
+        OnBeingBuiltEffectsBag:Add(emit)
     end
-
-    -- Create a quick glow effect at location where unit is goig to be built
-    local mul = 1.15
-    local x = bp.Physics.MeshExtentsX or (bp.Footprint.SizeX * mul)
-    local z = bp.Physics.MeshExtentsZ or (bp.Footprint.SizeZ * mul)
-    local y = bp.Physics.MeshExtentsY or (0.5 + (x + z) * 0.1)
-
-    WaitSeconds(0.1)
-
-    if unitBeingBuilt.Dead then
-        return
-    end
-
-    if unitBeingBuilt:GetFractionComplete() >= 1 then
-        unitBeingBuilt:HideLandBones()
-        unitBeingBuilt.BeingBuiltShowBoneTriggered = true
-        return
-    end
-
-    -- not sure why we're waiting here...
-    WaitSeconds( 0.8 )
-
-    unitBeingBuilt:HideLandBones()
-    unitBeingBuilt.BeingBuiltShowBoneTriggered = true
 end
 
 function CreateSelfRepairEffects( unit, EffectsBag, numEffects)
