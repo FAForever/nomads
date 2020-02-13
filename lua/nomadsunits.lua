@@ -36,8 +36,6 @@ local NomadsEffectUtil = import('/lua/nomadseffectutilities.lua')
 local PlayEffectsAtBones = EffectUtil.CreateBoneTableRangedScaleEffects
 local CreateBuildCubeThread = NomadsEffectUtil.CreateBuildCubeThread
 local CreateNomadsBuildSliceBeams = NomadsEffectUtil.CreateNomadsBuildSliceBeams
-local CreateRepairBuildBeams = NomadsEffectUtil.CreateRepairBuildBeams
-
 
 -- added later
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
