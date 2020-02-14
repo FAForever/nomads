@@ -295,7 +295,7 @@ XNL0301 = Class(NWalkingLandUnit) {
 
     -- TODO: After making sACU sane again, replace all "self:GetBuildBones() or {0,}" with "self.BuildEffectBones"
     CreateBuildEffects = function(self, unitBeingBuilt, order)
-        NomadsEffectUtil.CreateRepairBuildBeams(self, unitBeingBuilt, self:GetBuildBones() or {0,}, self.BuildEffectsBag)
+        NomadsEffectUtil.CreateNomadsBuildSliceBeams(self, unitBeingBuilt, self:GetBuildBones() or {0,}, self.BuildEffectsBag)
     end,
 
     CreateReclaimEffects = function(self, target)
