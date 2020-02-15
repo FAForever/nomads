@@ -184,14 +184,15 @@ function NomadsSharedFactory( SuperClass )
 
         GetInitialAndLength = function(self)
             -- this is not 'just' a version of GetEffectUnitSizes(), there's a correction for factory differences aswell
-            local BuildAttachBone = self:GetBlueprint().Display.BuildAttachBone or 0
+            local bp = self:GetBlueprint()
+            local BuildAttachBone = bp.Display.BuildAttachBone or 0
             local ubbBp = self.UnitBeingBuilt:GetBlueprint()
             local UnitSizeZ = (ubbBp.SizeZ or 1)
             local MeshExtendsFront = ubbBp.Display.BuildEffect.ExtendsFront or 0
             local MeshExtendsRear = ubbBp.Display.BuildEffect.ExtendsRear or 0
             local UnitOffsetZ = ubbBp.CollisionOffsetZ or 0
             local diffZ = self:GetPosition(self.SliderBone)[3] - self:GetPosition(BuildAttachBone)[3]
-            local correction = self:GetBlueprint().Display.BuildEffect.Factory.BuildFieldOffset or 0
+            local correction = bp.Display.BuildEffect.Factory.BuildFieldOffset or 0
             return (diffZ - (UnitSizeZ/2) - MeshExtendsFront - UnitOffsetZ - correction), (MeshExtendsFront + UnitSizeZ + MeshExtendsRear)
         end,
     }
@@ -251,7 +252,8 @@ NHoverLandUnit = Class(HoverLandUnit) {
         if not self.Dead then
             local layer = self:GetCurrentLayer()
             if new == 'Stopped' or new == 'Stopping' then   -- when stopping play the idle sound, on water play a different one
-                if layer == 'Water' and self:GetBlueprint().Audio and self:GetBlueprint().Audio.AmbientMoveWater then
+                local bp = self:GetBlueprint().Audio
+                if layer == 'Water' and bp and bp.AmbientMoveWater then
                     self:PlayUnitAmbientSound( 'AmbientMoveWater' )
                 else
                     self:PlayUnitAmbientSound( 'AmbientIdle' )
