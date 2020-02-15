@@ -4,7 +4,6 @@ do
 
 local oldWeapon = Weapon
 Weapon = Class(oldWeapon) {
-
     OnCreate = function(self)
         self.IsEnabled = true
         self._MaxRadius = self:GetBlueprint().MaxRadius or 0
@@ -104,7 +103,6 @@ Weapon = Class(oldWeapon) {
 
     SetupTurret = function(self)
         -- First part rewritten to allow for individual targeting dual weapon turrets
-
         local bp = self:GetBlueprint()
         local yawBone = bp.TurretBoneYaw
         local pitchBone = bp.TurretBonePitch
@@ -117,9 +115,7 @@ Weapon = Class(oldWeapon) {
         end
 
         if yawBone and pitchBone and muzzleBone then
-
             if bp.TurretDualManipulators then
-
                 local yawBone2 = bp.TurretBoneDualYaw
                 local pitchBone2 = bp.TurretBoneDualPitch
                 local muzzleBone2 = bp.TurretBoneDualMuzzle
@@ -129,22 +125,28 @@ Weapon = Class(oldWeapon) {
                     return
                 end
 
-                if bp.TurretBoneDualYaw then ------ dual turret - individual targeting
-                    self.AimControl = CreateAimController(self, 'Torso', yawBone)
+                self.AimControl = CreateAimController(self, 'Torso', yawBone)
+
+                if bp.TurretBoneDualYaw then -- dual turret - individual targeting
                     self.AimRight = CreateAimController(self, 'Right', yawBone, pitchBone, muzzleBone)
                     self.AimLeft = CreateAimController(self, 'Left', yawBone2, pitchBone2, muzzleBone2)
+                else -- dual turret - always right (original game)
+                    self.AimRight = CreateAimController(self, 'Right', pitchBone, pitchBone, muzzleBone)
+                    self.AimLeft = CreateAimController(self, 'Left', pitchBone2, pitchBone2, muzzleBone2)
+                end
 
-                    self.AimControl:SetPrecedence(precedence)
-                    self.AimRight:SetPrecedence(precedence)
-                    self.AimLeft:SetPrecedence(precedence)
-                    if EntityCategoryContains(categories.STRUCTURE, self.unit) then
-                        self.AimControl:SetResetPoseTime(9999999)
-                    end
-                    self:SetFireControl('Right')
-                    self.unit.Trash:Add(self.AimControl)
-                    self.unit.Trash:Add(self.AimRight)
-                    self.unit.Trash:Add(self.AimLeft)
+                self.AimControl:SetPrecedence(precedence)
+                self.AimRight:SetPrecedence(precedence)
+                self.AimLeft:SetPrecedence(precedence)
+                if EntityCategoryContains(categories.STRUCTURE, self.unit) then
+                    self.AimControl:SetResetPoseTime(9999999)
+                end
+                self:SetFireControl('Right')
+                self.unit.Trash:Add(self.AimControl)
+                self.unit.Trash:Add(self.AimRight)
+                self.unit.Trash:Add(self.AimLeft)
 
+                if bp.TurretBoneDualYaw then
                     -- only allow alternate if different aim bones are used and not all racks are fired together
                     self.DoAlternateDualAimController = bp.RackFireTogether ~= true and (bp.TurretDualManipulatorsAlternate == true or bp.TurretDualManipulatorsAlternate == nil)
 
@@ -157,29 +159,8 @@ Weapon = Class(oldWeapon) {
                             end
                         end
                     end
-
-                else  ------ dual turret - always right (original game)
-
-                    self.AimControl = CreateAimController(self, 'Torso', yawBone)
-                    self.AimRight = CreateAimController(self, 'Right', pitchBone, pitchBone, muzzleBone)
-                    self.AimLeft = CreateAimController(self, 'Left', pitchBone2, pitchBone2, muzzleBone2)
-
-                    self.AimControl:SetPrecedence(precedence)
-                    self.AimRight:SetPrecedence(precedence)
-                    self.AimLeft:SetPrecedence(precedence)
-
-                    if EntityCategoryContains(categories.STRUCTURE, self.unit) then
-                        self.AimControl:SetResetPoseTime(9999999)
-                    end
-
-                    self:SetFireControl('Right')
-                    self.unit.Trash:Add(self.AimControl)
-                    self.unit.Trash:Add(self.AimRight)
-                    self.unit.Trash:Add(self.AimLeft)
                 end
-
             else ------ single turret (1 barrel)
-
                 self.AimControl = CreateAimController(self, 'Default', yawBone, pitchBone, muzzleBone)
                 if EntityCategoryContains(categories.STRUCTURE, self.unit) then
                     self.AimControl:SetResetPoseTime(9999999)
@@ -196,10 +177,8 @@ Weapon = Class(oldWeapon) {
                     end
                 end
             end
-
         else
             error('*ERROR: Trying to setup a turreted weapon but there are yaw bones, pitch bones or muzzle bones missing from the blueprint.', 2)
-
         end
 
         local numbersexist = true
