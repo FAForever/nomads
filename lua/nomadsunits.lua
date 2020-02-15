@@ -758,6 +758,7 @@ NRadarUnit = Class(RadarUnit) {
 
     OnDestroy = function(self)
         self.IntelBoostEffects:Destroy()
+        self.IntelBoostExplosionEffects:Destroy()
         RadarUnit.OnDestroy(self)
     end,
 
