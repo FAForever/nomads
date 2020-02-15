@@ -6,8 +6,9 @@ local oldWeapon = Weapon
 Weapon = Class(oldWeapon) {
     OnCreate = function(self)
         self.IsEnabled = true
-        self._MaxRadius = self:GetBlueprint().MaxRadius or 0
-        self.RateOfFire = self:GetBlueprint().RateOfFire
+        local bp = self:GetBlueprint()
+        self._MaxRadius = bp.MaxRadius or 0
+        self.RateOfFire = bp.RateOfFire
         self.DoAlternateDualAimController = false
         self:DetermineColourIndex()
         oldWeapon.OnCreate(self)
