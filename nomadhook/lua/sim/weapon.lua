@@ -207,22 +207,22 @@ Weapon = Class(oldWeapon) {
         local turretpitchmin, turretpitchmax, turretpitchspeed
 
         --SETUP MANIPULATORS AND SET TURRET YAW, PITCH AND SPEED
-        if self:GetBlueprint().TurretYaw and self:GetBlueprint().TurretYawRange then
+        if bp.TurretYaw and bp.TurretYawRange then
             turretyawmin, turretyawmax = self:GetTurretYawMinMax()
         else
             numbersexist = false
         end
-        if self:GetBlueprint().TurretYawSpeed then
+        if bp.TurretYawSpeed then
             turretyawspeed = self:GetTurretYawSpeed()
         else
             numbersexist = false
         end
-        if self:GetBlueprint().TurretPitch and self:GetBlueprint().TurretPitchRange then
+        if bp.TurretPitch and bp.TurretPitchRange then
             turretpitchmin, turretpitchmax = self:GetTurretPitchMinMax()
         else
             numbersexist = false
         end
-        if self:GetBlueprint().TurretPitchSpeed then
+        if bp.TurretPitchSpeed then
             turretpitchspeed = self:GetTurretPitchSpeed()
         else
             numbersexist = false
@@ -236,7 +236,7 @@ Weapon = Class(oldWeapon) {
                 self.AimLeft:SetFiringArc(turretyawmin/12, turretyawmax/12, turretyawspeed, turretpitchmin, turretpitchmax, turretpitchspeed)
             end
         else
-            local strg = '*ERROR: TRYING TO SETUP A TURRET WITHOUT ALL TURRET NUMBERS IN BLUEPRINT, ABORTING TURRET SETUP. WEAPON: ' .. self:GetBlueprint().Label .. ' UNIT: '.. self.unit.UnitId
+            local strg = '*ERROR: TRYING TO SETUP A TURRET WITHOUT ALL TURRET NUMBERS IN BLUEPRINT, ABORTING TURRET SETUP. WEAPON: ' .. bp.Label .. ' UNIT: '.. self.unit.UnitId
             error(strg, 2)
         end
 
