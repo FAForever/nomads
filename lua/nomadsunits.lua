@@ -1,11 +1,8 @@
-local Entity = import('/lua/sim/Entity.lua').Entity
-
 local DefaultUnitsFile = import('defaultunits.lua')
 local AirFactoryUnit = DefaultUnitsFile.AirFactoryUnit
 local AirStagingPlatformUnit = DefaultUnitsFile.AirStagingPlatformUnit
 local AirUnit = DefaultUnitsFile.AirUnit
 local AirTransport = DefaultUnitsFile.AirTransport
-local ConcreteStructureUnit = DefaultUnitsFile.ConcreteStructureUnit
 local ConstructionUnit = DefaultUnitsFile.ConstructionUnit
 local EnergyCreationUnit = DefaultUnitsFile.EnergyCreationUnit
 local EnergyStorageUnit = DefaultUnitsFile.EnergyStorageUnit
@@ -17,23 +14,17 @@ local MassStorageUnit = DefaultUnitsFile.MassStorageUnit
 local RadarUnit = DefaultUnitsFile.RadarUnit
 local SeaFactoryUnit = DefaultUnitsFile.SeaFactoryUnit
 local SeaUnit = DefaultUnitsFile.SeaUnit
-local ShieldLandUnit = DefaultUnitsFile.ShieldLandUnit
 local ShieldStructureUnit = DefaultUnitsFile.ShieldStructureUnit
 local SonarUnit = DefaultUnitsFile.SonarUnit
 local StructureUnit = DefaultUnitsFile.StructureUnit
 local SubUnit = DefaultUnitsFile.SubUnit
 local WalkingLandUnit = DefaultUnitsFile.WalkingLandUnit
 local WallStructureUnit = DefaultUnitsFile.WallStructureUnit
-local QuantumGateUnit = DefaultUnitsFile.QuantumGateUnit
 local RadarJammerUnit = DefaultUnitsFile.RadarJammerUnit
-local ShieldSeaUnit = DefaultUnitsFile.ShieldSeaUnit
 local HoverLandUnit = DefaultUnitsFile.HoverLandUnit
 
 local RandomFloat = import('/lua/utilities.lua').GetRandomFloat
-
-local EffectUtil = import('/lua/EffectUtilities.lua')
 local NomadsEffectUtil = import('/lua/nomadseffectutilities.lua')
-local PlayEffectsAtBones = EffectUtil.CreateBoneTableRangedScaleEffects
 local CreateBuildCubeThread = NomadsEffectUtil.CreateBuildCubeThread
 local CreateNomadsBuildSliceBeams = NomadsEffectUtil.CreateNomadsBuildSliceBeams
 
