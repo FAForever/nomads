@@ -339,7 +339,7 @@ GattlingWeapon1 = Class(DefaultProjectileWeapon) {
         if self.Rotates then
             local speed = 0
             if enabled then
-                speed = self:GetBlueprint().GattlingBarrelRotationSpeed or (self:GetRateOfFire() * 100)
+                speed = self:GetBlueprint().GattlingBarrelRotationSpeed or (self.RateOfFire * 100)
                 self:PlayWeaponSound('SpinningStart')
                 self:PlayWeaponAmbientSound('SpinningLoop')  -- can use BarrelLoop as with other gatlings. See original OnStartTracking fn.
             else

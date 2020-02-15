@@ -32,14 +32,6 @@ Weapon = Class(oldWeapon) {
         return oldWeapon.ChangeMaxRadius(self, val)
     end,
 
-    GetMaxRadius = function(self)
-        return self._MaxRadius or 0
-    end,
-
-    GetRateOfFire = function(self)
-        return self.RateOfFire
-    end,
-
     ChangeRateOfFire = function(self, newROF)
         self.RateOfFire = newROF
         oldWeapon.ChangeRateOfFire(self, newROF)
@@ -243,7 +235,7 @@ Weapon = Class(oldWeapon) {
             local bp = self:GetBlueprint()
             local rack = bp.RackBones[ self:GetNextRackSalvoNumber() ]
             local switchTo = rack.TurretBoneDualManip
-            local delay = rack.TurretBoneDualManipSwitchDelay or (0.2 * (1 / self:GetRateOfFire())) -- switch when half way to next salvo, calculate in real time to include buffs and alike
+            local delay = rack.TurretBoneDualManipSwitchDelay or (0.2 * (1 / self.RateOfFire)) -- switch when half way to next salvo, calculate in real time to include buffs and alike
             self.AlternateDualAimCtrlThread = self:ForkThread( self.SwitchAimControllerThread, switchTo, delay )
         end
     end,

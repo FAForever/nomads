@@ -59,7 +59,7 @@ XNB3303 = Class(NStructureUnit) {
             end,
 
             GetRateOfFire = function(self)
-                return self._CurROF or self:GetBlueprint().RateOfFire or 1
+                return self._CurROF or self.RateOfFire
             end,
         },
     },

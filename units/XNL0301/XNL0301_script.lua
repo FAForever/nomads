@@ -79,7 +79,7 @@ XNL0301 = Class(NWalkingLandUnit) {
                 -- will walk up to the target and not attack from range, exposing it unnecessarily. This is an
                 -- issue with rocket and railgun enhancements
                 if self.IsEnabled then
-                    self:ChangeMaxRadius(self:GetMaxRadius(), true)
+                    self:ChangeMaxRadius(self._MaxRadius, true)
                 else
                     self:ChangeMaxRadius(self.unit:GetAllWeaponMaxRadius(), true)
                 end
@@ -187,7 +187,7 @@ XNL0301 = Class(NWalkingLandUnit) {
         for i=1, n do
             wep = self:GetWeapon(i)
             if wep and wep.IsEnabled then
-                rad = wep:GetMaxRadius()
+                rad = self._MaxRadius
                 if rad > maxRad then
                     maxRad = rad
                 end
