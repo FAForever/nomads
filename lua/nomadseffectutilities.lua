@@ -1,10 +1,9 @@
--- TODO: go over this again
 local Entity = import('/lua/sim/Entity.lua').Entity
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local RandomFloat = import('/lua/utilities.lua').GetRandomFloat
 
-function CreateAmbientShieldEffects( unit, EffectsBag )
-    local shield, bp = unit.MyShield, unit:GetBlueprint()
+function CreateAmbientShieldEffects(unit, EffectsBag)
+    local bp = unit:GetBlueprint()
 
     -- determining the interval is crucial. We have two shields, the regular one and the stealth shield. Both have a different interval so we
     -- have to detect the shield type.
@@ -17,10 +16,10 @@ function CreateAmbientShieldEffects( unit, EffectsBag )
 
     local effectTable = NomadsEffectTemplate[efctTempl] or {}
     local offset = bp.Defense.Shield.ShieldSize - (bp.Defense.Shield.ShieldVerticalOffset or 0)
-    while unit and not unit:BeenDestroyed() and not unit.Dead do
-        for k, v in effectTable do
-            local emit = CreateEmitterAtBone( unit, 0, unit.Army, v ):OffsetEmitter(0, offset, 0)
-            EffectsBag:Add( emit )
+    while not unit:BeenDestroyed() and not unit.Dead do
+        for _, v in effectTable do
+            local emit = CreateEmitterAtBone(unit, 0, unit.Army, v):OffsetEmitter(0, offset, 0)
+            EffectsBag:Add(emit)
         end
     end
 end
