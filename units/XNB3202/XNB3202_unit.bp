@@ -68,11 +68,9 @@ UnitBlueprint {
     Description = '<LOC XNB3202_desc>Sonar System',
     Display = {
         Abilities = {
-            '<LOC ability_stun>EMP Weapon',
             '<LOC ability_sonar>Sonar',
             '<LOC ability_sonarboost>Sonar Boost',
             '<LOC ability_upgradable>Upgradeable',
-            '<LOC ability_deathaoe>Volatile',
         },
         AnimationUpgrade = '/units/XNB3202/XNB3202_AUpgrade.sca',
         IdleEffects = {
@@ -206,51 +204,6 @@ UnitBlueprint {
     SizeZ = 0.8,
     StrategicIconName = 'icon_structure2_intel',
     StrategicIconSortPriority = 230,
-    Weapon = {
-        {
-            Audio = {
-                Fire = Sound {
-                    Bank = 'NomadsMisc',
-                    Cue = 'IntelOverchargeDischarge',
-                    LodCutoff = 'UnitMove_LodCutoff',
-                },
-            },
-            Buffs = {
-                {
-                    ApplyToFriendly = true,
-                    BuffType = 'STUN',
-                    Duration = 8,
-                    Radius = 20,
-                    TargetAllow = 'MOBILE TECH1 -NAVAL,SHIELD',
-                    TargetDisallow = 'UNSTUNABLE,EXPERIMENTAL,COMMAND,WALL',
-                },
-                {
-                    ApplyToFriendly = true,
-                    BuffType = 'STUN',
-                    Radius = 20,
-                    Duration = 5,
-                    TargetAllow = 'NAVAL -TECH3,TECH1 -MOBILE,MOBILE TECH2',
-                    TargetDisallow = 'UNSTUNABLE,EXPERIMENTAL,COMMAND,SHIELD,WALL',
-                },
-                {
-                    ApplyToFriendly = true,
-                    BuffType = 'STUN',
-                    Duration = 3,
-                    Radius = 20,
-                    TargetAllow = 'ALLUNITS',
-                    TargetDisallow = 'UNSTUNABLE,TECH1,EXPERIMENTAL,COMMAND,SHIELD,WALL',
-                },
-            },
-            Damage = 200,
-            DamageFriendly = true,
-            DamageRadius = 5,
-            DamageType = 'Normal',
-            DisplayName = 'Death Weapon',
-            DummyWeapon = true,
-            Label = 'IntelOverchargeDeathWeapon',
-            WeaponCategory = 'Death',
-        },
-    },
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

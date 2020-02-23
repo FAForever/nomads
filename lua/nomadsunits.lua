@@ -752,7 +752,6 @@ NRadarUnit = Class(RadarUnit) {
 
     OnKilled = function(self, instigator, type, overkillRatio)
         self.IntelBoostEffects:Destroy()
-        self:FireIntelBoostDeathWeapon()
         RadarUnit.OnKilled(self, instigator, type, overkillRatio)
     end,
 
@@ -760,39 +759,6 @@ NRadarUnit = Class(RadarUnit) {
         self.IntelBoostEffects:Destroy()
         self.IntelBoostExplosionEffects:Destroy()
         RadarUnit.OnDestroy(self)
-    end,
-
-    FireIntelBoostDeathWeapon = function(self)
-        if self.IsIntelOvercharging then
-            local bp, wbp = self:GetBlueprint().Weapon, false
-            for k, wepBp in bp do
-                if wepBp.Label == 'IntelOverchargeDeathWeapon' then
-                    wbp = bp[k]
-                    break
-                end
-            end
-            if wbp then
-                -- play fx
-                self:PlayIntelBoostExplosionEffects()
-                -- do regular damage
-                DamageArea( self, self:GetPosition(), wbp.DamageRadius, wbp.Damage, wbp.DamageType, wbp.DamageFriendly, false )
-                -- Handling buffs (emp)
-                if wbp.Buffs then
-                    for k, buffTable in wbp.Buffs do
-                        self:AddBuff(buffTable)
-                    end
-                end
-
-                -- Play weapon sound
-                local snd = wbp.Audio['Fire']
-                if snd then
-                    self:PlaySound(snd)
-                end
-
-                return true
-            end
-        end
-        return false
     end,
 
     --self.IntelBoostStartThreadHandle = self:ForkThread( self.IntelBoostStartThread )
