@@ -780,7 +780,7 @@ function AddCapacitorAbility( SuperClass )
                 Buff.RemoveBuff( self, buffName )
             end
 
-            if self.IntelProbeEntity then
+            if self.IntelProbeEntity and not self.IntelProbeEntity.Dead then
                 self.IntelProbeEntity.CapacitorBoostEnabled = false
                 self.IntelProbeEntity:SetIntel()
             end
@@ -807,7 +807,7 @@ function AddCapacitorAbility( SuperClass )
                 Buff.ApplyBuff( self, buffName )
             end
 
-            if self.IntelProbeEntity then
+            if self.IntelProbeEntity and not self.IntelProbeEntity.Dead then
                 self.IntelProbeEntity.CapacitorBoostEnabled = true
                 self.IntelProbeEntity:SetIntel()
             end
