@@ -61,7 +61,6 @@ Unit = Class(oldUnit) {
     OnCreate = function(self)
         oldUnit.OnCreate(self)
         self._IsSuckedInBlackHole = false
-        self.SpeedMulti = 1
         
         --TODO: remove these once FAF merges in the relevant PR
         self.Army = self:GetArmy()
@@ -296,20 +295,14 @@ Unit = Class(oldUnit) {
         -- value instead, if it is below 1. Test by having a Nomads hover unit with reduced speed on water through a buff and another hover
         -- unit. Move them over water and compare speeds.
         if val then
-            self.SpeedMulti = val
             if val < 1 then
                 val = math.sqrt(val)
             end
-            --LOG('*DEBUG: SetSpeedMult '..repr(self.UnitId)..' '..repr(val))
         else
             WARN('Nomads: SetSpeedMult: Can\'t set SpeedMult to unit ['..repr(self.UnitId or "Unknown")..']. val=nil!')
             return
         end
         return oldUnit.SetSpeedMult(self, val)
-    end,
-
-    GetSpeedMult = function(self)
-        return self.SpeedMulti
     end,
 
     -- ================================================================================================================
