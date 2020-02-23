@@ -73,11 +73,43 @@ UnitBlueprint {
             LODs = {
                 {
                     LODCutoff = 160,
+                    Scrolling = true,
                     AlbedoName = '/units/XNL0201/XNL0201_Albedo.dds',
                     MeshName = '/units/XNL0201/XNL0201_LOD0.scm',
                     NormalsName = '/units/XNL0201/XNL0201_NormalsTS.dds',
                     ShaderName = 'NomadsUnit',
                     SpecularName = '/Units/XNL0201/XNL0201_SpecTeam.dds',
+                },
+            },
+        },
+        MovementEffects = {
+            Land = {
+                Effects = {
+                    {
+                        Bones = {
+                            'Track_Exhaust_Left',
+                            'Track_Exhaust_Right',
+                        },
+                        Type = 'GroundKickup01',
+                    },
+                },
+                Treads = {
+                    ScrollMultiplier = 0.75,
+                    ScrollTreads = true,
+                    TreadMarks = {
+                        {
+                            BoneName = 'XNL0201',
+                            TreadMarks = 'tank_treads_albedo',
+                            TreadMarksInterval = 0.2,
+                            TreadMarksSizeX = 0.55,
+                            TreadMarksSizeZ = 0.5,
+                            TreadOffset = {
+                                0,
+                                0,
+                                0,
+                            },
+                        },
+                    },
                 },
             },
         },
