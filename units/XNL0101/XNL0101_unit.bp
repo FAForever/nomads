@@ -1,11 +1,6 @@
 -- T1 land scout
 
 UnitBlueprint {
-    Abilities = {
-        Anchor = {
-            Buff = 'AnchorModeImmobilizeAddRange',
-        },
-    },
     Audio = {
         AmbientIdle = Sound {
             Bank = 'NomadsUnits',
@@ -91,7 +86,6 @@ UnitBlueprint {
     Description = '<LOC XNL0101_desc>Land Scout',
     Display = {
         Abilities = {
-            '<LOC ability_anchor>Anchor',
             '<LOC ability_hover>Hover',
             '<LOC ability_radar>Radar',
         },
@@ -218,22 +212,13 @@ UnitBlueprint {
         },
         FactionName = 'Nomads',
         Icon = 'amph',
-        OrderOverrides = {
-            RULEUTC_SpecialToggle = {
-                bitmapId = 'toggle-anchor',
-                helpText = 'toggle_anchor',
-            },
-        },
         TechLevel = 'RULEUTL_Basic',
-        ToggleCaps = {
-            RULEUTC_SpecialToggle = true,
-        },
         UnitName = '<LOC XNL0101_name>Silhouette',
         UnitWeight = 1,
     },
     Intel = {
-        RadarRadius = 40,   --52 with anchor
-        VisionRadius = 24,  --31,2 with anchor
+        RadarRadius = 40,
+        VisionRadius = 24,
     },
     Interface = {
         HelpText = '<LOC XNL0101_help>Land Scout',
