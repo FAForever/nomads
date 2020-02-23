@@ -286,7 +286,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
-            Damage = 200,
+            Damage = 250,
             DamageType = 'Normal',
             DisplayName = 'Missile (AA)',
             FireTargetLayerCapsTable = {
@@ -295,13 +295,13 @@ UnitBlueprint {
             FiringTolerance = 0,
             Label = 'AATurret',
             MaxRadius = 75,
-            MuzzleSalvoDelay = 0.3,
-            MuzzleSalvoSize = 4,
-            MuzzleVelocity = 30,
+            MuzzleSalvoDelay = 0,
+            MuzzleSalvoSize = 1,
+            MuzzleVelocity = 40,
             NotExclusive = true,
-            ProjectileId = '/projectiles/NMissileProj1_aa/NMissileProj1_aa_proj.bp',
+            ProjectileId = '/projectiles/NMissileProj2_aa/NMissileProj2_aa_proj.bp',
             ProjectileLifetime = 6,
-            ProjectilesPerOnFire = 4,
+            ProjectilesPerOnFire = 1,
             RackBones = {
                 {
                     MuzzleBones = {
@@ -324,7 +324,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
             RangeCategory = 'UWRC_AntiAir',
-            RateOfFire = 0.65,
+            RateOfFire = 2,
             TargetCheckInterval = 0.3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
