@@ -408,6 +408,8 @@ XNL0001 = Class(ACUUnit) {
 
     -- =====================================================================================================================
     -- ENHANCEMENTS
+    
+    --General note: Nomads ACU has capacitor, which uses buffs. So acu upgrades must use buffs so they stack with capacitor correctly.
 
     --a much more sensible way of doing enhancements, and more moddable too!
     --change the behaviours here and dont touch the CreateEnhancement table.
@@ -422,21 +424,57 @@ XNL0001 = Class(ACUUnit) {
         IntelProbe = function(self, bp)
             self:AddEnhancementEmitterToBone( true, 'IntelProbe1' )
             self:SetIntelProbe( 'IntelProbe' )
-            self:SetIntelRadius('Omni', bp.NewOmniRadius or 60)
+            
+            -- add buff
+            if not Buffs['NomadsACUIntelProbe'] then
+                BuffBlueprint {
+                    Name = 'NomadsACUIntelProbe',
+                    DisplayName = 'NomadsACUIntelProbe',
+                    BuffType = 'PROBEINTEL',
+                    Stacks = 'REPLACE',
+                    Duration = -1,
+                    Affects = {
+                        OmniRadius = {
+                            Add = bp.NewOmniRadius or 34,
+                        },
+                    },
+                }
+            end
+
+            Buff.ApplyBuff(self, 'NomadsACUIntelProbe')
             self.Sync.HasIntelProbeAbility = true
         end,
 
         IntelProbeRemove = function(self, bp)
             self:AddEnhancementEmitterToBone( false, 'IntelProbe1' )
             self:SetIntelProbe(false)
-            self:SetIntelRadius('Omni', bp.OmniRadius or 26)
+            Buff.RemoveBuff( self, 'NomadsACUIntelProbe' )
             self.Sync.HasIntelProbeAbility = false
         end,
 
         IntelProbeAdv = function(self, bp)
             --self:AddEnhancementEmitterToBone( true, 'IntelProbe1' )
             self:SetIntelProbe( 'IntelProbeAdv' )
-            self:SetIntelRadius('Omni', bp.AdvOmniRadius or 100)
+            
+            
+            -- add buff
+            if not Buffs['NomadsACUIntelProbeAdv'] then
+                BuffBlueprint {
+                    Name = 'NomadsACUIntelProbeAdv',
+                    DisplayName = 'NomadsACUIntelProbeAdv',
+                    BuffType = 'PROBEINTEL',
+                    Stacks = 'REPLACE',
+                    Duration = -1,
+                    Affects = {
+                        OmniRadius = {
+                            Add = bp.AdvOmniRadius or 74,
+                        },
+                    },
+                }
+            end
+
+            Buff.ApplyBuff(self, 'NomadsACUIntelProbeAdv')
+            
             self.Sync.HasIntelProbeAbility = false
             self.Sync.HasIntelProbeAdvancedAbility = true
         end,
@@ -444,7 +482,7 @@ XNL0001 = Class(ACUUnit) {
         IntelProbeAdvRemove = function(self, bp)
             self:AddEnhancementEmitterToBone( false, 'IntelProbe1' )
             self:SetIntelProbe(false)
-            self:SetIntelRadius('Omni', bp.OmniRadius or 26)
+            Buff.RemoveBuff( self, 'NomadsACUIntelProbeAdv' )
             self.Sync.HasIntelProbeAdvancedAbility = false
         end,
 
