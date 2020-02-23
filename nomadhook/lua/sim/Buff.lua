@@ -1,7 +1,7 @@
 
 do
 
-
+--TODO: rewrite this entirely, and use a table to pick from buff types instead of an ifelse train
 local oldBuffAffectUnit = BuffAffectUnit
 function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 
@@ -147,10 +147,8 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
             end
 
         elseif atype == 'OmniRadius' then
-
             -- checking for a value > 0 to avoid erroring out
-            local omnirad = unit:GetBlueprint().Intel.RadarRadius or 0
-            local val = BuffCalculate(unit, buffName, 'OmniRadius', omnirad)
+            local val = BuffCalculate(unit, buffName, 'OmniRadius', unit:GetBlueprint().Intel.OmniRadius or 0)
             if val > 0 then
                 if not unit:IsIntelEnabled('Omni') then
                     unit:InitIntel(unit.Army, 'Omni', val)
@@ -162,7 +160,6 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
             else
                 unit:DisableIntel('Omni')
             end
-
         end
     end
 
