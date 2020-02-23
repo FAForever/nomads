@@ -76,7 +76,6 @@ UnitBlueprint {
         Abilities = {
             '<LOC ability_radar>Radar',
             '<LOC ability_radarboost>Radar Boost',
-            '<LOC ability_stun>EMP Weapon',
             '<LOC ability_upgradable>Upgradeable',
         },
         AnimationUpgrade = '/units/XNB3101/XNB3101_AUpgrade.sca',
@@ -163,8 +162,8 @@ UnitBlueprint {
         BuildableCategory = {
             'xnb3201',
         },
-        MaintenanceConsumptionPerSecondEnergy = 5,
-        MaintenanceConsumptionPerSecondEnergyBoosted = 20,
+        MaintenanceConsumptionPerSecondEnergy = 20,
+        MaintenanceConsumptionPerSecondEnergyBoosted = 5,
         RebuildBonusIds = {
             'xnb3101',
         },
@@ -214,8 +213,8 @@ UnitBlueprint {
         UpgradesTo = 'xnb3201',
     },
     Intel = {
-        RadarRadius = 80,
-        RadarRadiusBoosted = 115,
+        RadarRadius = 115,
+        RadarRadiusBoosted = 80,
         ShowIntelOnSelect = true,
         VisionRadius = 20,
     },
@@ -257,51 +256,6 @@ UnitBlueprint {
     SizeZ = 1.1,
     StrategicIconName = 'icon_structure1_intel',
     StrategicIconSortPriority = 235,
-    Weapon = {
-        {
-            Audio = {
-                Fire = Sound {
-                    Bank = 'NomadsMisc',
-                    Cue = 'IntelOverchargeDischarge',
-                    LodCutoff = 'UnitMove_LodCutoff',
-                },
-            },
-            Buffs = {
-                {
-                    ApplyToFriendly = true,
-                    BuffType = 'STUN',
-                    Duration = 8,
-                    Radius = 15,
-                    TargetAllow = 'MOBILE TECH1 -NAVAL,SHIELD',
-                    TargetDisallow = 'UNSTUNABLE,EXPERIMENTAL,COMMAND,WALL',
-                },
-                {
-                    ApplyToFriendly = true,
-                    BuffType = 'STUN',
-                    Duration = 5,
-                    Radius = 15,
-                    TargetAllow = 'NAVAL -TECH3,TECH1 -MOBILE,MOBILE TECH2',
-                    TargetDisallow = 'UNSTUNABLE,EXPERIMENTAL,COMMAND,SHIELD,WALL',
-                },
-                {
-                    ApplyToFriendly = true,
-                    BuffType = 'STUN',
-                    Duration = 3,
-                    Radius = 15,
-                    TargetAllow = 'ALLUNITS',
-                    TargetDisallow = 'UNSTUNABLE,TECH1,EXPERIMENTAL,COMMAND,SHIELD,WALL',
-                },
-            },
-            Damage = 50,
-            DamageFriendly = true,
-            DamageRadius = 5,
-            DamageType = 'Normal',
-            DisplayName = 'Intel Overcharge Death Weapon',
-            DummyWeapon = true,
-            Label = 'IntelOverchargeDeathWeapon',
-            WeaponCategory = 'Death',
-        },
-    },
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,

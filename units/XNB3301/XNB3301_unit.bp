@@ -70,7 +70,6 @@ UnitBlueprint {
             '<LOC ability_omni>Omni Sensor',
             '<LOC ability_radarboost>Radar Boost',
             '<LOC ability_radar>Radar',
-            '<LOC ability_deathaoe>Volatile',
         },
         BlinkingLights = {
             {
@@ -233,51 +232,6 @@ UnitBlueprint {
     SizeZ = 1.25,
     StrategicIconName = 'icon_structure3_intel',
     StrategicIconSortPriority = 225,
-    Weapon = {
-        {
-            Audio = {
-                Fire = Sound {
-                    Bank = 'NomadsMisc',
-                    Cue = 'IntelOverchargeDischarge',
-                    LodCutoff = 'UnitMove_LodCutoff',
-                },
-            },
-            Buffs = {
-                {
-                    ApplyToFriendly = true,
-                    BuffType = 'STUN',
-                    Duration = 8,
-                    Radius = 25,
-                    TargetAllow = 'MOBILE TECH1 -NAVAL,SHIELD',
-                    TargetDisallow = 'UNSTUNABLE,EXPERIMENTAL,COMMAND,WALL',
-                },
-                {
-                    ApplyToFriendly = true,
-                    BuffType = 'STUN',
-                    Radius = 25,
-                    Duration = 5,
-                    TargetAllow = 'NAVAL -TECH3,TECH1 -MOBILE,MOBILE TECH2',
-                    TargetDisallow = 'UNSTUNABLE,EXPERIMENTAL,COMMAND,SHIELD,WALL',
-                },
-                {
-                    ApplyToFriendly = true,
-                    BuffType = 'STUN',
-                    Duration = 3,
-                    Radius = 25,
-                    TargetAllow = 'ALLUNITS',
-                    TargetDisallow = 'UNSTUNABLE,TECH1,EXPERIMENTAL,COMMAND,SHIELD,WALL',
-                },
-            },
-            Damage = 500,
-            DamageFriendly = true,
-            DamageRadius = 5,
-            DamageType = 'Normal',
-            DisplayName = 'Death Weapon',
-            DummyWeapon = true,
-            Label = 'IntelOverchargeDeathWeapon',
-            WeaponCategory = 'Death',
-        },
-    },
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
