@@ -1,39 +1,4 @@
 BuffBlueprint {
-    Name = 'AnchorModeImmobilize',
-    DisplayName = 'AnchorModeImmobilize',
-    BuffType = 'ANCHORMODE',
-    Stacks = 'REPLACE',
-    Duration = -1,
-    Affects = {
-        Immobilize = {
-            DeactivateDelay = 0,
-        },
-    },
-}
-
-BuffBlueprint {
-    Name = 'AnchorModeImmobilizeAddRange',
-    DisplayName = 'AnchorModeImmobilizeAddRange',
-    BuffType = 'ANCHORMODE',
-    Stacks = 'REPLACE',
-    Duration = -1,
-    Affects = {
-        Immobilize = {
-            DeactivateDelay = 1.5,
-        },
-        MaxRadius = {
-            Mult = 1.3,
-        },
-        RadarRadius = {
-            Mult = 1.3,
-        },
-        VisionRadius = {
-            Mult = 1.3,
-        },
-    },
-}
-
-BuffBlueprint {
     Name = 'CapacitorEngineering',
     DisplayName = 'CapacitorEngineering',
     BuffType = 'CAPACITORBUILDRATE',

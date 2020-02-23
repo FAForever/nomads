@@ -71,8 +71,6 @@ tooltip_snipermode_title = "Sniper Mode Toggle"
 tooltip_snipermode_desc = "Turn sniper mode on/off"
 tooltip_usecapacitor_title = "Capacitor Toggle"
 tooltip_usecapacitor_desc = "Temporarily boost unit's stats (firepower, build power, regeneration) using the capacitor ability"
-tooltip_anchor_title = "Anchor Toggle"
-tooltip_anchor_desc = "Immobilizes the unit and increases weapon range, vision, radar and build rate by 30%."
 tooltip_stealthshield_title = "Stealth Shield Toggle"
 tooltip_stealthshield_desc = "Turn the selected unit's shield and stealth field on/off"
 

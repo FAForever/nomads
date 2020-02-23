@@ -41,10 +41,6 @@ local NomadsTooltips = {
         title = "<LOC tooltip_usecapacitor_title>Capacitor Toggle",
         description = "<LOC tooltip_usecapacitor_desc>Boost unit temporarily (vision range, build power, regeneration) using the capacitor ability. Capacitor is filled when overflowing power and loses stored power when not overflowing.",
     },
-    toggle_anchor = {
-        title = "<LOC tooltip_anchor_title>Anchor Toggle",
-        description = "<LOC tooltip_anchor_desc>Immobilizes the unit",
-    },
     toggle_stealthshield_dome = {
         title = "<LOC tooltip_stealthshield_title>Stealth Shield Toggle",
         description = "<LOC tooltip_stealthshield_desc>Turn the select units shield and stealth field on/off",

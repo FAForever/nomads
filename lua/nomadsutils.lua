@@ -998,22 +998,3 @@ function AddCapacitorAbilityToWeapon( SuperClass )
         end,
     }
 end
-
--- ================================================================================================================
--- ANCHOR
--- ================================================================================================================
-function AddAnchorAbilty(SuperClass)
-    return Class(SuperClass) {
-        EnableAnchor = function(self)
-            local bp = self:GetBlueprint().Abilities.Anchor
-            local BuffName = bp.Buff or 'AnchorModeImmobilize'
-            Buff.ApplyBuff(self, BuffName)
-        end,
-
-        DisableAnchor = function(self)
-            local bp = self:GetBlueprint().Abilities.Anchor
-            local BuffName = bp.Buff or 'AnchorModeImmobilize'
-            Buff.RemoveBuff(self, BuffName)
-        end,
-    }
-end

@@ -69,9 +69,6 @@ UnitBlueprint {
     },
     Description = '<LOC XNL0202_desc>Heavy Tank',
     Display = {
-        Abilities = {
-            '<LOC ability_anchor>Anchor',
-        },
         BuildEffect = {
             ExtendsFront = 0.15,
             ExtendsRear = 0.1,
