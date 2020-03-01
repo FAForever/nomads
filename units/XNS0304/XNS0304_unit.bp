@@ -282,7 +282,6 @@ UnitBlueprint {
             RULEUCC_Dive = true,
             RULEUCC_Guard = true,
             RULEUCC_Move = true,
-            RULEUCC_Nuke = true,
             RULEUCC_Patrol = true,
             RULEUCC_Pause = true,
             RULEUCC_Reclaim = false,
