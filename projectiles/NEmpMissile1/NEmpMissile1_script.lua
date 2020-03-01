@@ -1,4 +1,5 @@
 local EMPMissile = import('/lua/nomadsprojectiles.lua').EMPMissile
+local RandomOffsetTrackingTarget = import('/lua/utilities.lua').RandomOffsetTrackingTarget
 
 NEmpMissile1 = Class(EMPMissile) {
 
@@ -10,6 +11,7 @@ NEmpMissile1 = Class(EMPMissile) {
     
     MovementThread = function(self)
         self.WaitTime = 0.1
+        self:SetNewTargetGround(RandomOffsetTrackingTarget(self, 10))
         self:SetTurnRate(8)
         WaitSeconds(0.3)        
         while not self:BeenDestroyed() do
