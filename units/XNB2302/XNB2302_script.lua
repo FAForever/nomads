@@ -109,7 +109,7 @@ XNB2302 = Class(NStructureUnit) {
         IssueClearCommands( {gun} )
 
         -- tell the satellite we're it's parent and position it above us
-        gun:OnSetParent(self, self.OnArtilleryUnitKilledUnit )
+        gun.parent = self
         IssueMove( {gun}, self:GetPosition() )
 
         ForkThread(function()
