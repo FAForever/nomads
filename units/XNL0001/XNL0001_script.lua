@@ -86,8 +86,11 @@ XNL0001 = Class(ACUUnit) {
 
     OnCreate = function(self)
         ACUUnit.OnCreate(self)
-        self.NukeEntity = 1 --leave a value for the death explosion entity to use later.
+        --if the acu is spawned in, find an orbital unit that works.
+        self:GetOrbitalUnit()
         
+        self.NukeEntity = 1 --leave a value for the death explosion entity to use later.
+
         --create capacitor sliders:
         self.CapSliders = {}
         table.insert(self.CapSliders, CreateSlider(self, 'CapacitorL'))
@@ -96,8 +99,6 @@ XNL0001 = Class(ACUUnit) {
             slider:SetGoal(0, -1, 0 )
             slider:SetSpeed(1)
         end
-
-        self:GetAIBrain().OrbitalBombardmentInitiator = self --TODO: fix this so that orbital bombard supports many units.
 
         local bp = self:GetBlueprint()
 
@@ -143,9 +144,8 @@ XNL0001 = Class(ACUUnit) {
         self.RASEnergyProductionLow = bp.Enhancements.ResourceAllocation.ProductionPerSecondEnergyLow
         self.RASMassProductionHigh = bp.Enhancements.ResourceAllocation.ProductionPerSecondMassHigh
         self.RASEnergyProductionHigh = bp.Enhancements.ResourceAllocation.ProductionPerSecondEnergyHigh
+        
     end,
-
-
 
     OnStopBeingBuilt = function(self, builder, layer)
         ACUUnit.OnStopBeingBuilt(self, builder, layer)
@@ -154,16 +154,31 @@ XNL0001 = Class(ACUUnit) {
         self:ForkThread(self.GiveInitialResources)
         self:ForkThread(self.HeadRotationThread)
         self.AllowHeadRotation = true
-        self.PlayCommanderWarpInEffectFlag = nil
-        --if the acu is spawned in, find an orbital unit that works.
-        if not self.OrbitalUnit then
-            local units = Utils.GetOwnUnitsInSphere(self:GetPosition(), 500, self.Army, categories.xno0001)
-            if units[1] then
-                self.OrbitalUnit = units[1]
-            else
-                self.OrbitalUnit = CreateOrbitalUnit(self)
+        self:ForkThread(self.DoMeteorAnim)
+    end,
+    
+    GetOrbitalUnit = function(self)
+        if self.OrbitalUnit then return end
+        
+        --if the acu is spawned in, find an orbital unit that works and isnt already assigned to anything
+        local units = Utils.GetOwnUnitsInSphere(self:GetPosition(), 500, self.Army, categories.xno0001)
+        local availableUnit = false
+        
+        for _,unit in units do
+            if not unit.AssignedUnit then 
+                availableUnit = unit
+                break
             end
         end
+        
+        if availableUnit then
+            self.OrbitalUnit = availableUnit
+        else
+            self.OrbitalUnit = CreateOrbitalUnit(self)
+        end
+        
+        --assign ourselves to the orbital unit so that other units dont try to grab it
+        self.OrbitalUnit.AssignedUnit = self
     end,
 
     -- =====================================================================================================================
@@ -172,6 +187,7 @@ XNL0001 = Class(ACUUnit) {
     OnKilled = function(self, instigator, type, overkillRatio)
         self:SetOrbitalBombardEnabled(false)
         self:SetIntelProbe(false)
+        if self.OrbitalUnit then self.OrbitalUnit.AssignedUnit = nil end
         ACUUnit.OnKilled(self, instigator, type, overkillRatio)
     end,
 
@@ -226,7 +242,7 @@ XNL0001 = Class(ACUUnit) {
         if not self.OrbitalUnit then
             self.OrbitalUnit = CreateOrbitalUnit(self)
         end
-        
+
         self.PlayCommanderWarpInEffectFlag = false
         self:HideBone(0, true)
         self:SetWeaponEnabledByLabel('MainGun', false)
