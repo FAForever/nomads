@@ -137,7 +137,7 @@ function NomadsSharedFactory( SuperClass )
             end
 
             local r = 0.9 -- while the construction progress is below this move to 'max'. When over this, go back to 'min'
-            local mul, dir = 0, 0
+            local mul, dir = 0, 1
             local InitialDist, Length = self:GetInitialAndLength()
             if self:GetBlueprint().Display.BuildEffect.Factory.BuildFieldReversed then dir = -1 end  -- some factories have backwards bones, here's a correction
             self.ArmSlider1:SetSpeed( 1000 ):SetWorldUnits(true)
