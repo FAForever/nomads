@@ -219,6 +219,12 @@ NIFOrbitalMissile = Class(NIFMissile) {
         
         self:ForkThread(self.TrailThread)
     end,
+    
+    GetLauncher = function(self)
+        --this just swaps the priorities on returning the launcher value before the engine function so we can use this to transfer veterancy.
+        --ideally we would use an Instigator variable and set that in OnImpact directly, but that would need destructive hooks.
+        return self.Launcher or NIFMissile.GetLauncher(self)
+    end,
 
     MovementThread = function(self)
         self:SetTurnRate(10)

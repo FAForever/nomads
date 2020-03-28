@@ -52,7 +52,12 @@ NIFOrbitalBombardmentWeapon = Class(DefaultProjectileWeapon) {
             table.remove(self.unit.OrbitalBombardmentQueue,1)
         end,
     },
-
+    
+    --allow setting the launcher to a unit other than the weapons owner, so any veterancy is passed to it instead.
+    CreateProjectileForWeapon = function(self, bone)
+        local proj = DefaultProjectileWeapon.CreateProjectileForWeapon(self, bone)
+        proj.Launcher = self.unit.AssignedUnit or proj.Launcher
+    end,
 }
 
 NIFTargetFinderWeapon = Class(DefaultProjectileWeapon) {
