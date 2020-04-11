@@ -60,7 +60,7 @@ ProjectileBlueprint {
         InitialSpeed = 14,
         LeadTarget = false,
         LifetimeAfterTargetLost = 8,
-        MaxSpeed = 40,
+        MaxSpeed = 30,
         MaxZigZag = 2,
         TrackTarget = true,
         TrackTargetGround = true,

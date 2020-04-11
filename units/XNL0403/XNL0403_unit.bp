@@ -381,7 +381,13 @@ UnitBlueprint {
     SelectionThickness = 0.3,
     SizeX = 5, -- keep 5 or higher to make sure the unit can move through structures
     SizeY = 1.8,
-    SizeZ = 10,
+    SizeZ = 10,	
+    SpecialAbilities = {
+        LaunchNuke = {
+            AreaOfEffect = 40,
+            MaxRadius = -1,
+        },
+    },
     StrategicIconName = 'icon_experimental_generic',
     StrategicIconSortPriority = 125,
     Transport = {
@@ -1090,7 +1096,7 @@ UnitBlueprint {
             NukeOuterRingTicks = 20,
             NukeOuterRingTotalTime = 0,
             NukeWeapon = true,
-            ProjectileId = '/projectiles/NStrategicMissile1/NStrategicMissile1_proj.bp',
+            ProjectileId = '/projectiles/NStrategicMissile2/NStrategicMissile2_proj.bp',
             ProjectilesPerOnFire = 1,
             RackBones = {
                 {
