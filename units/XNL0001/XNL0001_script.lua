@@ -417,14 +417,16 @@ XNL0001 = Class(ACUUnit) {
     
     ProbeCooldownThread = function(self, duration)
         self:SetSpecialAbilityAvailability('NomadsIntelProbe', 0)
+        self:SetSpecialAbilityAvailability('NomadsIntelProbeAdvanced', 0)
         
         for i = 0,duration,0.1 do
-            if self:BeenDestroyed() or self.unit.Dead then break end
+            if self:BeenDestroyed() or self.Dead then break end
             self:SetWorkProgress(i / duration)
             WaitSeconds(0.1)
         end
         
         self:SetSpecialAbilityAvailability('NomadsIntelProbe', 1)
+        self:SetSpecialAbilityAvailability('NomadsIntelProbeAdvanced', 1)
     end,
 
     -- =====================================================================================================================
