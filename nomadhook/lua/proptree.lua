@@ -49,7 +49,7 @@ DamageBehaviours = {
         end,
         
         ForceInwards = function(self, instigator, armormod, direction, damageType)
-            direction = -direction[1], direction[2], -direction[3]
+            direction = {-direction[1], direction[2], -direction[3]}
             DamageBehaviours['Force'](self, instigator, armormod, direction, damageType)
         end,
         
@@ -115,7 +115,6 @@ Tree = Class(oldTree) {
     
     FallOver = function(self, direction, speed, toggle)
         self.Fallen = true
-        
         self.Motor = self.Motor or self:FallDown()
         self.Motor:Whack(direction[1], direction[2], direction[3], speed or 1, toggle or true)
         self:SetMesh(self:GetBlueprint().Display.MeshBlueprintWrecked) --note: this doesnt seem to apply until the prop starts tipping for some reason.
