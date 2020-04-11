@@ -403,10 +403,15 @@ XNL0001 = Class(ACUUnit) {
 
     RequestProbe = function(self, location, probeType, data)
         if self.OrbitalUnit then
-            self.IntelProbeEntity = self.OrbitalUnit:LaunchProbe(location, probeType, data)
+            if not self.IntelProbeEntity or self.IntelProbeEntity:BeenDestroyed() then
+                self.IntelProbeEntity = self.OrbitalUnit:LaunchProbe(location, probeType, data)
+            else
+                WARN('Nomads: tried to create a duplicate intel probe, skipping creation')
+            end
+            
             self:ForkThread(self.ProbeCooldownThread, data.CoolDownTime)
         else
-            WARN('WARN:tried to launch probe without orbital unit, aborting.')
+            WARN('WARN:Nomads: tried to launch intel probe without orbital unit, aborting.')
         end
     end,
     
