@@ -865,7 +865,7 @@ xnb2302_name = "Desolator"
 -- transport
 xna0401_desc = "Experimental Air Transport"
 xna0401_help = "Experimental transport. High transport capacity with the ability to carry most naval units, as well as the Beamer. Equipped with anti-air weaponry and light anti-surface gatling guns."
-xna0401_name = "Comet"
+xna0401_name = "Altas"
 
 -- missile tank
 xnl0403_desc = "Experimental Missile Tank"

@@ -1,4 +1,4 @@
--- T4 experimental transport Comet
+-- T4 experimental transport Altas
 
 UnitBlueprint {
     AI = {
@@ -195,7 +195,7 @@ UnitBlueprint {
         Icon = 'air',
         SelectionPriority = 2,
         TechLevel = 'RULEUTL_Experimental',
-        UnitName = '<LOC XNA0401_name>Comet',
+        UnitName = '<LOC XNA0401_name>Altas',
         UnitWeight = 1,
     },
     Intel = {
