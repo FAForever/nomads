@@ -25,10 +25,10 @@ XNB1102 = Class(NEnergyCreationUnit) {
         end
 
         -- create the emitters
-        local army, emit = self:GetArmy()
+        local emit
         for k, v in effectTemplate do
             for _, bone in bones do
-                emit = CreateAttachedEmitter(self, bone, army, v)
+                emit = CreateAttachedEmitter(self, bone, self.Army, v)
                 self.ActiveEffectsBag:Add( emit )
                 self.Trash:Add( emit )
             end

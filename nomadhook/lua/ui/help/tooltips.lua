@@ -29,10 +29,6 @@ local NomadsTooltips = {
         title = "<LOC tooltip_radar_boost_title>Radar Toggle",
         description = "<LOC tooltip_radar_boost_desc>Turn the selection units radar on/off",
     },
-    toggle_bombardmode = {
-        title = "<LOC tooltip_bombardmode_title>Bombard Mode Toggle",
-        description = "<LOC tooltip_bombardmode_desc>Turn the selection units bombard mode on/off",
-    },
     toggle_weapon_no_air = {
         title = "<LOC tooltip_no_air_title>Anti-Air Toggle",
         description = "<LOC tooltip_no_air_desc>Turn the selection units anti-air attack on/off",
@@ -44,10 +40,6 @@ local NomadsTooltips = {
     toggle_capacitor = {
         title = "<LOC tooltip_usecapacitor_title>Capacitor Toggle",
         description = "<LOC tooltip_usecapacitor_desc>Boost unit temporarily (vision range, build power, regeneration) using the capacitor ability. Capacitor is filled when overflowing power and loses stored power when not overflowing.",
-    },
-    toggle_anchor = {
-        title = "<LOC tooltip_anchor_title>Anchor Toggle",
-        description = "<LOC tooltip_anchor_desc>Immobilizes the unit",
     },
     toggle_stealthshield_dome = {
         title = "<LOC tooltip_stealthshield_title>Stealth Shield Toggle",

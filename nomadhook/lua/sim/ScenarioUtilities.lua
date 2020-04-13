@@ -6,7 +6,6 @@
 ----[             Created from examples provided by Jeff Petkau.                  ]--
 ----[                                                                             ]--
 ----[  Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.             ]--
-local Entity = import('/lua/sim/Entity.lua').Entity
 local Factions = import('/lua/factions.lua').GetFactions(true)
 
 -- We replace the original function with this one that supports any faction number, and is also faster, and more robust.
@@ -30,7 +29,7 @@ local FactionConversionTable = {
 function FactionConvert(template, factionIndex)
     local factionKey = Factions[factionIndex].Key
     for i = 3,table.getn(template) do --start from the third item in the list onwards, for whatever reason
-        if template[i][1] == FactionConversionTable[factionKey][template[i][1]] then
+        if FactionConversionTable[factionKey][template[i][1]] then
             template[i][1] = FactionConversionTable[factionKey][template[i][1]]
         else
             --grab first two characters from the faction bp code, we use BuildingIdPrefixes for that.
@@ -47,7 +46,6 @@ function FactionConvert(template, factionIndex)
             
             template[i][1] = string.gsub(template[i][1], "(%w)(%w)(%w%d%d%d%d)", factionKeyString)
         end
-        i = i + 1
     end
     return template
 end

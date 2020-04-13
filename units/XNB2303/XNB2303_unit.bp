@@ -47,6 +47,7 @@ UnitBlueprint {
         'OVERLAYINDIRECTFIRE',
         'SHOWATTACKRETICLE',
         'SORTSTRATEGIC',
+        'CQUEMOV', --enables the selection and move commands during construction
     },
     Defense = {
         AirThreatLevel = 0,
@@ -60,9 +61,6 @@ UnitBlueprint {
     },
     Description = '<LOC XNB2303_desc>Artillery Installation',
     Display = {
-        Abilities = {
-            '<LOC ability_supportedartillerygun>Supported Artillery Gun',
-        },
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {

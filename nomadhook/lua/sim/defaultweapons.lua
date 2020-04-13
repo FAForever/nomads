@@ -16,9 +16,8 @@ DefaultProjectileWeapon = Class(oldDefaultProjectileWeapon) {
         if dontRecalcRecoilReturnSpeed ~= false then
             local bp = self:GetBlueprint()
             local dist = bp.RackRecoilDistance
-            local rof = self:GetRateOfFire()
             if dist > 0 and newROF > 0 then
-                self.RackRecoilReturnSpeed = bp.RackRecoilReturnSpeed or math.abs( dist / (( 1 / rof ) - (bp.MuzzleChargeDelay or 0))) * 1.25
+                self.RackRecoilReturnSpeed = bp.RackRecoilReturnSpeed or math.abs( dist / (( 1 / self.RateOfFire ) - (bp.MuzzleChargeDelay or 0))) * 1.25
             else
                 self.RackRecoilReturnSpeed = -1
             end

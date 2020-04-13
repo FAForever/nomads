@@ -97,7 +97,7 @@ ProxDetectEntity = Class(Entity) {
         if not self:IsEnabled() then
             return false
         end
-        if other:GetArmy() == -1 then -- -1 == observer
+        if other.Army == -1 then -- -1 == observer
             return false
         end
         if self.Owner.Dead then
@@ -108,11 +108,11 @@ ProxDetectEntity = Class(Entity) {
             return false
         end
 
-        if self.AlertIfOwnArmy and other:GetArmy() == self:GetArmy() then
+        if self.AlertIfOwnArmy and other.Army == self.Army then
             self:ProximityAlarm(other)
-        elseif self.AlertIfEnemyArmy and (IsEnemy(self:GetArmy(),other:GetArmy()) or ArmyIsCivilian(other:GetArmy())) then
+        elseif self.AlertIfEnemyArmy and (IsEnemy(self.Army, other.Army) or ArmyIsCivilian(other.Army)) then
             self:ProximityAlarm(other)
-        elseif self.AlertIfAlliedArmy and IsAlly(self:GetArmy(),other:GetArmy()) then
+        elseif self.AlertIfAlliedArmy and IsAlly(self.Army, other.Army) then
             self:ProximityAlarm(other)
         end
 

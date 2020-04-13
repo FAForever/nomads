@@ -125,7 +125,7 @@ UnitBlueprint {
         },
         PlaceholderMeshName = 'UXL0004',
         SpawnRandomRotation = true,
-        UniformScale = 0.065,
+        UniformScale = 0.512,
     },
     Economy = {
         BuildCostEnergy = 300,
@@ -284,7 +284,7 @@ UnitBlueprint {
             TurretYawRange = 180,
             TurretYawSpeed = 180,
             Turreted = true,
-            WeaponCategory = 'Artillery',
+            WeaponCategory = 'Missile',
         },
         {
             AboveWaterTargetsOnly = true,
@@ -399,7 +399,7 @@ UnitBlueprint {
             TurretYawRange = 180,
             TurretYawSpeed = 90,
             Turreted = true,
-            WeaponCategory = 'Artillery',
+            WeaponCategory = 'Missile',
         },
         {
             AlwaysRecheckTarget = true,
@@ -413,7 +413,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
-            Damage = 50,
+            Damage = 25,
             DamageType = 'Normal',
             DisplayName = 'Rocket (AA)',
             EffectiveRadius = 0,

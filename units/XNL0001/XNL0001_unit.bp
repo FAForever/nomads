@@ -17,6 +17,14 @@ UnitBlueprint {
             bitmapId = 'unfilled',
             helpText = 'toggle_capacitor',
         },
+        NomadsIntelProbe = {
+            bitmapId = 'intelprobe',
+            helpText = 'specabil_intelprobe',
+        },
+        NomadsIntelProbeAdvanced = {
+            bitmapId = 'intelprobe',
+            helpText = 'specabil_intelprobe',
+        },
     },
     AI = {
         GuardRadius = 10,
@@ -384,9 +392,9 @@ UnitBlueprint {
             Slot = 'LCH',
         },
         DoubleGuns = {
-            BuildCostEnergy = 15000,
-            BuildCostMass = 500,
-            BuildTime = 500,
+            BuildCostEnergy = 10000,
+            BuildCostMass = 400,
+            BuildTime = 400,
             Icon = 'hamc2',
             Name = '<LOC NomadsACUEnh_DoubleGuns_Help>',
             ShowBones = {
@@ -422,9 +430,9 @@ UnitBlueprint {
             Slot = 'RCH',
         },
         GunUpgrade = {
-            BuildCostEnergy = 15000,
-            BuildCostMass = 500,
-            BuildTime = 500,
+            BuildCostEnergy = 20000,
+            BuildCostMass = 600,
+            BuildTime = 600,
             Icon = 'hamc',
             Name = '<LOC NomadsACUEnh_GunUpgrade_Help>',
             NewDamageRadius = 2.5,
@@ -458,7 +466,7 @@ UnitBlueprint {
             BuildTime = 500,
             Icon = 'ip',
             Name = '<LOC NomadsACUEnh_IntelProbe_Help>Intel Probe',
-            NewOmniRadius = 60,
+            ProbeExtraOmniRadius = 34,
             ShowBones = {
                 'IntelProbe1',
             },
@@ -491,13 +499,13 @@ UnitBlueprint {
             Slot = 'RCH',
         },
         IntelProbeAdv = {
-            AdvOmniRadius = 100,
             BuildCostEnergy = 24000,
             BuildCostMass = 800,
             BuildTime = 800,
             Icon = 'ip2',
             Name = '<LOC NomadsACUEnh_IntelProbeAdv_Help>Advanced Intel Probe',
             Prerequisite = 'IntelProbe',
+            ProbeAdvExtraOmniRadius = 74,
             ShowBones = {
                 'IntelProbe2',
             },
@@ -532,7 +540,7 @@ UnitBlueprint {
         MovementSpeedIncrease = {
             BuildCostEnergy = 24000,
             BuildCostMass = 800,
-            BuildTime = 900,
+            BuildTime = 800,
             Icon = 'il',
             Name = '<LOC NomadsACUEnh_MovementSpeedIncrease_Help>',
             ShowBones = {

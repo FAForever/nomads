@@ -68,11 +68,11 @@ XNA0105 = Class(NAirUnit) {
     end,
 
     PlayHoverEmitterEffects = function(self, large)
-        local bone, army, beam, beamBP = 'Thrust_Bottom', self:GetArmy()
+        local beam
         if large then
-            beam = CreateBeamEmitterOnEntity(self, bone, army, self.BeamHoverExhaustCruise )
+            beam = CreateBeamEmitterOnEntity(self, 'Thrust_Bottom', self.Army, self.BeamHoverExhaustCruise )
         else
-            beam = CreateBeamEmitterOnEntity(self, bone, army, self.BeamHoverExhaustIdle )
+            beam = CreateBeamEmitterOnEntity(self, 'Thrust_Bottom', self.Army, self.BeamHoverExhaustIdle )
         end
         self.HoverEmitterEffectTrashBag:Add(beam)
         self.Trash:Add(beam)

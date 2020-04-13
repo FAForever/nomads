@@ -52,7 +52,12 @@ NIFOrbitalBombardmentWeapon = Class(DefaultProjectileWeapon) {
             table.remove(self.unit.OrbitalBombardmentQueue,1)
         end,
     },
-
+    
+    --allow setting the launcher to a unit other than the weapons owner, so any veterancy is passed to it instead.
+    CreateProjectileForWeapon = function(self, bone)
+        local proj = DefaultProjectileWeapon.CreateProjectileForWeapon(self, bone)
+        proj.Launcher = self.unit.AssignedUnit or proj.Launcher
+    end,
 }
 
 NIFTargetFinderWeapon = Class(DefaultProjectileWeapon) {
@@ -212,10 +217,10 @@ NAMFlakWeapon = Class(DefaultBeamWeapon) {
 
     PlayTAEffects = function(self, TMD)
         if not self.PlayingTAEffects then
-            local army, emit = self.unit:GetArmy()
+            local emit
             for _, bone in self.TMDEffectBones do
                 for k, v in NomadsEffectTemplate.T2MobileTacticalMissileDefenseTargetAcquired do
-                    emit = CreateAttachedEmitter(self.unit, bone, army, v)
+                    emit = CreateAttachedEmitter(self.unit, bone, self.unit.Army, v)
                     self.TAEffectsBag:Add(emit)
                 end
             end
@@ -300,7 +305,7 @@ EnergyCannon1 = Class(DefaultProjectileWeapon) {
         DefaultProjectileWeapon.OnCreate(self)
         local bp = self:GetBlueprint()
         if not bp.DoTPulses or not bp.DoTTime then
-            WARN('EnergyCannon1: unit '..repr(self.unit:GetUnitId())..' does not have correct DoT values in blueprint!')
+            WARN('EnergyCannon1: unit '..repr(self.unit.UnitId)..' does not have correct DoT values in blueprint!')
         end
     end,
 }
@@ -320,10 +325,10 @@ GattlingWeapon1 = Class(DefaultProjectileWeapon) {
         self.Rotates = (bp.GattlingBarrelBone ~= nil)
         if self.Rotates then
             if not bp.GattlingBarrelBone then
-                WARN('GattlingWeapon: no barrel bone defined in weapon blueprint for unit '..repr(self.unit:GetUnitId()))
+                WARN('GattlingWeapon: no barrel bone defined in weapon blueprint for unit '..repr(self.unit.UnitId))
                 self.Rotates = false
             elseif not bp.WeaponUnpacks then
-                WARN('GattlingWeapon: weapon need to unpack spinning barrels, on  unit '..repr(self.unit:GetUnitId()))
+                WARN('GattlingWeapon: weapon need to unpack spinning barrels, on  unit '..repr(self.unit.UnitId))
                 self.Rotates = false
             else
                 local bone = bp.GattlingBarrelBone
@@ -339,7 +344,7 @@ GattlingWeapon1 = Class(DefaultProjectileWeapon) {
         if self.Rotates then
             local speed = 0
             if enabled then
-                speed = self:GetBlueprint().GattlingBarrelRotationSpeed or (self:GetRateOfFire() * 100)
+                speed = self:GetBlueprint().GattlingBarrelRotationSpeed or (self.RateOfFire * 100)
                 self:PlayWeaponSound('SpinningStart')
                 self:PlayWeaponAmbientSound('SpinningLoop')  -- can use BarrelLoop as with other gatlings. See original OnStartTracking fn.
             else
@@ -490,7 +495,7 @@ EnergyBombWeapon = Class(DefaultProjectileWeapon) {
         DefaultProjectileWeapon.OnCreate(self)
         local bp = self:GetBlueprint()
         if not bp.DoTPulses or not bp.DoTTime then
-            WARN('EnergyCannon1: unit '..repr(self.unit:GetUnitId())..' does not have correct DoT values in blueprint!')
+            WARN('EnergyCannon1: unit '..repr(self.unit.UnitId)..' does not have correct DoT values in blueprint!')
         end
     end,
 }
@@ -582,11 +587,10 @@ DeathNuke = Class(BareBonesWeapon) {
 
         local launcher = self.unit
         local pos = self.proj:GetPosition()
-        local army = launcher:GetArmy()
         local brain = launcher:GetAIBrain()
         local damageType = bp.DamageType
-        self.proj.InnerRing:DoNukeDamage(launcher, pos, brain, army, damageType)
-        self.proj.OuterRing:DoNukeDamage(launcher, pos, brain, army, damageType)
+        self.proj.InnerRing:DoNukeDamage(launcher, pos, brain, launcher.Army, damageType)
+        self.proj.OuterRing:DoNukeDamage(launcher, pos, brain, launcher.Army, damageType)
     end,
 }
 

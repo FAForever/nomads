@@ -22,15 +22,9 @@ XNB3303 = Class(NStructureUnit) {
                 for k, bones in self.MissileBones do
                     self.NumMissiles = self.NumMissiles + table.getsize(bones)
                 end
-                self.OrgFR = self:GetFiringRandomness()
             end,
 
             CreateProjectileAtMuzzle = function(self, muzzle)
-                -- since we're launching multiple missiles at the same time it doesn't make sense to do checks for supported artillery
-                -- weap. So I'm avoiding that by manually making the weapon supported for the last 2 missiles if we are supported with
-                -- the first missile.
-
-                self.Supported = false
                 local firstBone, secondSalvo = true, false
 
                 for k, bones in self.MissileBones do
@@ -40,10 +34,6 @@ XNB3303 = Class(NStructureUnit) {
                         -- create first missile at muzzle, then see if we're supported. If yes, set supporting for the remaining missiles.
                         for k, bone in bones do
                             TacticalMissileWeapon1.CreateProjectileAtMuzzle(self, bone)
-                            if firstBone and not secondSalvo and self.Supported then
-                                self.ArtillerySupportEnabled = false    -- prevents checking for supporting units
-                                self.OrgFR = self:MakeSupported()
-                            end
                             firstBone = false
                             self.unit:DoShowMissile(bone, false) -- hide missile on model
                         end
@@ -63,26 +53,13 @@ XNB3303 = Class(NStructureUnit) {
                 LOG('*DEBUG: xnb3303 MissileBones set in script do not match MuzzleBones in weapon BP')
             end,
 
-            MakeSupported = function(self)
-                self.Supported = true  -- flag that we're supported
-                return TacticalMissileWeapon1.MakeSupported(self)
-            end,
-
-            OnWeaponFired = function(self)
-                if self.Supported then
-                    self:MakeUnsupported( self.OrgFR )
-                    self.ArtillerySupportEnabled = true
-                end
-                TacticalMissileWeapon1.OnWeaponFired(self)
-            end,
-
             ChangeRateOfFire = function(self, newROF)
                 TacticalMissileWeapon1.ChangeRateOfFire(self, newROF)
                 self._CurROF = newROF
             end,
 
             GetRateOfFire = function(self)
-                return self._CurROF or self:GetBlueprint().RateOfFire or 1
+                return self._CurROF or self.RateOfFire
             end,
         },
     },

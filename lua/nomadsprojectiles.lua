@@ -87,13 +87,12 @@ NAAMissile = Class(SingleCompositeEmitterProjectile) { --TODO:give it a better n
         SingleCompositeEmitterProjectile.OnImpact(self, targetType, targetEntity)
 
         -- create some additional effects
-        local army = self:GetArmy()
         local ok = (targetType ~= 'Water' and targetType ~= 'Shield' and targetType ~= 'Air' and targetType ~= 'UnitAir' and targetType ~= 'UnitUnderwater')
         if ok then
             local rotation = RandomFloat(0,2*math.pi)
             local size = RandomFloat(1.5, 2.5)
             local life = Random(40, 60)
-            CreateDecal(self:GetPosition(), rotation, 'Scorch_012_albedo', '', 'Albedo', size, size, 300, life, self:GetArmy())
+            CreateDecal(self:GetPosition(), rotation, 'Scorch_012_albedo', '', 'Albedo', size, size, 300, life, self.Army)
         end    
     end,
 }
@@ -122,13 +121,12 @@ NDFAmphibiousMissile = Class(NAAMissile, NIFTargetLeadingMissile) {
             self:SetNewTarget(self.TargetUnit) --turn on full-on tracking if we are targeting stuff in the water
         end
         --play some water effects
-        local army = self:GetArmy()
         for i in self.FxTrailsWater do
-            CreateEmitterOnEntity(self, army, self.FxTrailsWater[i]):ScaleEmitter(self.FxTrailScale):OffsetEmitter(0, 0, self.FxTrailOffset)
+            CreateEmitterOnEntity(self, self.Army, self.FxTrailsWater[i]):ScaleEmitter(self.FxTrailScale):OffsetEmitter(0, 0, self.FxTrailOffset)
         end
 
         for k, v in self.FxEnterWater do
-            CreateEmitterAtEntity(self,army,v)
+            CreateEmitterAtEntity(self, self.Army ,v)
         end
         
         self:ForkThread(self.WaterEntryThread)
@@ -221,6 +219,12 @@ NIFOrbitalMissile = Class(NIFMissile) {
         
         self:ForkThread(self.TrailThread)
     end,
+    
+    GetLauncher = function(self)
+        --this just swaps the priorities on returning the launcher value before the engine function so we can use this to transfer veterancy.
+        --ideally we would use an Instigator variable and set that in OnImpact directly, but that would need destructive hooks.
+        return self.Launcher or NIFMissile.GetLauncher(self)
+    end,
 
     MovementThread = function(self)
         self:SetTurnRate(10)
@@ -242,13 +246,14 @@ NIFOrbitalMissile = Class(NIFMissile) {
         local dist = self:GetDistanceToTarget()
         if dist > 250 then
             self:SetStage(0)
-            WaitSeconds(4)
+            WaitSeconds(0.5)
         elseif dist > 60 and dist <= 250 then
             self:SetStage(1)
-            WaitSeconds(2)
+            WaitSeconds(1)
         elseif dist > 25 and dist <= 60 then
             self:SetNewTargetGround(self.TargetPos) --target the ground again
             self:SetStage(2)
+            WaitSeconds(0.1)
         elseif dist > 0 and dist <= 25 then
             self:SetNewTargetGround(self.TargetPos) --target the ground again
             self:SetStage(3)
@@ -271,14 +276,13 @@ NIFOrbitalMissile = Class(NIFMissile) {
     
     OnImpact = function(self, targetType, targetEntity)
         NIFMissile.OnImpact(self, targetType, targetEntity)
-        local army = self:GetArmy()
         local pos = self:GetPosition()
-        NomadsExplosions.CreateArtilleryImpactLarge(self, pos, army, targetType)
+        NomadsExplosions.CreateArtilleryImpactLarge(self, pos, self.Army, targetType)
     end,
 
     --Prevent taking damage from friendly targets such as AOE explosions
     OnDamage = function(self, instigator, amount, vector, damageType)
-        if instigator:GetArmy() ~= self:GetArmy() then
+        if instigator.Army ~= self.Army then
             NIFMissile.OnDamage(self, instigator, amount, vector, damageType)
         end
     end,
@@ -297,7 +301,7 @@ NIFOrbitalMissile = Class(NIFMissile) {
         
         if self and not self:BeenDestroyed() then
             for k, v in  NomadsEffectTemplate.OrbitalStrikeMissile_AtmosphereTrail do
-                self.Trash:Add( CreateAttachedEmitter( self, -1, self:GetArmy(), v ) )
+                self.Trash:Add( CreateAttachedEmitter( self, -1, self.Army, v ) )
             end
         end
     end,
@@ -372,10 +376,9 @@ NIFCruiseMissile = Class(NIFMissile) {
     OnImpact = function(self, targetType, targetEntity)
         SingleCompositeEmitterProjectile.OnImpact(self, targetType, targetEntity)
         
-        local army = self:GetArmy()
         local pos = self:GetPosition()
 
-        NomadsExplosions.CreateImpactMedium(self, pos, army, targetType)
+        NomadsExplosions.CreateImpactMedium(self, pos, self.Army, targetType)
     end,
 
     WaterExitEffectsThread = function(self)
@@ -385,9 +388,8 @@ NIFCruiseMissile = Class(NIFMissile) {
         end
         
         --create some water exiting effects, splashes and all that
-        local army = self:GetArmy()
         for k, v in self.FxExitWaterEmitter do
-            CreateEmitterAtBone(self,-2,army,v)
+            CreateEmitterAtBone(self, -2, self.Army, v)
         end
         
         --adjust velocity to what it would have been from a land launch, but in a fancy way (5+3 = 8)
@@ -399,17 +401,17 @@ NIFCruiseMissile = Class(NIFMissile) {
         
         --create the EmitterProjectile effects
         for i in self.FxTrails do
-            CreateEmitterOnEntity(self, army, self.FxTrails[i]):ScaleEmitter(self.FxTrailScale):OffsetEmitter(0, 0, self.FxTrailOffset)
+            CreateEmitterOnEntity(self, self.Army, self.FxTrails[i]):ScaleEmitter(self.FxTrailScale):OffsetEmitter(0, 0, self.FxTrailOffset)
         end
         
         --create the SinglePolyTrailProjectile trail
         if self.PolyTrail ~= '' then
-            CreateTrail(self, -1, army, self.PolyTrail):OffsetEmitter(0, 0, self.PolyTrailOffset)
+            CreateTrail(self, -1, self.Army, self.PolyTrail):OffsetEmitter(0, 0, self.PolyTrailOffset)
         end
         
         --create the SingleCompositeEmitterProjectile beam
         if self.BeamName ~= '' then
-            CreateBeamEmitterOnEntity(self, -1, army, self.BeamName)
+            CreateBeamEmitterOnEntity(self, -1, self.Army, self.BeamName)
         end
         
         WaitSeconds(0.2) --finish accelerating at really high acceleration
@@ -423,7 +425,7 @@ NIFCruiseMissile = Class(NIFMissile) {
 
     CreateUnderWaterEffects = function(self, EffectsBag)
         -- create attached air bubbles emitter
-        local army, emit = self:GetLauncher():GetArmy()
+        local army, emit = self:GetLauncher().Army
         for k, v in NomadsEffectTemplate.TacticalMissileTrailFxUnderWaterAddon do
             emit = CreateAttachedEmitter( self, -1, army, v )
             EffectsBag:Add( emit )
@@ -493,7 +495,7 @@ RailGunProj = Class(SinglePolyTrailProjectile) {
         -- filtering out only projectiles that dont fit the categories
         if not self.CollisionCats or table.getn(self.CollisionCats) < 1 then
             return false
-        elseif self:GetArmy() == other:GetArmy() or IsAlly( self:GetArmy(), other:GetArmy() ) then
+        elseif self.Army == other.Army or IsAlly( self.Army, other.Army ) then
             return false
         else
             for k, cat in self.CollisionCats do
@@ -543,13 +545,12 @@ KineticRound = Class(SinglePolyTrailProjectile) {
         SinglePolyTrailProjectile.OnImpact(self, targetType, targetEntity)
 
         -- create some additional effects
-        local army = self:GetArmy()
         local ok = (targetType ~= 'Water' and targetType ~= 'Shield' and targetType ~= 'Air' and targetType ~= 'UnitAir' and targetType ~= 'UnitUnderwater')
         if ok then
             local rotation = RandomFloat(0,2*math.pi)
             local size = RandomFloat(2, 3)
             local life = Random(40, 60)
-            CreateDecal(self:GetPosition(), rotation, 'Scorch_010_albedo', '', 'Albedo', size, size, 300, life, self:GetArmy())
+            CreateDecal(self:GetPosition(), rotation, 'Scorch_010_albedo', '', 'Albedo', size, size, 300, life, self.Army)
         end    
     end,
 }
@@ -583,18 +584,16 @@ APRound = Class(SinglePolyTrailProjectile) {
 
     OnImpact = function(self, targetType, targetEntity)
         SinglePolyTrailProjectile.OnImpact(self, targetType, targetEntity)
-        local army = self:GetArmy()
-        NomadsExplosions.CreateFlashCustom( self, -2, army, 1.475*0.95, 5, 'glow_06_red', 'ramp_transparency_flash_dark_2' )
-        NomadsExplosions.CreateFlashCustom( self, -2, army, 0.315*0.95, 36.5, 'glow_06_red', 'ramp_transparency_flash_dark_2' )
+        NomadsExplosions.CreateFlashCustom( self, -2, self.Army, 1.475*0.95, 5, 'glow_06_red', 'ramp_transparency_flash_dark_2' )
+        NomadsExplosions.CreateFlashCustom( self, -2, self.Army, 0.315*0.95, 36.5, 'glow_06_red', 'ramp_transparency_flash_dark_2' )
 
         -- create some additional effects
-        local army = self:GetArmy()
         local ok = (targetType ~= 'Water' and targetType ~= 'Shield' and targetType ~= 'Air' and targetType ~= 'UnitAir' and targetType ~= 'UnitUnderwater')
         if ok then
             local rotation = RandomFloat(0,2*math.pi)
             local size = RandomFloat(1, 1.8)
             local life = Random(40, 60)
-            CreateDecal(self:GetPosition(), rotation, 'Scorch_002_albedo', '', 'Albedo', size, size, 300, life, self:GetArmy())
+            CreateDecal(self:GetPosition(), rotation, 'Scorch_002_albedo', '', 'Albedo', size, size, 300, life, self.Army)
         end    
     end,
 }
@@ -628,18 +627,16 @@ APRoundCap = Class(SinglePolyTrailProjectile) {
 
     OnImpact = function(self, targetType, targetEntity)
         SinglePolyTrailProjectile.OnImpact(self, targetType, targetEntity)
-        local army = self:GetArmy()
-        NomadsExplosions.CreateFlashCustom( self, -2, army, 2.435*0.775, 8, 'glow_06_red', 'ramp_transparency_flash_dark_2' )
-        NomadsExplosions.CreateFlashCustom( self, -2, army, 0.635*0.775, 66.5, 'glow_06_red', 'ramp_transparency_flash_dark_2' )
+        NomadsExplosions.CreateFlashCustom( self, -2, self.Army, 2.435*0.775, 8, 'glow_06_red', 'ramp_transparency_flash_dark_2' )
+        NomadsExplosions.CreateFlashCustom( self, -2, self.Army, 0.635*0.775, 66.5, 'glow_06_red', 'ramp_transparency_flash_dark_2' )
 
         -- create some additional effects
-        local army = self:GetArmy()
         local ok = (targetType ~= 'Water' and targetType ~= 'Shield' and targetType ~= 'Air' and targetType ~= 'UnitAir' and targetType ~= 'UnitUnderwater')
         if ok then
             local rotation = RandomFloat(0,2*math.pi)
             local size = RandomFloat(1, 1.8)
             local life = Random(40, 60)
-            CreateDecal(self:GetPosition(), rotation, 'Scorch_002_albedo', '', 'Albedo', size, size, 300, life, self:GetArmy())
+            CreateDecal(self:GetPosition(), rotation, 'Scorch_002_albedo', '', 'Albedo', size, size, 300, life, self.Army)
         end    
     end,
 }
@@ -665,13 +662,12 @@ Annihilator = Class(SinglePolyTrailProjectile) {
         SinglePolyTrailProjectile.OnImpact(self, targetType, targetEntity)
 
         -- create some additional effects
-        local army = self:GetArmy()
         local ok = (targetType ~= 'Water' and targetType ~= 'Shield' and targetType ~= 'Air' and targetType ~= 'UnitAir' and targetType ~= 'UnitUnderwater')
         if ok then
             local rotation = RandomFloat(0,2*math.pi)
             local size = RandomFloat(2, 3)
             local life = Random(40, 60)
-            CreateDecal(self:GetPosition(), rotation, 'Scorch_001_albedo', '', 'Albedo', size, size, 300, life, self:GetArmy())
+            CreateDecal(self:GetPosition(), rotation, 'Scorch_001_albedo', '', 'Albedo', size, size, 300, life, self.Army)
         end    
     end,
 }
@@ -693,10 +689,9 @@ ArtilleryShell = Class(SinglePolyTrailProjectile) {
     DoImpactFlash = true,
 
     OnImpact = function(self, targetType, targetEntity)
-        local army = self:GetArmy()
         local pos = self:GetPosition()
 
-        NomadsExplosions.CreateArtilleryImpactLarge(self, pos, army, targetType)
+        NomadsExplosions.CreateArtilleryImpactLarge(self, pos, self.Army, targetType)
 
         EmitterProjectile.OnImpact(self, targetType, targetEntity)
     end,
@@ -724,13 +719,12 @@ ParticleBlastArtilleryShell = Class(SinglePolyTrailProjectile) {
         MultiPolyTrailProjectile.OnImpact(self, targetType, targetEntity)
 
         -- create some additional effects
-        local army = self:GetArmy()
         local ok = (targetType ~= 'Water' and targetType ~= 'Shield' and targetType ~= 'Air' and targetType ~= 'UnitAir')
         if ok then
             local rotation = RandomFloat(0,2*math.pi)
             local size = RandomFloat(8, 12)
             local life = Random(40, 60)
-            CreateDecal(self:GetPosition(), rotation, 'Scorch_012_albedo', '', 'Albedo', size, size, 300, life, self:GetArmy())
+            CreateDecal(self:GetPosition(), rotation, 'Scorch_012_albedo', '', 'Albedo', size, size, 300, life, self.Army)
         end    
     end,
 }
@@ -761,16 +755,14 @@ SplittingArtilleryShell = Class(SinglePolyTrailProjectile) {
     end,
 
     OnImpact = function(self, targetType, targetEntity)
-        local army = self:GetArmy()
-
         if self.DoImpactFlash then
-            CreateLightParticle( self, -1, army, RandomFloat(15,17), RandomFloat(8,12), 'glow_03', 'ramp_antimatter_02' )
+            CreateLightParticle( self, -1, self.Army, RandomFloat(15,17), RandomFloat(8,12), 'glow_03', 'ramp_antimatter_02' )
         end
         if targetType ~= "Shield" then
             local rotation = RandomFloat(0, 2*math.pi)
             local size = RandomFloat(2, 3)
             local life = RandomFloat(50, 100)
-            CreateDecal(self:GetPosition(), rotation, '/textures/splats/ConcussionBomb/ConcussionBomb_decal_albedo.dds', '', 'Albedo', size, size, 350, life, self:GetArmy())
+            CreateDecal(self:GetPosition(), rotation, '/textures/splats/ConcussionBomb/ConcussionBomb_decal_albedo.dds', '', 'Albedo', size, size, 350, life, self.Army)
         end
         self:Fragments()
         EmitterProjectile.OnImpact(self, targetType, targetEntity)
@@ -925,13 +917,12 @@ IonBlast = Class(SinglePolyTrailProjectile) {
         MultiPolyTrailProjectile.OnImpact(self, targetType, targetEntity)
 
         -- create some additional effects
-        local army = self:GetArmy()
         local ok = (targetType ~= 'Water' and targetType ~= 'Shield' and targetType ~= 'Air' and targetType ~= 'UnitAir')
         if ok then
             local rotation = RandomFloat(0,2*math.pi)
             local size = RandomFloat(1, 1.5)
             local life = Random(40, 60)
-            CreateDecal(self:GetPosition(), rotation, 'Scorch_012_albedo', '', 'Albedo', size, size, 300, life, self:GetArmy())
+            CreateDecal(self:GetPosition(), rotation, 'Scorch_012_albedo', '', 'Albedo', size, size, 300, life, self.Army)
         end    
     end,
 }
@@ -956,13 +947,12 @@ ParticleBlast = Class(SinglePolyTrailProjectile) {
         MultiPolyTrailProjectile.OnImpact(self, targetType, targetEntity)
 
         -- create some additional effects
-        local army = self:GetArmy()
         local ok = (targetType ~= 'Water' and targetType ~= 'Shield' and targetType ~= 'Air' and targetType ~= 'UnitAir')
         if ok then
             local rotation = RandomFloat(0,2*math.pi)
             local size = RandomFloat(1, 1.5)
             local life = Random(40, 60)
-            CreateDecal(self:GetPosition(), rotation, 'Scorch_012_albedo', '', 'Albedo', size, size, 300, life, self:GetArmy())
+            CreateDecal(self:GetPosition(), rotation, 'Scorch_012_albedo', '', 'Albedo', size, size, 300, life, self.Army)
         end    
     end,
 }
@@ -1038,7 +1028,7 @@ EmpShell = Class(SinglePolyTrailProjectile) {
             elseif targetType == 'Shield' then
                 ImpactEffectScale = self.FxShieldHitScale
             end
-            self:PlayElectricityEffects( self:GetArmy(), NomadsEffectTemplate.EMPGunElectricityEffect, ImpactEffectScale, Duration )
+            self:PlayElectricityEffects( self.Army, NomadsEffectTemplate.EMPGunElectricityEffect, ImpactEffectScale, Duration )
         end
         
         if targetType ~= 'Shield' then
@@ -1092,17 +1082,16 @@ PlasmaProj = Class(SinglePolyTrailProjectile) {
         MultiPolyTrailProjectile.OnImpact(self, targetType, targetEntity)
 
         -- create some additional effects
-        local army = self:GetArmy()
         local ok = (targetType ~= 'Water' and targetType ~= 'Shield' and targetType ~= 'Air' and targetType ~= 'UnitAir')
         if ok then
             local rotation = RandomFloat(0,2*math.pi)
             local size = RandomFloat(2.5, 4)
             local life = Random(40, 60)
-            CreateDecal(self:GetPosition(), rotation, 'Scorch_009_albedo', '', 'Albedo', size, size, 300, life, self:GetArmy())
+            CreateDecal(self:GetPosition(), rotation, 'Scorch_009_albedo', '', 'Albedo', size, size, 300, life, self.Army)
         end    
         if self.DoImpactFlash then
-            CreateLightParticle( self, -1, army, 6, 5, 'glow_03', 'ramp_yellow_blue_01' )
-            CreateLightParticle( self, -1, army, 8, 16, 'glow_03', 'ramp_antimatter_02' )
+            CreateLightParticle( self, -1, self.Army, 6, 5, 'glow_03', 'ramp_yellow_blue_01' )
+            CreateLightParticle( self, -1, self.Army, 8, 16, 'glow_03', 'ramp_antimatter_02' )
         end
     end,
 }
@@ -1127,23 +1116,21 @@ PlasmaProjHighArcMissileArtillery = Class(SinglePolyTrailProjectile) {
 
     OnImpact = function(self, targetType, targetEntity)
         MultiPolyTrailProjectile.OnImpact(self, targetType, targetEntity)
-        --local army = self:GetArmy()
-        --NomadsExplosions.CreateFlashCustom( self, -2, army, 1, 43, 'glow_03_red', 'ramp_transparency_flash_dark_2' )
-        --NomadsExplosions.CreateFlashCustom( self, -2, army, 1, 43, 'glow_03_red', 'ramp_transparency_flash_dark_2' )
-        --NomadsExplosions.CreateFlashCustom( self, -2, army, 4, 5, 'glow_03_red', 'ramp_transparency_flash_dark' )
+        --NomadsExplosions.CreateFlashCustom( self, -2, self.Army, 1, 43, 'glow_03_red', 'ramp_transparency_flash_dark_2' )
+        --NomadsExplosions.CreateFlashCustom( self, -2, self.Army, 1, 43, 'glow_03_red', 'ramp_transparency_flash_dark_2' )
+        --NomadsExplosions.CreateFlashCustom( self, -2, self.Army, 4, 5, 'glow_03_red', 'ramp_transparency_flash_dark' )
 
         -- create some additional effects
-        local army = self:GetArmy()
         local ok = (targetType ~= 'Water' and targetType ~= 'Shield' and targetType ~= 'Air' and targetType ~= 'UnitAir')
         if ok then
             local rotation = RandomFloat(0,2*math.pi)
             local size = RandomFloat(2.5, 4)
             local life = Random(40, 60)
-            CreateDecal(self:GetPosition(), rotation, 'Scorch_009_albedo', '', 'Albedo', size, size, 300, life, self:GetArmy())
+            CreateDecal(self:GetPosition(), rotation, 'Scorch_009_albedo', '', 'Albedo', size, size, 300, life, self.Army)
         end    
         if self.DoImpactFlash then
-            CreateLightParticle( self, -1, army, 6, 5, 'glow_03', 'ramp_yellow_blue_01' )
-            CreateLightParticle( self, -1, army, 8, 16, 'glow_03', 'ramp_antimatter_02' )
+            CreateLightParticle( self, -1, self.Army, 6, 5, 'glow_03', 'ramp_yellow_blue_01' )
+            CreateLightParticle( self, -1, self.Army, 8, 16, 'glow_03', 'ramp_antimatter_02' )
         end
     end,
 }
@@ -1168,23 +1155,21 @@ PlasmaProjHighArcMissileArtilleryStatic = Class(SinglePolyTrailProjectile) {
 
     OnImpact = function(self, targetType, targetEntity)
         MultiPolyTrailProjectile.OnImpact(self, targetType, targetEntity)
-        local army = self:GetArmy()
-        NomadsExplosions.CreateFlashCustom( self, -2, army, 1, 43, 'glow_03_red', 'ramp_transparency_flash_dark_2' )
-        NomadsExplosions.CreateFlashCustom( self, -2, army, 1, 43, 'glow_03_red', 'ramp_transparency_flash_dark_2' )
-        NomadsExplosions.CreateFlashCustom( self, -2, army, 4, 5, 'glow_03_red', 'ramp_transparency_flash_dark' )
+        NomadsExplosions.CreateFlashCustom( self, -2, self.Army, 1, 43, 'glow_03_red', 'ramp_transparency_flash_dark_2' )
+        NomadsExplosions.CreateFlashCustom( self, -2, self.Army, 1, 43, 'glow_03_red', 'ramp_transparency_flash_dark_2' )
+        NomadsExplosions.CreateFlashCustom( self, -2, self.Army, 4, 5, 'glow_03_red', 'ramp_transparency_flash_dark' )
 
         -- create some additional effects
-        local army = self:GetArmy()
         local ok = (targetType ~= 'Water' and targetType ~= 'Shield' and targetType ~= 'Air' and targetType ~= 'UnitAir')
         if ok then
             local rotation = RandomFloat(0,2*math.pi)
             local size = RandomFloat(2.5, 4)
             local life = Random(40, 60)
-            CreateDecal(self:GetPosition(), rotation, 'Scorch_009_albedo', '', 'Albedo', size, size, 300, life, self:GetArmy())
+            CreateDecal(self:GetPosition(), rotation, 'Scorch_009_albedo', '', 'Albedo', size, size, 300, life, self.Army)
         end    
         if self.DoImpactFlash then
-            CreateLightParticle( self, -1, army, 6, 5, 'glow_03', 'ramp_yellow_blue_01' )
-            CreateLightParticle( self, -1, army, 8, 16, 'glow_03', 'ramp_antimatter_02' )
+            CreateLightParticle( self, -1, self.Army, 6, 5, 'glow_03', 'ramp_yellow_blue_01' )
+            CreateLightParticle( self, -1, self.Army, 8, 16, 'glow_03', 'ramp_antimatter_02' )
         end
     end,
 }
@@ -1209,14 +1194,13 @@ EnergyProj = Class(SinglePolyTrailProjectile) {
         -- create some additional effects
         local pos = self:GetPosition()
         DamageArea(self, pos, (self.DamageData.DamageRadius or 1) * 1.2, 1, 'BigFire', true)  -- light trees on fire
-        local army = self:GetArmy()
         local ok = (GetSurfaceHeight(pos[1],pos[3]) == GetTerrainHeight(pos[1],pos[3]) and targetType ~= 'Water' and targetType ~= 'Shield' and targetType ~= 'Air' and targetType ~= 'UnitAir' and targetType ~= 'UnitUnderwater')
         if ok then
             local rotation = RandomFloat(0,2*math.pi)
             local size = RandomFloat(8, 10)
             local life = Random(40, 60)
             local albedo = { 'Scorch_001_albedo', 'Scorch_002_albedo', 'Scorch_003_albedo', }  -- keep the 'random' up to date in next line
-            CreateDecal(pos, rotation, albedo[ Random(1, 3) ], '', 'Albedo', size, size, 300, life, self:GetArmy())
+            CreateDecal(pos, rotation, albedo[ Random(1, 3) ], '', 'Albedo', size, size, 300, life, self.Army)
         end    
     end,
 }
@@ -1246,13 +1230,12 @@ Missile1 = Class(SingleCompositeEmitterProjectile) {
         SingleCompositeEmitterProjectile.OnImpact(self, targetType, targetEntity)
 
         -- create some additional effects
-        local army = self:GetArmy()
         local ok = (targetType ~= 'Water' and targetType ~= 'Shield' and targetType ~= 'Air' and targetType ~= 'UnitAir' and targetType ~= 'UnitUnderwater')
         if ok then
             local rotation = RandomFloat(0,2*math.pi)
             local size = RandomFloat(1.5, 2.5)
             local life = Random(40, 60)
-            CreateDecal(self:GetPosition(), rotation, 'Scorch_012_albedo', '', 'Albedo', size, size, 300, life, self:GetArmy())
+            CreateDecal(self:GetPosition(), rotation, 'Scorch_012_albedo', '', 'Albedo', size, size, 300, life, self.Army)
         end    
     end,
 }
@@ -1294,7 +1277,7 @@ FusionMissile = Class(SingleCompositeEmitterProjectile) {
             local rotation = RandomFloat(0,2*math.pi)
             local size = RandomFloat(4.5, 6.5)
             local life = Random(40, 60)
-            CreateDecal(self:GetPosition(), rotation, 'Scorch_012_albedo', '', 'Albedo', size, size, 300, life, self:GetArmy())
+            CreateDecal(self:GetPosition(), rotation, 'Scorch_012_albedo', '', 'Albedo', size, size, 300, life, self.Army)
         end    
         SingleCompositeEmitterProjectile.OnImpact( self, targetType, TargetEntity )
     end,
@@ -1357,9 +1340,8 @@ EMPMissile = Class(FusionMissile) {
     OnImpact = function(self, targetType, targetEntity)
         FusionMissile.OnImpact(self, targetType, targetEntity)
 
-        local army = self:GetArmy()
-        NomadsExplosions.CreateFlashCustom( self, -2, army, 2, 52, 'glow_05_green', 'ramp_jammer_01_transparent' )
-        NomadsExplosions.CreateFlashCustom( self, -2, army, 3, 3, 'glow_05_green', 'ramp_jammer_01' )
+        NomadsExplosions.CreateFlashCustom( self, -2, self.Army, 2, 52, 'glow_05_green', 'ramp_jammer_01_transparent' )
+        NomadsExplosions.CreateFlashCustom( self, -2, self.Army, 3, 3, 'glow_05_green', 'ramp_jammer_01' )
 
         -- create custom electricity effect based on stun duration
         local Duration = false
@@ -1395,7 +1377,7 @@ EMPMissile = Class(FusionMissile) {
             elseif targetType == 'Shield' then
                 ImpactEffectScale = self.FxShieldHitScale or ImpactEffectScale
             end
-            self:PlayElectricityEffects( self:GetArmy(), NomadsEffectTemplate.EMPMissileElectricityEffect, ImpactEffectScale, Duration )
+            self:PlayElectricityEffects( self.Army, NomadsEffectTemplate.EMPMissileElectricityEffect, ImpactEffectScale, Duration )
         end
     end,
 
@@ -1527,7 +1509,7 @@ TacticalMissile = Class(SingleCompositeEmitterProjectile) {
 
         -- create attached air bubbles emitter
         self.IsUnderWater = true
-        local army, emit = self:GetLauncher():GetArmy()
+        local army, emit = self:GetLauncher().Army
         for k, v in NomadsEffectTemplate.TacticalMissileTrailFxUnderWaterAddon do
             emit = CreateAttachedEmitter( self, -1, army, v )
             EffectsBag:Add( emit )
@@ -1565,21 +1547,19 @@ TacticalMissile = Class(SingleCompositeEmitterProjectile) {
             DamageArea(self, self:GetPosition(), self.DamageData.DamageRadius * 1.2, 1, 'Force', true)
         end
 
-        local army = self:GetArmy()
-        NomadsExplosions.CreateFlashCustom( self, -2, army, 2.5, 5*2, 'glow_05_red', 'ramp_jammer_01' )
-        NomadsExplosions.CreateFlashCustom( self, -2, army, 3, 2*2, 'glow_05_red', 'ramp_jammer_01' )
+        NomadsExplosions.CreateFlashCustom( self, -2, self.Army, 2.5, 5*2, 'glow_05_red', 'ramp_jammer_01' )
+        NomadsExplosions.CreateFlashCustom( self, -2, self.Army, 3, 2*2, 'glow_05_red', 'ramp_jammer_01' )
 
         -- create some additional effects
         local ok = (targetType ~= 'Water' and targetType ~= 'Shield' and targetType ~= 'Air' and targetType ~= 'UnitAir' and targetType ~= 'UnitUnderwater')
         if ok then
-            local army = self:GetArmy()
             local rotation = RandomFloat(0,2*math.pi)
             local size = RandomFloat(4, 5.5)
             local life = Random(100, 150)
-            -- CreateDecal(self:GetPosition(), rotation, 'Scorch_012_albedo', '', 'Albedo', size, size, 300, life, army) not a smart idea to leave decals on something that fires so fast
+            -- CreateDecal(self:GetPosition(), rotation, 'Scorch_012_albedo', '', 'Albedo', size, size, 300, life, self.Army) not a smart idea to leave decals on something that fires so fast
             if self.DoImpactFlash then
-                CreateLightParticle( self, -1, army, 6, 5, 'glow_03', 'ramp_yellow_blue_01' )
-                CreateLightParticle( self, -1, army, 8, 16, 'glow_03', 'ramp_antimatter_02' )
+                CreateLightParticle( self, -1, self.Army, 6, 5, 'glow_03', 'ramp_yellow_blue_01' )
+                CreateLightParticle( self, -1, self.Army, 8, 16, 'glow_03', 'ramp_antimatter_02' )
             end
         end
     end,
@@ -1606,7 +1586,7 @@ TacticalMissile = Class(SingleCompositeEmitterProjectile) {
         self.DamageData.DamageAmount = self.DamageData.DamageAmount / numProjectiles
 
         -- Split effects
-        CreateLightParticle( self, -1, self:GetArmy(), 2, 3, 'glow_03', 'ramp_yellow_blue_01' )
+        CreateLightParticle( self, -1, self.Army, 2, 3, 'glow_03', 'ramp_yellow_blue_01' )
 
         local vx, vy, vz = self:GetVelocity()
         local velocity = 6
@@ -1789,8 +1769,7 @@ Rocket3 = Class(SingleCompositeEmitterProjectile) {
 
     OnImpact = function(self, targetType, targetEntity)
         -- create flash
-        local army = self:GetArmy()
-            NomadsExplosions.CreateFlashCustom( self, -2, army, 1, 5, 'glow_06_red', 'ramp_transparency_flash_dark_2' )
+        NomadsExplosions.CreateFlashCustom( self, -2, self.Army, 1, 5, 'glow_06_red', 'ramp_transparency_flash_dark_2' )
         SinglePolyTrailProjectile.OnImpact( self, targetType, targetEntity )
     end,
 
@@ -1879,7 +1858,7 @@ ConcussionBomb = Class(SinglePolyTrailProjectile) {
             local rotation = RandomFloat(0, 2*math.pi)
             local size = RandomFloat(2, 3)
             local life = RandomFloat(50, 100)
-            CreateDecal(self:GetPosition(), rotation, '/textures/splats/ConcussionBomb/ConcussionBomb_decal_albedo.dds', '', 'Albedo', size, size, 350, life, self:GetArmy())
+            CreateDecal(self:GetPosition(), rotation, '/textures/splats/ConcussionBomb/ConcussionBomb_decal_albedo.dds', '', 'Albedo', size, size, 350, life, self.Army)
         end    
         SinglePolyTrailProjectile.OnImpact( self, targetType, targetEntity )
     end,
@@ -1909,20 +1888,19 @@ EnergyBomb = Class(SinglePolyTrailProjectile) {
         DamageArea(self, pos, self.DamageData.DamageRadius, 1, 'Force', true)
 
         if self.DoImpactFlash then
-            CreateLightParticle(self, -1, self:GetArmy(), 15/3, 9, 'glow_02', 'ramp_red_01')
-            CreateLightParticle(self, -1, self:GetArmy(), 25/3, 18, 'glow_02', 'ramp_red_01')
-            CreateLightParticle(self, -1, self:GetArmy(), 25/3, 34, 'glow_02', 'ramp_red_01')
+            CreateLightParticle(self, -1, self.Army, 15/3, 9, 'glow_02', 'ramp_red_01')
+            CreateLightParticle(self, -1, self.Army, 25/3, 18, 'glow_02', 'ramp_red_01')
+            CreateLightParticle(self, -1, self.Army, 25/3, 34, 'glow_02', 'ramp_red_01')
         end
 
         -- create some additional effects
-        local army = self:GetArmy()
         local ok = (targetType ~= 'Water' and targetType ~= 'Shield' and targetType ~= 'Air' and targetType ~= 'UnitAir' and targetType ~= 'UnitUnderwater')
         if ok then
             local rotation = RandomFloat(0,2*math.pi)
             local size = RandomFloat(15, 20)
             local life = Random(40, 60)
             local albedo = { 'Scorch_001_albedo', 'Scorch_002_albedo', 'Scorch_003_albedo', }  -- keep the 'random' up to date in next line
-            CreateDecal(self:GetPosition(), rotation, albedo[ Random(1, 3) ], '', 'Albedo', size, size, 300, life, self:GetArmy())
+            CreateDecal(self:GetPosition(), rotation, albedo[ Random(1, 3) ], '', 'Albedo', size, size, 300, life, self.Army)
         end    
     end,
 }
@@ -1956,31 +1934,11 @@ Buoy1 = Class(SinglePolyTrailProjectile) {
         SinglePolyTrailProjectile.OnImpact(self, targetType, targetEntity)
         local ok = (targetType ~= 'Water' and targetType ~= 'None' and targetType ~= 'Shield' and targetType ~= 'Air' and targetType ~= 'UnitAir')
         if ok then
-            local spec = self:GetSpec( targetType, targetEntity )
-            self:CreateBuoy( spec, targetType, targetEntity )
-
             local rotation = RandomFloat(0,2*math.pi)
             local size = RandomFloat(1.5, 2.25)
             local life = Random(75, 100)
-            CreateDecal(self:GetPosition(), rotation, 'Scorch_005_albedo', '', 'Albedo', size, size, 300, life, self:GetArmy())
+            CreateDecal(self:GetPosition(), rotation, 'Scorch_005_albedo', '', 'Albedo', size, size, 300, life, self.Army)
         end
-    end,
-
-    GetSpec = function(self, targetType, targetEntity)
-        local pos = self:GetPosition()
-        pos[2] = GetTerrainHeight(pos[1], pos[3]) + GetTerrainTypeOffset(pos[1], pos[3])
-        local spec = {
-            Activated = true,  -- buoy should activate immediately
-            AttachTo = nil,    -- unit to attach the buoy to, if any
-            Lifetime = 60,     -- how long the buoy lives
-            Owner = self:GetLauncher() or self:GetArmy() or self,
-            Pos = pos,
-            RealArmy = self:GetArmy() or -1, -- using RealArmy iso Army, see remarks in buoy.lua
-        }
-        return spec
-    end,
-
-    CreateBuoy = function(self, spec, targetType, targetEntity)
     end,
 }
 
@@ -2070,9 +2028,8 @@ Torpedo1 = Class(OnWaterEntryEmitterProjectile) {
 
         if self.DroppedFromAir then
             -- if dropped from air create splash
-            local army = self:GetArmy()
             for k, v in self.FxEnterWater do
-                CreateEmitterAtEntity(self,army,v)
+                CreateEmitterAtEntity(self, self.Army, v)
             end
         end
     end,
@@ -2169,13 +2126,12 @@ DepthChargeBomb = Class(OnWaterEntryEmitterProjectile) {
         OnWaterEntryEmitterProjectile.OnImpact(self, targetType, targetEntity)
 
         -- create some additional effects
-        local army = self:GetArmy()
         local ok = (targetType ~= 'Water' and targetType ~= 'Shield' and targetType ~= 'Air' and targetType ~= 'UnitAir' and targetType ~= 'UnitUnderwater' and targetType ~= 'Underwater')
         if ok then
             local rotation = RandomFloat(0,2*math.pi)
             local size = RandomFloat(3, 5)
             local life = Random(40, 60)
-            CreateDecal(self:GetPosition(), rotation, 'Scorch_010_albedo', '', 'Albedo', size, size, 300, life, self:GetArmy())
+            CreateDecal(self:GetPosition(), rotation, 'Scorch_010_albedo', '', 'Albedo', size, size, 300, life, self.Army)
         end
     end,
 
@@ -2204,9 +2160,9 @@ DepthChargeBomb = Class(OnWaterEntryEmitterProjectile) {
 
     CreateAirTrail = function(self)
         self:DestroyAirTrail()
-        local army, emit = self:GetArmy()
+        local emit
         for k, v in self.FxTrailsAir do
-            emit = CreateEmitterOnEntity(self, army, v)
+            emit = CreateEmitterOnEntity(self, self.Army, v)
             emit:ScaleEmitter(self.FxTrailScaleAir)
             emit:OffsetEmitter(0, 0, self.FxTrailOffset)
             table.insert(self.AirTrailEmitters, emit)
@@ -2221,9 +2177,9 @@ DepthChargeBomb = Class(OnWaterEntryEmitterProjectile) {
     end,
 
     PlayTransitionAirToWaterEffects = function(self)
-        local army, emitters, emit = self:GetArmy(), {}
+        local emitters, emit = {}
         for k, v in self.FxTransitionAirToWater do
-            emit = CreateEmitterAtEntity(self, army, v)
+            emit = CreateEmitterAtEntity(self, self.Army, v)
             table.insert(emitters, emit)
         end
         return emitters
@@ -2245,10 +2201,8 @@ DepthChargeBomb = Class(OnWaterEntryEmitterProjectile) {
 
                 -- Only create effect when we're deep enough in the water
                 if self.DamageData.DamageRadius and self.DamageData.DamageRadius > 0 and (surface - pos[2]) > (self.DamageData.DamageRadius / 3) then
-
-                    local army = self:GetArmy()
                     local spec = {
-                        Army = army,
+                        Army = self.Army,
                         Position = self:GetPosition(),
                         Scale = self.DamageData.DamageRadius or 1,
                     }
@@ -2294,7 +2248,7 @@ OrbitalEnergyProj = Class(SinglePolyTrailProjectile) {   -- big energy projectil
         DamageArea(self, pos, self.DamageData.DamageRadius, 1, 'Force', true)
 
         if self.DoImpactFlash then
-            CreateLightParticle(self, -1, self:GetArmy(), 25, 9, 'glow_02', 'ramp_red_01')
+            CreateLightParticle(self, -1, self.Army, 25, 9, 'glow_02', 'ramp_red_01')
         end
 
         local ok = (targetType ~= 'Water' and targetType ~= 'Shield' and targetType ~= 'Air' and targetType ~= 'UnitAir' and targetType ~= 'UnitUnderwater')
@@ -2302,8 +2256,8 @@ OrbitalEnergyProj = Class(SinglePolyTrailProjectile) {   -- big energy projectil
             local rotation = RandomFloat(0, 2*math.pi)
             local size = RandomFloat(14, 16)
             local life = RandomFloat(200, 300)
-            CreateDecal(pos, rotation, 'nuke_scorch_001_normals', '', 'Alpha Normals', size, size, 350, life, self:GetArmy())
-            CreateDecal(pos, rotation, 'nuke_scorch_002_albedo', '', 'Albedo', size, size, 350, life, self:GetArmy())
+            CreateDecal(pos, rotation, 'nuke_scorch_001_normals', '', 'Alpha Normals', size, size, 350, life, self.Army)
+            CreateDecal(pos, rotation, 'nuke_scorch_002_albedo', '', 'Albedo', size, size, 350, life, self.Army)
         end    
 
         SinglePolyTrailProjectile.OnImpact(self, targetType, targetEntity)

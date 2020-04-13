@@ -49,6 +49,7 @@ UnitBlueprint {
         'SHOWATTACKRETICLE',
         'OVERLAYINDIRECTFIRE',
         'SORTSTRATEGIC',
+        'CQUEMOV', --enables the selection and move commands during construction
     },
     Defense = {
         AirThreatLevel = 0,
@@ -62,9 +63,6 @@ UnitBlueprint {
     },
     Description = '<LOC XNB3303_desc>Rocket Artillery Installation',
     Display = {
-        Abilities = {
-            '<LOC ability_supportedartillerygun>Supported Artillery Gun',
-        },
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -216,6 +214,7 @@ UnitBlueprint {
             MuzzleVelocity = 30,
             MuzzleVelocityReduceDistance = 1,
             ProjectilesPerOnFire = 8,
+            ProjectileUIStatsOverride = 8, --a new version of PerOnFire - this one is only needed if you have a script multiplying projectile count
             ProjectileId = '/projectiles/NTacticalMissile3_HighArc/NTacticalMissile3_HighArc_proj.bp',
             ProjectileLifetime = 30,
             ProjectileLifetimeUsesMultiplier = 5,
@@ -238,7 +237,6 @@ UnitBlueprint {
             RangeCategory = 'UWRC_IndirectFire',
             RateOfFire = 0.05,
             RenderFireClock = true,
-            SupportedFiringRandomnessDivider = 3,
             TargetCheckInterval = 1,
             TargetPriorities = {
                 'SPECIALHIGHPRI',

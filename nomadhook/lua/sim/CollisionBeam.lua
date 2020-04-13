@@ -20,7 +20,13 @@ local oldCollisionBeam = CollisionBeam
 CollisionBeam = Class(oldCollisionBeam) {
     --fill this table with emitters to recolour. Works on beams and trails for now
     EmittersToRecolour = {},
-
+    
+    --TODO:Remove this after relevant FAF PR is merged
+    OnCreate = function(self)
+        oldCollisionBeam.OnCreate(self)
+        self.Army = self:GetArmy()
+    end,
+    
     OnEnable = function(self)
         SetBeamsToColoured(self, self.EmittersToRecolour)
         oldCollisionBeam.OnEnable(self)
@@ -33,20 +39,19 @@ CollisionBeam = Class(oldCollisionBeam) {
     
     --completely unchanged, just put here to allow the imported functions to override the engine functions.
     CreateBeamEffects = function(self)
-        local army = self:GetArmy()
         for k, y in self.FxBeamStartPoint do
-            local fx = CreateAttachedEmitter(self, 0, army, y):ScaleEmitter(self.FxBeamStartPointScale)
+            local fx = CreateAttachedEmitter(self, 0, self.Army, y):ScaleEmitter(self.FxBeamStartPointScale)
             table.insert(self.BeamEffectsBag, fx)
             self.Trash:Add(fx)
         end
         for k, y in self.FxBeamEndPoint do
-            local fx = CreateAttachedEmitter(self, 1, army, y):ScaleEmitter(self.FxBeamEndPointScale)
+            local fx = CreateAttachedEmitter(self, 1, self.Army, y):ScaleEmitter(self.FxBeamEndPointScale)
             table.insert(self.BeamEffectsBag, fx)
             self.Trash:Add(fx)
         end
         if table.getn(self.FxBeam) ~= 0 then
-            local fxBeam = CreateBeamEmitter(self.FxBeam[Random(1, table.getn(self.FxBeam))], army)
-            AttachBeamToEntity(fxBeam, self, 0, army)
+            local fxBeam = CreateBeamEmitter(self.FxBeam[Random(1, table.getn(self.FxBeam))], self.Army)
+            AttachBeamToEntity(fxBeam, self, 0, self.Army)
 
             -- collide on start if it's a continuous beam
             local weaponBlueprint = self.Weapon:GetBlueprint()

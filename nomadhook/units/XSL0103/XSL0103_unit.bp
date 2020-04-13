@@ -1,0 +1,9 @@
+UnitBlueprint {
+    Merge = true,
+    BlueprintId = "xsl0103", -- T1 artillery
+    Weapon = {
+        {
+            ProjectileUIStatsOverride = 5, --a new version of PerOnFire - this one is only needed if you have a script multiplying projectile count
+        },
+    },
+}

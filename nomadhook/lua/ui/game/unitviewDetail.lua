@@ -152,7 +152,9 @@ function WrapAndPlaceText(air, physics, weapons, abilities, text, control)
                             trueReload = math.max((weapon.RackSalvoChargeTime or 0) + (weapon.RackSalvoReloadTime or 0) + (weapon.MuzzleSalvoDelay or 0)*((weapon.MuzzleSalvoSize or 1)-1), trueReload)
                             
                             local trueSalvoSize = 1
-                            if (weapon.MuzzleSalvoDelay or 0) > 0 then --if theres no muzzle delay, all muzzles fire at the same time. yeah.
+                            if weapon.ProjectileUIStatsOverride then
+                                trueSalvoSize = weapon.ProjectileUIStatsOverride --This should only be used if there is a projectile script that messes with the number of projectiles.
+                            elseif (weapon.MuzzleSalvoDelay or 0) > 0 then --if theres no muzzle delay, all muzzles fire at the same time. yeah.
                                 trueSalvoSize = (weapon.MuzzleSalvoSize or 1)
                             elseif weapon.RackBones then --dummy weapons dont have racks
                                 if weapon.RackFireTogether == true then

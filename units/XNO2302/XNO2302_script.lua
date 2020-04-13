@@ -11,7 +11,10 @@ xno2302 = Class(NOrbitUnit) {
                 if bp.Audio.FireSpecial then
                     self:PlaySound(bp.Audio.FireSpecial)
                 end
-                OrbitalGun.CreateProjectileAtMuzzle(self, muzzle)
+                
+                --allow the projectile to transfer veterancy to its parent unit
+                local proj = OrbitalGun.CreateProjectileAtMuzzle(self, muzzle)
+                proj.Launcher = self.unit.parent or proj.Launcher
             end,
         },
     },
@@ -21,8 +24,6 @@ xno2302 = Class(NOrbitUnit) {
         self:SetWeaponEnabledByLabel('MainGun', false)
         
         self.parent = nil
-        self.parentCallbacks = {}
-        self.parentCallbacks[ 'OnKilledUnit' ] = false
     end,
     
     OnDestroy = function(self)
@@ -38,12 +39,6 @@ xno2302 = Class(NOrbitUnit) {
         NOrbitUnit.OnDestroy(self)
     end,
 
-    OnSetParent = function(self, parent, cbKilledUnit)
-        self.parent = parent
-        self.Unused = false
-        self.parentCallbacks[ 'OnKilledUnit' ] = cbKilledUnit or false
-    end,
-
     --called by the spawning frigate when assigning us. After that its up to the parent to decide what to do.
     OnSpawnedInOrbit = function(self, parentUnit)
         if parentUnit then
@@ -53,18 +48,8 @@ xno2302 = Class(NOrbitUnit) {
         end
     end,
 
-    OnKilledUnit = function(self, unitKilled)
-        local cb = self.parentCallbacks[ 'OnKilledUnit' ]
-        if cb then
-            cb( self.parent, unitKilled )
-        end
-        NOrbitUnit.OnKilledUnit(self, unitKilled)
-    end,
-
     OnParentKilled = function(self)
         self:EnableWeapon(false)
-        self.parentCallbacks[ 'OnWeaponFired' ] = false
-        self.parentCallbacks[ 'OnKilledUnit' ] = false
         IssueClearCommands( {self} )
         self.Unused = true
         self.parent = nil

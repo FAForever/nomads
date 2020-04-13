@@ -2,10 +2,7 @@ local Util = import('/lua/utilities.lua')
 local RandomFloat = Util.GetRandomFloat
 local NullShell = import('/lua/sim/defaultprojectiles.lua').NullShell
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
-local EffectTemplate = import('/lua/EffectTemplates.lua')
-local EffectUtilities = import('/lua/EffectUtilities.lua')
 local Entity = import('/lua/sim/Entity.lua').Entity
-
 
 Meteor = Class(NullShell) {
     InitialHeight = 300,
@@ -46,14 +43,13 @@ Meteor = Class(NullShell) {
     end,
 
     SetPosAndVelocity = function(self, ImpactPos, Time)
-
         local dirVector
         local x,y,z
 
-        if GetArmyBrain( self:GetArmy() ).ACULaunched then
-            dirVector = GetArmyBrain( self:GetArmy() ).DirVector
-            x,y,z = unpack(GetArmyBrain( self:GetArmy() ).startingPositionWithOffset)
-            GetArmyBrain( self:GetArmy() ).ACULaunched = nil
+        if GetArmyBrain( self.Army ).ACULaunched then
+            dirVector = GetArmyBrain( self.Army ).DirVector
+            x,y,z = unpack(GetArmyBrain( self.Army ).startingPositionWithOffset)
+            GetArmyBrain( self.Army ).ACULaunched = nil
         else
             local maxOffsetXZ = 0.25
             local offsetX = maxOffsetXZ * RandomFloat(-1, 1)
@@ -74,15 +70,11 @@ Meteor = Class(NullShell) {
     end,
 
     DescentEffects = function(self)
-        local army = self:GetArmy()
-        local emitters = {}
-        local emit
-        for k, v in self.TrailFx do
-            emit = CreateAttachedEmitter(self, -1, army, v)
+        for _, v in self.TrailFx do
+            local emit = CreateAttachedEmitter(self, -1, self.Army, v)
             emit:ScaleEmitter(self.FxScale)
             self.Trash:Add(emit)
             self.TrailFxBag:Add(emit)
-            table.insert(emitters, emit)
         end
     end,
 
@@ -91,24 +83,19 @@ Meteor = Class(NullShell) {
     end,
 
     DescentEffectsUnderWater = function(self)
-        local army = self:GetArmy()
-        local emitters = {}
-        local emit
-        for k, v in self.TrailUnderwaterFx do
-            emit = CreateAttachedEmitter(self, -1, army, v)
+        for _, v in self.TrailUnderwaterFx do
+            local emit = CreateAttachedEmitter(self, -1, self.Army, v)
             emit:ScaleEmitter(self.FxScale)
             self.Trash:Add(emit)
             self.TrailFxBag:Add(emit)
-            table.insert(emitters, emit)
         end
     end,
 
     MonitorDescent = function(self, ImpactPos)
         -- the OnImpact event is not fired when the meteor enters water so check the flight and fire the event manually
         local fn = function(self, waterY)
-            local x,y,z
             while self do
-                x,y,z = unpack(self:GetPosition())
+                local x,y,z = unpack(self:GetPosition())
                 if (y - waterY) <= 2.5 then  -- trying to trigger this before hitting seabed. On shallow water the Onimpact events for water and seabed play at some tick.
                     self:OnImpact('Water', nil)
                     return true
@@ -124,8 +111,6 @@ Meteor = Class(NullShell) {
         end
     end,
 
-    -- -------------------------------------------------------------------------------------------------------------------
-
     OnImpact = function(self, targetType, targetEntity)
         if targetType == 'Water' then
             self:ImpactWaterSurfaceEffects(self:GetPosition(), self.FxScale)
@@ -138,23 +123,17 @@ Meteor = Class(NullShell) {
     end,
 
     ImpactWaterSurfaceEffects = function(self, position, scale)
-
         self:DestroyDescentEffects()
         self:DescentEffectsUnderWater()
 
-        local army = self:GetArmy()
-        local emitters = {}
-        local emit
-
         position[2] = GetSurfaceHeight(position[1], position[3])
 
-        CreateLightParticleIntel(self, -1, army, (7 * scale), 8, 'glow_03', 'ramp_yellow_02')
+        CreateLightParticleIntel(self, -1, self.Army, (7 * scale), 8, 'glow_03', 'ramp_yellow_02')
 
         local FxEnt = Entity()
         Warp(FxEnt, position)
-        for k, v in self.ImpactWaterFx do
-            emit = CreateEmitterAtEntity(FxEnt, army, v)
-            table.insert(emitters, emit)
+        for _, v in self.ImpactWaterFx do
+            local emit = CreateEmitterAtEntity(FxEnt, self.Army, v)
             emit:ScaleEmitter(scale)
         end
         FxEnt:Destroy()
@@ -173,39 +152,36 @@ Meteor = Class(NullShell) {
     end,
 
     ImpactEffects = function(self, position, InWater, scale)
-
-        local army = self:GetArmy()
-        local emitters = {}
-        local emit
-
         -- Create ground decals
         local orientation = RandomFloat( 0, 2 * math.pi )
         if scale == 1 then
-            CreateDecal(position, orientation, 'Crater01_albedo', '', 'Albedo', (30 * scale), (30 * scale), self.DecalLifetime, 800, army)
-            CreateDecal(position, orientation, 'Crater01_normals', '', 'Normals', (30 * scale), (30 * scale), self.DecalLifetime, 800, army)
-            CreateDecal(position, orientation, 'nuke_scorch_003_albedo', '', 'Albedo', (30 * scale), (30 * scale), self.DecalLifetime, 800, army)
+            CreateDecal(position, orientation, 'Crater01_albedo', '', 'Albedo', (30 * scale), (30 * scale), self.DecalLifetime, 800, self.Army)
+            CreateDecal(position, orientation, 'Crater01_normals', '', 'Normals', (30 * scale), (30 * scale), self.DecalLifetime, 800, self.Army)
+            CreateDecal(position, orientation, 'nuke_scorch_003_albedo', '', 'Albedo', (30 * scale), (30 * scale), self.DecalLifetime, 800, self.Army)
         else
-            CreateDecal(position, orientation, 'Crater01_albedo', '', 'Albedo', (10 * scale), (10 * scale), self.DecalLifetime, 800, army)
-            CreateDecal(position, orientation, 'Crater01_normals', '', 'Normals', (10 * scale), (10 * scale), self.DecalLifetime, 800, army)
-            CreateDecal(position, orientation, 'nuke_scorch_003_albedo', '', 'Albedo', (10 * scale), (10 * scale), self.DecalLifetime, 800, army)
+            CreateDecal(position, orientation, 'Crater01_albedo', '', 'Albedo', (10 * scale), (10 * scale), self.DecalLifetime, 800, self.Army)
+            CreateDecal(position, orientation, 'Crater01_normals', '', 'Normals', (10 * scale), (10 * scale), self.DecalLifetime, 800, self.Army)
+            CreateDecal(position, orientation, 'nuke_scorch_003_albedo', '', 'Albedo', (10 * scale), (10 * scale), self.DecalLifetime, 800, self.Army)
         end
         -- Impact effects
-        CreateLightParticleIntel(self, -1, army, (5 * scale), 10, 'glow_03', 'ramp_yellow_02')
+        CreateLightParticleIntel(self, -1, self.Army, (5 * scale), 10, 'glow_03', 'ramp_yellow_02')
 
         self.SndEntDescent:Destroy()
 
-        if not InWater then
-            local bpAud = self:GetBlueprint().Audio
-            local snd = bpAud['ImpactTerrain']
-            if snd then
-                self:PlaySound(snd)
-            elseif bpAud.Impact then
-                self:PlaySound(bpAud.Impact)
-            end
+        local bpAud = self:GetBlueprint().Audio
+        local snd = bpAud['ImpactTerrain']
+        if InWater then
+            snd = bpAud['ImpactUnderWater']
+        end
+        if snd then
+            self:PlaySound(snd)
+        elseif bpAud.Impact then
+            self:PlaySound(bpAud.Impact)
+        end
 
+        if not InWater then
             for k, v in self.ImpactLandFx do
-                emit = CreateEmitterAtEntity(self, army, v)
-                table.insert(emitters, emit)
+                local emit = CreateEmitterAtEntity(self, self.Army, v)
                 emit:ScaleEmitter(scale)
                 if (k == 2 or k == 4) and scale ~= 1 then
                     emit:ScaleEmitter(scale/3)
@@ -215,28 +191,17 @@ Meteor = Class(NullShell) {
             -- Knockdown force rings
             ForkThread(self.ForceDamageThread, self, position)
         else
-
-            local bpAud = self:GetBlueprint().Audio
-            local snd = bpAud['ImpactUnderWater']
-            if snd then
-                self:PlaySound(snd)
-            elseif bpAud.Impact then
-                self:PlaySound(bpAud.Impact)
-            end
-
-            for k, v in self.ImpactSeabedFx do
-                emit = CreateEmitterAtEntity(self, army, v)
-                table.insert(emitters, emit)
+            for _, v in self.ImpactSeabedFx do
+                local emit = CreateEmitterAtEntity(self, self.Army, v)
                 emit:ScaleEmitter(scale)
             end
-
         end
     end,
     
     ForceDamageThread = function(self, position)
         --This complicated procedure is identical to the other factions, and ensures that trees are knocked down properly at the starting area.
         --The two rounds of force are there to first break tree groups, and then to knock over the broken trees. yeah.
-        position[2] = position[2] + 5 --Raise the AOE effect above the collision boxes of the trees to prevent collisions not being checked
+        position[2] = position[2] + 2 --Raise the AOE effect above the collision boxes of the trees to prevent collisions not being checked
         DamageRing(self, position, .1, 11, 100, 'Force', false, false)
         WaitSeconds(.1)
         DamageRing(self, position, .1, 11, 100, 'Force', false, false)

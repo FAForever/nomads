@@ -51,20 +51,37 @@ XNA0401 = Class(NAirTransportUnit) {
             end
         end
 
-        -- self.LandingAnimManip = CreateAnimator(self)
-        -- self.LandingAnimManip:SetPrecedence(0)
-        -- self.Trash:Add(self.LandingAnimManip)
-        -- self.LandingAnimManip:PlayAnim(self:GetBlueprint().Display.AnimationLand):SetRate(1)
-        self:ForkThread(self.ExpandThread)
+        self.LandingAnimManip = CreateAnimator(self)
+        self.LandingAnimManip:SetPrecedence(0)
+        self.Trash:Add(self.LandingAnimManip)
+        self.LandingAnimManip:PlayAnim(self:GetBlueprint().Display.AnimationLand):SetRate(0)
+        
+        self.HolderArmManip = CreateAnimator(self)
+        self.HolderArmManip:SetPrecedence(1)
+        self.Trash:Add(self.HolderArmManip)
+        self.HolderArmManip:PlayAnim(self:GetBlueprint().Display.AnimationHolder):SetRate(0.5)
     end,
     
+    OnTransportAttach = function(self, attachBone, unit)
+        NAirTransportUnit.OnTransportAttach(self, attachBone, unit)
+        if EntityCategoryContains(categories.NAVAL + categories.EXPERIMENTAL, unit) and self.HolderArmManip then
+            self.HolderArmManip:SetRate(-1)
+        end
+    end,
 
+    OnTransportDetach = function(self, attachBone, unit)
+        NAirTransportUnit.OnTransportDetach(self, attachBone, unit)
+        if EntityCategoryContains(categories.NAVAL + categories.EXPERIMENTAL, unit) and self.HolderArmManip then
+            self.HolderArmManip:SetRate(0.5)
+        end
+    end,
+    
     OnMotionVertEventChange = function(self, new, old)
         NAirTransportUnit.OnMotionVertEventChange(self, new, old)
-        if (new == 'Down') then
-            --self.LandingAnimManip:SetRate(-1)
+        if (new == 'Hover') then
+            self.LandingAnimManip:SetRate(1)
         elseif (new == 'Up') then
-            --self.LandingAnimManip:SetRate(1)
+            self.LandingAnimManip:SetRate(-1)
         end
     end,
     
@@ -91,31 +108,25 @@ XNA0401 = Class(NAirTransportUnit) {
     end,
     
     CrashingThread = function(self)
-
         -- create detector so we know when we hit the surface with what bone
         self.detector = CreateCollisionDetector(self)
         self.Trash:Add(self.detector)
         self.detector:WatchBone('Attachpoint_Lrg_01')
-        self.detector:WatchBone('Attachpoint_Lrg_05')
-        self.detector:WatchBone('Attachpoint_Lrg_09')
-        self.detector:WatchBone('Attachpoint_Lrg_13')
+        self.detector:WatchBone('Attachpoint_Lrg_02')
         self.detector:WatchBone('Attachpoint_Lrg_17')
+        self.detector:WatchBone('Attachpoint_Lrg_18')
         self.detector:EnableTerrainCheck(true)
         self.detector:Enable()
     end,
 
     OnAnimTerrainCollision = function(self, bone, x, y, z)
-        -- happens when detector detects collision with surface
-        self:KilledAndBoneHitsSurface( bone, Vector(x, y, z) )
-    end,
-
-    KilledAndBoneHitsSurface = function(self, bone, pos )
         local bp = self:GetBlueprint()
 
         -- do damage
         for k, wep in bp.Weapon do
             if wep.Label == 'ImpactWithSurface' then
-                DamageArea( self, pos, wep.DamageRadius, wep.Damage, wep.DamageType, wep.DamageFriendly, false)
+                DamageArea( self, Vector(x, y, z), wep.DamageRadius, wep.Damage, wep.DamageType, wep.DamageFriendly, false)
+                DamageRing(self, Vector(x, y, z), 1, 4, 1, 'Force', true)
                 break
             end
         end
@@ -128,7 +139,7 @@ XNA0401 = Class(NAirTransportUnit) {
 
         local bp = self:GetBlueprint()
         local pos = self:GetPosition()
-        local army, emit = self:GetArmy()
+        local emit
 
         -- find damage ring sizes
         local damageRingSize = 10
@@ -141,11 +152,11 @@ XNA0401 = Class(NAirTransportUnit) {
 
         -- damage effects
         for k, v in NomadsEffectTemplate.ExpTransportDestruction do
-            emit = CreateEmitterAtBone(self, 0, army, v)
+            emit = CreateEmitterAtBone(self, 0, self.Army, v)
         end
         DamageRing(self, pos, 0.1, damageRingSize, 1, 'Force', true)
         DamageRing(self, pos, 0.1, damageRingSize, 1, 'Force', true)
-        Explosion.CreateFlash( self, 0, 3, army )
+        Explosion.CreateFlash( self, 0, 3, self.Army )
 
         self:ShakeCamera(8, 3, 1, 1)
 

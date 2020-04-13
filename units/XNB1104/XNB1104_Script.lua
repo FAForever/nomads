@@ -15,10 +15,10 @@ XNB1104 = Class(NMassFabricationUnit) {
     OnStopBeingBuilt = function(self, builder, layer)
         NMassFabricationUnit.OnStopBeingBuilt(self, builder, layer)
         local bones = { 'flashlight.001', 'flashlight.002', 'flashlight.003', 'flashlight.004', }
-        local army, emit = self:GetArmy()
+        local emit
         for _, bone in bones do
             for k, v in NomadsEffectTemplate.AntennaeLights1 do
-                emit = CreateEmitterAtBone(self, bone, army, v)
+                emit = CreateEmitterAtBone(self, bone, self.Army, v)
                 self.Trash:Add( emit )
             end
         end
@@ -45,9 +45,9 @@ XNB1104 = Class(NMassFabricationUnit) {
     end,
 
     PlayActiveEffects = function(self)
-        local army, emit = self:GetArmy()
+        local emit
         for k, v in self.ActiveEffectsTemplate do
-            emit = CreateEmitterAtBone(self, 0, army, v)
+            emit = CreateEmitterAtBone(self, 0, self.Army, v)
             self.ActiveEffectsBag:Add( emit )
             self.Trash:Add( emit )
         end

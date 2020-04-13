@@ -24,9 +24,8 @@ NBlackholeEffect02 = Class(NullShell) {
     end,
 
     EffectThread = function(self)
-        local army, emit = self:GetArmy()
         for k, v in NomadsEffectTemplate.NukeBlackholeDustCloud02 do
-            emit = CreateEmitterOnEntity(self, army, v )
+            local emit = CreateEmitterOnEntity(self, self.Army, v )
             self.Trash:Add(emit)
         end
     end,

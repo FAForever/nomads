@@ -41,24 +41,26 @@ xno0001 = Class(NOrbitUnit, NCommandFrigateUnit) {
 -- =========================================================================================
 -- Probes
 
-    LaunchProbe = function(self, location, projBp, data)
-        if not location or not projBp or not data then
-            WARN('Nomads: LaunchProbe missing information. Location = '..repr(location)..' projBp = '..repr(projBp)..' data = '..repr(data))
+    LaunchProbe = function(self, location, probeType, data)
+        if not location or not probeType or not data then
+            WARN('Nomads: LaunchProbe missing information. Location = '..repr(location)..' Probe type = '..repr(probeType)..' data = '..repr(data))
             return nil
         end
-
+        local projectileBpID = '/projectiles/NIntelProbe1/NIntelProbe1_proj.bp'
         local bone = 'MissilePort08'
         local dx, dy, dz = self:GetBoneDirection( bone )
         local pos = self:GetPosition( bone )
-        local proj = self:CreateProjectile( projBp, pos.x, pos.y, pos.z, dx, dy, dz )
-        proj:PassData( data )
+        local proj = self:CreateProjectile( projectileBpID, pos.x, pos.y, pos.z, dx, dy, dz )
         Warp( proj, pos )
         local projBp = proj:GetBlueprint()
         proj:SetVelocity( dx, dy, dz )
-        proj:SetVelocity( data.FlightSpeed or projBp.InitialSpeed or projBp.Speed or projBp.MaxSpeed or 5 )
+        proj:SetVelocity( projBp.InitialSpeed or projBp.Speed or projBp.MaxSpeed or 5 )
         proj:SetNewTargetGround( location )
         proj:TrackTarget(true)
-        return proj
+        
+        local probeUnit = proj:AddProbeUnit(probeType)
+        probeUnit.Lifetime = data.Lifetime
+        return probeUnit
     end,
 
 -- =========================================================================================
@@ -101,8 +103,8 @@ xno0001 = Class(NOrbitUnit, NCommandFrigateUnit) {
         -- puts on the build queue to create a unit of the given type. If a callback is passed it will be run when the unit is
         -- constructed.
         if unitType and type(unitType) == 'string' then
-            if parentUnit and parentUnit:GetEntityId() then
-                self.OrbitalSpawnQueue[parentUnit:GetEntityId()] = { unitType = unitType, parentUnit = parentUnit or false, attachBone = attachBone or 0, }
+            if parentUnit and parentUnit.EntityId then
+                self.OrbitalSpawnQueue[parentUnit.EntityId] = { unitType = unitType, parentUnit = parentUnit or false, attachBone = attachBone or 0, }
             else
                 WARN('Nomads: parent unit is missing or misformated when requesting orbital spawn! Attempting to spawn unit without parent.')
                 --normally the entity ID is unique. with no parent, we create a unique identifier for this table
@@ -144,8 +146,8 @@ xno0001 = Class(NOrbitUnit, NCommandFrigateUnit) {
 
         -- TODO: When the unit is ready and it has proper bones then uncomment these 2 lines and remove the createUnitHPR line with x + 5 in it
         local x, y, z =  unpack(self:GetPosition( attachBone ))
-        -- local unit = CreateUnitHPR( unitBp, self:GetArmy(), x, y, z, 0, 0, 0 )
-        local unit = CreateUnitHPR( unitBp, self:GetArmy(), x + 5, y, z, 0, 0, 0 )
+        -- local unit = CreateUnitHPR( unitBp, self.Army, x, y, z, 0, 0, 0 )
+        local unit = CreateUnitHPR( unitBp, self.Army, x + 5, y, z, 0, 0, 0 )
         self.UnitBeingBuilt = unit
         unit:SetIsValidTarget(false)
         unit:SetImmobile(true)

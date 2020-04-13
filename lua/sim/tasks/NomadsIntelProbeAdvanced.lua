@@ -6,7 +6,6 @@ NomadsIntelProbeAdvanced = Class(ScriptTask) {
 
     StartTask = function(self)
         if self:IfBrainAllowsRun() then
-            self:StartCooldown()
             self:IntelProbe()
         else
             self:SetAIResult(AIRESULT.Ignored)
@@ -15,30 +14,19 @@ NomadsIntelProbeAdvanced = Class(ScriptTask) {
 
     IntelProbe = function(self)
         local brain = self:GetAIBrain()
-        local projBp =    brain:GetSpecialAbilityParam( self.CommandData.TaskName, 'ProjectileBP')
-                       or self.CommandData.ExtraInfo['ProjectileBP']
-                       or '/projectiles/NIntelProbe1/NIntelProbe1_proj.bp'
         local data = {
             Lifetime = brain:GetSpecialAbilityParam( self.CommandData.TaskName, 'Lifetime') or self.CommandData.ExtraInfo['Lifetime'] or 60,
-            Radius = brain:GetSpecialAbilityParam( self.CommandData.TaskName, 'Radius') or self.CommandData.ExtraInfo['Radius'] or 25,
-            ArtillerySupportRadius = brain:GetSpecialAbilityParam( self.CommandData.TaskName, 'ArtillerySupportRadius') or self.CommandData.ExtraInfo['ArtillerySupportRadius'] or 0,
-            Omni = brain:GetSpecialAbilityParam( self.CommandData.TaskName, 'Omni') or self.CommandData.ExtraInfo['Omni'] or false,
-            Radar = brain:GetSpecialAbilityParam( self.CommandData.TaskName, 'Radar') or self.CommandData.ExtraInfo['Radar'] or false,
-            Sonar = brain:GetSpecialAbilityParam( self.CommandData.TaskName, 'Sonar') or self.CommandData.ExtraInfo['Sonar'] or false,
-            Vision = brain:GetSpecialAbilityParam( self.CommandData.TaskName, 'Vision') or self.CommandData.ExtraInfo['Vision'] or false,
-            WaterVision = brain:GetSpecialAbilityParam( self.CommandData.TaskName, 'WaterVision') or self.CommandData.ExtraInfo['WaterVision'] or false,
+            CoolDownTime = brain:GetSpecialAbilityParam( self.CommandData.TaskName, 'CoolDownTime') or self.CommandData.ExtraInfo['CoolDownTime'] or 60,
         }
 
         local location = self.TargetLocations[1]
         local unit = self:GetUnit()
+        if not unit then self:SetAIResult(AIRESULT.Fail) return end
 
-        if unit then
-            self.IntelProbeProjectile = unit:RequestProbe(location, projBp, data)
-            if self.IntelProbeProjectile then
-                self:SetAIResult(AIRESULT.Unknown)
-            else
-                self:SetAIResult(AIRESULT.Fail)
-            end
+        --TODO:make this task not fail?
+        self.IntelProbeProjectile = unit:RequestProbe(location, 'IntelProbeAdvanced', data)
+        if self.IntelProbeProjectile then
+            self:SetAIResult(AIRESULT.Unknown)
         else
             self:SetAIResult(AIRESULT.Fail)
         end

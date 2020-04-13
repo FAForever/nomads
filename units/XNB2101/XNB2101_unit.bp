@@ -45,6 +45,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'OVERLAYDIRECTFIRE',
         'SORTDEFENSE',
+        'CQUEMOV', --enables the selection and move commands during construction
     },
     CollisionOffsetY = 0,
     Defense = {

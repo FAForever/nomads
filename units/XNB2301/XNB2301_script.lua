@@ -3,7 +3,7 @@
 local NStructureUnit = import('/lua/nomadsunits.lua').NStructureUnit
 local KineticCannon1 = import('/lua/nomadsweapons.lua').KineticCannon1
 
-XNB2201 = Class(NStructureUnit) {
+XNB2301 = Class(NStructureUnit) {
     Weapons = {
         MainGun = Class(KineticCannon1) {
             FxMuzzleScale = 1,
@@ -11,4 +11,4 @@ XNB2201 = Class(NStructureUnit) {
     },
 }
 
-TypeClass = XNB2201
+TypeClass = XNB2301

@@ -54,7 +54,7 @@ XNL0001 = Class(ACUUnit) {
                 -- create extra effect
                 local bone = self:GetBlueprint().RackBones[1]['RackBone']
                 for k, v in EffectTemplate.TCommanderOverchargeFlash01 do
-                    CreateAttachedEmitter(self.unit, bone, self.unit:GetArmy(), v):ScaleEmitter(self.FxMuzzleFlashScale)
+                    CreateAttachedEmitter(self.unit, bone, self.unit.Army, v):ScaleEmitter(self.FxMuzzleFlashScale)
                 end
             end,
         },
@@ -66,7 +66,7 @@ XNL0001 = Class(ACUUnit) {
                 -- create extra effect
                 local bone = self:GetBlueprint().RackBones[1]['RackBone']
                 for k, v in EffectTemplate.TCommanderOverchargeFlash01 do
-                    CreateAttachedEmitter(self.unit, bone, self.unit:GetArmy(), v):ScaleEmitter(self.FxMuzzleFlashScale)
+                    CreateAttachedEmitter(self.unit, bone, self.unit.Army, v):ScaleEmitter(self.FxMuzzleFlashScale)
                 end
             end,
         },
@@ -86,8 +86,11 @@ XNL0001 = Class(ACUUnit) {
 
     OnCreate = function(self)
         ACUUnit.OnCreate(self)
-        self.NukeEntity = 1 --leave a value for the death explosion entity to use later.
+        --if the acu is spawned in, find an orbital unit that works.
+        self:GetOrbitalUnit()
         
+        self.NukeEntity = 1 --leave a value for the death explosion entity to use later.
+
         --create capacitor sliders:
         self.CapSliders = {}
         table.insert(self.CapSliders, CreateSlider(self, 'CapacitorL'))
@@ -97,15 +100,15 @@ XNL0001 = Class(ACUUnit) {
             slider:SetSpeed(1)
         end
 
-        self:GetAIBrain().OrbitalBombardmentInitiator = self --TODO: fix this so that orbital bombard supports many units.
-
         local bp = self:GetBlueprint()
+
+        -- TODO: Remove once related change gets released in the game patch
+        self.BuildEffectBones = bp.General.BuildBones.BuildEffectBones
 
         -- vars
         self.DoubleBarrels = false
         self.DoubleBarrelOvercharge = false
         self.EnhancementBoneEffectsBag = {}
-        self.BuildBones = bp.General.BuildBones.BuildEffectBones
         self.HeadRotationEnabled = false -- disable head rotation to prevent initial wrong rotation
         self.AllowHeadRotation = false
         self.UseRunWalkAnim = false
@@ -141,9 +144,8 @@ XNL0001 = Class(ACUUnit) {
         self.RASEnergyProductionLow = bp.Enhancements.ResourceAllocation.ProductionPerSecondEnergyLow
         self.RASMassProductionHigh = bp.Enhancements.ResourceAllocation.ProductionPerSecondMassHigh
         self.RASEnergyProductionHigh = bp.Enhancements.ResourceAllocation.ProductionPerSecondEnergyHigh
+        
     end,
-
-
 
     OnStopBeingBuilt = function(self, builder, layer)
         ACUUnit.OnStopBeingBuilt(self, builder, layer)
@@ -152,16 +154,31 @@ XNL0001 = Class(ACUUnit) {
         self:ForkThread(self.GiveInitialResources)
         self:ForkThread(self.HeadRotationThread)
         self.AllowHeadRotation = true
-        self.PlayCommanderWarpInEffectFlag = nil
-        --if the acu is spawned in, find an orbital unit that works.
-        if not self.OrbitalUnit then
-            local units = Utils.GetOwnUnitsInSphere(self:GetPosition(), 500, self:GetArmy(), categories.xno0001)
-            if units[1] then
-                self.OrbitalUnit = units[1]
-            else
-                self.OrbitalUnit = CreateOrbitalUnit(self)
+        self:ForkThread(self.DoMeteorAnim)
+    end,
+    
+    GetOrbitalUnit = function(self)
+        if self.OrbitalUnit then return end
+        
+        --if the acu is spawned in, find an orbital unit that works and isnt already assigned to anything
+        local units = Utils.GetOwnUnitsInSphere(self:GetPosition(), 500, self.Army, categories.xno0001)
+        local availableUnit = false
+        
+        for _,unit in units do
+            if not unit.AssignedUnit then 
+                availableUnit = unit
+                break
             end
         end
+        
+        if availableUnit then
+            self.OrbitalUnit = availableUnit
+        else
+            self.OrbitalUnit = CreateOrbitalUnit(self)
+        end
+        
+        --assign ourselves to the orbital unit so that other units dont try to grab it
+        self.OrbitalUnit.AssignedUnit = self
     end,
 
     -- =====================================================================================================================
@@ -170,50 +187,20 @@ XNL0001 = Class(ACUUnit) {
     OnKilled = function(self, instigator, type, overkillRatio)
         self:SetOrbitalBombardEnabled(false)
         self:SetIntelProbe(false)
+        if self.OrbitalUnit then self.OrbitalUnit.AssignedUnit = nil end
         ACUUnit.OnKilled(self, instigator, type, overkillRatio)
     end,
 
-    
-    OnStartBuild = function(self, unitBeingBuilt, order)
-
-       local bp = self:GetBlueprint()
-
-        if order ~= 'Upgrade' or bp.Display.ShowBuildEffectsDuringUpgrade then
-
-            -- If we are assisting an upgrading unit, or repairing a unit, play seperate effects
-            local UpgradesFrom = unitBeingBuilt:GetBlueprint().General.UpgradesFrom
-            if (order == 'Repair' and not unitBeingBuilt:IsBeingBuilt()) or (UpgradesFrom and UpgradesFrom ~= 'none' and self:IsUnitState('Guarding')) or (order == 'Repair'  and self:IsUnitState('Guarding') and not unitBeingBuilt:IsBeingBuilt()) then
-                self:ForkThread( NomadsEffectUtil.CreateRepairBuildBeams, unitBeingBuilt, self.BuildBones, self.BuildEffectsBag )
-            else
-                self:ForkThread( NomadsEffectUtil.CreateNomadsBuildSliceBeams, unitBeingBuilt, self.BuildBones, self.BuildEffectsBag )
-            end
-        end
-
-        self:DoOnStartBuildCallbacks(unitBeingBuilt)
-        self:SetActiveConsumptionActive()
-        self:PlayUnitSound('Construct')
-        self:PlayUnitAmbientSound('ConstructLoop')
-        if bp.General.UpgradesTo and unitBeingBuilt:GetUnitId() == bp.General.UpgradesTo and order == 'Upgrade' then
-            unitBeingBuilt.DisallowCollisions = true
-        end
-
-        if unitBeingBuilt:GetBlueprint().Physics.FlattenSkirt and not unitBeingBuilt:HasTarmac() then
-            if self.TarmacBag and self:HasTarmac() then
-                unitBeingBuilt:CreateTarmac(true, true, true, self.TarmacBag.Orientation, self.TarmacBag.CurrentBP )
-            else
-                unitBeingBuilt:CreateTarmac(true, true, true, false, false)
-            end
-        end
-
-        self.UnitBeingBuilt = unitBeingBuilt
-        self.UnitBuildOrder = order
-        self.BuildingUnit = true
+    CreateBuildEffects = function(self, unitBeingBuilt, order)
+        NomadsEffectUtil.CreateNomadsBuildSliceBeams(self, unitBeingBuilt, self.BuildEffectBones, self.BuildEffectsBag)
     end,
 
-    --TODO: change this so it works for all relevant nomads units
-    -- use our own reclaim animation
-    CreateReclaimEffects = function( self, target )
-        NomadsEffectUtil.PlayNomadsReclaimEffects( self, target, self:GetBlueprint().General.BuildBones.BuildEffectBones or {0,}, self.ReclaimEffectsBag )
+    CreateReclaimEffects = function(self, target)
+        NomadsEffectUtil.PlayNomadsReclaimEffects(self, target, self.BuildEffectBones, self.ReclaimEffectsBag)
+    end,
+
+    CreateReclaimEndEffects = function(self, target)
+        NomadsEffectUtil.PlayNomadsReclaimEndEffects(self, target, self.ReclaimEffectsBag)
     end,
 
     -- =====================================================================================================================
@@ -255,7 +242,7 @@ XNL0001 = Class(ACUUnit) {
         if not self.OrbitalUnit then
             self.OrbitalUnit = CreateOrbitalUnit(self)
         end
-        
+
         self.PlayCommanderWarpInEffectFlag = false
         self:HideBone(0, true)
         self:SetWeaponEnabledByLabel('MainGun', false)
@@ -277,10 +264,9 @@ XNL0001 = Class(ACUUnit) {
         self:HideBone('BuildArm3', true)--these need to be updated in the other list as well, maybe add a function for this?
 
         local totalBones = self:GetBoneCount() - 1
-        local army = self:GetArmy()
         for k, v in EffectTemplate.UnitTeleportSteam01 do
             for bone = 1, totalBones do
-                CreateAttachedEmitter(self,bone,army, v)
+                CreateAttachedEmitter(self, bone, self.Army, v)
             end
         end
 
@@ -361,7 +347,7 @@ XNL0001 = Class(ACUUnit) {
         -- add the effect if desired
         if add then
             local emitBp = self:GetBlueprint().Display.EnhancementBoneEmitter
-            local emit = CreateAttachedEmitter( self, bone, self:GetArmy(), emitBp )
+            local emit = CreateAttachedEmitter( self, bone, self.Army, emitBp )
             self.EnhancementBoneEffectsBag[ bone ] = emit
             self.Trash:Add( self.EnhancementBoneEffectsBag[ bone ] )
         end
@@ -414,17 +400,39 @@ XNL0001 = Class(ACUUnit) {
             self.OrbitalUnit:SetMovementTarget(false)
         end
     end,
-    
-    RequestProbe = function(self, location, projBp, data)
+
+    RequestProbe = function(self, location, probeType, data)
         if self.OrbitalUnit then
-            self.IntelProbeEntity = self.OrbitalUnit:LaunchProbe(location, projBp, data)
+            if not self.IntelProbeEntity or self.IntelProbeEntity:BeenDestroyed() then
+                self.IntelProbeEntity = self.OrbitalUnit:LaunchProbe(location, probeType, data)
+            else
+                WARN('Nomads: tried to create a duplicate intel probe, skipping creation')
+            end
+            
+            self:ForkThread(self.ProbeCooldownThread, data.CoolDownTime)
         else
-            WARN('WARN:tried to launch probe without orbital unit, aborting.')
+            WARN('WARN:Nomads: tried to launch intel probe without orbital unit, aborting.')
         end
+    end,
+    
+    ProbeCooldownThread = function(self, duration)
+        self:SetSpecialAbilityAvailability('NomadsIntelProbe', 0)
+        self:SetSpecialAbilityAvailability('NomadsIntelProbeAdvanced', 0)
+        
+        for i = 0,duration,0.1 do
+            if self:BeenDestroyed() or self.Dead then break end
+            self:SetWorkProgress(i / duration)
+            WaitSeconds(0.1)
+        end
+        
+        self:SetSpecialAbilityAvailability('NomadsIntelProbe', 1)
+        self:SetSpecialAbilityAvailability('NomadsIntelProbeAdvanced', 1)
     end,
 
     -- =====================================================================================================================
     -- ENHANCEMENTS
+    
+    --General note: Nomads ACU has capacitor, which uses buffs. So acu upgrades must use buffs so they stack with capacitor correctly.
 
     --a much more sensible way of doing enhancements, and more moddable too!
     --change the behaviours here and dont touch the CreateEnhancement table.
@@ -439,31 +447,72 @@ XNL0001 = Class(ACUUnit) {
         IntelProbe = function(self, bp)
             self:AddEnhancementEmitterToBone( true, 'IntelProbe1' )
             self:SetIntelProbe( 'IntelProbe' )
-            self:SetIntelRadius('Omni', bp.NewOmniRadius or 60)
+            
+            -- add buff
+            if not Buffs['NomadsACUIntelProbe'] then
+                BuffBlueprint {
+                    Name = 'NomadsACUIntelProbe',
+                    DisplayName = 'NomadsACUIntelProbe',
+                    BuffType = 'PROBEINTEL',
+                    Stacks = 'REPLACE',
+                    Duration = -1,
+                    Affects = {
+                        OmniRadius = {
+                            Add = bp.NewOmniRadius or 34,
+                        },
+                    },
+                }
+            end
+
+            Buff.ApplyBuff(self, 'NomadsACUIntelProbe')
+            self.Sync.HasIntelProbeAbility = true
         end,
-        
+
         IntelProbeRemove = function(self, bp)
             self:AddEnhancementEmitterToBone( false, 'IntelProbe1' )
             self:SetIntelProbe(false)
-            self:SetIntelRadius('Omni', bp.OmniRadius or 26)
+            Buff.RemoveBuff( self, 'NomadsACUIntelProbe' )
+            self.Sync.HasIntelProbeAbility = false
         end,
-        
+
         IntelProbeAdv = function(self, bp)
---            self:AddEnhancementEmitterToBone( true, 'IntelProbe1' )
+            --self:AddEnhancementEmitterToBone( true, 'IntelProbe1' )
             self:SetIntelProbe( 'IntelProbeAdv' )
-            self:SetIntelRadius('Omni', bp.AdvOmniRadius or 100)
+            
+            
+            -- add buff
+            if not Buffs['NomadsACUIntelProbeAdv'] then
+                BuffBlueprint {
+                    Name = 'NomadsACUIntelProbeAdv',
+                    DisplayName = 'NomadsACUIntelProbeAdv',
+                    BuffType = 'PROBEINTEL',
+                    Stacks = 'REPLACE',
+                    Duration = -1,
+                    Affects = {
+                        OmniRadius = {
+                            Add = bp.AdvOmniRadius or 74,
+                        },
+                    },
+                }
+            end
+
+            Buff.ApplyBuff(self, 'NomadsACUIntelProbeAdv')
+            
+            self.Sync.HasIntelProbeAbility = false
+            self.Sync.HasIntelProbeAdvancedAbility = true
         end,
-        
+
         IntelProbeAdvRemove = function(self, bp)
             self:AddEnhancementEmitterToBone( false, 'IntelProbe1' )
             self:SetIntelProbe(false)
-            self:SetIntelRadius('Omni', bp.OmniRadius or 26)
+            Buff.RemoveBuff( self, 'NomadsACUIntelProbeAdv' )
+            self.Sync.HasIntelProbeAdvancedAbility = false
         end,
-        
+
         GunUpgrade = function(self, bp)
             local wep = self:GetWeaponByLabel('MainGun')
             local wbp = wep:GetBlueprint()
-            
+
             -- adjust main gun
             wep:AddDamageRadiusMod(bp.NewDamageRadius or 3)
             wep:ChangeMaxRadius(bp.NewMaxRadius or wbp.MaxRadius)
@@ -646,7 +695,7 @@ XNL0001 = Class(ACUUnit) {
         
         AdvancedEngineering = function(self, bp)
             -- new build FX bone available
-            table.insert( self.BuildBones, 'BuildBeam2' )
+            table.insert(self.BuildEffectBones, 'BuildBeam2')
 
             -- make new structures available
             local cat = ParseEntityCategory(bp.BuildableCategoryAdds)
@@ -683,7 +732,7 @@ XNL0001 = Class(ACUUnit) {
         
         AdvancedEngineeringRemove = function(self, bp)
             -- remove extra build bone
-            table.removeByValue( self.BuildBones, 'BuildBeam2' )
+            table.removeByValue(self.BuildEffectBones, 'BuildBeam2')
 
             -- buffs
             if Buff.HasBuff( self, 'NOMADSACUT2BuildRate' ) then
@@ -699,7 +748,7 @@ XNL0001 = Class(ACUUnit) {
         
         T3Engineering = function(self, bp)
             -- new build FX bone available
-            table.insert( self.BuildBones, 'BuildBeam3' )
+            table.insert(self.BuildEffectBones, 'BuildBeam3')
             -- make new structures available
             local cat = ParseEntityCategory(bp.BuildableCategoryAdds)
             self:RemoveBuildRestriction(cat)
@@ -734,8 +783,8 @@ XNL0001 = Class(ACUUnit) {
         
         T3EngineeringRemove = function(self, bp)
             -- remove extra build bone
-            table.removeByValue( self.BuildBones, 'BuildBeam3' )
-            table.removeByValue( self.BuildBones, 'BuildBeam2' )
+            table.removeByValue(self.BuildEffectBones, 'BuildBeam3')
+            table.removeByValue(self.BuildEffectBones, 'BuildBeam2')
             -- remove buff
             if Buff.HasBuff( self, 'NOMADSACUT3BuildRate' ) then
                 Buff.RemoveBuff( self, 'NOMADSACUT3BuildRate' )

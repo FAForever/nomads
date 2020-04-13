@@ -50,6 +50,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'OVERLAYDIRECTFIRE',
         'SORTDEFENSE',
+        'CQUEMOV', --enables the selection and move commands during construction
     },
     Defense = {
         AirThreatLevel = 0,
@@ -61,7 +62,7 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 18,
     },
-    Description = '<LOC XNB2201_desc>Point Defense',
+    Description = '<LOC XNB2301_desc>Point Defense',
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -95,7 +96,7 @@ UnitBlueprint {
         BuildCostMass = 510,
         BuildTime = 600,
         RebuildBonusIds = {
-            'xnb2201',
+            'xnb2301',
         },
     },
     Footprint = {
@@ -122,14 +123,14 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = '<LOC XNB2201_name>Piercer',
+        UnitName = '<LOC XNB2301_name>Piercer',
         UnitWeight = 1,
     },
     Intel = {
         VisionRadius = 28,
     },
     Interface = {
-        HelpText = '<LOC XNB2201_help>Point Defense',
+        HelpText = '<LOC XNB2301_help>Point Defense',
     },
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.5,

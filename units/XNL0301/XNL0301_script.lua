@@ -79,7 +79,7 @@ XNL0301 = Class(NWalkingLandUnit) {
                 -- will walk up to the target and not attack from range, exposing it unnecessarily. This is an
                 -- issue with rocket and railgun enhancements
                 if self.IsEnabled then
-                    self:ChangeMaxRadius(self:GetMaxRadius(), true)
+                    self:ChangeMaxRadius(self._MaxRadius, true)
                 else
                     self:ChangeMaxRadius(self.unit:GetAllWeaponMaxRadius(), true)
                 end
@@ -121,6 +121,9 @@ XNL0301 = Class(NWalkingLandUnit) {
         NWalkingLandUnit.OnCreate(self)
 
         local bp = self:GetBlueprint()
+
+        -- TODO: Remove once related change gets released in the game patch
+        self.BuildEffectBones = bp.General.BuildBones.BuildEffectBones
 
         self.HeadRotationEnabled = false -- initially disable head rotation to prevent initial wrong rotation
 
@@ -184,7 +187,7 @@ XNL0301 = Class(NWalkingLandUnit) {
         for i=1, n do
             wep = self:GetWeapon(i)
             if wep and wep.IsEnabled then
-                rad = wep:GetMaxRadius()
+                rad = self._MaxRadius
                 if rad > maxRad then
                     maxRad = rad
                 end
@@ -290,27 +293,21 @@ XNL0301 = Class(NWalkingLandUnit) {
         self:GetWeaponManipulatorByLabel('GunLeft'):SetHeadingPitch( self.BuildArmManipulator:GetHeadingPitch() )
     end,
 
-    CreateBuildEffects = function( self, unitBeingBuilt, order )
-        local UpgradesFrom = unitBeingBuilt:GetBlueprint().General.UpgradesFrom
-        local bones = self:GetBuildBones() or {0}
-        -- If we are assisting an upgrading unit, or repairing a unit, play seperate effects
-        if (order == 'Repair' and not unitBeingBuilt:IsBeingBuilt()) or (UpgradesFrom and UpgradesFrom ~= 'none' and self:IsUnitState('Guarding'))then
-            NomadsEffectUtil.CreateRepairBuildBeams( self, unitBeingBuilt, bones, self.BuildEffectsBag )
-        else
-            NomadsEffectUtil.CreateNomadsBuildSliceBeams( self, unitBeingBuilt, bones, self.BuildEffectsBag )
-        end
+    -- TODO: After making sACU sane again, replace all "self:GetBuildBones() or {0,}" with "self.BuildEffectBones"
+    CreateBuildEffects = function(self, unitBeingBuilt, order)
+        NomadsEffectUtil.CreateNomadsBuildSliceBeams(self, unitBeingBuilt, self:GetBuildBones() or {0,}, self.BuildEffectsBag)
     end,
 
-    CreateReclaimEffects = function( self, target )
-        NomadsEffectUtil.PlayNomadsReclaimEffects( self, target, self:GetBlueprint().General.BuildBones.BuildEffectBones or {0,}, self.ReclaimEffectsBag )
+    CreateReclaimEffects = function(self, target)
+        NomadsEffectUtil.PlayNomadsReclaimEffects(self, target, self:GetBuildBones() or {0,}, self.ReclaimEffectsBag)
     end,
 
-    CreateReclaimEndEffects = function( self, target )
-        NomadsEffectUtil.PlayNomadsReclaimEndEffects( self, target, self.ReclaimEffectsBag )
+    CreateReclaimEndEffects = function(self, target)
+        NomadsEffectUtil.PlayNomadsReclaimEndEffects(self, target, self.ReclaimEffectsBag)
     end,
 
-    CreateCaptureEffects = function( self, target )
-        EffectUtil.PlayCaptureEffects( self, target, self:GetBuildBones() or {0,}, self.CaptureEffectsBag )
+    CreateCaptureEffects = function(self, target)
+        EffectUtil.PlayCaptureEffects(self, target, self:GetBuildBones() or {0,}, self.CaptureEffectsBag)
     end,
 
     OnPaused = function(self)
@@ -941,11 +938,10 @@ XNL0301 = Class(NWalkingLandUnit) {
         end
 
         -- base effect
-        local army = self:GetArmy()
         local emitters = {}
         local emit, rs, k
         for k, v in TemplReg do
-            emit = CreateEmitterAtBone(self, 'Torso', army, v)
+            emit = CreateEmitterAtBone(self, 'Torso', self.Army, v)
             table.insert(emitters, emit)
         end
 
@@ -973,7 +969,7 @@ XNL0301 = Class(NWalkingLandUnit) {
             end
 
             for k, v in TemplSmall do
-                emit = CreateEmitterAtBone(self, bone, army, v):ScaleEmitter(rs):OffsetEmitter(rx, ry, rz)
+                emit = CreateEmitterAtBone(self, bone, self.Army, v):ScaleEmitter(rs):OffsetEmitter(rx, ry, rz)
                 table.insert(emitters, emit)
             end
 

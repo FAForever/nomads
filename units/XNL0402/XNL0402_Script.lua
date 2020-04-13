@@ -107,9 +107,9 @@ XNL0402 = Class(NLandUnit) {
     PlayBeamChargeUpSequence = function(self)
         -- plays the flashing effects at the body
         local fn = function(self)
-            local army, emitrate, emitters, emit = self:GetArmy(), 0, {}, nil
+            local emitrate, emitters, emit = 0, {}, nil
             for k, v in NomadsEffectTemplate.PhaseRayChargeUpFxPerm do
-                emit = CreateAttachedEmitterColoured(self, 'ReactorBeam02', army, v)--:OffsetEmitter(0, 0.1, 0) --flashing light
+                emit = CreateAttachedEmitterColoured(self, 'ReactorBeam02', self.Army, v)--:OffsetEmitter(0, 0.1, 0) --flashing light
                 table.insert( emitters, emit )
                 self.BeamChargeUpFxBag:Add( emit )
                 self.Trash:Add( emit )
@@ -138,9 +138,9 @@ XNL0402 = Class(NLandUnit) {
         end
         
         self.BeamHelperFxBag:Destroy() --clear any existing effects in case of stacking
-        local army, emit, beam = self:GetArmy(), nil, nil
+        local emit, beam = nil, nil
         for k, v in NomadsEffectTemplate.PhaseRayFakeBeamMuzzle do
-            emit = CreateAttachedEmitterColoured( self, 'ReactorBeam01', army, v )--:OffsetEmitter(0, 0.1, 0)
+            emit = CreateAttachedEmitterColoured( self, 'ReactorBeam01', self.Army, v )--:OffsetEmitter(0, 0.1, 0)
             self.BeamHelperFxBag:Add( emit )
             self.Trash:Add( emit )
         end
@@ -148,7 +148,7 @@ XNL0402 = Class(NLandUnit) {
         -- create a beam between the body of the unit and the tiny aimer thing
         for k, v in NomadsEffectTemplate.PhaseRayFakeBeam do
             local beamBp = RenameBeamEmitterToColoured(v,self.ColourIndex) --our beam is coloured so we recolour the emitter as well.
-            beam = AttachBeamEntityToEntity(self, 'ReactorBeam01', self, "ReactorBeam02", army, beamBp )
+            beam = AttachBeamEntityToEntity(self, 'ReactorBeam01', self, "ReactorBeam02", self.Army, beamBp )
             self.BeamHelperFxBag:Add( beam )
             self.Trash:Add( beam )
         end
@@ -161,9 +161,8 @@ XNL0402 = Class(NLandUnit) {
         self.BeamHelperFxBag:Destroy()
         self.BeamChargeUpFxBag:Destroy()
         if self.Beaming then
-            local army = self:GetArmy()
             for k, v in NomadsEffectTemplate.PhaseRayFakeBeamMuzzleBeamingStopped do
-                emit = CreateAttachedEmitterColoured( self, 'ReactorBeam01', army, v )--:OffsetEmitter(0, 0.1, 0) --fading light
+                emit = CreateAttachedEmitterColoured( self, 'ReactorBeam01', self.Army, v )--:OffsetEmitter(0, 0.1, 0) --fading light
             end
         end
         
@@ -184,64 +183,41 @@ XNL0402 = Class(NLandUnit) {
     end,
 
     -- ---------------------------------------------------------------------------------------------------------------
+    -- Destroy the beam effects if the beam is on, so it doesnt stay on while sinking.
 
+    OnKilled = function(self, instigator, type, overkillRatio)
+        self:ForkThread(self.BeamDestructionDeathThread)
+        NLandUnit.OnKilled(self, instigator, type, overkillRatio)
+    end,
+    
+    --We fork the thread to avoid the death script fucking up if it goes wrong
+    BeamDestructionDeathThread = function(self)
+        if self.GetWeapon then
+            local wep = self:GetWeapon(1)
+            if wep.Beams then
+                WaitTicks(20)
+                if wep.Audio.BeamLoop and wep.Beams[1].Beam then
+                    wep.Beams[1].Beam:SetAmbientSound(nil, nil)
+                end
+                for k, v in wep.Beams do
+                    v.Beam:Disable()
+                end
+            end
+        end
+    end,
+    
     DeathThread = function( self, overkillRatio, instigator)
-        if self.Beaming then
-            self:DeathExplosionsThreadImmediate( overkillRatio )
-        else
-            self:DeathExplosionsThread( overkillRatio )
-        end
-    end,
-
-    DeathExplosionsThreadImmediate = function(self, overkillRatio)
-
-        self:PlayUnitSound('Killed')
-        local army = self:GetArmy()
-
-        -- extra effect: explosion at the thingy that redirects the beam
-        if self.Beaming then
-            Explosion.CreateDefaultHitExplosionAtBone(self, 'TurretPitch', 0.5 )
-            self:HideBone( 'TurretPitch', false)
-        end
-
-        WaitTicks( Random(2, 3) )
-
-        -- Create Initial explosion effects
-        Explosion.CreateFlash( self, 'ReactorBeam01', 3, army )
-        CreateAttachedEmitter(self, 0, army, '/effects/emitters/destruction_explosion_concussion_ring_03_emit.bp'):ScaleEmitter(0.5)
-        CreateAttachedEmitter(self, 0, army, '/effects/emitters/explosion_fire_sparks_02_emit.bp')
-        CreateAttachedEmitter(self, 0, army, '/effects/emitters/distortion_ring_01_emit.bp'):ScaleEmitter(0.5)
-        self:ShakeCamera(50, 5, 0, 1)
-
-        self:CreateExplosionDebris( 0, army )
-        self:CreateExplosionDebris( 0, army )
-        self:CreateExplosionDebris( 0, army )
-
-        -- damage ring to push trees
-        local x, y, z = unpack(self:GetPosition())
-        z = z + 3
-        DamageRing(self, {x,y,z}, 0.1, 3, 1, 'Force', true)
-        DamageRing(self, {x,y,z}, 0.1, 3, 1, 'Force', true)
-
-        -- create wreckage
-        self:CreateWreckage(overkillRatio)
-
-        self:Destroy()
-    end,
-
-    DeathExplosionsThread = function( self, overkillRatio)
         -- slightly inspired by the monkeylords effect
 
         self:PlayUnitSound('Killed')
-        local army = self:GetArmy()
-
+        
         -- Create Initial explosion effects
-        Explosion.CreateFlash( self, 'ReactorBeam01', 2, army )
-        CreateAttachedEmitter(self, 0, army, '/effects/emitters/explosion_fire_sparks_02_emit.bp')
-        CreateAttachedEmitter(self, 0, army, '/effects/emitters/distortion_ring_01_emit.bp'):ScaleEmitter(0.2)
+        Explosion.CreateFlash( self, 'ReactorBeam01', 2, self.Army )
+        CreateAttachedEmitter(self, 0, self.Army, '/effects/emitters/explosion_fire_sparks_02_emit.bp')
+        CreateAttachedEmitter(self, 0, self.Army, '/effects/emitters/distortion_ring_01_emit.bp'):ScaleEmitter(0.2)
         self:ShakeCamera(30, 4, 0, 1)
 
-        self:CreateExplosionDebris( 0, army )
+        self:CreateExplosionDebris( 0, self.Army )
 
         -- damage ring to push trees
         local x, y, z = unpack(self:GetPosition())
@@ -249,31 +225,48 @@ XNL0402 = Class(NLandUnit) {
         DamageRing(self, {x,y,z}, 0.1, 3, 1, 'Force', true)
 
         WaitTicks( Random(2, 8) )
-
         -- some more explosions
         local numBones = self:GetBoneCount() - 1
-        for i=Random(1,3), 5 do
+        for i=Random(1,3), 3 do
             local bone = Random( 0, numBones )
             Explosion.CreateDefaultHitExplosionAtBone( self, bone, RandomFloat( 1.0, 2.0) )
-            self:CreateExplosionDebris( bone, army )
+            self:CreateExplosionDebris( bone, self.Army )
             WaitTicks( 13 - i - Random(0, 2) )
         end
 
         -- final explosion
-        Explosion.CreateFlash( self, 0, 3, army )
+        Explosion.CreateFlash( self, 0, 3, self.Army )
         self:ShakeCamera(2.5, 1.25, 0, 0.15)
         self:PlayUnitSound('Destroyed')
 
-        self:CreateExplosionDebris( 0, army )
-        self:CreateExplosionDebris( 0, army )
+        self:CreateExplosionDebris( 0, self.Army )
+        self:CreateExplosionDebris( 0, self.Army )
 
         -- Finish up force ring to push trees
         DamageRing(self, {x,y,z}, 0.1, 3, 1, 'Force', true)
+        
+        if self:ShallSink() then
+            self.DisallowCollisions = true
 
-        -- create wreckage
-        self:CreateWreckage(overkillRatio)
+            -- Bubbles and stuff coming off the sinking wreck.
+            self:ForkThread(self.SinkDestructionEffects)
 
-        self:Destroy()
+            -- Avoid slightly ugly need to propagate this through callback hell...
+            self.overkillRatio = overkillRatio
+
+            -- A non-naval unit or boat with no sinking animation dying over water needs to sink, but lacks an animation for it. Let's make one up.
+            local this = self
+            self:StartSinking(
+                function()
+                    this:DestroyUnit(overkillRatio)
+                end
+            )
+
+            -- Wait for the sinking callback to actually destroy the unit.
+            return
+        end
+        
+        self:DestroyUnit(overkillRatio)
     end,
 
     CreateExplosionDebris = function( self, bone, army )

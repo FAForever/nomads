@@ -26,7 +26,6 @@ Unit = Class(oldUnit) {
     end,
 
     CreateTerrainTypeEffects = function( self, effectTypeGroups, FxBlockType, FxBlockKey, TypeSuffix, EffectBag, TerrainType )
-        local army = self:GetArmy()
         local pos = self:GetPosition()
         local effects = {}
         local emit
@@ -39,11 +38,11 @@ Unit = Class(oldUnit) {
             end
 
             if not vTypeGroup.Bones or (vTypeGroup.Bones and (table.getn(vTypeGroup.Bones) == 0)) then
-                WARN('*WARNING: No effect bones defined for layer group ',repr(self:GetUnitId()),', Add these to a table in Display.[EffectGroup].', self:GetCurrentLayer(), '.Effects { Bones ={} } in unit blueprint.' )
+                WARN('*WARNING: No effect bones defined for layer group ',repr(self.UnitId),', Add these to a table in Display.[EffectGroup].', self:GetCurrentLayer(), '.Effects { Bones ={} } in unit blueprint.' )
             else
                 for kb, vBone in vTypeGroup.Bones do
                     for ke, vEffect in effects do
-                        emit = CreateAttachedEmitter(self,vBone,army,vEffect):ScaleEmitter(vTypeGroup.Scale or 1)
+                        emit = CreateAttachedEmitter(self,vBone,self.Army,vEffect):ScaleEmitter(vTypeGroup.Scale or 1)
                         if vTypeGroup.Offset then
                             emit:OffsetEmitter(vTypeGroup.Offset[1] or 0, vTypeGroup.Offset[2] or 0,vTypeGroup.Offset[3] or 0)
                         end
@@ -62,7 +61,10 @@ Unit = Class(oldUnit) {
     OnCreate = function(self)
         oldUnit.OnCreate(self)
         self._IsSuckedInBlackHole = false
-        self.SpeedMulti = 1
+        
+        --TODO: remove these once FAF merges in the relevant PR
+        self.Army = self:GetArmy()
+        self.Sync.army = self.Army
     end,
 
     OnStopBeingBuilt = function(self, builder, layer)
@@ -293,20 +295,14 @@ Unit = Class(oldUnit) {
         -- value instead, if it is below 1. Test by having a Nomads hover unit with reduced speed on water through a buff and another hover
         -- unit. Move them over water and compare speeds.
         if val then
-            self.SpeedMulti = val
             if val < 1 then
                 val = math.sqrt(val)
             end
-            --LOG('*DEBUG: SetSpeedMult '..repr(self:GetUnitId())..' '..repr(val))
         else
-            WARN('Nomads: SetSpeedMult: Can\'t set SpeedMult to unit ['..repr(self:GetUnitId() or "Unknown")..']. val=nil!')
+            WARN('Nomads: SetSpeedMult: Can\'t set SpeedMult to unit ['..repr(self.UnitId or "Unknown")..']. val=nil!')
             return
         end
         return oldUnit.SetSpeedMult(self, val)
-    end,
-
-    GetSpeedMult = function(self)
-        return self.SpeedMulti
     end,
 
     -- ================================================================================================================
@@ -327,14 +323,12 @@ Unit = Class(oldUnit) {
         if self:CanBeStunned() or forced then
             local fn = function(self, duration)
                 WaitSeconds( duration )
-                self.IsStunned = false
                 self:OnStunnedOver(self)
             end
             if self.StunnedThread then  -- if unit it hit twice by stun weapon then this ensures the second hit prolongs the stun
                 KillThread( self.StunnedThread )
                 self.StunnedThread = nil
             end
-            self.IsStunned = true
             self.StunnedThread = self:ForkThread(fn, duration)
             self:OnStunned(duration)
             return oldUnit.SetStunned(self, duration) or true
@@ -583,23 +577,6 @@ Unit = Class(oldUnit) {
     end,
 
     OnStopBeingSuckedInBlackhole = function(self)
-    end,
-
-    -- ================================================================================================================
-    -- ARTILLERY SUPPORT
-
-    OnWeaponSupported = function(self, supportingUnit, weapon, targetPos, target)
-        -- A weapon on this unit is supported by another unit
-    end,
-
-    OnSupportingArtillery = function(self, artillery, targetPos, target)
-        -- This unit supports a weapon on another unit
-    end,
-
-    -- ================================================================================================================
-    -- BOMBARDMENT MODE
-
-    OnBombardmentModeChanged = function( self, enabled, changedByTransport )
     end,
 
     -- ================================================================================================================

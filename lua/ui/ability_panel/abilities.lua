@@ -203,7 +203,7 @@ function AddSpecialAbility(data)
         availableOrdersTable[AbilityName] = true
         defaultOrdersTable[AbilityName] = ability
         defaultOrdersTable[AbilityName].behavior = AbilityButtonBehavior
-        ButtonParams[AbilityName] = { Enabled = true, CoolDownTime = false, CurrCoolDownTime = false, CoolDownEnabled = false, CoolDownTimerValue = 0 }
+        ButtonParams[AbilityName] = { Enabled = true }
         SetAvailableOrders()
 
         if AbilityDefinition[AbilityName] and AbilityDefinition[AbilityName].SoundReady then
@@ -237,7 +237,7 @@ end
 --enable an ability button on ability panel
 function EnableSpecialAbility(data)
     local AbilityName = data.AbilityName
-    if orderCheckboxMap[AbilityName] and not ButtonParams[AbilityName].CoolDownEnabled and not ButtonParams[AbilityName].Enabled then
+    if orderCheckboxMap[AbilityName] and not ButtonParams[AbilityName].Enabled then
         orderCheckboxMap[AbilityName]:Enable()
         ButtonParams[AbilityName].Enabled = true
         ForkThread(newOrderGlow, orderCheckboxMap[AbilityName])
@@ -273,7 +273,6 @@ end
 function SetAvailableOrders()
 
     -- clear existing buttons
-    KillTimers()
     orderCheckboxMap = {}
     if controls.orderButtonGrid then
         controls.orderButtonGrid:DestroyAllItems(true)
@@ -303,7 +302,6 @@ function SetAvailableOrders()
        HideAll()
     elseif controls.bg.Mini then
        ShowAll()
-       RestartTimers()
     end
 end
 
@@ -441,20 +439,6 @@ function AddOrder(orderInfo, slot, batchMode)
             self.EnableEffect:SetAlpha(0)
             Checkbox.OnDisable(self)
         end
-    end
-
-    if orderInfo.ExtraInfo.CoolDownTime and orderInfo.ExtraInfo.CoolDownTime > 0 then
-        checkbox.buttonText = UIUtil.CreateText(checkbox, '', 18, UIUtil.bodyFont)
-        checkbox.buttonText:SetColor('ffffffff')
-        checkbox.buttonText:SetDropShadow(true)
-        LayoutHelpers.AtBottomIn(checkbox.buttonText, checkbox)
-        LayoutHelpers.AtHorizontalCenterIn(checkbox.buttonText, checkbox)
-        checkbox.buttonText:DisableHitTest()
-        ButtonParams[button].CoolDownTime = orderInfo.ExtraInfo.CoolDownTime
-    end
-
-    if ButtonParams[button].CoolDownEnabled then
-        StartCoolDownTimer(button)
     end
 
     if not ButtonParams[button].Enabled then
@@ -748,93 +732,6 @@ function AbilityButtonBehavior(self, modifiers, ClickType, MouseButton)
 --    end
 end
 
-function StartCoolDownTimer(buttonName)
-    if orderCheckboxMap[buttonName] then
-        local button = orderCheckboxMap[buttonName]
-
-        local Timer = ButtonParams[buttonName].CoolDownTimerValue or 0
-        local CountDown = ButtonParams[buttonName].CoolDownTime or button._data.ExtraInfo.CoolDownTime
-        local curTime = ButtonParams[buttonName].CurrCoolDownTime or button._data.ExtraInfo.CoolDownTime
-        local startTime = GetGameTimeSeconds()
-
-        ButtonParams[buttonName].CoolDownEnabled = true
-
-        button.buttonText:SetNeedsFrameUpdate(true)
-
-        UpdateTime = function(self)
-            self:SetText( math.ceil(curTime) )
-        end
-
-        button.buttonText.OnFrame = function(self, delta)
-            Timer = Timer + delta
-            ButtonParams[buttonName].CoolDownTimerValue = Timer
-
-            curTime = (startTime + CountDown) - GetGameTimeSeconds()
-            if curTime >= 0 then
-                ButtonParams[buttonName].CurrCoolDownTime = curTime
-                UpdateTime(self)
-            else
-                CooldownTimerExpired(buttonName)
-            end
-        end
-    end
-end
-
---needs work.. the timer does not restart once its done..
---stop and destroy the cooldown timer.
-function StopCoolDownTimer(buttonName)
-    if orderCheckboxMap[buttonName] then
-        Button = orderCheckboxMap[buttonName]
-        ButtonParams[buttonName].CoolDownEnabled = false
-        ButtonParams[buttonName].CurrCoolDownTime = Button._data.ExtraInfo.CoolDownTime
-        ButtonParams[buttonName].CoolDownTimerValue = 0
-        Button.buttonText:SetNeedsFrameUpdate(false)
-        Button.buttonText:SetText('')
-    end
-end
-
-function CooldownTimerExpired(buttonName)
-    EnableButtonStopCoolDown(buttonName)
-
-    if AbilityDefinition[buttonName] and AbilityDefinition[buttonName].SoundReady then
-        VoiceOvers.VOUIEvent( AbilityDefinition[buttonName].SoundReady )
-    end
-end
-
---enable the ability button and kill the cooldown timer
-function EnableButtonStopCoolDown(buttonName)
-    local data = {}
-    data.AbilityName = buttonName
-    StopCoolDownTimer(buttonName)
-    EnableSpecialAbility(data)
-end
-
---disable the button and start the cooldown timer
-function DisableButtonStartCoolDown(buttonName)
-    local data = {}
-    data.AbilityName = buttonName
-    DisableSpecialAbility(data)
-    StartCoolDownTimer(buttonName)
-end
-
---kill button timers. (cooldowns)
-function KillTimers()
-    for k,v in ButtonParams do
-        if ButtonParams[k].CoolDownEnabled then
-            local button = orderCheckboxMap[k]
-            button.buttonText:SetNeedsFrameUpdate(false)
-        end
-    end
-end
-
---restart buttons that have timers on them (cooldowns)
-function RestartTimers()
-    for k,v in ButtonParams do
-        if ButtonParams[k].CoolDownEnabled then
-            StartCoolDownTimer(k)
-        end
-    end
-end
 
 --controls when the user clicks the toggle to show the ability panel.
 function ToggleAbilityPanel(state)

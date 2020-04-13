@@ -7,7 +7,7 @@ Flare = Class(oldFlare) {
     -- TODO: When Nomads is more or less final the check for turn rates on the missiles can be removed.
 
     OnCollisionCheck = function(self, other)
-        if EntityCategoryContains(ParseEntityCategory(self.RedirectCat), other) and (self:GetArmy() ~= other:GetArmy()) then
+        if EntityCategoryContains(ParseEntityCategory(self.RedirectCat), other) and (self.Army ~= other.Army) then
             if IsProjectile( other ) and (not other.OnFlare_SetTrackTarget or other.OnFlare_SetTrackTarget ~= false) then
                 other.IsBeingDeflectedByFlares = true
                 other:TrackTarget(true)
@@ -119,9 +119,8 @@ MissileRedirect = Class(MissileRedirect) {
     PlayRedirectFx = function(self)
         self:DestroyRedirectFx()
 
-        local army = self:GetArmy()
         for k, v in self.RedirectBeams do
-            self.EffectTrashBag:Add( AttachBeamEntityToEntity(self.EnemyProj, -1, self.Owner, self.AttachBone, army, v) )
+            self.EffectTrashBag:Add( AttachBeamEntityToEntity(self.EnemyProj, -1, self.Owner, self.AttachBone, self.Army, v) )
         end
     end,
 

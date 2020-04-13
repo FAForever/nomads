@@ -11,7 +11,6 @@ function CreateAdjacencyBeams( unit, adjacentUnit, AdjacencyBeamsBag )
 
     local uBp = unit:GetBlueprint()
     local aBp = adjacentUnit:GetBlueprint()
-    local army = unit:GetArmy()
     local faction = uBp.General.FactionName
 
     -- Determine which effects we will be using
@@ -336,7 +335,7 @@ function CreateAdjacencyBeams( unit, adjacentUnit, AdjacencyBeamsBag )
             nodeList[i].mesh = true
             if emitterNodeEffects[i] ~= nil and table.getn(emitterNodeEffects[i]) ~= 0 then
                 for k, vEmit in emitterNodeEffects[i] do
-                    emit = CreateAttachedEmitter( nodeList[i].entity, 0, army, vEmit )
+                    emit = CreateAttachedEmitter( nodeList[i].entity, 0, unit.Army, vEmit )
                     info.Trash:Add(emit)
                     unit.Trash:Add(emit)
                 end
@@ -361,7 +360,7 @@ function CreateAdjacencyBeams( unit, adjacentUnit, AdjacencyBeamsBag )
                 nodeList[i].entity:SetOrientation( OrientFromDir( vec ),true)
             end
             if beamEffect then
-                local beam = AttachBeamEntityToEntity( nodeList[i].entity, -1, nodeList[i+1].entity, -1, army, beamEffect  )
+                local beam = AttachBeamEntityToEntity( nodeList[i].entity, -1, nodeList[i+1].entity, -1, unit.Army, beamEffect  )
                 info.Trash:Add(beam)
                 unit.Trash:Add(beam)
             end

@@ -18,55 +18,7 @@ local SlowHover = import('/lua/defaultunits.lua').SlowHoverLandUnit
 XNL0403 = Class(NExperimentalHoverLandUnit, SlowHover) {
 
     Weapons = {
-        MainGun = Class(TacticalMissileWeapon1) {
-
-            TargetPool = {},
-
-            RackSalvoFiringState = State(TacticalMissileWeapon1.RackSalvoFiringState ) {
-                Main = function(self)
-
-                    -- get the targets of all weapons and add them to the pool
-                    self.TargetPool = {}
-                    local numWeapons = self.unit:GetWeaponCount()
-                    for i=1, numWeapons do
-                        local wep = self.unit:GetWeapon(i)
-                        if wep ~= self then
-                            local target = wep:GetCurrentTarget()
-                            if target then
-                                table.insert( self.TargetPool, target)
-                            end
-                        end
-                    end
-
-                    TacticalMissileWeapon1.RackSalvoFiringState.Main( self )
-                end,
-            },
-
-            CreateProjectileAtMuzzle = function(self, muzzle)
-                local proj = TacticalMissileWeapon1.CreateProjectileAtMuzzle(self, muzzle)
-
-                if table.getsize( self.TargetPool ) >= 1 then
-                    local keys = table.keys( self.TargetPool )
-                    local target = self.TargetPool[ keys[1] ]
-                    if target and not target:BeenDestroyed() and target.IsDead and not target.Dead then
-                        local maxDist = self:GetBlueprint().MaxRadius
-                        if self:GetDistanceToTarget( target ) <= maxDist then
-                            proj:SetNewTarget( target )
-                        end
-                    end
-                    self.TargetPool[ keys[1] ] = nil
-                end
-
-                return proj
-            end,
-
-            GetDistanceToTarget = function(self, target)
-                local tpos = target:GetPosition()
-                local mpos = self.unit:GetPosition()
-                local dist = VDist2(mpos[1], mpos[3], tpos[1], tpos[3])
-                return dist
-            end,
-        },
+        MainGun = Class(TacticalMissileWeapon1) {},
         NukeMissiles = Class(StrategicMissileWeapon) {
 
             OnCreate = function(self)
@@ -145,7 +97,7 @@ XNL0403 = Class(NExperimentalHoverLandUnit, SlowHover) {
     end,
 
     PlayMovementSmokeEffects = function(self, type)
-        local army, EffectTable, emit = self:GetArmy()
+        local EffectTable, emit
 
         if type == 'Stopping' then
             EffectTable = NomadsEffectTemplate.HoverEffect_Stopping_Smoke
@@ -157,7 +109,7 @@ XNL0403 = Class(NExperimentalHoverLandUnit, SlowHover) {
 
         for _, bone in self.SmokeEmitterBones do
             for k, v in EffectTable do
-                emit = CreateAttachedEmitter( self, bone, army, v )
+                emit = CreateAttachedEmitter( self, bone, self.Army, v )
                 self.SmokeEmitters:Add( emit )
                 self.Trash:Add( emit )
             end
@@ -207,17 +159,16 @@ XNL0403 = Class(NExperimentalHoverLandUnit, SlowHover) {
         -- slightly inspired by the monkeylords effect
 
         self:PlayUnitSound('Killed')
-        local army = self:GetArmy()
 
         -- Create Initial explosion effects
-        explosion.CreateFlash( self, 'TML.003', 2, army )
-        CreateAttachedEmitter(self, 0, army, '/effects/emitters/destruction_explosion_concussion_ring_03_emit.bp'):ScaleEmitter(0.5)
-        CreateAttachedEmitter(self, 0, army, '/effects/emitters/explosion_fire_sparks_02_emit.bp')
-        CreateAttachedEmitter(self, 0, army, '/effects/emitters/distortion_ring_01_emit.bp'):ScaleEmitter(0.5)
+        explosion.CreateFlash( self, 'TML.003', 2, self.Army )
+        CreateAttachedEmitter(self, 0, self.Army, '/effects/emitters/destruction_explosion_concussion_ring_03_emit.bp'):ScaleEmitter(0.5)
+        CreateAttachedEmitter(self, 0, self.Army, '/effects/emitters/explosion_fire_sparks_02_emit.bp')
+        CreateAttachedEmitter(self, 0, self.Army, '/effects/emitters/distortion_ring_01_emit.bp'):ScaleEmitter(0.5)
         self:ShakeCamera(50, 5, 0, 1)
 
-        self:CreateExplosionDebris( 0, army )
-        self:CreateExplosionDebris( 0, army )
+        self:CreateExplosionDebris( 0, self.Army )
+        self:CreateExplosionDebris( 0, self.Army )
 
         -- damage ring to push trees
         local x, y, z = unpack(self:GetPosition())
@@ -236,17 +187,17 @@ XNL0403 = Class(NExperimentalHoverLandUnit, SlowHover) {
         for i=Random(1,3), 8 do
             local bone = Random( 0, numBones )
             explosion.CreateDefaultHitExplosionAtBone( self, bone, GetRandomInt( 1.0, 4.0) )
-            self:CreateExplosionDebris( bone, army )
+            self:CreateExplosionDebris( bone, self.Army )
             WaitTicks( 13 - i - Random(0, 3) )
         end
 
         -- final explosion
-        explosion.CreateFlash( self, 0, 3, army )
+        explosion.CreateFlash( self, 0, 3, self.Army )
         self:ShakeCamera(3, 2, 0, 0.15)
         self:PlayUnitSound('Destroyed')
 
-        self:CreateExplosionDebris( 0, army )
-        self:CreateExplosionDebris( 0, army )
+        self:CreateExplosionDebris( 0, self.Army )
+        self:CreateExplosionDebris( 0, self.Army )
 
         -- Finish up force ring to push trees
         DamageRing(self, {x,y,z}, 0.1, 3, 1, 'Force', true)

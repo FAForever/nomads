@@ -13,24 +13,18 @@ XNB2302 = Class(NStructureUnit) {
         TargetFinder = Class(NIFTargetFinderWeapon) {
             CreateProjectileAtMuzzle = function(self, muzzle)
                 local target = self:GetCurrentTargetPos()
-                self.unit:StrikeTarget(target)
+                if not target then WARN('Nomads: attempt to fire T3 artillery with no valid target - aborting') return end
+                if self.unit.ArtilleryUnit then
+                    local weapon = self.unit.ArtilleryUnit:GetWeaponByLabel('MainGun')
+                    weapon:SetTargetGround( target )
+                    weapon:OnFire()
+                elseif not self.unit.ArtilleryAlreadyRequested then
+                    WARN('Nomads: attempt to fire T3 artillery without satellite - attempting to get satellite')
+                    self.unit:FindArtillerySatellite()
+                end
             end,
         },
     },
-
-    StrikeTarget = function(self, target)
-        if self.ArtilleryUnit then
-            self.LaunchOrbitalStrike(self.ArtilleryUnit, target)
-        else
-            WARN('Nomads: attempt to fire T3 artillery without satellite - aborting')
-        end
-    end,
-    
-    LaunchOrbitalStrike = function(unit, targetPosition)
-        local weapon = unit:GetWeaponByLabel('MainGun')
-        weapon:SetTargetGround( targetPosition )
-        weapon:OnFire()
-    end,
     
     OnCreate = function(self)
         NStructureUnit.OnCreate(self)
@@ -60,8 +54,7 @@ XNB2302 = Class(NStructureUnit) {
 
     WatchBuildProgress = function(self)
         while not self.Dead and self:GetFractionComplete() < 1 and not self.ArtilleryAlreadyRequested do
-            if self:GetFractionComplete() >= 0.5 and (self:GetHealth() / self:GetMaxHealth()) >= 0.5 then
-                self.ArtilleryAlreadyRequested = true
+            if self:GetFractionComplete() >= 0.5 and (self:GetHealth() / self:GetMaxHealth()) >= 0.5 and not self.ArtilleryUnit then
                 self:FindArtillerySatellite()
             end
             WaitSeconds(2)
@@ -69,26 +62,22 @@ XNB2302 = Class(NStructureUnit) {
     end,
 
     FindArtillerySatellite = function(self)
-        local position = self:GetPosition()
-        local satellites = GetOwnUnitsInSphere(position, 500, self:GetArmy(), categories.xno2302)
-        local ArtilleryAssigned = false
+        self.ArtilleryAlreadyRequested = true
+        local satellites = GetOwnUnitsInSphere(self:GetPosition(), 500, self.Army, categories.xno2302)
         
         for _,satellite in satellites do
             if satellite.Unused == true then
                 self:OnArtilleryUnitAssigned(satellite)
-                ArtilleryAssigned = true
-                break
+                return --no need to run the rest of the function, we are done
             end
         end
         
-        if ArtilleryAssigned == false then
-            --search in a certain range so it doesnt take too long for the satellites to arrive
-            local OrbitalFrigate = FindOrbitalUnit(self, categories.xno0001, 350)
-            if OrbitalFrigate then
-                OrbitalFrigate:AddToSpawnQueue( 'xno2302', self )
-            else
-                self:ForkThread( RequestOrbitalSpawnThread, 'xno2302')
-            end
+        --search in a certain range so it doesnt take too long for the satellites to arrive
+        local OrbitalFrigate = FindOrbitalUnit(self, categories.xno0001, 350)
+        if OrbitalFrigate then
+            OrbitalFrigate:AddToSpawnQueue( 'xno2302', self )
+        else
+            self:ForkThread( RequestOrbitalSpawnThread, 'xno2302')
         end
     end,
     
@@ -96,11 +85,10 @@ XNB2302 = Class(NStructureUnit) {
         NStructureUnit.OnStopBeingBuilt(self, builder, layer)
 
         -- in case we haven't asked for a slave unit, do it now
-        if not self.ArtilleryAlreadyRequested then
+        if not self.ArtilleryAlreadyRequested and not self.ArtilleryUnit then
             ForkThread(function()
                 WaitSeconds(2)
                 if not self.ArtilleryAlreadyRequested then
-                    self.ArtilleryAlreadyRequested = true
                     self:FindArtillerySatellite()
                 end
             end)
@@ -113,14 +101,15 @@ XNB2302 = Class(NStructureUnit) {
     end,
 
     OnArtilleryUnitAssigned = function(self, gun)
+        self.ArtilleryAlreadyRequested = false
         self.ArtilleryUnit = gun
-
+        gun.Unused = false
         -- Set the satellite to ground fire so we can tell it where to shoot
         gun:SetFireState(import('/lua/game.lua').FireState.GROUND_FIRE)
         IssueClearCommands( {gun} )
 
         -- tell the satellite we're it's parent and position it above us
-        gun:OnSetParent(self, self.OnArtilleryUnitKilledUnit )
+        gun.parent = self
         IssueMove( {gun}, self:GetPosition() )
 
         ForkThread(function()
@@ -149,7 +138,7 @@ XNB2302 = Class(NStructureUnit) {
         if self.ArtilleryUnit ~= nil then
             newUnit.ArtilleryAlreadyRequested = true
             local pos = self.ArtilleryUnit:GetPosition()
-            ChangeUnitArmy(self.ArtilleryUnit, (newUnit:GetAIBrain()):GetArmyIndex() ) --why not newUnit:GetArmy()
+            ChangeUnitArmy(self.ArtilleryUnit, (newUnit:GetAIBrain()):GetArmyIndex() ) --why not newUnit.Army
             for _ , unit in GetUnitsInRect( Rect(pos[1]-2.5, pos[3]-2.5, pos[1]+2.5, pos[3]+2.5) ) do
                 if string.find(unit:GetBlueprint().BlueprintId, 'xno2302') then
                     newUnit:OnArtilleryUnitAssigned(unit)

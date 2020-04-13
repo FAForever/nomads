@@ -1,30 +1,25 @@
-local RandomFloat = import('/lua/utilities.lua').GetRandomFloat
 local NomadsEffectUtil = import('/lua/nomadseffectutilities.lua')
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
-local AIUtils = import('/lua/ai/aiutilities.lua')
 local Buff = import('/lua/sim/Buff.lua')
 local Utils = import('/lua/utilities.lua')
-local Entity = import('/lua/sim/Entity.lua').Entity
-
 
 -- ================================================================================================================
 -- Orbital units
 -- ================================================================================================================
-
 --orbital units are spawned on request from parent units
 --self.OrbitalUnit = self:CreateOrbitalUnit()
 --CreateOrbitalUnit = function(self, offsetAmount, blueprint, unitArmy, pos)
 function CreateOrbitalUnit(self, offsetAmount, blueprint, unitArmy, pos)
     local bp = blueprint or 'xno0001'
-    local army = unitArmy or self:GetArmy()
+    local army = unitArmy or self.Army
     local position = pos or self:GetPosition()
     local heading = self:GetHeading()
-    
+
     --calculate offset distance based on parent unit orientation
     local offsetDistance = offsetAmount or -15 --negative puts it behind the unit
     local offset = {offsetDistance * (math.sin(heading)), 0, offsetDistance * (math.cos(heading))}
     position = VAdd(position,offset)
-    
+
     --set the height, taking terrain into account
     local initialHeight =__blueprints[bp].Physics.Elevation or 100
     position[2] = GetTerrainHeight(position[1],position[3]) + initialHeight
@@ -38,34 +33,34 @@ function RequestOrbitalSpawnThread(parent, constructedBP, offsetAmount, blueprin
     local OrbitalUnit = CreateOrbitalUnit(parent, offsetAmount, blueprint, unitArmy, pos)
     WaitSeconds(2)
     WaitFor(OrbitalUnit.LaunchAnim)
-    
+
     OrbitalUnit:AddToSpawnQueue( constructedBP, parent ) --request the construction of the unit
     WaitSeconds(2)
     while OrbitalUnit.UnitBeingBuilt or table.getn(table.keys(OrbitalUnit.OrbitalSpawnQueue)) > 0 do
         WaitSeconds(0.5)
     end
-    
+
     --once the queue is empty, we lock down the building queue so no other units try to add anything before takeoff.
     OrbitalUnit.UnitBeingBuilt = true
     OrbitalUnit.OrbitalSpawnQueue = {1,1,1,1}
-    
+
     OrbitalUnit:TakeOff()
     WaitFor(OrbitalUnit.LaunchAnim)
-    
+
     OrbitalUnit:Destroy()
 end
 
-FindOrbitalUnit = function(self, cats, range)
+function FindOrbitalUnit(self, cats, range) 
     local position = self:GetPosition()
     local unitCats = cats or categories.xno0001
     local searchRange = range or 500
-    local units = Utils.GetOwnUnitsInSphere(position, searchRange, self:GetArmy(), unitCats)
+    local units = Utils.GetOwnUnitsInSphere(position, searchRange, self.Army, unitCats)
     local ChosenUnit = false
-    
+
     local ShortestQueueLength = 4 --if the queues get too long for some absurd reason, spawn a new frigate instead of clogging up the rest
     for _,unit in units do
         local queueLength = table.getn(table.keys(unit.OrbitalSpawnQueue or {1,1,1,1}))
-        
+
         if queueLength == 0 then
             return unit
         elseif ShortestQueueLength > queueLength then
@@ -79,15 +74,14 @@ end
 -- ================================================================================================================
 -- Colour Index / Recolouring emitters
 -- ================================================================================================================
-
-DetermineColourIndex = function(hex)
+function DetermineColourIndex(hex)
     --we work out the hue of our team colour, which will then be sent to the shader for applying shader magic.
     if not hex then return 23.999 end
     --split the string by channel, supcom gives argb so drop the first channel
     local r,g,b = string.sub(hex,3,4), string.sub(hex,5,6), string.sub(hex,7,8)
     r,g,b = tonumber(r,16), tonumber(g,16), tonumber(b,16)
     local h,s,v = ConvertRGBtoHSV(r,g,b)
-    
+
     --we apply utter madness to allow the value to pass to the shader. This makes it not quite the right hue value.
     if s < 0.25 then
         h = 540.25 -- a pale blue colour that is nicely suited to grey and white colours
@@ -101,7 +95,7 @@ DetermineColourIndex = function(hex)
     return h
 end
 
-ConvertRGBtoHSV = function(r, g, b, a)
+function ConvertRGBtoHSV(r, g, b, a)
     r, g, b, a = r / 255, g / 255, b / 255
     local max, min = math.max(r, g, b), math.min(r, g, b)
     local h, s, v
@@ -127,7 +121,7 @@ ConvertRGBtoHSV = function(r, g, b, a)
     return h, s, v, a or 255
 end
 
-ConvertRGBtoHSL = function(r, g, b, a)
+function ConvertRGBtoHSL(r, g, b, a)
     r, g, b = r / 255, g / 255, b / 255
 
     local maxL, minL = math.max(r, g, b), math.min(r, g, b)
@@ -173,10 +167,9 @@ BeamsToRecolour = {
 
 --TODO: allow even more fine grained control, colouring only some of the emitter templates, ect.
 --TODO: allow this to check if the emitter exists in the blueprints list first before setting
-
-SetBeamsToColoured = function(self, BeamsToColour) --Replace specified emitter blueprints with their coloured versions, so every time theyre called we already have everything done!
+function SetBeamsToColoured(self, BeamsToColour) --Replace specified emitter blueprints with their coloured versions, so every time theyre called we already have everything done!
     if not self.ColourIndex then WARN('Nomads: SetBeamsToColoured could not find ColourIndex. Leaving Emitters uncoloured.') return end
-    
+
     for _, EmitterList in BeamsToColour do
         if self[EmitterList] then
             for k, Emitter in self[EmitterList] do
@@ -186,7 +179,7 @@ SetBeamsToColoured = function(self, BeamsToColour) --Replace specified emitter b
     end
 end
 
-RenameBeamEmitterToColoured = function(BeamName, ArmyColourIndex)
+function RenameBeamEmitterToColoured(BeamName, ArmyColourIndex)
     if string.sub(BeamName,-3) == '.bp' then
         return string.sub(BeamName,1,-4) .. math.floor(100*ArmyColourIndex)
     end
@@ -199,8 +192,7 @@ end
 -- Hook the Emitter creation commands, so we can insert our colour changes here.
 -- To use, import into target file, and any functions written in that file will use this instead of the engine function. Example:
 --local CreateAttachedEmitter = import('/lua/NomadsUtils.lua').CreateAttachedEmitterColoured
-
-CreateAttachedEmitterColoured = function(self, ...)
+function CreateAttachedEmitterColoured(self, ...)
     local emit = CreateAttachedEmitter(self, unpack(arg))
     if self.ColourIndex and self.FactionColour then
         emit:SetEmitterCurveParam('RAMPSELECTION_CURVE', self.ColourIndex, 0)
@@ -208,7 +200,7 @@ CreateAttachedEmitterColoured = function(self, ...)
     return emit
 end
 
-CreateEmitterAtBoneColoured = function(self, ...) -- Hook the engine CreateEmitterAtBone command, so we can insert our colour changes here.
+function CreateEmitterAtBoneColoured(self, ...) -- Hook the engine CreateEmitterAtBone command, so we can insert our colour changes here.
     local emit = CreateEmitterAtBone(self, unpack(arg))
     if self.ColourIndex and self.FactionColour then
         emit:SetEmitterCurveParam('RAMPSELECTION_CURVE', self.ColourIndex, 0)
@@ -216,176 +208,28 @@ CreateEmitterAtBoneColoured = function(self, ...) -- Hook the engine CreateEmitt
     return emit
 end
 
-CreateEmitterAtEntityColoured = function(self, ...) -- Hook the engine CreateEmitterAtEntity command, so we can insert our colour changes here.
+function CreateEmitterAtEntityColoured(self, ...) -- Hook the engine CreateEmitterAtEntity command, so we can insert our colour changes here.
     local emit = CreateEmitterAtEntity(self, unpack(arg))
     if self.ColourIndex and self.FactionColour then
         emit:SetEmitterCurveParam('RAMPSELECTION_CURVE', self.ColourIndex, 0)
     end
-    
     return emit
 end
 
-CreateEmitterOnEntityColoured = function(self, ...) -- Hook the engine CreateEmitterOnEntity command, so we can insert our colour changes here.
+function CreateEmitterOnEntityColoured(self, ...) -- Hook the engine CreateEmitterOnEntity command, so we can insert our colour changes here.
     local emit = CreateEmitterOnEntity(self, unpack(arg))
     if self.ColourIndex and self.FactionColour then
         emit:SetEmitterCurveParam('RAMPSELECTION_CURVE', self.ColourIndex, 0)
     end
-    
     return emit
-end
-
--- ================================================================================================================
--- Bombard mode stuff
--- ================================================================================================================
-
-function AddBombardModeToUnit(SuperClass)
-    return Class(SuperClass) {
-
-        HasBombardModeAbility = true,
-
-        OnStopBeingBuilt = function(self, builder, layer)
-            SuperClass.OnStopBeingBuilt(self, builder, layer)
-
-            self.BombardmentMode = false
-
-            -- disable weapons that shouldn't be disabled at this time.
-            for i = 1, self:GetWeaponCount() do
-                local wep = self:GetWeapon(i)
-                local bp = wep:GetBlueprint()
-                if (bp.BombardDisable and self.BombardmentMode) or (bp.BombardEnable and not self.BombardmentMode) then
-                    self:SetWeaponEnabledByLabel( bp.Label, false )
-                end
-            end
-        end,
-
-        OnBombardmentModeChanged = function( self, enabled, changedByTransport )
-            SuperClass.OnBombardmentModeChanged( self, enabled, changedByTransport )
-        end,
-
-        OnAttachedToTransport = function(self, transport, transportBone)
-            self:SetBombardmentMode(false, true)
-            SuperClass.OnAttachedToTransport(self, transport, transportBone)
-        end,
-
-        OnDetachedFromTransport = function(self, transport, transportBone)
-            SuperClass.OnDetachedFromTransport(self, transport, transportBone)
-            self:SetBombardmentMode(false, true)
-        end,
-
-        SetBombardmentMode = function(self, enable, changedByTransport)
-
-            enable = (enable == true)  -- making sure enable is a boolean
-            local prevState = self.BombardmentMode
-
-            if enable ~= prevState then
-
-                local unitBp = self:GetBlueprint()
-                local BuffName = unitBp.Abilities.BombardMode.Buff or 'BombardMode'
-                if enable then
-                    Buff.ApplyBuff(self, BuffName)    -- bonuses for ROF, range, etc. are handled via a unit buff
-                else
-                    Buff.RemoveBuff(self, BuffName)
-                end
-
-                -- go through all weapons and see if they need bombardment mode specific actions
-                for k, bp in unitBp.Weapon do
-
-                    if bp.BombardDisable then
-                        self:SetWeaponEnabledByLabel( bp.Label, not enable )
-
-                    else
-                        if bp.BombardEnable then
-                            self:SetWeaponEnabledByLabel( bp.Label, enable )
-                        end
-
-                        if bp.Turreted and bp.BombardSwingTurret and not bp.DummyWeapon then
-                            if bp.TurretBoneYaw and (not bp.BombardTurretRotationSpeed or bp.BombardTurretRotationSpeed > 0) and (not bp.BombardTurretYawRange or bp.BombardTurretYawRange > 0) then
-                                if enable then
-                                    self:StartRotatingWeaponTurret( bp.Label )
-                                else
-                                    self:StopRotatingWeaponTurret( bp.Label )
-                                end
-                            end
-                        end
-                    end
-
-                    local wep = self:GetWeaponByLabel( bp.Label )
-                    if wep.OnBombardmentModeChanged then
-                        wep:OnBombardmentModeChanged( enable, changedByTransport or false )
-                    end
-                end
-
-                self.BombardmentMode = enable
-
-                self:OnBombardmentModeChanged( enable, changedByTransport or false )
-            end
-        end,
-
-        StartRotatingWeaponTurret = function(self, label)
-            -- start turret rotation
-
-            -- this is a local function that does the rotating of the turret
-            local RotationThread = function(self, label)
-
-                local turret = self:GetWeaponByLabel( label )
-                local bp = turret:GetBlueprint()
-
-                -- kill old rotator if any. Also create a warning since this should not be normal behaviour.
-                if self.TurretRotators and self.TurretRotators[ label ] then
-                    WARN('Bombardment mode: This turret already has a rotator! Overriding it. Unit = '..repr(self:GetUnitId())..' turret = '..repr(label))
-                    self.TurretRotators[ label ]:Destroy()
-                elseif not self.TurretRotators then
-                    self.TurretRotators = {}
-                end
-
-                -- set up new turret rotator
-                local MaxYaw = bp.BombardTurretYawRange or math.ceil( bp.TurretYawRange * 0.08 )
-                local speed = bp.BombardTurretRotationSpeed or bp.RateOfFire * 8
-                local rotator = CreateRotator( self, bp.TurretBoneYaw, 'y' ):SetSpeed( speed ) :SetPrecedence( 25 )
-                self.Trash:Add( rotator )
-                self.TurretRotators[ label ] = rotator
-
-                -- keep spinning the turret.
-                -- bombardment mode is probably started on a group of units at once. To prevent all turrets rotating at the same
-                -- time and hitting the same area we start with a random goal and direction so the turrets of all participating
-                -- units spread their fire nicely.
-                local direction = ( Random(0,1) * 2 ) - 1
-                local goal = MaxYaw * direction * RandomFloat(0, 0.5)
-                while self and not self:BeenDestroyed() and not self.Dead and self.BombardmentMode do
-                    rotator:SetGoal( goal )
-                    WaitFor(rotator)
-                    WaitTicks(2)
-                    direction = direction * -1
-                    goal = MaxYaw * direction
-                end
-            end
-
-            -- store the handles for all threats in a table for easy access
-            if not self.TurretRotationHandles then
-                self.TurretRotationHandles = {}
-            end
-            self.TurretRotationHandles[ label ] = self:ForkThread( RotationThread, label )
-        end,
-
-        StopRotatingWeaponTurret = function(self, label)
-            -- stop turret rotation
-            if self.TurretRotators[ label ] then
-                KillThread( self.TurretRotationHandles[ label ] )
-                self.TurretRotators[ label ]:Destroy()
-                self.TurretRotators[ label ] = nil
-            end
-        end,
-    }
 end
 
 -- ================================================================================================================
 -- Lights class stuff
 -- ================================================================================================================
-
 function AddLights(SuperClass)
     -- a quick way to add four different lighttypes to many bones
     return Class(SuperClass) {
-
         LightBones = nil,
 
         OnPreCreate = function(self)
@@ -403,25 +247,16 @@ function AddLights(SuperClass)
             SuperClass.OnKilled(self, instigator, type, overkillRatio)
         end,
 
-        OnBombardmentModeChanged = function( self, enabled, changedByTransport )
-            SuperClass.OnBombardmentModeChanged( self, enabled, changedByTransport )
-
-            -- refresh lights
-            self:AddLights()
-        end,
-
         AddLights = function(self)
             -- adds light emitters to the light bones
             self:RemoveLights()
             if self.LightBones then
-                local army, emit, templ = self:GetArmy(), nil, nil
-
                 for i=1, table.getn(self.LightBones) do
                     if self.LightBones[i] then
                         for _, bone in self.LightBones[i] do
-                            templ = self:GetLightTemplate(i)
+                            local templ = self:GetLightTemplate(i)
                             for k, v in templ do
-                                emit = CreateAttachedEmitter(self, bone, army, v)
+                                local emit = CreateAttachedEmitter(self, bone, self.Army, v)
                                 self.LightsBag:Add( emit )
                                 self.Trash:Add( emit )
                             end
@@ -429,14 +264,11 @@ function AddLights(SuperClass)
                     end
                 end
             else
-                WARN('AddLights: No light emitter bones specified. '..repr(self:GetUnitId()))
+                WARN('AddLights: No light emitter bones specified. '..repr(self.UnitId))
             end
         end,
 
         GetLightTemplate = function(self, n)
-            if self.BombardmentMode then
-                return NomadsEffectTemplate['AntennaeLights_'..tostring(n)..'_Bombard']
-            end
             return NomadsEffectTemplate['AntennaeLights'..tostring(n)]
         end,
 
@@ -452,7 +284,6 @@ function AddNavalLights(SuperClass)
     -- a quick way to add lights on two antennae of most naval units
     SuperClass = AddLights(SuperClass)
     return Class(SuperClass) {
-
         LightBone_Left = nil,
         LightBone_Right = nil,
 
@@ -461,7 +292,7 @@ function AddNavalLights(SuperClass)
             if new == 'Water' or 'Land' then
                 self:AddLights()
             elseif new == 'Sub' or 'Seabed' then
-            self:RemoveLights()
+                self:RemoveLights()
             end
         end,
 
@@ -477,30 +308,24 @@ function AddNavalLights(SuperClass)
             -- adds light emitters to the antennae bones
             self:RemoveLights()
             if self.LightBone_Left and self.LightBone_Right then
-                local army, templ, emit = self:GetArmy(), self:GetLightTemplate(0), nil
+                local templ = self:GetLightTemplate(0)
                 for k, v in templ do
-                    emit = CreateAttachedEmitter(self, self.LightBone_Left, army, v)
+                    local emit = CreateAttachedEmitter(self, self.LightBone_Left, self.Army, v)
                     self.Trash:Add( emit )
                     self.LightsBag:Add( emit )
                 end
                 templ = self:GetLightTemplate(1)
                 for k, v in templ do
-                    emit = CreateAttachedEmitter(self, self.LightBone_Right, army, v)
+                    local emit = CreateAttachedEmitter(self, self.LightBone_Right, self.Army, v)
                     self.Trash:Add( emit )
                     self.LightsBag:Add( emit )
                 end
             else
-                WARN('AddLights: No light emitter bones specified. '..repr(self:GetUnitId()))
+                WARN('AddLights: No light emitter bones specified. '..repr(self.UnitId))
             end
         end,
 
         GetLightTemplate = function(self, n)
-            if self.BombardmentMode then
-                if n == 0 then
-                    return NomadsEffectTemplate.NavalAntennaeLights_Left_Bombard
-                end
-                return NomadsEffectTemplate.NavalAntennaeLights_Right_Bombard
-            end
             if n == 0 then
                 return NomadsEffectTemplate.NavalAntennaeLights_Left
             end
@@ -512,10 +337,8 @@ end
 -- ================================================================================================================
 -- RAPID REPAIR
 -- ================================================================================================================
-
 function AddRapidRepair(SuperClass)
     return Class(SuperClass) {
-
         OnCreate = function(self)
             SuperClass.OnCreate(self)
             self.RapidRepairFxBag = TrashBag()
@@ -617,14 +440,12 @@ function AddRapidRepair(SuperClass)
                 -- if the counter is expired but we're not repairing, start repairing
                 elseif not self:RapidRepairIsRepairing() and self:GetHealth() < self:GetMaxHealth() then
                     self.RapidRepairProcessThreadHandle = self:ForkThread( self.RapidRepairProcessThread )
-
                 end
                 WaitSeconds(1)
             end
         end,
 
         RapidRepairProcessThread = function(self)
-
             local buffName = self:GetRapidRepairParam('buffName')
 
             -- start self repair effects
@@ -668,7 +489,6 @@ end
 function AddRapidRepairToWeapon(SuperClass)
     -- should be used for the units weapon classes
     return Class(SuperClass) {
-
         OnCreate = function(self)
             DelaysRapidRepair = true
             SuperClass.OnCreate(self)
@@ -686,11 +506,9 @@ end
 -- ================================================================================================================
 -- AKIMBO
 -- ================================================================================================================
-
 --TODO: Refactor this, or just remove it.
 function AddAkimbo( SuperClass )
     return Class(SuperClass) {
-
         StopBeingBuiltEffects = function(self, builder, layer)
             SuperClass.StopBeingBuiltEffects(self, builder, layer)
             self.AkimboThreadHandle = self:ForkThread( self.AkimboThread )
@@ -792,7 +610,7 @@ function AddAkimbo( SuperClass )
             while not self.Dead do
 
                 -- if we're EMP-ed then wait till we're no longer EMP-ed
-                while self.IsStunned do
+                while self:IsStunned() do
                     WaitSeconds( 0.2 )
                 end
 
@@ -828,9 +646,7 @@ function AddAkimbo( SuperClass )
                 -- 1 target then it's easy, and if there is no target at all then just rotate to normal position.
                 if NumWepWithCurTargetAngle == 0 then
                     torsoIntendRot = 0  -- no target means no rotation needed
-
                 else
-
                     -- get torso and main bone orientations. MOved here for efficiency reason from a few lines up, we only need it here
                     unitX, unitY, unitZ = self:GetBoneDirection(0)
                     unitDir = Utils.NormalizeVector( Vector( unitX, 0, unitZ) )
@@ -838,9 +654,7 @@ function AddAkimbo( SuperClass )
 
                     if CurTargetAngleSum == 0 then  -- avoid dividing by 0 (see the else)
                         torsoIntendRot = 0  -- if the target of both weapons is direct forward then no need for a rotation adjustment
-
                     else
-
                         -- calculate current torso rotation limits, the torso cannot rotate beyond these values
                         minTorsoRotLimit = -torsoRotLimit - torsoRot
                         maxTorsoRotLimit = torsoRotLimit - torsoRot
@@ -852,7 +666,6 @@ function AddAkimbo( SuperClass )
                         -- Ok, so now we have determined the best ideal angle for the torso. Now checking if it allows both weapons to hit target. If
                         -- not then adjust the angle.
                         -- First weapon 1. If it can't hit target then wep 2 will have to retarget.
-
                         for k, wep in weps do
                             if not wepCurTargetAngle[k] then
                                 continue
@@ -909,15 +722,13 @@ end
 function AddCapacitorAbility( SuperClass )
     -- The capacitor ability boosts the unit for a short time. It doesn't work with shielded units because this
     -- ability uses the shield indicator on the unit for the capacity in the capacitor.
-        
     return Class(SuperClass) {
-    
         CapFxBones = nil,
         CapFxBeingUsedTemplate = NomadsEffectTemplate.CapacitorBeingUsed,
         CapFxChargingTemplate = NomadsEffectTemplate.CapacitorCharging,
         CapFxEmptyTemplate = NomadsEffectTemplate.CapacitorEmpty,
         CapFxFullTemplate = NomadsEffectTemplate.CapacitorFull,
-        
+
         OnCreate = function(self)
             SuperClass.OnCreate(self)
             self:HasCapacitorAbility(true)
@@ -932,11 +743,11 @@ function AddCapacitorAbility( SuperClass )
             self.CapChargeTime = bp.ChargeTime
             self.CapFxBag = TrashBag()
         end,
-        
+
         HasCapacitorAbility = function(self, hasIt)
             self.Sync.HasCapacitorAbility = hasIt
         end,
-        
+
         ResetCapacitor = function(self)
             if self.CapChargeFraction == 1 then
                 self.CapChargeFraction = 0.99
@@ -947,20 +758,20 @@ function AddCapacitorAbility( SuperClass )
             end
             self.CapacitorSwitchStates['Charging'](self) --set it to the decay state
         end,
-        
+
         SetAutoCapacitor = function(self, autoCap)
             self.Sync.AutoCapacitor = autoCap
             if autoCap and self.Sync.CapacitorState == 'Unfilled' and self.Sync.HasCapacitorAbility then
                 self.CapacitorSwitchStates[self.Sync.CapacitorState](self)
             end
         end,
-        
+
         --runs whenever the fraction changes, so all the UIs know what to do
         UpdateCapacitorFraction = function(self)
             --possible math.max(self.CapChargeFraction,0) needed here
             self:SetShieldRatio( self.CapChargeFraction )
         end,
-        
+
         RemoveCapacitorBuffs = function(self)
             local bp = self:GetBlueprint().Abilities
             local buffs = bp.Capacitor.Buffs or {}
@@ -969,6 +780,11 @@ function AddCapacitorAbility( SuperClass )
                 Buff.RemoveBuff( self, buffName )
             end
 
+            if self.IntelProbeEntity and not self.IntelProbeEntity.Dead then
+                self.IntelProbeEntity.CapacitorBoostEnabled = false
+                self.IntelProbeEntity:SetIntel()
+            end
+            
             -- notify weapons again
             for i = 1, self:GetWeaponCount() do
                 local wep = self:GetWeapon(i)
@@ -981,7 +797,7 @@ function AddCapacitorAbility( SuperClass )
             --end the discharging cycle. the capacitor should be empty when RemoveCapacitorBuffs is called.
             self.CapacitorSwitchStates[self.Sync.CapacitorState](self)
         end,
-        
+
         AddCapacitorBuffs = function(self)
             local bp = self:GetBlueprint().Abilities
             local buffs = bp.Capacitor.Buffs or {}
@@ -989,6 +805,11 @@ function AddCapacitorAbility( SuperClass )
             -- apply buffs
             for k, buffName in buffs do
                 Buff.ApplyBuff( self, buffName )
+            end
+
+            if self.IntelProbeEntity and not self.IntelProbeEntity.Dead then
+                self.IntelProbeEntity.CapacitorBoostEnabled = true
+                self.IntelProbeEntity:SetIntel()
             end
 
             -- notify weapons
@@ -1001,7 +822,7 @@ function AddCapacitorAbility( SuperClass )
 
             self:UpdateConsumptionValues()
         end,
-        
+
         --cant use states since they would conflict with anything that actually has states. sigh.
         --'Charging' 'Discharging' 'Filled' 'Unfilled'
         --self.CapacitorSwitchStates[self.Sync.CapacitorState](self)
@@ -1013,19 +834,19 @@ function AddCapacitorAbility( SuperClass )
                 self:PlayCapEffects(self.CapFxChargingTemplate)
                 self:StopUnitAmbientSound('CapacitorInUseLoop')
                 self:PlayUnitSound('CapacitorStartCharging')
-                
+
                 --end the decay thread if there is one
                 if self.CapDecayThread then
                     KillThread(self.CapDecayThread)
                 end
-                
+
                 self.CapChargeThread = self:ForkThread( self.CapacitorChargeThread )
             end,
-            
+
             -- When the capacitor is full and ready to discharge
             Filled = function(self)
                 self.Sync.CapacitorState = 'Discharging'
-            
+
                 self:PlayCapEffects(self.CapFxBeingUsedTemplate)
                 self:PlayUnitSound('CapacitorStartBeingUsed')
                 self:PlayUnitAmbientSound('CapacitorInUseLoop')
@@ -1034,12 +855,12 @@ function AddCapacitorAbility( SuperClass )
                 --start discharge thread
                 self.CapDischargeThread = self:ForkThread( self.CapacitorDischargeThread )
             end,
-            
+
             -- When the capacitor is draining energy and charging
             Charging = function(self)
                 if self.CapChargeFraction == 1 then
                     self.Sync.CapacitorState = 'Filled'
-                    
+
                     self:PlayCapEffects(self.CapFxFullTemplate)
                     self:StopUnitAmbientSound('CapacitorInUseLoop')
                     self:PlayUnitSound('CapacitorFull')
@@ -1052,7 +873,7 @@ function AddCapacitorAbility( SuperClass )
                         KillThread(self.CapChargeThread)
                         self:SetMaintenanceConsumptionInactive()
                     end
-                    
+
                     self.CapFxBag:Destroy()
                     self:StopUnitAmbientSound('CapacitorInUseLoop')
                     self:PlayUnitSound('CapacitorStopBeingUsed')
@@ -1060,13 +881,13 @@ function AddCapacitorAbility( SuperClass )
                     self.CapDecayThread = self:ForkThread( self.CapacitorDecayThread )
                 end
             end,
-            
+
             -- When the capacitor is applying buffs and discharging
             Discharging = function(self)
                 --you cant cancel the discharge halfway through
                 if self.CapChargeFraction == 0 then
                     self.Sync.CapacitorState = 'Unfilled'
-                    
+
                     self.CapFxBag:Destroy()
                     self:StopUnitAmbientSound('CapacitorInUseLoop')
                     self:PlayUnitSound('CapacitorEmpty')
@@ -1078,7 +899,7 @@ function AddCapacitorAbility( SuperClass )
                 end
             end,
         },
-        
+
         --TODO: add energy stall slowdown to this(?)
         CapacitorChargeThread = function(self)
             self:SetEnergyMaintenanceConsumptionOverride(self.ChargeEnergyCost or 500)
@@ -1093,9 +914,9 @@ function AddCapacitorAbility( SuperClass )
             self.CapChargeFraction = 1
             self.CapacitorSwitchStates[self.Sync.CapacitorState](self)
         end,
-        
+
         CapacitorDischargeThread  = function(self)
-            while self.IsStunned do  -- dont waste capacitor time being stunned
+            while self:IsStunned() do  -- dont waste capacitor time being stunned
                 WaitTicks(1)
             end
             while self.CapChargeFraction > 0 do
@@ -1107,7 +928,7 @@ function AddCapacitorAbility( SuperClass )
             self:UpdateCapacitorFraction()
             self:RemoveCapacitorBuffs()
         end,
-        
+
         CapacitorDecayThread  = function(self)
             while self.CapChargeFraction > 0 do
                 self.CapChargeFraction = self.CapChargeFraction - (0.1 / self.CapacitorDecayTime)
@@ -1121,34 +942,31 @@ function AddCapacitorAbility( SuperClass )
         PlayCapEffects = function(self, effects)
             self.CapFxBag:Destroy()
             local ox, oy, oz
-            local army, emit = self:GetArmy()
             for bk, bone in self.CapFxBones do
                 ox = self.CapFxBonesOffsets[bk][1] or 0
                 oy = self.CapFxBonesOffsets[bk][2] or 0
                 oz = self.CapFxBonesOffsets[bk][3] or 0
                 for k, v in effects do
-                    emit = CreateAttachedEmitter(self, bone, army, v)
+                    local emit = CreateAttachedEmitter(self, bone, self.Army, v)
                     emit:OffsetEmitter(ox, oy, oz)
                     self.CapFxBag:Add(emit)
                 end
             end
         end,
-        
+
         -- don't do shield things
         EnableShield = function(self)
-            WARN('Nomads: EnableShield: Shields disabled by capacitor ability on unit ['..repr(self:GetUnitId() or "Unknown")..'].!')
+            WARN('Nomads: EnableShield: Shields disabled by capacitor ability on unit ['..repr(self.UnitId or "Unknown")..'].!')
         end,
 
         DisableShield = function(self)
-            WARN('Nomads: DisableShield: Shields disabled by capacitor ability on unit ['..repr(self:GetUnitId() or "Unknown")..'].!')
+            WARN('Nomads: DisableShield: Shields disabled by capacitor ability on unit ['..repr(self.UnitId or "Unknown")..'].!')
         end,
     }
 end
 
-
 function AddCapacitorAbilityToWeapon( SuperClass )
     -- The capacitor ability code for weapons
-
     return Class(SuperClass) {
 
         UseCapacitorBoost = true,
@@ -1177,27 +995,6 @@ function AddCapacitorAbilityToWeapon( SuperClass )
             local newProjwbp = wbp.ProjectileId
 
             self:ChangeProjectileBlueprint(newProjwbp)
-        end,
-    }
-end
-
--- ================================================================================================================
--- ANCHOR
--- ================================================================================================================
-
-function AddAnchorAbilty(SuperClass)
-    return Class(SuperClass) {
-
-        EnableAnchor = function(self)
-            local bp = self:GetBlueprint().Abilities.Anchor
-            local BuffName = bp.Buff or 'AnchorModeImmobilize'
-            Buff.ApplyBuff(self, BuffName)
-        end,
-
-        DisableAnchor = function(self)
-            local bp = self:GetBlueprint().Abilities.Anchor
-            local BuffName = bp.Buff or 'AnchorModeImmobilize'
-            Buff.RemoveBuff(self, BuffName)
         end,
     }
 end

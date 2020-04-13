@@ -4,11 +4,11 @@ do
 
 local oldWeapon = Weapon
 Weapon = Class(oldWeapon) {
-
     OnCreate = function(self)
         self.IsEnabled = true
-        self._MaxRadius = self:GetBlueprint().MaxRadius or 0
-        self.RateOfFire = self:GetBlueprint().RateOfFire
+        local bp = self:GetBlueprint()
+        self._MaxRadius = bp.MaxRadius or 0
+        self.RateOfFire = bp.RateOfFire
         self.DoAlternateDualAimController = false
         self:DetermineColourIndex()
         oldWeapon.OnCreate(self)
@@ -17,7 +17,7 @@ Weapon = Class(oldWeapon) {
     DetermineColourIndex = function(self)
         --we determine the index once on create then save it in the entity table to save on sim slowdown
         if not self.unit.ColourIndex then
-            WARN('crazy unit is crazy - no colour index despite when its set OnPreCreate! blueprintID: ' .. self.unit:GetUnitId())
+            WARN('crazy unit is crazy - no colour index despite when its set OnPreCreate! blueprintID: ' .. self.unit.UnitId)
         end
         self.ColourIndex = self.unit.ColourIndex or 383.999
     end,
@@ -30,14 +30,6 @@ Weapon = Class(oldWeapon) {
     ChangeMaxRadius = function(self, val)
         self._MaxRadius = val
         return oldWeapon.ChangeMaxRadius(self, val)
-    end,
-
-    GetMaxRadius = function(self)
-        return self._MaxRadius or 0
-    end,
-
-    GetRateOfFire = function(self)
-        return self.RateOfFire
     end,
 
     ChangeRateOfFire = function(self, newROF)
@@ -77,7 +69,7 @@ Weapon = Class(oldWeapon) {
 
                 -- Need to store these three for later, in case the missile lands after the launcher dies
                 proj.Launcher = self.unit
-                proj.Army = self.unit:GetArmy()
+                proj.Army = self.unit.Army
                 proj.Brain = self.unit:GetAIBrain()
             end
         end
@@ -104,7 +96,6 @@ Weapon = Class(oldWeapon) {
 
     SetupTurret = function(self)
         -- First part rewritten to allow for individual targeting dual weapon turrets
-
         local bp = self:GetBlueprint()
         local yawBone = bp.TurretBoneYaw
         local pitchBone = bp.TurretBonePitch
@@ -117,9 +108,7 @@ Weapon = Class(oldWeapon) {
         end
 
         if yawBone and pitchBone and muzzleBone then
-
             if bp.TurretDualManipulators then
-
                 local yawBone2 = bp.TurretBoneDualYaw
                 local pitchBone2 = bp.TurretBoneDualPitch
                 local muzzleBone2 = bp.TurretBoneDualMuzzle
@@ -129,22 +118,28 @@ Weapon = Class(oldWeapon) {
                     return
                 end
 
-                if bp.TurretBoneDualYaw then ------ dual turret - individual targeting
-                    self.AimControl = CreateAimController(self, 'Torso', yawBone)
+                self.AimControl = CreateAimController(self, 'Torso', yawBone)
+
+                if bp.TurretBoneDualYaw then -- dual turret - individual targeting
                     self.AimRight = CreateAimController(self, 'Right', yawBone, pitchBone, muzzleBone)
                     self.AimLeft = CreateAimController(self, 'Left', yawBone2, pitchBone2, muzzleBone2)
+                else -- dual turret - always right (original game)
+                    self.AimRight = CreateAimController(self, 'Right', pitchBone, pitchBone, muzzleBone)
+                    self.AimLeft = CreateAimController(self, 'Left', pitchBone2, pitchBone2, muzzleBone2)
+                end
 
-                    self.AimControl:SetPrecedence(precedence)
-                    self.AimRight:SetPrecedence(precedence)
-                    self.AimLeft:SetPrecedence(precedence)
-                    if EntityCategoryContains(categories.STRUCTURE, self.unit) then
-                        self.AimControl:SetResetPoseTime(9999999)
-                    end
-                    self:SetFireControl('Right')
-                    self.unit.Trash:Add(self.AimControl)
-                    self.unit.Trash:Add(self.AimRight)
-                    self.unit.Trash:Add(self.AimLeft)
+                self.AimControl:SetPrecedence(precedence)
+                self.AimRight:SetPrecedence(precedence)
+                self.AimLeft:SetPrecedence(precedence)
+                if EntityCategoryContains(categories.STRUCTURE, self.unit) then
+                    self.AimControl:SetResetPoseTime(9999999)
+                end
+                self:SetFireControl('Right')
+                self.unit.Trash:Add(self.AimControl)
+                self.unit.Trash:Add(self.AimRight)
+                self.unit.Trash:Add(self.AimLeft)
 
+                if bp.TurretBoneDualYaw then
                     -- only allow alternate if different aim bones are used and not all racks are fired together
                     self.DoAlternateDualAimController = bp.RackFireTogether ~= true and (bp.TurretDualManipulatorsAlternate == true or bp.TurretDualManipulatorsAlternate == nil)
 
@@ -153,33 +148,12 @@ Weapon = Class(oldWeapon) {
                         -- do BP checks
                         for n, rack in bp.RackBones do
                             if rack.TurretBoneDualManip ~= 'Left' and rack.TurretBoneDualManip ~= 'Right' then
-                                WARN('*DEBUG: unit '..self.unit:GetUnitId()..', TurretBoneDualManip should have value Left or Right, not '..repr(switchTo)..' in weapon rack '..repr(self.CurrentRackSalvoNumber)..' of weapon '..bp.DisplayName)
+                                WARN('*DEBUG: unit '..self.unit.UnitId..', TurretBoneDualManip should have value Left or Right, not '..repr(switchTo)..' in weapon rack '..repr(self.CurrentRackSalvoNumber)..' of weapon '..bp.DisplayName)
                             end
                         end
                     end
-
-                else  ------ dual turret - always right (original game)
-
-                    self.AimControl = CreateAimController(self, 'Torso', yawBone)
-                    self.AimRight = CreateAimController(self, 'Right', pitchBone, pitchBone, muzzleBone)
-                    self.AimLeft = CreateAimController(self, 'Left', pitchBone2, pitchBone2, muzzleBone2)
-
-                    self.AimControl:SetPrecedence(precedence)
-                    self.AimRight:SetPrecedence(precedence)
-                    self.AimLeft:SetPrecedence(precedence)
-
-                    if EntityCategoryContains(categories.STRUCTURE, self.unit) then
-                        self.AimControl:SetResetPoseTime(9999999)
-                    end
-
-                    self:SetFireControl('Right')
-                    self.unit.Trash:Add(self.AimControl)
-                    self.unit.Trash:Add(self.AimRight)
-                    self.unit.Trash:Add(self.AimLeft)
                 end
-
             else ------ single turret (1 barrel)
-
                 self.AimControl = CreateAimController(self, 'Default', yawBone, pitchBone, muzzleBone)
                 if EntityCategoryContains(categories.STRUCTURE, self.unit) then
                     self.AimControl:SetResetPoseTime(9999999)
@@ -196,10 +170,8 @@ Weapon = Class(oldWeapon) {
                     end
                 end
             end
-
         else
             error('*ERROR: Trying to setup a turreted weapon but there are yaw bones, pitch bones or muzzle bones missing from the blueprint.', 2)
-
         end
 
         local numbersexist = true
@@ -207,22 +179,22 @@ Weapon = Class(oldWeapon) {
         local turretpitchmin, turretpitchmax, turretpitchspeed
 
         --SETUP MANIPULATORS AND SET TURRET YAW, PITCH AND SPEED
-        if self:GetBlueprint().TurretYaw and self:GetBlueprint().TurretYawRange then
+        if bp.TurretYaw and bp.TurretYawRange then
             turretyawmin, turretyawmax = self:GetTurretYawMinMax()
         else
             numbersexist = false
         end
-        if self:GetBlueprint().TurretYawSpeed then
+        if bp.TurretYawSpeed then
             turretyawspeed = self:GetTurretYawSpeed()
         else
             numbersexist = false
         end
-        if self:GetBlueprint().TurretPitch and self:GetBlueprint().TurretPitchRange then
+        if bp.TurretPitch and bp.TurretPitchRange then
             turretpitchmin, turretpitchmax = self:GetTurretPitchMinMax()
         else
             numbersexist = false
         end
-        if self:GetBlueprint().TurretPitchSpeed then
+        if bp.TurretPitchSpeed then
             turretpitchspeed = self:GetTurretPitchSpeed()
         else
             numbersexist = false
@@ -236,7 +208,7 @@ Weapon = Class(oldWeapon) {
                 self.AimLeft:SetFiringArc(turretyawmin/12, turretyawmax/12, turretyawspeed, turretpitchmin, turretpitchmax, turretpitchspeed)
             end
         else
-            local strg = '*ERROR: TRYING TO SETUP A TURRET WITHOUT ALL TURRET NUMBERS IN BLUEPRINT, ABORTING TURRET SETUP. WEAPON: ' .. self:GetBlueprint().Label .. ' UNIT: '.. self.unit:GetUnitId()
+            local strg = '*ERROR: TRYING TO SETUP A TURRET WITHOUT ALL TURRET NUMBERS IN BLUEPRINT, ABORTING TURRET SETUP. WEAPON: ' .. bp.Label .. ' UNIT: '.. self.unit.UnitId
             error(strg, 2)
         end
 
@@ -263,7 +235,7 @@ Weapon = Class(oldWeapon) {
             local bp = self:GetBlueprint()
             local rack = bp.RackBones[ self:GetNextRackSalvoNumber() ]
             local switchTo = rack.TurretBoneDualManip
-            local delay = rack.TurretBoneDualManipSwitchDelay or (0.2 * (1 / self:GetRateOfFire())) -- switch when half way to next salvo, calculate in real time to include buffs and alike
+            local delay = rack.TurretBoneDualManipSwitchDelay or (0.2 * (1 / self.RateOfFire)) -- switch when half way to next salvo, calculate in real time to include buffs and alike
             self.AlternateDualAimCtrlThread = self:ForkThread( self.SwitchAimControllerThread, switchTo, delay )
         end
     end,

@@ -108,6 +108,7 @@ UnitBlueprint {
         'OVERLAYANTIAIR',
         'CANNOTUSEAIRSTAGING',
         'UNSTUNABLE',
+        'CQUEMOV', --enables the selection and move commands during construction
     },
     CollisionOffsetZ = 0,
     Defense = {
@@ -128,52 +129,12 @@ UnitBlueprint {
             '<LOC ability_transport>Transport',
             '<LOC ability_transport_experimental>Transports Experimentals',
         },
+        AnimationLand = '/units/XNA0401/XNA0401_Landing01.sca',
+        AnimationHolder = '/units/XNA0401/XNA0401_HolderUnpack01.sca',
         ForcedBuildSpin = 0,
         IdleEffects = {
---            Air = {
---                Effects = {
---                    {
---                        Bones = {
---                            'exhaust_bottom',
---                            'exhaust_left.001',
---                            'exhaust_left.002',
---                            'exhaust_right.001',
---                            'exhaust_right.002',
---                        },
---                        Type = 'Hover02',
---                    },
---                },
---            },
         },
         LayerChangeEffects = {
---            AirLand = {
---                Effects = {
---                    {
---                        Bones = {
---                            'exhaust_bottom',
---                            'exhaust_left.001',
---                            'exhaust_left.002',
---                            'exhaust_right.001',
---                            'exhaust_right.002',
---                        },
---                        Type = 'Landing01',
---                    },
---                },
---            },
---            LandAir = {
---                Effects = {
---                    {
---                        Bones = {
---                            'exhaust_bottom',
---                            'exhaust_left.001',
---                            'exhaust_left.002',
---                            'exhaust_right.001',
---                            'exhaust_right.002',
---                        },
---                        Type = 'TakeOff01',
---                    },
---                },
---            },
         },
         Mesh = {
             IconFadeInZoom = 130,
@@ -197,37 +158,6 @@ UnitBlueprint {
             },
         },
         MovementEffects = {
-           -- Air = { --TODO: add effects to these bones, make the effects face the right way, also add bones to rear engines and effects for them
-               -- Effects = {
-                   -- {
-                       -- Bones = {
-                           -- 'EngineRotatorRight01',
-                           -- 'EngineRotatorRight02',
-                           -- 'EngineRotatorRight03',
-                           -- 'EngineRotatorRight04',
-                           -- 'EngineRotatorLeft01',
-                           -- 'EngineRotatorLeft02',
-                           -- 'EngineRotatorLeft03',
-                           -- 'EngineRotatorLeft04',
-                       -- },
-                       --Type = 'AirMoveExhaust02',
-                   -- },
-               -- },
-           -- },
-           --BeamExhaust = {
-               --Bones = {
-                   -- 'EngineRotatorRight01',
-                   -- 'EngineRotatorRight02',
-                   -- 'EngineRotatorRight03',
-                   -- 'EngineRotatorRight04',
-                   -- 'EngineRotatorLeft01',
-                   -- 'EngineRotatorLeft02',
-                   -- 'EngineRotatorLeft03',
-                   -- 'EngineRotatorLeft04',
-               --},
-               --Cruise = true,
-               --Idle = true,
-           --},
         },
         PlaceholderMeshName = 'UXA0009',
         SpawnRandomRotation = false,
@@ -306,12 +236,12 @@ UnitBlueprint {
         WobbleFactor = 0,
         WobbleSpeed = 0,
     },
-    SelectionSizeX = 8,
-    SelectionSizeZ = 19,
+    SelectionSizeX = 6.5,  
+    SelectionSizeZ = 22,
     SelectionThickness = 0.15,
-    CollisionOffsetY = -1.0,
+    CollisionOffsetY = -0.5,
     SizeX = 9,
-    SizeY = 5,
+    SizeY = 4.5,
     SizeZ = 32,
     StrategicIconName = 'icon_experimental_generic',
     StrategicIconSortPriority = 55,
@@ -324,7 +254,7 @@ UnitBlueprint {
     },
     Transport = {
         AirClass = true,
-        ClassGenericUpTo = 1,
+        ClassGenericUpTo = 0,
         Class1AttachSize = 1,
         Class2AttachSize = 2,
         Class3AttachSize = 4,
@@ -357,7 +287,7 @@ UnitBlueprint {
             },
             FiringTolerance = 2,
             Label = 'ChainGun01',
-            MaxRadius = 26,
+            MaxRadius = 40,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 45,
@@ -435,7 +365,7 @@ UnitBlueprint {
             },
             FiringTolerance = 2,
             Label = 'ChainGun02',
-            MaxRadius = 26,
+            MaxRadius = 40,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 45,
@@ -513,7 +443,7 @@ UnitBlueprint {
             },
             FiringTolerance = 2,
             Label = 'ChainGun03',
-            MaxRadius = 26,
+            MaxRadius = 40,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 45,
@@ -591,7 +521,7 @@ UnitBlueprint {
             },
             FiringTolerance = 2,
             Label = 'ChainGun04',
-            MaxRadius = 26,
+            MaxRadius = 40,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 45,

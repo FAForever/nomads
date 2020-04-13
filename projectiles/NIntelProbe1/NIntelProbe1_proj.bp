@@ -23,7 +23,6 @@ ProjectileBlueprint {
         'TACTICAL',
         'MISSILE',
         'NOSPLASHDAMAGE',
-        'BUOY',
         'PROBE',
     },
     Defense = {
@@ -58,7 +57,6 @@ ProjectileBlueprint {
             'TACTICAL',
             'MISSILE',
             'NOSPLASHDAMAGE',
-            'BUOY',
             'PROBE',
         },
         Faction = 'Nomads',
@@ -71,7 +69,7 @@ ProjectileBlueprint {
         Acceleration = 3,
         DestroyOnWater = false,
         InitialSpeed = 3,
-        Lifetime = 99999,
+        Lifetime = 120,
         MaxSpeed = 25,
         TrackTarget = false,  -- will be enabled by scripting, causes a problems otherwise
         TrackTargetGround = true,

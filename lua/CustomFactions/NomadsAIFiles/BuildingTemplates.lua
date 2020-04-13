@@ -54,8 +54,16 @@ BuildingTemplates = {
             'xnb0201',
         },
         {
+            'T2SupportLandFactory',
+            'znb9501',
+        },
+        {
             'T3LandFactory',
             'xnb0301',
+        },
+        {
+            'T3SupportLandFactory',
+            'znb9601',
         },
         {
             'T3QuantumGate',
@@ -73,8 +81,16 @@ BuildingTemplates = {
             'xnb0202',
         },
         {
+            'T2SupportAirFactory',
+            'znb9502',
+        },
+        {
             'T3AirFactory',
             'xnb0302',
+        },
+        {
+            'T3SupportAirFactory',
+            'znb9602',
         },
 
         -- Sea Factory Structures
@@ -87,8 +103,16 @@ BuildingTemplates = {
             'xnb0203',
         },
         {
+            'T2SupportSeaFactory',
+            'znb9503',
+        },
+        {
             'T3SeaFactory',
             'xnb0303',
+        },
+        {
+            'T3SupportSeaFactory',
+            'znb9603',
         },
 
         -- Storage Structures
@@ -114,7 +138,7 @@ BuildingTemplates = {
         },
         {
             'T2GroundDefense',
-            'xnb2201',
+            'xnb2301',
         },
 
         -- -Air Defense

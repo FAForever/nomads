@@ -28,7 +28,9 @@ NTacticalMissile1 = Class(NIFCruiseMissile) {
 
     SetTurnRateByDist = function(self)
         local dist = self:GetDistanceToTarget() --defined in NIFCruiseMissile class
-        if dist > 50 then
+        if dist > 70 then
+            self:SetTurnRate(9)
+        elseif dist > 50 then
             self:SetTurnRate(25)
         elseif dist > 40 and dist <= 213 then
             self:SetTurnRate(20)

@@ -12,7 +12,11 @@ local oldTree = Tree
 DamageBehaviours = {
         BlackholeDamage = function(self, instigator, armormod, direction, damageType)
             if not self.CanTakeDamage then return end
-            self:DoBlackHoleCallbacks(self, instigator)
+            
+            if not self.BlackholeSuckedIn then
+                self.BlackholeSuckedIn = true
+                instigator.NukeEntity:OnPropBeingSuckedIn(self)
+            end
             
             --call the standard nuke code, which destroys the prop
             DamageBehaviours['Nuke'](self, instigator, armormod, direction, damageType)
@@ -45,7 +49,7 @@ DamageBehaviours = {
         end,
         
         ForceInwards = function(self, instigator, armormod, direction, damageType)
-            direction = -direction[1], direction[2], -direction[3]
+            direction = {-direction[1], direction[2], -direction[3]}
             DamageBehaviours['Force'](self, instigator, armormod, direction, damageType)
         end,
         
@@ -111,7 +115,6 @@ Tree = Class(oldTree) {
     
     FallOver = function(self, direction, speed, toggle)
         self.Fallen = true
-        
         self.Motor = self.Motor or self:FallDown()
         self.Motor:Whack(direction[1], direction[2], direction[3], speed or 1, toggle or true)
         self:SetMesh(self:GetBlueprint().Display.MeshBlueprintWrecked) --note: this doesnt seem to apply until the prop starts tipping for some reason.
@@ -125,14 +128,6 @@ Tree = Class(oldTree) {
         self.Motor = nil
         WaitSeconds(10)
         self:Destroy()
-    end,
-    
-    DoBlackHoleCallbacks = function(self, instigator)
-        if not self.BlackholeSuckedIn then
-            self.BlackholeSuckedIn = true
-            instigator.NukeEntity:OnPropBeingSuckedIn(self)
-            self:DestroyFireEffects()  -- fire < black hole
-        end
     end,
 
     DamageIsForce = function(self, type)

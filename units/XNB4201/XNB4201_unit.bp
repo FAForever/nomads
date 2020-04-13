@@ -43,6 +43,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'OVERLAYANTIAIR',
         'SORTDEFENSE',
+        'CQUEMOV', --enables the selection and move commands during construction
     },
     CollisionOffsetY = -0.5,
     Defense = {
@@ -299,9 +300,9 @@ UnitBlueprint {
         WreckageLayers = {
             Air = false,
             Land = true,
-            Seabed = true,  #from false
-            Sub = true,  #from false
-            Water = true,  #from false
+            Seabed = true,
+            Sub = true,
+            Water = true,
         },
     },
 }

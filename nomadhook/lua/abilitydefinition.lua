@@ -28,7 +28,6 @@ abilities = table.merged( abilities, {
 
         --any information contained in this table will be available in the task script.. in commandData
         ExtraInfo = {
-            CoolDownTime = 10,
             AbilMinRange = 10,  -- minimum range, 0 means no range limit, def = 0
             AbilMaxRange = 100, -- maximum range, 0 means no range limit, def = 0
         },
@@ -125,26 +124,15 @@ abilities = table.merged( abilities, {
         cursor = 'RULEUCC_SpecialAction',
         enabled = true,
         ExtraInfo = {
-            ArtillerySupportRadius = 70,
-            CoolDownTime = 60,
             DoRangeCheck = false,
             Lifetime = 60,
-            Omni = false,
-            ProjectileBP = '/projectiles/NIntelProbe1/NIntelProbe1_proj.bp',
-            Radar = true,
-            Radius = 70,
-            Sonar = true,
-            Vision = false,
-            WaterVision = false,
-            UnitBpId = 'xny0001',  -- TODO: embed this in the probe projectile script
         },
         UIHelpText = 'specabil_intelprobe',
         ActiveDecal = {
--- TODO: enable this once decal is done
---            enabled = true,
-            enabled = false,
+            enabled = false, -- TODO: enable this once decal is done
         },
         UISlot = 4,
+        preferredSlot = 10,
         script = 'NomadsIntelProbe',
         usage = 'Event',
 
@@ -161,6 +149,10 @@ abilities = table.merged( abilities, {
         },
 
         GetAllUnitsFile = '/lua/user/tasks/Tasks.lua',
+        
+        AbilityRequirement = function(unit)
+            return UnitData[unit:GetEntityId()].HasIntelProbeAbility
+        end,
     },
 
     NomadsIntelProbeAdvanced = {
@@ -168,26 +160,15 @@ abilities = table.merged( abilities, {
         cursor = 'RULEUCC_SpecialAction',
         enabled = true,
         ExtraInfo = {
-            ArtillerySupportRadius = 35,
-            CoolDownTime = 60,
             DoRangeCheck = false,
             Lifetime = 30,
-            ProjectileBP = '/projectiles/NIntelProbe1/NIntelProbe1_proj.bp',
-            Omni = true,
-            Radar = false,
-            Radius = 35,
-            Sonar = false,
-            Vision = true,
-            WaterVision = true,
-            UnitBpId = 'xny0001',  -- TODO: embed this in the probe projectile script
         },
         UIHelpText = 'specabil_intelprobe',
         ActiveDecal = {
--- TODO: enable this once decal is done
---            enabled = true,
-            enabled = false,
+            enabled = false, -- TODO: enable this once decal is done
         },
         UISlot = 4,
+        preferredSlot = 10,
         script = 'NomadsIntelProbeAdvanced',
         usage = 'Event',
 
@@ -205,10 +186,14 @@ abilities = table.merged( abilities, {
         },
 
         GetAllUnitsFile = '/lua/user/tasks/Tasks.lua',
+        
+        AbilityRequirement = function(unit)
+            return UnitData[unit:GetEntityId()].HasIntelProbeAdvancedAbility
+        end,
     },
 
     TargetLocation = {
-        UIBitmapId = 'intelprobe',
+        UIBitmapId = 'skry-target',
         cursor = 'RULEUCC_SpecialAction',
         enabled = true,
         ExtraInfo = {
@@ -231,14 +216,16 @@ abilities = table.merged( abilities, {
         UIBehaviorSingleClick = {
             AllowDraging = true,
             AllowMaxSpread = true,
-            AllReticulesAtStart = true,
+            AllReticulesAtStart = false,
             DragDelta = 1,
             UseSelected = true,
         },
 
         UIBehaviorDoubleClick = {
+            AllowDraging = false,
+            AllowMaxSpread = false,
             AllReticulesAtStart = true,
-            DragDelta = 2,
+            DragDelta = 1,
             UseSelected = false,
         },
 
@@ -246,7 +233,7 @@ abilities = table.merged( abilities, {
     },
     
     Capacitor = {
-        preferredSlot = 8,
+        preferredSlot = 9,
         onframe = function (self, deltaTime)
             local UIUtil = import('/lua/ui/uiutil.lua')
             

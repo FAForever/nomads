@@ -15,105 +15,8 @@ GenericPlatoonBehaviors = function(platoon)
             -- Capacitor behavior
             if not v.CapacitorToggleThread then
                 v.CapacitorToggleThread = v:ForkThread( CapacitorToggleThread )
-
-            -- Area bombard behavior
-            elseif not v.BombardModeToggleThread then
-                v.BombardModeToggleThread = v:ForkThread( BombardModeToggleThread )
-
             end
         end
-    end
-end
-
-function BombardModeToggleThread(unit)
-    -- AI support for bombard
-    if not unit.HasBombardModeAbility or unit:GetWeaponCount() < 1 then
-        return
-    end
-
-    -- Get info from units blueprint
-    local AiInfo = unit:GetBlueprint().AI or {}
-    local EnableIfTargetHasBubbleShield = AiInfo.BombardModeEnableIfTargetHasBubbleShield or true
-    local Radius = AiInfo.BombardModeCheckRadius or 10
-    local UnitCat = AiInfo.BombardModeCheckUnitCategories or (categories.LAND + categories.NAVAL + categories.STRUCTURE)
-    local UnitThreshold = AiInfo.BombardModeCheckUnits or 5
-    local WeaponLabel = AiInfo.BombardModeCheckWeapon
-    AiInfo = nil
-
-    local brain = unit:GetAIBrain()
-    local curTarget, curTargetPos, numUnits, position, DoBombard, BombardActivated, Wep, Range, UnitPos
-
-    -- Find specified weapon (if any) or first weapon with bombardment enabled
-    if WeaponLabel then
-        wep = unit:GetWeaponByLabel(WeaponLabel)
-    else
-        for i = 1, unit:GetWeaponCount() do
-            if unit:GetWeapon(i):GetBlueprint().BombardParticipant or unit:GetWeapon(i):GetBlueprint().BombardEnable then
-                wep = unit:GetWeapon(i)
-            end
-        end
-    end
-    if not wep then
-        LOG('*DEBUG: AI bombardmode toggle thread no suitable weapon for unit '..repr(unit:GetUnitId()))
-        return
-    end
-
-    --LOG('*DEBUG: AI starting bombardmode toggle thread for unit '..repr(unit:GetUnitId())..' and weapon '..repr(wep:GetBlueprint().Label))
-
-    Range = wep:GetBlueprint().MaxRadius or 20
-    while not unit.Dead do
-
-        -- Wait till we can do things
-        while not unit.Dead and (unit:IsUnitState('Busy') or unit:IsUnitState('Attached')) do
-            --LOG('*DEBUG: AI BombardModeToggleThread: not yet...')
-            WaitSeconds(10)
-        end
-
-        DoBombard = false
-        curTargetPos = false
-        curTarget = wep:GetCurrentTarget()
-
-        if curTarget and IsUnit(curTarget) then
-            if EnableIfTargetHasBubbleShield and curTarget.MyShield and not curTarget:ShieldIsPersonalShield() and curTarget:ShieldIsOn() then
-                -- do bombard if target unit has a bubble shield
-                DoBombard = true
-            elseif curTarget.GetPosition then
-                curTargetPos = curTarget:GetPosition()
-            end
-        end
-
-        if not DoBombard then
-
-            if not curTargetPos then
-                curTargetPos = wep:GetCurrentTargetPos()
-            end
-            if curTargetPos then
-
-                UnitPos = unit:GetPosition()
-                if VDist2(curTargetPos[1], curTargetPos[3], UnitPos[1], UnitPos[3] ) <= Range then
-                    numUnits = brain:GetNumUnitsAroundPoint( UnitCat, curTargetPos, Radius, 'Enemy' )
-                    if BombardActivated then
-                        -- deactivate bombard if not enough units around target unit
-                        DoBombard = (numUnits < UnitThreshold)
-                    else
-                        -- activate bombard if enough units around target unit
-                        DoBombard = (numUnits >= UnitThreshold)
-                    end
-                else
-                    -- Target is out of range, no need to bombard
-                    DoBombard = false
-                end
-            end
-        end
-
---        if BombardActivated ~= DoBombard then
---            LOG('*DEBUG: AI BombardModeToggleThread: do bombard is '..repr(DoBombard)..' for unit '..repr(unit:GetUnitId()))
---        end
-
-        unit:SetBombardmentMode( DoBombard, false )
-        BombardActivated = DoBombard
-
-        WaitSeconds(5)
     end
 end
 
@@ -240,38 +143,18 @@ end
 -------- NOMADS EXPERIMENTAL BEHAVIORS --------
 
 function CometBehavior(self)
-    --LOG('*DEBUG: AI CometBehavior')
---    local experimental = GetExperimentalUnit(self)
---    self:ForkAIThread( CometTryExpGhettoGunship )
     BehemothBehavior(self)
 end
 
 function BeamerBehavior(self)
-    --LOG('*DEBUG: AI BeamerBehavior')
     BehemothBehavior(self)
 end
 
 function CrawlerBehavior(self)
-    --LOG('*DEBUG: AI CrawlerBehavior')
-
-    local unit = GetExperimentalUnit(self)
-    if unit and not unit.BombardModeToggleThread then
-        unit.BombardModeToggleThread = unit:ForkThread( BombardModeToggleThread )
-    end
-
---    BehemothBehavior(self)
     BehemothCrushBehavior(self)
 end
 
 function BullfrogBehavior(self)
-    --LOG('*DEBUG: AI BullfrogBehavior')
-
-    local unit = GetExperimentalUnit(self)
-    if unit and not unit.BombardModeToggleThread then
-        unit.BombardModeToggleThread = unit:ForkThread( BombardModeToggleThread )
-    end
-
-    --BehemothBehavior(self)
     BehemothCrushBehavior(self)
 end
 
@@ -281,16 +164,15 @@ function CometTryExpGhettoGunship(self)
 
     local unit = GetExperimentalUnit(self)
 
-    if unit:GetUnitId() ~= 'xna0401' then
+    if unit.UnitId ~= 'xna0401' then
         return
     end
 
-    --LOG('*DEBUG: AI starting CometTryExpGhettoGunship for unit '..repr(unit:GetUnitId()))
+    --LOG('*DEBUG: AI starting CometTryExpGhettoGunship for unit '..repr(unit.UnitId))
 
     local BeamerCat = ParseEntityCategory( 'xnl0402' )  -- this unit can be used to form exp ghetto gunship
     local BeamerFindRadius = 30
     local brain = unit:GetAIBrain()
-    local army = unit:GetArmy()
     local cargo, ExpInCargo, HasCargo, healthFrac, pos, beamer
 
     -- if we dont have a beamer attached then keep scanning the area to find one. If so, pick it up
@@ -316,7 +198,7 @@ function CometTryExpGhettoGunship(self)
             pos = unit:GetPosition()
             unit:IssueClearCommands()
             unit:IssueTransportUnload( cargo, pos )
-            unit:IssueMove( AIUtils.AIGetStartLocations(brain)[army] )
+            unit:IssueMove( AIUtils.AIGetStartLocations(brain)[unit.Army] )
 
         elseif not ExpInCargo and healthFrac >= 0.35 then
             -- no exp in cargo: find beamer
@@ -350,8 +232,8 @@ local oldCommanderBehavior = CommanderBehavior
 function CommanderBehavior(platoon)
     --LOG('*DEBUG: CommanderBehavior')
     for k,v in platoon:GetPlatoonUnits() do
-        if not v.Dead and not v.AIBombardThread then
-            v.AIBombardThread = v:ForkThread( CommanderBombardThread, platoon )
+        if not v.Dead and not v.AIOrbitalBombardmentThread then
+            v.AIOrbitalBombardmentThread = v:ForkThread( OrbitalBombardmentThread, platoon )
         end
         if not v.Dead and not v.AIIntelProbeThread then
             v.AIIntelProbeThread = v:ForkThread( CommanderIntelProbeThread, platoon )
@@ -365,8 +247,8 @@ if rawget(import('/lua/AI/AIBehaviors.lua'), 'CommanderThreadSorian') then  -- C
     function CommanderThreadSorian(cdr, platoon)
         --LOG('*DEBUG: CommanderThreadSorian')
         for k,v in platoon:GetPlatoonUnits() do
-            if not v.Dead and not v.AIBombardThread then
-                v.AIBombardThread = v:ForkThread( CommanderBombardThreadSorian, platoon )
+            if not v.Dead and not v.AIOrbitalBombardmentThread then
+                v.AIOrbitalBombardmentThread = v:ForkThread( OrbitalBombardmentThreadSorian, platoon )
             end
             if not v.Dead and not v.AIIntelProbeThread then
                 v.AIIntelProbeThread = v:ForkThread( CommanderIntelProbeThreadSorian, platoon )
@@ -385,16 +267,14 @@ CommanderBombardPriorityList = {
     (categories.ALLUNITS - categories.WALL),
 }
 
-function CommanderBombardThread(cdr, platoon)
-    if cdr:GetUnitId() ~= 'xnl0001' then return end
-    --LOG('*DEBUG: AI CommanderBombardThread')
+function OrbitalBombardmentThread(cdr, platoon)
+    if cdr.UnitId ~= 'xnl0001' then return end
 
     WaitTicks( Random(50,650) )  -- to avoid the artificial appearance when all AI players use their intel probe at the same time
 
     local brain = cdr:GetAIBrain()
     local AbilityName = 'NomadsAreaBombardment'
     local AbilityDef = import('/lua/abilitydefinition.lua').abilities[AbilityName]
-    local AbilityCooldown = AbilityDef.ExtraInfo.CoolDownTime + 1
     local TargetLocDeviation = 0
     local LastTargets = {}
     local LastTargetsCounter = 1
@@ -412,13 +292,9 @@ function CommanderBombardThread(cdr, platoon)
     -- respect difficulty setting since this can be a very annoying ability for noobs
     local AIpersonality = ScenarioInfo.ArmySetup[brain.Name].AIPersonality
     if AIpersonality == 'easy' then
-        --LOG('*DEBUG: CommanderBombardThread to easy')
         TargetLocDeviation = 6
-        AbilityCooldown = AbilityCooldown * 3
     elseif AIpersonality == 'medium' then
-        --LOG('*DEBUG: CommanderBombardThread to medium')
         TargetLocDeviation = 3
-        AbilityCooldown = AbilityCooldown * 2
     end
 
     while not cdr.Dead do
@@ -468,7 +344,7 @@ function CommanderBombardThread(cdr, platoon)
                         end
 
                         -- dont persist attacking, if we didnt kill it in the previous 3 times we probably wont the next time either.
-                        if table.count( LastTargets, targetUnit:GetEntityId() ) >= 3 then
+                        if table.count( LastTargets, targetUnit.EntityId ) >= 3 then
                             continue
                         end
 
@@ -484,7 +360,7 @@ function CommanderBombardThread(cdr, platoon)
                             continue
                         end
 
-                        target = GetUnitById( targetUnit:GetEntityId() )
+                        target = GetUnitById( targetUnit.EntityId )
                         break
                     end
 
@@ -511,7 +387,7 @@ function CommanderBombardThread(cdr, platoon)
                     end
 
                     -- dont persist attacking, if we didnt kill it in the previous 3 times we probably wont the next time either.
-                    if table.count( LastTargets, targetUnit:GetEntityId() ) >= 3 then
+                    if table.count( LastTargets, targetUnit.EntityId ) >= 3 then
                         continue
                     end
 
@@ -529,7 +405,7 @@ function CommanderBombardThread(cdr, platoon)
                         continue
                     end
 
-                    target = GetUnitById( targetUnit:GetEntityId() )
+                    target = GetUnitById( targetUnit.EntityId )
                     break
                 end
 
@@ -546,7 +422,7 @@ function CommanderBombardThread(cdr, platoon)
 
         if target then
 
-            LastTargets[ LastTargetsCounter ] = target:GetEntityId()
+            LastTargets[ LastTargetsCounter ] = target.EntityId
             LastTargetsCounter = LastTargetsCounter + 1
             if LastTargetsCounter > 10 then
                LastTargetsCounter = 1
@@ -573,13 +449,13 @@ function CommanderBombardThread(cdr, platoon)
                         end
                     end
                     if UnitAdjNum > BestUnitAdjNum then
-                        BestUnit = GetUnitById( targetUnit:GetEntityId() )
+                        BestUnit = GetUnitById( targetUnit.EntityId )
                         BestUnitAdjNum = UnitAdjNum
                     end
                 end
             end
 
-            --LOG('*DEBUG: AI orbital bombardment targetting '..repr(BestUnit:GetUnitId())..', number of nearby units is '..repr(BestUnitAdjNum)..', real target is '..repr(target:GetUnitId()))
+            --LOG('*DEBUG: AI orbital bombardment targetting '..repr(BestUnit.UnitId)..', number of nearby units is '..repr(BestUnitAdjNum)..', real target is '..repr(target.UnitId))
             location = table.copy( BestUnit:GetPosition() )
             DoSpreadAttack = (BestUnit:GetMaxHealth() <= Damage) or (BestUnit:GetHealth() <= (Damage * 0.75))
         end
@@ -593,7 +469,7 @@ function CommanderBombardThread(cdr, platoon)
             end
 
             -- prepare script command
-            local UnitId = brain.NomadsMothership:GetEntityId()
+            local UnitId = brain.NomadsMothership.EntityId
             local ExtraInfo = AbilityDef.ExtraInfo
             local angle = RandomFloat(0, math.pi)
             if DoSpreadAttack then
@@ -654,7 +530,7 @@ function CommanderBombardThread(cdr, platoon)
             BestUnit = nil
 
             -- Wait till ability is available again
-            WaitSeconds( AbilityCooldown )
+            WaitSeconds( 10 )
 
         else
             -- no suitable location found for bombardment: wait a bit before checking for another location
@@ -663,12 +539,12 @@ function CommanderBombardThread(cdr, platoon)
     end
 end
 
-function CommanderBombardThreadSorian(cdr, platoon)
-    CommanderBombardThread(cdr, platoon)
+function OrbitalBombardmentThreadSorian(cdr, platoon)
+    OrbitalBombardmentThread(cdr, platoon)
 end
 
 function CommanderIntelProbeThread(cdr, platoon)
-    if cdr:GetUnitId() ~= 'xnl0001' then
+    if cdr.UnitId ~= 'xnl0001' then
         return
     end
 

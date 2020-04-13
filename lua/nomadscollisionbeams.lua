@@ -1,17 +1,14 @@
 local CollisionBeam = import('/lua/sim/CollisionBeam.lua').CollisionBeam
 local SCCollisionBeam = import('/lua/defaultcollisionbeams.lua').SCCollisionBeam
 local NomadsEffectTemplate = import ('/lua/nomadseffecttemplate.lua')
-local EffectUtilities = import('/lua/EffectUtilities.lua')
 local Util = import('/lua/utilities.lua')
 
 -- TODO:possibly put the CollisionBeam hook into this one instead, no need to hook all the beams just because?
 -- Nomads continuous beam
 NomadsPhaseRay = Class(CollisionBeam) {
-
     -- The only beam in the Nomads mod!
     -- there was some crazy stuff in here that would allow healing of units. This never seemed to work and since I don't care
     -- for healing units (we're removing the fancy stuff remember!) it got deleted.
-
     FxBeamStartPoint = NomadsEffectTemplate.PhaseRayMuzzle,
     FxBeam = NomadsEffectTemplate.PhaseRayBeam,
     FxBeamEndPoint = NomadsEffectTemplate.PhaseRayBeamEnd,
@@ -28,8 +25,7 @@ NomadsPhaseRay = Class(CollisionBeam) {
     SplatTexture = 'czar_mark01_albedo',
     TerrainImpactScale = 1,
     TerrainImpactType = 'LargeBeam01',
-    
-    
+
     EmittersToRecolour = {'FxBeam',},
     FactionColour = true,
 
@@ -52,7 +48,6 @@ NomadsPhaseRay = Class(CollisionBeam) {
     end,
 
     ScorchThread = function(self, impactType)
-        local army = self:GetArmy()
         local size = 1.2 + (Random() * 1.5)
         local CurrentPosition = self:GetPosition(1)
         local LastPosition = Vector(0,0,0)
@@ -62,7 +57,7 @@ NomadsPhaseRay = Class(CollisionBeam) {
 
                 -- only create splat if it makes sense to make one on the surface
                 if impactType ~= 'Air' and impactType ~= 'Nothing' then
-                    CreateSplat( CurrentPosition, Util.GetRandomFloat(0,2*math.pi), self.SplatTexture, size, size, 100, 100, army )
+                    CreateSplat( CurrentPosition, Util.GetRandomFloat(0,2*math.pi), self.SplatTexture, size, size, 100, 100, self.Army )
                 end
 
                 LastPosition = CurrentPosition
@@ -99,7 +94,5 @@ HVFlakCollisionBeam = Class(SCCollisionBeam) {
         '/effects/emitters/targeting_beam_invisible.bp'
     },
     FxBeamEndPoint = NomadsEffectTemplate.MissileHitNone1,
-
-    --FxImpactNone = NomadsEffectTemplate.MissileHitNone1,
 }
 

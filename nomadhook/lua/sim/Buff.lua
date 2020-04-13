@@ -1,7 +1,7 @@
 
 do
 
-
+--TODO: rewrite this entirely, and use a table to pick from buff types instead of an ifelse train
 local oldBuffAffectUnit = BuffAffectUnit
 function BuffAffectUnit(unit, buffName, instigator, afterRemove)
 
@@ -57,7 +57,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
             local val = BuffCalculate(unit, buffName, 'SonarRadius', sonarrad)
             if val > 0 then
                 if not unit:IsIntelEnabled('Sonar') then
-                    unit:InitIntel(unit:GetArmy(),'Sonar', val)
+                    unit:InitIntel(unit.Army,'Sonar', val)
                     unit:EnableIntel('Sonar')
                 else
                     unit:SetIntelRadius('Sonar', val)
@@ -67,18 +67,13 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
                 unit:DisableIntel('Sonar')
             end
 
-        elseif atype == 'FiringRandomness'
-            or atype == 'BombardFiringRandomness' then
+        elseif atype == 'FiringRandomness' then
 
             for i = 1, unit:GetWeaponCount() do
                 local wep = unit:GetWeapon(i)
                 local wepbp = wep:GetBlueprint()
                 local FR = wepbp.FiringRandomness or 0
                 local val = BuffCalculate(unit, buffName, 'FiringRandomness', FR)
-                if wepbp.BombardParticipant then
-                    local BFR = BuffCalculate(unit, buffName, 'BombardFiringRandomness', FR) - FR
-                    val = math.max(0, val + BFR )
-                end
 
                 wep:SetFiringRandomness(val)
             end
@@ -86,8 +81,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
         -------- EXISTING AFFECTS (but modified)
 
         elseif atype == 'MaxRadius'
-            or atype == 'MaxRadiusSpecifiedWeapons'
-            or atype == 'BombardMaxRadius' then
+            or atype == 'MaxRadiusSpecifiedWeapons' then
 
             for i = 1, unit:GetWeaponCount() do
 
@@ -99,21 +93,16 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
                     local mr = BuffCalculate(unit, buffName, 'MaxRadiusSpecifiedWeapons', weprad) - weprad
                     val = val + mr
                 end
-                if wepbp.BombardParticipant then
-                    local BMR = BuffCalculate(unit, buffName, 'BombardMaxRadius', weprad) - weprad
-                    val = math.max(0, val + BMR)
-                end
 
                 wep:ChangeMaxRadius(val)
 
-                --LOG('*BUFF: Unit ', repr(unit:GetEntityId()), ' buffed max radius to ', repr(val))
+                --LOG('*BUFF: Unit ', repr(unit.EntityId), ' buffed max radius to ', repr(val))
             end
 
         elseif atype == 'RateOfFire'
             or atype == 'RateOfFireSpecifiedWeapons'
             or atype == 'RateOfFireSpecifiedWeapons2'
-            or atype == 'RateOfFireSpecifiedWeapons3'
-            or atype == 'BombardRateOfFire' then
+            or atype == 'RateOfFireSpecifiedWeapons3' then
 
             for i = 1, unit:GetWeaponCount() do
 
@@ -133,10 +122,6 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
                     local RF = BuffCalculate(unit, buffName, 'RateOfFireSpecifiedWeapons3', 1) - 1
                     val = val + RF
                 end
-                if wepbp.BombardParticipant then
-                    local BRF = BuffCalculate(unit, buffName, 'BombardRateOfFire', 1) - 1
-                    val = val + BRF
-                end
 
                 local delay = 1 / weprof                    -- these calculations result in having to use "weird" buff values. A mult of 0.5
                 wep:ChangeRateOfFire( 1 / ( val * delay ) ) -- actually double the ROF. Adding a positive value actually decreases ROF...
@@ -151,7 +136,7 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
             local val = BuffCalculate(unit, buffName, 'RadarRadius', radarrad)
             if val > 0 then
                 if not unit:IsIntelEnabled('Radar') then
-                    unit:InitIntel(unit:GetArmy(), 'Radar', val)
+                    unit:InitIntel(unit.Army, 'Radar', val)
                     unit:EnableIntel('Radar')
                 else
                     unit:SetIntelRadius('Radar', val)
@@ -162,13 +147,11 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
             end
 
         elseif atype == 'OmniRadius' then
-
             -- checking for a value > 0 to avoid erroring out
-            local omnirad = unit:GetBlueprint().Intel.RadarRadius or 0
-            local val = BuffCalculate(unit, buffName, 'OmniRadius', omnirad)
+            local val = BuffCalculate(unit, buffName, 'OmniRadius', unit:GetBlueprint().Intel.OmniRadius or 0)
             if val > 0 then
                 if not unit:IsIntelEnabled('Omni') then
-                    unit:InitIntel(unit:GetArmy(), 'Omni', val)
+                    unit:InitIntel(unit.Army, 'Omni', val)
                     unit:EnableIntel('Omni')
                 else
                     unit:SetIntelRadius('Omni', val)
@@ -177,7 +160,6 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
             else
                 unit:DisableIntel('Omni')
             end
-
         end
     end
 
@@ -190,12 +172,9 @@ function BuffAffectUnit(unit, buffName, instigator, afterRemove)
     Buffs[buffName].Affects['SonarRadius'] = nil
     Buffs[buffName].Affects['OmniRadius'] = nil
     Buffs[buffName].Affects['FiringRandomness'] = nil
-    Buffs[buffName].Affects['BombardFiringRandomness'] = nil
     Buffs[buffName].Affects['MaxRadius'] = nil
     Buffs[buffName].Affects['MaxRadiusSpecifiedWeapons'] = nil
-    Buffs[buffName].Affects['BombardMaxRadius'] = nil
     Buffs[buffName].Affects['RateOfFire'] = nil
-    Buffs[buffName].Affects['BombardRateOfFire'] = nil
     Buffs[buffName].Affects['RateOfFireSpecifiedWeapons'] = nil
     Buffs[buffName].Affects['RateOfFireSpecifiedWeapons2'] = nil
     Buffs[buffName].Affects['RateOfFireSpecifiedWeapons3'] = nil
