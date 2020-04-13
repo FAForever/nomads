@@ -160,7 +160,7 @@ end
 
 
 function CometTryExpGhettoGunship(self)
-    -- Make the Comet pick up Beamers to form a ghetto gunship
+    -- Make the Altas pick up Beamers to form a ghetto gunship
 
     local unit = GetExperimentalUnit(self)
 
@@ -194,7 +194,7 @@ function CometTryExpGhettoGunship(self)
         healthFrac = ( unit:GetHealth() / unit:GetMaxHealth() )
         if HasCargo and healthFrac <= 0.2 then
             -- cargo and low on health => drop units asap!
-            LOG('*DEBUG: AI comet emergency cargo drop')
+            LOG('*DEBUG: AI altas emergency cargo drop')
             pos = unit:GetPosition()
             unit:IssueClearCommands()
             unit:IssueTransportUnload( cargo, pos )
@@ -213,7 +213,7 @@ function CometTryExpGhettoGunship(self)
                 end
             end
             if beamer then
-                LOG('*DEBUG: AI comet trying to pick up beamer')
+                LOG('*DEBUG: AI altas trying to pick up beamer')
                 unit:IssueClearCommands()
                 unit:IssueTransportLoad( {beamer} , pos )
             end

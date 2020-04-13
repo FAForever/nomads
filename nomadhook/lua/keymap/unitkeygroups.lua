@@ -21,7 +21,7 @@ Nomadsunitkeygroups = {
         "xnl0402", -- Beamer
         "xnl0403", -- Crawler
         "xnl0401", -- Bullfrog
-        'xna0401', -- Comet
+        'xna0401', -- Altas
     },
     -- Buildings
     ["Land_Factory"] = {
