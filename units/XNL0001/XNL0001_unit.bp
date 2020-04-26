@@ -172,6 +172,7 @@ UnitBlueprint {
         'OVERLAYINDIRECTFIRE',
         'OVERLAYOMNI',
         'ABILITYBUTTON',
+        'SNIPEMODE',
     },
     Defense = {
         AirThreatLevel = 0,

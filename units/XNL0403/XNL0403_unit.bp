@@ -96,6 +96,7 @@ UnitBlueprint {
         'SILO',
         'SHOWATTACKRETICLE',
         'CQUEMOV', --enables the selection and move commands during construction
+        'SNIPEMODE',
     },
     CollisionOffsetZ = -0.2,
     Defense = {

@@ -82,6 +82,7 @@ UnitBlueprint {
         'NEEDMOBILEBUILD',
         'OVERLAYANTIAIR',
         'CQUEMOV', --enables the selection and move commands during construction
+        'SNIPEMODE',
     },
     CollisionOffsetZ = -0.75,
     Defense = {
