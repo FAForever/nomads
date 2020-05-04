@@ -1,4 +1,4 @@
--- T2 Air Factory
+-- T2 Air Factory HQ
 
 UnitBlueprint {
     AI = {
@@ -131,10 +131,10 @@ UnitBlueprint {
         UniformScale = 0.42,
     },
     Economy = {
-        BuildCostEnergy = 14400,
-        BuildCostMass = 840,
+        BuildCostEnergy = 18000,
+        BuildCostMass = 920,
         BuildRate = 40,
-        BuildTime = 1800,
+        BuildTime = 2000,
         DifferentialUpgradeCostCalculation = true,
         BuildableCategory = {
             'BUILTBYTIER2FACTORY NOMADS MOBILE CONSTRUCTION',
