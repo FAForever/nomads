@@ -140,8 +140,8 @@ UnitBlueprint {
         BuildCostEnergy = 12000,
         BuildCostMass = 1000,
         BuildTime = 750,
-        MaintenanceConsumptionPerSecondEnergy = 250,
-        MaintenanceConsumptionPerSecondEnergyBoosted = 1000,
+        MaintenanceConsumptionPerSecondEnergy = 500,
+        MaintenanceConsumptionPerSecondEnergyBoosted = 2000,
         RebuildBonusIds = {
             'xnb3302',
         },
