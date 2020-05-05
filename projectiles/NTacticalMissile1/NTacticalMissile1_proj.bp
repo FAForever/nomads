@@ -24,8 +24,8 @@ ProjectileBlueprint {
         'MISSILE',
     },
     Defense = {
-        Health = 2,
-        MaxHealth = 2,
+        Health = 1,
+        MaxHealth = 1,
     },
     Display = {
         CameraFollowTimeout = 2,
