@@ -1,13 +1,18 @@
 ProjectileBlueprint {
     Audio = {
         Impact = Sound {
-            Bank = 'NomadsProjectiles',
-            Cue = 'Rocket3_Impact',
+            Bank = 'Impacts',
+            Cue = 'UEF_Expl_Med_Impact',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+        ImpactTerrain = Sound {
+            Bank = 'Impacts',
+            Cue = 'Impact_Land_Gen_UEF',
             LodCutoff = 'Weapon_LodCutoff',
         },
         ImpactWater = Sound {
             Bank = 'Impacts',
-            Cue = 'Impact_Water_Splash_CYBRAN',
+            Cue = 'Impact_Water_Splash_UEF',
             LodCutoff = 'Weapon_LodCutoff',
         },
     },
@@ -17,15 +22,13 @@ ProjectileBlueprint {
         'INDIRECTFIRE',
         'TACTICAL',
         'MISSILE',
-        'ARTILLERY',
-        'NOSPLASHDAMAGE',
     },
     Defense = {
-        Health = 1,
-        MaxHealth = 1,
+        Health = 2,
+        MaxHealth = 2,
     },
     Display = {
-        CameraFollowTimeout = 5,
+        CameraFollowTimeout = 2,
         CameraFollowsProjectile = true,
         ImpactEffects = {
             Type = 'Medium01',
@@ -33,18 +36,24 @@ ProjectileBlueprint {
         Mesh = {
             LODs = {
                 {
-                    AlbedoName = '/projectiles/NTacticalMissile1/NTacticalMissile1_albedo.dds',
                     LODCutoff = 150,
+                    AlbedoName = '/projectiles/NTacticalMissile1/NTacticalMissile1_albedo.dds',
                     MeshName = '/projectiles/NTacticalMissile1/NTacticalMissile1_lod0.scm',
                     ShaderName = 'TMeshAlpha',
                 },
             },
         },
-        StrategicIconSize = 2,
-        UniformScale = 0.11,
+        StrategicIconSize = 3,
+        UniformScale = 0.1,
+    },
+    Economy = {
+        BuildCostEnergy = 3600,
+        BuildCostMass = 250,
+        BuildTime = 2400,
     },
     General = {
         Category = 'Missile',
+        Faction = 'NOMADS',
         EntityCategory = {
             'NOMADS',
             'PROJECTILE',
@@ -52,8 +61,6 @@ ProjectileBlueprint {
             'TACTICAL',
             'MISSILE',
         },
-        Faction = 'Nomads',
-        Weapon = 'NTacticalMissile1_HighArc',
     },
     Interface = {
         HelpText = 0,
@@ -61,15 +68,15 @@ ProjectileBlueprint {
     Physics = {
         Acceleration = 3,
         DestroyOnWater = false,
-        DestroyOnWaterAfterExitingWater = true,
-        InitialSpeed = 10,
+        InitialSpeed = 5,
+        LifeTime = 30,
         MaxSpeed = 20,
-        MaxZigZag = 5,
-        TurnRate = 100,
+        RotationalVelocity = 0,
+        RotationalVelocityRange = 0,
         TrackTarget = true,
         TrackTargetGround = true,
+        TurnRate = 1,
         UseGravity = false,
         VelocityAlign = true,
-        ZigZagFrequency = 5,
     },
 }

@@ -297,7 +297,7 @@ UnitBlueprint {
             MuzzleSalvoDelay = 2,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 5,
-            ProjectileId = '/projectiles/NTacticalMissile1/NTacticalMissile1_proj.bp',
+            ProjectileId = '/projectiles/NTacticalMissile1_HighArc/NTacticalMissile1_HighArc_proj.bp',
             ProjectileLifetime = 30,
             RackBones = {
                 {
@@ -332,7 +332,7 @@ UnitBlueprint {
             TurretPitchSpeed = 0,
             TurretYaw = 0,
             TurretYawRange = 180,
-            TurretYawSpeed = 40,
+            TurretYawSpeed = 120,
             Turreted = true,
             WeaponCategory = 'Missile',
             WeaponUnpacks = false,
