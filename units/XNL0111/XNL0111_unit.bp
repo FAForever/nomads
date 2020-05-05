@@ -250,7 +250,7 @@ UnitBlueprint {
             },
             Label = 'MainGun',
             MaxRadius = 60,
-            MaxRadiusUnderWater = 40,
+            MaxRadiusUnderWater = 30,
             MinRadius = 15,
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 0,
