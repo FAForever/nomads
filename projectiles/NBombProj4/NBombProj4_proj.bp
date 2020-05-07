@@ -15,6 +15,7 @@ ProjectileBlueprint {
         'NOMADS',
         'PROJECTILE',
         'INDIRECTFIRE',
+        'STRATEGIC',
     },
     Display = {
         CameraFollowTimeout = 2,
@@ -24,12 +25,16 @@ ProjectileBlueprint {
         },
         StrategicIconSize = 3,
     },
+    DoNotCollideList = {
+        'ASF',
+    },
     General = {
         Category = 'Bomb',
         EntityCategory = {
             'NOMADS',
             'PROJECTILE',
             'INDIRECTFIRE',
+            'STRATEGIC',
         },
         Faction = 'NOMADS',
     },
