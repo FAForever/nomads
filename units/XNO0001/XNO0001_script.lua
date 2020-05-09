@@ -223,10 +223,9 @@ xno0001 = Class(NOrbitUnit, NCommandFrigateUnit) {
             
             local position = self:GetPosition()
             local dist = VDist2(position[1], position[3], self.MovementLocation[1], self.MovementLocation[3])
-            if dist > 25 and not self.CurrentlyMoving then
-                self.MoveCommand = IssueMove({self}, self.MovementLocation)
-            else
-                self.MoveCommand = nil
+            if dist > 25 then
+                IssueClearCommands( {self} )
+                IssueMove({self}, self.MovementLocation)
             end
             
             WaitSeconds(3)
