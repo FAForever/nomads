@@ -490,14 +490,14 @@ function AddRapidRepairToWeapon(SuperClass)
     -- should be used for the units weapon classes
     return Class(SuperClass) {
         OnCreate = function(self)
-            DelaysRapidRepair = true
+            self.DelaysRapidRepair = true
             SuperClass.OnCreate(self)
         end,
 
         OnWeaponFired = function(self)
             SuperClass.OnWeaponFired(self)
             if self.DelaysRapidRepair then
-                self.unit:DelayRapidRepair()
+                self.unit:StartRapidRepairCooldown()
             end
         end,
     }
