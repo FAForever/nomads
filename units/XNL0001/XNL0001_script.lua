@@ -23,7 +23,7 @@ local NIFTargetFinderWeapon = import('/lua/nomadsweapons.lua').NIFTargetFinderWe
 APCannon1 = AddCapacitorAbilityToWeapon(APCannon1)
 APCannon1_Overcharge = AddCapacitorAbilityToWeapon(APCannon1_Overcharge)
 
-ACUUnit = AddCapacitorAbility(AddRapidRepair(import('/lua/defaultunits.lua').ACUUnit))
+ACUUnit = AddCapacitorAbility(import('/lua/defaultunits.lua').ACUUnit)
 
 XNL0001 = Class(ACUUnit) {
 
@@ -133,8 +133,15 @@ XNL0001 = Class(ACUUnit) {
         -- enhancements
         self:RemoveToggleCap('RULEUTC_SpecialToggle')
         self:AddBuildRestriction( categories.NOMADS * (categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER) )
-        self:SetRapidRepairParams( 'NomadsACURapidRepair', bp.Enhancements.RapidRepair.RepairDelay, bp.Enhancements.RapidRepair.InterruptRapidRepairByWeaponFired)
-
+        --self:SetRapidRepairParams( 'NomadsACURapidRepair', bp.Enhancements.RapidRepair.RepairDelay, bp.Enhancements.RapidRepair.InterruptRapidRepairByWeaponFired)
+        
+        self.RapidRepairCooldownTime = 0
+        self.RapidRepairBonus = 0
+        self.RapidRepairBonusArmL = 0 --one for each upgrade slot, letting us easily track upgrade changes.
+        self.RapidRepairBonusArmR = 0
+        self.RapidRepairBonusBack = 0
+        self.RapidRepairFxBag = TrashBag()
+        
         self.Sync.Abilities = self:GetBlueprint().Abilities
         self.Sync.HasCapacitorAbility = false
 
@@ -155,6 +162,7 @@ XNL0001 = Class(ACUUnit) {
         self:ForkThread(self.HeadRotationThread)
         self.AllowHeadRotation = true
         self:ForkThread(self.DoMeteorAnim)
+        self:ForkThread(self.RapidRepairCooldownThread)
     end,
     
     GetOrbitalUnit = function(self)
@@ -430,7 +438,97 @@ XNL0001 = Class(ACUUnit) {
     end,
 
     -- =====================================================================================================================
+    -- RAPID REPAIR
+    
+    --The repair has a delay which is reset by taking damage and by firing certain weapons.
+    
+    --[[
+    the RR thread ticks down until the timer reaches 0
+    
+    when the timer reaches 0 the repair starts, which applies the buff.
+    
+    The buff is calculated on the fly and applied
+    
+    when rapid repair is interrupted, the timer is reset and the buff is removed.
+    
+    
+    --]]
+    
+    --This custom timer function allows us to reset or partially delay the timer without killing the thread
+    StartRapidRepairCooldown = function(self, AddedDuration)
+        WARN('StartRapidRepairCooldown with time: '..self.RapidRepairCooldownTime)
+        local CoolDownTime = self:GetBlueprint().Defense.RapidRepairCooldown
+        
+        --if not added duration then reset the cooldown time. This is an if statement but i wanted to be clever and write it like this :>
+        self.RapidRepairCooldownTime = AddedDuration and (self.RapidRepairCooldownTime + AddedDuration) or CoolDownTime
+        
+        if not self.RRCooldownThread then
+            self.RRCooldownThread = self:ForkThread(self.RapidRepairCooldownThread)
+        end
+    end,
+    
+    RapidRepairCooldownThread = function(self)
+        self:SetRapidRepairAmount(0)
+        while self.RapidRepairCooldownTime > 0 do
+            WaitSeconds(1)
+            self.RapidRepairCooldownTime = self.RapidRepairCooldownTime - 1
+        end
+        self.RRCooldownThread = nil
+        self:StartRapidRepair()
+    end,
+    
+    StartRapidRepair = function(self)
+        local bp = self:GetBlueprint()
+        --calculate the total bonus - each upgrade slot can have its own bonus added.
+        self.RapidRepairBonus = bp.Defense.RapidRepairBonus + self.RapidRepairBonusArmL + self.RapidRepairBonusArmR + self.RapidRepairBonusBack
+        
+        self:SetRapidRepairAmount(self.RapidRepairBonus)
+
+        -- start self repair effects
+        self.RapidRepairFxBag:Add( ForkThread( NomadsEffectUtil.CreateSelfRepairEffects, self, self.RapidRepairFxBag ) )
+
+        -- wait until full health, or interrupted
+        while not self.Dead and self:GetHealth() < self:GetMaxHealth() and self.RapidRepairCooldownTime <= 0 do
+            WaitTicks(1)
+        end
+        WARN('stopped repair effects')
+        self.RapidRepairFxBag:Destroy()
+    end,
+    
+    SetRapidRepairAmount = function(self, RepairAmount)
+        local BuffName = 'NomadsACURapidRepair' .. RepairAmount
+        
+        --add a unique buff for that regen bonus number, which can include 0 to disable.
+        if not Buffs[BuffName] then
+            BuffBlueprint {
+                Name = BuffName,
+                DisplayName = BuffName,
+                BuffType = 'NomadsACURapidRepairRegen',
+                Stacks = 'REPLACE',
+                Duration = -1,
+                Affects = {
+                    Regen = {
+                        Add = RepairAmount,
+                        Mult = 1.0,
+                    },
+                },
+            }
+        end
+        
+        Buff.ApplyBuff(self, BuffName)
+    end,
+    
+    
+    DoTakeDamage = function(self, instigator, amount, vector, damageType)
+        ACUUnit.DoTakeDamage(self, instigator, amount, vector, damageType)
+        self:StartRapidRepairCooldown()
+    end,
+
+    -- =====================================================================================================================
     -- ENHANCEMENTS
+    
+    
+    
     
     --General note: Nomads ACU has capacitor, which uses buffs. So acu upgrades must use buffs so they stack with capacitor correctly.
 
@@ -597,21 +695,8 @@ XNL0001 = Class(ACUUnit) {
         end,
         
         RapidRepair = function(self, bp)
-            if not Buffs['NomadsACURapidRepair'] then
-                BuffBlueprint {
-                    Name = 'NomadsACURapidRepair',
-                    DisplayName = 'NomadsACURapidRepair',
-                    BuffType = 'NOMADSACURAPIDREPAIRREGEN',
-                    Stacks = 'ALWAYS',
-                    Duration = -1,
-                    Affects = {
-                        Regen = {
-                            Add = bp.RepairRate,
-                            Mult = 1.0,
-                        },
-                    },
-                }
-            end
+            self.RapidRepairBonusBack = bp.RepairRate
+            self:StartRapidRepairCooldown(0) --update the repair bonus buff - this way doesnt disrupt the repair state
             if not Buffs['NomadsACURapidRepairPermanentHPboost'] and bp.AddHealth > 0 then
                 BuffBlueprint {
                     Name = 'NomadsACURapidRepairPermanentHPboost',
@@ -634,14 +719,13 @@ XNL0001 = Class(ACUUnit) {
             if bp.AddHealth > 0 then
                 Buff.ApplyBuff(self, 'NomadsACURapidRepairPermanentHPboost')
             end
-            self:EnableRapidRepair(true)
         end,
         
         RapidRepairRemove = function(self, bp)
+            self.RapidRepairBonusBack = 0
+            self:StartRapidRepairCooldown(0) --update the repair bonus buff - this way doesnt disrupt the repair state
             -- keep in sync with same code in PowerArmorRemove
-            self:EnableRapidRepair(false)
             if Buff.HasBuff( self, 'NomadsACURapidRepairPermanentHPboost' ) then
-                Buff.RemoveBuff( self, 'NomadsACURapidRepair' )
                 Buff.RemoveBuff( self, 'NomadsACURapidRepairPermanentHPboost' )
             end
         end,
@@ -677,6 +761,8 @@ XNL0001 = Class(ACUUnit) {
         end,
         
         PowerArmorRemove = function(self, bp)
+            self.RapidRepairBonusBack = 0
+            self:StartRapidRepairCooldown(0) --update the repair bonus buff - this way doesnt disrupt the repair state
             local ubp = self:GetBlueprint()
             if bp.Mesh then
                 self:SetMesh( ubp.Display.MeshBlueprint, true)
@@ -685,10 +771,7 @@ XNL0001 = Class(ACUUnit) {
                 Buff.RemoveBuff( self, 'NomadsACUPowerArmor' )
             end
 
-            -- keep in sync with same code above
-            self:EnableRapidRepair(false)
             if Buff.HasBuff( self, 'NomadsACURapidRepairPermanentHPboost' ) then
-                Buff.RemoveBuff( self, 'NomadsACURapidRepair' )
                 Buff.RemoveBuff( self, 'NomadsACURapidRepairPermanentHPboost' )
             end
         end,
