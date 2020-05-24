@@ -182,7 +182,7 @@ UnitBlueprint {
         MaxHealth = 10500,
         RegenRate = 5,
         RapidRepairBonus = 10,
-        RapidRepairCooldown = 10,
+        RapidRepairCooldown = 100,
         SubThreatLevel = 0,
         SurfaceThreatLevel = 75,
         Shield = {
@@ -685,7 +685,6 @@ UnitBlueprint {
             Mesh = '/units/XNL0001/XNL0001_PowerArmor_Mesh',
             Name = '<LOC NomadsACUEnh_PowerArmor_Help>Powered Armor',
             Prerequisite = 'RapidRepair',
---            RepairDelay = 10,
 --            RepairRate = 200,
             ShowBones = {
                 'PowerArmor',
@@ -725,7 +724,6 @@ UnitBlueprint {
             BuildTime = 1800,
             Icon = 'se',
             Name = '<LOC NomadsACUEnh_RapidRepair_Help>',
-            RepairDelay = 30,
             RepairRate = 120,
             ShowBones = {
                 'PowerArmor',
