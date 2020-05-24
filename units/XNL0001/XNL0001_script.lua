@@ -456,7 +456,6 @@ XNL0001 = Class(ACUUnit) {
     
     --This custom timer function allows us to reset or partially delay the timer without killing the thread
     StartRapidRepairCooldown = function(self, AddedDuration)
-        WARN('StartRapidRepairCooldown with time: '..self.RapidRepairCooldownTime)
         local CoolDownTime = self:GetBlueprint().Defense.RapidRepairCooldown
         
         --if not added duration then reset the cooldown time. This is an if statement but i wanted to be clever and write it like this :>
@@ -491,7 +490,6 @@ XNL0001 = Class(ACUUnit) {
         while not self.Dead and self:GetHealth() < self:GetMaxHealth() and self.RapidRepairCooldownTime <= 0 do
             WaitTicks(1)
         end
-        WARN('stopped repair effects')
         self.RapidRepairFxBag:Destroy()
     end,
     
@@ -665,7 +663,7 @@ XNL0001 = Class(ACUUnit) {
             self:SetSpeedMult( bp.SpeedMulti or 1.1 )
             self.UseRunWalkAnim = true
         end,
-        
+
         MovementSpeedIncreaseRemove = function(self, bp)
             self:SetSpeedMult( 1 )
             self.UseRunWalkAnim = false
