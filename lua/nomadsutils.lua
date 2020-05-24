@@ -337,6 +337,7 @@ end
 -- ================================================================================================================
 -- RAPID REPAIR
 -- ================================================================================================================
+--TODO: delete this as soon as the SCU is redone.
 function AddRapidRepair(SuperClass)
     return Class(SuperClass) {
         OnCreate = function(self)
@@ -497,7 +498,12 @@ function AddRapidRepairToWeapon(SuperClass)
         OnWeaponFired = function(self)
             SuperClass.OnWeaponFired(self)
             if self.DelaysRapidRepair then
-                self.unit:StartRapidRepairCooldown()
+                if self.unit.DelayRapidRepair then
+                    --TODO: Delete this as soon as the SCU code is redone.
+                    self.unit:DelayRapidRepair()
+                else
+                    self.unit:StartRapidRepairCooldown()
+                end
             end
         end,
     }
