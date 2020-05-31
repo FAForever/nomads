@@ -8,7 +8,7 @@ UnitBlueprint {
                 'CapacitorEngineering',
                 'CapacitorIntel',
                 'CapacitorRegen',
-				'CapacitorROF',
+                'CapacitorROF',
             },
             Duration = 30,
             ChargeEnergyCost = 500,
@@ -181,8 +181,8 @@ UnitBlueprint {
         Health = 10500,
         MaxHealth = 10500,
         RegenRate = 5,
-        RapidRepairBonus = 10,
-        RapidRepairCooldown = 100,
+        RapidRepairBonus = 15,
+        RapidRepairCooldown = 60,
         SubThreatLevel = 0,
         SurfaceThreatLevel = 75,
         Shield = {
@@ -356,6 +356,7 @@ UnitBlueprint {
     },
     Enhancements = {
         AdvancedEngineering = {
+            AddRepairRateTech = 15,
             BuildCostEnergy = 21000,
             BuildCostMass = 800,
             BuildTime = 1000,
@@ -364,7 +365,7 @@ UnitBlueprint {
             Name = '<LOC enhancements_0037>Tech 2 Engineering Suite',
             NewBuildRate = 42,
             NewHealth = 2000,
-            NewRegenRate = 10,
+            NewRegenRate = 5,
             ShowBones = {
                 'BuildArm2',
             },
@@ -676,8 +677,9 @@ UnitBlueprint {
             Slot = 'Back',
         },
         PowerArmor = {
-            AddHealth = 20000,
+            AddHealth = 15000,
             AddRegenRate = 50,
+            AddRepairRateAdv = 150,
             BuildCostEnergy = 300000,
             BuildCostMass = 3000,
             BuildTime = 3500,
@@ -685,7 +687,6 @@ UnitBlueprint {
             Mesh = '/units/XNL0001/XNL0001_PowerArmor_Mesh',
             Name = '<LOC NomadsACUEnh_PowerArmor_Help>Powered Armor',
             Prerequisite = 'RapidRepair',
---            RepairRate = 200,
             ShowBones = {
                 'PowerArmor',
             },
@@ -719,12 +720,12 @@ UnitBlueprint {
         RapidRepair = {
             AddHealth = 2000,
             AddRegenRate = 15,
+            AddRepairRate = 85,
             BuildCostEnergy = 56000,
             BuildCostMass = 1800,
             BuildTime = 1800,
             Icon = 'se',
             Name = '<LOC NomadsACUEnh_RapidRepair_Help>',
-            RepairRate = 120,
             ShowBones = {
                 'PowerArmor',
             },
@@ -811,6 +812,7 @@ UnitBlueprint {
             },
         },
         T3Engineering = {
+            AddRepairRateAdvTech = 60,
             BuildCostEnergy = 50000,
             BuildCostMass = 2400,
             BuildTime = 8400,
@@ -819,7 +821,7 @@ UnitBlueprint {
             Name = '<LOC enhancements_0053>Tech 3 Engineering Suite',
             NewBuildRate = 100,
             NewHealth = 3500,
-            NewRegenRate = 20,
+            NewRegenRate = 5,
             Prerequisite = 'AdvancedEngineering',
             Slot = 'LCH',
             ShowBones = {
