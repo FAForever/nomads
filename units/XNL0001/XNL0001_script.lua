@@ -137,10 +137,9 @@ XNL0001 = Class(ACUUnit) {
         
         self.RapidRepairCooldownTime = 0
         self.RapidRepairBonus = 0
-        self.RapidRepairBonusTech = 0 --one for each upgrade slot, letting us easily track upgrade changes.
-        self.RapidRepairBonusAdvTech = 0
+        self.RapidRepairBonusArmL = 0 --one for each upgrade slot, letting us easily track upgrade changes.
+        self.RapidRepairBonusArmR = 0 --one for each upgrade slot, letting us easily track upgrade changes.
         self.RapidRepairBonusBack = 0
-        self.RapidRepairBonusAdvBack = 0
         self.RapidRepairFxBag = TrashBag()
         
         self.Sync.Abilities = self:GetBlueprint().Abilities
@@ -480,7 +479,7 @@ XNL0001 = Class(ACUUnit) {
     StartRapidRepair = function(self)
         local bp = self:GetBlueprint()
         --calculate the total bonus - each upgrade slot can have its own bonus added.
-        self.RapidRepairBonus = bp.Defense.RapidRepairBonus + self.RapidRepairBonusTech + self.RapidRepairBonusAdvTech + self.RapidRepairBonusBack + self.RapidRepairBonusAdvBack
+        self.RapidRepairBonus = bp.Defense.RapidRepairBonus + self.RapidRepairBonusArmL + self.RapidRepairBonusArmR + self.RapidRepairBonusBack
         
         self:SetRapidRepairAmount(self.RapidRepairBonus)
 
@@ -694,7 +693,7 @@ XNL0001 = Class(ACUUnit) {
         end,
         
         RapidRepair = function(self, bp)
-            self.RapidRepairBonusBack = bp.AddRepairRate
+            self.RapidRepairBonusBack = bp.BonusRepairRate
             self:StartRapidRepairCooldown(0) --update the repair bonus buff - this way doesnt disrupt the repair state
             if not Buffs['NomadsACURapidRepairPermanentHPboost'] and bp.AddHealth > 0 then
                 BuffBlueprint {
@@ -730,7 +729,7 @@ XNL0001 = Class(ACUUnit) {
         end,
         
         PowerArmor = function(self, bp)
-            self.RapidRepairBonusAdvBack = bp.AddRepairRate
+            self.RapidRepairBonusBack = bp.BonusRepairRate
             self:StartRapidRepairCooldown(0) --update the repair bonus buff - this way doesnt disrupt the repair state
             if not Buffs['NomadsACUPowerArmor'] then
                BuffBlueprint {
@@ -763,7 +762,6 @@ XNL0001 = Class(ACUUnit) {
         
         PowerArmorRemove = function(self, bp)
             self.RapidRepairBonusBack = 0
-            self.RapidRepairBonusAdvBack = 0
             self:StartRapidRepairCooldown(0) --update the repair bonus buff - this way doesnt disrupt the repair state
             local ubp = self:GetBlueprint()
             if bp.Mesh then
@@ -779,7 +777,7 @@ XNL0001 = Class(ACUUnit) {
         end,
         
         AdvancedEngineering = function(self, bp)
-            self.RapidRepairBonusTech = bp.AddRepairRateTech
+            self.RapidRepairBonusArmL = bp.BonusRepairRate
             self:StartRapidRepairCooldown(0) --update the repair bonus buff - this way doesnt disrupt the repair state
             -- new build FX bone available
             table.insert(self.BuildEffectBones, 'BuildBeam2')
@@ -818,7 +816,7 @@ XNL0001 = Class(ACUUnit) {
         end,
         
         AdvancedEngineeringRemove = function(self, bp)
-            self.RapidRepairBonusTech = 0
+            self.RapidRepairBonusArmL = 0
             self:StartRapidRepairCooldown(0) --update the repair bonus buff - this way doesnt disrupt the repair state
             -- remove extra build bone
             table.removeByValue(self.BuildEffectBones, 'BuildBeam2')
@@ -836,7 +834,7 @@ XNL0001 = Class(ACUUnit) {
         end,
         
         T3Engineering = function(self, bp)
-            self.RapidRepairBonusAdvTech = bp.AddRepairRateAdvTech
+            self.RapidRepairBonusArmL = bp.BonusRepairRate
             self:StartRapidRepairCooldown(0) --update the repair bonus buff - this way doesnt disrupt the repair state
             -- new build FX bone available
             table.insert(self.BuildEffectBones, 'BuildBeam3')
@@ -873,7 +871,7 @@ XNL0001 = Class(ACUUnit) {
         end,
         
         T3EngineeringRemove = function(self, bp)
-            self.RapidRepairBonusAdvTech = 0
+            self.RapidRepairBonusArmL = 0
             self:StartRapidRepairCooldown(0) --update the repair bonus buff - this way doesnt disrupt the repair state
             -- remove extra build bone
             table.removeByValue(self.BuildEffectBones, 'BuildBeam3')

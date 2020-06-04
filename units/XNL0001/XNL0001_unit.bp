@@ -356,7 +356,7 @@ UnitBlueprint {
     },
     Enhancements = {
         AdvancedEngineering = {
-            AddRepairRateTech = 15,
+            BonusRepairRate = 15, --total regen bonus per upgrade slot
             BuildCostEnergy = 21000,
             BuildCostMass = 800,
             BuildTime = 1000,
@@ -679,7 +679,7 @@ UnitBlueprint {
         PowerArmor = {
             AddHealth = 15000,
             AddRegenRate = 50,
-            AddRepairRateAdv = 150,
+            BonusRepairRate = 235, --total regen bonus per upgrade slot
             BuildCostEnergy = 300000,
             BuildCostMass = 3000,
             BuildTime = 3500,
@@ -720,7 +720,7 @@ UnitBlueprint {
         RapidRepair = {
             AddHealth = 2000,
             AddRegenRate = 15,
-            AddRepairRate = 85,
+            BonusRepairRate = 85, --total regen bonus per upgrade slot
             BuildCostEnergy = 56000,
             BuildCostMass = 1800,
             BuildTime = 1800,
@@ -812,7 +812,7 @@ UnitBlueprint {
             },
         },
         T3Engineering = {
-            AddRepairRateAdvTech = 60,
+            BonusRepairRate = 75, --total regen bonus per upgrade slot
             BuildCostEnergy = 50000,
             BuildCostMass = 2400,
             BuildTime = 8400,
