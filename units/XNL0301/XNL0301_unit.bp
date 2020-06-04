@@ -147,6 +147,8 @@ UnitBlueprint {
         Health = 8000,
         MaxHealth = 8000,
         RegenRate = 5,
+        RapidRepairBonus = 15,
+        RapidRepairCooldown = 60,
         SubThreatLevel = 0,
         SurfaceThreatLevel = 150,
     },
@@ -484,14 +486,13 @@ UnitBlueprint {
         RapidRepair = {
             AddHealth = 2000,
             AddRegenRate = 95,
+            BonusRepairRate = 500, --total regen bonus per upgrade slot
             BuildCostEnergy = 75000,
             BuildCostMass = 1500,
             BuildTime = 5000,
             Icon = 'se',
             InterruptRapidRepairByWeaponFired = false,
             Name = '<LOC NomadsSCUEnh_RapidRepair_Help>Rapid Repair',
-            RepairDelay = 10,
-            RepairRate = 500,
             ShowBones = {
                 'Nano_Chest',
                 'Nano_RArm',
