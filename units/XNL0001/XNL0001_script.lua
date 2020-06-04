@@ -23,7 +23,8 @@ local NIFTargetFinderWeapon = import('/lua/nomadsweapons.lua').NIFTargetFinderWe
 APCannon1 = AddCapacitorAbilityToWeapon(APCannon1)
 APCannon1_Overcharge = AddCapacitorAbilityToWeapon(APCannon1_Overcharge)
 
-ACUUnit = AddCapacitorAbility(import('/lua/defaultunits.lua').ACUUnit)
+ACUUnit = AddCapacitorAbility(AddRapidRepair(import('/lua/defaultunits.lua').ACUUnit))
+--ACUUnit = AddCapacitorAbility(import('/lua/defaultunits.lua').ACUUnit)
 
 XNL0001 = Class(ACUUnit) {
 
@@ -135,12 +136,9 @@ XNL0001 = Class(ACUUnit) {
         self:AddBuildRestriction( categories.NOMADS * (categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER) )
         --self:SetRapidRepairParams( 'NomadsACURapidRepair', bp.Enhancements.RapidRepair.RepairDelay, bp.Enhancements.RapidRepair.InterruptRapidRepairByWeaponFired)
         
-        self.RapidRepairCooldownTime = 0
-        self.RapidRepairBonus = 0
         self.RapidRepairBonusArmL = 0 --one for each upgrade slot, letting us easily track upgrade changes.
         self.RapidRepairBonusArmR = 0 --one for each upgrade slot, letting us easily track upgrade changes.
         self.RapidRepairBonusBack = 0
-        self.RapidRepairFxBag = TrashBag()
         
         self.Sync.Abilities = self:GetBlueprint().Abilities
         self.Sync.HasCapacitorAbility = false
@@ -455,27 +453,6 @@ XNL0001 = Class(ACUUnit) {
     --]]
     
     --This custom timer function allows us to reset or partially delay the timer without killing the thread
-    StartRapidRepairCooldown = function(self, AddedDuration)
-        local MaxCoolDownTime = self:GetBlueprint().Defense.RapidRepairCooldown
-        
-        --if not added duration then reset the cooldown time. This is an if statement but i wanted to be clever and write it like this :>
-        self.RapidRepairCooldownTime = AddedDuration and math.min((self.RapidRepairCooldownTime + AddedDuration), MaxCoolDownTime) or MaxCoolDownTime
-        
-        if not self.RRCooldownThread then
-            self.RRCooldownThread = self:ForkThread(self.RapidRepairCooldownThread)
-        end
-    end,
-    
-    RapidRepairCooldownThread = function(self)
-        self:SetRapidRepairAmount(0)
-        while self.RapidRepairCooldownTime > 0 do
-            WaitSeconds(1)
-            self.RapidRepairCooldownTime = self.RapidRepairCooldownTime - 1
-        end
-        self.RRCooldownThread = nil
-        self:StartRapidRepair()
-    end,
-    
     StartRapidRepair = function(self)
         local bp = self:GetBlueprint()
         --calculate the total bonus - each upgrade slot can have its own bonus added.
@@ -491,35 +468,6 @@ XNL0001 = Class(ACUUnit) {
             WaitTicks(1)
         end
         self.RapidRepairFxBag:Destroy()
-    end,
-    
-    SetRapidRepairAmount = function(self, RepairAmount)
-        local BuffName = 'NomadsACURapidRepair' .. RepairAmount
-        
-        --add a unique buff for that regen bonus number, which can include 0 to disable.
-        if not Buffs[BuffName] then
-            BuffBlueprint {
-                Name = BuffName,
-                DisplayName = BuffName,
-                BuffType = 'NomadsACURapidRepairRegen',
-                Stacks = 'REPLACE',
-                Duration = -1,
-                Affects = {
-                    Regen = {
-                        Add = RepairAmount,
-                        Mult = 1.0,
-                    },
-                },
-            }
-        end
-        
-        Buff.ApplyBuff(self, BuffName)
-    end,
-    
-    
-    DoTakeDamage = function(self, instigator, amount, vector, damageType)
-        ACUUnit.DoTakeDamage(self, instigator, amount, vector, damageType)
-        self:StartRapidRepairCooldown()
     end,
 
     -- =====================================================================================================================

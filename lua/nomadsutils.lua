@@ -337,152 +337,86 @@ end
 -- ================================================================================================================
 -- RAPID REPAIR
 -- ================================================================================================================
---TODO: delete this as soon as the SCU is redone.
+--The repair has a delay which is reset by taking damage and by firing certain weapons.
 function AddRapidRepair(SuperClass)
     return Class(SuperClass) {
+        -- the RR thread ticks down until the timer reaches 0
+        -- when the timer reaches 0 the repair starts, which applies the buff.
+        -- The buff is calculated on the fly and applied
+        -- when rapid repair is interrupted, the timer is reset and the buff is removed.
+        
         OnCreate = function(self)
             SuperClass.OnCreate(self)
+            self.RapidRepairCooldownTime = 0
+            self.RapidRepairBonus = 0
             self.RapidRepairFxBag = TrashBag()
-            self.RapidRepairParams = {}
-            self.RapidRepairCounter = -1
         end,
-
-        DoTakeDamage = function(self, instigator, amount, vector, damageType)
-            SuperClass.DoTakeDamage(self, instigator, amount, vector, damageType)
-            self:DelayRapidRepair()
-        end,
-
-        OnStartRapidRepairing = function(self)
-            -- when the unit starts to be repaired
-        end,
-
-        OnFinishedRapidRepairing = function(self)
-            -- when the unit is fully repaired
-        end,
-
-        OnRapidRepairingInterrupted = function(self)
-            -- when the unit is being repaired but receives damage or fires a weapon
-        end,
-
-        OnRapidRepairingDelayed = function(self)
-            -- when the unitis NOT being repaired and receives damage or fires a weapon
-        end,
-
-        SetRapidRepairParams = function(self, buffName, repairDelay, WeaponFireInterrupts)
-            self.RapidRepairParams = {
-                buffName = buffName,
-                repairDelay = repairDelay or 30,
-            }
-
-            if WeaponFireInterrupts ~= nil then
-                local nwep, wep = self:GetWeaponCount()
-                for i=1, nwep do
-                    wep = self:GetWeapon(i)
-                    wep.DelaysRapidRepair = WeaponFireInterrupts
-                end
+        
+        --This custom timer function allows us to reset or partially delay the timer without killing the thread
+        StartRapidRepairCooldown = function(self, AddedDuration)
+            local MaxCoolDownTime = self:GetBlueprint().Defense.RapidRepairCooldown
+            
+            --if not added duration then reset the cooldown time. This is an if statement but i wanted to be clever and write it like this :>
+            self.RapidRepairCooldownTime = AddedDuration and math.min((self.RapidRepairCooldownTime + AddedDuration), MaxCoolDownTime) or MaxCoolDownTime
+            
+            if not self.RRCooldownThread then
+                self.RRCooldownThread = self:ForkThread(self.RapidRepairCooldownThread)
             end
         end,
-
-        RapidRepairIsRepairing = function(self)
-            -- says whether we're repairing at this moment
-            if self.RapidRepairProcessThreadHandle then
-                return true
-            end
-            return false
-        end,
-
-        EnableRapidRepair = function(self, enable)
-            -- enables or disables the rapid repair process (this is something else than stopping it)
-            if enable then
-                self.RapidRepairCounter = 0
-                if not self.RapidRepairThreadHandle then
-                    self.RapidRepairThreadHandle = self:ForkThread( self.RapidRepairThread )
-                end
-            else
-                self.RapidRepairCounter = -1
-                self:RapidRepairProcessStop()
-                if self.RapidRepairThreadHandle then
-                    KillThread( self.RapidRepairThreadHandle )
-                    self.RapidRepairThreadHandle = nil
-                end
-                local buffName = self:GetRapidRepairParam('buffName')
-                Buff.RemoveBuff( self, buffName )
-            end
-        end,
-
-        GetRapidRepairParam = function(self, param)
-            if self.RapidRepairParams[ param ] then
-                return self.RapidRepairParams[ param ]
-            end
-        end,
-
-        DelayRapidRepair = function(self)
-            -- used to stop and reset the rapid repair process. Should be called if unit is damaged or fires a weapon.
-            --LOG('*DEBUG: DelayRapidRepair')
-            local repairing = self:RapidRepairIsRepairing()
-            self.RapidRepairCounter = math.min( 0, self.RapidRepairCounter )
-            self:RapidRepairProcessStop()
-            if not repairing then
-                self:OnRapidRepairingDelayed()
-            end
-        end,
-
-        RapidRepairThread = function(self)
-            -- counts up and starts the repair process when enough time passed
-            local bp = self:GetBlueprint()
-            local delay = self:GetRapidRepairParam('repairDelay')
-
-            while not self.Dead and self.RapidRepairCounter >= 0 do
-
-                -- if the timer isn't expired yet, add one to it
-                if self.RapidRepairCounter < delay then
-                    self.RapidRepairCounter = self.RapidRepairCounter + 1
-
-                -- if the counter is expired but we're not repairing, start repairing
-                elseif not self:RapidRepairIsRepairing() and self:GetHealth() < self:GetMaxHealth() then
-                    self.RapidRepairProcessThreadHandle = self:ForkThread( self.RapidRepairProcessThread )
-                end
+        
+        RapidRepairCooldownThread = function(self)
+            self:SetRapidRepairAmount(0)
+            while self.RapidRepairCooldownTime > 0 do
                 WaitSeconds(1)
+                self.RapidRepairCooldownTime = self.RapidRepairCooldownTime - 1
             end
+            self.RRCooldownThread = nil
+            self:StartRapidRepair()
         end,
-
-        RapidRepairProcessThread = function(self)
-            local buffName = self:GetRapidRepairParam('buffName')
+        
+        StartRapidRepair = function(self)
+            local bp = self:GetBlueprint()
+            --calculate the total bonus - each upgrade slot can have its own bonus added.
+            self.RapidRepairBonus = bp.Defense.RapidRepairBonus + self.RapidRepairBonusArmL + self.RapidRepairBonusArmR + self.RapidRepairBonusBack
+            
+            self:SetRapidRepairAmount(self.RapidRepairBonus)
 
             -- start self repair effects
             self.RapidRepairFxBag:Add( ForkThread( NomadsEffectUtil.CreateSelfRepairEffects, self, self.RapidRepairFxBag ) )
-            Buff.ApplyBuff(self, buffName)
 
-            self:OnStartRapidRepairing()
-
-            -- the buff increases regen. Wait till we're done "repairing"
-            while not self.Dead and self:GetHealth() < self:GetMaxHealth() and self.RapidRepairCounter > -1 and self.RapidRepairProcessThreadHandle do
+            -- wait until full health, or interrupted
+            while not self.Dead and self:GetHealth() < self:GetMaxHealth() and self.RapidRepairCooldownTime <= 0 do
                 WaitTicks(1)
             end
-
-            -- stop the repair effects
-            if Buff.HasBuff( self, buffName ) then
-                Buff.RemoveBuff( self, buffName )
-            end
             self.RapidRepairFxBag:Destroy()
-
-            self:OnFinishedRapidRepairing()
         end,
-
-        RapidRepairProcessStop = function(self)
-            if self.RapidRepairProcessThreadHandle then
-                KillThread( self.RapidRepairProcessThreadHandle )
-                self.RapidRepairProcessThreadHandle = nil
-
-                -- since we just killed the thread that (also) remove the buff, do it here: stop the repair effects
-                local buffName = self:GetRapidRepairParam('buffName')
-                if Buff.HasBuff( self, buffName ) then
-                    Buff.RemoveBuff( self, buffName )
-                end
-
-                self:OnRapidRepairingInterrupted()
+        
+        SetRapidRepairAmount = function(self, RepairAmount)
+            local BuffName = 'NomadsACURapidRepair' .. RepairAmount
+            
+            --add a unique buff for that regen bonus number, which can include 0 to disable.
+            if not Buffs[BuffName] then
+                BuffBlueprint {
+                    Name = BuffName,
+                    DisplayName = BuffName,
+                    BuffType = 'NomadsACURapidRepairRegen',
+                    Stacks = 'REPLACE',
+                    Duration = -1,
+                    Affects = {
+                        Regen = {
+                            Add = RepairAmount,
+                            Mult = 1.0,
+                        },
+                    },
+                }
             end
-            self.RapidRepairFxBag:Destroy()
+            
+            Buff.ApplyBuff(self, BuffName)
+        end,
+        
+        DoTakeDamage = function(self, instigator, amount, vector, damageType)
+            SuperClass.DoTakeDamage(self, instigator, amount, vector, damageType)
+            self:StartRapidRepairCooldown()
         end,
     }
 end
@@ -498,12 +432,7 @@ function AddRapidRepairToWeapon(SuperClass)
         OnWeaponFired = function(self)
             SuperClass.OnWeaponFired(self)
             if self.DelaysRapidRepair then
-                if self.unit.DelayRapidRepair then
-                    --TODO: Delete this as soon as the SCU code is redone.
-                    self.unit:DelayRapidRepair()
-                else
-                    self.unit:StartRapidRepairCooldown()
-                end
+                self.unit:StartRapidRepairCooldown()
             end
         end,
     }
