@@ -56,12 +56,15 @@ XNL0301 = Class(NCommandUnit) {
 
         self:SetCapturable(false)
         self:SetupBuildBones()
+        
+        self.RapidRepairBonusArmL = 0 --one for each upgrade slot, letting us easily track upgrade changes.
+        self.RapidRepairBonusArmR = 0
+        self.RapidRepairBonusBack = 0
 
         -- enhancement related
         self:RemoveToggleCap('RULEUTC_SpecialToggle')
         self:SetWeaponEnabledByLabel( 'Torpedo', false )
         self:SetWeaponEnabledByLabel( 'Rocket', false )
-        self:SetRapidRepairParams( 'NomadsSCURapidRepair', bp.Enhancements.RapidRepair.RepairDelay, bp.Enhancements.RapidRepair.InterruptRapidRepairByWeaponFired)
     
         self.Sync.Abilities = self:GetBlueprint().Abilities
     end,
@@ -174,6 +177,26 @@ XNL0301 = Class(NCommandUnit) {
         return NCommandUnit.CanBeStunned(self)
     end,
 
+    -- =====================================================================================================================
+    -- RAPID REPAIR
+    
+    --This custom timer function allows us to reset or partially delay the timer without killing the thread
+    StartRapidRepair = function(self)
+        local bp = self:GetBlueprint()
+        --calculate the total bonus - each upgrade slot can have its own bonus added.
+        self.RapidRepairBonus = bp.Defense.RapidRepairBonus + self.RapidRepairBonusArmL + self.RapidRepairBonusArmR + self.RapidRepairBonusBack
+        
+        self:SetRapidRepairAmount(self.RapidRepairBonus)
+
+        -- start self repair effects
+        self.RapidRepairFxBag:Add( ForkThread( NomadsEffectUtil.CreateSelfRepairEffects, self, self.RapidRepairFxBag ) )
+
+        -- wait until full health, or interrupted
+        while not self.Dead and self:GetHealth() < self:GetMaxHealth() and self.RapidRepairCooldownTime <= 0 do
+            WaitTicks(1)
+        end
+        self.RapidRepairFxBag:Destroy()
+    end,
 
     -- =====================================================================================================================
     -- ENHANCEMENTS
@@ -255,21 +278,8 @@ XNL0301 = Class(NCommandUnit) {
         end,
         
         RapidRepair = function(self, bp)
-            if not Buffs['NomadsSCURapidRepair'] then  -- make sure this buff exists though not used yet
-                BuffBlueprint {
-                    Name = 'NomadsSCURapidRepair',
-                    DisplayName = 'NomadsSCURapidRepair',
-                    BuffType = 'NOMADSCURAPIDREPAIRREGEN',
-                    Stacks = 'ALWAYS',
-                    Duration = -1,
-                    Affects = {
-                        Regen = {
-                            Add = bp.RepairRate or 15,
-                            Mult = 1.0,
-                        },
-                    },
-                }
-            end
+            self.RapidRepairBonusBack = bp.BonusRepairRate
+            self:StartRapidRepairCooldown(0) --update the repair bonus buff - this way doesnt disrupt the repair state
             if not Buffs['NomadsSCURapidRepairPermanentHPboost'] and bp.AddHealth > 0 then
                 BuffBlueprint {
                     Name = 'NomadsSCURapidRepairPermanentHPboost',
@@ -292,14 +302,12 @@ XNL0301 = Class(NCommandUnit) {
             if bp.AddHealth > 0 then
                 Buff.ApplyBuff(self, 'NomadsSCURapidRepairPermanentHPboost')
             end
-            self:EnableRapidRepair(true)
         end,
         
         RapidRepairRemove = function(self, bp)
-            -- keep code below synced to same code in PowerArmorRemove
-            self:EnableRapidRepair(false)
+            self.RapidRepairBonusBack = 0
+            self:StartRapidRepairCooldown(0) --update the repair bonus buff - this way doesnt disrupt the repair state
             if Buff.HasBuff( self, 'NomadsSCURapidRepairPermanentHPboost' ) then
-                Buff.RemoveBuff( self, 'NomadsSCURapidRepair' )
                 Buff.RemoveBuff( self, 'NomadsSCURapidRepairPermanentHPboost' )
             else
                 LOG('*DEBUG: SCU enhancement rapid repair removed but buff wasnt')
@@ -307,6 +315,7 @@ XNL0301 = Class(NCommandUnit) {
         end,
         
         PowerArmor = function(self, bp)
+            --this doesnt have an additional rapid repair buff?
             if not Buffs['NomadsSCUPowerArmor'] then
                BuffBlueprint {
                     Name = 'NomadsSCUPowerArmor',
@@ -336,6 +345,8 @@ XNL0301 = Class(NCommandUnit) {
         end,
         
         PowerArmorRemove = function(self, bp)
+            self.RapidRepairBonusBack = 0
+            self:StartRapidRepairCooldown(0) --update the repair bonus buff - this way doesnt disrupt the repair state
             local ubp = self:GetBlueprint()
             if bp.Mesh then
                 self:SetMesh( ubp.Display.MeshBlueprint, true) --this doesnt actually work --TODO:fix it
@@ -345,9 +356,7 @@ XNL0301 = Class(NCommandUnit) {
             end
 
             -- remove rapid repair - copy of above
-            self:EnableRapidRepair(false)
             if Buff.HasBuff( self, 'NomadsSCURapidRepairPermanentHPboost' ) then
-                Buff.RemoveBuff( self, 'NomadsSCURapidRepair' )
                 Buff.RemoveBuff( self, 'NomadsSCURapidRepairPermanentHPboost' )
             end
         end,
