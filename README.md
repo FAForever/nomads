@@ -58,6 +58,9 @@ Congratulations, you now have everything you need to start contributing! Do chec
 - Here is an [explanation](https://git-scm.com/book/en/v1/Getting-Started-Git-Basics) of what git does and the important concepts behind it, after you understand that, you can move onto the practical tutorials on how to use it.
 - Here is a [tutorial](https://guides.github.com/activities/hello-world/) on how to use the github website to make code changes. You can propose changes to Nomads right now! Doing this from the desktop allows you to make more complex changes, as well as running the game with them.
 
+#### Docs
+View our [Technical docs](docs/index.md) inside the `docs` directory of this repo.
+
 #### Run the game from the Nomads lua code
 You should have a local copy of the code _- both FAForever/fa and Nomads-Project/nomads -_ on your computer.
 Now you'll want to set up your test environment, i.e. running the game based on your local copies.
