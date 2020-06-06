@@ -2,11 +2,11 @@
 
 local Explosion = import('/lua/defaultexplosions.lua')
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
-local NAirTransportUnit = import('/lua/nomadsunits.lua').NAirTransportUnit
+local NExperimentalAirTransportUnit = import('/lua/nomadsunits.lua').NExperimentalAirTransportUnit
 local DarkMatterWeapon1 = import('/lua/nomadsweapons.lua').DarkMatterWeapon1
 local MissileWeapon1 = import('/lua/nomadsweapons.lua').MissileWeapon1
 
-XNA0401 = Class(NAirTransportUnit) {
+XNA0401 = Class(NExperimentalAirTransportUnit) {
 
     Weapons = {
         ChainGun01 = Class(DarkMatterWeapon1) {},
@@ -34,11 +34,11 @@ XNA0401 = Class(NAirTransportUnit) {
         EngineRotatorLeft01 = true,
         EngineRotatorLeft02 = true,
         EngineRotatorLeft03 = true,
-        EngineRotatorLeft04 = true,
+        EngineRotatorLeft04 = true
     },
 
     OnStopBeingBuilt = function(self, builder, layer)
-        NAirTransportUnit.OnStopBeingBuilt(self, builder, layer)
+        NExperimentalAirTransportUnit.OnStopBeingBuilt(self, builder, layer)
 
         -- set up the thrusting arcs for the engines
         for boneName,tiltForwards in self.EngineThrustControllerBones do
@@ -63,21 +63,21 @@ XNA0401 = Class(NAirTransportUnit) {
     end,
     
     OnTransportAttach = function(self, attachBone, unit)
-        NAirTransportUnit.OnTransportAttach(self, attachBone, unit)
+        NExperimentalAirTransportUnit.OnTransportAttach(self, attachBone, unit)
         if EntityCategoryContains(categories.NAVAL + categories.EXPERIMENTAL, unit) and self.HolderArmManip then
             self.HolderArmManip:SetRate(-1)
         end
     end,
 
     OnTransportDetach = function(self, attachBone, unit)
-        NAirTransportUnit.OnTransportDetach(self, attachBone, unit)
+        NExperimentalAirTransportUnit.OnTransportDetach(self, attachBone, unit)
         if EntityCategoryContains(categories.NAVAL + categories.EXPERIMENTAL, unit) and self.HolderArmManip then
             self.HolderArmManip:SetRate(0.5)
         end
     end,
     
     OnMotionVertEventChange = function(self, new, old)
-        NAirTransportUnit.OnMotionVertEventChange(self, new, old)
+        NExperimentalAirTransportUnit.OnMotionVertEventChange(self, new, old)
         if (new == 'Hover') then
             self.LandingAnimManip:SetRate(1)
         elseif (new == 'Up') then
@@ -104,10 +104,60 @@ XNA0401 = Class(NAirTransportUnit) {
 
     OnKilled = function(self, instigator, type, overkillRatio)
         self:ForkThread( self.CrashingThread )
-        NAirTransportUnit.OnKilled(self, instigator, type, overkillRatio)
+        NExperimentalAirTransportUnit.OnKilled(self, instigator, type, overkillRatio)
     end,
     
     CrashingThread = function(self)
+
+        -- Which engines to kill? Engines 1-4 left side (top down), 5-8 right side
+        local engineToDestroy = Random( 1, 8 )
+
+        if not self.Rotator then
+            self.Rotator = CreateRotator( self, 0, 'z' )
+            self.Trash:Add( self.Rotator )
+            self.Rotator:SetAccel( 0 )
+            self.Rotator:SetTargetSpeed( 0 )
+            self.Rotator:SetSpeed( 0 )    
+        end
+
+        if engineToDestroy < 5 then
+            -- explode here - all the engines are going to explode
+            Explosion.CreateDefaultHitExplosionAtBone( self, 'EngineRotatorLeft01', Random( 1, 4) )
+            Explosion.CreateDefaultHitExplosionAtBone( self, 'EngineRotatorLeft02', Random( 1, 4) )
+            Explosion.CreateDefaultHitExplosionAtBone( self, 'EngineRotatorLeft03', Random( 1, 4) )
+            Explosion.CreateDefaultHitExplosionAtBone( self, 'EngineRotatorLeft04', Random( 1, 4) )
+
+            -- hide the actual engines - they exploded
+            self:HideBone('EngineRotatorLeft01', true)
+            self:HideBone('EngineRotatorLeft02', true)
+            self:HideBone('EngineRotatorLeft04', true)
+            self:HideBone('EngineRotatorLeft03', true)
+
+            -- bank LEFT and spiral out of control
+            self.Rotator:SetAccel(20)
+            self.Rotator:SetTargetSpeed(-700)
+            self.Rotator:SetSpeed(1)
+        else 
+            -- explode here - all the engines are going to explode
+            Explosion.CreateDefaultHitExplosionAtBone( self, 'EngineRotatorRight01', Random( 1, 4) )
+            Explosion.CreateDefaultHitExplosionAtBone( self, 'EngineRotatorRight02', Random( 1, 4) )
+            Explosion.CreateDefaultHitExplosionAtBone( self, 'EngineRotatorRight03', Random( 1, 4) )
+            Explosion.CreateDefaultHitExplosionAtBone( self, 'EngineRotatorRight04', Random( 1, 4) )
+
+            -- hide the actual engines - they exploded
+            self:HideBone('EngineRotatorRight01', true)
+            self:HideBone('EngineRotatorRight02', true)
+            self:HideBone('EngineRotatorRight03', true)
+            self:HideBone('EngineRotatorRight04', true)
+
+            -- bank RIGHT and spiral out of control
+            self.Rotator:SetAccel(20)
+            self.Rotator:SetTargetSpeed(700)
+            self.Rotator:SetSpeed(1)
+        end
+
+
+
         -- create detector so we know when we hit the surface with what bone
         self.detector = CreateCollisionDetector(self)
         self.Trash:Add(self.detector)
@@ -160,7 +210,7 @@ XNA0401 = Class(NAirTransportUnit) {
 
         self:ShakeCamera(8, 3, 1, 1)
 
-        NAirTransportUnit.OnImpact(self, with, other)
+        NExperimentalAirTransportUnit.OnImpact(self, with, other)
     end,
 }
 
