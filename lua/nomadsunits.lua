@@ -209,6 +209,13 @@ NAirUnit = Class(AirUnit) {
 NAirTransportUnit = Class(AirTransport) {
     BeamExhaustCruise = NomadsEffectTemplate.AirThrusterCruisingBeam,
     BeamExhaustIdle = NomadsEffectTemplate.AirThrusterIdlingBeam,
+
+}
+
+NExperimentalAirTransportUnit = Class(NAirTransportUnit) {
+    -- placehold
+
+  
 }
 
 ---------------------------------------------------------------
