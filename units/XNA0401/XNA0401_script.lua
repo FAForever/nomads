@@ -108,55 +108,29 @@ XNA0401 = Class(NExperimentalAirTransportUnit) {
     end,
     
     CrashingThread = function(self)
+        local explosionSide = {'Left', 'Right'}
+        explosionSide = explosionSide[Random( 1, 2 )]
 
-        -- Which engines to kill? Engines 1-4 left side (top down), 5-8 right side
-        local engineToDestroy = Random( 1, 8 )
-
-        if not self.Rotator then
-            self.Rotator = CreateRotator( self, 0, 'z' )
-            self.Trash:Add( self.Rotator )
-            self.Rotator:SetAccel( 0 )
-            self.Rotator:SetTargetSpeed( 0 )
-            self.Rotator:SetSpeed( 0 )    
+        if not self.DeathRotator then
+            self.DeathRotator = CreateRotator( self, 0, 'z' )
+            self.Trash:Add( self.DeathRotator )
+            self.DeathRotator:SetAccel(20)
+            self.DeathRotator:SetSpeed(1)
         end
 
-        if engineToDestroy < 5 then
-            -- explode here - all the engines are going to explode
-            Explosion.CreateDefaultHitExplosionAtBone( self, 'EngineRotatorLeft01', Random( 1, 4) )
-            Explosion.CreateDefaultHitExplosionAtBone( self, 'EngineRotatorLeft02', Random( 1, 4) )
-            Explosion.CreateDefaultHitExplosionAtBone( self, 'EngineRotatorLeft03', Random( 1, 4) )
-            Explosion.CreateDefaultHitExplosionAtBone( self, 'EngineRotatorLeft04', Random( 1, 4) )
-
-            -- hide the actual engines - they exploded
-            self:HideBone('EngineRotatorLeft01', true)
-            self:HideBone('EngineRotatorLeft02', true)
-            self:HideBone('EngineRotatorLeft04', true)
-            self:HideBone('EngineRotatorLeft03', true)
-
-            -- bank LEFT and spiral out of control
-            self.Rotator:SetAccel(20)
-            self.Rotator:SetTargetSpeed(-700)
-            self.Rotator:SetSpeed(1)
-        else 
-            -- explode here - all the engines are going to explode
-            Explosion.CreateDefaultHitExplosionAtBone( self, 'EngineRotatorRight01', Random( 1, 4) )
-            Explosion.CreateDefaultHitExplosionAtBone( self, 'EngineRotatorRight02', Random( 1, 4) )
-            Explosion.CreateDefaultHitExplosionAtBone( self, 'EngineRotatorRight03', Random( 1, 4) )
-            Explosion.CreateDefaultHitExplosionAtBone( self, 'EngineRotatorRight04', Random( 1, 4) )
-
-            -- hide the actual engines - they exploded
-            self:HideBone('EngineRotatorRight01', true)
-            self:HideBone('EngineRotatorRight02', true)
-            self:HideBone('EngineRotatorRight03', true)
-            self:HideBone('EngineRotatorRight04', true)
-
-            -- bank RIGHT and spiral out of control
-            self.Rotator:SetAccel(20)
-            self.Rotator:SetTargetSpeed(700)
-            self.Rotator:SetSpeed(1)
+        -- bank and spiral out of control
+        if explosionSide == 'Left' then
+            self.DeathRotator:SetTargetSpeed(-700)
+        else
+            self.DeathRotator:SetTargetSpeed(700)
         end
-
-
+        
+        -- explode and hide all engines on the side we are banking towards
+        for boneNumber = 1,4 do
+            local boneName = 'EngineRotator'..explosionSide..'0'..boneNumber
+            Explosion.CreateDefaultHitExplosionAtBone( self, boneName, Random( 1, 4) )
+            self:HideBone(boneName, true)
+        end
 
         -- create detector so we know when we hit the surface with what bone
         self.detector = CreateCollisionDetector(self)
