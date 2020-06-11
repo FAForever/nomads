@@ -1,13 +1,13 @@
-# This workflow will build the nomads website 
+# This workflow will build the nomads website
 
 name: Build Hugo nomads site
 
 # Triggers the workflow on push or pull request events for the gh-pages branch
 on:
   push:
-    branches: [ gh-pages ]
+    branches: [gh-pages]
   pull_request:
-    branches: [ gh-pages ]
+    branches: [gh-pages]
 
 jobs:
   build:
@@ -15,9 +15,9 @@ jobs:
 
     steps:
       - name: Check out gh-pages
-        uses: actions/checkout@gh-pages
+        uses: actions/checkout@v2
         with:
-          fetch-depth: 1
+          ref: gh-pages
       - name: Build and deploy
         run: |
           hugo
