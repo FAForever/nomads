@@ -5,7 +5,9 @@ name: Build Hugo nomads site
 # Triggers the workflow on push or pull request events for the gh-pages branch
 on:
   push:
-    branches: [gh-pages]
+    branches:
+      - gh-pages
+      - github-build-pipeline-init
   pull_request:
     branches: [gh-pages]
 
