@@ -11,7 +11,7 @@
     "url": "git+https://github.com/TakesTheBiscuit/nomads.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "nomads <nomads@faf.domain>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/TakesTheBiscuit/nomads/issues"
