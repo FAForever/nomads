@@ -47,6 +47,8 @@ jobs:
               rm -rf public/*
           fi
           echo 'Build site'
+          npm set init.author.email "nomads@faf.domain"
+          npm set init.author.name "nomads"
           npm init --yes
           npm i
           hugo -D
