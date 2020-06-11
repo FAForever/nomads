@@ -7,7 +7,6 @@ on:
   push:
     branches:
       - gh-pages
-      - github-build-pipeline-init
   pull_request:
     branches: [gh-pages]
 
@@ -19,7 +18,7 @@ jobs:
       - name: Check out gh-pages
         uses: actions/checkout@v2
         with:
-          ref: github-build-pipeline-init
+          ref: gh-pages
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
