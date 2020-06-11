@@ -49,11 +49,10 @@ jobs:
           echo 'Build site'
           npm init --yes
           npm i
-          hugo -d public
-
-          - uses: EndBug/add-and-commit@v4 # You can change this to use a specific version
+          hugo -d public        
         
       - name: Commit output back to repo
+        uses: EndBug/add-and-commit@v4 # You can change this to use a specific version
         with:
 
           # The local path to the directory where your repository is located. You should use actions/checkout first to set it up
