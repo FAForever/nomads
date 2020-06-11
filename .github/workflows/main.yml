@@ -18,6 +18,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: gh-pages
+        run: echo PATH $PATH
       - name: Get hugo setup
         run: |
           npm init -y && npm install -y postcss-cli autoprefixer
