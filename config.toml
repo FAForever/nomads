@@ -1,0 +1,5 @@
+baseURL = "https://faforever.github.io/"
+copyright = "&copy;Nomads 2020"
+languageCode = "en-us"
+title = "Nomads"
+theme = "fuji"
