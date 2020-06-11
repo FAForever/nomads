@@ -2,13 +2,13 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on Nomads</title>
-    <link>https://faforever.github.io/categories/</link>
+    <link>https://faforever.github.io/nomads/categories/</link>
     <description>Recent content in Categories on Nomads</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy;Nomads 2020</copyright>
     
-	<atom:link href="https://faforever.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://faforever.github.io/nomads/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
   </channel>
