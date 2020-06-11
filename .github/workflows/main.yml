@@ -47,5 +47,6 @@ jobs:
               rm -rf public/*
           fi
           echo 'Build site'
+          npm init --yes
           npm ci
           hugo -d public
