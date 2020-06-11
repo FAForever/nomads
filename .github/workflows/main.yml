@@ -49,24 +49,14 @@ jobs:
           echo 'Build site'
           npm init --yes
           npm i
-          hugo -d public        
+          hugo -D
         
       - name: Commit output back to repo
         uses: EndBug/add-and-commit@v4 # You can change this to use a specific version
         with:
-
-          # The local path to the directory where your repository is located. You should use actions/checkout first to set it up
-          # Default: '.'
-          cwd: ${GITHUB_WORKSPACE}
-
-          # Whether to use the --force option on `git add`, in order to bypass eventual gitignores
-          # Default: false
-          force: true
-
           # The message for the commit
           # Default: 'Commit from GitHub Actions'
           message: 'HUGO Nomads website rebuilt'
-
         env:
           # This is necessary in order to push a commit to the repo
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Leave this line unchanged
