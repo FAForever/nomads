@@ -1,5 +1,5 @@
 # This workflow will build the nomads website
-
+# Run tests - WIP 
 name: Build Hugo nomads site
 
 # Triggers the workflow on push or pull request events for the gh-pages branch
