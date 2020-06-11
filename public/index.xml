@@ -11,5 +11,16 @@
 	<atom:link href="https://faforever.github.io/nomads/index.xml" rel="self" type="application/rss+xml" />
     
     
+    <item>
+      <title>Welcome!</title>
+      <link>https://faforever.github.io/nomads/</link>
+      <pubDate>Thu, 11 Jun 2020 11:35:19 -0700</pubDate>
+      
+      <guid>https://faforever.github.io/nomads/</guid>
+      <description>THIS WEBSITE IS STILL UNDER CONSTRUCTION, THINGS HERE MAY BE OUT OF DATE OF FORMATTED WEIRDLY Nomads This project is about bringing Nomads back as playable faction via featured mod and make a serious attempt to integrate them into the main game.
+We can use all the help we can get :
+ coding modelling texturing effects improving testing mission making giving feedback and much more!  To play the coop campaign see the coop missions repository here.</description>
+    </item>
+    
   </channel>
 </rss>
