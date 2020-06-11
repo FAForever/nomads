@@ -48,5 +48,5 @@ jobs:
           fi
           echo 'Build site'
           npm init --yes
-          npm ci
+          npm i
           hugo -d public
