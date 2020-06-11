@@ -19,7 +19,7 @@ jobs:
       - name: Check out gh-pages
         uses: actions/checkout@v2
         with:
-          ref: gh-pages
+          ref: github-build-pipeline-init
       - name: Get hugo setup
         run: |
           echo PATH $PATH
