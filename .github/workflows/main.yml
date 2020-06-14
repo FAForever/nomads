@@ -50,6 +50,8 @@ jobs:
           npm set init.author.name "nomads"
           npm init --yes
           npm i
+          git submodule init
+          git submodule update
           hugo -D
         
       - name: Commit output back to repo
