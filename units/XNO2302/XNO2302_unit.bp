@@ -45,7 +45,6 @@ UnitBlueprint {
         'NOMADS',
         'UNTARGETABLE',
         'NOFORMATION',
-        'SATELLITE',
         'VISIBLETORECON',
         --'SELECTABLE',
         'HIGHALTAIR',
