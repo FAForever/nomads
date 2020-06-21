@@ -159,7 +159,7 @@ XNL0001 = Class(ACUUnit) {
         self:ForkThread(self.GiveInitialResources)
         self:ForkThread(self.HeadRotationThread)
         self.AllowHeadRotation = true
-        self:ForkThread(self.DoMeteorAnim)
+        --self:ForkThread(self.DoMeteorAnim) --should only be used for testing out the drop animation
         self:ForkThread(self.RapidRepairCooldownThread)
     end,
     
