@@ -51,6 +51,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'OVERLAYMISC',
         'SORTSTRATEGIC',
+        'CARRIER',
     },
     CollisionOffsetY = 0,
     Defense = {
@@ -172,11 +173,10 @@ UnitBlueprint {
     StrategicIconName = 'icon_structure1_air',
     StrategicIconSortPriority = 175,
     Transport = {
-        Class2AttachSize = 2,
-        Class3AttachSize = 4,
-        DockingSlots = 4,
+        ClassGenericUpTo = 3,
+        --DockingSlots = 4,
         RepairRate = 0.1,
-        StorageSlots = 0,
+        StorageSlots = 10,
     },
     Wreckage = {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
