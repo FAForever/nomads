@@ -146,10 +146,9 @@ NDFPlasmaBeamWeapon = Class(DefaultBeamWeapon) {
 }
 
 --High velocity flak for use as TMD
-NAMFlakWeapon = Class(DefaultBeamWeapon) {
+NAMFlakWeapon = Class(DefaultProjectileWeapon) {
 --This has an amount of ammo stored. When its depleted, the weapon goes into a reload cycle.
 --When the weapon has no targets, it will also go into a reload cycle. Otherwise it will fire off its unfilled rack.
-    BeamType = NomadsCollisionBeamFile.HVFlakCollisionBeam,
     FxMuzzleFlash = {
         '/effects/emitters/cannon_muzzle_fire_01_emit.bp',
         --'/effects/emitters/cannon_muzzle_smoke_03_emit.bp',
@@ -159,13 +158,41 @@ NAMFlakWeapon = Class(DefaultBeamWeapon) {
         '/effects/emitters/cannon_muzzle_flash_08_emit.bp',
     },
     
+    -- This entirely overrides the default, since we need to ensure that the tmd never misses.
+    CreateProjectileAtMuzzle = function(self, muzzle)
+        local targetEntity = self:GetCurrentTarget()
+        if not targetEntity.GetPosition then return end --if the target is already dead then act as if we havent fired
+        
+        local bp = self:GetBlueprint()
+        
+        Damage(self.unit, targetEntity:GetPosition(), targetEntity, bp.Damage, bp.DamageType)
+        
+        --reduce the projectile count in the clip after dealing damage
+        self.ReloadLimitCounter = self.ReloadLimitCounter - 1
+        self.LastTimeFired = GetGameTick()
+        
+        --add a custom effect at the target location
+        for k, emitBP in NomadsEffectTemplate.MissileHitNone1 do
+            local fx = CreateEmitterOnEntity(targetEntity, self.Army, emitBP):ScaleEmitter(1)
+            self.Trash:Add(fx)
+        end
+        
+        --audio
+        if self.unit:GetCurrentLayer() == 'Water' and bp.Audio.FireUnderWater then
+            self:PlaySound(bp.Audio.FireUnderWater)
+        elseif bp.Audio.Fire then
+            self:PlaySound(bp.Audio.Fire)
+        end
+    end,
+    
     TMDEffectBones = {}, --Change these in the weapon script when hooking to the correct bones for that unit.
     MaxSalvoSize = 5, --Change this to the correct amount for the weapon.
     SalvoReloadTime = 1, --Change this to the correct amount for the weapon.
 
     OnCreate = function(self)
-        DefaultBeamWeapon.OnCreate(self)
+        DefaultProjectileWeapon.OnCreate(self)
         self.TAEffectsBag = TrashBag()
+        self.Trash = TrashBag()
         self.PlayingTAEffects = false
         self.ReloadLimitCounter = self.MaxSalvoSize
         self.LastTimeFired = GetGameTick()
@@ -173,11 +200,14 @@ NAMFlakWeapon = Class(DefaultBeamWeapon) {
     
     OnDestroy = function(self)
         self:DestroyTAEffects()
-        DefaultBeamWeapon.OnDestroy(self)
+        if self.Trash then
+            self.Trash:Destroy()
+        end
+        DefaultProjectileWeapon.OnDestroy(self)
     end,
     
     --track the last time the weapon fired. If its too soon and its out of ammo, make it reload.
-    RackSalvoFireReadyState = State(DefaultBeamWeapon.RackSalvoFireReadyState ) {
+    RackSalvoFireReadyState = State(DefaultProjectileWeapon.RackSalvoFireReadyState ) {
         Main = function(self)
             local ReloadTimeElapsed = GetGameTick() - self.LastTimeFired
             
@@ -190,27 +220,19 @@ NAMFlakWeapon = Class(DefaultBeamWeapon) {
                 self.ReloadLimitCounter = self.MaxSalvoSize
             end
             
-            DefaultBeamWeapon.RackSalvoFireReadyState.Main(self)
-        end,
-    },
-
-    RackSalvoFiringState = State(DefaultBeamWeapon.RackSalvoFiringState ) {
-        Main = function(self)
-            self.ReloadLimitCounter = self.ReloadLimitCounter - 1
-            self.LastTimeFired = GetGameTick()
-            DefaultBeamWeapon.RackSalvoFiringState.Main(self)
+            DefaultProjectileWeapon.RackSalvoFireReadyState.Main(self)
         end,
     },
     
     --add some effects when the weapon has a target
-    IdleState = State(DefaultBeamWeapon.IdleState) {
+    IdleState = State(DefaultProjectileWeapon.IdleState) {
         Main = function(self)
-            DefaultBeamWeapon.IdleState.Main(self)
+            DefaultProjectileWeapon.IdleState.Main(self)
             self:DestroyTAEffects()
         end,
         
         OnGotTarget = function(self)
-            DefaultBeamWeapon.OnGotTarget(self)
+            DefaultProjectileWeapon.OnGotTarget(self)
             self:PlayTAEffects()
         end,
     },
