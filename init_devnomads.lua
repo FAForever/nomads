@@ -65,12 +65,17 @@ mount_contents(SHGetFolderPath('PERSONAL') .. 'My Games\\Gas Powered Games\\Supr
 -- these are the local FAF directories. The My Games ones are only there for people with usernames that don't work in the upper ones.
 mount_contents(InitFileDir .. '\\..\\user\\My Games\\Gas Powered Games\\Supreme Commander Forged Alliance\\mods', '/mods')
 mount_contents(InitFileDir .. '\\..\\user\\My Games\\Gas Powered Games\\Supreme Commander Forged Alliance\\maps', '/maps')
+mount_dir(InitFileDir .. '\\..\\gamedata\\advanced strategic icons.nxt', '/') --load strategic icons on top of nomads
 mount_dir(dev_pathnomads, '/')
 mount_dir(dev_path, '/')
 mount_dir(dev_pathnomads .. '\\movies', '/')
 -- these are using the newly generated path from the dofile() statement at the beginning of this script
 mount_dir(fa_path .. '\\gamedata\\*.scd', '/')
 mount_dir(fa_path, '/')
+
+--load preferences into the game as well, letting us have much more control over their contents. This also includes cache and similar.
+mount_dir(SHGetFolderPath('LOCAL_APPDATA') .. 'Gas Powered Games\\Supreme Commander Forged Alliance', '/preferences')
+
 hook = {
     '/schook',
     '/nomadhook',
