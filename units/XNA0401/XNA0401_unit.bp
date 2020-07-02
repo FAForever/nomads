@@ -134,6 +134,8 @@ UnitBlueprint {
         },
         AnimationLand = '/units/XNA0401/XNA0401_Landing01.sca',
         AnimationHolder = '/units/XNA0401/XNA0401_HolderUnpack01.sca',
+        AnimationDeathL = '/units/XNA0401/Death_L.sca',
+        AnimationDeathR = '/units/XNA0401/Death_R.sca',
         ForcedBuildSpin = 0,
         IdleEffects = {
         },

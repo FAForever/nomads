@@ -113,7 +113,12 @@ XNA0401 = Class(NExperimentalAirTransportUnit) {
     CrashingThread = function(self)
         local explosionSide = {'Left', 'Right'}
         explosionSide = explosionSide[Random( 1, 2 )]
-
+        
+        self.DeathAnimManip = CreateAnimator(self)
+        self.DeathAnimManip:SetPrecedence(0)
+        self.Trash:Add(self.DeathAnimManip)
+        
+        
         if not self.DeathRotator then
             self.DeathRotator = CreateRotator( self, 0, 'z' )
             self.Trash:Add( self.DeathRotator )
@@ -123,16 +128,18 @@ XNA0401 = Class(NExperimentalAirTransportUnit) {
 
         -- bank and spiral out of control
         if explosionSide == 'Left' then
+            self.DeathAnimManip:PlayAnim(self:GetBlueprint().Display.AnimationDeathL):SetRate(1)
             self.DeathRotator:SetTargetSpeed(-700)
         else
+            self.DeathAnimManip:PlayAnim(self:GetBlueprint().Display.AnimationDeathR):SetRate(1)
             self.DeathRotator:SetTargetSpeed(700)
         end
         
         -- explode and hide all engines on the side we are banking towards
         for boneNumber = 1,4 do
             local boneName = 'EngineRotator'..explosionSide..'0'..boneNumber
-            Explosion.CreateDefaultHitExplosionAtBone( self, boneName, Random( 1, 4) )
-            self:HideBone(boneName, true)
+            -- Explosion.CreateDefaultHitExplosionAtBone( self, boneName, Random( 1, 4) )
+            -- self:HideBone(boneName, true)
         end
 
         -- create detector so we know when we hit the surface with what bone
