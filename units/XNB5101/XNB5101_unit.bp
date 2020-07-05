@@ -48,7 +48,7 @@ UnitBlueprint {
         SurfaceThreatLevel = 0,
         ThreatLevel = 0,
     },
-    Description = '<LOC XNB5101_desc>Wall',
+    Description = '<LOC XNB5101_desc>Wall Section',
     Display = {
         BuildEffect = {
             Scale = 0.19,

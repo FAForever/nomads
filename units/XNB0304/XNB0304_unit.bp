@@ -68,7 +68,7 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
     },
-    Description = '<LOC XNB0304_desc>SACU Factory',
+    Description = '<LOC XNB0304_desc>Quantum Gateway',
     Display = {
         BuildAttachBone = 'BuildAttachPoint',
         Mesh = {
