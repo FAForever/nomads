@@ -72,7 +72,7 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
     },
-    Description = '<LOC XNB4202_desc> Shield Generator',
+    Description = '<LOC XNB4202_desc>Shield Generator',
     Display = {
         Abilities = {
             '<LOC ability_shielddome>Shield Dome',
