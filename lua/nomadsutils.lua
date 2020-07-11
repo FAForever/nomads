@@ -350,6 +350,7 @@ function AddRapidRepair(SuperClass)
             self.RapidRepairCooldownTime = 0
             self.RapidRepairBonus = 0
             self.RapidRepairFxBag = TrashBag()
+            self:ForkThread(self.RapidRepairCooldownThread)
         end,
         
         --This custom timer function allows us to reset or partially delay the timer without killing the thread
@@ -377,7 +378,7 @@ function AddRapidRepair(SuperClass)
         StartRapidRepair = function(self)
             local bp = self:GetBlueprint()
             --calculate the total bonus - each upgrade slot can have its own bonus added.
-            self.RapidRepairBonus = bp.Defense.RapidRepairBonus + self.RapidRepairBonusArmL + self.RapidRepairBonusArmR + self.RapidRepairBonusBack
+            self.RapidRepairBonus = bp.Defense.RapidRepairBonus
             
             self:SetRapidRepairAmount(self.RapidRepairBonus)
 
@@ -392,14 +393,14 @@ function AddRapidRepair(SuperClass)
         end,
         
         SetRapidRepairAmount = function(self, RepairAmount)
-            local BuffName = 'NomadsACURapidRepair' .. RepairAmount
+            local BuffName = 'NomadsRapidRepair' .. RepairAmount
             
             --add a unique buff for that regen bonus number, which can include 0 to disable.
             if not Buffs[BuffName] then
                 BuffBlueprint {
                     Name = BuffName,
                     DisplayName = BuffName,
-                    BuffType = 'NomadsACURapidRepairRegen',
+                    BuffType = 'NomadsRapidRepairRegen',
                     Stacks = 'REPLACE',
                     Duration = -1,
                     Affects = {

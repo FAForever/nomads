@@ -84,6 +84,8 @@ XNL0001 = Class(ACUUnit) {
     -- CREATION AND FIRST SECONDS OF GAMEPLAY
 
     CapFxBones = { 'CapacitorL', 'CapacitorR', },
+    
+
 
     OnCreate = function(self)
         ACUUnit.OnCreate(self)
@@ -134,7 +136,6 @@ XNL0001 = Class(ACUUnit) {
         -- enhancements
         self:RemoveToggleCap('RULEUTC_SpecialToggle')
         self:AddBuildRestriction( categories.NOMADS * (categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER) )
-        --self:SetRapidRepairParams( 'NomadsACURapidRepair', bp.Enhancements.RapidRepair.RepairDelay, bp.Enhancements.RapidRepair.InterruptRapidRepairByWeaponFired)
         
         self.RapidRepairBonusArmL = 0 --one for each upgrade slot, letting us easily track upgrade changes.
         self.RapidRepairBonusArmR = 0 --one for each upgrade slot, letting us easily track upgrade changes.
@@ -160,7 +161,6 @@ XNL0001 = Class(ACUUnit) {
         self:ForkThread(self.HeadRotationThread)
         self.AllowHeadRotation = true
         --self:ForkThread(self.DoMeteorAnim) --should only be used for testing out the drop animation
-        self:ForkThread(self.RapidRepairCooldownThread)
     end,
     
     GetOrbitalUnit = function(self)
@@ -238,7 +238,7 @@ XNL0001 = Class(ACUUnit) {
             slider:SetSpeed(1)
         end
     end,
-        
+
     -- =====================================================================================================================
     -- EFFECTS AND ANIMATIONS
 
