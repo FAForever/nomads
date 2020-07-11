@@ -42,10 +42,6 @@ XNL0403 = Class(NExperimentalHoverLandUnit, SlowHover) {
         },
         FrontGattling01 = Class(GattlingWeapon1) {},
         FrontGattling02 = Class(GattlingWeapon1) {},
-        SideGunRight01 = Class(ParticleBlaster1) {},
-        SideGunRight02 = Class(ParticleBlaster1) {},
-        SideGunLeft01 = Class(ParticleBlaster1) {},
-        SideGunLeft02 = Class(ParticleBlaster1) {},
         AAGun = Class(MissileWeapon1) {},
     },
 
