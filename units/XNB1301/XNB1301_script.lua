@@ -2,6 +2,9 @@
 
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local NEnergyCreationUnit = import('/lua/nomadsunits.lua').NEnergyCreationUnit
+local AddRapidRepair = import('/lua/nomadsutils.lua').AddRapidRepair
+
+NEnergyCreationUnit = AddRapidRepair(NEnergyCreationUnit)
 
 XNB1301 = Class(NEnergyCreationUnit) {
 

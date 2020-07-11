@@ -1,6 +1,9 @@
 -- T2 land factory (support, non HQ)
 
 local NLandFactoryUnit = import('/lua/nomadsunits.lua').NLandFactoryUnit
+local AddRapidRepair = import('/lua/nomadsutils.lua').AddRapidRepair
+
+NLandFactoryUnit = AddRapidRepair(NLandFactoryUnit)
 
 ZNB9501 = Class(NLandFactoryUnit) {
 

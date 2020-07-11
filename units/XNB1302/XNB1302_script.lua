@@ -2,6 +2,9 @@
 
 local NMassCollectionUnit = import('/lua/nomadsunits.lua').NMassCollectionUnit
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
+local AddRapidRepair = import('/lua/nomadsutils.lua').AddRapidRepair
+
+NMassCollectionUnit = AddRapidRepair(NMassCollectionUnit)
 
 XNB1302 = Class(NMassCollectionUnit) {
 
