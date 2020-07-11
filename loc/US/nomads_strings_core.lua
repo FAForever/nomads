@@ -135,7 +135,7 @@ NomadsACUEnh_AreaReinforcement2_Description = "Allows the deployment of stationa
 NomadsACUEnh_AreaReinforcement2_Help = "Orbital Reinforcement"
 NomadsACUEnh_AreaReinforcement2_Remove = "Remove Orbital Reinforcement"
 
-NomadsACUEnh_GunUpgrade_Description = "Increases the Kinetic Cannon's damage output by several factors. Also increases the range of the Kinetic Cannon and Overcharge."
+NomadsACUEnh_GunUpgrade_Description = "Increases the Kinetic Cannon's power, adding area of effect damage. Also increases the range of the Kinetic Cannon and Overcharge."
 NomadsACUEnh_GunUpgrade_Help = "Antimatter Rounds"
 NomadsACUEnh_GunUpgrade_Remove = "Remove Antimatter Rounds"
 

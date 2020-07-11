@@ -7,7 +7,7 @@ Description = table.merged( Description, {
 
     -- enhancements
     ['xnl0001-aes'] = "<LOC Unit_Description_0005>Expands the number of available schematics and increases the ACU's build speed and maximum health.",
-    ['xnl0001-hamc'] = "<LOC NomadsACUEnh_GunUpgrade_Description>Increases main cannon's damage output by several factors. Also increases range of main cannon and overcharge.",
+    ['xnl0001-hamc'] = "<LOC NomadsACUEnh_GunUpgrade_Description>Increases the Kinetic Cannon's power, adding area of effect damage. Also increases the range of the Kinetic Cannon and Overcharge.",
     ['xnl0001-isb'] = "<LOC Unit_Description_0012>Increases ACU's resource generation to 30 mass per second or 3000 energy per second.",
     ['xnl0001-psg'] = "<LOC Unit_Description_0013>Creates a protective shield around the ACU. Requires Energy to run.",
     ['xnl0001-ees'] = "<LOC Unit_Description_0007>Replaces the Tech 2 Engineering Suite. Expands the number of available schematics and further increases the ACU's build speed and maximum health.",
