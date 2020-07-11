@@ -1,6 +1,9 @@
 -- T1 mex
 
 local NMassCollectionUnit = import('/lua/nomadsunits.lua').NMassCollectionUnit
+local AddRapidRepair = import('/lua/nomadsutils.lua').AddRapidRepair
+
+NMassCollectionUnit = AddRapidRepair(NMassCollectionUnit)
 
 XNB1103 = Class(NMassCollectionUnit) {
 

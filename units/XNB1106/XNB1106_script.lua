@@ -1,6 +1,9 @@
 -- mass storage
 
 local NMassStorageUnit = import('/lua/nomadsunits.lua').NMassStorageUnit
+local AddRapidRepair = import('/lua/nomadsutils.lua').AddRapidRepair
+
+NMassStorageUnit = AddRapidRepair(NMassStorageUnit)
 
 XNB1106 = Class(NMassStorageUnit) {
 
