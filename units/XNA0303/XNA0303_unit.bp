@@ -117,7 +117,7 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
     },
-    Description = '<LOC XNA0303_desc>Air-Superiority Fighter',
+    Description = '<LOC XNA0303_desc>Air Superiority Fighter',
     Display = {
         Abilities = {
             '<LOC ability_aa>Anti-Air',
