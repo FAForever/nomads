@@ -22,10 +22,12 @@ NIntelProbe1 = Class(Buoy1) {
     end,
     
     OnImpact = function(self, targetType, targetEntity)
-        self.Impacted = true
-        self.ProbeUnit.IntelAllowed = true
-        self.ProbeUnit:SetIntel()
-        ForkThread(self.ProbeUnit.LifetimeThread, self.ProbeUnit)
+        if targetType ~= 'Projectile' then
+            self.Impacted = true
+            self.ProbeUnit.IntelAllowed = true
+            self.ProbeUnit:SetIntel()
+            ForkThread(self.ProbeUnit.LifetimeThread, self.ProbeUnit)
+        end
         Buoy1.OnImpact(self, targetType, targetEntity)
     end,
     

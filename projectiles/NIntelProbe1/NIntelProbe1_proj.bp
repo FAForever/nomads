@@ -49,7 +49,7 @@ ProjectileBlueprint {
         UniformScale = 0.15,
     },
     General = {
-        Category = 'Direct Fire',
+        Category = 'Missile',
         EntityCategory = {
             'NOMADS',
             'PROJECTILE',
@@ -73,10 +73,10 @@ ProjectileBlueprint {
         MaxSpeed = 25,
         TrackTarget = false,  -- will be enabled by scripting, causes a problems otherwise
         TrackTargetGround = true,
-        TurnRate = 30,
+        TurnRate = 160,
         UseGravity = true,
         VelocityAlign = true,
-        MaxZigZag = 10,
+        MaxZigZag = 5,
         ZigZagFrequency = 0.1,
     },
     StrategicIconName = '/textures/ui/common/game/strategicicons/icon_intelprobe1.dds',
