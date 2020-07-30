@@ -390,6 +390,7 @@ function AddRapidRepair(SuperClass)
                 WaitTicks(1)
             end
             self.RapidRepairFxBag:Destroy()
+            self:SetRapidRepairAmount(0)
         end,
         
         SetRapidRepairAmount = function(self, RepairAmount)
