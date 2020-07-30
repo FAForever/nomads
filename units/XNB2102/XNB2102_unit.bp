@@ -185,7 +185,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
-            Damage = 35,
+            Damage = 20,
             DamageType = 'Normal',
             DisplayName = 'Particle Blaster',
             FireTargetLayerCapsTable = {
@@ -200,13 +200,18 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 45,
-            ProjectileId = '/projectiles/NIonBlastProj1/NIonBlastProj1_proj.bp',
+            ProjectileId = '/projectiles/NDarkMatter1/NDarkMatter1_proj.bp',
             ProjectileLifetimeUsesMultiplier = 1.25,
             ProjectilesPerOnFire = 1,
             RackBones = {
                 {
                     MuzzleBones = {
                         'Muzzle01',
+                    },
+                    RackBone = 'Turret_Pitch',
+                },
+                {
+                    MuzzleBones = {
                         'Muzzle02',
                     },
                     RackBone = 'Turret_Pitch',
@@ -220,7 +225,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
             RangeCategory = 'UWRC_AntiAir',
-            RateOfFire = 2,
+            RateOfFire = 3.5,
             TargetCheckInterval = 0.3,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
