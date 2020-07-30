@@ -397,13 +397,15 @@ NCommandUnit = Class(CommandUnit) {
         end
     end,
 
-    CreateReclaimEffects = function( self, target )
-        NomadsEffectUtil.PlayNomadsReclaimEffects( self, target, self:GetBlueprint().General.BuildBones.BuildEffectBones or {0,}, self.ReclaimEffectsBag )
-    end,
+    -- These are suspected of lagging up the game on higher speed replays so we need to test if thats true. Disabled temporarily.
+    
+    -- CreateReclaimEffects = function( self, target )
+        -- NomadsEffectUtil.PlayNomadsReclaimEffects( self, target, self:GetBlueprint().General.BuildBones.BuildEffectBones or {0,}, self.ReclaimEffectsBag )
+    -- end,
 
-    CreateReclaimEndEffects = function( self, target )
-        NomadsEffectUtil.PlayNomadsReclaimEndEffects( self, target, self.ReclaimEffectsBag )
-    end,
+    -- CreateReclaimEndEffects = function( self, target )
+        -- NomadsEffectUtil.PlayNomadsReclaimEndEffects( self, target, self.ReclaimEffectsBag )
+    -- end,
 }
 
 ---------------------------------------------------------------
@@ -435,13 +437,16 @@ NConstructionUnit = Class(ConstructionUnit) {
         end
     end,
 
-    CreateReclaimEffects = function(self, target)
-        NomadsEffectUtil.PlayNomadsReclaimEffects(self, target, self.BuildEffectBones, self.ReclaimEffectsBag)
-    end,
 
-    CreateReclaimEndEffects = function(self, target)
-        NomadsEffectUtil.PlayNomadsReclaimEndEffects(self, target, self.ReclaimEffectsBag)
-    end,
+    -- These are suspected of lagging up the game on higher speed replays so we need to test if thats true. Disabled temporarily.
+    
+    -- CreateReclaimEffects = function(self, target)
+        -- NomadsEffectUtil.PlayNomadsReclaimEffects(self, target, self.BuildEffectBones, self.ReclaimEffectsBag)
+    -- end,
+
+    -- CreateReclaimEndEffects = function(self, target)
+        -- NomadsEffectUtil.PlayNomadsReclaimEndEffects(self, target, self.ReclaimEffectsBag)
+    -- end,
 
     -- The code below for speed reduction and weapon disabling in water should be the same as the amphibious unit class, above
     OnKilled = function(self, instigator, type, overkillRatio)
