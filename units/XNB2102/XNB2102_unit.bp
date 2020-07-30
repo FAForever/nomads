@@ -73,7 +73,7 @@ UnitBlueprint {
                 Effects = {
                     {
                         Bones = {
-                            'INB2102',
+                            'XNB2102',
                         },
                         Type = 'SeaIdle02',
                     },
@@ -91,7 +91,7 @@ UnitBlueprint {
         },
         PlaceholderMeshName = 'UXB0002',
         SpawnRandomRotation = true,
-        UniformScale = 0.1,
+        UniformScale = 0.512,
     },
     Economy = {
         BuildCostEnergy = 1500,
@@ -206,13 +206,14 @@ UnitBlueprint {
             RackBones = {
                 {
                     MuzzleBones = {
-                        'muzzle',
+                        'Muzzle01',
+                        'Muzzle02',
                     },
-                    RackBone = 'barrel',
+                    RackBone = 'Turret_Pitch',
                 },
             },
             RackFireTogether = false,
-            RackRecoilDistance = -0.5,
+            RackRecoilDistance = 0,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
             RackSalvoReloadTime = 0,
@@ -235,9 +236,9 @@ UnitBlueprint {
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.4,
-            TurretBoneMuzzle = 'muzzle',
-            TurretBonePitch = 'barrel',
-            TurretBoneYaw = 'turret',
+            TurretBoneMuzzle = 'Muzzle01',
+            TurretBonePitch = 'Turret_Pitch',
+            TurretBoneYaw = 'Turret_Yaw',
             TurretDualManipulators = false,
             TurretPitch = 0,
             TurretPitchRange = 90,
@@ -259,9 +260,9 @@ UnitBlueprint {
         WreckageLayers = {
             Air = false,
             Land = true,
-            Seabed = true, #from false
-            Sub = true, #from false
-            Water = true, #from false
+            Seabed = true, --from false
+            Sub = true, --from false
+            Water = true, --from false
         },
     },
 }
