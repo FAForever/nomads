@@ -179,7 +179,7 @@ UnitBlueprint {
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
-            Damage = 30,
+            Damage = 33,
             DamageType = 'Normal',
             DisplayName = 'Gatling Cannon',
             FireTargetLayerCapsTable = {
