@@ -297,7 +297,7 @@ UnitBlueprint {
             MuzzleSalvoDelay = 2,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 5,
-            ProjectileId = '/projectiles/NTacticalMissile1_HighArc/NTacticalMissile1_HighArc_proj.bp',
+            ProjectileId = '/projectiles/NIFTacticalMissile01/NIFTacticalMissile01_proj.bp',
             ProjectileLifetime = 30,
             RackBones = {
                 {

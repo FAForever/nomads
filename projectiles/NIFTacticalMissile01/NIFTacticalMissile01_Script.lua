@@ -1,7 +1,7 @@
 local NIFCruiseMissile = import('/lua/nomadsprojectiles.lua').NIFCruiseMissile
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 
-NTacticalMissile1 = Class(NIFCruiseMissile) {
+NIFTacticalMissile01 = Class(NIFCruiseMissile) {
     FxImpactAirUnit = NomadsEffectTemplate.TacticalMissileHitAirUnit2,
     FxImpactLand = NomadsEffectTemplate.TacticalMissileHitLand2,
     FxImpactNone = NomadsEffectTemplate.TacticalMissileHitNone2,
@@ -46,4 +46,4 @@ NTacticalMissile1 = Class(NIFCruiseMissile) {
     end,
 }
 
-TypeClass = NTacticalMissile1
+TypeClass = NIFTacticalMissile01
