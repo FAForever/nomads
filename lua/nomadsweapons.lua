@@ -18,6 +18,39 @@ local RandomFloat = import('/lua/utilities.lua').GetRandomFloat
 
 --Autocannons
 
+NDFRotatingAutocannonWeapon = Class(DefaultProjectileWeapon) {
+    FxMuzzleFlash = {
+        '/effects/emitters/machinegun_muzzle_fire_01_emit.bp',
+        '/effects/emitters/machinegun_muzzle_fire_02_emit.bp',
+    },
+    
+    --add some effects when the weapon has a target
+    IdleState = State(DefaultProjectileWeapon.IdleState) {
+        Main = function(self)
+            DefaultProjectileWeapon.IdleState.Main(self)
+            if self.SpinManip then
+                self.SpinManip:SetTargetSpeed(0)
+                self:StopWeaponAmbientSound('SpinningLoop')
+                self:PlayWeaponSound('SpinningStop')
+            end
+        end,
+        
+        OnGotTarget = function(self)
+            DefaultProjectileWeapon.OnGotTarget(self)
+            if not self.SpinManip then 
+                self.SpinManip = CreateRotator(self.unit, 'Rotator', 'z', nil, 270, 180, 60)
+                self.unit.Trash:Add(self.SpinManip)
+            end
+            
+            if self.SpinManip then
+                self.SpinManip:SetTargetSpeed(self:GetBlueprint().GattlingBarrelRotationSpeed or 500)
+                self:PlayWeaponSound('SpinningStart')
+                self:PlayWeaponAmbientSound('SpinningLoop')  -- can use BarrelLoop as with other gatlings. See original OnStartTracking fn.
+            end
+        end,
+    }, 
+}
+
 --
 
 --Artillery
