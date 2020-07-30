@@ -219,7 +219,7 @@ NAMFlakWeapon = Class(DefaultProjectileWeapon) {
     end,
     
     TMDEffectBones = {}, --Change these in the weapon script when hooking to the correct bones for that unit.
-    MaxSalvoSize = 5, --Change this to the correct amount for the weapon.
+    MaxSalvoSize = 4, --Change this to the correct amount for the weapon.
     SalvoReloadTime = 1, --Change this to the correct amount for the weapon.
 
     OnCreate = function(self)
