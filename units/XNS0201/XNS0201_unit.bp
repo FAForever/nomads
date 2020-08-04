@@ -266,7 +266,7 @@ UnitBlueprint {
             Damage = 5,
             DamageRadius = 1.5,
             DamageType = 'Normal',
-            DisplayName = 'Energy Cannon',
+            DisplayName = 'Front Plasma Caster',
             DoTPulses = 12,
             DoTTime = 2,
             FireTargetLayerCapsTable = {
@@ -355,7 +355,7 @@ UnitBlueprint {
             Damage = 5,
             DamageRadius = 1.5,
             DamageType = 'Normal',
-            DisplayName = 'Energy Cannon',
+            DisplayName = 'Rear Plasma Caster',
             DoTPulses = 12,
             DoTTime = 2,
             FireTargetLayerCapsTable = {
