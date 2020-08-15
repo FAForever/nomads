@@ -300,7 +300,7 @@ UnitBlueprint {
             DamageFriendly = true,
             DamageRadius = 8,
             DamageType = 'Normal',
-            DisplayName = 'Fragment Bomb',
+            DisplayName = 'Hellfire Incendiary/Combustion Bomb',
             DoTPulses = 10,
             DoTTime = 2,
             EffectiveRadius = 25,

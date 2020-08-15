@@ -190,7 +190,7 @@ UnitBlueprint {
         TechLevel = 'RULEUTL_Advanced',
         ToggleCaps = {
         },
-        UnitName = '<LOC XNS0201_name>Firestorm Class',
+        UnitName = '<LOC XNS0201_name>Nightstorm Class',
         UnitWeight = 1,
     },
     Intel = {
@@ -266,7 +266,7 @@ UnitBlueprint {
             Damage = 5,
             DamageRadius = 1.5,
             DamageType = 'Normal',
-            DisplayName = 'Front Plasma Caster',
+            DisplayName = 'Front Antimatter Caster',
             DoTPulses = 12,
             DoTTime = 2,
             FireTargetLayerCapsTable = {
@@ -282,7 +282,7 @@ UnitBlueprint {
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 32,
             NotExclusive = true,
-            ProjectileId = '/projectiles/NEnergyProj2/NEnergyProj2_proj.bp',
+            ProjectileId = '/projectiles/NParticleBlast1/NParticleBlast1_proj.bp',
             ProjectilesPerOnFire = 1,
             RackBones = {
                 {
@@ -372,7 +372,7 @@ UnitBlueprint {
             MuzzleVelocity = 32,
             NotExclusive = true,
             PrefersPrimaryWeaponTarget = true,
-            ProjectileId = '/projectiles/NEnergyProj2/NEnergyProj2_proj.bp',
+            ProjectileId = '/projectiles/NParticleBlast1/NParticleBlast1_proj.bp',
             ProjectilesPerOnFire = 1,
             RackBones = {
                 {

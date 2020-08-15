@@ -412,7 +412,7 @@ UnitBlueprint {
             DamageRadius = 4,
             DamageToShields = 900,
             DamageType = 'Normal',
-            DisplayName = 'EMP Missiles',
+            DisplayName = 'Blackout EMP Missiles',
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
                 Water = 'Land|Water',
@@ -478,7 +478,7 @@ UnitBlueprint {
             CollideFriendly = false,
             Damage = 300,
             DamageType = 'Normal',
-            DisplayName = 'Torpedo',
+            DisplayName = 'Krakenwrath Torpedoes',
             FireTargetLayerCapsTable = {
                 Sub = 'Seabed|Sub|Water',
                 Water = 'Seabed|Sub|Water',

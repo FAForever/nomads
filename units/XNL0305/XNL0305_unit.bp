@@ -217,7 +217,7 @@ UnitBlueprint {
             DamageRadius = 1.5,
             DamageFriendly = false,
             DamageType = 'Normal',
-            DisplayName = 'Plasma Cannon',
+            DisplayName = 'Dual Plasma Cannons',
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
             },

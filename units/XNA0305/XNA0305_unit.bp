@@ -452,7 +452,7 @@ UnitBlueprint {
             Damage = 60,
             DamageRadius = 0,
             DamageType = 'Normal',
-            DisplayName = 'Missile (AA)',
+            DisplayName = 'Retaliator Missile',
             FireTargetLayerCapsTable = {
                 Air = 'Air|Land',
                 Land = 'Air|Land',

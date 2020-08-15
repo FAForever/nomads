@@ -302,7 +302,7 @@ UnitBlueprint {
             DamageFriendly = false,
             DamageRadius = 0.5,
             DamageType = 'Normal',
-            DisplayName = 'Artillery Rockets',
+            DisplayName = 'Skirmisher Artillery Rockets',
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
@@ -415,7 +415,7 @@ UnitBlueprint {
             CollideFriendly = false,
             Damage = 25,
             DamageType = 'Normal',
-            DisplayName = 'Rocket (AA)',
+            DisplayName = 'Light Combustion Rockets',
             EffectiveRadius = 0,
             FireTargetLayerCapsTable = {
                 Land = 'Air',

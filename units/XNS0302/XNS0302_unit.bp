@@ -82,7 +82,7 @@ UnitBlueprint {
         SubThreatLevel = 45,
         SurfaceThreatLevel = 180,
     },
-    Description = '<LOC XNS0302_desc>Battleship',
+    Description = '<LOC XNS0302_desc>Tech 3 Battleship',
     Display = {
         Abilities = {
             '<LOC ability_aa>Anti-Air',
@@ -304,7 +304,7 @@ UnitBlueprint {
             Damage = 250,
             DamageRadius = 2,
             DamageType = 'Normal',
-            DisplayName = 'Plasma Cannon',
+            DisplayName = 'Long Range Plasma Cannon',
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
             },
@@ -389,7 +389,7 @@ UnitBlueprint {
             Damage = 250,
             DamageRadius = 2,
             DamageType = 'Normal',
-            DisplayName = 'Plasma Cannon',
+            DisplayName = 'Long Range Plasma Cannon',
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
             },
@@ -472,7 +472,7 @@ UnitBlueprint {
             Damage = 10,
             DamageRadius = 1,
             DamageType = 'Normal',
-            DisplayName = 'Stingray',
+            DisplayName = 'Stingray Cannon',
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
             },
@@ -540,7 +540,7 @@ UnitBlueprint {
             Damage = 10,
             DamageRadius = 1,
             DamageType = 'Normal',
-            DisplayName = 'Stingray',
+            DisplayName = 'Stingray Cannon',
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
             },
@@ -688,7 +688,7 @@ UnitBlueprint {
             DamageRadius = 3,
             DamageType = 'Normal',
             DetonatesAtTargetHeight = true,
-            DisplayName = 'Rocket Flak',
+            DisplayName = 'Redsky Flak Rockets',
             FireTargetLayerCapsTable = {
                 Water = 'Air',
             },

@@ -83,7 +83,7 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 45,
     },
-    Description = '<LOC XNS0202_desc>Cruiser',
+    Description = '<LOC XNS0202_desc>Tech 2 Cruiser',
     Display = {
         Abilities = {
             '<LOC ability_aa>Anti-Air',
@@ -288,7 +288,7 @@ UnitBlueprint {
             CollideFriendly = false,
             Damage = 250,
             DamageType = 'Normal',
-            DisplayName = 'Missile (AA)',
+            DisplayName = 'Advanced Skyfire Missiles',
             FireTargetLayerCapsTable = {
                 Water = 'Air',
             },
@@ -414,7 +414,7 @@ UnitBlueprint {
             DamageRadius = 4,
             DamageToShields = 1200,
             DamageType = 'Normal',
-            DisplayName = 'EMP Cannon',
+            DisplayName = 'System-Crasher EMP Cannon',
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
             },

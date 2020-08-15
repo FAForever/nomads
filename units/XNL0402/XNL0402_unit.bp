@@ -100,7 +100,7 @@ UnitBlueprint {
     Description = '<LOC XNL0402_desc>Experimental Assault Tank',
     Display = {
         Abilities = {
-            '<LOC ability_amphibious>Amphibious',
+            '<LOC ability_hover>Hover',
             '<LOC ability_deathaoe>Volatile',
             '<LOC ability_transportable>Transportable',
         },
