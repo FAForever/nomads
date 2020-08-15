@@ -141,7 +141,7 @@ UnitBlueprint {
         FactionName = 'Nomads',
         Icon = 'land',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = '<LOC XNL0205_name>SkyShell',
+        UnitName = '<LOC XNL0205_name>Skyshell',
         UnitWeight = 1,
     },
     Intel = {
@@ -215,7 +215,7 @@ UnitBlueprint {
             DamageRadius = 3,
             DamageType = 'Normal',
             DetonatesAtTargetHeight = true,
-            DisplayName = 'Rocket Flak',
+            DisplayName = 'Flak Micro-Rocket Salvo',
             FireTargetLayerCapsTable = {
                 Land = 'Air',
                 Water = 'Air',

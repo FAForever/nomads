@@ -232,7 +232,7 @@ UnitBlueprint {
             DamageFriendly = true,
             DamageRadius = 3,
             DamageType = 'Normal',
-            DisplayName = 'Particle Blast Artillery',
+            DisplayName = 'Antimatter Projector',
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
             },

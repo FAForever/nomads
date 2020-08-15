@@ -59,7 +59,7 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 54,
     },
-    Description = '<LOC XNB2303_desc>Artillery Installation',
+    Description = '<LOC XNB2303_desc>Tech 2 Artillery Installation',
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -129,14 +129,14 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = '<LOC XNB2303_name>Fire Slinger',
+        UnitName = '<LOC XNB2303_name>Voidbringer',
         UnitWeight = 1,
     },
     Intel = {
         VisionRadius = 28,
     },
     Interface = {
-        HelpText = '<LOC XNB2303_help>Artillery Installation',
+        HelpText = '<LOC XNB2303_help>Tech 2 Artillery Installation',
     },
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.5,
@@ -205,7 +205,7 @@ UnitBlueprint {
             DamageType = 'Normal',
             DoTPulses = 10,
             DoTTime = 3,
-            DisplayName = 'Energy Cannon',
+            DisplayName = 'Heavy Antimatter Projector',
             EnergyDrainPerSecond = 100,
             EnergyRequired = 1000,
             FireTargetLayerCapsTable = {
@@ -223,7 +223,7 @@ UnitBlueprint {
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 26.13,
             MuzzleVelocityReduceDistance = 120,
-            ProjectileId = '/projectiles/NEnergyProj1/NEnergyProj1_proj.bp',
+            ProjectileId = '/projectiles/NParticleBlastArtilleryShell1/NParticleBlastArtilleryShell1_proj.bp',
             ProjectilesPerOnFire = 1,
             RackBones = {
                 {

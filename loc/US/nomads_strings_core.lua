@@ -533,13 +533,13 @@ xnl0202_name = "Brute"
 
 -- T2 EMP tank
 xnl0306_desc = "EMP Tank"
-xnl0306_help = "Equipped with EMP cannons that stun enemy units and deal additional damage to shields. Useful for supressing groups of enemies."
+xnl0306_help = "Equipped with EMP cannons that stun enemy units and deal additional damage to shields. Useful for suppressing groups of enemies."
 xnl0306_name = "Dominator"
 
 -- Air units
 -- T2 F/B
 xna0202_desc = "Fighter/Bomber"
-xna0202_help = "Multipurpose unit that can utilize its rocket launchers on against aerial or surface units."
+xna0202_help = "Multipurpose unit that can utilize its rocket launchers against aerial or surface units."
 xna0202_name = "Spitfire"
 
 -- T2 torpedo gunship
@@ -729,7 +729,7 @@ xna0303_name = "Thunder"
 
 -- Bomber
 xna0304_desc = "Strategic Bomber"
-xna0304_help = "Strategic bomber designed to destroy swathes of territory."
+xna0304_help = "Strategic bomber designed to destroy large swathes of territory."
 xna0304_name = "Red Rage"
 
 -- Gunship
@@ -741,7 +741,7 @@ xna0305_name = "Hornet"
 
 -- submarine
 xns0304_desc = "Tactical Submarine"
-xns0304_help = "Tactical Missile Submarine. Armed with long-range EMP missiles and torpedoes. Can build and launch tactical blackhole missile. Can fire while submerged."
+xns0304_help = "Tactical Missile Submarine. Armed with long-range EMP missiles and torpedoes. Can build and launch tactical blackhole missiles. Can fire while submerged."
 xns0304_name = "Leviathan Class"
 
 -- carrier
@@ -864,7 +864,7 @@ xnb2302_name = "Desolator"
 
 -- transport
 xna0401_desc = "Experimental Air Transport"
-xna0401_help = "Experimental transport. High transport capacity with the ability to carry most naval units, as well as the Beamer. Equipped with anti-air weaponry and light anti-surface gatling guns."
+xna0401_help = "Experimental transport. High transport capacity with the ability to carry most naval units, as well as certain experimental units. Equipped with anti-air weaponry and light anti-surface gatling guns."
 xna0401_name = "Altas"
 
 -- missile tank

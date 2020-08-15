@@ -72,7 +72,7 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 9,
     },
-    Description = '<LOC XNS0103_desc>Frigate',
+    Description = '<LOC XNS0103_desc>Tech 1 Frigate',
     Display = {
         Abilities = {
             '<LOC ability_aa>Anti-Air',
@@ -248,7 +248,7 @@ UnitBlueprint {
             Damage = 20,
             DamageRadius = 1,
             DamageType = 'Normal',
-            DisplayName = 'Stingray',
+            DisplayName = 'Stingray Cannon',
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
             },
@@ -321,7 +321,7 @@ UnitBlueprint {
             CollideFriendly = false,
             Damage = 14,
             DamageType = 'Normal',
-            DisplayName = 'Rocket (AA)',
+            DisplayName = 'Skybiter Rockets',
             EffectiveRadius = 0,
             FireTargetLayerCapsTable = {
                 Water = 'Air',

@@ -232,7 +232,7 @@ UnitBlueprint {
             Damage = 200,
             DamageRadius = 2,
             DamageType = 'Normal',
-            DisplayName = 'Missile (AA)',
+            DisplayName = 'Skyfire Missile',
             EffectiveRadius = 0,
             FireTargetLayerCapsTable = {
                 Land = 'Air',

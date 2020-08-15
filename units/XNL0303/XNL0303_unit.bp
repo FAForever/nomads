@@ -398,7 +398,7 @@ UnitBlueprint {
             DamageFriendly = false,
 			DamageRadius = 1.5,
             DamageType = 'Normal',
-            DisplayName = 'Rocket',
+            DisplayName = 'Ballistic Rocket',
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
