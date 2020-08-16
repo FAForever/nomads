@@ -17,7 +17,7 @@ ProjectileBlueprint {
             Scale = 0.5,
             Type = 'Small02',
         },
-        StrategicIconSize = 1,
+        StrategicIconSize = 2,
     },
     General = {
         Category = 'Direct Fire',
@@ -40,7 +40,7 @@ ProjectileBlueprint {
         LeadTarget = false,
         RotationalVelocity = 0,
         StayUpright = true,
-        UseGravity = false,
+        UseGravity = true,
         VelocityAlign = true,
     },
 }
