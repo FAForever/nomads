@@ -9,6 +9,9 @@ local RandomFloat = import('/lua/utilities.lua').GetRandomFloat
 local NomadsUtils = import('/lua/nomadsutils.lua')
 local RenameBeamEmitterToColoured = NomadsUtils.RenameBeamEmitterToColoured
 local CreateAttachedEmitterColoured = NomadsUtils.CreateAttachedEmitterColoured
+local AddRapidRepair = import('/lua/nomadsutils.lua').AddRapidRepair
+
+NLandUnit = AddRapidRepair(NLandUnit)
 
 XNL0402 = Class(NLandUnit) {
 
