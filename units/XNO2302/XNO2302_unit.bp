@@ -13,7 +13,7 @@ UnitBlueprint {
         LiftFactor = 100,
         MaxAirspeed = 10,
         StartTurnDistance = 250,
-    },	
+    },    
     Audio = {
         Destroyed = Sound {
             Bank = 'NomadsDestroy',
@@ -173,7 +173,7 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             AimsStraightOnDisable = true,
-            ArtilleryShieldBlocks = true,			
+            ArtilleryShieldBlocks = true,            
             Audio = {
                 FireSpecial = Sound {
                     Bank = 'NomadsWeapons',
@@ -184,7 +184,9 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_LowArc',
             CannotAttackGround = false,
             CollideFriendly = false,
-            Damage = 1000,
+            Damage = 200,
+            DoTTime = 2,
+            DoTPulses = 10,
             DamageFriendly = true,
             DamageRadius = 6,
             DamageType = 'Normal',
@@ -194,15 +196,16 @@ UnitBlueprint {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
             },
-            FiringRandomness = 0.7,
+            FiringRandomness = 1.5,
             FiringTolerance = 180,
+            InitialDamage = 1500,
             Label = 'MainGun',
             ManualFire = true,
             MaxRadius = 825,
             MinRadius = 150,
             MuzzleChargeDelay = 0.5, --This should be set to the amount of time to turn half of a circle - this also means that turn rate should be high.
             MuzzleSalvoDelay = 0.1,
-            MuzzleSalvoSize = 6,
+            MuzzleSalvoSize = 3,
             MuzzleVelocity = 70,
             ProjectileId = '/projectiles/NArtilleryShell2/NArtilleryShell2_proj.bp',
             ProjectileLifetimeUsesMultiplier = 1.75,
