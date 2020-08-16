@@ -271,7 +271,7 @@ UnitBlueprint {
             Damage = 6,
             DamageRadius = 1,
             DamageType = 'Normal',
-            DisplayName = 'Dark matter Gun',
+            DisplayName = 'Dark Matter Gun',
             FireTargetLayerCapsTable = {
                 Air = 'Air|Land|Water|Seabed',
                 Land = 'Air|Land|Water|Seabed',

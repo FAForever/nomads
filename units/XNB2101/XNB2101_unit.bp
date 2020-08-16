@@ -181,7 +181,7 @@ UnitBlueprint {
             CollideFriendly = false,
             Damage = 33,
             DamageType = 'Normal',
-            DisplayName = 'Gatling Cannon',
+            DisplayName = 'Shredder Gatling Cannon',
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',

@@ -414,7 +414,7 @@ UnitBlueprint {
             DamageRadius = 4,
             DamageToShields = 1200,
             DamageType = 'Normal',
-            DisplayName = 'System-Crasher EMP Cannon',
+            DisplayName = 'Paralyzer Mk. 2 EMP Cannon',
             FireTargetLayerCapsTable = {
                 Water = 'Land|Water|Seabed',
             },

@@ -1,4 +1,4 @@
--- T4 experimental transport Altas
+-- T4 experimental transport Atlas
 
 UnitBlueprint {
     AI = {
@@ -196,7 +196,7 @@ UnitBlueprint {
         Icon = 'air',
         SelectionPriority = 2,
         TechLevel = 'RULEUTL_Experimental',
-        UnitName = '<LOC XNA0401_name>Altas',
+        UnitName = '<LOC XNA0401_name>Atlas',
         UnitWeight = 1,
     },
     Intel = {
@@ -280,7 +280,7 @@ UnitBlueprint {
             CollideFriendly = false,
             Damage = 40,
             DamageType = 'Normal',
-            DisplayName = 'All-purpose Chaingun Array',
+            DisplayName = 'Armageddon Chaingun Array',
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
@@ -358,7 +358,7 @@ UnitBlueprint {
             CollideFriendly = false,
             Damage = 40,
             DamageType = 'Normal',
-            DisplayName = 'All-purpose Chaingun Array',
+            DisplayName = 'Armageddon Chaingun Array',
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
@@ -436,7 +436,7 @@ UnitBlueprint {
             CollideFriendly = false,
             Damage = 40,
             DamageType = 'Normal',
-            DisplayName = 'All-purpose Chaingun Array',
+            DisplayName = 'Armageddon Chaingun Array',
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
@@ -514,7 +514,7 @@ UnitBlueprint {
             CollideFriendly = false,
             Damage = 40,
             DamageType = 'Normal',
-            DisplayName = 'All-purpose Chaingun Array',
+            DisplayName = 'Armageddon Chaingun Array',
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
