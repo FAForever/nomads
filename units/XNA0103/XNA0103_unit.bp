@@ -291,7 +291,7 @@ UnitBlueprint {
             DamageFriendly = true,
             DamageRadius = 2,
             DamageType = 'Normal',
-            DisplayName = 'Rocket',
+            DisplayName = 'Scorcher Combustion Rockets',
             FireTargetLayerCapsTable = {
                 Air = 'Land|Water|Seabed',
                 Land = 'Land|Water|Seabed',

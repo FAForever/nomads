@@ -122,7 +122,7 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 4,
     },
-    Description = '<LOC XNA0202_desc>Fighter/Bomber',
+    Description = '<LOC XNA0202_desc>Tech 2 Fighter/Bomber',
     Display = {
         Abilities = {
             '<LOC ability_aa>Anti-Air',
@@ -306,7 +306,7 @@ UnitBlueprint {
             DamageFriendly = false,
             DamageRadius = 0,
             DamageType = 'Normal',
-            DisplayName = 'Missile (AA)',
+            DisplayName = 'Vengeance Missiles',
             FireTargetLayerCapsTable = {
                 Air = 'Air|Land|Water',
                 Land = 'Air|Land|Water',
@@ -390,7 +390,7 @@ UnitBlueprint {
             Damage = 100,
             DamageRadius = 1.5,
             DamageType = 'Normal',
-            DisplayName = 'Missile (AG)',
+            DisplayName = 'Inferno Incendiary Missiles',
             FireTargetLayerCapsTable = {
                 Air = 'Land|Seabed|Water',
                 Land = 'Land|Seabed|Water',
