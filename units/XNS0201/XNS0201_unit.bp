@@ -282,7 +282,7 @@ UnitBlueprint {
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 32,
             NotExclusive = true,
-            ProjectileId = '/projectiles/NParticleBlast1/NParticleBlast1_proj.bp',
+            ProjectileId = '/projectiles/NParticleBlast2/NParticleBlast2_proj.bp',
             ProjectilesPerOnFire = 1,
             RackBones = {
                 {

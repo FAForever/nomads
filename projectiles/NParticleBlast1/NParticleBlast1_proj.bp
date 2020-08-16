@@ -33,7 +33,7 @@ ProjectileBlueprint {
         HelpText = 0,
     },
     Physics = {
-        DestroyOnWater = false,
+        DestroyOnWater = true,
         InitialSpeed = 35,
         VelocityAlign = true,
         UseGravity = true, -- should make unit not get stuck shooting AA
