@@ -201,7 +201,7 @@ UnitBlueprint {
             MaxRadius = 50,
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
-            MuzzleVelocity = 40,
+            MuzzleVelocity = 60,
             ProjectileId = '/projectiles/NKineticRound1/NKineticRound1_proj.bp',
             ProjectileLifetimeUsesMultiplier = 1.15,
             ProjectilesPerOnFire = 1,
