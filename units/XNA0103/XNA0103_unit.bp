@@ -287,7 +287,7 @@ UnitBlueprint {
             AutoInitiateAttackCommand = true,
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
-            Damage = 30,
+            Damage = 50,
             DamageFriendly = true,
             DamageRadius = 2,
             DamageType = 'Normal',
@@ -302,12 +302,12 @@ UnitBlueprint {
             LeadTarget = true,
             MaxRadius = 28,
             MinRadius = 8,
-            MuzzleSalvoDelay = 0.05,
-            MuzzleSalvoSize = 5,
+            MuzzleSalvoDelay = 0.1,
+            MuzzleSalvoSize = 6,
             MuzzleVelocity = 10,
             ProjectileId = '/projectiles/NRocketProj3/NRocketProj3_proj.bp',
             ProjectileLifetimeUsesMultiplier = 1.25,
-            ProjectilesPerOnFire = 2,
+            ProjectilesPerOnFire = 1,
             RackBones = {
                 {
                     MuzzleBones = {
@@ -315,14 +315,8 @@ UnitBlueprint {
                     },
                     RackBone = 'muzzle.001',
                 },
-				{
-                    MuzzleBones = {
-                        'muzzle.001',
-                    },
-                    RackBone = 'muzzle.002',
-                },
             },
-            RackFireTogether = true,
+            RackFireTogether = false,
             RackRecoilDistance = 0,
             RackReloadTimeout = 0,
             RackSalvoChargeTime = 0,
