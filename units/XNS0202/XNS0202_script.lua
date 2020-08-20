@@ -4,7 +4,6 @@ local AddNavalLights = import('/lua/nomadsutils.lua').AddNavalLights
 local NSeaUnit = import('/lua/nomadsunits.lua').NSeaUnit
 local RocketWeapon1 = import('/lua/nomadsweapons.lua').RocketWeapon1
 local EMPGun = import('/lua/nomadsweapons.lua').EMPGun
-local TacticalMissileWeapon1 = import('/lua/nomadsweapons.lua').TacticalMissileWeapon2
 
 NSeaUnit = AddNavalLights(NSeaUnit)
 
@@ -20,7 +19,6 @@ XNS0202 = Class(NSeaUnit) {
                 end
             end,
         },
-        CruiseMissile = Class(TacticalMissileWeapon1) {},
     },
 
     LightBone_Left = 'Light2',
