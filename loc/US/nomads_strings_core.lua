@@ -562,7 +562,7 @@ xns0201_name = "Firestorm Class"
 
 -- cruiser
 xns0202_desc = "Cruiser"
-xns0202_help = "Mid-tier cruiser. Equipped with anti-air missiles and a manual tactical missile launcher. Armed with an EMP weapon that deals additional damage to shields and suppresses enemy forces."
+xns0202_help = "Mid-tier cruiser. Equipped with anti-air missiles and EMP weapon that deals additional damage to shields and suppresses enemy forces."
 xns0202_name = "Mercenary Class"
 
 -- torpedo boat
