@@ -10,7 +10,7 @@ NMissileProj2_aa = Class(NMissileProj2) {
     end,
 
     StageThread = function(self)
-        WaitSeconds(0.2)
+        WaitSeconds(0.1)
         self:SetTurnRate(self:GetBlueprint().Physics.TurnRate)
     end,
 }
