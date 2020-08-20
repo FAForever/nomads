@@ -33,7 +33,7 @@ ProjectileBlueprint {
                 },
             },
         },
-        StrategicIconSize = 1,
+        StrategicIconSize = 2,
         UniformScale = 0.3,
     },
     General = {
