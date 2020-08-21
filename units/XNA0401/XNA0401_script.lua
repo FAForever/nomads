@@ -5,6 +5,9 @@ local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local NExperimentalAirTransportUnit = import('/lua/nomadsunits.lua').NExperimentalAirTransportUnit
 local DarkMatterWeapon1 = import('/lua/nomadsweapons.lua').DarkMatterWeapon1
 local MissileWeapon1 = import('/lua/nomadsweapons.lua').MissileWeapon1
+local AddRapidRepair = import('/lua/nomadsutils.lua').AddRapidRepair
+
+NExperimentalAirTransportUnit = AddRapidRepair(NExperimentalAirTransportUnit)
 
 XNA0401 = Class(NExperimentalAirTransportUnit) {
 
