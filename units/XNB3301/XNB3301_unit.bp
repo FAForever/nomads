@@ -137,7 +137,7 @@ UnitBlueprint {
         BuildCostMass = 2400,
         BuildTime = 2575,
         MaintenanceConsumptionPerSecondEnergy = 2000,
-        MaintenanceConsumptionPerSecondEnergyBoosted = 8000,
+        MaintenanceConsumptionPerSecondEnergyBoosted = 6000,
         RebuildBonusIds = {
             'xnb3301',
         },
@@ -188,9 +188,9 @@ UnitBlueprint {
     },
     Intel = {
         OmniRadius = 200,
-        OmniRadiusBoosted = 300,
+        OmniRadiusBoosted = 250,
         RadarRadius = 600,
-        RadarRadiusBoosted = 900,
+        RadarRadiusBoosted = 750,
         ShowIntelOnSelect = true,
         VisionRadius = 30,
     },
