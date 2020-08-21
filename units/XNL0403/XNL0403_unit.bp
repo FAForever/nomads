@@ -39,7 +39,7 @@ UnitBlueprint {
             Cue = 'Expl_Water_Lrg_01',
             LodCutoff = 'UnitMove_LodCutoff',
         },
-		NuclearLaunchDetected = Sound {
+        NuclearLaunchDetected = Sound {
             Bank = 'XGG',
             Cue = 'Computer_Computer_MissileLaunch_01351',
         },
@@ -382,7 +382,7 @@ UnitBlueprint {
     SelectionThickness = 0.3,
     SizeX = 5, -- keep 5 or higher to make sure the unit can move through structures
     SizeY = 1.8,
-    SizeZ = 10,	
+    SizeZ = 10,
     SpecialAbilities = {
         LaunchNuke = {
             AreaOfEffect = 40,
@@ -433,12 +433,12 @@ UnitBlueprint {
             MuzzleVelocity = 14.5,
             NotExclusive = true,
             ProjectileId = '/projectiles/NTacticalMissile2/NTacticalMissile2_proj.bp',
-            ProjectileLifetime = 13.5,
+            ProjectileLifetime = 18,
             ProjectilesPerOnFire = 1,
             RackBones = {
                 {
                     MuzzleBones = {
-					    'rocket_left',
+                        'rocket_left',
                         'rocket_left.001',
                         'rocket_left.002',
                         'rocket_left.003',
@@ -752,7 +752,7 @@ UnitBlueprint {
             Turreted = false,
             WeaponCategory = 'Anti Air',
         },
-		{
+        {
             AboveWaterTargetsOnly = true,
             Audio = {
                 Fire = Sound {
