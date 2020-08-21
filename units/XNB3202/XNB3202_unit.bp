@@ -112,7 +112,7 @@ UnitBlueprint {
             'xnb3302',
         },
         MaintenanceConsumptionPerSecondEnergy = 100,
-        MaintenanceConsumptionPerSecondEnergyBoosted = 400,
+        MaintenanceConsumptionPerSecondEnergyBoosted = 300,
         RebuildBonusIds = {
             'xnb3202',
         },
@@ -164,7 +164,7 @@ UnitBlueprint {
     Intel = {
         ShowIntelOnSelect = true,
         SonarRadius = 230,
-        SonarRadiusBoosted = 345,
+        SonarRadiusBoosted = 285,
         VisionRadius = 25,
     },
     Interface = {
