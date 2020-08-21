@@ -1,0 +1,72 @@
+ProjectileBlueprint {
+    Audio = {
+        Impact = Sound {
+            Bank = 'NomadsProjectiles',
+            Cue = 'Rocket3_Impact',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+        ImpactWater = Sound {
+            Bank = 'Impacts',
+            Cue = 'Impact_Water_Splash_UEF',
+            LodCutoff = 'Weapon_LodCutoff',
+        },
+    },
+    Categories = {
+        'NOMADS',
+        'PROJECTILE',
+        'INDIRECTFIRE',
+        'TACTICAL',
+        'MISSILE',
+        'NOSPLASHDAMAGE',
+    },
+    Defense = {
+        Health = 2,
+        MaxHealth = 2,
+    },
+    Display = {
+        --ImpactEffects = {
+        --    Type = 'Medium01',
+        --},
+        Mesh = {
+            LODs = {
+                {
+                    AlbedoName = '/projectiles/NTacticalMissile1/NTacticalMissile1_albedo.dds',
+                    LODCutoff = 150,
+                    MeshName = '/projectiles/NTacticalMissile1/NTacticalMissile1_lod0.scm',
+                    ShaderName = 'TMeshAlpha',
+                },
+            },
+        },
+        StrategicIconSize = 3,
+        UniformScale = 0.2,
+    },
+    General = {
+        Category = 'Missile',
+        Faction = 'NOMADS',
+        EntityCategory = {
+            'NOMADS',
+            'PROJECTILE',
+            'INDIRECTFIRE',
+            'TACTICAL',
+            'MISSILE',
+        },
+    },
+    Interface = {
+        HelpText = 0,
+    },
+    Physics = {
+        Acceleration = 1,
+        DestroyOnWater = true,
+        InitialSpeed = 14,
+        LeadTarget = false,
+        LifetimeAfterTargetLost = 8,
+        MaxSpeed = 30,
+        MaxZigZag = 2,
+        TrackTarget = true,
+        TrackTargetGround = true,
+        TurnRate = 80,
+        UseGravity = false,
+        VelocityAlign = true,
+        ZigZagFrequency = 10,
+    },
+}

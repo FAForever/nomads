@@ -419,7 +419,7 @@ UnitBlueprint {
             DamageFriendly = true,
             DamageRadius = 4,
             DamageType = 'Normal',
-            DisplayName = 'Tactical Rocket Artillery',
+            DisplayName = 'Tactical Missile Artillery',
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
                 Water = 'Land|Water',
@@ -432,7 +432,7 @@ UnitBlueprint {
             MuzzleSalvoSize = 12,
             MuzzleVelocity = 14.5,
             NotExclusive = true,
-            ProjectileId = '/projectiles/NTacticalMissile2/NTacticalMissile2_proj.bp',
+            ProjectileId = '/projectiles/NTacticalMissile4/NTacticalMissile4_proj.bp',
             ProjectileLifetime = 13.5,
             ProjectilesPerOnFire = 1,
             RackBones = {
