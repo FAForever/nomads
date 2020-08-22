@@ -50,14 +50,9 @@ UnitBlueprint {
         'INDIRECTFIRE',
         'ANTIAIR',
         'DEFENSIVEBOAT',
-        'INTELLIGENCE',
-        'RADAR',
-        'SONAR',
         'VISIBLETORECON',
         'RECLAIMABLE',
         'OVERLAYANTIAIR',
-        'OVERLAYRADAR',
-        'OVERLAYSONAR',
         'OVERLAYINDIRECTFIRE',
     },
     CollisionOffsetY = -0.4,
@@ -72,12 +67,10 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 9,
     },
-    Description = '<LOC XNS0104_desc>Tech 1 Artillery Boat',
+    Description = '<LOC XNS0104_desc>Artillery Boat',
     Display = {
         Abilities = {
             '<LOC ability_aa>Anti-Air',
-            '<LOC ability_radar>Radar',
-            '<LOC ability_sonar>Sonar',
         },
         IdleEffects = {
             Water = {
@@ -158,7 +151,7 @@ UnitBlueprint {
         SizeZ = 6,
     },
     General = {
-        Category = 'Ship',
+        Category = 'Anti Air',
         Classification = 'RULEUC_MilitaryShip',
         CommandCaps = {
             RULEUCC_Attack = true,
@@ -181,10 +174,7 @@ UnitBlueprint {
         UnitWeight = 1,
     },
     Intel = {
-        RadarRadius = 80,
-        SonarRadius = 18,
         VisionRadius = 32,
-        WaterVisionRadius = 16,
     },
     Interface = {
         HelpText = '<LOC XNS0104_help>Artillery Boat',
@@ -224,7 +214,7 @@ UnitBlueprint {
     SizeX = 0.6,
     SizeY = 1.1,
     SizeZ = 4.3,
-    StrategicIconName = 'icon_ship1_intel',
+    StrategicIconName = 'icon_ship1_antiair',
     StrategicIconSortPriority = 165,
     Veteran = {
         Level1 = 6,
