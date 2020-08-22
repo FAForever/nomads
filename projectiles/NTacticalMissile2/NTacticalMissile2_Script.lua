@@ -15,17 +15,13 @@ NTacticalMissile2 = Class(NIFCruiseMissile) {
 
     StageThread = function(self)
         WaitSeconds(1 +Random(0,100)*0.01)
-        self:SetTurnRate(self:GetBlueprint().Physics.TurnRate)
-        WaitSeconds(2)
         self:SetNewTargetGround({self.TargetPos[1],self.TargetPos[2],self.TargetPos[3]})
         self:SetTurnRateByDist()
     end,
     
     SetTurnRateByDist = function(self)
         local dist = self:GetDistanceToTarget()
-        if dist > 150 then
-            self:SetTurnRate(25)
-        elseif dist > 100 and dist <= 150 then
+        if dist > 100 then
             self:SetTurnRate(50)
         elseif dist > 50 and dist <= 100 then
             self:SetTurnRate(75)
