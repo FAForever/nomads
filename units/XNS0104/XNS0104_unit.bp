@@ -105,18 +105,16 @@ UnitBlueprint {
                 Effects = {
                     {
                         Bones = {
-                            --'Front_Left_Wake',
-                            'wake',
+                            'Wake05',
                         },
-                        Scale = 0.5,
+                        Scale = 1.5,
                         Type = 'LeftFrontWake',
                     },
                     {
                         Bones = {
-                            --'Front_Right_Wake',
-                            'wake',
+                            'Wake04',
                         },
-                        Scale = 0.5,
+                        Scale = 1.5,
                         Type = 'RightFrontWake',
                     },
                     {
@@ -124,14 +122,6 @@ UnitBlueprint {
                             'Wake01',
                         },
                         Scale = 0.5,
-                        Type = 'BackWake',
-                    },
-                    {
-                        Bones = {
-                            'exhaust.001',
-                            'exhaust.002',
-                        },
-                        Scale = 1.5,
                         Type = 'BackWake',
                     },
                 },
