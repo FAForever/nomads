@@ -1,20 +1,19 @@
 -- T1 frigate
 
-local AddNavalLights = import('/lua/nomadsutils.lua').AddNavalLights
 local NSeaUnit = import('/lua/nomadsunits.lua').NSeaUnit
-local StingrayCannon1 = import('/lua/nomadsweapons.lua').StingrayCannon1
-local RocketWeapon1 = import('/lua/nomadsweapons.lua').RocketWeapon1
-
-NSeaUnit = AddNavalLights(NSeaUnit)
+local NDFRotatingAutocannonWeapon = import('/lua/nomadsweapons.lua').NDFRotatingAutocannonWeapon
+local NAMFlakWeapon = import('/lua/nomadsweapons.lua').NAMFlakWeapon
 
 XNS0103 = Class(NSeaUnit) {
     Weapons = {
-        MainGun = Class(StingrayCannon1) {},
-        AAGun = Class(RocketWeapon1) {},
+        MainGun = Class(NDFRotatingAutocannonWeapon) {
+            FxMuzzleScale = 2.25,
+        },
+        TMD01 = Class(NAMFlakWeapon) {
+            TMDEffectBones = {'TMD_Targeter01','TMD_Targeter02',},
+            SalvoReloadTime = 1.4, --Change this to the correct amount for the weapon.
+        },
     },
-
-    LightBone_Left = 'light.002',
-    LightBone_Right = 'light.001',
 }
 
 TypeClass = XNS0103
