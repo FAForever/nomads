@@ -42,7 +42,7 @@ ProjectileBlueprint {
             },
         },
         StrategicIconSize = 2,
-        UniformScale = 1,
+        UniformScale = 0.5,
     },
     General = {
         Category = 'MISSILE',

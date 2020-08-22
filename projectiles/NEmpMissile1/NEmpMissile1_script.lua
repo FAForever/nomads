@@ -5,12 +5,14 @@ NEmpMissile1 = Class(EMPMissile) {
 
     OnCreate = function(self, inWater)
         self:SetTurnRate(0)
+        self:SetCollisionShape('Sphere', 0, 0, 0, 3.0)
         EMPMissile.OnCreate(self, inWater)
         self:ForkThread(self.MovementThread)        
     end,
     
     MovementThread = function(self)
-        self.WaitTime = 0.1
+        WaitSeconds(1.5)
+        self:SetDestroyOnWater(true)
         self:SetNewTargetGround(RandomOffsetTrackingTarget(self, 10))
         self:SetTurnRate(8)
         WaitSeconds(0.3)        
@@ -22,17 +24,13 @@ NEmpMissile1 = Class(EMPMissile) {
 
     SetTurnRateByDist = function(self)
         local dist = self:GetDistanceToTarget()
-        if dist > 50 then        
-            WaitSeconds(2)
-            self:SetTurnRate(40)
-        elseif dist > 64 and dist <= 107 then
-            self:SetTurnRate(60)
-            WaitSeconds(1.5)
-            self:SetTurnRate(80)
-        elseif dist > 21 and dist <= 53 then
-            WaitSeconds(0.3)
+        if dist > 128 then       
+            self:SetTurnRate(25)
+        elseif dist > 64 and dist <= 128 then
+            self:SetTurnRate(50)
+        elseif dist > 16 and dist <= 64 then
             self:SetTurnRate(100)
-        elseif dist > 0 and dist <= 21 then          
+        elseif dist > 0 and dist <= 16 then          
             self:SetTurnRate(200)   
             KillThread(self.MoveThread)         
         end
