@@ -285,6 +285,11 @@ UnitBlueprint {
             TurretYawSpeed = 180,
             Turreted = true,
             WeaponCategory = 'Missile',
+            WeaponRepackTimeout = 2,
+            WeaponUnpackAnimation = '/units/XNL0103/XNL0103_Unpack.sca',
+            WeaponUnpackAnimationRate = 1.5,
+            WeaponUnpackLocksMotion = false,
+            WeaponUnpacks = true,
         },
         {
             AboveWaterTargetsOnly = true,

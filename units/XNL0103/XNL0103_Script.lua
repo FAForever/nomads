@@ -20,25 +20,6 @@ XNL0103 = Class(NLandUnit) {
         NLandUnit.OnCreate(self)
         self:SetScriptBit('RULEUTC_SpecialToggle', true)
         self:SetWeaponAAMode(false)
-        --the AA and artillery weapons share the same unpack animation, so when switching between them things dont go wrong
-        if not self.AnimationManipulator then
-            self.AnimationManipulator = CreateAnimator(self):PlayAnim('/units/XNL0103/XNL0103_Unpack.sca'):SetRate(0)
-            self.Trash:Add(self.AnimationManipulator)
-        end
-    end,
-    
-    OnGotTarget = function(self, Weapon)
-        if Weapon:GetBlueprint().Label ~= 'TargetPainter' and self.AnimationManipulator then
-                self.AnimationManipulator:SetRate(1.5)
-        end
-        NLandUnit.OnGotTarget(self, Weapon)
-    end,
-    
-    OnLostTarget = function(self, Weapon)
-        if self.AnimationManipulator and not (self:GetWeapon(2):WeaponHasTarget() or self:GetWeapon(3):WeaponHasTarget()) then
-            self.AnimationManipulator:SetRate(-1.5)
-        end
-        NLandUnit.OnLostTarget(self, Weapon)
     end,
     
     --TODO:make these more refined
