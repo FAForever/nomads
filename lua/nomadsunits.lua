@@ -223,6 +223,84 @@ NExperimentalAirTransportUnit = Class(NAirTransportUnit) {
 ---------------------------------------------------------------
 NLandUnit = Class(LandUnit) {}
 
+
+---------------------------------------------------------------
+--  TOGGLE WEAPON UNITS
+---------------------------------------------------------------
+--units that have antiair/artillery weapons. use with parents.
+NTogglingUnit = Class() {
+--[[
+--This needs to go into the child class of any unit using this to set it up for the first time.
+--Also make sure the weapon classes are correct.
+    OnCreate = function(self)
+        NLandUnit.OnCreate(self)
+        self:SetScriptBit('RULEUTC_SpecialToggle', true)
+        self:SetWeaponAAMode(false)
+    end,
+
+    EnableSpecialToggle = NTogglingUnit.EnableSpecialToggle, --prevent ambiguous class definition
+    DisableSpecialToggle = NTogglingUnit.DisableSpecialToggle,
+--]]
+    --specify how many weapons there are that need toggling - usually its just one pair.
+    ToggleWeaponPairs = {{'ArtilleryGun','AAGun'},},
+
+    --TODO:make these more refined
+    ArtilleryModePriorities = {
+        'SPECIALHIGHPRI',
+        'STRUCTURE DEFENSE',
+        'LAND',
+        'SPECIALLOWPRI',
+        'ALLUNITS',
+    },
+    
+    --the toggles switch target priorities on the painter, which in turn disables and enables AA/artillery as needed
+    DisableSpecialToggle = function(self)
+        local weapon = self:GetWeaponByLabel('TargetPainter')
+        weapon:SetWeaponPriorities(self.ArtilleryModePriorities)
+        weapon:ResetTarget()
+    end,
+
+    EnableSpecialToggle = function(self)
+        local weapon = self:GetWeaponByLabel('TargetPainter')
+        local bp = weapon:GetBlueprint()
+        weapon:SetWeaponPriorities(bp.TargetPriorities)
+        weapon:ResetTarget()
+    end,
+    
+    DetermineTargetLayer = function(unit, weapon)
+        local target = weapon:GetCurrentTarget()
+        local antiAirMode = false --default to false so that we can always attack land targets, such as groundfire which isnt a target
+        if target then
+            if IsBlip(target) then target = target:GetSource() end --sometimes we target blips instead, which breaks getting their layer
+            if target.GetCurrentLayer then
+                antiAirMode = target:GetCurrentLayer() == 'Air'
+            else
+                antiAirMode = false
+            end
+        end
+        return antiAirMode
+    end,
+    
+    
+    SetWeaponAAMode = function(self, ModeEnable)
+        if self.AAMode == ModeEnable then return end --only toggle if we arent already toggled
+        
+        for _,TogglePair in self.ToggleWeaponPairs do
+            local weaponEnable,weaponDisable = TogglePair[1], TogglePair[2]
+            
+            if ModeEnable then --swap the weapons
+                weaponEnable,weaponDisable = weaponDisable,weaponEnable
+            end
+            
+            self:SetWeaponEnabledByLabel(weaponEnable, true)
+            
+            self:SetWeaponEnabledByLabel(weaponDisable, false)
+            self:GetWeaponManipulatorByLabel(weaponEnable):SetHeadingPitch(self:GetWeaponManipulatorByLabel(weaponDisable):GetHeadingPitch())
+        end
+        self.AAMode = ModeEnable
+    end,
+}
+
 ---------------------------------------------------------------
 --  AMPHIBIOUS UNITS
 ---------------------------------------------------------------
