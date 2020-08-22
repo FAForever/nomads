@@ -361,7 +361,7 @@ UnitBlueprint {
                     LodCutoff = 'Weapon_LodCutoff',
                 },
             },
-            BallisticArc = 'RULEUBA_None',
+            BallisticArc = 'RULEUBA_HighArc',
             Buffs = {
                 {
                     Add = {
@@ -420,8 +420,9 @@ UnitBlueprint {
                 Sub = 'Land|Water',
             },
             Label = 'MissileLauncher1',
-            MaxRadius = 150,
-            MinRadius = 15,
+            MaxRadius = 256,
+            MaxRadiusUnderWater = 128,
+            MinRadius = 80,
             MuzzleSalvoDelay = 0.7,
             MuzzleSalvoSize = 6,
             MuzzleVelocity = 5,
@@ -452,6 +453,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RangeCategory = 'UWRC_IndirectFire',
             RateOfFire = 0.1,
+            ReceiveMaxRadiusBuff = true,
             TargetCheckInterval = 1,
             TargetPriorities = {
                 'SPECIALHIGHPRI',
@@ -501,31 +503,31 @@ UnitBlueprint {
                     },
                     RackBone = 'INS3002',
                 },
-				{
+                {
                     MuzzleBones = {
                         'Torpedo2',
                     },
                     RackBone = 'INS3002',
                 },
-				{
+                {
                     MuzzleBones = {
                         'Torpedo3',
                     },
                     RackBone = 'INS3002',
                 },
-				{
+                {
                     MuzzleBones = {
                         'Torpedo4',
                     },
                     RackBone = 'INS3002',
                 },
-				{
+                {
                     MuzzleBones = {
                         'Torpedo5',
                     },
                     RackBone = 'INS3002',
                 },
-				{
+                {
                     MuzzleBones = {
                         'Torpedo6',
                     },
