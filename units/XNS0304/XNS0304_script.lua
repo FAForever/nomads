@@ -19,41 +19,21 @@ XNS0304 = Class(NSubUnit) {
     LightBone_Right = 'Light2',
 	
     OnCreate = function(self)
-        -- create buff used to reduce range under water
-        local wep = self:GetWeaponByLabel('MissileLauncher1')
-        if wep then
-            self.OnInWaterBuff = 'XNS0304_OnWater'
-            local wbp = wep:GetBlueprint()
-            local MaxRadiusUnderWater = wbp.MaxRadiusUnderWater or wbp.MaxRadius
-            BuffBlueprint {
-                Name = self.OnInWaterBuff,
-                DisplayName = self.OnInWaterBuff,
-                BuffType = string.upper(self.OnInWaterBuff),
-                Stacks = 'REPLACE',
-                Duration = -1,
-                Affects = {
-                    MaxRadiusSpecifiedWeapons = {
-                        Add = (MaxRadiusUnderWater - wbp.MaxRadius),
-                    },
-                },
-            }
-        else
-            self.OnInWaterBuff = nil
-        end
-
         NSubUnit.OnCreate(self)
+        -- save weapon ranges to toggle them when under or over water
+        local wbp = self:GetWeaponByLabel('MissileLauncher1'):GetBlueprint()
+        self.MaxRadiusMissilesUnderWater = wbp.MaxRadiusUnderWater
+        self.MaxRadiusMissilesOverWater = wbp.MaxRadius
     end,
 	
     OnLayerChange = function(self, new, old)
         NSubUnit.OnLayerChange(self, new, old)
+        local wep = self:GetWeaponByLabel('MissileLauncher1')
+        if not wep then return end --technically this is bad for mod support but who is gonna hook this function right :D
         if new == 'Water' then
-            if self.OnInWaterBuff then
-                Buff.RemoveBuff(self, self.OnInWaterBuff, true)
-            end
+            wep:ChangeMaxRadius(self.MaxRadiusMissilesOverWater)
         elseif new == 'Sub' or new == 'Seabed' then
-            if self.OnInWaterBuff then
-                Buff.ApplyBuff(self, self.OnInWaterBuff)
-            end
+            wep:ChangeMaxRadius(self.MaxRadiusMissilesUnderWater)
         end
     end,
 }
