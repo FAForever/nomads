@@ -416,6 +416,11 @@ xns0103_desc = "Frigate"
 xns0103_help = "Low-end naval unit. Armed with a singular fast firing cannon and an anti-air missile launcher."
 xns0103_name = "Lance Class"
 
+-- artillery boat
+xns0104_desc = "Artillery Boat"
+xns0104_help = "Low-end naval unit. Armed with two anti-air missile launchers. Can also target surface units with its rockets."
+xns0104_name = "Defender Class"
+
 
 -- Structures
 
