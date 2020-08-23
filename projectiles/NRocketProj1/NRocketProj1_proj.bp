@@ -20,7 +20,7 @@ ProjectileBlueprint {
     Categories = {
         'NOMADS',
         'PROJECTILE',
-        'DIRECTFIRE',
+        'ANTIAIR',
     },
     Display = {
         ImpactEffects = {
@@ -40,11 +40,11 @@ ProjectileBlueprint {
         UniformScale = 0.3,
     },
     General = {
-        Category = 'Direct Fire',
+        Category = 'Anti Air',
         EntityCategory = {
             'NOMADS',
             'PROJECTILE',
-            'DIRECTFIRE',
+            'ANTIAIR',
         },
         Faction = 'Nomads',
         Weapon = 'RocketWeapon1Proj',
@@ -57,9 +57,9 @@ ProjectileBlueprint {
         CollideEntity = true,
         CollideSurface = true,
         DestroyOnWater = true,
-        InitialSpeed = 35,
+        InitialSpeed = 30,
         MaxZigZag = 0,
-        TrackTarget = false,
+        TrackTarget = true,
         TurnRate = 360,
         VelocityAlign = true,
         ZigZagFrequency = 0,
