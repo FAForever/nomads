@@ -110,7 +110,7 @@ UnitBlueprint {
                     {
                         Bones = {
                             --'Front_Left_Wake',
-                            'wake',
+                            'Engine01',
                         },
                         Scale = 0.5,
                         Type = 'LeftFrontWake',
@@ -118,24 +118,16 @@ UnitBlueprint {
                     {
                         Bones = {
                             --'Front_Right_Wake',
-                            'wake',
+                            'Engine02',
                         },
                         Scale = 0.5,
                         Type = 'RightFrontWake',
                     },
                     {
                         Bones = {
-                            'wake',
+                            'XNS0103',
                         },
                         Scale = 0.5,
-                        Type = 'BackWake',
-                    },
-                    {
-                        Bones = {
-                            'exhaust.001',
-                            'exhaust.002',
-                        },
-                        Scale = 1.5,
                         Type = 'BackWake',
                     },
                 },
