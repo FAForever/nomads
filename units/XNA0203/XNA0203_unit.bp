@@ -286,7 +286,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
             Damage = 40,
-            DamageWater = 80,
+            DamageWater = 40,
             DamageRadius = 0.3,
             DamageRadiusWater = 0,
             DamageType = 'Normal',
