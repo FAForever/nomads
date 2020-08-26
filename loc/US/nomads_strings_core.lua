@@ -417,9 +417,9 @@ xns0103_help = "Low-end naval unit. Armed with a singular fast firing cannon and
 xns0103_name = "Lance Class"
 
 -- artillery boat
-xns0104_desc = "Artillery Boat"
-xns0104_help = "Low-end naval unit. Armed with two anti-air missile launchers. Can also target surface units with its rockets."
-xns0104_name = "Defender Class"
+XNS0102_desc = "Artillery Boat"
+XNS0102_help = "Low-end naval unit. Armed with two anti-air missile launchers. Can also target surface units with its rockets."
+XNS0102_name = "Defender Class"
 
 
 -- Structures
