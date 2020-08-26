@@ -1,85 +1,34 @@
--- T2 railgun boat
+-- T1 frigate
 
-local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
-local AddNavalLights = import('/lua/nomadsutils.lua').AddNavalLights
 local NSeaUnit = import('/lua/nomadsunits.lua').NSeaUnit
-local UnderwaterRailgunWeapon1 = import('/lua/nomadsweapons.lua').UnderwaterRailgunWeapon1
-local NAMFlakWeapon = import('/lua/nomadsweapons.lua').NAMFlakWeapon
-local Utilities = import('/lua/utilities.lua')
+local NTogglingUnit = import('/lua/nomadsunits.lua').NTogglingUnit
+local RocketWeapon1 = import('/lua/nomadsweapons.lua').RocketWeapon1
+local TargetingLaser = import('/lua/kirvesweapons.lua').TargetingLaserInvisible
 
-NSeaUnit = AddNavalLights(NSeaUnit)
-
-xns0102 = Class(NSeaUnit) {
+XNS0102 = Class(NSeaUnit, NTogglingUnit) {
     Weapons = {
-        MainGun = Class(UnderwaterRailgunWeapon1) {},
-        RearGun = Class(UnderwaterRailgunWeapon1) {},
-        TMD = Class(NAMFlakWeapon) {
-            SalvoReloadTime = 1.4, --Change this to the correct amount for the weapon.
-            TMDEffectBones = { 'TMD_Fx1', 'TMD_Fx2', },
+        TargetPainter = Class(TargetingLaser) {
+            OnWeaponFired = function(self)
+                self.unit:SetWeaponAAMode(self.unit:DetermineTargetLayer(self))
+                TargetingLaser.OnWeaponFired(self)
+            end,
         },
+        AAGun1 = Class(RocketWeapon1) {},
+        AAGun2 = Class(RocketWeapon1) {},
+        ArtilleryGun1 = Class(RocketWeapon1) {},
+        ArtilleryGun2 = Class(RocketWeapon1) {},
     },
-
-    DestructionPartsLowToss = { 'TMD_Yaw', },
-    LightBone_Left = 'Antennae_2',
-    LightBone_Right = 'Antennae_1',
-    SmokeEmitterBones = { 'Reactor_Smoke', },
     
-
     OnCreate = function(self)
         NSeaUnit.OnCreate(self)
-        self.SmokeEmitters = TrashBag()
+        self:SetScriptBit('RULEUTC_SpecialToggle', true)
+        self:SetWeaponAAMode(false)
     end,
-
-    DestroyAllDamageEffects = function(self)
-        self:DestroyMovementSmokeEffects()
-        NSeaUnit.DestroyAllDamageEffects(self)
-    end,
-
-    OnKilled = function(self, instigator, type, overkillRatio)
-        self:DestroyMovementSmokeEffects()
-        NSeaUnit.OnKilled(self, instigator, type, overkillRatio)
-    end,
-
-    OnDestroy = function(self)
-        self:DestroyMovementSmokeEffects()
-        NSeaUnit.OnDestroy(self)
-    end,
-
-    OnMotionHorzEventChange = function( self, new, old )
-        NSeaUnit.OnMotionHorzEventChange( self, new, old )
-
-        self.TurretRotationEnabled = (old ~= 'None')
-
-        -- blow smoke from the vents
-        if new ~= old then
-            self:DestroyMovementSmokeEffects()
-            self:PlayMovementSmokeEffects(new)
-        end
-    end,
-
-    PlayMovementSmokeEffects = function(self, type)
-        local EffectTable, emit
-
-        if type == 'Stopping' then
-            EffectTable = NomadsEffectTemplate.RailgunBoat_Stopping_Smoke
-        elseif type == 'Stopped' then
-            EffectTable = NomadsEffectTemplate.RailgunBoat_Stopped_Smoke
-        else
-            EffectTable = NomadsEffectTemplate.RailgunBoat_Moving_Smoke
-        end
-
-        for _, bone in self.SmokeEmitterBones do
-            for k, v in EffectTable do
-                emit = CreateAttachedEmitter( self, bone, self.Army, v )
-                self.SmokeEmitters:Add( emit )
-                self.Trash:Add( emit )
-            end
-        end
-    end,
-
-    DestroyMovementSmokeEffects = function(self)
-        self.SmokeEmitters:Destroy()
-    end,
+    
+    EnableSpecialToggle = NTogglingUnit.EnableSpecialToggle,
+    DisableSpecialToggle = NTogglingUnit.DisableSpecialToggle,
+    --specify how many weapons there are that need toggling - usually its just one pair.
+    ToggleWeaponPairs = {{'ArtilleryGun1','AAGun1'},{'ArtilleryGun2','AAGun2'},},
 }
 
-TypeClass = xns0102
+TypeClass = XNS0102
