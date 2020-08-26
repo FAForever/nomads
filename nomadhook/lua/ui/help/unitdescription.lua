@@ -197,7 +197,7 @@ Description = table.merged( Description, {
 
     ['xns0201'] = "<LOC xns0201_help>Destroyer",
     ['xns0202'] = "<LOC xns0202_help>Cruiser",
-    ['xns0102'] = "<LOC xns0102_help>Torpedo Boat",
+    ['XNS0205'] = "<LOC XNS0205_help>Torpedo Boat",
 
     ['xns0301'] = "<LOC xns0301_help>Battleship",
     ['xns0304'] = "<LOC xns0304_help>Heavy Attack Submarine",

@@ -243,7 +243,7 @@ Nomadsunitkeygroups = {
         "xnl0209",
     },
     ["T2_Torpedo_Boat"] = {
-        "xns0102",
+        "XNS0205",
     },
     ["T1_Light_Gunship"] = {
         "xna0105",

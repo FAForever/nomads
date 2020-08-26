@@ -566,9 +566,9 @@ xns0202_help = "Mid-tier cruiser. Equipped with anti-air missiles and a manual t
 xns0202_name = "Mercenary Class"
 
 -- torpedo boat
-xns0102_desc = "Railgun Carrier"
-xns0102_help = "Dedicated anti-submarine ship. Uses underwater railguns to attack submarines and ships. Also carries a tactical missile defense turret."
-xns0102_name = "Whaler Class"
+XNS0205_desc = "Railgun Carrier"
+XNS0205_help = "Dedicated anti-submarine ship. Uses underwater railguns to attack submarines and ships. Also carries a tactical missile defense turret."
+XNS0205_name = "Whaler Class"
 
 
 -- Structures
