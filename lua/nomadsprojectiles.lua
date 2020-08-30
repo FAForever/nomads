@@ -200,6 +200,19 @@ NIFOrbitalMissile = Class(NIFMissile) {
     FxImpactProjectile = NomadsEffectTemplate.ArtilleryHitProjectile1,
     FxImpactUnderWater = NomadsEffectTemplate.ArtilleryHitUnderWater1,
     
+    --the effects were a bit much so just scaling them down a bit
+	FxAirUnitHitScale = 0.7,
+	FxLandHitScale = 0.7,
+	FxNoneHitScale = 0.7,
+	FxPropHitScale = 0.7,
+	FxProjectileHitScale = 0.7,
+	FxProjectileUnderWaterHitScale = 0.7,
+	FxShieldHitScale = 0.7,
+	FxUnderWaterHitScale = 0.7,
+	FxUnitHitScale = 0.7,
+	FxWaterHitScale = 0.7,
+	FxOnKilledScale = 0.7,
+    
     FxTrails = NomadsEffectTemplate.TacticalMissileTrail,
     PolyTrail = NomadsEffectTemplate.TacticalMissilePolyTrail,
     DoImpactFlash = true,
