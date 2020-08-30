@@ -2,16 +2,6 @@ local NIFCruiseMissile = import('/lua/nomadsprojectiles.lua').NIFCruiseMissile
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 
 NTacticalMissile1 = Class(NIFCruiseMissile) {
-    FxImpactAirUnit = NomadsEffectTemplate.TacticalMissileHitAirUnit2,
-    FxImpactLand = NomadsEffectTemplate.TacticalMissileHitLand2,
-    FxImpactNone = NomadsEffectTemplate.TacticalMissileHitNone2,
-    FxImpactProp = NomadsEffectTemplate.TacticalMissileHitProp2,
-    FxImpactShield = NomadsEffectTemplate.TacticalMissileHitShield2,
-    FxImpactUnit = NomadsEffectTemplate.TacticalMissileHitUnit2,
-    FxImpactWater = NomadsEffectTemplate.TacticalMissileHitWater2,
-    FxImpactProjectile = NomadsEffectTemplate.TacticalMissileHitProjectile2,
-    FxImpactUnderWater = NomadsEffectTemplate.TacticalMissileHitUnderWater2,
-
     MovementThread = function(self)
         self.WaitTime = 0.1
         if self:GetDistanceToTarget() <= 10 then

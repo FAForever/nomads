@@ -311,16 +311,16 @@ NIFOrbitalMissile = Class(NIFMissile) {
 NIFCruiseMissile = Class(NIFMissile) {
 
     BeamName = NomadsEffectTemplate.TacticalMissileBeam,
-    FxImpactAirUnit = NomadsEffectTemplate.TacticalMissileHitAirUnit1,
-    FxImpactLand = NomadsEffectTemplate.TacticalMissileHitLand1,
-    FxImpactNone = NomadsEffectTemplate.TacticalMissileHitNone1,
-    FxImpactProp = NomadsEffectTemplate.TacticalMissileHitProp1,
-    FxImpactShield = NomadsEffectTemplate.TacticalMissileHitShield1,
-    FxImpactUnit = NomadsEffectTemplate.TacticalMissileHitUnit1,
-    FxImpactWater = NomadsEffectTemplate.TacticalMissileHitWater1,
-    FxImpactProjectile = NomadsEffectTemplate.TacticalMissileHitProjectile1,
-    FxImpactUnderWater = NomadsEffectTemplate.TacticalMissileHitUnderWater1,
-    FxExitWaterEmitter = EffectTemplate.TIFCruiseMissileLaunchExitWater,
+
+    FxImpactAirUnit = NomadsEffectTemplate.TacticalMissileHitAirUnit2,
+    FxImpactLand = NomadsEffectTemplate.TacticalMissileHitLand2,
+    FxImpactNone = NomadsEffectTemplate.TacticalMissileHitNone2,
+    FxImpactProp = NomadsEffectTemplate.TacticalMissileHitProp2,
+    FxImpactShield = NomadsEffectTemplate.TacticalMissileHitShield2,
+    FxImpactUnit = NomadsEffectTemplate.TacticalMissileHitUnit2,
+    FxImpactWater = NomadsEffectTemplate.TacticalMissileHitWater2,
+    FxImpactProjectile = NomadsEffectTemplate.TacticalMissileHitProjectile2,
+    FxImpactUnderWater = NomadsEffectTemplate.TacticalMissileHitUnderWater2,
 
     FxTrails = NomadsEffectTemplate.TacticalMissileTrail,
     FxTrailsUnderWater = NomadsEffectTemplate.TacticalMissileTrail,
