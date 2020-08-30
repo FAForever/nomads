@@ -1,21 +1,17 @@
-
+--TODO:copied from future-faf, delete this function once new patch is released.
 function GetUpkeep(bp)
-    -- check for UI unitview overrides
-    local plusEnergyRate = bp.Display.UIUnitViewOverrides.ProductionPerSecondEnergy
-                            or bp.Economy.ProductionPerSecondEnergy
-                            or bp.ProductionPerSecondEnergy
-    local negEnergyRate = bp.Display.UIUnitViewOverrides.MaintenanceConsumptionPerSecondEnergy
-                            or bp.Economy.MaintenanceConsumptionPerSecondEnergy
-                            or bp.MaintenanceConsumptionPerSecondEnergy
-    local plusMassRate = bp.Display.UIUnitViewOverrides.ProductionPerSecondMass
-                            or bp.Economy.ProductionPerSecondMass
-                            or bp.ProductionPerSecondMass
-    local negMassRate = bp.Display.UIUnitViewOverrides.MaintenanceConsumptionPerSecondMass
-                            or bp.Economy.MaintenanceConsumptionPerSecondMass
-                            or bp.MaintenanceConsumptionPerSecondMass
+    local upkeepEnergy = (bp.Economy.ProductionPerSecondEnergy or 0) - (bp.Economy.MaintenanceConsumptionPerSecondEnergy or 0)
+    local upkeepMass = (bp.Economy.ProductionPerSecondMass or 0) - (bp.Economy.MaintenanceConsumptionPerSecondMass or 0)
+    upkeepEnergy = upkeepEnergy + (bp.ProductionPerSecondEnergy or 0) - (bp.MaintenanceConsumptionPerSecondEnergy or 0)
+    upkeepMass = upkeepMass + (bp.ProductionPerSecondMass or 0) - (bp.MaintenanceConsumptionPerSecondMass or 0)
 
-    local upkeepEnergy = GetYield(negEnergyRate, plusEnergyRate)
-    local upkeepMass = GetYield(negMassRate, plusMassRate)
+    if bp.EnhancementPresetAssigned then
+        for _, v in bp.EnhancementPresetAssigned.Enhancements do
+            local Enh = bp.Enhancements[v]
+            upkeepEnergy = upkeepEnergy + (Enh.ProductionPerSecondEnergy or 0) - (Enh.MaintenanceConsumptionPerSecondEnergy or 0)
+            upkeepMass = upkeepMass + (Enh.ProductionPerSecondMass or 0) - (Enh.MaintenanceConsumptionPerSecondMass or 0)
+        end
+    end
 
     return upkeepEnergy, upkeepMass
 end
