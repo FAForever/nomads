@@ -71,7 +71,7 @@ UnitBlueprint {
         SubThreatLevel = 9,
         SurfaceThreatLevel = 0,
     },
-    Description = '<LOC XNS0102_desc>Railgun Carrier',
+    Description = '<LOC XNS0205_desc>Railgun Carrier',
     Display = {
         Abilities = {
             '<LOC ability_sonar>Sonar',
@@ -160,7 +160,7 @@ UnitBlueprint {
         FactionName = 'Nomads',
         Icon = 'sea',
         TechLevel = 'RULEUTL_Advanced',
-        UnitName = '<LOC XNS0102_name>Whaler',
+        UnitName = '<LOC XNS0205_name>Whaler',
         UnitWeight = 1,
     },
     Intel = {
@@ -169,7 +169,7 @@ UnitBlueprint {
         WaterVisionRadius = 45,
     },
     Interface = {
-        HelpText = '<LOC XNS0102_help>Uses two railguns under water to attack ships and submarines. Also carries a tactical missile defense turret.',
+        HelpText = '<LOC XNS0205_help>Uses two railguns under water to attack ships and submarines. Also carries a tactical missile defense turret.',
     },
     LifeBarHeight = 0.075,
     LifeBarOffset = 2.45,
