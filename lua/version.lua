@@ -1,4 +1,4 @@
-local Version = 'Nomads 96'
+local Version = 'Nomads 97'
 function GetVersion()
     LOG('Supreme Commander: Forged Alliance version ' .. Version)
     return Version
