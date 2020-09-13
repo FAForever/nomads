@@ -830,6 +830,7 @@ UnitBlueprint {
             DamageType = 'Normal',
 			DamageRadius = 2,
             DisplayName = 'Amphibious Rocket Launcher',
+	    EnabledByEnhancement = 'Torpedo',
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
@@ -905,6 +906,7 @@ UnitBlueprint {
             Damage = 800,
             DamageType = 'Normal',
             DisplayName = 'Amphibious Torpedo Launcher',
+	    EnabledByEnhancement = 'Torpedo',
             FireTargetLayerCapsTable = {
                 Seabed = 'Seabed|Sub|Water',
             },
