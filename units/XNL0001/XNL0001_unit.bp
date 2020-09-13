@@ -1283,6 +1283,7 @@ UnitBlueprint {
             DamageRadius = 3,
             DamageType = 'Normal',
             DisplayName = 'Orbital Bombardment Target Laser',
+            EnabledByEnhancement = 'OrbitalBombardment',
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Water = 'Land|Water|Seabed',
