@@ -317,3 +317,22 @@ function WrapAndPlaceText(bp, builder, descID, control)
     end
     CreateLines(control, blocks)
 end
+
+--bad code in here means that it was possible to return a nil value which is precisely what happens to the nomads exp transport.
+--the correct way to get this would be to look at how many transport slots it has but you know who needs that right.
+GetAbilityDesc.ability_transport = function(bp)
+        local text = LOC('<LOC uvd_Capacity>')
+        if bp.CategoriesHash.TECH1 then
+            return text..'≈6'
+        end
+        if bp.CategoriesHash.TECH2 then
+            return text..'≈12'
+        end
+        if bp.CategoriesHash.TECH3 then
+            return text..'≈28'
+        end
+        if bp.CategoriesHash.EXPERIMENTAL then
+            return text..'72 + Ship/Exp'
+        end
+        return text..'Unknown'
+    end
