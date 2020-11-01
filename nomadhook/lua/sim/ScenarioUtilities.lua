@@ -23,6 +23,9 @@ local FactionConversionTable = {
         uel0106 = 'xsl0201',
     },
     nomads = {
+        uea0204 = 'xna0203',
+        uel0104 = 'xnl0103',
+        uel0307 = 'xnl0306',
     },
 }
 
