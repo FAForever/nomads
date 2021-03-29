@@ -875,7 +875,7 @@ xna0401_name = "Altas"
 -- missile tank
 xnl0403_desc = "Experimental Missile Tank"
 xnl0403_help = "Experimental hover unit designed for long range attacks. Equipped with long range missiles that saturate enemy tactical defenses and suppress armies, as well as short range gatling guns for self defense. Features a nuclear missile silo."
-xnl0403_name = "Crawler"
+xnl0403_name = "Jericho"
 
 -- beam tank
 xnl0402_desc = "Experimental Assault Tank"
