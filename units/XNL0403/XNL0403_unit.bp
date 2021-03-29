@@ -327,7 +327,7 @@ UnitBlueprint {
         FactionName = 'Nomads',
         Icon = 'amph',
         TechLevel = 'RULEUTL_Experimental',
-        UnitName = '<LOC XNL0403_name>Crawler',
+        UnitName = '<LOC XNL0403_name>Jericho',
         UnitWeight = 1,
     },
     Intel = {
