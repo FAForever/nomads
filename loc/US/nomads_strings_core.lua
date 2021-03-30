@@ -115,11 +115,11 @@ NomadsACUEnh_OrbitalStrike_Description = "Adds a device that coordinates attacks
 NomadsACUEnh_OrbitalStrike_Help = "Orbital Strike"
 NomadsACUEnh_OrbitalStrike_Remove = "Remove Orbital Strike"
 
-NomadsACUEnh_OrbitalBombardment_Description = "Adds the ability to bombard a limited area from orbit. Only an area around the ACU and SCU's can be bombarded."
+NomadsACUEnh_OrbitalBombardment_Description = "Adds the ability to bombard a limited area from orbit."
 NomadsACUEnh_OrbitalBombardment_Help = "Light Orbital Bombardment"
 NomadsACUEnh_OrbitalBombardment_Remove = "Remove Light Orbital Bombardment"
 
-NomadsACUEnh_HeavyOrbitalBombardment_Description = "Increases the number of missiles in the bombardment, as well as the area."
+NomadsACUEnh_HeavyOrbitalBombardment_Description = "Increases the number of missiles per salvo from 2 to 8."
 NomadsACUEnh_HeavyOrbitalBombardment_Help = "Heavy Orbital Bombardment"
 NomadsACUEnh_HeavyOrbitalBombardment_Remove = "Remove Heavy Orbital Bombardment"
 
