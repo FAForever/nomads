@@ -109,7 +109,7 @@ UnitBlueprint {
     CollisionOffsetY = 0,
     Defense = {
         AirThreatLevel = 9,
-        ArmorType = 'Light',
+        ArmorType = 'ASF',
         EconomyThreatLevel = 0,
         Health = 1700,
         MaxHealth = 1700,
@@ -342,7 +342,7 @@ UnitBlueprint {
                 'SPECIALLOWPRI',
                 'ALLUNITS',
             },
-            TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL',
+            TargetRestrictDisallow = 'UNTARGETABLE,LAND,POD,STRUCTURE,NAVAL',
             TargetRestrictOnlyAllow = 'AIR',
             TrackingRadius = 0,
             TurretBoneMuzzle = 'Muzzle01',
@@ -356,7 +356,7 @@ UnitBlueprint {
             TurretYawRange = 55,
             TurretYawSpeed = 360,
             Turreted = true,
-            UseFiringSolutionInsteadOfAimBone = false,
+            UseFiringSolutionInsteadOfAimBone = true,
             WeaponCategory = 'Anti Air',
         },
         {
@@ -376,7 +376,7 @@ UnitBlueprint {
         Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
         EnergyMult = 0,
         HealthMult = 0.9,
-        MassMult = 0.9,
+        MassMult = 0.45,
         ReclaimTimeMultiplier = 1,
         WreckageLayers = {
             Air = false,
