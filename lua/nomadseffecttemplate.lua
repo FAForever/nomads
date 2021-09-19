@@ -85,12 +85,13 @@ KineticCannonHitUnderWater2 = KineticCannonHitLand2
 APCannonMuzzleFlash = {
     EmtBpPath .. 'nomads_apcannon_muzzle_flash_01_emit.bp',
     EmtBpPath .. 'nomads_apcannon_muzzle_flash_02_emit.bp',
-    EmtBpPath .. 'cannon_muzzle_smoke_07_emit.bp',
-    EmtBpPath .. 'cannon_muzzle_smoke_10_emit.bp',
+    EmtBpPath .. 'nomads_cannon_muzzle_plasma_smoke_emit_01.bp',
+    EmtBpPath .. 'nomads_cannon_muzzle_plasma_smoke_emit_02.bp',
 }
 
 APCannonTrail = {
     EmtBpPathNomads .. 'nomads_apcannon_trail01_emit.bp',
+    EmtBpPathNomads .. 'nomads_apcannon_trail02_emit.bp',
 }
 
 APCannonPolyTrail = EmtBpPath .. 'nomads_apcannon_polytrail01_emit.bp'

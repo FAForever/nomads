@@ -1,4 +1,4 @@
-EmitterBlueprint {
+ EmitterBlueprint {
     BlueprintId = 'nomads_apcannon_trail02',
     Lifetime = -5.00,
     Repeattime = 1.00,
@@ -10,7 +10,7 @@ EmitterBlueprint {
     AlignRotation = true,
     AlignToBone = false,
     Flat = false,
-    LODCutoff = -1510.00,
+    LODCutoff = 1500.00,
     EmitIfVisible = true,
     CatchupEmit = true,
     CreateIfVisible = false,
@@ -24,7 +24,7 @@ EmitterBlueprint {
     MedFidelity = true,
     HighFidelity = true,
     Texture = [[/textures/particles/flare_lens_add_03.dds]],
-    RampTexture = [[/textures/particles/ramp_red_03.dds]],
+    RampTexture = [[/textures/particles/nomads/ramp/ramp_white_orange_nomads.dds]],
     XDirectionCurve = {
         XRange = 1.00,
         Keys = {
