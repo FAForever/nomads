@@ -293,11 +293,7 @@ UnitBlueprint {
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
-<<<<<<< HEAD
             Damage = 405,
-=======
-            Damage = 360,
->>>>>>> parent of 18dfa562 (Update XNA0303_unit.bp)
             DamageFriendly = false,
             DamageRadius = 0,
             DamageType = 'Normal',
@@ -330,11 +326,7 @@ UnitBlueprint {
             RackSalvoSize = 1,
             RackSlavedToTurret = false,
             RangeCategory = 'UWRC_AntiAir',
-<<<<<<< HEAD
             RateOfFire = 1.0,
-=======
-            RateOfFire = 1.1,
->>>>>>> parent of 18dfa562 (Update XNA0303_unit.bp)
             SlavedToBody = true,
             SlavedToBodyArcRange = 50,
             TargetCheckInterval = 0.5,
