@@ -20,7 +20,7 @@ EmitterBlueprint {
     TextureStripcount = 1.00,
     SortOrder = 1.00,
     Texture = [[/textures/particles/sparkle_white_add_02.dds]],
-    RampTexture = [[/textures/particles/ramp_white_04.dds]],
+    RampTexture = [[/textures/particles/nomads/ramp/ramp_white_orange_nomads.dds]],
     XDirectionCurve = {
         XRange = 1.00,
         Keys = {
@@ -100,15 +100,15 @@ EmitterBlueprint {
         },
     },
     StartSizeCurve = {
-        XRange = 1.00,
+        XRange = 0.750,
         Keys = {
-            { x=0.521,y=6.769,z=1.250 },
+            { x=0.5,y=3.0,z=1.250 },
         },
     },
     EndSizeCurve = {
-        XRange = 1.00,
+        XRange = 0.50,
         Keys = {
-            { x=0.513,y=3.500,z=0.100 },
+            { x=0.5,y=1.500,z=0.100 },
         },
     },
     InitialRotationCurve = {
