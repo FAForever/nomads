@@ -3,7 +3,7 @@ EmitterBlueprint {
     Lifetime = 1.00,
     Repeattime = 1.00,
     TextureFramecount = 1.00,
-    Blendmode = 1.00,
+    Blendmode = 3.00,
     LocalVelocity = true,
     LocalAcceleration = true,
     Gravity = false,
@@ -20,7 +20,7 @@ EmitterBlueprint {
     TextureStripcount = 1.00,
     SortOrder = 0.00,
     Texture = [[/textures/particles/muzzle_flash_add_05.dds]],
-    RampTexture = [[/textures/particles/ramp_white_01.dds]],
+    RampTexture = [[/textures/particles/nomads/ramp/ramp_white_orange_nomads.dds]],
     XDirectionCurve = {
         XRange = 1.00,
         Keys = {
