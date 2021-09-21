@@ -3,7 +3,7 @@ EmitterBlueprint {
     Lifetime = 1.00,
     Repeattime = 2.00,
     TextureFramecount = 1.00,
-    Blendmode = 1.00,
+    Blendmode = 3.00,
     LocalVelocity = true,
     LocalAcceleration = false,
     Gravity = false,
@@ -23,8 +23,8 @@ EmitterBlueprint {
     LowFidelity = true,
     MedFidelity = true,
     HighFidelity = true,
-    Texture = [[/textures/particles/ring_15.dds]],
-    RampTexture = [[/textures/particles/ramp_white_02.dds]],
+    Texture = [[/textures/particles/nomads/textures/sparkles/nomads_sparkle_hit_07.dds]],
+    RampTexture = [[/textures/particles/nomads/ramp/ramp_white_orange_nomads.dds]],
     XDirectionCurve = {
         XRange = 2.00,
         Keys = {

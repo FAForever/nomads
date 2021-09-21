@@ -307,7 +307,7 @@ IonBlastHitUnderWater1 = IonBlastHitUnit1
 -- Used on T1 tank
 
 ParticleBlastMuzzleFlash = {
-    EmtBpPath .. 'cannon_muzzle_flash_01_emit.bp',
+    EmtBpPath .. 'nomads_particleblast_muzzle_flash_01_emit.bp',
 }
 
 ParticleBlastTrail = {
