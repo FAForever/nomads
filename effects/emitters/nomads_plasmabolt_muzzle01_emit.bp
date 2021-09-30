@@ -24,11 +24,11 @@ EmitterBlueprint {
     MedFidelity = true,
     HighFidelity = true,
     Texture = [[/textures/particles/muzzle_flash_add_04.dds]],
-    RampTexture = [[/textures/particles/ramp_white_01.dds]],
+    RampTexture = [[/textures/particles/nomads/ramp/ramp_white_orange_nomads.dds]],
     XDirectionCurve = {
         XRange = 1.00,
         Keys = {
-            { x=0.517,y=0.000,z=0.000 },
+            { x=0.500,y=0.000,z=0.000 },
         },
     },
     YDirectionCurve = {
@@ -46,7 +46,7 @@ EmitterBlueprint {
     EmitRateCurve = {
         XRange = 1.00,
         Keys = {
-            { x=0.040,y=1.000,z=0.000 },
+            { x=0.050,y=1.000,z=0.000 },
         },
     },
     LifetimeCurve = {
@@ -112,7 +112,7 @@ EmitterBlueprint {
     StartSizeCurve = {
         XRange = 1.00,
         Keys = {
-            { x=0.512,y=0.900,z=0.000 },
+            { x=0.550,y=0.900,z=0.000 },
         },
     },
     EndSizeCurve = {

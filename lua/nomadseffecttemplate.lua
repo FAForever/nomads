@@ -1571,15 +1571,15 @@ PlasmaBoltMuzzleFlash = {
     EmtBpPath .. 'cannon_muzzle_flash_01_emit.bp',
 }
 
-PlasmaBoltBeam = EmtBpPathNomads .. 'nomads_plasmacannon_beam01.bp'
+PlasmaBoltBeam = EmtBpPathNomads .. 'nomads_plasmabolt_beam01.bp'
 
 PlasmaBoltTrail = {
 --    EmtBpPathNomads .. 'nomads_plasmabolt_trail01_emit.bp',  -- smaller projectile
     EmtBpPathNomads .. 'nomads_plasmabolt_trail02_emit.bp',  -- smoke
-    EmtBpPathNomads .. 'nomads_plasmabolt_trail03_emit.bp',  -- larger projectile
+--    EmtBpPathNomads .. 'nomads_plasmabolt_trail03_emit.bp',  -- larger projectile
 }
 
-PlasmaBoltPolyTrail = EmtBpPath .. 'default_polytrail_04_emit.bp'
+PlasmaBoltPolyTrail = EmtBpPathNomads .. 'nomads_particleblast_polytrail_02_emit.bp'
 --PlasmaBoltPolyTrail = ''
 
 PlasmaBoltHitNone1 = {
