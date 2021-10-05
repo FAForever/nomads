@@ -219,7 +219,7 @@ UnitBlueprint {
         SkirtOffsetX = -3,
         SkirtOffsetZ = -2,
         SkirtSizeX = 12,
-        SkirtSizeZ = 19,
+        SkirtSizeZ = 14,
         TurnRate = 0,
     },
     SelectionMeshScaleX = 0.8,
