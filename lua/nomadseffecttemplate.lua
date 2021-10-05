@@ -133,10 +133,11 @@ APCannonMuzzleFlash2 = {
 }
 
 APCannonTrail2 = {
-    EmtBpPathNomads .. 'nomads_apcannon_trail02_emit.bp', -- whitish effect
+    EmtBpPathNomads .. 'nomads_apcannon_trail03_emit.bp',
+    EmtBpPathNomads .. 'nomads_apcannon_trail02_emit.bp',
 }
 
-APCannonPolyTrail2 = EmtBpPath .. 'nomads_apcannon_polytrail02_emit.bp'
+APCannonPolyTrail2 = EmtBpPath .. 'nomads_apcannon_polytrail01_emit.bp'
 
 APCannonHitNone2 = {
     EmtBpPathNomads .. 'nomads_apcannon_hit_07_emit.bp',  -- small explosion
