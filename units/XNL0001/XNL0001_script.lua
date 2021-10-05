@@ -257,7 +257,7 @@ XNL0001 = Class(ACUUnit) {
         self.Trash:Add(meteor)
         meteor:Start(self:GetPosition(), 2) 
 
-        WaitTicks(23) -- time before meteor opens --TODO: make this shorter, the same length as other ACU warp in animations
+        WaitTicks(23) -- Landing Animation
 
         self:ShowBone(0, true)
         self:HideBone('IntelProbe1', true)
@@ -277,7 +277,7 @@ XNL0001 = Class(ACUUnit) {
         end
 
 
-        WaitTicks(7)  -- waiting till tick 50 to enable ACU. Same as other ACU's.
+        WaitTicks(7)  -- Sync With Other ACUs
 
         self:SetWeaponEnabledByLabel('MainGun', true)
         self:SetUnSelectable(false)
