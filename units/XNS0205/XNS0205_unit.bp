@@ -71,7 +71,7 @@ UnitBlueprint {
         SubThreatLevel = 9,
         SurfaceThreatLevel = 0,
     },
-    Description = '<LOC XNS0205_desc>Railgun Carrier',
+    Description = '<LOC XNS0205_desc>Anti-Submersible Boat',
     Display = {
         Abilities = {
             '<LOC ability_sonar>Sonar',
