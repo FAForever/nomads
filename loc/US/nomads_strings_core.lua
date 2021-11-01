@@ -107,13 +107,6 @@ tooltipui0497="View an area of the map"
 --------------------------------------------------------
 
 -- ACU
-NomadsACUEnh_DisruptiveField_Description = "Creates a disruptive field around the ACU that damages all enemy units within range."
-NomadsACUEnh_DisruptiveField_Help = "Disruptor Field"
-NomadsACUEnh_DisruptiveField_Remove = "Remove Disruptor Field"
-
-NomadsACUEnh_OrbitalStrike_Description = "Adds a device that coordinates attacks from orbit on enemy units near the ACU."
-NomadsACUEnh_OrbitalStrike_Help = "Orbital Strike"
-NomadsACUEnh_OrbitalStrike_Remove = "Remove Orbital Strike"
 
 NomadsACUEnh_OrbitalBombardment_Description = "Adds the ability to bombard a limited area from orbit."
 NomadsACUEnh_OrbitalBombardment_Help = "Light Orbital Bombardment"
@@ -122,18 +115,6 @@ NomadsACUEnh_OrbitalBombardment_Remove = "Remove Light Orbital Bombardment"
 NomadsACUEnh_HeavyOrbitalBombardment_Description = "Increases the number of missiles per salvo from 2 to 8."
 NomadsACUEnh_HeavyOrbitalBombardment_Help = "Heavy Orbital Bombardment"
 NomadsACUEnh_HeavyOrbitalBombardment_Remove = "Remove Heavy Orbital Bombardment"
-
-NomadsACUEnh_FlameThrower_Description = "Upgrades the main weapon to a flamethrower that damages all units in a line. Perfect against large groups of small to medium units."
-NomadsACUEnh_FlameThrower_Help = "Flamethrower"
-NomadsACUEnh_FlameThrower_Remove = "Remove Flamethrower"
-
-NomadsACUEnh_AreaReinforcement_Description = "Allows the deployment of stationary reinforcements launched from orbit anywhere on the battlefield."
-NomadsACUEnh_AreaReinforcement_Help = "Orbital Reinforcement"
-NomadsACUEnh_AreaReinforcement_Remove = "Remove Orbital Reinforcement"
-
-NomadsACUEnh_AreaReinforcement2_Description = "Allows the deployment of stationary reinforcements launched from orbit anywhere on the battlefield."
-NomadsACUEnh_AreaReinforcement2_Help = "Orbital Reinforcement"
-NomadsACUEnh_AreaReinforcement2_Remove = "Remove Orbital Reinforcement"
 
 NomadsACUEnh_GunUpgrade_Description = "Increases the Kinetic Cannon's power, adding area of effect damage. Also increases the range of the Kinetic Cannon and Overcharge."
 NomadsACUEnh_GunUpgrade_Help = "Antimatter Rounds"
@@ -151,10 +132,6 @@ NomadsACUEnh_PowerArmor_Description = "Greatly increases the max health of the A
 NomadsACUEnh_PowerArmor_Help = "Autonomous Repair System"
 NomadsACUEnh_PowerArmor_Remove = "Remove Autonomous Repair System"
 
-NomadsACUEnh_SniperMode_Description = "Allows the ACU to enable and disable sniper mode at will. Sniper mode increases the range and damage of the ACU's main weapon but disables overcharge. Stacks with the gun enhancements."
-NomadsACUEnh_SniperMode_Help = "Sniper Mode"
-NomadsACUEnh_SniperMode_Remove = "Remove Sniper Mode"
-
 NomadsACUEnh_IntelProbe_Description = "Intel Probes provide temporary radar and sonar coverage at an area on the map."
 NomadsACUEnh_IntelProbe_Help = "Intel Probe"
 NomadsACUEnh_IntelProbe_Remove = "Remove Intel Probe"
@@ -171,15 +148,8 @@ NomadsACUEnh_Capacitor_Description = "Allows the ACU to temporarily boost its st
 NomadsACUEnh_Capacitor_Help = "Capacitor"
 NomadsACUEnh_Capacitor_Remove = "Remove Capacitor"
 
-NomadsACUEnh_AddCapacitor_Description = "Enhances the ACU with an additional capacitor that increases the duration of the capacitor boost."
-NomadsACUEnh_AddCapacitor_Help = "Additional Capacitor"
-NomadsACUEnh_AddCapacitor_Remove = "Remove Additional Capacitor"
-
 
 -- SCU
-NomadsSCUEnh_MovementSpeedIncrease_Description = "Greatly improves the SACU's movement speed."
-NomadsSCUEnh_MovementSpeedIncrease_Help = "Improved Locomotor"
-NomadsSCUEnh_MovementSpeedIncrease_Remove = "Remove Improved Locomotor"
 
 NomadsSCUEnh_RapidRepair_Description = "Increases health and adds a Emergency Repair device to the SACU, repairing the SACU automatically at no cost. There is a delay before repairs start, and the device must reinitialise each time the SACU is damaged or fires a weapon."
 NomadsSCUEnh_RapidRepair_Help = "Emergency Repair System"
@@ -189,49 +159,21 @@ NomadsSCUEnh_PowerArmor_Description = "Greatly increases the max health of the S
 NomadsSCUEnh_PowerArmor_Help = "Autonomous Repair System"
 NomadsSCUEnh_PowerArmor_Remove = "Remove Autonomous Repair System"
 
-NomadsSCUEnh_LeftArmGun_Description = "Enhances the SACU with a Kinetic Cannon. When the Capacitor ability is active, the cannon gains a damage-over-time effect."
-NomadsSCUEnh_LeftArmGun_Help = "Kinetic Cannon"
-NomadsSCUEnh_LeftArmGun_Remove = "Remove Kinetic Cannon"
+NomadsSCUEnh_LeftArmGun_Description = "Enhances the SACU's weaponry with an EMP effect that disables hostiles upon impact."
+NomadsSCUEnh_LeftArmGun_Help = "EMP Gun"
+NomadsSCUEnh_LeftArmGun_Remove = "Remove EMP Gun"
 
-NomadsSCUEnh_LeftArmGunUpgrade_Description = "Upgrades the Kinetic Cannon, allowing it to deal more damage."
-NomadsSCUEnh_LeftArmGunUpgrade_Help = "Overclocked Kinetic Cannon"
-NomadsSCUEnh_LeftArmGunUpgrade_Remove = "Remove Overclocked Kinetic Cannon"
+NomadsSCUEnh_RightArmGun_Description = "Enhances the SACU with a second gun, doubling its rate of fire and improving its range."
+NomadsSCUEnh_RightArmGun_Help = "Extra Barrel"
+NomadsSCUEnh_RightArmGun_Remove = "Remove Extra Barrel"
 
-NomadsSCUEnh_RightArmGun_Description = "Enhances the SACU with a rapid fire gatling gun. When the capacitor ability is active, the gatling gun deals more damage."
-NomadsSCUEnh_RightArmGun_Help = "Gatling Gun"
-NomadsSCUEnh_RightArmGun_Remove = "Remove Gatling Gun"
-
-NomadsSCUEnh_RightArmGunUpgrade_Description = "Upgrades the gatling gun so it deals additional damage."
-NomadsSCUEnh_RightArmGunUpgrade_Help = "Improved Gatling Gun"
-NomadsSCUEnh_RightArmGunUpgrade_Remove = "Remove Improved Gatling Gun"
-
-NomadsSCUEnh_LeftArmEngineering_Description = "Enhances the SACU with an additional engineering tool. Also allows the SACU to construct all Nomads structures. When the capacitor ability is active, the engineering functions are sped up."
+NomadsSCUEnh_LeftArmEngineering_Description = "Enhances the SACU with an additional engineering tool that increases build power."
 NomadsSCUEnh_LeftArmEngineering_Help = "Engineering Matrix"
 NomadsSCUEnh_LeftArmEngineering_Remove = "Engineering Matrix"
 
-NomadsSCUEnh_RightArmEngineering_Description = "Enhances the SACU with an additional engineering tool. Also allows the SACU to construct all Nomads structures. When the capacitor ability is active, the engineering functions are sped up."
-NomadsSCUEnh_RightArmEngineering_Help = "Engineering Matrix"
-NomadsSCUEnh_RightArmEngineering_Remove = "Remove Engineering Matrix"
-
-NomadsSCUEnh_Capacitor_Description = "Allows the SACU to temporarily boost its stats with the Capacitor ability for an appropriate energy cost."
-NomadsSCUEnh_Capacitor_Help = "Capacitor"
-NomadsSCUEnh_Capacitor_Remove = "Remove Capacitor"
-
-NomadsSCUEnh_AddCapacitor_Description = "Enhances the SACU with an additional Capacitor that increases the duration of the capacitor ability."
-NomadsSCUEnh_AddCapacitor_Help = "Additional Capacitor"
-NomadsSCUEnh_AddCapacitor_Remove = "Remove Additional Capacitor"
-
-NomadsSCUEnh_LeftArmRocket_Description = "Enhances the SACU with a rocket launcher attached to the left shoulder that fires salvos of rockets against surface targets. When the Capacitor ability is active, the rockets gain wider splash damage and a damage-over-time effect."
-NomadsSCUEnh_LeftArmRocket_Help = "Rocket Launcher"
-NomadsSCUEnh_LeftArmRocket_Remove = "Remove Rocket Launcher"
-
-NomadsSCUEnh_RightArmRocket_Description = "Enhances the SACU with a Rocket Launcher attached to the right shoulder that fires salvos of rockets against surface targets. When the Capacitor ability is active, the rockets gain wider splash damage and a damage-over-time effect."
-NomadsSCUEnh_RightArmRocket_Help = "Rocket Launcher"
-NomadsSCUEnh_RightArmRocket_Remove = "Remove Rocket Launcher"
-
-NomadsSCUEnh_LeftArmRailgun_Description = "Enhances the SACU with an Underwater Railgun. When the Capacitor ability is active the Railgun's rate of fire is increased."
-NomadsSCUEnh_LeftArmRailgun_Help = "Underwater Railgun"
-NomadsSCUEnh_LeftArmRailgun_Remove = "Remove Underwater Railgun"
+NomadsSCUEnh_LeftArmRailgun_Description = "Enhances the SACU with an Amphibious Torpedo Launcher. The Amphibious Torpedo Launcher also fires rockets against surface targets."
+NomadsSCUEnh_LeftArmTorpedo_Help = "Amphibious Torpedo Launcher"
+NomadsSCUEnh_LeftArmTorpedo_Remove = "Amphibious Torpedo Launcher"
 
 NomadsSCUEnh_ResourceAllocation_Description = "Increases the SACU's resource generation to 10 mass per second and 1000 energy per second, which speeds up the Capacitor charge time."
 NomadsSCUEnh_ResourceAllocation_Help = "Resource Allocation System"
