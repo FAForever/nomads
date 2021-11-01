@@ -345,7 +345,7 @@ UnitBlueprint {
             NewRateOfFire = 1.3,
             NewMaxRadius = 30,
             Icon = 'acu',
-            Name = '<LOC NomadsSCUEnh_RightArmGun_Help>Right Arm Gun',
+            Name = '<LOC NomadsSCUEnh_RightArmGun_Help>Extra Barrel',
             Slot = 'RCH',
             UpgradeEffectBones = {
                 'Bicep_R',
@@ -360,7 +360,7 @@ UnitBlueprint {
             BuildCostMass = 1,
             BuildTime = 0.1,
             Icon = 'acu',
-            Name = '<LOC NomadsSCUEnh_RightArmGun_Remove>Remove Right Arm Gun',
+            Name = '<LOC NomadsSCUEnh_RightArmGun_Remove>Remove Extra Barrel',
             Prerequisite = 'GunUpgrade',
             RemoveEnhancements = {
                 'GunUpgrade',
@@ -407,10 +407,10 @@ UnitBlueprint {
             Slot = 'LCH',
         },
         PowerArmor = {
-            AddHealth = 25000,
+            AddHealth = 18000,
             AddRegenRate = 100,
-            BuildCostEnergy = 75000,
-            BuildCostMass = 1500,
+            BuildCostEnergy = 100000,
+            BuildCostMass = 1750,
             BuildTime = 5000,
             Icon = 'sepa',
             Mesh = '/units/XNL0301/XNL0301_PowerArmor_Mesh',
@@ -453,7 +453,7 @@ UnitBlueprint {
             BuildTime = 4800,
             CreatesLeftArm = true,
             Icon = 'larg',
-            Name = '<LOC NomadsSCUEnh_LeftArmRailgun_Help>Underwater Railgun',
+            Name = '<LOC NomadsSCUEnh_LeftArmTorpedo_Help>Amphibious Torpedo Launcher',
             ShowBones = {
                 'Railgun_L',
             },
@@ -475,7 +475,7 @@ UnitBlueprint {
                 'Railgun_L',
             },
             Icon = 'larg',
-            Name = '<LOC NomadsSCUEnh_LeftArmRailgun_Remove>Remove Left Arm Under Water Railgun',
+            Name = '<LOC NomadsSCUEnh_LeftArmTorpedo_Remove>Remove Amphibious Torpedo Launcher',
             Prerequisite = 'Torpedo',
             RemoveEnhancements = {
                 'Torpedo',
@@ -484,11 +484,11 @@ UnitBlueprint {
             Slot = 'RCH',
         },
         RapidRepair = {
-            AddHealth = 2000,
+            AddHealth = 7000,
             AddRegenRate = 95,
             BonusRepairRate = 500, --total regen bonus per upgrade slot
-            BuildCostEnergy = 75000,
-            BuildCostMass = 1500,
+            BuildCostEnergy = 50000,
+            BuildCostMass = 1250,
             BuildTime = 5000,
             Icon = 'se',
             InterruptRapidRepairByWeaponFired = false,
@@ -587,75 +587,75 @@ UnitBlueprint {
     EnhancementPresets = {
         AntiNaval = {
             BuildIconSortPriority = 65,
-            Description = '<LOC XNL0301_antinaval_desc>Support Armored Command Unit (Preset: Anti-Naval)',
+            Description = '<LOC XNL0301_antinaval_desc>SACU (Naval Preset)',
             Enhancements = {
                 'Torpedo',
                 'RapidRepair',
                 'PowerArmor',
             },
-            HelpText = '<LOC XNL0301_antinaval_help>Houses a Nomads soldier. Can be Customised as a heavy combatant, improved T3 engineer or combination. Enhanced during construction with a Torpedo on the left arm, an additional capacitor on the right shoulder and an improved locomotor.',
+            HelpText = '<LOC XNL0301_antinaval_help>Enhanced during construction with a torpedo launcher on the right arm, a rapid repair system and power armor.',
             SelectionPriority = 1,
             SortCategory = 'SORTOTHER',
-            UnitName = '<LOC XNL0301_antinaval_name>Support Armored Command Unit (Preset: Anti-Naval)',
+            UnitName = '<LOC XNL0301_antinaval_name>SACU (Naval Preset)',
         },
         Engineer = {
             BuildIconSortPriority = 15,
-            Description = '<LOC XNL0301_engineer_desc>Support Armored Command Unit (Preset: Engineer)',
+            Description = '<LOC XNL0301_engineer_desc>SACU (Engineer Preset)',
             Enhancements = {
                 'EngineeringSuite',
             },
-            HelpText = '<LOC XNL0301_engineer_help>Enhanced during construction with an Engineering Matrix on each arm.',
+            HelpText = '<LOC XNL0301_engineer_help>Enhanced during construction with an engineering matrix on the left arm.',
             SortCategory = 'SORTCONSTRUCTION',
-            UnitName = '<LOC XNL0301_engineer_name>Support Armored Command Unit (Preset: Engineer)',
+            UnitName = '<LOC XNL0301_engineer_name>SACU (Engineer Preset)',
         },
         HeavyTrooper = {
             BuildIconSortPriority = 45,
-            Description = '<LOC XNL0301_heavytrooper_desc>Support Armored Command Unit (Preset: Heavy Trooper)',
+            Description = '<LOC XNL0301_heavytrooper_desc>SACU (Combat Preset)',
             Enhancements = {
                 'GunUpgrade',
                 'RapidRepair',
                 'PowerArmor',
             },
-            HelpText = '<LOC XNL0301_heavytrooper_help>Enhanced during construction with an Overclocked Kinetic Cannon on the left arm, a Gatling Gun on the right arm, and a Rapid Repair system.',
+            HelpText = '<LOC XNL0301_heavytrooper_help>Enhanced during construction with an rapid fire kinetic cannon on the right arm,a rapid repair system and power armor.',
             SelectionPriority = 1,
             SortCategory = 'SORTSTRATEGIC',
             UIUnitViewOverrides = {
                 MaxHealth = 18000,
             },
-            UnitName = '<LOC XNL0301_heavytrooper_name>Support Armored Command Unit (Preset: Heavy Trooper)',
+            UnitName = '<LOC XNL0301_heavytrooper_name>SACU (Combat Preset)',
         },
         NaturalProducer = {
             BuildIconSortPriority = 20,
-            Description = '<LOC XNL0301_naturalproducer_desc>Support Armored Command Unit (Preset: Producer)',
+            Description = '<LOC XNL0301_naturalproducer_desc>SCAU (E-RAS Preset)',
             Enhancements = {
                 'ResourceAllocation',
                 'EngineeringSuite',
             },
-            HelpText = '<LOC XNL0301_naturalproducer_help>Enhanced during construction with an Engineering Matrix on each arm and a Resource Allocation System.',
+            HelpText = '<LOC XNL0301_naturalproducer_help>Enhanced during construction with an engineering matrix on the left arm and a resource allocation system.',
             SortCategory = 'SORTCONSTRUCTION',
             UIUnitViewOverrides = {
                 ProductionPerSecondEnergy = 1000,
                 ProductionPerSecondMass = 10,
             },
-            UnitName = '<LOC XNL0301_naturalproducer_name>Support Armored Command Unit (Preset: Producer)',
+            UnitName = '<LOC XNL0301_naturalproducer_name>SACU (E-RAS Preset)',
         },
         RAS = {
             BuildIconSortPriority = 20,
-            Description = '<LOC XNL0301_RAS_desc>Support Armored Command Unit (Preset: RAS)',
+            Description = '<LOC XNL0301_RAS_desc>SACU (RAS Preset)',
             Enhancements = {
                 'ResourceAllocation',
             },
-            HelpText = '<LOC XNL0301_RAS_help>Enhanced during construction with a Resource Allocation System.',
+            HelpText = '<LOC XNL0301_RAS_help>Enhanced during construction with a resource allocation system.',
             SortCategory = 'SORTCONSTRUCTION',
             UIUnitViewOverrides = {
                 ProductionPerSecondEnergy = 1000,
                 ProductionPerSecondMass = 10,
             },
-            UnitName = '<LOC XNL0301_RAS_name>Support Armored Command Unit (Preset: RAS)',
+            UnitName = '<LOC XNL0301_RAS_name>SACU (RAS Prset)',
         },
         Rambo = {
             BuildIconSortPriority = 50,
-            Description = '<LOC XNL0301_rambo_desc>Support Armored Command Unit (Preset: Rambo)',
+            Description = '<LOC XNL0301_rambo_desc>SACU (Rambo Preset)',
             Enhancements = {
                 'GunUpgrade',
                 'RapidRepair',
@@ -668,7 +668,7 @@ UnitBlueprint {
             UIUnitViewOverrides = {
                 MaxHealth = 40000,
             },
-            UnitName = '<LOC XNL0301_rambo_name>Support Armored Command Unit (Preset: Rambo)',
+            UnitName = '<LOC XNL0301_rambo_name>SACU (Rambo Preset)',
         },
     },
     General = {
@@ -830,7 +830,7 @@ UnitBlueprint {
             DamageType = 'Normal',
 			DamageRadius = 2,
             DisplayName = 'Amphibious Rocket Launcher',
-	    EnabledByEnhancement = 'Torpedo',
+			EnabledByEnhancement = 'Torpedo',
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water|Seabed',
                 Seabed = 'Land|Water|Seabed',
@@ -903,7 +903,7 @@ UnitBlueprint {
             },
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
-            Damage = 800,
+            Damage = 200,
             DamageType = 'Normal',
             DisplayName = 'Amphibious Torpedo Launcher',
 	    EnabledByEnhancement = 'Torpedo',
