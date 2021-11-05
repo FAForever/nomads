@@ -2,14 +2,14 @@
 
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 --local NAirTransportUnit = import('/lua/nomadsunits.lua').NAirTransportUnit
-local DarkMatterWeapon1 = import('/lua/nomadsweapons.lua').DarkMatterWeapon1
+local ParticleBlaster1 = import('/lua/nomadsweapons.lua').ParticleBlaster1
 local NAirUnit = import('/lua/nomadsunits.lua').NAirUnit
 
 
 XNA0105 = Class(NAirUnit) {
     Weapons = {
-        Gun1 = Class(DarkMatterWeapon1) {},
-        Gun2 = Class(DarkMatterWeapon1) {},
+        Gun1 = Class(ParticleBlaster1) {},
+        Gun2 = Class(ParticleBlaster1) {},
     },
 
     BeamHoverExhaustCruise = NomadsEffectTemplate.AirThrusterLargeCruisingBeam,

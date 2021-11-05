@@ -284,7 +284,7 @@ UnitBlueprint {
             MuzzleSalvoSize = 10,
             MuzzleVelocity = 40,
             NotExclusive = true,
-            ProjectileId = '/projectiles/NDarkMatter3/NDarkMatter3_proj.bp',
+            ProjectileId = '/projectiles/NParticleBlast1/NParticleBlast1_proj.bp',
             ProjectileLifetimeUsesMultiplier = 1.15,
             ProjectilesPerOnFire = 1,
             RackBones = {
@@ -361,7 +361,7 @@ UnitBlueprint {
             MuzzleSalvoSize = 10,
             MuzzleVelocity = 40,
             NotExclusive = true,
-            ProjectileId = '/projectiles/NDarkMatter3/NDarkMatter3_proj.bp',
+            ProjectileId = '/projectiles/NParticleBlast1/NParticleBlast1_proj.bp',
             ProjectileLifetimeUsesMultiplier = 1.15,
             ProjectilesPerOnFire = 1,
             RackBones = {
