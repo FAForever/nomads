@@ -271,7 +271,7 @@ UnitBlueprint {
             Damage = 5,
             DamageRadius = 1,
             DamageType = 'Normal',
-            DisplayName = 'Dark Matter Gun',
+            DisplayName = 'Particle Blaster',
             FireTargetLayerCapsTable = {
                 Air = 'Air|Land|Water|Seabed',
                 Land = 'Air|Land|Water|Seabed',
