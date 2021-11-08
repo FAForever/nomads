@@ -3,7 +3,7 @@
 local Explosion = import('/lua/defaultexplosions.lua')
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local NExperimentalAirTransportUnit = import('/lua/nomadsunits.lua').NExperimentalAirTransportUnit
-local DarkMatterWeapon1 = import('/lua/nomadsweapons.lua').DarkMatterWeapon1
+local ParticleBlaster1 = import('/lua/nomadsweapons.lua').ParticleBlaster1
 local MissileWeapon1 = import('/lua/nomadsweapons.lua').MissileWeapon1
 local AddRapidRepair = import('/lua/nomadsutils.lua').AddRapidRepair
 
@@ -12,10 +12,10 @@ NExperimentalAirTransportUnit = AddRapidRepair(NExperimentalAirTransportUnit)
 XNA0401 = Class(NExperimentalAirTransportUnit) {
 
     Weapons = {
-        ChainGun01 = Class(DarkMatterWeapon1) {},
-        ChainGun02 = Class(DarkMatterWeapon1) {},
-        ChainGun03 = Class(DarkMatterWeapon1) {},
-        ChainGun04 = Class(DarkMatterWeapon1) {},
+        ChainGun01 = Class(ParticleBlaster1) {},
+        ChainGun02 = Class(ParticleBlaster1) {},
+        ChainGun03 = Class(ParticleBlaster1) {},
+        ChainGun04 = Class(ParticleBlaster1) {},
         SAM01 = Class(MissileWeapon1) {},
         SAM02 = Class(MissileWeapon1) {},
     },

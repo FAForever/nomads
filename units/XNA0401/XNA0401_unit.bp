@@ -294,7 +294,7 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 45,
-            ProjectileId = '/projectiles/NDarkMatter2/NDarkMatter2_proj.bp',
+            ProjectileId = '/projectiles/NParticleBlast1/NParticleBlast1_proj.bp',
             ProjectileLifetimeUsesMultiplier = 2,
             ProjectilesPerOnFire = 1,
             RackBones = {
@@ -372,7 +372,7 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 45,
-            ProjectileId = '/projectiles/NDarkMatter2/NDarkMatter2_proj.bp',
+            ProjectileId = '/projectiles/NParticleBlast1/NParticleBlast1_proj.bp',
             ProjectileLifetimeUsesMultiplier = 2,
             ProjectilesPerOnFire = 1,
             RackBones = {
@@ -450,7 +450,7 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 45,
-            ProjectileId = '/projectiles/NDarkMatter2/NDarkMatter2_proj.bp',
+            ProjectileId = '/projectiles/NParticleBlast1/NParticleBlast1_proj.bp',
             ProjectileLifetimeUsesMultiplier = 2,
             ProjectilesPerOnFire = 1,
             RackBones = {
@@ -528,7 +528,7 @@ UnitBlueprint {
             MuzzleSalvoDelay = 0,
             MuzzleSalvoSize = 1,
             MuzzleVelocity = 45,
-            ProjectileId = '/projectiles/NDarkMatter2/NDarkMatter2_proj.bp',
+            ProjectileId = '/projectiles/NParticleBlast1/NParticleBlast1_proj.bp',
             ProjectileLifetimeUsesMultiplier = 2,
             ProjectilesPerOnFire = 1,
             RackBones = {
