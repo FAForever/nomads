@@ -1,1 +1,0 @@
-StringsDB = { 'nomads_faf', }
