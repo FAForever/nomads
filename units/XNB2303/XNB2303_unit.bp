@@ -59,7 +59,7 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 54,
     },
-    Description = '<LOC XNB2303_desc>Tech 2 Artillery Installation',
+    Description = '<LOC XNB2303_desc>Artillery Installation',
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
