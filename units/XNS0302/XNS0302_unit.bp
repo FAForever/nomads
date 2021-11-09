@@ -82,7 +82,7 @@ UnitBlueprint {
         SubThreatLevel = 45,
         SurfaceThreatLevel = 180,
     },
-    Description = '<LOC XNS0302_desc>Tech 3 Battleship',
+    Description = '<LOC XNS0302_desc>Battleship',
     Display = {
         Abilities = {
             '<LOC ability_aa>Anti-Air',
