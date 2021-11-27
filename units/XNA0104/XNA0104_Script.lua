@@ -3,10 +3,15 @@
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local AddLights = import('/lua/nomadsutils.lua').AddLights
 local NAirTransportUnit = import('/lua/nomadsunits.lua').NAirTransportUnit
+local DummyWeapon = import('/lua/aeonweapons.lua').AAASonicPulseBatteryWeapon
 
 NAirTransportUnit = AddLights( NAirTransportUnit )
 
 XNA0104 = Class(NAirTransportUnit) {
+    Weapons = {
+        GuidanceSystem = Class(DummyWeapon) {},
+    },
+
     DestructionTicks = 250,
 
     -- bones that can be hidden: Antenna01, Antenna02, Flare01, Flare02, Flare03, Flare04, Flare05, Flare06, RocketLauncherArm
