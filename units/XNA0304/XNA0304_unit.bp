@@ -282,6 +282,13 @@ UnitBlueprint {
         AirClass = true,
         TransportClass = 2,
     },
+    VeteranMass = {
+        4200,
+        4200,
+        4200,
+        4200,
+        4200,
+    },
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
