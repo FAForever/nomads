@@ -1,8 +1,13 @@
 -- T1 transport
 
 local NAirTransportUnit = import('/lua/nomadsunits.lua').NAirTransportUnit
+local DummyWeapon = import('/lua/aeonweapons.lua').AAASonicPulseBatteryWeapon
 
 XNA0107 = Class(NAirTransportUnit) {
+
+    Weapons = {
+        GuidanceSystem = Class(DummyWeapon) {},
+    },
 
     DestructionPartsLowToss = {0},
     DestroySeconds = 7.5,
