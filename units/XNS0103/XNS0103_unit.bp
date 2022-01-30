@@ -324,7 +324,7 @@ UnitBlueprint {
             BeamCollisionDelay = 0.1,
             BeamLifetime = 0.1,
             CollideFriendly = false,
-            Damage = 0.26,
+            Damage = 0.34,
             DamageType = 'Normal',
             DisplayName = 'Supersonic Flak Launcher',
             FireTargetLayerCapsTable = {
