@@ -756,7 +756,7 @@ XNL0001 = Class(ACUUnit) {
             end
 
             Buff.ApplyBuff(self, 'NOMADSACUT2BuildRate')
-            self:updateBuildRestrictions()
+            self:UpdateBuildRestrictions()
         end,
         
         AdvancedEngineeringRemove = function(self, bp)
@@ -774,7 +774,7 @@ XNL0001 = Class(ACUUnit) {
             self:RestoreBuildRestrictions()
 
             self:AddBuildRestriction( categories.NOMADS * (categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER) )
-            self:updateBuildRestrictions()
+            self:UpdateBuildRestrictions()
         end,
         
         T3Engineering = function(self, bp)
@@ -811,7 +811,7 @@ XNL0001 = Class(ACUUnit) {
                 }
             end
             Buff.ApplyBuff(self, 'NOMADSACUT3BuildRate')
-            self:updateBuildRestrictions()
+            self:UpdateBuildRestrictions()
         end,
         
         T3EngineeringRemove = function(self, bp)
@@ -828,7 +828,7 @@ XNL0001 = Class(ACUUnit) {
             -- reset build restrictions
             self:RestoreBuildRestrictions()
             self:AddBuildRestriction( categories.NOMADS * ( categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER) )
-            self:updateBuildRestrictions()
+            self:UpdateBuildRestrictions()
         end,
         
         OrbitalBombardment = function(self, bp)
