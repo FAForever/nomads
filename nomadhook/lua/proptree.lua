@@ -1,11 +1,14 @@
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local RandomFloat = import('/lua/utilities.lua').GetRandomFloat
 local Prop = import('/lua/sim/Prop.lua').Prop
+local DefaultExplosions = import('/lua/defaultexplosions.lua')
 
 -- Redone the trees quite significantly. This is necessary because the original tree prop was pretty cursed, and this one has a lot better mod support
 -- Sadly this means the prop is overwritten pretty much.
 -- We no longer use states, instead using a table of OnDamage functions, and also this means we can control what happens to the trees more.
 -- For instance we handle burning and falling separately so a tree can be in both "states" at once. Also, mods can mod/add damage types and behaviours super easily now.
+
+-- 2022-04-22 - TODO: FAF has refactored their tree prop code and so this code should also be redone to match their improvements. Ideally we would be able to not overwrite the props.
 local oldTree = Tree
 
 --call with: DamageBehaviours[damageType](self, instigator, armormod, direction, damageType)
