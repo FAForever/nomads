@@ -52,27 +52,8 @@ Weapon = Class(oldWeapon) {
     end,
 
     CreateProjectileForWeapon = function(self, bone) --all this is to get the proj to be recoloured!
-        local proj = self:CreateProjectile(bone)
+        local proj = oldWeapon.CreateProjectileForWeapon(self, bone)
         proj.colourIndex = self.colourIndex --pass our colour data to the proj
-        local damageTable = self:GetDamageTable()
-
-        if proj and not proj:BeenDestroyed() then
-            proj:PassDamageData(damageTable)
-            local bp = self:GetBlueprint()
-
-            if bp.NukeOuterRingDamage and bp.NukeOuterRingRadius and bp.NukeOuterRingTicks and bp.NukeOuterRingTotalTime and
-                bp.NukeInnerRingDamage and bp.NukeInnerRingRadius and bp.NukeInnerRingTicks and bp.NukeInnerRingTotalTime then
-                proj.InnerRing = NukeDamage()
-                proj.InnerRing:OnCreate(bp.NukeInnerRingDamage, bp.NukeInnerRingRadius, bp.NukeInnerRingTicks, bp.NukeInnerRingTotalTime)
-                proj.OuterRing = NukeDamage()
-                proj.OuterRing:OnCreate(bp.NukeOuterRingDamage, bp.NukeOuterRingRadius, bp.NukeOuterRingTicks, bp.NukeOuterRingTotalTime)
-
-                -- Need to store these three for later, in case the missile lands after the launcher dies
-                proj.Launcher = self.unit
-                proj.Army = self.unit.Army
-                proj.Brain = self.unit:GetAIBrain()
-            end
-        end
         return proj
     end,
 
