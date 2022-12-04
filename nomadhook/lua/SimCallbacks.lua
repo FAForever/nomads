@@ -1,4 +1,5 @@
 LetterArray["Nomads"] = "xn"
+LetterArray["NOMADS"] = "xn"
 
 
 
