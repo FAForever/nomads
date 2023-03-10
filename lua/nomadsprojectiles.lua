@@ -1665,6 +1665,19 @@ ArcingTacticalMissile = Class(TacticalMissile) {
     end,
 }
 
+
+
+
+
+
+
+-----------------------------
+-- 2023-03-10 Crimes commited to hotix game freeze - [e]Exotic_Retard
+-- This needs some testing and so on but the triple inheritance of StrategicMissile = Class(SingularityProjectile, NukeProjectile, SingleBeamProjectile) caused the sim to freeze.
+-- Also needs more investigating into why this even happened.
+-- Also as of 2023-03-10 the nuke explosion has double effects - still mostly works though and its definitely an improvement over the situation of nothing working.
+-----------------------------
+
 SingularityProjectile = Class(NullShell) {
     NukeProjBp = '/effects/Entities/NBlackhole/NBlackhole_proj.bp',
 
@@ -1711,19 +1724,68 @@ SingularityProjectile = Class(NullShell) {
 }
 
 --a most unholy mergination of various classes but it all works! and has a linecount of approximately 0 as a result
-StrategicMissile = Class(SingularityProjectile, NukeProjectile, SingleBeamProjectile) {
+--StrategicMissile = Class(SingularityProjectile, NukeProjectile, SingleBeamProjectile) {
+StrategicMissile = Class(NukeProjectile) {
     InitialEffects = NomadsEffectTemplate.NukeMissileInitialEffects,
     LaunchEffects = NomadsEffectTemplate.NukeMissileLaunchEffects,
     ThrustEffects = NomadsEffectTemplate.NukeMissileThrustEffects,
     BeamName = NomadsEffectTemplate.NukeMissileBeam,
     
+    --OnCreate = function(self)
+        --SingleBeamProjectile.OnCreate(self)
+        --self:LauncherCallbacks()
+    --end,
+    
+    --OnImpact = function(self, targetType, TargetEntity)
+        --SingularityProjectile.OnImpact(self, targetType, TargetEntity)
+    --end,
+	
+	
+	
+    NukeProjBp = '/effects/Entities/NBlackhole/NBlackhole_proj.bp',
+
+    -- no impact Fx, the blackhole entity script does this
+    FxImpactUnit = {},
+    FxImpactLand = {},
+    FxImpactUnderWater = {},
+    
+    
     OnCreate = function(self)
-        SingleBeamProjectile.OnCreate(self)
-        self:LauncherCallbacks()
+        NukeProjectile.OnCreate(self)
+		self.effectEntityPath = '/effects/Entities/NBlackhole/NBlackhole_proj.bp' --TODO: right now the nomads projectile isnt made to be run like this so this both duplicates the effect and 
+        self.Launcher = self:GetLauncher()
+		self:LauncherCallbacks()
     end,
     
     OnImpact = function(self, targetType, TargetEntity)
-        SingularityProjectile.OnImpact(self, targetType, TargetEntity)
+        if self.AlreadyExploded then return end
+        -- if we didn't impact with another projectile (that would be the anti nuke projectile) then create nuke effect
+        if not TargetEntity or not EntityCategoryContains(categories.PROJECTILE, TargetEntity) then
+            self.AlreadyExploded = true --incase we decide to hit something else instead.
+
+            -- Play the explosion sound
+            local myBlueprint = self:GetBlueprint()
+            if myBlueprint.Audio.Explosion then
+                self:PlaySound(myBlueprint.Audio.Explosion)
+            end
+            
+            self:CreateSingularity(self.Launcher)
+        end
+        self:ForkThread( self.ExplosionDelayThread, targetType, TargetEntity)
+    end,
+    
+    ExplosionDelayThread = function(self, targetType, TargetEntity)
+        WaitSeconds(0.1)
+        NukeProjectile.OnImpact(self, targetType, TargetEntity)
+		self.effectEntity:SetParent(self.Launcher)
+    end,
+    
+    CreateSingularity = function(self, parent)
+        if not parent.NukeEntity then
+            WARN('nomads: parent entity for singularity is dead or missing')
+        end
+        parent.NukeEntity = self:CreateProjectile( self.NukeProjBp, 0, 0, 0, nil, nil, nil):SetCollision(false)
+        parent.NukeEntity:SetParent(parent)
     end,
 }
 

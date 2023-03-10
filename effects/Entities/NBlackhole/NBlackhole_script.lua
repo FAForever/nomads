@@ -118,6 +118,7 @@ NBlackhole = Class(NullShell) {
     
     -- Sounds and camera effects
     EffectThread = function(self, lifetime)
+		local lifetime = lifetime or 5
         local bag = TrashBag()
         local cloudsBag = TrashBag()
         local threads = TrashBag()
