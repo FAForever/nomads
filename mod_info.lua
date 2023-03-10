@@ -1,9 +1,9 @@
 name = "Nomads"
-version = 108
+version = 109
 copyright = "brute51"
 description = "Adds the Nomads, a fully fledged fifth faction to the game. Required for playing the custom Nomads campaign."
 author = "Armaster, Ninrai, Savi, StevenC21, Shadowlord1, Uveso, JJsAI, Exotic_Retard, Brute51, and many more"
-uid = "5cfbf66e-4ff4-4ce8-82cb-nomadsv00108"
+uid = "8e21bbc5-1368-4c58-9f6e-nomadsv00109"
 url = ""
 icon = ""
 identifier = ""
