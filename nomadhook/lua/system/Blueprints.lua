@@ -206,6 +206,7 @@ function HandleUnitWithBuildPresets(bps, all_bps)
             tempBp.BuildIconSortPriority = preset.BuildIconSortPriority or tempBp.BuildIconSortPriority or 0
             tempBp.General.SelectionPriority = preset.SelectionPriority or tempBp.General.SelectionPriority --Added in Nomads
             tempBp.General.UnitName = preset.UnitName or tempBp.General.UnitName
+            tempBp.Interface = tempBp.Interface or { }
             tempBp.Interface.HelpText = preset.HelpText or tempBp.Interface.HelpText
             tempBp.Description = preset.Description or tempBp.Description
             tempBp.CategoriesHash['ISPREENHANCEDUNIT'] = true
