@@ -159,7 +159,7 @@ UnitBlueprint {
     SelectionSizeZ = 0.85,
     SelectionThickness = 0.38,
     SizeX = 0.45,
-    SizeY = 0.4,
+    SizeY = 0.5,
     SizeZ = 1.1,
     StrategicIconName = 'icon_land_generic',
     StrategicIconSortPriority = 207,
