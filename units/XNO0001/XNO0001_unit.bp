@@ -144,9 +144,9 @@ UnitBlueprint {
     SelectionSizeX = 0.45,
     SelectionSizeZ = 0.65,
     SelectionThickness = 0.66,
-    SizeX = 0.65,
-    SizeY = 0.4,
-    SizeZ = 0.9,
+    SizeX = 3,
+    SizeY = 3,
+    SizeZ = 3,
     SpecialAbilities = {
     },
 --    StrategicIconName = 'icon_experimental_generic',

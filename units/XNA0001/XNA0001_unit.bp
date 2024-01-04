@@ -123,8 +123,8 @@ UnitBlueprint {
         TurnRate = 180,
     },
     SelectionThickness = 0.2,
-    SizeX = 0.25,
-    SizeY = 0.25,
-    SizeZ = 0.25,
+    SizeX = 2.05,
+    SizeY = 2.05,
+    SizeZ = 2.05,
     StrategicIconSortPriority = 105,
 }

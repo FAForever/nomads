@@ -291,7 +291,7 @@ UnitBlueprint {
     SelectionSizeX = 0.3,
     SelectionSizeZ = 1.5,
     SelectionThickness = 0.25,
-    SizeX = 0.55,
+    SizeX = 0.61,
     SizeY = 0.5,
     SizeZ = 2.4,
     StrategicIconName = 'icon_sub1_antinavy',
