@@ -8,30 +8,10 @@ local NAMFlakWeapon = import('/lua/nomadsweapons.lua').NAMFlakWeapon
 XNS0303 = Class(NSeaUnit, AircraftCarrier) {
 
     Weapons = {
-        AAGun1 = Class(ParticleBlaster1) {
-            OnCreate = function(self)
-                ParticleBlaster1.OnCreate(self)
-                self.AimControl:SetAimHeadingOffset(0.5)
-            end,
-        },
-        AAGun2 = Class(ParticleBlaster1) {
-            OnCreate = function(self)
-                ParticleBlaster1.OnCreate(self)
-                self.AimControl:SetAimHeadingOffset(0.5)
-            end,
-        },
-        AAGun3 = Class(ParticleBlaster1) {
-            OnCreate = function(self)
-                ParticleBlaster1.OnCreate(self)
-                self.AimControl:SetAimHeadingOffset(0.5)
-            end,
-        },
-        AAGun4 = Class(ParticleBlaster1) {
-            OnCreate = function(self)
-                ParticleBlaster1.OnCreate(self)
-                self.AimControl:SetAimHeadingOffset(0.5)
-            end,
-        },
+        AAGun1 = Class(ParticleBlaster1) {},
+        AAGun2 = Class(ParticleBlaster1) {},
+        AAGun3 = Class(ParticleBlaster1) {},
+        AAGun4 = Class(ParticleBlaster1) {},
         TMD1 = Class(NAMFlakWeapon) {
             TMDEffectBones = {'TMD1_Fx1', 'TMD1_Fx2',},
 
@@ -50,9 +30,8 @@ XNS0303 = Class(NSeaUnit, AircraftCarrier) {
 --    LightBone_Left = 'Light_03',
 --    LightBone_Right = 'Light_02',
 
-    OnCreate = function(self)
-        NSeaUnit.OnCreate(self)
-
+    OnCreate = function(self, unit)
+        NSeaUnit.OnCreate(self, unit)
         self:NextBuildAttachBone()
 
         self.OpenAnimManips = {}
@@ -60,13 +39,17 @@ XNS0303 = Class(NSeaUnit, AircraftCarrier) {
         for i=1, 3 do  -- change the number of loops to control the number of pads used, max 3 and min 1
             self.OpenAnimManips[n] = CreateAnimator(self):PlayAnim('/units/xns0303/xns0303_OpenPad'..i..'.sca'):SetRate(0)
             self.OpenAnimManips[n]:SetAnimationFraction(0)
-            self.Trash:Add( self.OpenAnimManips[n] )
+            self.Trash:Add(self.OpenAnimManips[n] )
             n = n + 1
         end
     end,
+    
+    
+    DisableIntelOfCargo = function (self, AircraftCarrier)
+    end,
 
-    OnStopBeingBuilt = function(self,builder,layer)
-        NSeaUnit.OnStopBeingBuilt(self,builder,layer)
+    OnStopBeingBuilt = function(self, builder, layer)
+        AircraftCarrier.OnStopBeingBuilt(self, builder, layer)
         ChangeState(self, self.IdleState)
     end,
 
