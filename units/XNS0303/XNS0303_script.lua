@@ -2,7 +2,7 @@
 
 local NSeaUnit = import('/lua/nomadsunits.lua').NSeaUnit
 local AircraftCarrier = import('/lua/defaultunits.lua').AircraftCarrier
-local ParticleBlaster1 = import('/lua/nomadsweapons.lua').ParticleBlaster1
+local EMPGun = import('/lua/nomadsweapons.lua').EMPGun
 local NAMFlakWeapon = import('/lua/nomadsweapons.lua').NAMFlakWeapon
 local ExternalFactoryComponent = import("/lua/defaultcomponents.lua").ExternalFactoryComponent
 
@@ -12,10 +12,50 @@ XNS0303 = Class(NSeaUnit, AircraftCarrier, ExternalFactoryComponent) {
     BuildAttachBone = 'Pad1',
 
     Weapons = {
-        AAGun1 = Class(ParticleBlaster1) {},
-        AAGun2 = Class(ParticleBlaster1) {},
-        AAGun3 = Class(ParticleBlaster1) {},
-        AAGun4 = Class(ParticleBlaster1) {},
+        EMPGun1 = Class(EMPGun) {
+            FxMuzzleFlash = import('/lua/nomadseffecttemplate.lua').EMPGunMuzzleFlash_Tank,
+            CreateProjectileAtMuzzle = function(self, muzzle)
+                local proj = EMPGun.CreateProjectileAtMuzzle(self, muzzle)
+                local data = self:GetBlueprint().DamageToShields
+                if proj and not proj:BeenDestroyed() then
+                    proj:PassData(data)
+                end
+                return proj
+            end,
+        },
+        EMPGun2 = Class(EMPGun) {
+            FxMuzzleFlash = import('/lua/nomadseffecttemplate.lua').EMPGunMuzzleFlash_Tank,
+            CreateProjectileAtMuzzle = function(self, muzzle)
+                local proj = EMPGun.CreateProjectileAtMuzzle(self, muzzle)
+                local data = self:GetBlueprint().DamageToShields
+                if proj and not proj:BeenDestroyed() then
+                    proj:PassData(data)
+                end
+                return proj
+            end,
+        },
+        EMPGun3 = Class(EMPGun) {
+            FxMuzzleFlash = import('/lua/nomadseffecttemplate.lua').EMPGunMuzzleFlash_Tank,
+            CreateProjectileAtMuzzle = function(self, muzzle)
+                local proj = EMPGun.CreateProjectileAtMuzzle(self, muzzle)
+                local data = self:GetBlueprint().DamageToShields
+                if proj and not proj:BeenDestroyed() then
+                    proj:PassData(data)
+                end
+                return proj
+            end,
+        },
+        EMPGun4 = Class(EMPGun) {
+            FxMuzzleFlash = import('/lua/nomadseffecttemplate.lua').EMPGunMuzzleFlash_Tank,
+            CreateProjectileAtMuzzle = function(self, muzzle)
+                local proj = EMPGun.CreateProjectileAtMuzzle(self, muzzle)
+                local data = self:GetBlueprint().DamageToShields
+                if proj and not proj:BeenDestroyed() then
+                    proj:PassData(data)
+                end
+                return proj
+            end,
+        },
         TMD1 = Class(NAMFlakWeapon) {
             TMDEffectBones = {'TMD1_Fx1', 'TMD1_Fx2',},
 
@@ -99,9 +139,9 @@ XNS0303 = Class(NSeaUnit, AircraftCarrier, ExternalFactoryComponent) {
         AircraftCarrier.OnKilled(self, instigator, type, overkillRatio)
         ExternalFactoryComponent.OnKilled(self, instigator, type, overkillRatio)
     end,
-	
-	OnLayerChange = function(self)
-        OnLayerChange = NSeaUnit.OnLayerChange
+    
+    OnLayerChange = function(self, new, old)
+        AircraftCarrier.OnLayerChange(self, new, old)
     end,
 
     IdleState = State {
