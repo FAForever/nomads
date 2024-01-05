@@ -1,13 +1,12 @@
-local NIFCruiseMissile = import('/lua/nomadsprojectiles.lua').NIFCruiseMissile
+local NIFArtilleryMissile = import('/lua/nomadsprojectiles.lua').NIFArtilleryMissile
 local RandomOffsetTrackingTarget = import('/lua/utilities.lua').RandomOffsetTrackingTarget
 
-NTacticalMissile2 = Class(NIFCruiseMissile) {
+NTacticalMissile2 = Class(NIFArtilleryMissile) {
     
     OnCreate = function(self, inWater)
         local pos = self:GetPosition()
-        NIFCruiseMissile.OnCreate(self, inWater)
+        NIFArtilleryMissile.OnCreate(self, inWater)
         self.TargetPos = RandomOffsetTrackingTarget(self, 10)
-        self:SetCollisionShape('Sphere', 0, 0, 0, 3.0) --these travel at a high speed so cybran which uses beams can miss!
         self:SetTurnRate(0)
         self:ForkThread(self.StageThread)
     end,
@@ -22,7 +21,11 @@ NTacticalMissile2 = Class(NIFCruiseMissile) {
     
     SetTurnRateByDist = function(self)
         local dist = self:GetDistanceToTarget()
-        if dist > 100 then
+        if dist > 200 then
+            self:SetTurnRate(10)
+        elseif dist > 150 and dist <= 200 then
+            self:SetTurnRate(25)
+        elseif dist > 00 and dist <= 150 then
             self:SetTurnRate(50)
         elseif dist > 50 and dist <= 100 then
             self:SetTurnRate(75)
