@@ -2,49 +2,35 @@
 
 UnitBlueprint {
     Audio = {
-        Destroyed = Sound {
-            Bank = 'NomadsDestroy',
-            Cue = 'Destroy_Lrg_Structure',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
---        ShieldActiveLoop = Sound {
---            Bank = 'NomadsMisc',
---            Cue = 'ShieldActiveLoop',
---            LodCutoff = 'UnitMove_LodCutoff',
---        },
---        ShieldOff = Sound {
---            Bank = 'NomadsMisc',
---            Cue = 'ShieldDeactivated',
---            LodCutoff = 'UnitMove_LodCutoff',
---        },
---        ShieldOn = Sound {
---            Bank = 'NomadsMisc',
---            Cue = 'ShieldActivated',
---            LodCutoff = 'UnitMove_LodCutoff',
---        },
-        UISelection = Sound {
-            Bank = 'NomadsInterface',
-            Cue = 'Nomads_Select_Shield',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed = Sound { Bank = 'NomadsDestroy', Cue = 'Destroy_Lrg_Structure', LodCutoff = 'UnitMove_LodCutoff', },
+--        ShieldActiveLoop = Sound { Bank = 'NomadsMisc', Cue = 'ShieldActiveLoop', LodCutoff = 'UnitMove_LodCutoff', },
+--        ShieldOff = Sound { Bank = 'NomadsMisc', Cue = 'ShieldDeactivated', LodCutoff = 'UnitMove_LodCutoff', },
+--        ShieldOn = Sound { Bank = 'NomadsMisc', Cue = 'ShieldActivated', LodCutoff = 'UnitMove_LodCutoff', },
+        UISelection = Sound { Bank = 'NomadsInterface', Cue = 'Nomads_Select_Shield', LodCutoff = 'UnitMove_LodCutoff', },
     },
     BuildIconSortPriority = 160,
     Categories = {
-        'SELECTABLE',
-        'NOMADS',
-        'STRUCTURE',
-        'DEFENSE',
-        'TECH2',
-        'SHIELD',
-        'DRAGBUILD',
-        'SIZE12',
+        'BUILTBYTIER2COMMANDER',
+        'BUILTBYTIER2ENGINEER',
+        'BUILTBYTIER3COMMANDER',
+        'BUILTBYTIER3ENGINEER',
         'COUNTERINTELLIGENCE',
-        'VISIBLETORECON',
-        'RECLAIMABLE',
+        'CQUEMOV',
+        'DRAGBUILD',
+        'DEFENSE',
+        'NOMADS',
         'OVERLAYCOUNTERINTEL',
         'OVERLAYDEFENSE',
+        'RECLAIMABLE',
+        'SELECTABLE',
+        'SHIELD',
+        'SIZE12',
         'SORTDEFENSE',
-        'CQUEMOV', --enables the selection and move commands during construction
+        'SORTINTEL',
+        'STEALTHFIELD',
+        'STRUCTURE',
+        'TECH2',
+        'VISIBLETORECON',
     },
     CollisionOffsetY = -0.25,
     Defense = {
@@ -77,7 +63,9 @@ UnitBlueprint {
         Abilities = {
             '<LOC ability_shielddome>Shield Dome',
             '<LOC ability_stealthfield>Stealth Field',
+            "<LOC ability_upgradable>Upgradeable",
         },
+        AnimationUpgrade = '/units/XNB4301/XNB4301_UpgradeToT3Stlth.sca',
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
@@ -111,11 +99,18 @@ UnitBlueprint {
         UniformScale = 0.35,
     },
     Economy = {
-        BuildCostEnergy = 10000,
-        BuildCostMass = 900,
+        BuildableCategory = {
+            'xnb4305',
+        },
+        BuildCostEnergy = 20000,
+        BuildCostMass = 1400,
+        BuildRate = 20,
         BuildTime = 2000,
         DifferentialUpgradeCostCalculation = true,
-        MaintenanceConsumptionPerSecondEnergy = 275,
+        MaintenanceConsumptionPerSecondEnergy = 450,
+        RebuildBonusIds = {
+            'xnb4202',
+        },
     },
     Footprint = {
         SizeX = 3,
@@ -156,6 +151,7 @@ UnitBlueprint {
         UnitWeight = 1,
         UpgradesFrom = 'xnb4202',
         UpgradesFromBase = 'xnb4202',
+        UpgradesTo = 'xnb4305',
     },
     Intel = {
         RadarStealthFieldRadius = 16,
