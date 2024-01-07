@@ -1,4 +1,4 @@
--- T3 shield
+-- T3 shield (unused)
 
 UnitBlueprint {
     Audio = {
@@ -31,8 +31,6 @@ UnitBlueprint {
     BuildIconSortPriority = 160,
     Categories = {
         'SELECTABLE',
-        'BUILTBYTIER3ENGINEER',
-        'BUILTBYTIER3COMMANDER',
         'NOMADS',
         'STRUCTURE',
         'DEFENSE',
@@ -44,7 +42,7 @@ UnitBlueprint {
         'RECLAIMABLE',
         'OVERLAYDEFENSE',
         'SORTDEFENSE',
-        'CQUEMOV', --enables the selection and move commands during construction
+        'CQUEMOV',
     },
     Defense = {
         AirThreatLevel = 0,
@@ -112,17 +110,11 @@ UnitBlueprint {
         UniformScale = 0.42,
     },
     Economy = {
-        BuildableCategory = {
-            'xnb4305',
-        },
         BuildCostEnergy = 40000,
         BuildCostMass = 2500,
         BuildRate = 40,
         BuildTime = 4000,
         MaintenanceConsumptionPerSecondEnergy = 450,
-        RebuildBonusIds = {
-            'xnb4301',
-        },
     },
     Footprint = {
         SizeX = 3,
