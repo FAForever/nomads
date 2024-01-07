@@ -18,7 +18,7 @@ local NomadsShieldChanges = function(SuperClass)
     end,
 
     CollapseShield = function(self, instigator)
-        ChangeState(self, self.EnergyDrainRechargeState)
+        ChangeState(self, self.EnergyDrainedState)
     end,
 
     CreateImpactEffect = function(self, vector)
