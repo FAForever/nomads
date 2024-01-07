@@ -1,65 +1,34 @@
 -- T1 radar
 
 UnitBlueprint {
-    Audio = {
-        Destroyed = Sound {
-            Bank = 'NomadsDestroy',
-            Cue = 'Destroy_Sml_Structure',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'UEB',
-            Cue = 'UEB3101_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        IntelOverchargeActivated = Sound {
-            Bank = 'NomadsMisc',
-            Cue = 'IntelOverchargeActivated',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        IntelOverchargeActiveLoop = Sound {
-            Bank = 'NomadsMisc',
-            Cue = 'IntelOverchargeActiveLoop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
---        IntelOverchargeStopped = Sound {
---        },
-        IntelOverchargeChargingLoop = Sound {
-            Bank = 'NomadsMisc',
-            Cue = 'IntelOverchargeChargingLoop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
---        IntelOverchargeChargingStart = Sound {
---        },
---        IntelOverchargeChargingStop = Sound {
---        },
-        UISelection = Sound {
-            Bank = 'NomadsInterface',
-            Cue = 'Nomads_Select_Radar',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+    Audio = {        Destroyed = Sound { Bank = 'NomadsDestroy', Cue = 'Destroy_Sml_Structure', LodCutoff = 'UnitMove_LodCutoff', },
+        DoneBeingBuilt = Sound { Bank = 'UEB', Cue = 'UEB3101_Activate', LodCutoff = 'UnitMove_LodCutoff', },
+        IntelOverchargeActivated = Sound { Bank = 'NomadsMisc', Cue = 'IntelOverchargeActivated', LodCutoff = 'UnitMove_LodCutoff', },
+        IntelOverchargeActiveLoop = Sound { Bank = 'NomadsMisc', Cue = 'IntelOverchargeActiveLoop', LodCutoff = 'UnitMove_LodCutoff', },
+        IntelOverchargeChargingLoop = Sound { Bank = 'NomadsMisc', Cue = 'IntelOverchargeChargingLoop', LodCutoff = 'UnitMove_LodCutoff', },
+        UISelection = Sound { Bank = 'NomadsInterface', Cue = 'Nomads_Select_Radar', LodCutoff = 'UnitMove_LodCutoff', },
     },
     BuildIconSortPriority = 10,
     Categories = {
-        'SELECTABLE',
         'BUILTBYTIER1ENGINEER',
-        'BUILTBYTIER2ENGINEER',
-        'BUILTBYTIER3ENGINEER',
         'BUILTBYTIER2COMMANDER',
+        'BUILTBYTIER2ENGINEER',
         'BUILTBYTIER3COMMANDER',
-        'NOMADS',
-        'STRUCTURE',
-        'INTELLIGENCE',
-        'TECH1',
-        'RADAR',
+        'BUILTBYTIER3ENGINEER',
+        'CQUEMOV',
         'DRAGBUILD',
-        'SIZE4',
-        'VISIBLETORECON',
-        'RECLAIMABLE',
-        'SHOWQUEUE',
+        'INTELLIGENCE',
+        'NOMADS',
         'OVERLAYRADAR',
+        'RADAR',
+        'RECLAIMABLE',
+        'SELECTABLE',
+        'SHOWQUEUE',
+        'SIZE4',
         'SORTINTEL',
-        'CQUEMOV', --enables the selection and move commands during construction
+        'STRUCTURE',
+        'TECH1',
+        'VISIBLETORECON',
     },
     Defense = {
         AirThreatLevel = 0,
@@ -157,15 +126,17 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 720,
         BuildCostMass = 80,
-        BuildRate = 10,
+        BuildRate = 14.08,
         BuildTime = 80,
         BuildableCategory = {
-            'xnb3201',
+			'xnb3201',
         },
         MaintenanceConsumptionPerSecondEnergy = 20,
         MaintenanceConsumptionPerSecondEnergyBoosted = 60,
         RebuildBonusIds = {
             'xnb3101',
+			'xnb3201',
+			'xnb3301',
         },
     },
     Footprint = {
@@ -215,6 +186,7 @@ UnitBlueprint {
     Intel = {
         RadarRadius = 115,
         RadarRadiusBoosted = 145,
+        ReactivateTime = 2,
         ShowIntelOnSelect = true,
         VisionRadius = 20,
     },
