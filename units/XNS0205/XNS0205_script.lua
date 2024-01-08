@@ -4,7 +4,7 @@ local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local AddNavalLights = import('/lua/nomadsutils.lua').AddNavalLights
 local NSeaUnit = import('/lua/nomadsunits.lua').NSeaUnit
 local UnderwaterRailgunWeapon1 = import('/lua/nomadsweapons.lua').UnderwaterRailgunWeapon1
-local NAMFlakWeapon = import('/lua/nomadsweapons.lua').NAMFlakWeapon
+local EMPGun = import('/lua/nomadsweapons.lua').EMPGun
 local Utilities = import('/lua/utilities.lua')
 
 NSeaUnit = AddNavalLights(NSeaUnit)
@@ -13,9 +13,16 @@ xns0102 = Class(NSeaUnit) {
     Weapons = {
         MainGun = Class(UnderwaterRailgunWeapon1) {},
         RearGun = Class(UnderwaterRailgunWeapon1) {},
-        TMD = Class(NAMFlakWeapon) {
-            SalvoReloadTime = 1.4, --Change this to the correct amount for the weapon.
-            TMDEffectBones = { 'TMD_Fx1', 'TMD_Fx2', },
+        EMPGun = Class(EMPGun) {
+            FxMuzzleFlash = import('/lua/nomadseffecttemplate.lua').EMPGunMuzzleFlash_Tank,
+            CreateProjectileAtMuzzle = function(self, muzzle)
+                local proj = EMPGun.CreateProjectileAtMuzzle(self, muzzle)
+                local data = self:GetBlueprint().DamageToShields
+                if proj and not proj:BeenDestroyed() then
+                    proj:PassData(data)
+                end
+                return proj
+            end,
         },
     },
 
