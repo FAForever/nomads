@@ -2259,8 +2259,6 @@ UnderwaterRailGunProj = Class(RailGunProj) {
 
     FxTrails = NomadsEffectTemplate.UnderWaterRailgunTrail,
     PolyTrail = NomadsEffectTemplate.UnderWaterRailgunPolyTrail,
-
-    CollisionCats = { categories.TORPEDO, }
 }
 
 DepthChargeBomb = Class(OnWaterEntryEmitterProjectile) {
