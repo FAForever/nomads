@@ -2,34 +2,58 @@
 
 local NSeaUnit = import('/lua/nomadsunits.lua').NSeaUnit
 local AircraftCarrier = import('/lua/defaultunits.lua').AircraftCarrier
-local ParticleBlaster1 = import('/lua/nomadsweapons.lua').ParticleBlaster1
+local EMPGun = import('/lua/nomadsweapons.lua').EMPGun
 local NAMFlakWeapon = import('/lua/nomadsweapons.lua').NAMFlakWeapon
+local ExternalFactoryComponent = import("/lua/defaultcomponents.lua").ExternalFactoryComponent
 
-XNS0303 = Class(NSeaUnit, AircraftCarrier) {
+XNS0303 = Class(NSeaUnit, AircraftCarrier, ExternalFactoryComponent) {
+
+    FactoryAttachBone = 'Pad2',
+    BuildAttachBone = 'Pad1',
 
     Weapons = {
-        AAGun1 = Class(ParticleBlaster1) {
-            OnCreate = function(self)
-                ParticleBlaster1.OnCreate(self)
-                self.AimControl:SetAimHeadingOffset(0.5)
+        EMPGun1 = Class(EMPGun) {
+            FxMuzzleFlash = import('/lua/nomadseffecttemplate.lua').EMPGunMuzzleFlash_Tank,
+            CreateProjectileAtMuzzle = function(self, muzzle)
+                local proj = EMPGun.CreateProjectileAtMuzzle(self, muzzle)
+                local data = self:GetBlueprint().DamageToShields
+                if proj and not proj:BeenDestroyed() then
+                    proj:PassData(data)
+                end
+                return proj
             end,
         },
-        AAGun2 = Class(ParticleBlaster1) {
-            OnCreate = function(self)
-                ParticleBlaster1.OnCreate(self)
-                self.AimControl:SetAimHeadingOffset(0.5)
+        EMPGun2 = Class(EMPGun) {
+            FxMuzzleFlash = import('/lua/nomadseffecttemplate.lua').EMPGunMuzzleFlash_Tank,
+            CreateProjectileAtMuzzle = function(self, muzzle)
+                local proj = EMPGun.CreateProjectileAtMuzzle(self, muzzle)
+                local data = self:GetBlueprint().DamageToShields
+                if proj and not proj:BeenDestroyed() then
+                    proj:PassData(data)
+                end
+                return proj
             end,
         },
-        AAGun3 = Class(ParticleBlaster1) {
-            OnCreate = function(self)
-                ParticleBlaster1.OnCreate(self)
-                self.AimControl:SetAimHeadingOffset(0.5)
+        EMPGun3 = Class(EMPGun) {
+            FxMuzzleFlash = import('/lua/nomadseffecttemplate.lua').EMPGunMuzzleFlash_Tank,
+            CreateProjectileAtMuzzle = function(self, muzzle)
+                local proj = EMPGun.CreateProjectileAtMuzzle(self, muzzle)
+                local data = self:GetBlueprint().DamageToShields
+                if proj and not proj:BeenDestroyed() then
+                    proj:PassData(data)
+                end
+                return proj
             end,
         },
-        AAGun4 = Class(ParticleBlaster1) {
-            OnCreate = function(self)
-                ParticleBlaster1.OnCreate(self)
-                self.AimControl:SetAimHeadingOffset(0.5)
+        EMPGun4 = Class(EMPGun) {
+            FxMuzzleFlash = import('/lua/nomadseffecttemplate.lua').EMPGunMuzzleFlash_Tank,
+            CreateProjectileAtMuzzle = function(self, muzzle)
+                local proj = EMPGun.CreateProjectileAtMuzzle(self, muzzle)
+                local data = self:GetBlueprint().DamageToShields
+                if proj and not proj:BeenDestroyed() then
+                    proj:PassData(data)
+                end
+                return proj
             end,
         },
         TMD1 = Class(NAMFlakWeapon) {
@@ -41,7 +65,6 @@ XNS0303 = Class(NSeaUnit, AircraftCarrier) {
         },
     },
 
-    BuildAttachBone = 0,
     DestructionPartsLowToss = { 'Pad1_1', 'Pad1_2', 'Pad1_3', 'Pad1_4', 'Pad1_5', 'Pad1_6',
                                 'Pad2_1', 'Pad2_2', 'Pad2_3', 'Pad2_4', 'Pad2_5', 'Pad2_6',
                                 'Pad3_1', 'Pad3_2', 'Pad3_3', 'Pad3_4', 'Pad3_5', 'Pad3_6',
@@ -50,23 +73,26 @@ XNS0303 = Class(NSeaUnit, AircraftCarrier) {
 --    LightBone_Left = 'Light_03',
 --    LightBone_Right = 'Light_02',
 
-    OnCreate = function(self)
-        NSeaUnit.OnCreate(self)
-
-        self:NextBuildAttachBone()
+    OnCreate = function(self, unit)
+        NSeaUnit.OnCreate(self, unit)
 
         self.OpenAnimManips = {}
         local n=1
         for i=1, 3 do  -- change the number of loops to control the number of pads used, max 3 and min 1
             self.OpenAnimManips[n] = CreateAnimator(self):PlayAnim('/units/xns0303/xns0303_OpenPad'..i..'.sca'):SetRate(0)
             self.OpenAnimManips[n]:SetAnimationFraction(0)
-            self.Trash:Add( self.OpenAnimManips[n] )
+            self.Trash:Add(self.OpenAnimManips[n] )
             n = n + 1
         end
     end,
+    
+    
+    DisableIntelOfCargo = function (self, AircraftCarrier)
+    end,
 
-    OnStopBeingBuilt = function(self,builder,layer)
-        NSeaUnit.OnStopBeingBuilt(self,builder,layer)
+    OnStopBeingBuilt = function(self, builder, layer)
+        AircraftCarrier.OnStopBeingBuilt(self, builder, layer)
+        ExternalFactoryComponent.OnStopBeingBuilt(self, builder, layer)
         ChangeState(self, self.IdleState)
     end,
 
@@ -104,25 +130,25 @@ XNS0303 = Class(NSeaUnit, AircraftCarrier) {
         end
     end,
 
-    NextBuildAttachBone = function(self)
-        if self.BuildAttachBone == 'Pad1' then
-            self.BuildAttachBone = 'Pad2'
-        elseif self.BuildAttachBone == 'Pad2' then
-            self.BuildAttachBone = 'Pad3'
-        else
-            self.BuildAttachBone = 'Pad1'
-        end
-    end,
-
     OnFailedToBuild = function(self)
         NSeaUnit.OnFailedToBuild(self)
         ChangeState(self, self.IdleState)
+    end,
+
+    OnKilled = function(self, instigator, type, overkillRatio)
+        AircraftCarrier.OnKilled(self, instigator, type, overkillRatio)
+        ExternalFactoryComponent.OnKilled(self, instigator, type, overkillRatio)
+    end,
+    
+    OnLayerChange = function(self, new, old)
+        AircraftCarrier.OnLayerChange(self, new, old)
     end,
 
     IdleState = State {
         Main = function(self)
             self:DetachAll(self.BuildAttachBone)
             self:SetBusy(false)
+            self:OnIdle()
         end,
 
         OnStartBuild = function(self, unitBuilding, order)
@@ -142,6 +168,7 @@ XNS0303 = Class(NSeaUnit, AircraftCarrier) {
 
         OnStopBuild = function(self, unitBeingBuilt)
             NSeaUnit.OnStopBuild(self, unitBeingBuilt)
+            ExternalFactoryComponent.OnStopBuildWithStorage(self, unitBeingBuilt)
             ChangeState(self, self.FinishedBuildingState)
         end,
     },
@@ -159,8 +186,6 @@ XNS0303 = Class(NSeaUnit, AircraftCarrier) {
                 IssueMoveOffFactory( { self.UnitBeingBuilt, }, worldPos )
                 self.UnitBeingBuilt:ShowBone( 0, true )
             end
-
-            self:NextBuildAttachBone()
 
             self:SetBusy(false)
             self:RequestRefreshUI()

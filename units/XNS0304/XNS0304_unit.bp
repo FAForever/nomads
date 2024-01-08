@@ -407,10 +407,9 @@ UnitBlueprint {
                 },
             },
             CollideFriendly = false,
-            Damage = 100,
+            Damage = 1000,
             DamageFriendly = false,
             DamageRadius = 4,
-            DamageToShields = 900,
             DamageType = 'Normal',
             DisplayName = 'Blackout EMP Missiles',
             FireTargetLayerCapsTable = {
