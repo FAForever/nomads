@@ -417,7 +417,7 @@ UnitBlueprint {
             CollideFriendly = false,
             Damage = 1000,
             DamageFriendly = true,
-            DamageRadius = 4,
+            DamageRadius = 6,
             DamageType = 'Normal',
             DisplayName = 'Tactical Missile Artillery',
             FireTargetLayerCapsTable = {

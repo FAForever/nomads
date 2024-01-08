@@ -201,17 +201,17 @@ NIFOrbitalMissile = Class(NIFMissile) {
     FxImpactUnderWater = NomadsEffectTemplate.ArtilleryHitUnderWater1,
     
     --the effects were a bit much so just scaling them down a bit
-	FxAirUnitHitScale = 0.7,
-	FxLandHitScale = 0.7,
-	FxNoneHitScale = 0.7,
-	FxPropHitScale = 0.7,
-	FxProjectileHitScale = 0.7,
-	FxProjectileUnderWaterHitScale = 0.7,
-	FxShieldHitScale = 0.7,
-	FxUnderWaterHitScale = 0.7,
-	FxUnitHitScale = 0.7,
-	FxWaterHitScale = 0.7,
-	FxOnKilledScale = 0.7,
+    FxAirUnitHitScale = 0.7,
+    FxLandHitScale = 0.7,
+    FxNoneHitScale = 0.7,
+    FxPropHitScale = 0.7,
+    FxProjectileHitScale = 0.7,
+    FxProjectileUnderWaterHitScale = 0.7,
+    FxShieldHitScale = 0.7,
+    FxUnderWaterHitScale = 0.7,
+    FxUnitHitScale = 0.7,
+    FxWaterHitScale = 0.7,
+    FxOnKilledScale = 0.7,
     
     FxTrails = NomadsEffectTemplate.TacticalMissileTrail,
     PolyTrail = NomadsEffectTemplate.TacticalMissilePolyTrail,
@@ -316,6 +316,133 @@ NIFOrbitalMissile = Class(NIFMissile) {
             for k, v in  NomadsEffectTemplate.OrbitalStrikeMissile_AtmosphereTrail do
                 self.Trash:Add( CreateAttachedEmitter( self, -1, self.Army, v ) )
             end
+        end
+    end,
+}
+
+--Longrange tactical missile (used by Crawler, Devourer, could be reused for Leviathan later)
+NIFArtilleryMissile = Class(NIFMissile) {
+
+    BeamName = NomadsEffectTemplate.TacticalMissileBeam,
+
+    FxImpactAirUnit = NomadsEffectTemplate.ArtilleryHitAirUnit1,
+    FxImpactLand = NomadsEffectTemplate.ArtilleryHitLand1,
+    FxImpactNone = NomadsEffectTemplate.ArtilleryHitNone1,
+    FxImpactProp = NomadsEffectTemplate.ArtilleryHitProp1,
+    FxImpactShield = NomadsEffectTemplate.ArtilleryHitShield1,
+    FxImpactUnit = NomadsEffectTemplate.ArtilleryHitUnit1,
+    FxImpactWater = NomadsEffectTemplate.ArtilleryHitWater1,
+    FxImpactProjectile = NomadsEffectTemplate.ArtilleryHitProjectile1,
+    FxImpactUnderWater = NomadsEffectTemplate.ArtilleryHitUnderWater1,
+
+    FxTrails = NomadsEffectTemplate.TacticalMissileTrail,
+    FxTrailsUnderWater = NomadsEffectTemplate.TacticalMissileTrail,
+    PolyTrail = NomadsEffectTemplate.TacticalMissilePolyTrail,
+
+    -- small correction to make the smoke appear to come from the missile
+    FxTrailOffset = -0.16,
+    PolyTrailOffset = -0.11,
+    FxTrailScale = 0.5,
+
+    FxImpactTrajectoryAligned = false,
+
+    DoImpactFlash = true,
+
+    OnCreate = function(self, inwater)
+        self:SetCollisionShape('Sphere', 0, 0, 0, 3.0)
+        --if we are underwater we want to do things differently, like have different Fx and stuff.
+        if inwater then
+            --we bypass much of the trail creation stuff here, and add our own things instead, later.
+            Projectile.OnCreate(self)
+            self:SetDestroyOnWater(false)
+            self.UnderWaterEmitters = TrashBag()
+            self:CreateUnderWaterEffects( self.UnderWaterEmitters )
+            --velocity adjustments while we are underwater
+            self:SetVelocity(0)--i dont know why but setting this to anything except 0 doesnt do anything!
+            self:SetAcceleration(3)
+        else
+            SingleCompositeEmitterProjectile.OnCreate(self, inwater)
+            self:SetDestroyOnWater(true)
+            self.MoveThread = self:ForkThread( self.MovementThread )
+            self:ForkThread( self.UnpackThread )
+        end
+    end,
+
+    OnExitWater = function(self)
+        SingleCompositeEmitterProjectile.OnExitWater(self)
+        self:SetDestroyOnWater( self:GetBlueprint().Physics.DestroyOnWaterAfterExitingWater or true )
+        if not self.MoveThread then
+            self.MoveThread = self:ForkThread(self.MovementThread)
+            self:ForkThread(self.UnpackThread)
+        end
+        --water exit sequence
+        self:ForkThread( self.WaterExitEffectsThread )
+    end,
+
+    OnDestroy = function(self)
+        if self.UnderWaterEmitters and self.UnderWaterEmitters.Destroy then
+            self.UnderWaterEmitters:Destroy()
+        end
+        SingleCompositeEmitterProjectile.OnDestroy(self)
+    end,
+
+    OnImpact = function(self, targetType, targetEntity)
+        SingleCompositeEmitterProjectile.OnImpact(self, targetType, targetEntity)
+        
+        local pos = self:GetPosition()
+
+        NomadsExplosions.CreateImpactMedium(self, pos, self.Army, targetType)
+    end,
+
+    WaterExitEffectsThread = function(self)
+        -- remove water trail
+        if self.UnderWaterEmitters and self.UnderWaterEmitters.Destroy then
+            self.UnderWaterEmitters:Destroy()
+        end
+        
+        --create some water exiting effects, splashes and all that
+        for k, v in self.FxExitWaterEmitter do
+            CreateEmitterAtBone(self, -2, self.Army, v)
+        end
+        
+        --adjust velocity to what it would have been from a land launch, but in a fancy way (5+3 = 8)
+        self:SetVelocity(5)
+        self:SetAcceleration(10)
+        WaitSeconds(0.1) --small delay for the missile to get a bit above the water
+        
+        --since we dont have any of the effects of the land projectile, we need to recreate them here.
+        
+        --create the EmitterProjectile effects
+        for i in self.FxTrails do
+            CreateEmitterOnEntity(self, self.Army, self.FxTrails[i]):ScaleEmitter(self.FxTrailScale):OffsetEmitter(0, 0, self.FxTrailOffset)
+        end
+        
+        --create the SinglePolyTrailProjectile trail
+        if self.PolyTrail ~= '' then
+            CreateTrail(self, -1, self.Army, self.PolyTrail):OffsetEmitter(0, 0, self.PolyTrailOffset)
+        end
+        
+        --create the SingleCompositeEmitterProjectile beam
+        if self.BeamName ~= '' then
+            CreateBeamEmitterOnEntity(self, -1, self.Army, self.BeamName)
+        end
+        
+        WaitSeconds(0.2) --finish accelerating at really high acceleration
+        self:SetAcceleration(3)
+    end,
+    
+    UnpackThread = function(self)
+        WaitSeconds(0.5) --delay before deploying fins
+        self:SetMesh('/projectiles/NTacticalMissile1/NTacticalMissile1Unpacked_mesh')
+    end,
+
+    CreateUnderWaterEffects = function(self, EffectsBag)
+        -- create attached air bubbles emitter
+        local army, emit = self:GetLauncher().Army
+        for k, v in NomadsEffectTemplate.TacticalMissileTrailFxUnderWaterAddon do
+            emit = CreateAttachedEmitter( self, -1, army, v )
+            EffectsBag:Add( emit )
+            self.Trash:Add( emit )
         end
     end,
 }
@@ -1739,9 +1866,9 @@ StrategicMissile = Class(NukeProjectile) {
     --OnImpact = function(self, targetType, TargetEntity)
         --SingularityProjectile.OnImpact(self, targetType, TargetEntity)
     --end,
-	
-	
-	
+    
+    
+    
     NukeProjBp = '/effects/Entities/NBlackhole/NBlackhole_proj.bp',
 
     -- no impact Fx, the blackhole entity script does this
@@ -1752,9 +1879,9 @@ StrategicMissile = Class(NukeProjectile) {
     
     OnCreate = function(self)
         NukeProjectile.OnCreate(self)
-		self.effectEntityPath = '/effects/Entities/NBlackhole/NBlackhole_proj.bp' --TODO: right now the nomads projectile isnt made to be run like this so this both duplicates the effect and 
+        self.effectEntityPath = '/effects/Entities/NBlackhole/NBlackhole_proj.bp' --TODO: right now the nomads projectile isnt made to be run like this so this both duplicates the effect and 
         self.Launcher = self:GetLauncher()
-		self:LauncherCallbacks()
+        self:LauncherCallbacks()
     end,
     
     OnImpact = function(self, targetType, TargetEntity)
@@ -1777,7 +1904,7 @@ StrategicMissile = Class(NukeProjectile) {
     ExplosionDelayThread = function(self, targetType, TargetEntity)
         WaitSeconds(0.1)
         NukeProjectile.OnImpact(self, targetType, TargetEntity)
-		self.effectEntity:SetParent(self.Launcher)
+        self.effectEntity:SetParent(self.Launcher)
     end,
     
     CreateSingularity = function(self, parent)
