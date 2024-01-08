@@ -3,7 +3,7 @@
 local AddNavalLights = import('/lua/nomadsutils.lua').AddNavalLights
 local NSeaUnit = import('/lua/nomadsunits.lua').NSeaUnit
 local EnergyCannon1 = import('/lua/nomadsweapons.lua').EnergyCannon1
-local UnderwaterRailgunWeapon1 = import('/lua/nomadsweapons.lua').UnderwaterRailgunWeapon1
+local TorpedoWeapon1 = import('/lua/nomadsweapons.lua').TorpedoWeapon1
 
 NSeaUnit = AddNavalLights(NSeaUnit)
 
@@ -12,29 +12,16 @@ XNS0201 = Class(NSeaUnit) {
     Weapons = {
         FrontTurret = Class(EnergyCannon1) {},
         RearTurret = Class(EnergyCannon1) {},
-        MiniRailgunLeft = Class(UnderwaterRailgunWeapon1) {
-            IdleState = State(UnderwaterRailgunWeapon1.IdleState) {
+        MiniRailgun = Class(TorpedoWeapon1) {
+            IdleState = State(TorpedoWeapon1.IdleState) {
                 OnGotTarget = function(self)
                     self.unit:ExtendMiniRailguns()
-                    UnderwaterRailgunWeapon1.IdleState.OnGotTarget(self)
+                    TorpedoWeapon1.IdleState.OnGotTarget(self)
                 end,
 
                 OnFire = function(self)
                     self.unit:ExtendMiniRailguns()
-                    UnderwaterRailgunWeapon1.IdleState.OnFire(self)
-                end,
-            },
-        },
-        MiniRailgunRight = Class(UnderwaterRailgunWeapon1) {
-            IdleState = State(UnderwaterRailgunWeapon1.IdleState) {
-                OnGotTarget = function(self)
-                    self.unit:ExtendMiniRailguns()
-                    UnderwaterRailgunWeapon1.IdleState.OnGotTarget(self)
-                end,
-
-                OnFire = function(self)
-                    self.unit:ExtendMiniRailguns()
-                    UnderwaterRailgunWeapon1.IdleState.OnFire(self)
+                    TorpedoWeapon1.IdleState.OnFire(self)
                 end,
             },
         },
