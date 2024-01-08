@@ -5,7 +5,6 @@ local NSeaUnit = import('/lua/nomadsunits.lua').NSeaUnit
 local AAGun = import('/lua/nomadsweapons.lua').AAGun
 local PlasmaCannon = import('/lua/nomadsweapons.lua').PlasmaCannon
 local StingrayCannon1 = import('/lua/nomadsweapons.lua').StingrayCannon1
-local UnderwaterRailgunWeapon1 = import('/lua/nomadsweapons.lua').UnderwaterRailgunWeapon1
 local RocketWeapon1 = import('/lua/nomadsweapons.lua').RocketWeapon1
 
 NSeaUnit = AddNavalLights(NSeaUnit)
@@ -16,7 +15,6 @@ XNS0302 = Class(NSeaUnit) {
         MainTurret2 = Class(PlasmaCannon) {},
         SideTurret1 = Class(StingrayCannon1) {},
         SideTurret2 = Class(StingrayCannon1) {},
-        RailGun = Class(UnderwaterRailgunWeapon1) {},
         AATurret = Class(RocketWeapon1) {
             PlayFxMuzzleSequence = function(self, muzzle)
                 RocketWeapon1.PlayFxMuzzleSequence(self, muzzle)
