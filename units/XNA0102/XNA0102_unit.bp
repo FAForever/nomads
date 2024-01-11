@@ -188,9 +188,7 @@ UnitBlueprint {
         UnitName = '<LOC XNA0102_name>Falcon',
         UnitWeight = 1,
     },
-    Intel = {
-        VisionRadius = 28,
-    },
+    Intel = { VisionRadius = 28, },
     Interface = {
         HelpText = '<LOC XNA0102_help>Interceptor',
     },
@@ -237,13 +235,7 @@ UnitBlueprint {
     },
     Weapon = {
         {
-            Audio = {
-                Fire = Sound {
-                    Bank = 'NomadsWeapons',
-                    Cue = 'Gatling1_Muzzle',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-            },
+            Audio = { Fire = Sound { Bank = 'NomadsWeapons', Cue = 'Gatling1_Muzzle', LodCutoff = 'Weapon_LodCutoff', }, },
             AutoInitiateAttackCommand = true,
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
@@ -290,17 +282,7 @@ UnitBlueprint {
             SlavedToBody = true,
             SlavedToBodyArcRange = 50,
             TargetCheckInterval = 0.3,
-            TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'AIR MOBILE TECH1 INTELLIGENCE',
-                'AIR MOBILE TECH3 BOMBER',
-                'AIR MOBILE TECH2 BOMBER',
-                'AIR MOBILE TECH1 BOMBER',
-                'AIR MOBILE GROUNDATTACK',
-                'AIR MOBILE TRANSPORTATION',
-                'SPECIALLOWPRI',
-                'ALLUNITS',
-            },
+            TargetPriorities = { "ALLUNITS" },
             TargetRestrictDisallow = 'UNTARGETABLE,LAND,STRUCTURE,NAVAL',
             TargetRestrictOnlyAllow = 'AIR',
             TrackingRadius = 1.25,

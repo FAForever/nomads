@@ -64,6 +64,7 @@ UnitBlueprint {
         'NOMADS',
         'RECLAIMABLE',
         'SELECTABLE',
+        'SNIPEMODE',
         'TECH2',
         'TRANSPORTATION',
         'TRANSPORTBUILTBYTIER2FACTORY',
@@ -145,9 +146,7 @@ UnitBlueprint {
         UnitName = '<LOC XNA0104_name>Scalestoria', -- guess who originally added this unit...
         UnitWeight = 1,
     },
-    Intel = {
-        VisionRadius = 32,
-    },
+    Intel = { VisionRadius = 32, },
     Interface = {
         HelpText = '<LOC XNA0104_help>Air Transport',
     },
@@ -225,7 +224,7 @@ UnitBlueprint {
             TurretYawRange = 180,
             TurretYawSpeed = 360,
         },
-       {
+        {
             AboveWaterTargetsOnly = true,
             Damage = 250,
             DamageFriendly = true,

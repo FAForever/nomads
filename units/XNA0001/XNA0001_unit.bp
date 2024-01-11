@@ -2,24 +2,16 @@
 
 UnitBlueprint {
     Audio = {
-        Open = Sound {
-            Bank = 'NomadsMisc',
-            Cue = 'DroppodOpen',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        CoverLaunch = Sound {
-            Bank = 'NomadsMisc',
-            Cue = 'DroppodCoverLaunch',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Open = Sound { Bank = 'NomadsMisc', Cue = 'DroppodOpen', LodCutoff = 'UnitMove_LodCutoff', },
+        CoverLaunch = Sound { Bank = 'NomadsMisc', Cue = 'DroppodCoverLaunch', LodCutoff = 'UnitMove_LodCutoff', },
     },
     Categories = {
-        'NOMADS',
         'AIR',
-        'UNTARGETABLE',
-        'NOFORMATION',
-        'INSIGNIFICANTUNIT',
         'EXCLUDEINDOMINATION',
+        'INSIGNIFICANTUNIT',
+        'NOFORMATION',
+        'NOMADS',
+        'UNTARGETABLE',
     },
     Defense = {
         AirThreatLevel = 0,
