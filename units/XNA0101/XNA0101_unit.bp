@@ -164,9 +164,9 @@ UnitBlueprint {
         UnitWeight = 1,
     },
     Intel = {
-        VisionRadius = 42,
         RadarRadius = 65,
         SonarRadius = 30,
+        VisionRadius = 42,
     },
     Interface = {
         HelpText = '<LOC XNA0101_help>Air Scout',

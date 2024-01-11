@@ -66,10 +66,11 @@ UnitBlueprint {
         'NOMADS',
         'OVERLAYRADAR',
         'RECLAIMABLE',
+        'SELECTABLE',
         'SHOWATTACKRETICLE',
+        'SNIPEMODE',
         'TECH1',
         'VISIBLETORECON',
-        'SELECTABLE',
     },
     CollisionOffsetZ = -0.15,
     Defense = {
@@ -188,7 +189,7 @@ UnitBlueprint {
         UnitWeight = 1,
     },
     Intel = {
-        RadarRadius = 42,
+        RadarRadius = 44,
         VisionRadius = 32,
     },
     Interface = {
@@ -237,13 +238,7 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
-            Audio = {
-                Fire = Sound {
-                    Bank = 'NomadsWeapons',
-                    Cue = 'Rocket1_Muzzle',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-            },
+            Audio = { Fire = Sound { Bank = 'NomadsWeapons', Cue = 'Rocket1_Muzzle', LodCutoff = 'Weapon_LodCutoff', }, },
             AutoInitiateAttackCommand = true,
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
@@ -287,17 +282,8 @@ UnitBlueprint {
             RateOfFire = 0.2,
             TargetCheckInterval = 1,
             TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'LAND MOBILE ENGINEER',
-                'LAND MOBILE ANTIAIR',
-                'TECH3 MOBILE',
-                'TECH2 MOBILE',
-                'TECH1 MOBILE',
-                'TECH1 ENERGYPRODUCTION',
-                'TECH2 ENERGYPRODUCTION',
-                'TECH3 ENERGYPRODUCTION',
-                'SPECIALLOWPRI',
-                'ALLUNITS',
+                "STRUCTURE",
+                "ALLUNITS",
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.15,

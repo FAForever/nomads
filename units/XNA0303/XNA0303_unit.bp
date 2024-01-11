@@ -158,9 +158,9 @@ UnitBlueprint {
         UniformScale = 0.15,
     },
     Economy = {
-        BuildCostEnergy = 40000,
-        BuildCostMass = 350,
-        BuildTime = 3000,
+        BuildCostEnergy = 51200,
+        BuildCostMass = 450,
+        BuildTime = 3840,
     },
     Footprint = {
         MaxSlope = 0.25,
@@ -191,12 +191,8 @@ UnitBlueprint {
         UnitName = '<LOC XNA0303_name>Thunder',
         UnitWeight = 1,
     },
-    Intel = {
-        VisionRadius = 32,
-    },
-    Interface = {
-        HelpText = '<LOC XNA0303_help>Fast and agile anti-air fighter. Designed to engage all aircraft.',
-    },
+    Intel = { VisionRadius = 32, },
+    Interface = { HelpText = '<LOC XNA0303_help>Fast and agile anti-air fighter. Designed to engage all aircraft.', },
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.65,
     LifeBarSize = 1.25,
@@ -240,18 +236,12 @@ UnitBlueprint {
     Weapon = {
         {
             AboveWaterTargetsOnly = true,
-            Audio = {
-                Fire = Sound {
-                    Bank = 'NomadsWeapons',
-                    Cue = 'IonBlaster_Medium_Muzzle_Air',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-            },
+            Audio = { Fire = Sound { Bank = 'NomadsWeapons', Cue = 'IonBlaster_Medium_Muzzle_Air', LodCutoff = 'Weapon_LodCutoff', }, },
             AutoInitiateAttackCommand = true,
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
             CollideFriendly = false,
-            Damage = 405,
+            Damage = 505,
             DamageFriendly = false,
             DamageRadius = 0,
             DamageType = 'Normal',
@@ -288,18 +278,7 @@ UnitBlueprint {
             SlavedToBody = true,
             SlavedToBodyArcRange = 50,
             TargetCheckInterval = 0.5,
-            TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'EXPERIMENTAL',
-                'AIR MOBILE TECH3 BOMBER',
-                'AIR MOBILE TECH3 INTELLIGENCE',                
-                'AIR MOBILE TECH2 BOMBER',
-                'AIR MOBILE TECH1 BOMBER',
-                'AIR MOBILE GROUNDATTACK',
-                'AIR MOBILE TRANSPORTATION',
-                'SPECIALLOWPRI',
-                'ALLUNITS',
-            },
+            TargetPriorities = { "ALLUNITS" },
             TargetRestrictDisallow = 'UNTARGETABLE,LAND,POD,STRUCTURE,NAVAL',
             TargetRestrictOnlyAllow = 'AIR',
             TrackingRadius = 0,

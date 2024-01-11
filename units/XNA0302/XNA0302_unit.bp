@@ -69,8 +69,6 @@ UnitBlueprint {
         Abilities = {
             '<LOC ability_omni>Omni Sensor',
             '<LOC ability_radar>Radar',
-            '<LOC ability_sonar>Sonar',
---            '<LOC ability_orbitalstrikewreck>Orbital strike on wreck',
         },
         BuildEffect = {
             ExtendsRear = 0.2,
@@ -176,7 +174,6 @@ UnitBlueprint {
     Intel = {
         OmniRadius = 30,
         RadarRadius = 96,
-        SonarRadius = 98,
         VisionRadius = 64,
     },
     Interface = {

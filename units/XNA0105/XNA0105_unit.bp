@@ -58,6 +58,7 @@ UnitBlueprint {
         'OVERLAYDIRECTFIRE',
         'RECLAIMABLE',
         'SELECTABLE',
+        'SNIPEMODE',
         'TECH1',
         'VISIBLETORECON',
     },
@@ -166,12 +167,8 @@ UnitBlueprint {
         UnitName = '<LOC XNA0105_name>Golem',
         UnitWeight = 1,
     },
-    Intel = {
-        VisionRadius = 32,
-    },
-    Interface = {
-        HelpText = '<LOC XNA0105_help>Light Gunship',
-    },
+    Intel = { VisionRadius = 32, },
+    Interface = { HelpText = '<LOC XNA0105_help>Light Gunship', },
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.5,
     LifeBarSize = 1,
@@ -216,13 +213,7 @@ UnitBlueprint {
     Weapon = {
          {
             AboveWaterTargetsOnly = true,
-            Audio = {
-                Fire = Sound {
-                    Bank = 'NomadsWeapons',
-                    Cue = 'DarkMatterCannon3_Muzzle_Air',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-            },
+            Audio = { Fire = Sound { Bank = 'NomadsWeapons', Cue = 'DarkMatterCannon3_Muzzle_Air', LodCutoff = 'Weapon_LodCutoff', }, },
             AutoInitiateAttackCommand = true,
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
@@ -264,16 +255,10 @@ UnitBlueprint {
             RateOfFire = 0.4,
             TargetCheckInterval = 0.5,
             TargetPriorities = {
-                'LAND MOBILE ENGINEER',
-                'LAND MOBILE ANTIAIR',
-                'TECH3 MOBILE',
-                'TECH2 MOBILE',
-                'TECH1 MOBILE',
-                'TECH1 ENERGYPRODUCTION',
-                'TECH2 ENERGYPRODUCTION',
-                'TECH3 ENERGYPRODUCTION',
-                'SPECIALLOWPRI',
-                'ALLUNITS',
+                "ANTIAIR",
+                "GROUNDATTACK",
+                "ENGINEER",
+                "ALLUNITS",
             },
             TargetRestrictDisallow = 'HIGHALTAIR,UNTARGETABLE',
             TrackingRadius = 1.15,
@@ -293,13 +278,7 @@ UnitBlueprint {
         },
         {
             AboveWaterTargetsOnly = true,
-            Audio = {
-                Fire = Sound {
-                    Bank = 'NomadsWeapons',
-                    Cue = 'DarkMatterCannon3_Muzzle_Air',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-            },
+            Audio = { Fire = Sound { Bank = 'NomadsWeapons', Cue = 'DarkMatterCannon3_Muzzle_Air', LodCutoff = 'Weapon_LodCutoff', }, },
             AutoInitiateAttackCommand = true,
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
@@ -341,9 +320,10 @@ UnitBlueprint {
             RateOfFire = 0.4,
             TargetCheckInterval = 0.5,
             TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'SPECIALLOWPRI',
-                'ALLUNITS',
+                "ANTIAIR",
+                "GROUNDATTACK",
+                "ENGINEER",
+                "ALLUNITS",
             },
             TargetRestrictDisallow = 'HIGHALTAIR,UNTARGETABLE',
             TrackingRadius = 1.15,
