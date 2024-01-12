@@ -7,36 +7,12 @@ UnitBlueprint {
         },
     },
     Audio = {
-        Construct = Sound {
-            Bank = 'NomadsBuildings',
-            Cue = 'FactoryStartUnitProduction',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        ConstructLoop = Sound {
-            Bank = 'NomadsBuildings',
-            Cue = 'FactoryLoopUnitProduction',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DeathExplosion = Sound {
-            Bank = 'NomadsDestroy',
-            Cue = 'Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'NomadsDestroy',
-            Cue = 'Destroy_Lrg_Structure',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'NomadsBuildings',
-            Cue = 'LandFactoryActivate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'NomadsInterface',
-            Cue = 'Nomads_Select_Factory',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Construct = Sound { Bank = 'NomadsBuildings', Cue = 'FactoryStartUnitProduction', LodCutoff = 'UnitMove_LodCutoff', },
+        ConstructLoop = Sound { Bank = 'NomadsBuildings', Cue = 'FactoryLoopUnitProduction', LodCutoff = 'UnitMove_LodCutoff', },
+        DeathExplosion = Sound { Bank = 'NomadsDestroy', Cue = 'Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff', },
+        Destroyed = Sound { Bank = 'NomadsDestroy', Cue = 'Destroy_Lrg_Structure', LodCutoff = 'UnitMove_LodCutoff', },
+        DoneBeingBuilt = Sound { Bank = 'NomadsBuildings', Cue = 'LandFactoryActivate', LodCutoff = 'UnitMove_LodCutoff', },
+        UISelection = Sound { Bank = 'NomadsInterface', Cue = 'Nomads_Select_Factory', LodCutoff = 'UnitMove_LodCutoff', },
     },
     BuildIconSortPriority = 70,
     Categories = {
@@ -189,9 +165,7 @@ UnitBlueprint {
         UpgradesFrom = 'xnb0201',
         UpgradesFromBase = 'xnb0101',
     },
-    Intel = {
-        VisionRadius = 20,
-    },
+    Intel = { VisionRadius = 20, },
     Interface = {
         HelpText = '<LOC XNB0301faf_help>Land Factory HQ',
     },

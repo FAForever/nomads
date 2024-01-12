@@ -41,25 +41,25 @@ UnitBlueprint {
     },
     BuildIconSortPriority = 31, --
     Categories = {
-        'SELECTABLE',
         'BUILTBYTIER2SUPPORTFACTORY', --
-        'BUILTBYTIER3ENGINEER', --
         'BUILTBYTIER3COMMANDER', --
-        'NOMADS',
-        'STRUCTURE',
-        'NAVAL',
-        'TECH3',
+        'BUILTBYTIER3ENGINEER', --
         'CONSTRUCTION',
-        'FACTORY',
-        'RALLYPOINT',
-        'DRAGBUILD',
-        'SIZE16',
-        'VISIBLETORECON',
-        'RECLAIMABLE',
-        'SHOWQUEUE',
-        'SORTCONSTRUCTION',
         'CONSTRUCTIONSORTDOWN',
+        'DRAGBUILD',
+        'FACTORY',
+        'NAVAL',
+        'NOMADS',
+        'RALLYPOINT',
+        'RECLAIMABLE',
+        'SELECTABLE',
+        'SHOWQUEUE',
+        'SIZE16',
+        'SORTCONSTRUCTION',
+        'STRUCTURE',
         'SUPPORTFACTORY', --
+        'TECH3',
+        'VISIBLETORECON',
     },
     Defense = {
         AirThreatLevel = 0,
@@ -176,9 +176,7 @@ UnitBlueprint {
         UpgradesFrom = 'znb9503', --
         UpgradesFromBase = 'xnb0103',--
     },
-    Intel = {
-        VisionRadius = 20,
-    },
+    Intel = { VisionRadius = 20, },
     Interface = {
         HelpText = '<LOC ZNB9603_help>Naval Factory', --
     },
