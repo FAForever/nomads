@@ -7,60 +7,36 @@ UnitBlueprint {
         },
     },
     Audio = {
-        Construct = Sound {
-            Bank = 'NomadsBuildings',
-            Cue = 'FactoryStartUnitProduction',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        ConstructLoop = Sound {
-            Bank = 'NomadsBuildings',
-            Cue = 'FactoryLoopUnitProduction',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DeathExplosion = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'NomadsDestroy',
-            Cue = 'Destroy_Lrg_Structure',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'NomadsBuildings',
-            Cue = 'LandFactoryActivate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'NomadsInterface',
-            Cue = 'Nomads_Select_Factory',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Construct = Sound { Bank = 'NomadsBuildings', Cue = 'FactoryStartUnitProduction', LodCutoff = 'UnitMove_LodCutoff', },
+        ConstructLoop = Sound { Bank = 'NomadsBuildings', Cue = 'FactoryLoopUnitProduction', LodCutoff = 'UnitMove_LodCutoff', },
+        DeathExplosion = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff', },
+        Destroyed = Sound { Bank = 'NomadsDestroy', Cue = 'Destroy_Lrg_Structure', LodCutoff = 'UnitMove_LodCutoff', },
+        DoneBeingBuilt = Sound { Bank = 'NomadsBuildings', Cue = 'LandFactoryActivate', LodCutoff = 'UnitMove_LodCutoff', },
+        UISelection = Sound { Bank = 'NomadsInterface', Cue = 'Nomads_Select_Factory', LodCutoff = 'UnitMove_LodCutoff', },
     },
     BuildIconSortPriority = 71, --
     Categories = {
-        'SELECTABLE',
         'BUILTBYTIER1FACTORY',
-        'BUILTBYTIER2ENGINEER', --
         'BUILTBYTIER2COMMANDER', --
-        'BUILTBYTIER3ENGINEER', --
+        'BUILTBYTIER2ENGINEER', --
         'BUILTBYTIER3COMMANDER', --
-        'NOMADS',
-        'STRUCTURE',
-        'LAND',
-        'TECH2',
+        'BUILTBYTIER3ENGINEER', --
         'CONSTRUCTION',
-        'FACTORY',
-        'RALLYPOINT',
-        'DRAGBUILD',
-        'SIZE16',
-        'VISIBLETORECON',
-        'RECLAIMABLE',
-        'SHOWQUEUE',
-        'SORTCONSTRUCTION',
         'CONSTRUCTIONSORTDOWN',
+        'DRAGBUILD',
+        'FACTORY',
+        'LAND',
+        'NOMADS',
+        'RALLYPOINT',
+        'RECLAIMABLE',
+        'SELECTABLE',
+        'SHOWQUEUE',
+        'SIZE16',
+        'SORTCONSTRUCTION',
+        'STRUCTURE',
         'SUPPORTFACTORY',
+        'TECH2',
+        'VISIBLETORECON',
     },
     CollisionOffsetZ = 0.2,
     Defense = {
@@ -199,9 +175,7 @@ UnitBlueprint {
         UpgradesFromBase = 'xnb0101', --
         UpgradesTo = 'znb9601',
     },
-    Intel = {
-        VisionRadius = 20,
-    },
+    Intel = { VisionRadius = 20, },
     Interface = {
         HelpText = '<LOC ZNB9501_help>Land Factory', --
     },

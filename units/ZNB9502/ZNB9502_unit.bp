@@ -10,60 +10,36 @@ UnitBlueprint {
         },
     },
     Audio = {
-        Construct = Sound {
-            Bank = 'NomadsBuildings',
-            Cue = 'FactoryStartUnitProduction',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        ConstructLoop = Sound {
-            Bank = 'NomadsBuildings',
-            Cue = 'FactoryLoopUnitProduction',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DeathExplosion = Sound {
-            Bank = 'UELDestroy',
-            Cue = 'UEB_Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'NomadsDestroy',
-            Cue = 'Destroy_Lrg_Structure',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'NomadsBuildings',
-            Cue = 'AirFactoryActivate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'NomadsInterface',
-            Cue = 'Nomads_Select_Factory',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Construct = Sound { Bank = 'NomadsBuildings', Cue = 'FactoryStartUnitProduction', LodCutoff = 'UnitMove_LodCutoff', },
+        ConstructLoop = Sound { Bank = 'NomadsBuildings', Cue = 'FactoryLoopUnitProduction', LodCutoff = 'UnitMove_LodCutoff', },
+        DeathExplosion = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff', },
+        Destroyed = Sound { Bank = 'NomadsDestroy', Cue = 'Destroy_Lrg_Structure', LodCutoff = 'UnitMove_LodCutoff', },
+        DoneBeingBuilt = Sound { Bank = 'NomadsBuildings', Cue = 'AirFactoryActivate', LodCutoff = 'UnitMove_LodCutoff', },
+        UISelection = Sound { Bank = 'NomadsInterface', Cue = 'Nomads_Select_Factory', LodCutoff = 'UnitMove_LodCutoff', },
     },
     BuildIconSortPriority = 61, --
     Categories = {
-        'SELECTABLE',
-        'BUILTBYTIER1FACTORY',
-        'BUILTBYTIER2ENGINEER', --
-        'BUILTBYTIER2COMMANDER', --
-        'BUILTBYTIER3ENGINEER', --
-        'BUILTBYTIER3COMMANDER', --
-        'NOMADS',
-        'STRUCTURE',
         'AIR',
-        'TECH2',
+        'BUILTBYTIER1FACTORY',
+        'BUILTBYTIER2COMMANDER', --
+        'BUILTBYTIER2ENGINEER', --
+        'BUILTBYTIER3COMMANDER', --
+        'BUILTBYTIER3ENGINEER', --
         'CONSTRUCTION',
-        'FACTORY',
-        'RALLYPOINT',
-        'DRAGBUILD',
-        'SIZE16',
-        'VISIBLETORECON',
-        'RECLAIMABLE',
-        'SHOWQUEUE',
-        'SORTCONSTRUCTION',
         'CONSTRUCTIONSORTDOWN',
+        'DRAGBUILD',
+        'FACTORY',
+        'NOMADS',
+        'RALLYPOINT',
+        'RECLAIMABLE',
+        'SELECTABLE',
+        'SHOWQUEUE',
+        'SIZE16',
+        'SORTCONSTRUCTION',
+        'STRUCTURE',
         'SUPPORTFACTORY', --
+        'TECH2',
+        'VISIBLETORECON',
     },
     Defense = {
         AirThreatLevel = 0,
@@ -177,9 +153,7 @@ UnitBlueprint {
         UpgradesFromBase = 'xnb0102', --
         UpgradesTo = 'znb9602', --
     },
-    Intel = {
-        VisionRadius = 20,
-    },
+    Intel = { VisionRadius = 20, },
     Interface = {
         HelpText = '<LOC ZNB9502_help>Air Factory', --
     },
