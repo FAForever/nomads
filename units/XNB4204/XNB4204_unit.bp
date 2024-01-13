@@ -2,40 +2,28 @@
 
 UnitBlueprint {
     Audio = {
-        Destroyed = Sound {
-            Bank = 'NomadsDestroy',
-            Cue = 'Destroy_Med_Structure',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'UEB',
-            Cue = 'UEB4201_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'NomadsInterface',
-            Cue = 'Nomads_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed = Sound { Bank = 'NomadsDestroy', Cue = 'Destroy_Med_Structure', LodCutoff = 'UnitMove_LodCutoff', },
+        DoneBeingBuilt = Sound { Bank = 'UEB', Cue = 'UEB4201_Activate', LodCutoff = 'UnitMove_LodCutoff', },
+        UISelection = Sound { Bank = 'NomadsInterface', Cue = 'Nomads_Select_Gun', LodCutoff = 'UnitMove_LodCutoff', },
     },
     BuildIconSortPriority = 155,
     Categories = {
-        'SELECTABLE',
-        'BUILTBYTIER2ENGINEER',
-        'BUILTBYTIER3ENGINEER',
-        'BUILTBYTIER2COMMANDER',
-        'BUILTBYTIER3COMMANDER',
-        'NOMADS',
-        'STRUCTURE',
-        'DEFENSE',
-        'TECH2',
         'ANTIMISSILE',
+        'BUILTBYTIER2COMMANDER',
+        'BUILTBYTIER2ENGINEER',
+        'BUILTBYTIER3COMMANDER',
+        'BUILTBYTIER3ENGINEER',
+        'DEFENSE',
         'DRAGBUILD',
-        'SIZE4',
-        'VISIBLETORECON',
-        'RECLAIMABLE',
+        'NOMADS',
         'OVERLAYDEFENSE',
+        'RECLAIMABLE',
+        'SELECTABLE',
+        'SIZE4',
         'SORTDEFENSE',
+        'STRUCTURE',
+        'TECH2',
+        'VISIBLETORECON',
     },
     CollisionOffsetY = -0.25,
     Defense = {
@@ -85,9 +73,7 @@ UnitBlueprint {
         BuildCostEnergy = 3200,
         BuildCostMass = 280,
         BuildTime = 400,
-        RebuildBonusIds = {
-            'xnb4204',
-        },
+        RebuildBonusIds = { 'xnb4204', },
     },
     Footprint = {
         MinWaterDepth = 1,
@@ -116,9 +102,7 @@ UnitBlueprint {
         UnitName = '<LOC XNB4204_name>Arc Aegis',
         UnitWeight = 1,
     },
-    Intel = {
-        VisionRadius = 20,
-    },
+    Intel = { VisionRadius = 20, },
     Interface = {
         HelpText = '<LOC XNB4204_help>Tactical Missile Defense',
     },
@@ -161,11 +145,7 @@ UnitBlueprint {
         {
             AimsStraightOnDisable = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'NomadsWeapons',
-                    Cue = 'DarkMatterCannon2_Muzzle',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'NomadsWeapons', Cue = 'DarkMatterCannon2_Muzzle', LodCutoff = 'Weapon_LodCutoff', },
             },
             BallisticArc = 'RULEUBA_None',
             BeamCollisionDelay = 0.1,

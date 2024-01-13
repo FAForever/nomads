@@ -15,8 +15,8 @@ UnitBlueprint {
         'BUILTBYTIER3COMMANDER',
         'BUILTBYTIER3ENGINEER',
         'CQUEMOV',
-        'DRAGBUILD',
         'DEFENSE',
+        'DRAGBUILD',
         'NOMADS',
         'OVERLAYDEFENSE',
         'RECLAIMABLE',
@@ -96,13 +96,9 @@ UnitBlueprint {
         BuildCostMass = 400,
         BuildRate = 20,
         BuildTime = 700,
-        BuildableCategory = {
-            'xnb4205',
-        },
+        BuildableCategory = { 'xnb4205', },
         MaintenanceConsumptionPerSecondEnergy = 150,
-        RebuildBonusIds = {
-            'xnb4202',
-        },
+        RebuildBonusIds = { 'xnb4202', },
     },
     Footprint = {
         SizeX = 3,
@@ -143,9 +139,7 @@ UnitBlueprint {
         UnitWeight = 1,
         UpgradesTo = 'xnb4205',
     },
-    Intel = {
-        VisionRadius = 20,
-    },
+    Intel = { VisionRadius = 20, },
     Interface = {
         HelpText = '<LOC XNB4202_help> Shield Generator',
     },
