@@ -26,10 +26,10 @@ UnitBlueprint {
         'DEFENSIVEBOAT',
         'INDIRECTFIRE',
         'MOBILE',
-        'NAVAL'
+        'NAVAL',
         'NOMADS',
         'OVERLAYANTIAIR',
-        'OVERLAYINDIRECTFIRE',,
+        'OVERLAYINDIRECTFIRE',
         'RECLAIMABLE',
         'SELECTABLE',
         'TECH1',
