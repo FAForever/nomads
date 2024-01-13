@@ -16,8 +16,9 @@ UnitBlueprint {
         'BUILTBYTIER3ENGINEER',
         'COUNTERINTELLIGENCE',
         'CQUEMOV',
-        'DRAGBUILD',
         'DEFENSE',
+        'DRAGBUILD',
+        'INTELLIGENCE',
         'NOMADS',
         'OVERLAYCOUNTERINTEL',
         'OVERLAYDEFENSE',
@@ -99,18 +100,14 @@ UnitBlueprint {
         UniformScale = 0.35,
     },
     Economy = {
-        BuildableCategory = {
-            'xnb4305',
-        },
+        BuildableCategory = { 'xnb4305', },
         BuildCostEnergy = 20000,
         BuildCostMass = 1400,
         BuildRate = 20,
         BuildTime = 2000,
         DifferentialUpgradeCostCalculation = true,
         MaintenanceConsumptionPerSecondEnergy = 450,
-        RebuildBonusIds = {
-            'xnb4202',
-        },
+        RebuildBonusIds = { 'xnb4202', },
     },
     Footprint = {
         SizeX = 3,
