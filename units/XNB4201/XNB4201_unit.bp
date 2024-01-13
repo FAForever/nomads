@@ -2,21 +2,9 @@
 
 UnitBlueprint {
     Audio = {
-        Destroyed = Sound {
-            Bank = 'NomadsDestroy',
-            Cue = 'Destroy_Med_Structure',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'UEB',
-            Cue = 'UEB2304_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'NomadsInterface',
-            Cue = 'Nomads_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed = Sound { Bank = 'NomadsDestroy', Cue = 'Destroy_Med_Structure', LodCutoff = 'UnitMove_LodCutoff', },
+        DoneBeingBuilt = Sound { Bank = 'UEB', Cue = 'UEB2304_Activate', LodCutoff = 'UnitMove_LodCutoff', },
+        UISelection = Sound { Bank = 'NomadsInterface', Cue = 'Nomads_Select_Gun', LodCutoff = 'UnitMove_LodCutoff', },
     },
     Buffs = {
         Regen = {
@@ -29,29 +17,29 @@ UnitBlueprint {
     },
     BuildIconSortPriority = 120,
     Categories = {
-        'SELECTABLE',
+        'ANTIAIR',
         'BUILTBYTIER3ENGINEER',
         'BUILTBYTIER3COMMANDER',
-        'NOMADS',
-        'STRUCTURE',
+        'CQUEMOV',
         'DEFENSE',
-        'TECH3',
-        'ANTIAIR',
         'DRAGBUILD',
-        'SIZE4',
-        'VISIBLETORECON',
-        'RECLAIMABLE',
+        'NOMADS',
         'OVERLAYANTIAIR',
+        'RECLAIMABLE',
+        'SIZE4',
+        'SELECTABLE',
         'SORTDEFENSE',
-        'CQUEMOV', --enables the selection and move commands during construction
+        'STRUCTURE',
+        'TECH3',
+        'VISIBLETORECON',
     },
     CollisionOffsetY = -0.5,
     Defense = {
         AirThreatLevel = 27,
         ArmorType = 'Structure',
         EconomyThreatLevel = 17,
-        Health = 7000,
-        MaxHealth = 7000,
+        Health = 5000,
+        MaxHealth = 5000,
         RegenRate = 0,
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
@@ -93,10 +81,8 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 8000,
         BuildCostMass = 800,
-        BuildTime = 1195,
-        RebuildBonusIds = {
-            'xnb4201',
-        },
+        BuildTime = 1400,
+        RebuildBonusIds = { 'xnb4201', },
     },
     Footprint = {
         MinWaterDepth = 1,
@@ -127,9 +113,7 @@ UnitBlueprint {
         UnitName = '<LOC XNB4201_name>Vindicator',
         UnitWeight = 1,
     },
-    Intel = {
-        VisionRadius = 28,
-    },
+    Intel = { VisionRadius = 28, },
     Interface = {
         HelpText = '<LOC XNB4201_help>Anti-Air Sam Launcher',
     },
@@ -178,11 +162,7 @@ UnitBlueprint {
         {
             AlwaysRecheckTarget = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'UELWeapon',
-                    Cue = 'UEB2304_Missile_Flayer',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'UELWeapon', Cue = 'UEB2304_Missile_Flayer', LodCutoff = 'Weapon_LodCutoff', },
             },
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
@@ -254,15 +234,16 @@ UnitBlueprint {
             RateOfFire = 0.28,
             TargetCheckInterval = 0.5,
             TargetPriorities = {
-                'SPECIALHIGHPRI',
                 'EXPERIMENTAL',
-                'AIR MOBILE HIGHPRIAIR',
                 'AIR MOBILE TECH3 BOMBER',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
+                'AIR MOBILE TECH3 GROUNDATTACK',
                 'AIR MOBILE TRANSPORTATION',
+                'AIR MOBILE TECH2 BOMBER',
+                'AIR MOBILE TECH2 GROUNDATTACK',
+                'AIR MOBILE TECH3 ANTIAIR',
+                'AIR MOBILE TECH1 BOMBER',
+                'AIR MOBILE TECH1 GROUNDATTACK',
                 'AIR MOBILE',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
