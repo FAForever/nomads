@@ -2,46 +2,14 @@
 
 UnitBlueprint {
     Audio = {
-        AmbientIdle = Sound {
-            Bank = 'NomadsUnits',
-            Cue = 'HoverIdle',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        AmbientMoveLand = Sound {
-            Bank = 'NomadsUnits',
-            Cue = 'HoverMoving',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        AmbientMoveWater = Sound {
-            Bank = 'NomadsUnits',
-            Cue = 'HoverMovingOnWater',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'NomadsDestroy',
-            Cue = 'Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        HoverKilledOnWater = Sound {
-            Bank = 'Explosions',
-            Cue = 'Expl_Water_Lrg_01',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0101_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0101_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'NomadsInterface',
-            Cue = 'Nomads_Select_HoverVehicle',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        AmbientIdle = Sound { Bank = 'NomadsUnits', Cue = 'HoverIdle', LodCutoff = 'UnitMove_LodCutoff', },
+        AmbientMoveLand = Sound { Bank = 'NomadsUnits', Cue = 'HoverMoving', LodCutoff = 'UnitMove_LodCutoff', },
+        AmbientMoveWater = Sound { Bank = 'NomadsUnits', Cue = 'HoverMovingOnWater', LodCutoff = 'UnitMove_LodCutoff', },
+        Destroyed = Sound { Bank = 'NomadsDestroy', Cue = 'Destroy_Land', LodCutoff = 'UnitMove_LodCutoff', },
+        HoverKilledOnWater = Sound { Bank = 'Explosions', Cue = 'Expl_Water_Lrg_01', LodCutoff = 'UnitMove_LodCutoff', },
+        StartMove = Sound { Bank = 'UAL', Cue = 'UAL0101_Move_Start', LodCutoff = 'UnitMove_LodCutoff', },
+        StopMove = Sound { Bank = 'UAL', Cue = 'UAL0101_Move_Stop', LodCutoff = 'UnitMove_LodCutoff', },
+        UISelection = Sound { Bank = 'NomadsInterface', Cue = 'Nomads_Select_HoverVehicle', LodCutoff = 'UnitMove_LodCutoff', },
     },
     Buffs = {
         Regen = {
@@ -54,18 +22,18 @@ UnitBlueprint {
     },
     BuildIconSortPriority = 20,
     Categories = {
-        'SELECTABLE',
         'BUILTBYTIER3FACTORY',
-        'NOMADS',
-        'MOBILE',
+        'DIRECTFIRE',
         'HOVER',
         'LAND',
-        'TECH3',
-        'DIRECTFIRE',
-        'VISIBLETORECON',
-        'RECLAIMABLE',
-        'TANK',
+        'MOBILE',
+        'NOMADS',
         'OVERLAYDIRECTFIRE',
+        'RECLAIMABLE',
+        'SELECTABLE',
+        'TANK',
+        'TECH3',
+        'VISIBLETORECON',
     },
     Defense = {
         AirThreatLevel = 0,
@@ -249,9 +217,7 @@ UnitBlueprint {
         UnitName = '<LOC XNL0303_name>Nova',
         UnitWeight = 1,
     },
-    Intel = {
-        VisionRadius = 26,
-    },
+    Intel = { VisionRadius = 26, },
     Interface = {
         HelpText = '<LOC XNL0303_help>Heavy Hover Tank',
     },
@@ -314,11 +280,7 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'NomadsWeapons',
-                    Cue = 'Annihilator_Muzzle',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'NomadsWeapons', Cue = 'Annihilator_Muzzle', LodCutoff = 'Weapon_LodCutoff', },
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
@@ -363,12 +325,11 @@ UnitBlueprint {
             SlavedToBodyArcRange = 20,
             TargetCheckInterval = 0.2,
             TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'STRUCTURE DEFENSE',
-                'TECH3 MOBILE',
-                'TECH2 MOBILE',
-                'SPECIALLOWPRI',
-                'ALLUNITS',
+                "TECH3 MOBILE",
+                "TECH2 MOBILE",
+                "TECH1 MOBILE",
+                "(STRUCTURE * DEFENSE - ANTIMISSILE)",
+                "ALLUNITS",
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.15,
@@ -388,11 +349,7 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'NomadsWeapons',
-                    Cue = 'Rocket2_Muzzle',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'NomadsWeapons', Cue = 'Rocket2_Muzzle', LodCutoff = 'Weapon_LodCutoff', },
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
@@ -450,12 +407,11 @@ UnitBlueprint {
             SlavedToBodyArcRange = 20,
             TargetCheckInterval = 0.5,
             TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'STRUCTURE DEFENSE',
-                'TECH3 MOBILE',
-                'TECH2 MOBILE',
-                'SPECIALLOWPRI',
-                'ALLUNITS',
+                "TECH3 MOBILE",
+                "TECH2 MOBILE",
+                "TECH1 MOBILE",
+                "(STRUCTURE * DEFENSE - ANTIMISSILE)",
+                "ALLUNITS",
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.15,

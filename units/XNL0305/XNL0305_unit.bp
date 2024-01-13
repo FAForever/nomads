@@ -2,31 +2,11 @@
 
 UnitBlueprint {
     Audio = {
-        AmbientMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0205_Move_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'NomadsDestroy',
-            Cue = 'Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0205_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0205_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'NomadsInterface',
-            Cue = 'Nomads_Select_Tank',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        AmbientMove = Sound { Bank = 'UEL', Cue = 'UEL0205_Move_Loop', LodCutoff = 'UnitMove_LodCutoff', },
+        Destroyed = Sound { Bank = 'NomadsDestroy', Cue = 'Destroy_Land', LodCutoff = 'UnitMove_LodCutoff', },
+        StartMove = Sound { Bank = 'UEL', Cue = 'UEL0205_Move_Start', LodCutoff = 'UnitMove_LodCutoff', },
+        StopMove = Sound { Bank = 'UEL', Cue = 'UEL0205_Move_Stop', LodCutoff = 'UnitMove_LodCutoff', },
+        UISelection = Sound { Bank = 'NomadsInterface', Cue = 'Nomads_Select_Tank', LodCutoff = 'UnitMove_LodCutoff', },
     },
     Buffs = {
         Regen = {
@@ -41,15 +21,15 @@ UnitBlueprint {
     Categories = {
         'SELECTABLE',
         'BUILTBYTIER3FACTORY',
-        'NOMADS',
-        'MOBILE',
-        'LAND',
-        'TECH3',
         'DIRECTFIRE',
-        'VISIBLETORECON',
+        'LAND',
+        'MOBILE',
+        'NOMADS',
+        'OVERLAYDIRECTFIRE',
         'RECLAIMABLE',
         'TANK',
-        'OVERLAYDIRECTFIRE',
+        'TECH3',
+        'VISIBLETORECON',
     },
     Defense = {
         AirThreatLevel = 0,
@@ -143,9 +123,7 @@ UnitBlueprint {
         UnitName = '<LOC XNL0305_name>Slugger',
         UnitWeight = 1,
     },
-    Intel = {
-        VisionRadius = 26,
-    },
+    Intel = { VisionRadius = 26, },
     Interface = {
         HelpText = '<LOC XNL0305_help>Heavy tank equipped with dual plasma cannons and heavy ablative armor.',
     },
@@ -205,11 +183,7 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'NomadsWeapons',
-                    Cue = 'PlasmaCannon_Muzzle',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound {Bank = 'NomadsWeapons',Cue = 'PlasmaCannon_Muzzle',LodCutoff = 'Weapon_LodCutoff',},
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
@@ -238,7 +212,6 @@ UnitBlueprint {
                     },
                     RackBone = 'RecoilR',
                     TurretBoneDualManip = 'Left',
---                    TurretBoneDualManipSwitchDelay = 0.1,
                 },
                 {
                     MuzzleBones = {
@@ -246,7 +219,6 @@ UnitBlueprint {
                     },
                     RackBone = 'RecoilL',
                     TurretBoneDualManip = 'Right',
---                    TurretBoneDualManipSwitchDelay = 0.1,
                 },
             },
             RackFireTogether = true,
@@ -260,12 +232,11 @@ UnitBlueprint {
             RateOfFire = 0.2,
             TargetCheckInterval = 0.2,
             TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'STRUCTURE DEFENSE',
-                'TECH3 MOBILE',
-                'TECH2 MOBILE',
-                'SPECIALLOWPRI',
-                'ALLUNITS',
+                "TECH3 MOBILE",
+                "TECH2 MOBILE",
+                "TECH1 MOBILE",
+                "(STRUCTURE * DEFENSE - ANTIMISSILE)",
+                "ALLUNITS",
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.15,
