@@ -8,21 +8,9 @@ UnitBlueprint {
         },
     },
     Audio = {
-        Destroyed = Sound {
-            Bank = 'NomadsDestroy',
-            Cue = 'Destroy_Med_Structure',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'UEB',
-            Cue = 'UEB2204_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'NomadsInterface',
-            Cue = 'Nomads_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed = Sound { Bank = 'NomadsDestroy', Cue = 'Destroy_Med_Structure', LodCutoff = 'UnitMove_LodCutoff', },
+        DoneBeingBuilt = Sound { Bank = 'UEB', Cue = 'UEB2204_Activate', LodCutoff = 'UnitMove_LodCutoff', },
+        UISelection = Sound { Bank = 'NomadsInterface', Cue = 'Nomads_Select_Gun', LodCutoff = 'UnitMove_LodCutoff', },
     },
     Buffs = {
         Regen = {
@@ -35,23 +23,23 @@ UnitBlueprint {
     },
     BuildIconSortPriority = 120,
     Categories = {
-        'SELECTABLE',
-        'BUILTBYTIER2ENGINEER',
-        'BUILTBYTIER3ENGINEER',
-        'BUILTBYTIER2COMMANDER',
-        'BUILTBYTIER3COMMANDER',
-        'NOMADS',
-        'STRUCTURE',
-        'DEFENSE',
-        'TECH2',
         'ANTIAIR',
+        'BUILTBYTIER2COMMANDER',
+        'BUILTBYTIER2ENGINEER',
+        'BUILTBYTIER3COMMANDER',
+        'BUILTBYTIER3ENGINEER',
+        'CQUEMOV',
+        'DEFENSE',
         'DRAGBUILD',
-        'SIZE4',
-        'VISIBLETORECON',
-        'RECLAIMABLE',
+        'NOMADS',
         'OVERLAYANTIAIR',
+        'RECLAIMABLE',
+        'TECH2',
+        'SELECTABLE',
+        'SIZE4',
+        'STRUCTURE',
         'SORTDEFENSE',
-        'CQUEMOV', --enables the selection and move commands during construction
+        'VISIBLETORECON',
     },
     CollisionOffsetY = -0.35,
     Defense = {
@@ -113,9 +101,7 @@ UnitBlueprint {
         BuildCostEnergy = 4000,
         BuildCostMass = 400,
         BuildTime = 540,
-        RebuildBonusIds = {
-            'xnb2202',
-        },
+        RebuildBonusIds = { 'xnb2202', },
     },
     Footprint = {
         MinWaterDepth = 1,
@@ -144,9 +130,7 @@ UnitBlueprint {
         UnitName = '<LOC XNB2202_name>Skythorn',
         UnitWeight = 1,
     },
-    Intel = {
-        VisionRadius = 24,
-    },
+    Intel = { VisionRadius = 24, },
     Interface = {
         HelpText = '<LOC XNB2202_help>Anti-Air Turret',
     },
@@ -197,11 +181,7 @@ UnitBlueprint {
         {
             AlwaysRecheckTarget = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'NomadsWeapons',
-                    Cue = 'IonBlaster_HeavyAA_Muzzle',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'NomadsWeapons', Cue = 'IonBlaster_HeavyAA_Muzzle', LodCutoff = 'Weapon_LodCutoff', },
             },
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
@@ -247,15 +227,13 @@ UnitBlueprint {
             RateOfFire = 1.25,
             TargetCheckInterval = 0.3,
             TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'EXPERIMENTAL',
-                'AIR MOBILE HIGHPRIAIR',
+                '(AIR * MOBILE * EXPERIMENTAL - BOMBER)',
                 'AIR MOBILE GROUNDATTACK',
+                'AIR MOBILE TECH2 BOMBER',
+                'AIR MOBILE TECH1 BOMBER',
                 'AIR MOBILE TRANSPORTATION',
-                'AIR MOBILE TECH3 BOMBER',
                 'AIR MOBILE BOMBER',
                 'AIR MOBILE',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',

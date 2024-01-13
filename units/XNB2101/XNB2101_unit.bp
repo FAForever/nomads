@@ -2,21 +2,9 @@
 
 UnitBlueprint {
     Audio = {
-        Destroyed = Sound {
-            Bank = 'NomadsDestroy',
-            Cue = 'Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'UEB',
-            Cue = 'UEB2101_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'NomadsInterface',
-            Cue = 'Nomads_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed = Sound { Bank = 'NomadsDestroy', Cue = 'Destroy_Land', LodCutoff = 'UnitMove_LodCutoff', },
+        DoneBeingBuilt = Sound { Bank = 'UEB', Cue = 'UEB2101_Activate', LodCutoff = 'UnitMove_LodCutoff', },
+        UISelection = Sound { Bank = 'NomadsInterface', Cue = 'Nomads_Select_Gun', LodCutoff = 'UnitMove_LodCutoff', },
     },
     Buffs = {
         Regen = {
@@ -29,23 +17,24 @@ UnitBlueprint {
     },
     BuildIconSortPriority = 110,
     Categories = {
-        'SELECTABLE',
+        'BUILTBYCOMMANDER',
         'BUILTBYTIER1ENGINEER',
         'BUILTBYTIER2ENGINEER',
         'BUILTBYTIER3ENGINEER',
-        'BUILTBYCOMMANDER',
-        'NOMADS',
-        'STRUCTURE',
+        'CQUEMOV',
         'DEFENSE',
-        'TECH1',
         'DIRECTFIRE',
         'DRAGBUILD',
-        'SIZE4',
-        'VISIBLETORECON',
-        'RECLAIMABLE',
+        'NOMADS',
         'OVERLAYDIRECTFIRE',
+        'RECLAIMABLE',
+        'SELECTABLE',
+        'SIZE4',
+        'SNIPEMODE',
         'SORTDEFENSE',
-        'CQUEMOV', --enables the selection and move commands during construction
+        'STRUCTURE',
+        'TECH1',
+        'VISIBLETORECON',
     },
     CollisionOffsetY = 0,
     Defense = {
@@ -80,9 +69,7 @@ UnitBlueprint {
         BuildCostEnergy = 2000,
         BuildCostMass = 250,
         BuildTime = 250,
-        RebuildBonusIds = {
-            'xnb2101',
-        },
+        RebuildBonusIds = { 'xnb2101', },
     },
     General = {
         Category = 'Defense',
@@ -108,9 +95,7 @@ UnitBlueprint {
         UnitName = '<LOC XNB2101_name>Scatterer',
         UnitWeight = 1,
     },
-    Intel = {
-        VisionRadius = 24,
-    },
+    Intel = { VisionRadius = 24, },
     Interface = {
         HelpText = '<LOC XNB2101_help>Scatterer',
     },
@@ -161,21 +146,9 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
             AimStraightOnDisable = true, --prevents snapping back after spinner stops?
             Audio = {
-                Fire = Sound {
-                    Bank = 'NomadsWeapons',
-                    Cue = 'Gatling1_Muzzle',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                SpinningLoop = Sound {
-                    Bank = 'NomadsWeapons',
-                    Cue = 'Gatling1_SpinLoop',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
-                SpinningStop = Sound {
-                    Bank = 'NomadsWeapons',
-                    Cue = 'Gatling1_SpinDown',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'NomadsWeapons', Cue = 'Gatling1_Muzzle', LodCutoff = 'Weapon_LodCutoff', },
+                SpinningLoop = Sound { Bank = 'NomadsWeapons', Cue = 'Gatling1_SpinLoop', LodCutoff = 'Weapon_LodCutoff', },
+                SpinningStop = Sound { Bank = 'NomadsWeapons', Cue = 'Gatling1_SpinDown', LodCutoff = 'Weapon_LodCutoff', },
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
@@ -218,14 +191,12 @@ UnitBlueprint {
             ReTargetOnMiss = true,
             TargetCheckInterval = 0.25,
             TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'MOBILE ARTILLERY',
-                'MOBILE INDIRECTFIRE',
-                'TECH3 MOBILE',
-                'TECH2 MOBILE',
-                'TECH1 MOBILE',
-                'STRUCTURE DEFENSE',
-                'SPECIALLOWPRI',
+                'MOBILE EXPERIMENTAL',
+                'MOBILE TECH3',
+                'MOBILE TECH1 ARTILLERY',
+                'MOBILE TECH2',
+                '(STRUCTURE * DEFENSE - ANTIMISSILE)',
+                'MOBILE TECH1',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',

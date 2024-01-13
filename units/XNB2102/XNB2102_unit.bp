@@ -7,21 +7,9 @@ UnitBlueprint {
         },
     },
     Audio = {
-        Destroyed = Sound {
-            Bank = 'NomadsDestroy',
-            Cue = 'Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'UEB',
-            Cue = 'UEB2104_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'NomadsInterface',
-            Cue = 'Nomads_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed = Sound { Bank = 'NomadsDestroy', Cue = 'Destroy_Land', LodCutoff = 'UnitMove_LodCutoff', },
+        DoneBeingBuilt = Sound { Bank = 'UEB', Cue = 'UEB2104_Activate', LodCutoff = 'UnitMove_LodCutoff', },
+        UISelection = Sound { Bank = 'NomadsInterface', Cue = 'Nomads_Select_Gun', LodCutoff = 'UnitMove_LodCutoff', },
     },
     Buffs = {
         Regen = {
@@ -34,22 +22,22 @@ UnitBlueprint {
     },
     BuildIconSortPriority = 120,
     Categories = {
-        'SELECTABLE',
+        'ANTIAIR',
+        'BUILTBYCOMMANDER',
         'BUILTBYTIER1ENGINEER',
         'BUILTBYTIER2ENGINEER',
         'BUILTBYTIER3ENGINEER',
-        'BUILTBYCOMMANDER',
-        'NOMADS',
-        'STRUCTURE',
         'DEFENSE',
-        'TECH1',
-        'ANTIAIR',
         'DRAGBUILD',
-        'SIZE4',
-        'VISIBLETORECON',
-        'RECLAIMABLE',
+        'NOMADS',
         'OVERLAYANTIAIR',
+        'RECLAIMABLE',
+        'SELECTABLE',
+        'SIZE4',
         'SORTDEFENSE',
+        'STRUCTURE',
+        'TECH1',
+        'VISIBLETORECON',
     },
     CollisionOffsetY = -0.5,
     Defense = {
@@ -97,9 +85,7 @@ UnitBlueprint {
         BuildCostEnergy = 1500,
         BuildCostMass = 150,
         BuildTime = 188,
-        RebuildBonusIds = {
-            'xnb2102',
-        },
+        RebuildBonusIds = { 'xnb2102', },
     },
     Footprint = {
         MinWaterDepth = 1,
@@ -128,9 +114,7 @@ UnitBlueprint {
         UnitName = '<LOC XNB2102_name>Slicer',
         UnitWeight = 1,
     },
-    Intel = {
-        VisionRadius = 24,
-    },
+    Intel = { VisionRadius = 24, },
     Interface = {
         HelpText = '<LOC XNB2102_help>Anti-Air Turret',
     },
@@ -176,11 +160,7 @@ UnitBlueprint {
         {
             AlwaysRecheckTarget = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'NomadsWeapons',
-                    Cue = 'IonBlaster_Light_Muzzle',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'NomadsWeapons', Cue = 'IonBlaster_Light_Muzzle', LodCutoff = 'Weapon_LodCutoff', },
             },
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
@@ -228,15 +208,12 @@ UnitBlueprint {
             RateOfFire = 3.5,
             TargetCheckInterval = 0.3,
             TargetPriorities = {
-                'SPECIALHIGHPRI',
                 'EXPERIMENTAL',
-                'AIR MOBILE HIGHPRIAIR',
                 'AIR MOBILE TECH3 BOMBER',
                 'AIR MOBILE BOMBER',
                 'AIR MOBILE GROUNDATTACK',
                 'AIR MOBILE TRANSPORTATION',
                 'AIR MOBILE',
-                'SPECIALLOWPRI',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
