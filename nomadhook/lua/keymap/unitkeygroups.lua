@@ -10,9 +10,6 @@ Nomadsunitkeygroups = {
     ["Torpedo"] = {
         "xnl0305", -- Nomads Heavy Tank
     },
-    ["Arties"] = {
-        "xnb3303", --Nomads t3 missile artillery
-    },
     ["TML"] = {
         "xnl0209", -- Nomads T3 Mobile Missile Defense
     },
@@ -21,7 +18,9 @@ Nomadsunitkeygroups = {
         "xnl0402", -- Beamer
         "xnl0403", -- Crawler
         "xnl0401", -- Bullfrog
-        'xna0401', -- Altas
+        "xna0401", -- Altas
+		"xnb2302", -- Countdown
+		"xno2302", -- Deadline
     },
     -- Buildings
     ["Land_Factory"] = {
@@ -94,7 +93,7 @@ Nomadsunitkeygroups = {
         "xnb2109",
     },
     ["Heavy_Artillery_Installation"] = {
-        "xnb2302",
+        "xnb3303",
     },
     ["Artillery_Installation"] = {
         "xnb2303",  -- projectile artillery
@@ -118,9 +117,10 @@ Nomadsunitkeygroups = {
     },
     ["Shield_Generator"] = {
         "xnb4202",
+		"xnb4205",
     },
     ["Heavy_Shield_Generator"] = {
-        "xnb4301",
+        "xnb4305",
     },
     ["Strategic_Missile_Defense"] = {
         "xnb4302",
