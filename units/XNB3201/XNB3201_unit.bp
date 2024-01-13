@@ -16,7 +16,6 @@ UnitBlueprint {
         'BUILTBYTIER3COMMANDER',
         'BUILTBYTIER3ENGINEER',
         'CQUEMOV',
-        'DRAGBUILD',
         'INTELLIGENCE',
         'NOMADS',
         'OVERLAYRADAR',

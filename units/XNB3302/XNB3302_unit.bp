@@ -25,7 +25,6 @@ UnitBlueprint {
     Categories = {
         'BUILTBYTIER3COMMANDER',
         'BUILTBYTIER3ENGINEER',
-        'DRAGBUILD',
         'INTELLIGENCE',
         'MOBILE',
         'MOBILESONAR',

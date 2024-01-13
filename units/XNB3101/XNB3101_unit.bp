@@ -1,7 +1,8 @@
 -- T1 radar
 
 UnitBlueprint {
-    Audio = {        Destroyed = Sound { Bank = 'NomadsDestroy', Cue = 'Destroy_Sml_Structure', LodCutoff = 'UnitMove_LodCutoff', },
+    Audio = {
+        Destroyed = Sound { Bank = 'NomadsDestroy', Cue = 'Destroy_Sml_Structure', LodCutoff = 'UnitMove_LodCutoff', },
         DoneBeingBuilt = Sound { Bank = 'UEB', Cue = 'UEB3101_Activate', LodCutoff = 'UnitMove_LodCutoff', },
         IntelOverchargeActivated = Sound { Bank = 'NomadsMisc', Cue = 'IntelOverchargeActivated', LodCutoff = 'UnitMove_LodCutoff', },
         IntelOverchargeActiveLoop = Sound { Bank = 'NomadsMisc', Cue = 'IntelOverchargeActiveLoop', LodCutoff = 'UnitMove_LodCutoff', },
@@ -16,7 +17,6 @@ UnitBlueprint {
         'BUILTBYTIER3COMMANDER',
         'BUILTBYTIER3ENGINEER',
         'CQUEMOV',
-        'DRAGBUILD',
         'INTELLIGENCE',
         'NOMADS',
         'OVERLAYRADAR',
