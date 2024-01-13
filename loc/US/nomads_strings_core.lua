@@ -213,11 +213,6 @@ xna2101_desc = "Area Reinforcement"
 xna2101_help = "Standalone unit that automatically attacks enemies in range. Has a limited lifespan, and crashes when out of fuel."
 xna2101_name = "Fanatic"
 
--- orbital artillery gun (slave unit for T3 heavy artillery)
-xno2302_desc = "Orbital Artillery Gun"
-xno2302_help = "A gun turret in orbit. Fires high damage shells. Controlled by a ground station."
-xno2302_name = "Orbital Artillery Gun"
-
 -- support commander (and enhancement presets)
 xnl0301_desc = "Support Armored Command Unit"
 xnl0301_help = "This variant is not enhanced during construction, does not have weapons and has very limited engineering capabilities."
@@ -504,17 +499,17 @@ xna0104_name = "Scalestor"
 
 -- destroyer
 xns0201_desc = "Destroyer"
-xns0201_help = "Mid-level destroyer. Carries heavy cannons and medium railguns to deal with light submerged units. Does not have anti-air weapons."
+xns0201_help = "Mid-level destroyer. Carries heavy cannons and medium torpedoes to deal with light submerged units. Does not have anti-air weapons."
 xns0201_name = "Firestorm Class"
 
 -- cruiser
 xns0202_desc = "Cruiser"
-xns0202_help = "Mid-tier cruiser. Equipped with anti-air missiles and EMP weapon that deals additional damage to shields and suppresses enemy forces."
+xns0202_help = "Mid-tier cruiser. Equipped with anti-air missiles and a heavy cannon."
 xns0202_name = "Mercenary Class"
 
--- torpedo boat
-xns0205_desc = "Railgun Carrier"
-xns0205_help = "Dedicated anti-submarine ship. Uses underwater railguns to attack submarines and ships. Also carries a tactical missile defense turret."
+-- EMP boat
+xns0205_desc = "EMP ship"
+xns0205_help = "Equipped with EMP cannons that stun enemy units and deal additional damage to shields. Uses underwater railguns to attack submarines and ships."
 xns0205_name = "Whaler Class"
 
 
@@ -693,7 +688,7 @@ xns0304_name = "Leviathan Class"
 
 -- carrier
 xns0303_desc = "Aircraft Carrier"
-xns0303_help = "Aircraft carrier. Armed with light anti-air weaponry. Can store, repair and refuel aircraft."
+xns0303_help = "Aircraft carrier. Armed with EMP cannons that stun enemy units and deal additional damage to shields. Can store, repair and refuel aircraft."
 xns0303_name = "Mastodon Class"
 
 -- battleship
@@ -794,16 +789,10 @@ xnb4303_desc = "Fire Control"
 xnb4303_help = "Fire Control"
 xnb4303_name = "Fire Control"
 
--- T3 'short range' artillery
-xnb3303_desc = "Rocket Artillery Installation"
-xnb3303_help = "Stationary artillery. Hurls projectiles in a high arc. Designed to engage large groups and structures."
+-- T3 Heavy artillery
+xnb3303_desc = "Heavy Artillery Installation"
+xnb3303_help = "Stationary heavy artillery with excellent range, accuracy and damage potential."
 xnb3303_name = "Arbalast"
-
--- T3 long range heavy artillery
-xnb2302_desc = "Heavy Artillery Installation"
-xnb2302_help = "Stationary heavy artillery with excellent range, accuracy and damage potential."
-xnb2302_name = "Desolator"
-
 
 --------------------------------------------------------
 ---- EXPERIMENTALS
@@ -838,6 +827,16 @@ xnb2304_name = "Big Bertha"
 xnb0401_desc = "Experimental Factory"
 xnb0401_help = "A location for reinforcements built in orbit to be set down."
 xnb0401_name = "Dropoff"
+
+-- T4 satellite factory
+xnb2302_desc = "Siege satellite Factory"
+xnb2302_help = "Constructs siege satellites."
+xnb2302_name = "Countdown"
+
+-- orbital artillery gun (slave unit for T3 heavy artillery)
+xno2302_desc = "Siege satellite"
+xno2302_help = "A gun turret in orbit. Fires high damage shells."
+xno2302_name = "Deadline"
 
 
 --------------------------------------------------------

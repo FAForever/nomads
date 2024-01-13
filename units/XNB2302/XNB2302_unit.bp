@@ -42,7 +42,7 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
     },
-    Description = '<LOC XNB2302_desc>Heavy Artillery Installation',
+    Description = '<LOC XNB2302_desc>Siege satellite Factory',
     Display = {
         AnimationPermOpen = '/units/XNB2302/XNB2302_APermOpen.sca',
         BuildAttachBone = 'effect.005', --no in skeleton 'Attachpoint'
@@ -136,14 +136,14 @@ UnitBlueprint {
         Icon = 'land',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
-        UnitName = '<LOC XNB2302_name>Desolator',
+        UnitName = '<LOC XNB2302_name>Countdown',
         UnitWeight = 1,
     },
     Intel = {
         VisionRadius = 28,
     },
     Interface = {
-        HelpText = '<LOC XNB2302_help>Heavy Artillery Installation',
+        HelpText = '<LOC XNB2302_help>Siege satellite factory',
     },
     LifeBarHeight = 0.075,
     LifeBarOffset = 2.35,
