@@ -30,8 +30,8 @@ UnitBlueprint {
         'INDIRECTFIRE',
         'LAND',
         'MOBILE',
-        'NOMADS'
-        'OVERLAYINDIRECTFIRE',,
+        'NOMADS',
+        'OVERLAYINDIRECTFIRE',
         'RECLAIMABLE',
         'SELECTABLE',
         'SNIPEMODE',
