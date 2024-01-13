@@ -3,42 +3,27 @@
 UnitBlueprint {
     Adjacency = 'T3MassExtractorAdjacencyBuffs',
     Audio = {
-        ActiveLoop = Sound {
-            Bank = 'NomadsBuildings',
-            Cue = 'MassExtractorBeamActiveLoop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'NomadsDestroy',
-            Cue = 'Destroy_Sml_Structure',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'UEB',
-            Cue = 'UEB1202_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'NomadsInterface',
-            Cue = 'Nomads_Select_Resource',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        ActiveLoop = Sound { Bank = 'NomadsBuildings', Cue = 'MassExtractorBeamActiveLoop', LodCutoff = 'UnitMove_LodCutoff', },
+        Destroyed = Sound { Bank = 'NomadsDestroy', Cue = 'Destroy_Sml_Structure', LodCutoff = 'UnitMove_LodCutoff', },
+        DoneBeingBuilt = Sound { Bank = 'UEB', Cue = 'UEB1202_Activate', LodCutoff = 'UnitMove_LodCutoff', },
+        UISelection = Sound { Bank = 'NomadsInterface', Cue = 'Nomads_Select_Resource', LodCutoff = 'UnitMove_LodCutoff', },
     },
     BuildIconSortPriority = 40,
     Categories = {
-        'SELECTABLE',
         'BUILTBYTIER3ENGINEER',
         'BUILTBYTIER3COMMANDER',
-        'NOMADS',
-        'STRUCTURE',
+        'DRAGBUILD',
         'ECONOMIC',
-        'TECH3',
-        'MASSPRODUCTION',
         'MASSEXTRACTION',
-        'SIZE4',
-        'VISIBLETORECON',
+        'MASSPRODUCTION',
+        'NOMADS',
         'RECLAIMABLE',
+        'SELECTABLE',
+        'SIZE4',
         'SORTECONOMY',
+        'STRUCTURE',
+        'TECH3',
+        'VISIBLETORECON',
     },
     Defense = {
         AirThreatLevel = 0,
@@ -94,12 +79,10 @@ UnitBlueprint {
     Economy = {
         BuildCostEnergy = 31625,
         BuildCostMass = 4600,
-        BuildTime = 3944,
+        BuildTime = 2875,
         MaintenanceConsumptionPerSecondEnergy = 54,
         ProductionPerSecondMass = 18,
-        RebuildBonusIds = {
-            'XNB1302',
-        },
+        RebuildBonusIds = { 'XNB1302', },
     },
     Footprint = {
         SizeX = 1,
@@ -127,15 +110,11 @@ UnitBlueprint {
         Icon = 'amph',
         SelectionPriority = 5,
         TechLevel = 'RULEUTL_Secret',
-        ToggleCaps = {
-            RULEUTC_ProductionToggle = true,
-        },
+        ToggleCaps = { RULEUTC_ProductionToggle = true, },
         UnitWeight = 1,
         UpgradesFrom = 'XNB1202',
     },
-    Intel = {
-        VisionRadius = 20,
-    },
+    Intel = { VisionRadius = 20, },
     Interface = {
         HelpText = '<LOC XNB1302_help>Mass Extractor',
     },
