@@ -2,31 +2,11 @@
 
 UnitBlueprint {
     Audio = {
-        AmbientMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0103_Move_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'NomadsDestroy',
-            Cue = 'Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0103_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0103_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'NomadsInterface',
-            Cue = 'Nomads_Select_Vehicle',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        AmbientMove = Sound { Bank = 'UEL', Cue = 'UEL0103_Move_Loop', LodCutoff = 'UnitMove_LodCutoff', },
+        Destroyed = Sound { Bank = 'NomadsDestroy', Cue = 'Destroy_Land', LodCutoff = 'UnitMove_LodCutoff', },
+        StartMove = Sound { Bank = 'UEL', Cue = 'UEL0103_Move_Start', LodCutoff = 'UnitMove_LodCutoff', },
+        StopMove = Sound { Bank = 'UEL', Cue = 'UEL0103_Move_Stop', LodCutoff = 'UnitMove_LodCutoff', },
+        UISelection = Sound { Bank = 'NomadsInterface', Cue = 'Nomads_Select_Vehicle', LodCutoff = 'UnitMove_LodCutoff', },
     },
     Buffs = {
         Regen = {
@@ -39,18 +19,18 @@ UnitBlueprint {
     },
     BuildIconSortPriority = 50,
     Categories = {
-        'SELECTABLE',
         'BUILTBYTIER1FACTORY',
         'BUILTBYTIER2FACTORY',
         'BUILTBYTIER3FACTORY',
-        'NOMADS',
-        'MOBILE',
-        'LAND',
-        'TECH1',
         'DIRECTFIRE',
-        'VISIBLETORECON',
-        'RECLAIMABLE',
+        'LAND',
+        'MOBILE',
+        'NOMADS',
         'OVERLAYDIRECTFIRE',
+        'RECLAIMABLE',
+        'SELECTABLE',
+        'TECH1',
+        'VISIBLETORECON',
     },    
     Defense = {
         AirThreatLevel = 0,
@@ -244,14 +224,11 @@ UnitBlueprint {
             RenderFireClock = true,
             TargetCheckInterval = 2.5,
             TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'COMMAND',
-                'STRUCTURE DEFENSE',
-                'TECH3 MOBILE',
-                'TECH2 MOBILE',
-                'TECH1 MOBILE',
-                'SPECIALLOWPRI',
-                'ALLUNITS',
+                "TECH3 MOBILE",
+                "TECH2 MOBILE",
+                "TECH1 MOBILE",
+                "(STRUCTURE * DEFENSE - ANTIMISSILE)",
+                "ALLUNITS",
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.2,

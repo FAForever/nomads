@@ -2,46 +2,14 @@
 
 UnitBlueprint {
     Audio = {
-        AmbientIdle = Sound {
-            Bank = 'NomadsUnits',
-            Cue = 'HoverIdle',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        AmbientMoveLand = Sound {
-            Bank = 'NomadsUnits',
-            Cue = 'HoverMoving',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        AmbientMoveWater = Sound {
-            Bank = 'NomadsUnits',
-            Cue = 'HoverMovingOnWater',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'NomadsDestroy',
-            Cue = 'Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        HoverKilledOnWater = Sound {
-            Bank = 'Explosions',
-            Cue = 'Expl_Water_Lrg_01',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0101_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'UAL',
-            Cue = 'UAL0101_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'NomadsInterface',
-            Cue = 'Nomads_Select_HoverVehicle',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        AmbientIdle = Sound { Bank = 'NomadsUnits', Cue = 'HoverIdle', LodCutoff = 'UnitMove_LodCutoff', },
+        AmbientMoveLand = Sound { Bank = 'NomadsUnits', Cue = 'HoverMoving', LodCutoff = 'UnitMove_LodCutoff', },
+        AmbientMoveWater = Sound { Bank = 'NomadsUnits', Cue = 'HoverMovingOnWater', LodCutoff = 'UnitMove_LodCutoff', },
+        Destroyed = Sound { Bank = 'NomadsDestroy', Cue = 'Destroy_Land', LodCutoff = 'UnitMove_LodCutoff', },
+        HoverKilledOnWater = Sound { Bank = 'Explosions', Cue = 'Expl_Water_Lrg_01', LodCutoff = 'UnitMove_LodCutoff', },
+        StartMove = Sound { Bank = 'UAL', Cue = 'UAL0101_Move_Start', LodCutoff = 'UnitMove_LodCutoff', },
+        StopMove = Sound { Bank = 'UAL', Cue = 'UAL0101_Move_Stop', LodCutoff = 'UnitMove_LodCutoff', },
+        UISelection = Sound { Bank = 'NomadsInterface', Cue = 'Nomads_Select_HoverVehicle', LodCutoff = 'UnitMove_LodCutoff', },
     },
     Buffs = {
         Regen = {
@@ -54,19 +22,20 @@ UnitBlueprint {
     },
     BuildIconSortPriority = 30,
     Categories = {
-        'SELECTABLE',
         'BUILTBYTIER1FACTORY',
         'BUILTBYTIER2FACTORY',
         'BUILTBYTIER3FACTORY',
-        'NOMADS',
-        'MOBILE',
-        'LAND',
-        'TECH1',
         'DIRECTFIRE',
-        'VISIBLETORECON',
-        'RECLAIMABLE',
+        'LAND',
         'HOVER',
+        'MOBILE',
+        'NOMADS',
         'OVERLAYDIRECTFIRE',
+        'RECLAIMABLE',
+        'SELECTABLE',
+        'SNIPEMODE',
+        'TECH1',
+        'VISIBLETORECON',
     },
     CollisionOffsetY = 0,
     CollisionOffsetZ = 0,
@@ -219,9 +188,7 @@ UnitBlueprint {
         UnitName = '<LOC XNL0106_name>Grasshopper',
         UnitWeight = 1,
     },
-    Intel = {
-        VisionRadius = 18,
-    },
+    Intel = { VisionRadius = 18, },
     Interface = {
         HelpText = '<LOC XNL0106_help>Light Assault Vehicle',
     },
@@ -283,11 +250,7 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
             AimControlPrecedence = 10,
             Audio = {
-                Fire = Sound {
-                    Bank = 'NomadsWeapons',
-                    Cue = 'DarkMatterCannon_Muzzle',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'NomadsWeapons', Cue = 'DarkMatterCannon_Muzzle', LodCutoff = 'Weapon_LodCutoff', },
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
@@ -328,16 +291,11 @@ UnitBlueprint {
             SlavedToBodyArcRange = 2,
             TargetCheckInterval = 1,
             TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'RADAR',
-                'MOBILE ENGINNER',
-                'COMMAND',                --Prioritise ACU for ghetto sniping
-                'TECH1 MOBILE',
-                'TECH2 MOBILE',
-                'TECH3 MOBILE',
-                'STRUCTURE DEFENSE',
-                'SPECIALLOWPRI',
-                'ALLUNITS',
+                "TECH3 MOBILE",
+                "TECH2 MOBILE",
+                "TECH1 MOBILE",
+                "(STRUCTURE * DEFENSE - ANTIMISSILE)",
+                "ALLUNITS",
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.15,

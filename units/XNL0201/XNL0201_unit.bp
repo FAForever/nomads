@@ -2,31 +2,11 @@
 
 UnitBlueprint {
     Audio = {
-        AmbientMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0202_Move_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'NomadsDestroy',
-            Cue = 'Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0202_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0202_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'NomadsInterface',
-            Cue = 'Nomads_Select_Tank',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        AmbientMove = Sound { Bank = 'UEL', Cue = 'UEL0202_Move_Loop', LodCutoff = 'UnitMove_LodCutoff', },
+        Destroyed = Sound { Bank = 'NomadsDestroy', Cue = 'Destroy_Land', LodCutoff = 'UnitMove_LodCutoff', },
+        StartMove = Sound { Bank = 'UEL', Cue = 'UEL0202_Move_Start', LodCutoff = 'UnitMove_LodCutoff', },
+        StopMove = Sound { Bank = 'UEL', Cue = 'UEL0202_Move_Stop', LodCutoff = 'UnitMove_LodCutoff', },
+        UISelection = Sound { Bank = 'NomadsInterface', Cue = 'Nomads_Select_Tank', LodCutoff = 'UnitMove_LodCutoff', },
     },
     Buffs = {
         Regen = {
@@ -39,19 +19,19 @@ UnitBlueprint {
     },
     BuildIconSortPriority = 40,
     Categories = {
-        'SELECTABLE',
         'BUILTBYTIER1FACTORY',
         'BUILTBYTIER2FACTORY',
         'BUILTBYTIER3FACTORY',
-        'NOMADS',
-        'MOBILE',
-        'LAND',
-        'TECH1',
         'DIRECTFIRE',
-        'VISIBLETORECON',
-        'RECLAIMABLE',
-        'TANK',
+        'LAND',
+        'MOBILE',
+        'NOMADS',
         'OVERLAYDIRECTFIRE',
+        'RECLAIMABLE',
+        'SELECTABLE',
+        'TANK',
+        'TECH1',
+        'VISIBLETORECON',
     },
     Defense = {
         AirThreatLevel = 0,
@@ -148,9 +128,7 @@ UnitBlueprint {
         UnitName = '<LOC XNL0201_name>Eclipse',
         UnitWeight = 1,
     },
-    Intel = {
-        VisionRadius = 20,
-    },
+    Intel = { VisionRadius = 20, },
     Interface = {
         HelpText = '<LOC XNL0201_help>Armored medium tank. Armed with a single cannon, useful against lower tier units.',
     },
@@ -202,11 +180,7 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'NomadsWeapons',
-                    Cue = 'ParticleBlaster_Medium',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'NomadsWeapons', Cue = 'ParticleBlaster_Medium', LodCutoff = 'Weapon_LodCutoff', },
             },
             BallisticArc = 'RULEUBA_LowArc',
             DamageFriendly = false,
@@ -247,13 +221,11 @@ UnitBlueprint {
             RateOfFire = 0.67,
             TargetCheckInterval = 1,
             TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'TECH3 MOBILE',
-                'TECH2 MOBILE',
-                'TECH1 MOBILE',
-                'STRUCTURE DEFENSE',
-                'SPECIALLOWPRI',
-                'ALLUNITS',
+                "TECH1 MOBILE",
+                "TECH2 MOBILE",
+                "TECH3 MOBILE",
+                "(STRUCTURE * DEFENSE - ANTIMISSILE)",
+                "ALLUNITS",
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.15,

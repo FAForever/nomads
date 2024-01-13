@@ -2,31 +2,11 @@
 
 UnitBlueprint {
     Audio = {
-        AmbientMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0205_Move_Loop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'NomadsDestroy',
-            Cue = 'Destroy_Land',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StartMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0205_Move_Start',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        StopMove = Sound {
-            Bank = 'UEL',
-            Cue = 'UEL0205_Move_Stop',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'NomadsInterface',
-            Cue = 'Nomads_Select_Vehicle',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        AmbientMove = Sound { Bank = 'UEL', Cue = 'UEL0205_Move_Loop', LodCutoff = 'UnitMove_LodCutoff', },
+        Destroyed = Sound { Bank = 'NomadsDestroy', Cue = 'Destroy_Land', LodCutoff = 'UnitMove_LodCutoff', },
+        StartMove = Sound { Bank = 'UEL', Cue = 'UEL0205_Move_Start', LodCutoff = 'UnitMove_LodCutoff', },
+        StopMove = Sound { Bank = 'UEL', Cue = 'UEL0205_Move_Stop', LodCutoff = 'UnitMove_LodCutoff', },
+        UISelection = Sound { Bank = 'NomadsInterface', Cue = 'Nomads_Select_Vehicle', LodCutoff = 'UnitMove_LodCutoff', },
     },
     Buffs = {
         Regen = {
@@ -39,17 +19,17 @@ UnitBlueprint {
     },
     BuildIconSortPriority = 90,
     Categories = {
-        'SELECTABLE',
+        'ANTIAIR',
         'BUILTBYTIER2FACTORY',
         'BUILTBYTIER3FACTORY',
-        'NOMADS',
-        'MOBILE',
         'LAND',
-        'TECH2',
-        'ANTIAIR',
-        'VISIBLETORECON',
-        'RECLAIMABLE',
+        'MOBILE',
+        'NOMADS',
         'OVERLAYANTIAIR',
+        'RECLAIMABLE',
+        'SELECTABLE',
+        'TECH2',
+        'VISIBLETORECON',
     },
     Defense = {
         AirThreatLevel = 3,
@@ -144,9 +124,7 @@ UnitBlueprint {
         UnitName = '<LOC XNL0205_name>Skyshell',
         UnitWeight = 1,
     },
-    Intel = {
-        VisionRadius = 20,
-    },
+    Intel = { VisionRadius = 20, },
     Interface = {
         HelpText = '<LOC XNL0205_help>Mobile AA Flak Artillery',
     },
@@ -164,9 +142,9 @@ UnitBlueprint {
             LAYER_Water = false,
         },
         DragCoefficient = 0.2,
-        MaxAcceleration = 2.8,
-        MaxBrake = 2.8,
-        MaxSpeed = 2.8,
+        MaxAcceleration = 2.9,
+        MaxBrake = 2.9,
+        MaxSpeed = 2.9,
         MaxSpeedReverse = 0,
         MaxSteerForce = 5,
         MeshExtentsX = 0.9,
@@ -201,11 +179,7 @@ UnitBlueprint {
         {
             AlwaysRecheckTarget = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'URLWeapon',
-                    Cue = 'URL0402_Missile_Nanite',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'URLWeapon', Cue = 'URL0402_Missile_Nanite', LodCutoff = 'Weapon_LodCutoff', },
             },
             BallisticArc = 'RULEUBA_None',
             CannotAttackGround = true,
@@ -260,16 +234,14 @@ UnitBlueprint {
             RateOfFire = 1.111,
             TargetCheckInterval = 0.3,
             TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'EXPERIMENTAL',
-                'AIR MOBILE HIGHPRIAIR',
-                'AIR MOBILE TECH3 BOMBER',
-                'AIR MOBILE BOMBER',
-                'AIR MOBILE GROUNDATTACK',
-                'AIR MOBILE TRANSPORTATION',
-                'AIR MOBILE',
-                'SPECIALLOWPRI',
-                'ALLUNITS',
+                "(AIR * MOBILE * EXPERIMENTAL - BOMBER)",
+                "AIR MOBILE GROUNDATTACK",
+                "AIR MOBILE TECH2 BOMBER",
+                "AIR MOBILE TECH1 BOMBER",
+                "AIR MOBILE TRANSPORTATION",
+                "AIR MOBILE BOMBER",
+                "AIR MOBILE",
+                "ALLUNITS",
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
             TrackingRadius = 1.4,
