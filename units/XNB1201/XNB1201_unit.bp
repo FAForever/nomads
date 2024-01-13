@@ -3,57 +3,38 @@
 UnitBlueprint {
     Adjacency = 'T2PowerGeneratorAdjacencyBuffs',
     Audio = {
-        ActiveLoop = Sound {
-            Bank = 'UEB',
-            Cue = 'UEB1201_Active',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DeathExplosion = Sound {
-            Bank = 'NomadsDestroy',
-            Cue = 'Destroy_Lrg_PreDestroy',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'NomadsDestroy',
-            Cue = 'Destroy_Med_Structure',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'UEB',
-            Cue = 'UEB1201_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'NomadsInterface',
-            Cue = 'Nomads_Select_Resource',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        ActiveLoop = Sound { Bank = 'UEB', Cue = 'UEB1201_Active', LodCutoff = 'UnitMove_LodCutoff', },
+        DeathExplosion = Sound { Bank = 'NomadsDestroy', Cue = 'Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff', },
+        Destroyed = Sound { Bank = 'NomadsDestroy', Cue = 'Destroy_Med_Structure', LodCutoff = 'UnitMove_LodCutoff', },
+        DoneBeingBuilt = Sound { Bank = 'UEB', Cue = 'UEB1201_Activate', LodCutoff = 'UnitMove_LodCutoff', },
+        UISelection = Sound { Bank = 'NomadsInterface', Cue = 'Nomads_Select_Resource', LodCutoff = 'UnitMove_LodCutoff', },
     },
     BuildIconSortPriority = 70,
     Categories = {
-        'SELECTABLE',
         'BUILTBYTIER2ENGINEER',
         'BUILTBYTIER3ENGINEER',
         'BUILTBYTIER2COMMANDER',
-        'NOMADS',
-        'STRUCTURE',
-        'ECONOMIC',
-        'TECH2',
-        'ENERGYPRODUCTION',
         'DRAGBUILD',
-        'SIZE12',
-        'VISIBLETORECON',
+        'NOMADS',
+        'ECONOMIC',
+        'ENERGYPRODUCTION',
         'RECLAIMABLE',
+        'SELECTABLE',
+        'SIZE12',
         'SORTECONOMY',
+        'STRUCTURE',
+        'TECH2',
+        'VISIBLETORECON',
+        'VOLATILE',
     },
     CollisionOffsetY = 0,
     Defense = {
         AirThreatLevel = 0,
         ArmorType = 'Structure',
         EconomyThreatLevel = 16,
-        Health = 1800,
-        MaxHealth = 1800,
-        RapidRepairBonus = 18,
+        Health = 2200,
+        MaxHealth = 2200,
+        RapidRepairBonus = 22,
         RapidRepairCooldown = 60,
         RegenRate = 0,
         SubThreatLevel = 0,
@@ -61,9 +42,7 @@ UnitBlueprint {
     },
     Description = '<LOC XNB1201_desc>Power Generator',
     Display = {
-        Abilities = {
-            '<LOC ability_deathaoe>Volatile',
-        },
+        Abilities = { '<LOC ability_deathaoe>Volatile', },
         BlinkingLights = {
             {
                 BLBone = 'flashlight.001',
@@ -213,9 +192,7 @@ UnitBlueprint {
         BuildCostMass = 1200,
         BuildTime = 2198,
         ProductionPerSecondEnergy = 500,
-        RebuildBonusIds = {
-            'xnb1201',
-        },
+        RebuildBonusIds = { 'xnb1201', },
     },
     Footprint = {
         SizeX = 3,
@@ -245,9 +222,7 @@ UnitBlueprint {
         UnitName = '<LOC XNB1201_name>Antimatter Reactor',
         UnitWeight = 1,
     },
-    Intel = {
-        VisionRadius = 20,
-    },
+    Intel = { VisionRadius = 20, },
     Interface = {
         HelpText = '<LOC XNB1201_help>Power Generator',
     },
