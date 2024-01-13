@@ -50,7 +50,7 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 100,
     },
-    Description = '<LOC XNB3303_desc>Rocket Artillery Installation',
+    Description = '<LOC XNB3303_desc>Heavy Artillery Installation',
     Display = {
         Mesh = {
             IconFadeInZoom = 130,
@@ -118,7 +118,7 @@ UnitBlueprint {
         VisionRadius = 24,
     },
     Interface = {
-        HelpText = '<LOC XNB3303_help>Rocket Artillery Installation',
+        HelpText = '<LOC XNB3303_help>Stationary heavy artillery with excellent range, accuracy and damage potential.',
     },
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.8,

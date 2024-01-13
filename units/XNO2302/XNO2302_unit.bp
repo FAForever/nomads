@@ -53,7 +53,7 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
     },
-    Description = '<LOC xno2302_desc>Orbital Artillery Gun',
+    Description = '<LOC xno2302_desc>Siege satellite',
     Display = {
         BuildMeshBlueprint = '/units/XNO2302/XNO2302_BuildMesh.bp',
         Mesh = {
@@ -113,14 +113,14 @@ UnitBlueprint {
         FactionName = 'Nomads',
         Icon = 'air',
         TechLevel = 'RULEUTL_Secret',
-        UnitName = '<LOC xno2302>Orbital Artillery Gun',
+        UnitName = '<LOC xno2302>Deadline',
         UnitWeight = 1,
     },
     Intel = {
         VisionRadius = 60,
     },
     Interface = {
-        HelpText = '<LOC xno2302_help>Orbital Artillery Gun',
+        HelpText = '<LOC xno2302_help>A gun turret in orbit. Fires high damage shells.',
     },
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.4,
