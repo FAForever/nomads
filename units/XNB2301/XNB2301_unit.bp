@@ -7,21 +7,9 @@ UnitBlueprint {
         },
     },
     Audio = {
-        Destroyed = Sound {
-            Bank = 'NomadsDestroy',
-            Cue = 'Destroy_Med_Structure',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'UEB',
-            Cue = 'UEB2301_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'NomadsInterface',
-            Cue = 'Nomads_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Destroyed = Sound { Bank = 'NomadsDestroy', Cue = 'Destroy_Med_Structure', LodCutoff = 'UnitMove_LodCutoff', },
+        DoneBeingBuilt = Sound { Bank = 'UEB', Cue = 'UEB2301_Activate', LodCutoff = 'UnitMove_LodCutoff', },
+        UISelection = Sound { Bank = 'NomadsInterface', Cue = 'Nomads_Select_Gun', LodCutoff = 'UnitMove_LodCutoff', },
     },
     Buffs = {
         Regen = {
@@ -34,23 +22,24 @@ UnitBlueprint {
     },
     BuildIconSortPriority = 110,
     Categories = {
-        'SELECTABLE',
         'BUILTBYTIER2ENGINEER',
         'BUILTBYTIER3ENGINEER',
         'BUILTBYTIER2COMMANDER',
         'BUILTBYTIER3COMMANDER',
-        'NOMADS',
-        'STRUCTURE',
+        'CQUEMOV',
         'DEFENSE',
         'DIRECTFIRE',
-        'TECH2',
         'DRAGBUILD',
-        'SIZE4',
-        'VISIBLETORECON',
-        'RECLAIMABLE',
+        'NOMADS',
         'OVERLAYDIRECTFIRE',
+        'RECLAIMABLE',
+        'SELECTABLE',
+        'SIZE4',
+        'SNIPEMODE',
         'SORTDEFENSE',
-        'CQUEMOV', --enables the selection and move commands during construction
+        'STRUCTURE',
+        'TECH2',
+        'VISIBLETORECON',
     },
     Defense = {
         AirThreatLevel = 0,
@@ -95,9 +84,7 @@ UnitBlueprint {
         BuildCostEnergy = 3600,
         BuildCostMass = 510,
         BuildTime = 600,
-        RebuildBonusIds = {
-            'xnb2301',
-        },
+        RebuildBonusIds = { 'xnb2301', },
     },
     Footprint = {
         MinWaterDepth = 1,
@@ -126,9 +113,7 @@ UnitBlueprint {
         UnitName = '<LOC XNB2301_name>Piercer',
         UnitWeight = 1,
     },
-    Intel = {
-        VisionRadius = 28,
-    },
+    Intel = { VisionRadius = 28, },
     Interface = {
         HelpText = '<LOC XNB2301_help>Point Defense',
     },
@@ -177,11 +162,7 @@ UnitBlueprint {
             AboveWaterTargetsOnly = true,
             AlwaysRecheckTarget = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'NomadsWeapons',
-                    Cue = 'KineticCannon_Heavy_Muzzle',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'NomadsWeapons', Cue = 'KineticCannon_Heavy_Muzzle', LodCutoff = 'Weapon_LodCutoff', },
             },
             BallisticArc = 'RULEUBA_LowArc',
             CollideFriendly = false,
@@ -224,13 +205,13 @@ UnitBlueprint {
             RateOfFire = 0.4,
             TargetCheckInterval = 1.4,
             TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'MOBILE INDIRECTFIRE',
-                'TECH3 MOBILE',
-                'TECH2 MOBILE',
-                'TECH1 MOBILE',
-                'STRUCTURE DEFENSE',
-                'SPECIALLOWPRI',
+                'EXPERIMENTAL',
+                '(STRUCTURE * TECH2 * DEFENSE - ANTIMISSILE)',
+                'MOBILE TECH3',
+                'MOBILE TECH2',
+                'MOBILE TECH1 ARTILLERY',
+                'MOBILE TECH1',
+                'COMMAND',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',

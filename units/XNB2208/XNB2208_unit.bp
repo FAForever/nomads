@@ -5,31 +5,11 @@ UnitBlueprint {
         InitialAutoMode = true,
     },
     Audio = {
-        Close = Sound {
-            Bank = 'UEB',
-            Cue = 'UEB2108_Doors',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Destroyed = Sound {
-            Bank = 'NomadsDestroy',
-            Cue = 'Destroy_Med_Structure',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        DoneBeingBuilt = Sound {
-            Bank = 'UEB',
-            Cue = 'UEB2108_Activate',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        Open = Sound {
-            Bank = 'UEB',
-            Cue = 'UEB2108_Doors',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
-        UISelection = Sound {
-            Bank = 'NomadsInterface',
-            Cue = 'Nomads_Select_Gun',
-            LodCutoff = 'UnitMove_LodCutoff',
-        },
+        Close = Sound { Bank = 'UEB', Cue = 'UEB2108_Doors', LodCutoff = 'UnitMove_LodCutoff', },
+        Destroyed = Sound { Bank = 'NomadsDestroy', Cue = 'Destroy_Med_Structure', LodCutoff = 'UnitMove_LodCutoff', },
+        DoneBeingBuilt = Sound { Bank = 'UEB', Cue = 'UEB2108_Activate', LodCutoff = 'UnitMove_LodCutoff', },
+        Open = Sound { Bank = 'UEB', Cue = 'UEB2108_Doors', LodCutoff = 'UnitMove_LodCutoff', },
+        UISelection = Sound { Bank = 'NomadsInterface', Cue = 'Nomads_Select_Gun', LodCutoff = 'UnitMove_LodCutoff', },
     },
     Buffs = {
         Regen = {
@@ -42,25 +22,26 @@ UnitBlueprint {
     },
     BuildIconSortPriority = 150,
     Categories = {
-        'SELECTABLE',
-        'BUILTBYTIER2ENGINEER',
-        'BUILTBYTIER3ENGINEER',
         'BUILTBYTIER2COMMANDER',
-        'NOMADS',
-        'STRUCTURE',
-        'STRATEGIC',
-        'TECH2',
-        'INDIRECTFIRE',
-        'TACTICALMISSILEPLATFORM',
+        'BUILTBYTIER2ENGINEER',
+        'BUILTBYTIER3COMMANDER',
+        'BUILTBYTIER3ENGINEER',
+        'CQUEMOV',
         'DRAGBUILD',
+        'INDIRECTFIRE',
+        'NOMADS',
+        'OVERLAYINDIRECTFIRE',
+        'RECLAIMABLE',
+        'SELECTABLE',
+        'SHOWATTACKRETICLE',
         'SILO',
         'SIZE4',
-        'VISIBLETORECON',
-        'RECLAIMABLE',
-        'SHOWATTACKRETICLE',
-        'OVERLAYINDIRECTFIRE',
         'SORTSTRATEGIC',
-        'CQUEMOV', --enables the selection and move commands during construction
+        'STRUCTURE',
+        'STRATEGIC',
+        'TACTICALMISSILEPLATFORM',
+        'TECH2',
+        'VISIBLETORECON',
     },
     Defense = {
         AirThreatLevel = 0,
@@ -176,13 +157,11 @@ UnitBlueprint {
         UniformScale = 0.27,
     },
     Economy = {
-        BuildCostEnergy = 4000,
-        BuildCostMass = 800,
+        BuildCostEnergy = 3500,
+        BuildCostMass = 700,
         BuildRate = 80,
-        BuildTime = 800,
-        RebuildBonusIds = {
-            'xnb2208',
-        },
+        BuildTime = 700,
+        RebuildBonusIds = { 'xnb2208', },
     },
     General = {
         Category = 'Strategic',
@@ -211,9 +190,7 @@ UnitBlueprint {
         UnitName = '<LOC XNB2208_name>Bowcaster',
         UnitWeight = 1,
     },
-    Intel = {
-        VisionRadius = 24,
-    },
+    Intel = { VisionRadius = 24, },
     Interface = {
         HelpText = '<LOC XNB2208_help>Tactical Missile Launcher',
     },
@@ -267,11 +244,7 @@ UnitBlueprint {
         {
             AboveWaterTargetsOnly = true,
             Audio = {
-                Fire = Sound {
-                    Bank = 'NomadsWeapons',
-                    Cue = 'Rocket3_Muzzle',
-                    LodCutoff = 'Weapon_LodCutoff',
-                },
+                Fire = Sound { Bank = 'NomadsWeapons', Cue = 'Rocket3_Muzzle', LodCutoff = 'Weapon_LodCutoff', },
             },
             BallisticArc = 'RULEUBA_None',
             CollideFriendly = false,
@@ -318,8 +291,7 @@ UnitBlueprint {
             RateOfFire = 3,
             TargetCheckInterval = 0.16,
             TargetPriorities = {
-                'SPECIALHIGHPRI',
-                'SPECIALLOWPRI',
+                '(STRUCTURE * DEFENSE - ANTIMISSILE)',
                 'ALLUNITS',
             },
             TargetRestrictDisallow = 'UNTARGETABLE',
