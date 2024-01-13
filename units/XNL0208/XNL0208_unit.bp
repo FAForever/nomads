@@ -35,6 +35,7 @@ UnitBlueprint {
         'LAND',
         'MOBILE',
         'NOMADS',
+        'OVERLAYDEFENSE',
         'PATROLHELPER',
         'RECLAIM',
         'RECLAIMABLE',
