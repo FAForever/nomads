@@ -1,5 +1,6 @@
 PropBlueprint {
     Categories = {
+        'OBSTRUCTSBUILDING',
         'RECLAIMABLE',
     },
     CollisionOffsetX = 0,
