@@ -255,7 +255,7 @@ UnitBlueprint {
             FiringRandomness = 0.4,
             Label = 'MainGun',
             LeadTarget = true,
-            MaxRadius = 30,
+            MaxRadius = 26,
             MuzzleSalvoDelay = 0.1,
             MuzzleSalvoSize = 12,
             MuzzleVelocity = 40,
