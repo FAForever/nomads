@@ -1,31 +1,5 @@
 do
 
-local oldFlare = Flare
-Flare = Class(oldFlare) {
-
-    -- modifying original script to skip diverting when a flag in the missile is set. Used on Nomads T3 rocket artillery.
-    -- TODO: When Nomads is more or less final the check for turn rates on the missiles can be removed.
-
-    OnCollisionCheck = function(self, other)
-        if EntityCategoryContains(ParseEntityCategory(self.RedirectCat), other) and (self.Army ~= other.Army) then
-            if IsProjectile( other ) and (not other.OnFlare_SetTrackTarget or other.OnFlare_SetTrackTarget ~= false) then
-                other.IsBeingDeflectedByFlares = true
-                other:TrackTarget(true)
-                other:SetNewTarget(self.Owner)
-                if other.OnFlared then
-                    other:OnFlared(self.Owner)
-                end
-                local obp = other:GetBlueprint()
-                local TR = obp.Physics.TurnRate or 0
-                if TR <= 0 then
-                    WARN('Flare: Diverting incoming projectile '..repr(obp.BlueprintId)..', its BP doesnt have a turn rate!')
-                end
-            end
-        end
-        return false
-    end,
-}
-
 local oldMissileRedirect = MissileRedirect
 MissileRedirect = Class(MissileRedirect) {
     -- Adding a bit more functionality, mainly needed for disabling this ability when parent unit is EMPed.
