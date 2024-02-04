@@ -495,7 +495,7 @@ Unit = Class(oldUnit) {
         local selfDir = Utilities.NormalizeVector( Vector( selfDirX, 0, selfDirZ) )
 
         -- blackhole direction relative to unit (from vector to angle (rad))
-        local target = table.deepcopy(HolePos)
+        local target = HolePos
         target[1] = target[1] - pos.x
         target[2] = 0
         target[3] = target[3] - pos.z
