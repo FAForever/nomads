@@ -10,13 +10,14 @@ local NomadsUtils = import('/lua/nomadsutils.lua')
 local RenameBeamEmitterToColoured = NomadsUtils.RenameBeamEmitterToColoured
 local CreateAttachedEmitterColoured = NomadsUtils.CreateAttachedEmitterColoured
 local AddRapidRepair = import('/lua/nomadsutils.lua').AddRapidRepair
+local AddRapidRepairToWeapon = import('/lua/nomadsutils.lua').AddRapidRepairToWeapon
 
 NLandUnit = AddRapidRepair(NLandUnit)
 
 XNL0402 = Class(NLandUnit) {
 
     Weapons = {
-        MainGun = Class(NDFPlasmaBeamWeapon) {},
+        MainGun = Class(AddRapidRepairToWeapon(NDFPlasmaBeamWeapon)) {},
     },
     
     FactionColour = true, --allow emitters to be recoloured on this unit
