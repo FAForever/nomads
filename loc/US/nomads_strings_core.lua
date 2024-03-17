@@ -171,9 +171,9 @@ NomadsSCUEnh_LeftArmEngineering_Description = "Enhances the SACU with an additio
 NomadsSCUEnh_LeftArmEngineering_Help = "Engineering Matrix"
 NomadsSCUEnh_LeftArmEngineering_Remove = "Engineering Matrix"
 
-NomadsSCUEnh_LeftArmRailgun_Description = "Enhances the SACU with an Amphibious Torpedo Launcher. The Amphibious Torpedo Launcher also fires rockets against surface targets."
-NomadsSCUEnh_LeftArmTorpedo_Help = "Amphibious Torpedo Launcher"
-NomadsSCUEnh_LeftArmTorpedo_Remove = "Amphibious Torpedo Launcher"
+NomadsSCUEnh_LeftArmRailgun_Description = "Enhances the SACU with an Amphibious Railgun Cannon. The Amphibious Railgun Cannon also fires against surface targets."
+NomadsSCUEnh_LeftArmRailgun_Help = "Amphibious Railgun Cannon"
+NomadsSCUEnh_LeftArmRailgun_Remove = "Amphibious Railgun Cannon"
 
 NomadsSCUEnh_ResourceAllocation_Description = "Increases the SACU's resource generation to 10 mass per second and 1000 energy per second, which speeds up the Capacitor charge time."
 NomadsSCUEnh_ResourceAllocation_Help = "Resource Allocation System"
@@ -267,7 +267,7 @@ xnl0301_trooper_help = "Houses a Nomads soldier. Can be Customised as a heavy co
 xnl0301_trooper_name = "Support Armored Command Unit (Preset: Trooper)"
 
 xnl0301_antinaval_desc = "Support Armored Command Unit (Preset: Anti-Naval)"
-xnl0301_antinaval_help = "Enhanced during construction with an Underwater Railgun on the left arm, an Additional Capacitor on the right arm and an Improved Locomotor."
+xnl0301_antinaval_help = "Enhanced during construction with a railgun cannon on the right arm, a rapid repair system and power armor."
 xnl0301_antinaval_name = "Support Armored Command Unit (Preset: Anti-Naval)"
 
 xnl0301_amphibious_desc = "Support Armored Command Unit (Preset: Amphibious)"
