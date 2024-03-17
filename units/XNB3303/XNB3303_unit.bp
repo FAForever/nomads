@@ -166,7 +166,7 @@ UnitBlueprint {
             Audio = { Fire = Sound { Bank = 'NomadsWeapons', Cue = 'Rocket3_Muzzle', LodCutoff = 'Weapon_LodCutoff', }, },
             BallisticArc = 'RULEUBA_HighArc',
             CollideFriendly = false,
-            Damage = 1400,
+            Damage = 1250,
             DamageFriendly = false,
             DamageRadius = 5,
             DamageType = 'Normal',
@@ -176,7 +176,7 @@ UnitBlueprint {
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
             },
-            FiringRandomness = 0.8, --doesn't matter, this one is decided in projectile script 'RandomOffsetTrackingTarget'
+            FiringRandomness = 0.5,
             FiringTolerance = 1,
             Label = 'MainGun',
             MaxRadius = 825,
@@ -184,7 +184,7 @@ UnitBlueprint {
             MuzzleChargeDelay = 0,
             MuzzleSalvoDelay = 2,
             MuzzleSalvoSize = 2,
-            MuzzleVelocity = 30,
+            MuzzleVelocity = 75,
             MuzzleVelocityReduceDistance = 1,
             ProjectilesPerOnFire = 8,
             ProjectileUIStatsOverride = 8, --a new version of PerOnFire - this one is only needed if you have a script multiplying projectile count
@@ -231,7 +231,7 @@ UnitBlueprint {
             TurretBoneMuzzle = 'AimBone',
             TurretBonePitch = 'AimBone',
             TurretBoneYaw = 'Turret',
-            TurretPitch = 125,
+            TurretPitch = 0,
             TurretPitchRange = 90,
             TurretPitchSpeed = 150,
             TurretYaw = 125,
