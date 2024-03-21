@@ -13,8 +13,9 @@ local NCommandUnit = import('/lua/nomadsunits.lua').NCommandUnit
 
 local APCannon1 = import('/lua/nomadsweapons.lua').APCannon1
 local UnderwaterRailgunWeapon1 = import('/lua/nomadsweapons.lua').UnderwaterRailgunWeapon1
-local RocketWeapon1 = import('/lua/nomadsweapons.lua').RocketWeapon1
+local KineticCannon1 = import('/lua/nomadsweapons.lua').KineticCannon1
 local DeathEnergyBombWeapon = import('/lua/nomadsweapons.lua').DeathEnergyBombWeapon
+local EMPGun = import('/lua/nomadsweapons.lua').EMPGun
 
 NCommandUnit = AddAkimbo(AddRapidRepair(NCommandUnit))
 
@@ -22,19 +23,20 @@ NCommandUnit = AddAkimbo(AddRapidRepair(NCommandUnit))
 XNL0301 = Class(NCommandUnit) {
 
     Weapons = {
-        Rocket = Class(AddRapidRepairToWeapon(RocketWeapon1)) {
-		    OnCreate = function(self)
-                RocketWeapon1.OnCreate(self)
-                self:DisableBuff('STUN')
+        SniperGun = Class(AddRapidRepairToWeapon(KineticCannon1)) {
+        },
+        Railgun = Class(AddRapidRepairToWeapon(UnderwaterRailgunWeapon1)) {},
+        MainGun = Class(AddRapidRepairToWeapon(APCannon1)) {},
+        EMPGun = Class(AddRapidRepairToWeapon(EMPGun)) {
+            FxMuzzleFlash = import('/lua/nomadseffecttemplate.lua').EMPGunMuzzleFlash_Tank,
+            CreateProjectileAtMuzzle = function(self, muzzle)
+                local proj = EMPGun.CreateProjectileAtMuzzle(self, muzzle)
+                local data = self:GetBlueprint().DamageToShields
+                if proj and not proj:BeenDestroyed() then
+                    proj:PassData(data)
+                end
             end,
-		},
-        Torpedo = Class(AddRapidRepairToWeapon(UnderwaterRailgunWeapon1)) {},
-        MainGun = Class(AddRapidRepairToWeapon(APCannon1)) {
-            OnCreate = function(self)
-                APCannon1.OnCreate(self)
-                self:DisableBuff('STUN')
-            end,
-		},
+        },
         RASDeathWeapon = Class(DeathEnergyBombWeapon) {},
     },
 
@@ -63,8 +65,9 @@ XNL0301 = Class(NCommandUnit) {
 
         -- enhancement related
         self:RemoveToggleCap('RULEUTC_SpecialToggle')
-        self:SetWeaponEnabledByLabel( 'Torpedo', false )
-        self:SetWeaponEnabledByLabel( 'Rocket', false )
+        self:SetWeaponEnabledByLabel( 'Railgun', false )
+        self:SetWeaponEnabledByLabel( 'SniperGun', false )
+        self:SetWeaponEnabledByLabel( 'EMPGun', false )
     
         self.Sync.Abilities = self:GetBlueprint().Abilities
     end,
@@ -212,18 +215,12 @@ XNL0301 = Class(NCommandUnit) {
     -- },
     
     EnhancementBehaviours = {
-        EMPWeapon = function(self, bp) --TODO: make this add splash and change projectiles for certain weapons
-            local wep = self:GetWeaponByLabel('MainGun')
-			local wbp = self:GetWeaponByLabel('Rocket')
-			wep:ReEnableBuff('STUN')
-            wbp:ReEnableBuff('STUN')
+        EMPWeapon = function(self, bp)
+            self:SetWeaponEnabledByLabel( 'EMPGun', true )
         end,
         
         EMPWeaponRemove = function(self, bp)
-            local wep = self:GetWeaponByLabel('MainGun')
-			local wbp = self:GetWeaponByLabel('Rocket')
-			wep:DisableBuff('STUN')
-            wbp:DisableBuff('STUN')
+            self:SetWeaponEnabledByLabel( 'EMPGun', false )
         end,
         
         EngineeringSuite = function(self, bp)
@@ -255,14 +252,14 @@ XNL0301 = Class(NCommandUnit) {
             end
         end,
         
-        Torpedo = function(self, bp)
-            self:SetWeaponEnabledByLabel( 'Torpedo', true )
-            self:SetWeaponEnabledByLabel( 'Rocket', true )
+        Railgun = function(self, bp)
+            self:SetWeaponEnabledByLabel( 'Railgun', true )
+            self:SetWeaponEnabledByLabel( 'SniperGun', true )
         end,
         
-        TorpedoRemove = function(self, bp)
-            self:SetWeaponEnabledByLabel( 'Torpedo', false )
-            self:SetWeaponEnabledByLabel( 'Rocket', false )
+        RailgunRemove = function(self, bp)
+            self:SetWeaponEnabledByLabel( 'Railgun', false )
+            self:SetWeaponEnabledByLabel( 'SniperGun', false )
         end,
         
         ResourceAllocation = function(self, bp)
@@ -292,7 +289,7 @@ XNL0301 = Class(NCommandUnit) {
                            Add = bp.AddHealth or 0,
                            Mult = 1.0,
                         },
-						Regen = {
+                        Regen = {
                             Add = bp.AddRegenRate,
                             Mult = 1.0,
                         },
@@ -315,6 +312,8 @@ XNL0301 = Class(NCommandUnit) {
         end,
         
         PowerArmor = function(self, bp)
+            self.RapidRepairBonusBack = bp.NewBonusRepairRate
+            self:StartRapidRepairCooldown(0) --update the repair bonus buff - this way doesnt disrupt the repair state
             --this doesnt have an additional rapid repair buff?
             if not Buffs['NomadsSCUPowerArmor'] then
                BuffBlueprint {
@@ -363,14 +362,18 @@ XNL0301 = Class(NCommandUnit) {
         
         GunUpgrade = function(self, bp)
             local wep = self:GetWeaponByLabel('MainGun')
+            local wep2 = self:GetWeaponByLabel('EMPGun')
             wep:ChangeRateOfFire(bp.NewRateOfFire)
             wep:ChangeMaxRadius(bp.NewMaxRadius or 30)
+            wep2:ChangeMaxRadius(bp.NewMaxRadius or 30)
         end,
         
         GunUpgradeRemove = function(self, bp)
             local wep = self:GetWeaponByLabel('MainGun')
-            wep:ChangeRateOfFire(self:GetBlueprint().Weapon[3].RateOfFire or 0.667)
+            local wep2 = self:GetWeaponByLabel('EMPGun')
+            wep:ChangeRateOfFire(self:GetBlueprint().Weapon[3].RateOfFire or 1)
             wep:ChangeMaxRadius(self:GetBlueprint().Weapon[3].MaxRadius or 25)
+            wep2:ChangeMaxRadius(self:GetBlueprint().Weapon[3].MaxRadius or 25)
         end,
         
         Generic = function(self, bp)
