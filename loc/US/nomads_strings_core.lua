@@ -683,7 +683,7 @@ xna0305_name = "Hornet"
 
 -- submarine
 xns0304_desc = "Tactical Submarine"
-xns0304_help = "Tactical Missile Submarine. Armed with long-range EMP missiles and torpedoes. Can build and launch tactical blackhole missiles. Can fire while submerged."
+xns0304_help = "Tactical Missile Submarine. Armed with long-range missiles and torpedoes. Can fire while submerged with lower range."
 xns0304_name = "Leviathan Class"
 
 -- carrier
