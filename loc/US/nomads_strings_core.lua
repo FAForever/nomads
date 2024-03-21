@@ -634,7 +634,7 @@ xnl0309_name = "Engineer"
 
 -- T3 tank
 xnl0303_desc = "Heavy Amphibious Tank"
-xnl0303_help = "Heavy amphibious tank. Equipped with heavy armor, a rocket launcher and a single siege cannon."
+xnl0303_help = "Heavy amphibious tank. Equipped with heavy armor, a rocket launcher and a single siege cannon. Repairs itself out of combat."
 xnl0303_name = "Nova"
 
 -- T3 artillery
@@ -693,7 +693,7 @@ xns0303_name = "Mastodon Class"
 
 -- battleship
 xns0302_desc = "Battleship"
-xns0302_help = "Long-range Surface Bombardment Ship. Equipped with two long range plasma cannons, two smaller cannons, AA defense and a submerged railgun."
+xns0302_help = "Long-range Surface Bombardment Ship. Equipped with two long range plasma cannons, two close range EMP cannons and AA defense. Repairs itself out of combat."
 xns0302_name = "Juggernaut Class"
 
 
@@ -800,7 +800,7 @@ xnb3303_name = "Arbalast"
 
 -- transport
 xna0401_desc = "Experimental Air Transport"
-xna0401_help = "Experimental transport. High transport capacity with the ability to carry most naval units, as well as certain experimental units. Equipped with anti-air weaponry and light anti-surface gatling guns."
+xna0401_help = "Experimental transport. High transport capacity with the ability to carry most naval units, as well as certain experimental units. Equipped with anti-air weaponry and light anti-surface gatling guns. Repairs itself out of combat."
 xna0401_name = "Altas"
 
 -- missile tank
@@ -810,7 +810,7 @@ xnl0403_name = "Jericho"
 
 -- beam tank
 xnl0402_desc = "Experimental Assault Tank"
-xnl0402_help = "Armed with an experimental plasma beam weapon designed to engage any surface units. Is able to be loaded on, and fire from, the experimental transport."
+xnl0402_help = "Armed with an experimental plasma beam weapon designed to engage any surface units. Is able to be loaded on, and fire from, the experimental transport. Repairs itself out of combat."
 xnl0402_name = "Beamer"
 
 -- experimental tank
