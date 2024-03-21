@@ -322,56 +322,12 @@ UnitBlueprint {
                 Fire = Sound { Bank = 'NomadsWeapons', Cue = 'Rocket3_Muzzle', LodCutoff = 'Weapon_LodCutoff', },
             },
             BallisticArc = 'RULEUBA_HighArc',
-            Buffs = {
-                {
-                    Add = {
-                        ImpactTypeDisallow = {
-                            'Shield',
-                        },
-                        OnImpact = true,
-                    },
-                    AppliedToTarget = true,
-                    BuffType = 'STUN',
-                    Duration = 10,
-                    Radius = 4,
-                    TargetAllow = 'TECH1',
-                    TargetDisallow = 'UNSTUNABLE,TECH2,TECH3,EXPERIMENTAL,COMMAND,SHIELD,WALL',
-                },
-                {
-                    Add = {
-                        ImpactTypeDisallow = {
-                            'Shield',
-                        },
-                        OnImpact = true,
-                    },
-                    AppliedToTarget = true,
-                    BuffType = 'STUN',
-                    Duration = 6,
-                    Radius = 4,
-                    TargetAllow = 'TECH2,SHIELD',
-                    TargetDisallow = 'UNSTUNABLE,TECH1,TECH3,EXPERIMENTAL,COMMAND,WALL',
-                },
-                {
-                    Add = {
-                        ImpactTypeDisallow = {
-                            'Shield',
-                        },
-                        OnImpact = true,
-                    },
-                    AppliedToTarget = true,
-                    BuffType = 'STUN',
-                    Duration = 2,
-                    Radius = 4,
-                    TargetAllow = 'TECH3',
-                    TargetDisallow = 'UNSTUNABLE,TECH1,TECH2,EXPERIMENTAL,COMMAND,WALL',
-                },
-            },
             CollideFriendly = false,
             Damage = 1000,
             DamageFriendly = false,
             DamageRadius = 4,
             DamageType = 'Normal',
-            DisplayName = 'Blackout EMP Missiles',
+            DisplayName = 'Tactical Rocket Artillery',
             FireTargetLayerCapsTable = {
                 Land = 'Land|Water',
                 Water = 'Land|Water',
@@ -388,7 +344,7 @@ UnitBlueprint {
             MuzzleVelocityReduceDistance = 50,
             NotExclusive = true,
             ProjectilesPerOnFire = 1,
-            ProjectileId = '/projectiles/NEmpMissile1/NEmpMissile1_proj.bp',
+            ProjectileId = '/projectiles/NTacticalMissile2/NTacticalMissile2_proj.bp',
             ProjectileLifetime = 60,
             ProjectileLifetimeUsesMultiplier = 5,
             RackBones = {
