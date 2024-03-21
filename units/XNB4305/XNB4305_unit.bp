@@ -100,7 +100,7 @@ UnitBlueprint {
         BuildCostMass = 3800,
         BuildTime = 5000,
         DifferentialUpgradeCostCalculation = true,
-        MaintenanceConsumptionPerSecondEnergy = 600,
+        MaintenanceConsumptionPerSecondEnergy = 750,
         RebuildBonusIds = {
             'xnb4202',
             'xnb4205',

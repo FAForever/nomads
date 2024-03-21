@@ -171,9 +171,9 @@ NomadsSCUEnh_LeftArmEngineering_Description = "Enhances the SACU with an additio
 NomadsSCUEnh_LeftArmEngineering_Help = "Engineering Matrix"
 NomadsSCUEnh_LeftArmEngineering_Remove = "Engineering Matrix"
 
-NomadsSCUEnh_LeftArmRailgun_Description = "Enhances the SACU with an Amphibious Torpedo Launcher. The Amphibious Torpedo Launcher also fires rockets against surface targets."
-NomadsSCUEnh_LeftArmTorpedo_Help = "Amphibious Torpedo Launcher"
-NomadsSCUEnh_LeftArmTorpedo_Remove = "Amphibious Torpedo Launcher"
+NomadsSCUEnh_LeftArmRailgun_Description = "Enhances the SACU with an Amphibious Railgun Cannon. The Amphibious Railgun Cannon also fires against surface targets."
+NomadsSCUEnh_LeftArmRailgun_Help = "Amphibious Railgun Cannon"
+NomadsSCUEnh_LeftArmRailgun_Remove = "Amphibious Railgun Cannon"
 
 NomadsSCUEnh_ResourceAllocation_Description = "Increases the SACU's resource generation to 10 mass per second and 1000 energy per second, which speeds up the Capacitor charge time."
 NomadsSCUEnh_ResourceAllocation_Help = "Resource Allocation System"
@@ -267,7 +267,7 @@ xnl0301_trooper_help = "Houses a Nomads soldier. Can be Customised as a heavy co
 xnl0301_trooper_name = "Support Armored Command Unit (Preset: Trooper)"
 
 xnl0301_antinaval_desc = "Support Armored Command Unit (Preset: Anti-Naval)"
-xnl0301_antinaval_help = "Enhanced during construction with an Underwater Railgun on the left arm, an Additional Capacitor on the right arm and an Improved Locomotor."
+xnl0301_antinaval_help = "Enhanced during construction with a railgun cannon on the right arm, a rapid repair system and power armor."
 xnl0301_antinaval_name = "Support Armored Command Unit (Preset: Anti-Naval)"
 
 xnl0301_amphibious_desc = "Support Armored Command Unit (Preset: Amphibious)"
@@ -634,7 +634,7 @@ xnl0309_name = "Engineer"
 
 -- T3 tank
 xnl0303_desc = "Heavy Amphibious Tank"
-xnl0303_help = "Heavy amphibious tank. Equipped with heavy armor, a rocket launcher and a single siege cannon."
+xnl0303_help = "Heavy amphibious tank. Equipped with heavy armor, a rocket launcher and a single siege cannon. Repairs itself out of combat."
 xnl0303_name = "Nova"
 
 -- T3 artillery
@@ -683,7 +683,7 @@ xna0305_name = "Hornet"
 
 -- submarine
 xns0304_desc = "Tactical Submarine"
-xns0304_help = "Tactical Missile Submarine. Armed with long-range EMP missiles and torpedoes. Can build and launch tactical blackhole missiles. Can fire while submerged."
+xns0304_help = "Tactical Missile Submarine. Armed with long-range missiles and torpedoes. Can fire while submerged with lower range."
 xns0304_name = "Leviathan Class"
 
 -- carrier
@@ -693,7 +693,7 @@ xns0303_name = "Mastodon Class"
 
 -- battleship
 xns0302_desc = "Battleship"
-xns0302_help = "Long-range Surface Bombardment Ship. Equipped with two long range plasma cannons, two smaller cannons, AA defense and a submerged railgun."
+xns0302_help = "Long-range Surface Bombardment Ship. Equipped with two long range plasma cannons, two close range EMP cannons and AA defense. Repairs itself out of combat."
 xns0302_name = "Juggernaut Class"
 
 
@@ -800,7 +800,7 @@ xnb3303_name = "Arbalast"
 
 -- transport
 xna0401_desc = "Experimental Air Transport"
-xna0401_help = "Experimental transport. High transport capacity with the ability to carry most naval units, as well as certain experimental units. Equipped with anti-air weaponry and light anti-surface gatling guns."
+xna0401_help = "Experimental transport. High transport capacity with the ability to carry most naval units, as well as certain experimental units. Equipped with anti-air weaponry and light anti-surface gatling guns. Repairs itself out of combat."
 xna0401_name = "Altas"
 
 -- missile tank
@@ -810,7 +810,7 @@ xnl0403_name = "Jericho"
 
 -- beam tank
 xnl0402_desc = "Experimental Assault Tank"
-xnl0402_help = "Armed with an experimental plasma beam weapon designed to engage any surface units. Is able to be loaded on, and fire from, the experimental transport."
+xnl0402_help = "Armed with an experimental plasma beam weapon designed to engage any surface units. Is able to be loaded on, and fire from, the experimental transport. Repairs itself out of combat."
 xnl0402_name = "Beamer"
 
 -- experimental tank

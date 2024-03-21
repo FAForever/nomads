@@ -176,8 +176,8 @@ UnitBlueprint {
             DamageRadius = 4,
             DamageType = 'Normal',
             DisplayName = 'Antimatter Caster',
-            EnergyDrainPerSecond = 2500,
-            EnergyRequired = 22500,
+            EnergyDrainPerSecond = 5000,
+            EnergyRequired = 45000,
             FireTargetLayerCapsTable = {
                 Air = 'Land|Water|Seabed',
                 Land = 'Land|Water|Seabed',

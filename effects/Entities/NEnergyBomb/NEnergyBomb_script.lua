@@ -62,7 +62,7 @@ NEnergyBomb = Class(NullShell) {
         local maxOffset = 5
         local m = Random(-4, 5)
         for i = 1, m do
-            local templ = NomadsEffectTemplate.['EnergyBombResidualFlames_Var' .. Random(1, 4)]
+            local templ = NomadsEffectTemplate.EnergyBombResidualFlames_Var1
             local emitters = EffectUtilities.CreateEffectsWithOffset( self, self.Army, templ, RandomFloat(-maxOffset, maxOffset), 0, RandomFloat(-maxOffset, maxOffset) )
             local scl = RandomFloat(0.75, 1.25)
             for k, emit in emitters do

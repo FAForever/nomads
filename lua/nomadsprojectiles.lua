@@ -401,9 +401,9 @@ NIFArtilleryMissile = Class(NIFMissile) {
         end
         
         --create some water exiting effects, splashes and all that
-        for k, v in self.FxExitWaterEmitter do
-            CreateEmitterAtBone(self, -2, self.Army, v)
-        end
+--        for k, v in self.FxExitWaterEmitter do
+--            CreateEmitterAtBone(self, -2, self.Army, v)
+--        end
         
         --adjust velocity to what it would have been from a land launch, but in a fancy way (5+3 = 8)
         self:SetVelocity(5)
@@ -528,9 +528,9 @@ NIFCruiseMissile = Class(NIFMissile) {
         end
         
         --create some water exiting effects, splashes and all that
-        for k, v in self.FxExitWaterEmitter do
-            CreateEmitterAtBone(self, -2, self.Army, v)
-        end
+--        for k, v in self.FxExitWaterEmitter do
+--            CreateEmitterAtBone(self, -2, self.Army, v)
+--        end
         
         --adjust velocity to what it would have been from a land launch, but in a fancy way (5+3 = 8)
         self:SetVelocity(5)
