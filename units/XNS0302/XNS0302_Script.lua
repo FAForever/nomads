@@ -1,10 +1,10 @@
--- T3 heavy destroyer
+-- T3 Battleship
 
 local AddNavalLights = import('/lua/nomadsutils.lua').AddNavalLights
 local NSeaUnit = import('/lua/nomadsunits.lua').NSeaUnit
 local AAGun = import('/lua/nomadsweapons.lua').AAGun
 local PlasmaCannon = import('/lua/nomadsweapons.lua').PlasmaCannon
-local StingrayCannon1 = import('/lua/nomadsweapons.lua').StingrayCannon1
+local EMPGun = import('/lua/nomadsweapons.lua').EMPGun
 local RocketWeapon1 = import('/lua/nomadsweapons.lua').RocketWeapon1
 
 NSeaUnit = AddNavalLights(NSeaUnit)
@@ -13,8 +13,28 @@ XNS0302 = Class(NSeaUnit) {
     Weapons = {
         MainTurret1 = Class(PlasmaCannon) {},
         MainTurret2 = Class(PlasmaCannon) {},
-        SideTurret1 = Class(StingrayCannon1) {},
-        SideTurret2 = Class(StingrayCannon1) {},
+        SideTurret1 = Class(EMPGun) {
+            FxMuzzleFlash = import('/lua/nomadseffecttemplate.lua').EMPGunMuzzleFlash_Tank,
+            CreateProjectileAtMuzzle = function(self, muzzle)
+                local proj = EMPGun.CreateProjectileAtMuzzle(self, muzzle)
+                local data = self:GetBlueprint().DamageToShields
+                if proj and not proj:BeenDestroyed() then
+                    proj:PassData(data)
+                end
+                return proj
+            end,
+		},
+        SideTurret2 = Class(EMPGun) {
+            FxMuzzleFlash = import('/lua/nomadseffecttemplate.lua').EMPGunMuzzleFlash_Tank,
+            CreateProjectileAtMuzzle = function(self, muzzle)
+                local proj = EMPGun.CreateProjectileAtMuzzle(self, muzzle)
+                local data = self:GetBlueprint().DamageToShields
+                if proj and not proj:BeenDestroyed() then
+                    proj:PassData(data)
+                end
+                return proj
+            end,
+		},
         AATurret = Class(RocketWeapon1) {
             PlayFxMuzzleSequence = function(self, muzzle)
                 RocketWeapon1.PlayFxMuzzleSequence(self, muzzle)
