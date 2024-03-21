@@ -6,13 +6,15 @@ local AAGun = import('/lua/nomadsweapons.lua').AAGun
 local PlasmaCannon = import('/lua/nomadsweapons.lua').PlasmaCannon
 local EMPGun = import('/lua/nomadsweapons.lua').EMPGun
 local RocketWeapon1 = import('/lua/nomadsweapons.lua').RocketWeapon1
+local AddRapidRepair = import('/lua/nomadsutils.lua').AddRapidRepair
+local AddRapidRepairToWeapon = import('/lua/nomadsutils.lua').AddRapidRepairToWeapon
 
-NSeaUnit = AddNavalLights(NSeaUnit)
+NSeaUnit = AddNavalLights(AddRapidRepair(NSeaUnit))
 
 XNS0302 = Class(NSeaUnit) {
     Weapons = {
-        MainTurret1 = Class(PlasmaCannon) {},
-        MainTurret2 = Class(PlasmaCannon) {},
+        MainTurret1 = Class(AddRapidRepairToWeapon(PlasmaCannon)) {},
+        MainTurret2 = Class(AddRapidRepairToWeapon(PlasmaCannon)) {},
         SideTurret1 = Class(EMPGun) {
             FxMuzzleFlash = import('/lua/nomadseffecttemplate.lua').EMPGunMuzzleFlash_Tank,
             CreateProjectileAtMuzzle = function(self, muzzle)
@@ -35,7 +37,7 @@ XNS0302 = Class(NSeaUnit) {
                 return proj
             end,
 		},
-        AATurret = Class(RocketWeapon1) {
+        AATurret = Class(AddRapidRepairToWeapon(RocketWeapon1)) {
             PlayFxMuzzleSequence = function(self, muzzle)
                 RocketWeapon1.PlayFxMuzzleSequence(self, muzzle)
                 if muzzle == 'RocketLauncher_Muzzle1' then
