@@ -61,6 +61,8 @@ UnitBlueprint {
         EconomyThreatLevel = 0,
         Health = 44000,
         MaxHealth = 44000,
+        RapidRepairBonus = 440,
+        RapidRepairCooldown = 60,
         RegenRate = 0,
         SubThreatLevel = 45,
         SurfaceThreatLevel = 180,
