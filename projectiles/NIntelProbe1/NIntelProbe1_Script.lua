@@ -9,6 +9,7 @@ NIntelProbe1 = Class(Buoy1) {
     OnCreate = function(self)
         Buoy1.OnCreate(self)
         self:SetCollisionShape('Sphere', 0, 0, 0, 2.0)  -- so the probe can be shot down by TMD
+        self:SetDestroyOnWater(true)
     end,
     
     AddProbeUnit = function(self, probeType)
