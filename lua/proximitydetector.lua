@@ -3,35 +3,11 @@
 
 local Entity = import('/lua/sim/Entity.lua').Entity
 
-
-function ProximityDetector(SuperClass)
-    return Class(SuperClass) {
-
-        CreateProximityDetector = function(self, Name, Radius, Category, AlertIfOwnArmy, AlertIfAlliedArmy, AlertIfEnemyArmy)
-            local spec = {
-                Name = Name,
-                Owner = self,
-                Radius = Radius or 0,
-                Category = Category or '',
-                AlertIfEnemyArmy = AlertIfEnemyArmy or true,
-                AlertIfAlliedArmy = AlertIfAlliedArmy or false,
-                AlertIfOwnArmy = AlertIfOwnArmy or false,
-            }
-            self.MyProximityDetector = ProxDetectEntity(spec)
-            if self.Trash then
-                self.Trash:Add(self.MyProximityDetector)
-            end
-            return self.MyProximityDetector
-        end,
-
-        OnProximityAlert = function(self, other, radius, proxDetectorName)
-            -- called when the proximity detector detects something so hook this. Doesn't detect units though!
-        end,
-    }
-end
-
+---@class ProxDetectEntity : Entity
 ProxDetectEntity = Class(Entity) {
 
+    ---@param self ProxDetectEntity
+    ---@param spec any
     __init = function(self, spec)
         --LOG('__ProxDetectEntity')
         Entity.__init(self, spec)
@@ -46,6 +22,7 @@ ProxDetectEntity = Class(Entity) {
         self.CanTakeDamage = false
     end,
 
+    ---@param self ProxDetectEntity
     OnCreate = function(self)
         Entity.OnCreate(self)
         self.Owner:AddUnitCallback(self.Kill, 'OnKilled')
@@ -61,22 +38,28 @@ ProxDetectEntity = Class(Entity) {
         end
     end,
 
+    ---@param self ProxDetectEntity
     Enable = function(self)
         self:SetCollisionShape('Sphere', 0, 0, 0, self.Radius)
         self:SetDrawScale(self.Radius)
         self.Enabled = true
     end,
 
+    ---@param self ProxDetectEntity
     Disable = function(self)
         self:SetCollisionShape('Sphere', 0, 0, 0, 0)
         self:SetDrawScale(0)
         self.Enabled = false
     end,
 
+    ---@param self ProxDetectEntity
+    ---@return boolean
     IsEnabled = function(self)
         return self.Enabled
     end,
 
+    ---@param self ProxDetectEntity
+    ---@param cat string
     SetDetectCategory = function(self, cat)
         if type(cat) == 'string' then
             self.CollisionCategories = ParseEntityCategory(cat)
@@ -85,6 +68,8 @@ ProxDetectEntity = Class(Entity) {
         end
     end,
 
+    ---@param self ProxDetectEntity
+    ---@param radius number
     SetDetectRadius = function(self, radius)
         self.Radius = radius
         if self:IsEnabled() then
@@ -92,6 +77,10 @@ ProxDetectEntity = Class(Entity) {
         end
     end,
 
+    ---@param self ProxDetectEntity
+    ---@param other any
+    ---@param firingWeapon any # Unused
+    ---@return boolean
     OnCollisionCheck = function(self, other, firingWeapon)
         -- doesn't detect units!
         if not self:IsEnabled() then
@@ -119,8 +108,51 @@ ProxDetectEntity = Class(Entity) {
         return false
     end,
 
+    ---@param self ProxDetectEntity
+    ---@param other any
     ProximityAlarm = function(self, other)
         -- doesn't detect units!
         self.Owner:OnProximityAlert(other, self.Radius, self.Name)
     end,
 }
+
+---@param SuperClass any
+---@return any
+function ProximityDetector(SuperClass)
+    return Class(SuperClass) {
+
+        ---@param self any
+        ---@param Name any
+        ---@param Radius any
+        ---@param Category any
+        ---@param AlertIfOwnArmy any
+        ---@param AlertIfAlliedArmy any
+        ---@param AlertIfEnemyArmy any
+        ---@return unknown
+        CreateProximityDetector = function(self, Name, Radius, Category, AlertIfOwnArmy, AlertIfAlliedArmy, AlertIfEnemyArmy)
+            local spec = {
+                Name = Name,
+                Owner = self,
+                Radius = Radius or 0,
+                Category = Category or '',
+                AlertIfEnemyArmy = AlertIfEnemyArmy or true,
+                AlertIfAlliedArmy = AlertIfAlliedArmy or false,
+                AlertIfOwnArmy = AlertIfOwnArmy or false,
+            }
+            self.MyProximityDetector = ProxDetectEntity(spec)
+            if self.Trash then
+                self.Trash:Add(self.MyProximityDetector)
+            end
+            return self.MyProximityDetector
+        end,
+
+        ---@param self any
+        ---@param other any
+        ---@param radius any
+        ---@param proxDetectorName any
+        OnProximityAlert = function(self, other, radius, proxDetectorName)
+            -- called when the proximity detector detects something so hook this. Doesn't detect units though!
+        end,
+    }
+end
+

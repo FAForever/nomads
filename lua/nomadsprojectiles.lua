@@ -24,23 +24,15 @@ local NomadsExplosions = import('/lua/nomadsexplosions.lua')
 --When adding weapon classes, follow the FAF naming conventions - NIFMissile
 
 -- -----------------------------------------------------------------------------------------------------
--- Projectiles
--- -----------------------------------------------------------------------------------------------------
-
--- Autocannons
-
--- Heavy Cannons
-
--- Artillery Shells
-
-
--- -----------------------------------------------------------------------------------------------------
 -- Missiles
 -- -----------------------------------------------------------------------------------------------------
--- Base missile classes
 
--- Missiles that lead target units, while not homing in on the units themselves. Not a standalone class.
+--- Base missile classes
+--- Missiles that lead target units, while not homing in on the units themselves. Not a standalone class.
+---@class NIFTargetLeadingMissile
 NIFTargetLeadingMissile = Class() {
+
+    ---@param self NIFTargetLeadingMissile
     LeadTargetGroundThread = function(self)
         local trackingTarget = self:GetTrackingTarget()
         if trackingTarget and IsUnit(trackingTarget) and trackingTarget:GetCurrentLayer() == 'Land' then
@@ -64,9 +56,10 @@ NIFTargetLeadingMissile = Class() {
     end,
 }
 
--- Anti Air Missiles
-
-NAAMissile = Class(SingleCompositeEmitterProjectile) { --TODO:give it a better name?
+--- Anti Air Missiles
+---@class NAAMissle :SingleCompositeEmitterProjectile
+NAAMissile = Class(SingleCompositeEmitterProjectile) { 
+    --TODO:give it a better name?
 
     BeamName = NomadsEffectTemplate.MissileBeam,
 
@@ -83,6 +76,9 @@ NAAMissile = Class(SingleCompositeEmitterProjectile) { --TODO:give it a better n
     FxTrails = NomadsEffectTemplate.MissileTrail,
     PolyTrail = NomadsEffectTemplate.MissilePolyTrail,
 
+    ---@param self NAAMissile
+    ---@param targetType string
+    ---@param targetEntity Entity
     OnImpact = function(self, targetType, targetEntity)
         SingleCompositeEmitterProjectile.OnImpact(self, targetType, targetEntity)
 
@@ -100,16 +96,20 @@ NAAMissile = Class(SingleCompositeEmitterProjectile) { --TODO:give it a better n
 -- Direct Fire Missiles
 
 -- These can enter the water and act as torpedoes
+---@class NDFAmphibiousMissile : NAAMissile, NIFTargetLeadingMissile
 NDFAmphibiousMissile = Class(NAAMissile, NIFTargetLeadingMissile) {
     EnterWaterSound = 'Torpedo_Enter_Water_01',
     FxTrailsWater = {'/effects/emitters/torpedo_munition_trail_01_emit.bp',},
     FxEnterWater= EffectTemplate.WaterSplash01,
-    
+
+    ---@param self NDFAmphibiousMissile
+    ---@param inWater boolean # Unused
     OnCreate = function(self, inWater)
         NAAMissile.OnCreate(self)
         self:ForkThread(NIFTargetLeadingMissile.LeadTargetGroundThread)
     end,
-    
+
+    ---@param self NDFAmphibiousMissile
     OnEnterWater = function(self)
         NAAMissile.OnEnterWater(self)
         self:TrackTarget(true)
@@ -131,25 +131,30 @@ NDFAmphibiousMissile = Class(NAAMissile, NIFTargetLeadingMissile) {
         
         self:ForkThread(self.WaterEntryThread)
     end,
-    
+
+    ---@param self NDFAmphibiousMissile
     WaterEntryThread = function(self)
         WaitSeconds(0.2)
-        self:SetMaxSpeed(10)     
+        self:SetMaxSpeed(10)
     end,
 }
 
 -- Cruise Missiles -- MML TML, indirect fire
 
 -- base class for missiles that target the ground, and so need a turn rate by distance mechanic.
+---@class NIFMissile : SingleCompositeEmitterProjectile
 NIFMissile = Class(SingleCompositeEmitterProjectile) {
     MoveThreadDelay = 0.2,
 
+    ---@param self NIFMissile
+    ---@param inwater Boolean
     OnCreate = function(self, inwater)
         SingleCompositeEmitterProjectile.OnCreate(self, inwater)
         self:SetDestroyOnWater(true)
         self.MoveThread = self:ForkThread( self.MovementThread )
     end,
 
+    ---@param self NIFMissile
     MovementThread = function(self)
         self.WaitTime = 0.1
         if self:GetDistanceToTarget() <= 10 then
@@ -164,6 +169,7 @@ NIFMissile = Class(SingleCompositeEmitterProjectile) {
         end
     end,
 
+    ---@param self NIFMissile
     SetTurnRateByDist = function(self)
         local dist = self:GetDistanceToTarget()
         if dist > 50 then
@@ -181,6 +187,8 @@ NIFMissile = Class(SingleCompositeEmitterProjectile) {
         end
     end,
 
+    ---@param self NIFMissile
+    ---@return nil
     GetDistanceToTarget = function(self)
         local tpos = self:GetCurrentTargetPosition()
         local mpos = self:GetPosition()
@@ -189,6 +197,7 @@ NIFMissile = Class(SingleCompositeEmitterProjectile) {
     end,
 }
 
+---@class NIFOrbitalMissile : NIFMissile
 NIFOrbitalMissile = Class(NIFMissile) {
     FxImpactAirUnit = NomadsEffectTemplate.ArtilleryHitAirUnit1,
     FxImpactLand = NomadsEffectTemplate.ArtilleryHitLand1,
@@ -199,7 +208,7 @@ NIFOrbitalMissile = Class(NIFMissile) {
     FxImpactWater = NomadsEffectTemplate.ArtilleryHitWater1,
     FxImpactProjectile = NomadsEffectTemplate.ArtilleryHitProjectile1,
     FxImpactUnderWater = NomadsEffectTemplate.ArtilleryHitUnderWater1,
-    
+
     --the effects were a bit much so just scaling them down a bit
     FxAirUnitHitScale = 0.7,
     FxLandHitScale = 0.7,
@@ -212,7 +221,7 @@ NIFOrbitalMissile = Class(NIFMissile) {
     FxUnitHitScale = 0.7,
     FxWaterHitScale = 0.7,
     FxOnKilledScale = 0.7,
-    
+
     FxTrails = NomadsEffectTemplate.TacticalMissileTrail,
     PolyTrail = NomadsEffectTemplate.TacticalMissilePolyTrail,
     DoImpactFlash = true,
@@ -222,23 +231,28 @@ NIFOrbitalMissile = Class(NIFMissile) {
     PolyTrailOffset = -0.22,
     TargetSpread = 10,--This controls the spread of the bombardment projectiles
 
+    ---@param self NIFOrbitalMissile
+    ---@param inWater boolean # Unused
     OnCreate = function(self, inWater)
         self:SetLifetime(100)
         self:SetCollisionShape('Sphere', 0, 0, 0, 3)
-        
+
         NIFMissile.OnCreate(self)
         --Save the target location to spread out the missiles
         self.TargetPos = RandomOffsetTrackingTarget(self, self.TargetSpread)
-        
+
         self:ForkThread(self.TrailThread)
     end,
-    
+
+    ---@param self NIFOrbitalMissile
+    ---@return nil
     GetLauncher = function(self)
         --this just swaps the priorities on returning the launcher value before the engine function so we can use this to transfer veterancy.
         --ideally we would use an Instigator variable and set that in OnImpact directly, but that would need destructive hooks.
         return self.Launcher or NIFMissile.GetLauncher(self)
     end,
 
+    ---@param self NIFOrbitalMissile
     MovementThread = function(self)
         self:SetTurnRate(10)
         WaitSeconds(0.1)
@@ -255,6 +269,7 @@ NIFOrbitalMissile = Class(NIFMissile) {
         end
     end,
 
+    ---@param self NIFOrbitalMissile
     SetTurnRateByDist = function(self)
         local dist = self:GetDistanceToTarget()
         if dist > 250 then
@@ -275,6 +290,8 @@ NIFOrbitalMissile = Class(NIFMissile) {
     end,
 
     --TODO:refactor this, this is crazy. use turnratebydist instead
+    ---@param self NIFOrbitalMissile
+    ---@param stage any
     SetStage = function(self, stage)
         local bp = self:GetBlueprint().Physics
         local stageSetting = ''
@@ -286,7 +303,10 @@ NIFOrbitalMissile = Class(NIFMissile) {
         self:SetVelocity( bp['MaxSpeed'..stageSetting] or bp.MaxSpeed)
         self:ChangeZigZagFrequency( bp['ZigZagFrequency'..stageSetting] or bp.ZigZagFrequency)
     end,
-    
+
+    ---@param self NIFOrbitalMissile
+    ---@param targetType any
+    ---@param targetEntity Enitiy
     OnImpact = function(self, targetType, targetEntity)
         NIFMissile.OnImpact(self, targetType, targetEntity)
         local pos = self:GetPosition()
@@ -294,12 +314,18 @@ NIFOrbitalMissile = Class(NIFMissile) {
     end,
 
     --Prevent taking damage from friendly targets such as AOE explosions
+    ---@param self NIFOrbitalMissile
+    ---@param instigator Unit
+    ---@param amount number
+    ---@param vector Vector2
+    ---@param damageType string
     OnDamage = function(self, instigator, amount, vector, damageType)
         if instigator.Army ~= self.Army then
             NIFMissile.OnDamage(self, instigator, amount, vector, damageType)
         end
     end,
 
+    ---@param self NIFOrbitalMissile
     TrailThread = function(self)
         -- add a trail when the projectile enters the atmosphere
         local bp = self:GetBlueprint().Display.Trail
@@ -311,7 +337,7 @@ NIFOrbitalMissile = Class(NIFMissile) {
             WaitTicks(1)
             pos = self:GetPosition()
         end
-        
+
         if self and not self:BeenDestroyed() then
             for k, v in  NomadsEffectTemplate.OrbitalStrikeMissile_AtmosphereTrail do
                 self.Trash:Add( CreateAttachedEmitter( self, -1, self.Army, v ) )
@@ -321,6 +347,7 @@ NIFOrbitalMissile = Class(NIFMissile) {
 }
 
 --Longrange tactical missile (used by Crawler, Devourer, could be reused for Leviathan later)
+---@class NIFArtilleryMissile : NIFMissile
 NIFArtilleryMissile = Class(NIFMissile) {
 
     BeamName = NomadsEffectTemplate.TacticalMissileBeam,
@@ -348,6 +375,8 @@ NIFArtilleryMissile = Class(NIFMissile) {
 
     DoImpactFlash = true,
 
+    ---@param self NIFArtilleryMissile
+    ---@param inwater boolean
     OnCreate = function(self, inwater)
         self:SetCollisionShape('Sphere', 0, 0, 0, 3.0)
         --if we are underwater we want to do things differently, like have different Fx and stuff.
@@ -368,6 +397,7 @@ NIFArtilleryMissile = Class(NIFMissile) {
         end
     end,
 
+    ---@param self NIFArtilleryMissile
     OnExitWater = function(self)
         SingleCompositeEmitterProjectile.OnExitWater(self)
         self:SetDestroyOnWater( self:GetBlueprint().Physics.DestroyOnWaterAfterExitingWater or true )
@@ -379,6 +409,7 @@ NIFArtilleryMissile = Class(NIFMissile) {
         self:ForkThread( self.WaterExitEffectsThread )
     end,
 
+    ---@param self NIFArtilleryMissile
     OnDestroy = function(self)
         if self.UnderWaterEmitters and self.UnderWaterEmitters.Destroy then
             self.UnderWaterEmitters:Destroy()
@@ -386,6 +417,9 @@ NIFArtilleryMissile = Class(NIFMissile) {
         SingleCompositeEmitterProjectile.OnDestroy(self)
     end,
 
+    ---@param self NIFArtilleryMissile
+    ---@param targetType string
+    ---@param targetEntity Entity
     OnImpact = function(self, targetType, targetEntity)
         SingleCompositeEmitterProjectile.OnImpact(self, targetType, targetEntity)
         
@@ -394,6 +428,7 @@ NIFArtilleryMissile = Class(NIFMissile) {
         NomadsExplosions.CreateImpactMedium(self, pos, self.Army, targetType)
     end,
 
+    ---@param self NIFArtilleryMissile
     WaterExitEffectsThread = function(self)
         -- remove water trail
         if self.UnderWaterEmitters and self.UnderWaterEmitters.Destroy then
@@ -430,12 +465,15 @@ NIFArtilleryMissile = Class(NIFMissile) {
         WaitSeconds(0.2) --finish accelerating at really high acceleration
         self:SetAcceleration(3)
     end,
-    
+
+    ---@param self NIFArtilleryMissile
     UnpackThread = function(self)
         WaitSeconds(0.5) --delay before deploying fins
         self:SetMesh('/projectiles/NTacticalMissile1/NTacticalMissile1Unpacked_mesh')
     end,
 
+    ---@param self NIFArtilleryMissile
+    ---@param EffectsBag TrashBag
     CreateUnderWaterEffects = function(self, EffectsBag)
         -- create attached air bubbles emitter
         local army, emit = self:GetLauncher().Army
@@ -448,6 +486,7 @@ NIFArtilleryMissile = Class(NIFMissile) {
 }
 
 -- Unpacking Cruise Missiles
+---@class NIFCruiseMissile : NIFMissile
 NIFCruiseMissile = Class(NIFMissile) {
 
     BeamName = NomadsEffectTemplate.TacticalMissileBeam,
@@ -475,6 +514,8 @@ NIFCruiseMissile = Class(NIFMissile) {
 
     DoImpactFlash = true,
 
+    ---@param self NIFCruiseMissile
+    ---@param inwater boolean
     OnCreate = function(self, inwater)
         self:SetCollisionShape('Sphere', 0, 0, 0, 2.0)
         --if we are underwater we want to do things differently, like have different Fx and stuff.
@@ -495,6 +536,7 @@ NIFCruiseMissile = Class(NIFMissile) {
         end
     end,
 
+    ---@param self NIFCruiseMissile
     OnExitWater = function(self)
         SingleCompositeEmitterProjectile.OnExitWater(self)
         self:SetDestroyOnWater( self:GetBlueprint().Physics.DestroyOnWaterAfterExitingWater or true )
@@ -506,6 +548,7 @@ NIFCruiseMissile = Class(NIFMissile) {
         self:ForkThread( self.WaterExitEffectsThread )
     end,
 
+    ---@param self NIFCruiseMissile
     OnDestroy = function(self)
         if self.UnderWaterEmitters and self.UnderWaterEmitters.Destroy then
             self.UnderWaterEmitters:Destroy()
@@ -513,6 +556,9 @@ NIFCruiseMissile = Class(NIFMissile) {
         SingleCompositeEmitterProjectile.OnDestroy(self)
     end,
 
+    ---@param self NIFCruiseMissile
+    ---@param targetType string
+    ---@param targetEntity Entity
     OnImpact = function(self, targetType, targetEntity)
         SingleCompositeEmitterProjectile.OnImpact(self, targetType, targetEntity)
         
@@ -521,6 +567,7 @@ NIFCruiseMissile = Class(NIFMissile) {
         NomadsExplosions.CreateImpactMedium(self, pos, self.Army, targetType)
     end,
 
+    ---@param self NIFCruiseMissile
     WaterExitEffectsThread = function(self)
         -- remove water trail
         if self.UnderWaterEmitters and self.UnderWaterEmitters.Destroy then
@@ -557,12 +604,15 @@ NIFCruiseMissile = Class(NIFMissile) {
         WaitSeconds(0.2) --finish accelerating at really high acceleration
         self:SetAcceleration(3)
     end,
-    
+
+    ---@param self NIFCruiseMissile
     UnpackThread = function(self)
         WaitSeconds(0.5) --delay before deploying fins
         self:SetMesh('/projectiles/NTacticalMissile1/NTacticalMissile1Unpacked_mesh')
     end,
 
+    ---@param self NIFCruiseMissile
+    ---@param EffectsBag TrashBag
     CreateUnderWaterEffects = function(self, EffectsBag)
         -- create attached air bubbles emitter
         local army, emit = self:GetLauncher().Army
@@ -574,37 +624,16 @@ NIFCruiseMissile = Class(NIFMissile) {
     end,
 }
 
--- Strategic Missiles
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 -- -----------------------------------------------------------------------------------------------------
 -- LEGACY PROJECTILES - These are used by older versions of nomads, and as such have an older organisation structure.
 -- Where possible, create new projectiles and tie them into the new structure instead, so that the old ones eventually dont need to be used.
 -- -----------------------------------------------------------------------------------------------------
 
-
-
-
-
-
-
-
 -- -----------------------------------------------------------------------------------------------------
 -- BALLISTIC PROJECTILES        (UNGUIDED, NOT PROPELED)
 -- -----------------------------------------------------------------------------------------------------
 
+---@class RailGunProj : SinglePolyTrailProjectile
 RailGunProj = Class(SinglePolyTrailProjectile) {
     FxImpactAirUnit = NomadsEffectTemplate.RailgunHitAirUnit1,
     FxImpactLand = NomadsEffectTemplate.RailgunHitLand1,
@@ -621,6 +650,8 @@ RailGunProj = Class(SinglePolyTrailProjectile) {
     CollisionCats = {},
     MaxCollisions = -1,
 
+    ---@param self RailGunProj
+    ---@param InWater boolean
     OnCreate = function(self, InWater)
         SinglePolyTrailProjectile.OnCreate(self, InWater)
         if self.CollisionCats and table.getn(self.CollisionCats) > 0 then
@@ -628,6 +659,9 @@ RailGunProj = Class(SinglePolyTrailProjectile) {
         end
     end,
 
+    ---@param self RailGunProj
+    ---@param other any
+    ---@return boolean
     OnCollisionCheck = function(self, other)
 
         local ok = false
@@ -650,6 +684,7 @@ RailGunProj = Class(SinglePolyTrailProjectile) {
     end,
 }
 
+---@class GattlingRound : MultiPolyTrailProjectile
 GattlingRound = Class(MultiPolyTrailProjectile) {
 
     FxImpactAirUnit = NomadsEffectTemplate.GattlingHitAirUnit1,
@@ -666,6 +701,7 @@ GattlingRound = Class(MultiPolyTrailProjectile) {
     PolyTrailOffset = {0,0,0,0},
 }
 
+---@class KineticRound :SinglePolyTrailProjectile
 KineticRound = Class(SinglePolyTrailProjectile) {
     FxImpactAirUnit = NomadsEffectTemplate.KineticCannonHitAirUnit1,
     FxImpactLand = NomadsEffectTemplate.KineticCannonHitLand1,
@@ -681,6 +717,9 @@ KineticRound = Class(SinglePolyTrailProjectile) {
     FxTrails = NomadsEffectTemplate.KineticCannonTrail,
     PolyTrail = NomadsEffectTemplate.KineticCannonPolyTrail,
 
+    ---@param self KineticRound
+    ---@param targetType string
+    ---@param targetEntity Entity
     OnImpact = function(self, targetType, targetEntity)
         SinglePolyTrailProjectile.OnImpact(self, targetType, targetEntity)
 
@@ -695,6 +734,7 @@ KineticRound = Class(SinglePolyTrailProjectile) {
     end,
 }
 
+---@class APRound : SinglePolyTrailProjectile
 APRound = Class(SinglePolyTrailProjectile) {
     FxImpactAirUnit = NomadsEffectTemplate.APCannonHitAirUnit1,
     FxImpactLand = NomadsEffectTemplate.APCannonHitLand1,
@@ -722,6 +762,9 @@ APRound = Class(SinglePolyTrailProjectile) {
     FxTrails = NomadsEffectTemplate.APCannonTrail,
     PolyTrail = NomadsEffectTemplate.APCannonPolyTrail,
 
+    ---@param self APRound
+    ---@param targetType string
+    ---@param targetEntity Entity
     OnImpact = function(self, targetType, targetEntity)
         SinglePolyTrailProjectile.OnImpact(self, targetType, targetEntity)
         NomadsExplosions.CreateFlashCustom( self, -2, self.Army, 1.475*0.95, 5, 'glow_06_red', 'ramp_transparency_flash_dark_2' )
@@ -738,6 +781,7 @@ APRound = Class(SinglePolyTrailProjectile) {
     end,
 }
 
+---@class APRoundCap : SinglePolyTrailProjectile
 APRoundCap = Class(SinglePolyTrailProjectile) {
     FxImpactAirUnit = NomadsEffectTemplate.APCannonHitAirUnit2,
     FxImpactLand = NomadsEffectTemplate.APCannonHitLand2,
@@ -765,6 +809,9 @@ APRoundCap = Class(SinglePolyTrailProjectile) {
     FxTrails = NomadsEffectTemplate.APCannonTrail2,
     PolyTrail = NomadsEffectTemplate.APCannonPolyTrail2,
 
+    ---@param self APRoundCap
+    ---@param targetType string
+    ---@param targetEntity Entity
     OnImpact = function(self, targetType, targetEntity)
         SinglePolyTrailProjectile.OnImpact(self, targetType, targetEntity)
         NomadsExplosions.CreateFlashCustom( self, -2, self.Army, 2.435*0.775, 8, 'glow_06_red', 'ramp_transparency_flash_dark_2' )
@@ -781,6 +828,7 @@ APRoundCap = Class(SinglePolyTrailProjectile) {
     end,
 }
 
+---@class Annihilator : SinglePolyTrailProjectile
 Annihilator = Class(SinglePolyTrailProjectile) {
     FxImpactAirUnit = NomadsEffectTemplate.AnnihilatorHitAirUnit1,
     FxImpactLand = NomadsEffectTemplate.AnnihilatorHitLand1,
@@ -812,6 +860,7 @@ Annihilator = Class(SinglePolyTrailProjectile) {
     end,
 }
 
+---@class ArtilleryShell : SinglePolyTrailProjectile
 ArtilleryShell = Class(SinglePolyTrailProjectile) {
     FxImpactAirUnit = NomadsEffectTemplate.ArtilleryHitAirUnit1,
     FxImpactLand = NomadsEffectTemplate.ArtilleryHitLand1,
@@ -837,6 +886,7 @@ ArtilleryShell = Class(SinglePolyTrailProjectile) {
     end,
 }
 
+---@class ParticleBlastArtilleryShell : SinglePolyTrailProjectile
 ParticleBlastArtilleryShell = Class(SinglePolyTrailProjectile) {
     FxImpactAirUnit = NomadsEffectTemplate.ParticleBlastArtilleryHitAirUnit1,
     FxImpactLand = NomadsEffectTemplate.ParticleBlastArtilleryHitLand1,
@@ -869,6 +919,7 @@ ParticleBlastArtilleryShell = Class(SinglePolyTrailProjectile) {
     end,
 }
 
+---@class SplittingArtilleryShell : SinglePolyTrailProjectile
 SplittingArtilleryShell = Class(SinglePolyTrailProjectile) {
 
     FxImpactAirUnit = NomadsEffectTemplate.ConcussionBombHitAirUnit1,
@@ -944,6 +995,7 @@ SplittingArtilleryShell = Class(SinglePolyTrailProjectile) {
     end,
 }
 
+---@class DarkMatterProj : MultiPolyTrailProjectile
 DarkMatterProj = Class(MultiPolyTrailProjectile) {
     --As a test to unify all the ugly DarkMatter weapons, this is commented out. If necessary, will make separate versions if the unified look does not fit particular weapons
 
@@ -983,6 +1035,7 @@ DarkMatterProj = Class(MultiPolyTrailProjectile) {
     BeamsToRecolour = {'PolyTrails',},
 }
 
+---@class DarkMatterProj2 : MultiPolyTrailProjectile
 DarkMatterProj2 = Class(MultiPolyTrailProjectile) {
     --As a test to unify all the ugly DarkMatter weapons, this is commented out. If necessary, will make separate versions if the unified look does not fit particular weapons
 
@@ -1017,6 +1070,7 @@ DarkMatterProj2 = Class(MultiPolyTrailProjectile) {
     BeamsToRecolour = {'PolyTrails',},
 }
 
+---@class DarkMatterProjAir : MultiPolyTrailProjectile
 DarkMatterProjAir = Class(MultiPolyTrailProjectile) {
     FxImpactAirUnit = NomadsEffectTemplate.DarkMatterAirWeaponHitAirUnit1,
     FxImpactLand = NomadsEffectTemplate.DarkMatterAirWeaponHitLand1,
@@ -1037,6 +1091,7 @@ DarkMatterProjAir = Class(MultiPolyTrailProjectile) {
     BeamsToRecolour = {'PolyTrails',},
 }
 
+---@class IonBlast : SinglePolyTrailProjectile
 IonBlast = Class(SinglePolyTrailProjectile) {
     FxImpactAirUnit = NomadsEffectTemplate.IonBlastHitAirUnit1,
     FxImpactLand = NomadsEffectTemplate.IonBlastHitLand1,
@@ -1067,6 +1122,7 @@ IonBlast = Class(SinglePolyTrailProjectile) {
     end,
 }
 
+---@class ParticleBlast : SinglePolyTrailProjectile
 ParticleBlast = Class(SinglePolyTrailProjectile) {
     FxImpactAirUnit = NomadsEffectTemplate.ParticleBlastHitAirUnit1,
     FxImpactLand = NomadsEffectTemplate.ParticleBlastHitLand1,
@@ -1097,6 +1153,7 @@ ParticleBlast = Class(SinglePolyTrailProjectile) {
     end,
 }
 
+---@class Stingray : MultiPolyTrailProjectile
 Stingray = Class(MultiPolyTrailProjectile) {
 
     FxImpactAirUnit = NomadsEffectTemplate.StingrayHitAirUnit1,
@@ -1114,6 +1171,7 @@ Stingray = Class(MultiPolyTrailProjectile) {
     PolyTrailOffset = {0,0,},
 }
 
+---@class EmpShell : SinglePolyTrailProjectile
 EmpShell = Class(SinglePolyTrailProjectile) {
     FxImpactAirUnit = NomadsEffectTemplate.EMPGunHitAirUnit1,
     FxImpactLand = NomadsEffectTemplate.EMPGunHitLand1,
@@ -1200,6 +1258,7 @@ EmpShell = Class(SinglePolyTrailProjectile) {
     end,
 }
 
+---@class PlasmaProj : SinglePolyTrailProjectile
 PlasmaProj = Class(SinglePolyTrailProjectile) {
     BeamName = NomadsEffectTemplate.PlasmaBoltBeam,
 
@@ -1236,6 +1295,7 @@ PlasmaProj = Class(SinglePolyTrailProjectile) {
     end,
 }
 
+---@class PlasmaProjHighArcMissileArtillery : SinglePolyTrailProjectile
 PlasmaProjHighArcMissileArtillery = Class(SinglePolyTrailProjectile) {
     BeamName = NomadsEffectTemplate.PlasmaBoltBeam,
 
@@ -1275,6 +1335,7 @@ PlasmaProjHighArcMissileArtillery = Class(SinglePolyTrailProjectile) {
     end,
 }
 
+---@class PlasmaProjHighArcMissileArtilleryStatic : SinglePolyTrailProjectile
 PlasmaProjHighArcMissileArtilleryStatic = Class(SinglePolyTrailProjectile) {
     BeamName = NomadsEffectTemplate.RcktArtyPlasmaBoltBeam,
 
@@ -1314,6 +1375,7 @@ PlasmaProjHighArcMissileArtilleryStatic = Class(SinglePolyTrailProjectile) {
     end,
 }
 
+---@class EnergyProj : SinglePolyTrailProjectile
 EnergyProj = Class(SinglePolyTrailProjectile) {
     FxImpactAirUnit = NomadsEffectTemplate.EnergyProjHitAirUnit1,
     FxImpactLand = NomadsEffectTemplate.EnergyProjHitLand1,
@@ -1349,6 +1411,7 @@ EnergyProj = Class(SinglePolyTrailProjectile) {
 -- MISSILES       (GUIDED, PROPELED)
 -- -----------------------------------------------------------------------------------------------------
 
+---@class Missile1 : SingleCompositeEmitterProjectile
 Missile1 = Class(SingleCompositeEmitterProjectile) {
 
     BeamName = NomadsEffectTemplate.MissileBeam,
@@ -1380,6 +1443,7 @@ Missile1 = Class(SingleCompositeEmitterProjectile) {
     end,
 }
 
+---@class FusionMissile : SingleCompositeEmitterProjectile
 FusionMissile = Class(SingleCompositeEmitterProjectile) {
 
     BeamName = NomadsEffectTemplate.FusionMissileBeam,
@@ -1461,6 +1525,7 @@ FusionMissile = Class(SingleCompositeEmitterProjectile) {
     end,
 }
 
+---@class EMPMissile : FusionMissile
 EMPMissile = Class(FusionMissile) {
     BeamName = NomadsEffectTemplate.EMPMissileBeam,
 
@@ -1539,6 +1604,7 @@ EMPMissile = Class(FusionMissile) {
     end,
 }
 
+---@class TacticalMissile : SingleCompositeEmitterProjectile
 TacticalMissile = Class(SingleCompositeEmitterProjectile) {
     -- Weapon BP item: NumChildProjectiles, should be supported in weapon aswell.
 
@@ -1764,8 +1830,7 @@ TacticalMissile = Class(SingleCompositeEmitterProjectile) {
     end,
 }
 
-
-
+---@class ArcingTacticalMissile : TacticalMissile
 ArcingTacticalMissile = Class(TacticalMissile) {
     BeamName = NomadsEffectTemplate.ArcingTacticalMissileBeam,
     FxImpactAirUnit = NomadsEffectTemplate.ArcingTacticalMissileHitAirUnit1,

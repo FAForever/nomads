@@ -3,8 +3,9 @@ local SCCollisionBeam = import('/lua/defaultcollisionbeams.lua').SCCollisionBeam
 local NomadsEffectTemplate = import ('/lua/nomadseffecttemplate.lua')
 local Util = import('/lua/utilities.lua')
 
--- TODO:possibly put the CollisionBeam hook into this one instead, no need to hook all the beams just because?
--- Nomads continuous beam
+--- TODO:possibly put the CollisionBeam hook into this one instead, no need to hook all the beams just because?
+--- Nomads continuous beam
+---@class NomadsPhaseRay : CollisionBeam
 NomadsPhaseRay = Class(CollisionBeam) {
     -- The only beam in the Nomads mod!
     -- there was some crazy stuff in here that would allow healing of units. This never seemed to work and since I don't care
@@ -29,6 +30,9 @@ NomadsPhaseRay = Class(CollisionBeam) {
     EmittersToRecolour = {'FxBeam',},
     FactionColour = true,
 
+    ---@param self NomadsPhaseRay
+    ---@param impactType string
+    ---@param targetEntity Entity
     OnImpact = function(self, impactType, targetEntity)
         if impactType == 'Terrain' then
             if self.Scorching == nil then
@@ -41,12 +45,15 @@ NomadsPhaseRay = Class(CollisionBeam) {
         CollisionBeam.OnImpact(self, impactType, targetEntity)
     end,
 
+    ---@param self NomadsPhaseRay
     OnDisable = function( self )
         KillThread(self.Scorching)
         self.Scorching = nil
         CollisionBeam.OnDisable(self)
     end,
 
+    ---@param self NomadsPhaseRay
+    ---@param impactType string
     ScorchThread = function(self, impactType)
         local size = 1.2 + (Random() * 1.5)
         local CurrentPosition = self:GetPosition(1)
@@ -74,6 +81,7 @@ NomadsPhaseRay = Class(CollisionBeam) {
 }
 
 -- Nomads beam cannon
+---@class NomadsPhaseRayCannon : NomadsPhaseRay
 NomadsPhaseRayCannon = Class(NomadsPhaseRay) {
     FxBeamStartPoint = NomadsEffectTemplate.PhaseRayCannonMuzzle,
     FxBeam = NomadsEffectTemplate.PhaseRayBeamCannon,
@@ -89,10 +97,10 @@ NomadsPhaseRayCannon = Class(NomadsPhaseRay) {
     FxImpactUnderWater = NomadsEffectTemplate.PhaseRayCannonHitUnderWater1,
 }
 
+---@class HVFlakCollisionBeam : SCCollisionBeam
 HVFlakCollisionBeam = Class(SCCollisionBeam) {
     FxBeam = {
         '/effects/emitters/targeting_beam_invisible.bp'
     },
     FxBeamEndPoint = NomadsEffectTemplate.MissileHitNone1,
 }
-

@@ -16,14 +16,14 @@ local RandomFloat = import('/lua/utilities.lua').GetRandomFloat
 -- Projectile Weapons
 --------------------------------------------------------------------------
 
---Autocannons
-
+---Autocannons
+---@class NDFRotatingAutocannonWeapon :DefaultProjectileWeapon
 NDFRotatingAutocannonWeapon = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = {
         '/effects/emitters/machinegun_muzzle_fire_01_emit.bp',
         '/effects/emitters/machinegun_muzzle_fire_02_emit.bp',
     },
-    
+
     --add some effects when the weapon has a target
     IdleState = State(DefaultProjectileWeapon.IdleState) {
         Main = function(self)
@@ -34,44 +34,29 @@ NDFRotatingAutocannonWeapon = Class(DefaultProjectileWeapon) {
                 self:PlayWeaponSound('SpinningStop')
             end
         end,
-        
+
         OnGotTarget = function(self)
             DefaultProjectileWeapon.OnGotTarget(self)
             if not self.SpinManip then 
                 self.SpinManip = CreateRotator(self.unit, 'Rotator', 'z', nil, 270, 180, 60)
                 self.unit.Trash:Add(self.SpinManip)
             end
-            
+
             if self.SpinManip then
                 self.SpinManip:SetTargetSpeed(self:GetBlueprint().GattlingBarrelRotationSpeed or 500)
                 self:PlayWeaponSound('SpinningStart')
                 self:PlayWeaponAmbientSound('SpinningLoop')  -- can use BarrelLoop as with other gatlings. See original OnStartTracking fn.
             end
         end,
-    }, 
+    },
 }
-
---
-
---Artillery
-
-
---------------------------------------------------------------------------
--- Missile Weapons
---------------------------------------------------------------------------
-
---Direct Fire weapons
-
---Cruise Missile weapons
-
---Strategic Missile weapons
-
 
 --------------------------------------------------------------------------
 -- Orbital weapons
 --------------------------------------------------------------------------
 
 --Used for orbital bombardment by the orbital frigate. This weapon is with a script, where the fire command is read from a queue.
+---@class NIFOrbitalBomardmentWeapon : DefaultProjectileWeapon
 NIFOrbitalBombardmentWeapon = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = {
         '/effects/emitters/cannon_muzzle_flash_04_emit.bp',
@@ -85,16 +70,22 @@ NIFOrbitalBombardmentWeapon = Class(DefaultProjectileWeapon) {
             table.remove(self.unit.OrbitalBombardmentQueue,1)
         end,
     },
-    
+
     --allow setting the launcher to a unit other than the weapons owner, so any veterancy is passed to it instead.
+    ---@param self NIFOrbitalBomardmentWeapon
+    ---@param bone any
     CreateProjectileForWeapon = function(self, bone)
         local proj = DefaultProjectileWeapon.CreateProjectileForWeapon(self, bone)
         proj.Launcher = self.unit.AssignedUnit or proj.Launcher
     end,
 }
 
+---@class NIFTargetFinderWeapon : DefaultProjectileWeapon
 NIFTargetFinderWeapon = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = {},
+
+    ---@param self NIFTargetFinderWeapon
+    ---@param muzzle any
     CreateProjectileAtMuzzle = function(self, muzzle)
         local target = self:GetCurrentTargetPos()
         self.unit:OrbitalStrikeTargets({target})
@@ -104,11 +95,13 @@ NIFTargetFinderWeapon = Class(DefaultProjectileWeapon) {
 -- -----------------------------------------------------------------------------------------------------
 -- Beam Weapons
 -- -----------------------------------------------------------------------------------------------------
+---@class NDFPlasmaBeamWeapon : DefaultBeamWeapon
 NDFPlasmaBeamWeapon = Class(DefaultBeamWeapon) {
     BeamType = NomadsCollisionBeamFile.NomadsPhaseRay,
     FxChargeMuzzleFlash = NomadsEffectTemplate.PhaseRayMuzzle,
-    
-    --TODO:refactor this away, we shouldnt need to scale effects every tick like that
+
+    ---TODO:refactor this away, we shouldnt need to scale effects every tick like that
+    ---@param self NDFPlasmaBeamWeapon
     DoChargeUpEffects = function(self)
         -- this plays when the unit packs and unpacks, so both directions
         local fn = function(self)
@@ -132,13 +125,15 @@ NDFPlasmaBeamWeapon = Class(DefaultBeamWeapon) {
         self.unit.BeamHelperFxBag:Add( self:ForkThread( fn ) )
     end,
 
+    ---@param self NDFPlasmaBeamWeapon
     PlayFxWeaponUnpackSequence = function(self)
         self:DoChargeUpEffects()
         self.CurrentlyUnpacking = true
         DefaultBeamWeapon.PlayFxWeaponUnpackSequence(self)
         self.CurrentlyUnpacking = false
     end,
-    
+
+    ---@param self NDFPlasmaBeamWeapon
     PlayFxWeaponPackSequence = function(self)
         if self.CurrentlyUnpacking then
             WARN('Nomads beamer: trying to pack weapon while already unpacking, skipping the pack call for now')
@@ -146,16 +141,20 @@ NDFPlasmaBeamWeapon = Class(DefaultBeamWeapon) {
             DefaultBeamWeapon.PlayFxWeaponPackSequence(self)
         end
     end,
-    
+
     -- we swap the unpack animation when we are loaded into the transport
+    ---@param self NDFPlasmaBeamWeapon
+    ---@param transportstate boolean
     SetOnTransport = function(self, transportstate)--true when on transport
         DefaultBeamWeapon.SetOnTransport(self, transportstate)
         self:SetWeaponEnabled(false)
         self:ForkThread( self.TransportAnimationThread, transportstate)
     end,
-    
+
+    ---@param self NDFPlasmaBeamWeapon
+    ---@param transportstate boolean
     TransportAnimationThread = function(self, transportstate)--true when on transport
-        local bp = self:GetBlueprint()
+        local bp = self.Blueprint
         if not self.UnpackAnimator then
             self.UnpackAnimator = CreateAnimator(self.unit)
         end
@@ -171,7 +170,9 @@ NDFPlasmaBeamWeapon = Class(DefaultBeamWeapon) {
         self:SetWeaponEnabled(true)
         self:ResetTarget()
     end,
-    
+
+    ---@param self NDFPlasmaBeamWeapon
+    ---@param beam any
     PlayFxBeamEnd = function(self, beam)
         DefaultBeamWeapon.PlayFxBeamEnd(self, beam)
         self.ContBeamOn = false --switch the beam to off, fixing a bug where beam weapons cant cancel their packing sequence midway
@@ -179,6 +180,7 @@ NDFPlasmaBeamWeapon = Class(DefaultBeamWeapon) {
 }
 
 --High velocity flak for use as TMD
+---@class NAMFlakWeapon : DefaultProjectileWeapon
 NAMFlakWeapon = Class(DefaultProjectileWeapon) {
 --This has an amount of ammo stored. When its depleted, the weapon goes into a reload cycle.
 --When the weapon has no targets, it will also go into a reload cycle. Otherwise it will fire off its unfilled rack.
@@ -190,13 +192,19 @@ NAMFlakWeapon = Class(DefaultProjectileWeapon) {
         '/effects/emitters/cannon_muzzle_flash_09_emit.bp',
         '/effects/emitters/cannon_muzzle_flash_08_emit.bp',
     },
-    
+
+    TMDEffectBones = {}, --Change these in the weapon script when hooking to the correct bones for that unit.
+    MaxSalvoSize = 4, --Change this to the correct amount for the weapon.
+    SalvoReloadTime = 1, --Change this to the correct amount for the weapon.
+
     -- This entirely overrides the default, since we need to ensure that the tmd never misses.
+    ---@param self NAMFlakWeapon
+    ---@param muzzle any # Unused
     CreateProjectileAtMuzzle = function(self, muzzle)
         local targetEntity = self:GetCurrentTarget()
         if not targetEntity.GetPosition then return end --if the target is already dead then act as if we havent fired
         
-        local bp = self:GetBlueprint()
+        local bp = self.Blueprint
         
         Damage(self.unit, targetEntity:GetPosition(), targetEntity, bp.Damage, bp.DamageType)
         
@@ -217,11 +225,8 @@ NAMFlakWeapon = Class(DefaultProjectileWeapon) {
             self:PlaySound(bp.Audio.Fire)
         end
     end,
-    
-    TMDEffectBones = {}, --Change these in the weapon script when hooking to the correct bones for that unit.
-    MaxSalvoSize = 4, --Change this to the correct amount for the weapon.
-    SalvoReloadTime = 1, --Change this to the correct amount for the weapon.
 
+    ---@param self NAMFlakWeapon
     OnCreate = function(self)
         DefaultProjectileWeapon.OnCreate(self)
         self.TAEffectsBag = TrashBag()
@@ -230,7 +235,8 @@ NAMFlakWeapon = Class(DefaultProjectileWeapon) {
         self.ReloadLimitCounter = self.MaxSalvoSize
         self.LastTimeFired = GetGameTick()
     end,
-    
+
+    ---@param self NAMFlakWeapon
     OnDestroy = function(self)
         self:DestroyTAEffects()
         if self.Trash then
@@ -238,12 +244,12 @@ NAMFlakWeapon = Class(DefaultProjectileWeapon) {
         end
         DefaultProjectileWeapon.OnDestroy(self)
     end,
-    
+
     --track the last time the weapon fired. If its too soon and its out of ammo, make it reload.
     RackSalvoFireReadyState = State(DefaultProjectileWeapon.RackSalvoFireReadyState ) {
         Main = function(self)
             local ReloadTimeElapsed = GetGameTick() - self.LastTimeFired
-            
+
             if ReloadTimeElapsed >= self.SalvoReloadTime*10 then
                 self.ReloadLimitCounter = self.MaxSalvoSize
             elseif self.ReloadLimitCounter <= 0 then
@@ -252,24 +258,26 @@ NAMFlakWeapon = Class(DefaultProjectileWeapon) {
                 self.WeaponCanFire = true
                 self.ReloadLimitCounter = self.MaxSalvoSize
             end
-            
+
             DefaultProjectileWeapon.RackSalvoFireReadyState.Main(self)
         end,
     },
-    
+
     --add some effects when the weapon has a target
     IdleState = State(DefaultProjectileWeapon.IdleState) {
         Main = function(self)
             DefaultProjectileWeapon.IdleState.Main(self)
             self:DestroyTAEffects()
         end,
-        
+
         OnGotTarget = function(self)
             DefaultProjectileWeapon.OnGotTarget(self)
             self:PlayTAEffects()
         end,
     },
 
+    ---@param self NAMFlakWeapon
+    ---@param TMD any # Unused
     PlayTAEffects = function(self, TMD)
         if not self.PlayingTAEffects then
             local emit
@@ -283,6 +291,7 @@ NAMFlakWeapon = Class(DefaultProjectileWeapon) {
         end
     end,
 
+    ---@param self NAMFlakWeapon
     DestroyTAEffects = function(self)
         self.TAEffectsBag:Destroy()
         self.PlayingTAEffects = false

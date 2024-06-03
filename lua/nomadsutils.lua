@@ -3,12 +3,20 @@ local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local Buff = import('/lua/sim/Buff.lua')
 local Utils = import('/lua/utilities.lua')
 
+
+
 -- ================================================================================================================
 -- Orbital units
 -- ================================================================================================================
 --orbital units are spawned on request from parent units
 --self.OrbitalUnit = self:CreateOrbitalUnit()
 --CreateOrbitalUnit = function(self, offsetAmount, blueprint, unitArmy, pos)
+---@param self Unit
+---@param offsetAmount number
+---@param blueprint blueprint
+---@param unitArmy number
+---@param pos number
+---@return nil|table
 function CreateOrbitalUnit(self, offsetAmount, blueprint, unitArmy, pos)
     local bp = blueprint or 'xno0001'
     local army = unitArmy or self.Army
@@ -50,6 +58,10 @@ function RequestOrbitalSpawnThread(parent, constructedBP, offsetAmount, blueprin
     OrbitalUnit:Destroy()
 end
 
+---@param self Unit
+---@param cats string
+---@param range number
+---@return Unit|false
 function FindOrbitalUnit(self, cats, range) 
     local position = self:GetPosition()
     local unitCats = cats or categories.xno0001
@@ -74,6 +86,10 @@ end
 -- ================================================================================================================
 -- Colour Index / Recolouring emitters
 -- ================================================================================================================
+
+
+---@param hex string
+---@return number
 function DetermineColourIndex(hex)
     --we work out the hue of our team colour, which will then be sent to the shader for applying shader magic.
     if not hex then return 23.999 end
@@ -95,6 +111,14 @@ function DetermineColourIndex(hex)
     return h
 end
 
+---@param r number
+---@param g number
+---@param b number
+---@param a number
+---@return number
+---@return number
+---@return number
+---@return any
 function ConvertRGBtoHSV(r, g, b, a)
     r, g, b, a = r / 255, g / 255, b / 255
     local max, min = math.max(r, g, b), math.min(r, g, b)
@@ -121,6 +145,14 @@ function ConvertRGBtoHSV(r, g, b, a)
     return h, s, v, a or 255
 end
 
+---@param r number
+---@param g number
+---@param b number
+---@param a number
+---@return number
+---@return number
+---@return number
+---@return any
 function ConvertRGBtoHSL(r, g, b, a)
     r, g, b = r / 255, g / 255, b / 255
 
@@ -165,9 +197,12 @@ BeamsToRecolour = {
 },
 --]]
 
---TODO: allow even more fine grained control, colouring only some of the emitter templates, ect.
---TODO: allow this to check if the emitter exists in the blueprints list first before setting
-function SetBeamsToColoured(self, BeamsToColour) --Replace specified emitter blueprints with their coloured versions, so every time theyre called we already have everything done!
+--- TODO: allow even more fine grained control, colouring only some of the emitter templates, ect.
+--- TODO: allow this to check if the emitter exists in the blueprints list first before setting
+---@param self Unit
+---@param BeamsToColour string
+function SetBeamsToColoured(self, BeamsToColour) 
+    --Replace specified emitter blueprints with their coloured versions, so every time theyre called we already have everything done!
     if not self.ColourIndex then WARN('Nomads: SetBeamsToColoured could not find ColourIndex. Leaving Emitters uncoloured.') return end
 
     for _, EmitterList in BeamsToColour do
@@ -179,6 +214,9 @@ function SetBeamsToColoured(self, BeamsToColour) --Replace specified emitter blu
     end
 end
 
+---@param BeamName string
+---@param ArmyColourIndex table
+---@return string
 function RenameBeamEmitterToColoured(BeamName, ArmyColourIndex)
     if string.sub(BeamName,-3) == '.bp' then
         return string.sub(BeamName,1,-4) .. math.floor(100*ArmyColourIndex)
@@ -192,6 +230,9 @@ end
 -- Hook the Emitter creation commands, so we can insert our colour changes here.
 -- To use, import into target file, and any functions written in that file will use this instead of the engine function. Example:
 --local CreateAttachedEmitter = import('/lua/NomadsUtils.lua').CreateAttachedEmitterColoured
+---@param self Unit
+---@param ... unknown
+---@return nil
 function CreateAttachedEmitterColoured(self, ...)
     local emit = CreateAttachedEmitter(self, unpack(arg))
     if self.ColourIndex and self.FactionColour then
@@ -200,7 +241,11 @@ function CreateAttachedEmitterColoured(self, ...)
     return emit
 end
 
-function CreateEmitterAtBoneColoured(self, ...) -- Hook the engine CreateEmitterAtBone command, so we can insert our colour changes here.
+---@param self Unit
+---@param ... unknown
+---@return nil
+function CreateEmitterAtBoneColoured(self, ...) 
+    -- Hook the engine CreateEmitterAtBone command, so we can insert our colour changes here.
     local emit = CreateEmitterAtBone(self, unpack(arg))
     if self.ColourIndex and self.FactionColour then
         emit:SetEmitterCurveParam('RAMPSELECTION_CURVE', self.ColourIndex, 0)
@@ -208,7 +253,11 @@ function CreateEmitterAtBoneColoured(self, ...) -- Hook the engine CreateEmitter
     return emit
 end
 
-function CreateEmitterAtEntityColoured(self, ...) -- Hook the engine CreateEmitterAtEntity command, so we can insert our colour changes here.
+---@param self Unit
+---@param ... unknown
+---@return nil
+function CreateEmitterAtEntityColoured(self, ...) 
+    -- Hook the engine CreateEmitterAtEntity command, so we can insert our colour changes here.
     local emit = CreateEmitterAtEntity(self, unpack(arg))
     if self.ColourIndex and self.FactionColour then
         emit:SetEmitterCurveParam('RAMPSELECTION_CURVE', self.ColourIndex, 0)
@@ -216,7 +265,11 @@ function CreateEmitterAtEntityColoured(self, ...) -- Hook the engine CreateEmitt
     return emit
 end
 
-function CreateEmitterOnEntityColoured(self, ...) -- Hook the engine CreateEmitterOnEntity command, so we can insert our colour changes here.
+---@param self Unit
+---@param ... unknown
+---@return nil
+function CreateEmitterOnEntityColoured(self, ...) 
+    -- Hook the engine CreateEmitterOnEntity command, so we can insert our colour changes here.
     local emit = CreateEmitterOnEntity(self, unpack(arg))
     if self.ColourIndex and self.FactionColour then
         emit:SetEmitterCurveParam('RAMPSELECTION_CURVE', self.ColourIndex, 0)
@@ -227,6 +280,9 @@ end
 -- ================================================================================================================
 -- Lights class stuff
 -- ================================================================================================================
+
+---@param SuperClass any
+---@return any
 function AddLights(SuperClass)
     -- a quick way to add four different lighttypes to many bones
     return Class(SuperClass) {
