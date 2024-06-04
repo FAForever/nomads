@@ -2,6 +2,8 @@ local Entity = import('/lua/sim/Entity.lua').Entity
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local RandomFloat = import('/lua/utilities.lua').GetRandomFloat
 
+---@param unit Unit
+---@param EffectsBag TrashBag
 function CreateAmbientShieldEffects(unit, EffectsBag)
     local bp = unit:GetBlueprint()
 
@@ -24,6 +26,14 @@ function CreateAmbientShieldEffects(unit, EffectsBag)
     end
 end
 
+---@param builder number
+---@param unitBeingBuilt number
+---@param BuildEffectBones string
+---@param BuildEffectsBag TrashBag
+---@param ConstructionBeams any
+---@param ConstructionBeamStartPoint number
+---@param ConstructionBeamEndPoints number[]
+---@return table
 function CreateBeamEntities(builder, unitBeingBuilt, BuildEffectBones, BuildEffectsBag, ConstructionBeams, ConstructionBeamStartPoint, ConstructionBeamEndPoints)
     -- the beams work like this:
     -- an entity is created on the unit that's being built. A beam emitter is created between the build bone and the entity.
@@ -62,6 +72,10 @@ function CreateBeamEntities(builder, unitBeingBuilt, BuildEffectBones, BuildEffe
     return endEntityTable
 end
 
+---@param builder number
+---@param unitBeingBuilt number
+---@param snd any
+---@return boolean
 function PlaySparkleEffectAtUnitBeingBuilt( builder, unitBeingBuilt, snd )
     local bp = builder:GetBlueprint().Audio
     if bp and bp[snd] then
@@ -72,6 +86,10 @@ function PlaySparkleEffectAtUnitBeingBuilt( builder, unitBeingBuilt, snd )
 end
 
 -- beams coming from engineers and ACU when constructing
+---@param builder number
+---@param unitBeingBuilt number
+---@param BuildEffectBones any
+---@param BuildEffectsBag TrashBag
 function CreateNomadsBuildSliceBeams(builder, unitBeingBuilt, BuildEffectBones, BuildEffectsBag)
     local endEntityTable = CreateBeamEntities(builder, unitBeingBuilt, BuildEffectBones, BuildEffectsBag, NomadsEffectTemplate.ConstructionBeams, NomadsEffectTemplate.ConstructionBeamStartPoint, NomadsEffectTemplate.ConstructionBeamEndPoints)
     local ox, oy, oz = unpack(unitBeingBuilt:GetPosition())
@@ -92,6 +110,9 @@ function CreateNomadsBuildSliceBeams(builder, unitBeingBuilt, BuildEffectBones, 
     end
 end
 
+---@param unitBeingBuilt number
+---@param builder any #Unused
+---@param OnBeingBuiltEffectsBag TrashBag
 function CreateBuildCubeThread(unitBeingBuilt, builder, OnBeingBuiltEffectsBag)
     unitBeingBuilt:ShowBone(0, true)
     unitBeingBuilt:HideLandBones()
@@ -133,6 +154,9 @@ function CreateBuildCubeThread(unitBeingBuilt, builder, OnBeingBuiltEffectsBag)
     end
 end
 
+---@param unit Unit
+---@param EffectsBag TrashBag
+---@param numEffects number
 function CreateSelfRepairEffects( unit, EffectsBag, numEffects)
     if not numEffects then
         numEffects = unit:GetBlueprint().Display.NumberOfBuildBeams or NomadsEffectTemplate.ConstructionBeamsPerBuildBone or 3
@@ -171,6 +195,10 @@ function CreateSelfRepairEffects( unit, EffectsBag, numEffects)
     end
 end
 
+---@param builder number
+---@param unitBeingBuilt number
+---@param BuildEffectBones any
+---@param BuildEffectsBag TrashBag
 function CreateFactoryBuildBeams(builder, unitBeingBuilt, BuildEffectBones, BuildEffectsBag)
     -- create a flashing kind of effect at the pad where the unit is being built
     for _, v in NomadsEffectTemplate.ConstructionDefaultBeingBuiltEffectsMobile do
@@ -196,6 +224,10 @@ function CreateFactoryBuildBeams(builder, unitBeingBuilt, BuildEffectBones, Buil
     end
 end
 
+---@param reclaimer any
+---@param reclaimed any
+---@param BuildEffectBones any
+---@param EffectsBag any
 function PlayNomadsReclaimEffects(reclaimer, reclaimed, BuildEffectBones, EffectsBag)
     local rBp = reclaimed:GetBlueprint()
     local sx, sy, sz = (rBp.SizeX or 1)/2, (rBp.SizeY or 1)/2, (rBp.SizeZ or 1)/2
@@ -229,6 +261,9 @@ function PlayNomadsReclaimEffects(reclaimer, reclaimed, BuildEffectBones, Effect
     end
 end
 
+---@param reclaimer any
+---@param reclaimed any
+---@param EffectsBag any
 function PlayNomadsReclaimEndEffects(reclaimer, reclaimed, EffectsBag)
     -- GPG version modified to show Nomads reclaim effects
     local army = -1

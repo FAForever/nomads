@@ -39,15 +39,15 @@ NIFTargetLeadingMissile = Class() {
             WaitSeconds(0.1)
             --Save the target incase we need to turn on target tracking later
             self.TargetUnit = trackingTarget
-            
+
             local targetData = {pos=self.TargetUnit:GetPosition(), vel=VMult(Vector(self.TargetUnit:GetVelocity()), 10)}
             local deltaDistance = XZDist(self:GetPosition(), self.TargetUnit:GetPosition())
             local deltaVelocity = XZDist(VMult(Vector(self:GetVelocity()), 10), targetData.vel)
-            
+
             if deltaVelocity == 0 then return end
-            
+
             local deltaTime = deltaDistance / deltaVelocity
-            
+
             -- find out where the target will be when the projectile will hit it
             targetData.tpos = {targetData.pos[1] + deltaTime * targetData.vel[1], 0, targetData.pos[3] + deltaTime * targetData.vel[3]}
             targetData.tpos[2] = GetSurfaceHeight(targetData.tpos[1], targetData.tpos[3])
