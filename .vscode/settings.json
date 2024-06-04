@@ -1,0 +1,16 @@
+{
+  "Lua.runtime.version": "Lua 5.1",
+  "Lua.runtime.path": ["?.lua", "?/init.lua", "/?"],
+  "Lua.completion.showWord": "Disable",
+  "Lua.runtime.special": {
+    "import": "require",
+    "doscript": "require"
+  },
+  "Lua.runtime.nonstandardSymbol": ["!="],
+  "Lua.completion.requireSeparator": "/",
+  "Lua.runtime.exportEnvDefault": true,
+  "Lua.diagnostics.globals": ["moho"],
+  "Lua.runtime.plugin": "${3rd}/fa/plugin.lua",
+  "Lua.workspace.library": ["${3rd}/fa/library"],
+  "Lua.workspace.checkThirdParty": false
+}
