@@ -1,6 +1,7 @@
 local NullShell = import('/lua/sim/defaultprojectiles.lua').NullShell
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 
+---@class NBlackholeEffect01 : NullShell
 NBlackholeEffect01 = Class(NullShell) {
 
     OnCreate = function(self)

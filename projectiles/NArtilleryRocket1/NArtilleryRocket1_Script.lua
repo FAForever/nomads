@@ -1,13 +1,17 @@
 local Rocket1 = import('/lua/nomadsprojectiles.lua').Rocket1
 
+---@class NArtilleryRocket1 : Rocket1
 NArtilleryRocket1 = Class(Rocket1) {
+
+    ---@param self NArtilleryRocket1
     OnCreate = function(self)
         Rocket1.OnCreate(self)
         self:SetTurnRate(0)
         self:TrackTarget(true)
         self:ForkThread(self.MovementThread) 
     end,
-    
+
+    ---@param self NArtilleryRocket1
     MovementThread = function(self)
         local bp = self:GetBlueprint().Physics
         self.WaitTime = 0.1
@@ -18,7 +22,8 @@ NArtilleryRocket1 = Class(Rocket1) {
             WaitSeconds(1)
         end
     end,
-    
+
+    ---@param self NArtilleryRocket1
     SetTurnRateByDist = function(self)
         local dist = self:GetDistanceToTarget()
         if dist > 20 then        
@@ -47,5 +52,4 @@ NArtilleryRocket1 = Class(Rocket1) {
         return dist
     end,
 }
-
 TypeClass = NArtilleryRocket1

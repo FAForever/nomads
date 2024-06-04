@@ -4,7 +4,6 @@ local Buff = import('/lua/sim/Buff.lua')
 local Utils = import('/lua/utilities.lua')
 
 
-
 -- ================================================================================================================
 -- Orbital units
 -- ================================================================================================================
@@ -13,7 +12,7 @@ local Utils = import('/lua/utilities.lua')
 --CreateOrbitalUnit = function(self, offsetAmount, blueprint, unitArmy, pos)
 ---@param self Unit
 ---@param offsetAmount number
----@param blueprint blueprint
+---@param blueprint blueprintID
 ---@param unitArmy number
 ---@param pos number
 ---@return nil|table
@@ -37,6 +36,12 @@ end
 
 --a thread for spawning the orbital frigate, requesting a build from it, and then despawning the frigate.
 --self:ForkThread( RequestOrbitalSpawnThread, constructedBP, offsetAmount, blueprint, unitArmy, pos )
+---@param parent Unit
+---@param constructedBP any
+---@param offsetAmount number
+---@param blueprint any
+---@param unitArmy number
+---@param pos number
 function RequestOrbitalSpawnThread(parent, constructedBP, offsetAmount, blueprint, unitArmy, pos)
     local OrbitalUnit = CreateOrbitalUnit(parent, offsetAmount, blueprint, unitArmy, pos)
     WaitSeconds(2)
@@ -226,7 +231,6 @@ end
 
 --TODO:Rename self.FactionColour, and set it to allow individual blueprints
 --TODO: possibly replace these with blueprint switching instead, so we dont need to call this every time? not sure whats better.
-
 -- Hook the Emitter creation commands, so we can insert our colour changes here.
 -- To use, import into target file, and any functions written in that file will use this instead of the engine function. Example:
 --local CreateAttachedEmitter = import('/lua/NomadsUtils.lua').CreateAttachedEmitterColoured
@@ -336,6 +340,8 @@ function AddLights(SuperClass)
     }
 end
 
+---@param SuperClass any
+---@return any
 function AddNavalLights(SuperClass)
     -- a quick way to add lights on two antennae of most naval units
     SuperClass = AddLights(SuperClass)
@@ -393,7 +399,10 @@ end
 -- ================================================================================================================
 -- RAPID REPAIR
 -- ================================================================================================================
+
 --The repair has a delay which is reset by taking damage and by firing certain weapons.
+---@param SuperClass any
+---@return any
 function AddRapidRepair(SuperClass)
     return Class(SuperClass) {
         -- the RR thread ticks down until the timer reaches 0
@@ -479,6 +488,8 @@ function AddRapidRepair(SuperClass)
     }
 end
 
+---@param SuperClass any
+---@return any
 function AddRapidRepairToWeapon(SuperClass)
     -- should be used for the units weapon classes
     return Class(SuperClass) {

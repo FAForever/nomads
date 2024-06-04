@@ -8,6 +8,7 @@ local RandomFloat = Util.GetRandomFloat
 local Entity = import('/lua/sim/Entity.lua').Entity
 local VizMarker = import('/lua/sim/VizMarker.lua').VizMarker
 
+---@class NBlackhole : NullShell
 NBlackhole = Class(NullShell) {
     BlackholeCoreFx = NomadsEffectTemplate.NukeBlackholeCore,
     BlackholeDissipatingFx = NomadsEffectTemplate.NukeBlackholeDissipating,

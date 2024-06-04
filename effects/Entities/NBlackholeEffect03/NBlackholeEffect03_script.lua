@@ -3,6 +3,7 @@ local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local Util = import('/lua/utilities.lua')
 local RandomFloat = Util.GetRandomFloat
 
+---@class NBlackholeEffect03 : EMPMissileWeapon
 NBlackholeEffect03 = Class(EmitterProjectile) {
 
     FxTrails = NomadsEffectTemplate.NukeBlackholeFireballTrail,

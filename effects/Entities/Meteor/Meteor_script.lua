@@ -27,7 +27,7 @@ Meteor = Class(NullShell) {
     end,
 
     ---@param self Meteor
-    ---@param ImpactPos vector
+    ---@param ImpactPos Vector3
     ---@param Time number
     Start = function(self, ImpactPos, Time)
         self:SetAudio()
@@ -36,6 +36,7 @@ Meteor = Class(NullShell) {
         self:MonitorDescent(ImpactPos)
     end,
 
+    ---@param self Meteor
     SetAudio = function(self)
         -- using a seperate entity for the sound fx cause the functionality seems to not work on projectiles
         local bp = self:GetBlueprint()
@@ -47,6 +48,9 @@ Meteor = Class(NullShell) {
         end
     end,
 
+    ---@param self Meteor
+    ---@param ImpactPos Vector3
+    ---@param Time number
     SetPosAndVelocity = function(self, ImpactPos, Time)
         local dirVector
         local x,y,z

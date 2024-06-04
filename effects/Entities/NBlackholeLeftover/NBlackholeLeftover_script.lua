@@ -3,6 +3,7 @@ local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 local EffectUtilities = import('/lua/EffectUtilities.lua')
 
+---@class NBlackholeLeftover : Prop
 NBlackholeLeftover = Class(Prop) {
 
     PermanentFx = NomadsEffectTemplate.BlackholeLeftoverPerm,
