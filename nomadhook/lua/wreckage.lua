@@ -1,5 +1,13 @@
 local oldWreckage = Wreckage
+
+---@class Wreckage : oldWreckage
 Wreckage = Class(oldWreckage) {
+
+    ---@param self Wreckage
+    ---@param instigator Unit
+    ---@param amount number
+    ---@param vector Vector3
+    ---@param damageType string
     OnDamage = function(self, instigator, amount, vector, damageType)
         if not self.CanTakeDamage then return end
 
@@ -13,6 +21,11 @@ Wreckage = Class(oldWreckage) {
         oldWreckage.OnDamage(self, instigator, amount, vector, damageType)
     end,
 
+    ---@param self Wreckage
+    ---@param instigator Unit
+    ---@param amount number
+    ---@param vector Vector3 # Unused
+    ---@param damageType string # Unused
     DoTakeDamage = function(self, instigator, amount, vector, damageType)
         self:AdjustHealth(instigator, -amount)
         local health = self:GetHealth()

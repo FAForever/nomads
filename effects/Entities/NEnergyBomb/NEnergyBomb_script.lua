@@ -4,6 +4,7 @@ local EffectUtilities = import('/lua/EffectUtilities.lua')
 local Util = import('/lua/utilities.lua')
 local RandomFloat = Util.GetRandomFloat
 
+---@class NEnergyBomb : NullShell
 NEnergyBomb = Class(NullShell) {
 
     EnergyBombSurfaceFx = NomadsEffectTemplate.EnergyBombSurface,

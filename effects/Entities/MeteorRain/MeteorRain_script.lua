@@ -2,7 +2,7 @@ local Util = import('/lua/utilities.lua')
 local RandomFloat = Util.GetRandomFloat
 local NullShell = import('/lua/sim/defaultprojectiles.lua').NullShell
 
-
+---@class MeteorRain : NullShell
 MeteorRain = Class(NullShell) {
 
     AvgMeteorsPerMin = 20,

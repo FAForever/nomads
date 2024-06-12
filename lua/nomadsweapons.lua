@@ -6,6 +6,7 @@ local DefaultBeamWeapon = WeaponFile.DefaultBeamWeapon
 local OverchargeWeapon = WeaponFile.OverchargeWeapon
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
+local NukeDamage = import('/lua/sim/NukeDamage.lua').NukeAOE
 
 local RandomFloat = import('/lua/utilities.lua').GetRandomFloat
 
@@ -16,14 +17,14 @@ local RandomFloat = import('/lua/utilities.lua').GetRandomFloat
 -- Projectile Weapons
 --------------------------------------------------------------------------
 
---Autocannons
-
+--- # Autocannons
+---@class NDFRotatingAutocannonWeapon :DefaultProjectileWeapon
 NDFRotatingAutocannonWeapon = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = {
         '/effects/emitters/machinegun_muzzle_fire_01_emit.bp',
         '/effects/emitters/machinegun_muzzle_fire_02_emit.bp',
     },
-    
+
     --add some effects when the weapon has a target
     IdleState = State(DefaultProjectileWeapon.IdleState) {
         Main = function(self)
@@ -34,44 +35,29 @@ NDFRotatingAutocannonWeapon = Class(DefaultProjectileWeapon) {
                 self:PlayWeaponSound('SpinningStop')
             end
         end,
-        
+
         OnGotTarget = function(self)
             DefaultProjectileWeapon.OnGotTarget(self)
             if not self.SpinManip then 
                 self.SpinManip = CreateRotator(self.unit, 'Rotator', 'z', nil, 270, 180, 60)
                 self.unit.Trash:Add(self.SpinManip)
             end
-            
+
             if self.SpinManip then
                 self.SpinManip:SetTargetSpeed(self:GetBlueprint().GattlingBarrelRotationSpeed or 500)
                 self:PlayWeaponSound('SpinningStart')
                 self:PlayWeaponAmbientSound('SpinningLoop')  -- can use BarrelLoop as with other gatlings. See original OnStartTracking fn.
             end
         end,
-    }, 
+    },
 }
-
---
-
---Artillery
-
-
---------------------------------------------------------------------------
--- Missile Weapons
---------------------------------------------------------------------------
-
---Direct Fire weapons
-
---Cruise Missile weapons
-
---Strategic Missile weapons
-
 
 --------------------------------------------------------------------------
 -- Orbital weapons
 --------------------------------------------------------------------------
 
 --Used for orbital bombardment by the orbital frigate. This weapon is with a script, where the fire command is read from a queue.
+---@class NIFOrbitalBomardmentWeapon : DefaultProjectileWeapon
 NIFOrbitalBombardmentWeapon = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = {
         '/effects/emitters/cannon_muzzle_flash_04_emit.bp',
@@ -85,16 +71,22 @@ NIFOrbitalBombardmentWeapon = Class(DefaultProjectileWeapon) {
             table.remove(self.unit.OrbitalBombardmentQueue,1)
         end,
     },
-    
+
     --allow setting the launcher to a unit other than the weapons owner, so any veterancy is passed to it instead.
+    ---@param self NIFOrbitalBomardmentWeapon
+    ---@param bone any
     CreateProjectileForWeapon = function(self, bone)
         local proj = DefaultProjectileWeapon.CreateProjectileForWeapon(self, bone)
         proj.Launcher = self.unit.AssignedUnit or proj.Launcher
     end,
 }
 
+---@class NIFTargetFinderWeapon : DefaultProjectileWeapon
 NIFTargetFinderWeapon = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = {},
+
+    ---@param self NIFTargetFinderWeapon
+    ---@param muzzle any # Unused
     CreateProjectileAtMuzzle = function(self, muzzle)
         local target = self:GetCurrentTargetPos()
         self.unit:OrbitalStrikeTargets({target})
@@ -104,11 +96,13 @@ NIFTargetFinderWeapon = Class(DefaultProjectileWeapon) {
 -- -----------------------------------------------------------------------------------------------------
 -- Beam Weapons
 -- -----------------------------------------------------------------------------------------------------
+---@class NDFPlasmaBeamWeapon : DefaultBeamWeapon
 NDFPlasmaBeamWeapon = Class(DefaultBeamWeapon) {
     BeamType = NomadsCollisionBeamFile.NomadsPhaseRay,
     FxChargeMuzzleFlash = NomadsEffectTemplate.PhaseRayMuzzle,
-    
-    --TODO:refactor this away, we shouldnt need to scale effects every tick like that
+
+    ---TODO:refactor this away, we shouldnt need to scale effects every tick like that
+    ---@param self NDFPlasmaBeamWeapon
     DoChargeUpEffects = function(self)
         -- this plays when the unit packs and unpacks, so both directions
         local fn = function(self)
@@ -132,13 +126,15 @@ NDFPlasmaBeamWeapon = Class(DefaultBeamWeapon) {
         self.unit.BeamHelperFxBag:Add( self:ForkThread( fn ) )
     end,
 
+    ---@param self NDFPlasmaBeamWeapon
     PlayFxWeaponUnpackSequence = function(self)
         self:DoChargeUpEffects()
         self.CurrentlyUnpacking = true
         DefaultBeamWeapon.PlayFxWeaponUnpackSequence(self)
         self.CurrentlyUnpacking = false
     end,
-    
+
+    ---@param self NDFPlasmaBeamWeapon
     PlayFxWeaponPackSequence = function(self)
         if self.CurrentlyUnpacking then
             WARN('Nomads beamer: trying to pack weapon while already unpacking, skipping the pack call for now')
@@ -146,16 +142,20 @@ NDFPlasmaBeamWeapon = Class(DefaultBeamWeapon) {
             DefaultBeamWeapon.PlayFxWeaponPackSequence(self)
         end
     end,
-    
+
     -- we swap the unpack animation when we are loaded into the transport
+    ---@param self NDFPlasmaBeamWeapon
+    ---@param transportstate boolean
     SetOnTransport = function(self, transportstate)--true when on transport
         DefaultBeamWeapon.SetOnTransport(self, transportstate)
         self:SetWeaponEnabled(false)
         self:ForkThread( self.TransportAnimationThread, transportstate)
     end,
-    
+
+    ---@param self NDFPlasmaBeamWeapon
+    ---@param transportstate boolean
     TransportAnimationThread = function(self, transportstate)--true when on transport
-        local bp = self:GetBlueprint()
+        local bp = self.Blueprint
         if not self.UnpackAnimator then
             self.UnpackAnimator = CreateAnimator(self.unit)
         end
@@ -171,7 +171,9 @@ NDFPlasmaBeamWeapon = Class(DefaultBeamWeapon) {
         self:SetWeaponEnabled(true)
         self:ResetTarget()
     end,
-    
+
+    ---@param self NDFPlasmaBeamWeapon
+    ---@param beam any
     PlayFxBeamEnd = function(self, beam)
         DefaultBeamWeapon.PlayFxBeamEnd(self, beam)
         self.ContBeamOn = false --switch the beam to off, fixing a bug where beam weapons cant cancel their packing sequence midway
@@ -179,6 +181,7 @@ NDFPlasmaBeamWeapon = Class(DefaultBeamWeapon) {
 }
 
 --High velocity flak for use as TMD
+---@class NAMFlakWeapon : DefaultProjectileWeapon
 NAMFlakWeapon = Class(DefaultProjectileWeapon) {
 --This has an amount of ammo stored. When its depleted, the weapon goes into a reload cycle.
 --When the weapon has no targets, it will also go into a reload cycle. Otherwise it will fire off its unfilled rack.
@@ -190,13 +193,19 @@ NAMFlakWeapon = Class(DefaultProjectileWeapon) {
         '/effects/emitters/cannon_muzzle_flash_09_emit.bp',
         '/effects/emitters/cannon_muzzle_flash_08_emit.bp',
     },
-    
+
+    TMDEffectBones = {}, --Change these in the weapon script when hooking to the correct bones for that unit.
+    MaxSalvoSize = 4, --Change this to the correct amount for the weapon.
+    SalvoReloadTime = 1, --Change this to the correct amount for the weapon.
+
     -- This entirely overrides the default, since we need to ensure that the tmd never misses.
+    ---@param self NAMFlakWeapon
+    ---@param muzzle any # Unused
     CreateProjectileAtMuzzle = function(self, muzzle)
         local targetEntity = self:GetCurrentTarget()
         if not targetEntity.GetPosition then return end --if the target is already dead then act as if we havent fired
         
-        local bp = self:GetBlueprint()
+        local bp = self.Blueprint
         
         Damage(self.unit, targetEntity:GetPosition(), targetEntity, bp.Damage, bp.DamageType)
         
@@ -217,11 +226,8 @@ NAMFlakWeapon = Class(DefaultProjectileWeapon) {
             self:PlaySound(bp.Audio.Fire)
         end
     end,
-    
-    TMDEffectBones = {}, --Change these in the weapon script when hooking to the correct bones for that unit.
-    MaxSalvoSize = 4, --Change this to the correct amount for the weapon.
-    SalvoReloadTime = 1, --Change this to the correct amount for the weapon.
 
+    ---@param self NAMFlakWeapon
     OnCreate = function(self)
         DefaultProjectileWeapon.OnCreate(self)
         self.TAEffectsBag = TrashBag()
@@ -230,7 +236,8 @@ NAMFlakWeapon = Class(DefaultProjectileWeapon) {
         self.ReloadLimitCounter = self.MaxSalvoSize
         self.LastTimeFired = GetGameTick()
     end,
-    
+
+    ---@param self NAMFlakWeapon
     OnDestroy = function(self)
         self:DestroyTAEffects()
         if self.Trash then
@@ -238,12 +245,12 @@ NAMFlakWeapon = Class(DefaultProjectileWeapon) {
         end
         DefaultProjectileWeapon.OnDestroy(self)
     end,
-    
+
     --track the last time the weapon fired. If its too soon and its out of ammo, make it reload.
     RackSalvoFireReadyState = State(DefaultProjectileWeapon.RackSalvoFireReadyState ) {
         Main = function(self)
             local ReloadTimeElapsed = GetGameTick() - self.LastTimeFired
-            
+
             if ReloadTimeElapsed >= self.SalvoReloadTime*10 then
                 self.ReloadLimitCounter = self.MaxSalvoSize
             elseif self.ReloadLimitCounter <= 0 then
@@ -252,24 +259,26 @@ NAMFlakWeapon = Class(DefaultProjectileWeapon) {
                 self.WeaponCanFire = true
                 self.ReloadLimitCounter = self.MaxSalvoSize
             end
-            
+
             DefaultProjectileWeapon.RackSalvoFireReadyState.Main(self)
         end,
     },
-    
+
     --add some effects when the weapon has a target
     IdleState = State(DefaultProjectileWeapon.IdleState) {
         Main = function(self)
             DefaultProjectileWeapon.IdleState.Main(self)
             self:DestroyTAEffects()
         end,
-        
+
         OnGotTarget = function(self)
             DefaultProjectileWeapon.OnGotTarget(self)
             self:PlayTAEffects()
         end,
     },
 
+    ---@param self NAMFlakWeapon
+    ---@param TMD any # Unused
     PlayTAEffects = function(self, TMD)
         if not self.PlayingTAEffects then
             local emit
@@ -283,6 +292,7 @@ NAMFlakWeapon = Class(DefaultProjectileWeapon) {
         end
     end,
 
+    ---@param self NAMFlakWeapon
     DestroyTAEffects = function(self)
         self.TAEffectsBag:Destroy()
         self.PlayingTAEffects = false
@@ -295,23 +305,28 @@ NAMFlakWeapon = Class(DefaultProjectileWeapon) {
 -- Where possible, create new projectiles and tie them into the new structure instead, so that the old ones eventually dont need to be used.
 -- -----------------------------------------------------------------------------------------------------
 
-
+---@class KineticCannon1 : DefaultProjectileWeapon
 KineticCannon1 = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = NomadsEffectTemplate.KineticCannonMuzzleFlash,
 }
 
+---@class APCannon1 : DefaultProjectileWeapon
 APCannon1 = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = NomadsEffectTemplate.APCannonMuzzleFlash,
 }
 
+---@class APCannon1_Overcharge : OverchargeWeapon
 APCannon1_Overcharge = Class(OverchargeWeapon) {
     FxMuzzleFlash = NomadsEffectTemplate.APCannonMuzzleFlash,
     DesiredWeaponLabel = 'MainGun'
 }
 
+---@class ArtilleryWeapon : DefaultProjectileWeapon
 ArtilleryWeapon = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = NomadsEffectTemplate.ArtilleryMuzzleFx,
 
+    ---@param self ArtilleryWeapon
+    ---@return table
     GetDamageTable = function(self)
         local damageTable = DefaultProjectileWeapon.GetDamageTable(self)
         local weaponBlueprint = self:GetBlueprint()
@@ -321,41 +336,51 @@ ArtilleryWeapon = Class(DefaultProjectileWeapon) {
     end,
 }
 
+---@class DarkMatterWeapon1 : DefaultProjectileWeapon
 DarkMatterWeapon1 = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = NomadsEffectTemplate.DarkMatterAirWeaponMuzzleFlash,
 }
 
+---@class EMPGun : DefaultProjectileWeapon
 EMPGun = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = NomadsEffectTemplate.EMPGunMuzzleFlash,
 }
 
+---@class RailgunWeapon1 : DefaultProjectileWeapon
 RailgunWeapon1 = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = NomadsEffectTemplate.RailgunMuzzleFx,
 }
 
+---@class UnderwaterRailgunWeapon1 : RailgunWeapon1
 UnderwaterRailgunWeapon1 = Class(RailgunWeapon1) {
     FxMuzzleFlash = NomadsEffectTemplate.UnderWaterRailgunMuzzleFx,
 }
 
+---@class StingrayCannon1 : DefaultProjectileWeapon
 StingrayCannon1 = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = NomadsEffectTemplate.StingrayMuzzleFx,
 }
 
+---@class ParticleBlaster1 : DefaultProjectileWeapon
 ParticleBlaster1 = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = NomadsEffectTemplate.ParticleBlastMuzzleFlash,
 }
 
+---@class PlasmaCannon : DefaultProjectileWeapon
 PlasmaCannon = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = NomadsEffectTemplate.PlasmaBoltMuzzleFlash,
 }
 
+---@class AnnihilatorCannon1 : DefaultProjectileWeapon
 AnnihilatorCannon1 = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = NomadsEffectTemplate.AnnihilatorMuzzleFlash,
 }
 
+---@class EnergyCannon1 : DefaultProjectileWeapon
 EnergyCannon1 = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = NomadsEffectTemplate.EnergyProjMuzzleFlash,
 
+    ---@param self EnergyCannon1
     OnCreate = function(self)
         DefaultProjectileWeapon.OnCreate(self)
         local bp = self:GetBlueprint()
@@ -365,6 +390,7 @@ EnergyCannon1 = Class(DefaultProjectileWeapon) {
     end,
 }
 
+---@class GattlingWeapon1 : DefaultProjectileWeapon
 GattlingWeapon1 = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = {
         '/effects/emitters/machinegun_muzzle_fire_01_emit.bp',
@@ -373,6 +399,7 @@ GattlingWeapon1 = Class(DefaultProjectileWeapon) {
 
     Rotates = true,
 
+    ---@param self GattlingWeapon1
     OnCreate = function(self)
         DefaultProjectileWeapon.OnCreate(self)
 
@@ -394,6 +421,8 @@ GattlingWeapon1 = Class(DefaultProjectileWeapon) {
         end
     end,
 
+    ---@param self GattlingWeapon1
+    ---@param enabled boolean
     SetBarrelRotating = function(self, enabled)
         -- makes gattling weapon barrel spinning or still
         if self.Rotates then
@@ -413,12 +442,14 @@ GattlingWeapon1 = Class(DefaultProjectileWeapon) {
         end
     end,
 
+    ---@param self GattlingWeapon1
     PlayFxWeaponUnpackSequence = function(self)
         DefaultProjectileWeapon.PlayFxWeaponPackSequence(self)
         -- we started unpacking the weapon, begin spinning barrel
         self:SetBarrelRotating( true )
     end,
 
+    ---@param self GattlingWeapon1
     PlayFxWeaponPackSequence = function(self)
         -- we stopped firing, stop rotating barrel
         self:SetBarrelRotating( false )
@@ -426,6 +457,7 @@ GattlingWeapon1 = Class(DefaultProjectileWeapon) {
     end,
 }
 
+---@class AAGun : DefaultProjectileWeapon
 AAGun = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = {
         '/effects/emitters/machinegun_muzzle_fire_01_emit.bp',
@@ -433,41 +465,49 @@ AAGun = Class(DefaultProjectileWeapon) {
     },
 }
 
-
-
+---@class MissileWeapon1 : DefaultProjectileWeapon
 MissileWeapon1 = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = NomadsEffectTemplate.MissileMuzzleFx,
 }
 
+---@class RocketWeapon1 : DefaultProjectileWeapon
 RocketWeapon1 = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = NomadsEffectTemplate.RocketMuzzleFx,
 }
 
+---@class RocketWeapon1Bomber : DefaultProjectileWeapon
 RocketWeapon1Bomber = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = NomadsEffectTemplate.BomberRocketMuzzleFx,
 }
 
+---@class RocketWeapon4 : DefaultProjectileWeapon
 RocketWeapon4 = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = NomadsEffectTemplate.RocketMuzzleFx,
 }
 
+---@class PhaseRayGun : DefaultBeamWeapon
 PhaseRayGun = Class(DefaultBeamWeapon) {
     BeamType = NomadsCollisionBeamFile.NomadsPhaseRay,
     FxChargeMuzzleFlash = NomadsEffectTemplate.PhaseRayMuzzle,
 }
 
+---@class FusionMissileWeapon : DefaultProjectileWeapon
 FusionMissileWeapon = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = NomadsEffectTemplate.FusionMissileMuzzleFx,
 }
 
+---@class EMPMissileWeapon : DefaultProjectileWeapon
 EMPMissileWeapon = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = NomadsEffectTemplate.EMPMissileMuzzleFx,
 }
 
+---@class TacticalMissileWeapon1 : DefaultProjectileWeapon
 TacticalMissileWeapon1 = Class(DefaultProjectileWeapon) {
 -- Use NumChildProjectiles in the BP to tell the weapon to split up in this many child projectiles when close to the target.
     FxMuzzleFlash = NomadsEffectTemplate.TacticalMissileMuzzleFx,
 
+    ---@param self TacticalMissileWeapon1
+    ---@param muzzle any # Unused
     CreateProjectileAtMuzzle = function(self, muzzle)
         local proj = DefaultProjectileWeapon.CreateProjectileAtMuzzle(self, muzzle)
 
@@ -478,6 +518,8 @@ TacticalMissileWeapon1 = Class(DefaultProjectileWeapon) {
         proj:PassData( data )
     end,
 
+    ---@param self TacticalMissileWeapon1
+    ---@return table
     GetDamageTable = function(self)
         local table = DefaultProjectileWeapon.GetDamageTable(self)
         table.NumChildProjectiles = self:GetBlueprint().NumChildProjectiles or 0
@@ -485,21 +527,28 @@ TacticalMissileWeapon1 = Class(DefaultProjectileWeapon) {
     end,
 }
 
+---@class TacticalMissileWeapon2 : DefaultProjectileWeapon
 TacticalMissileWeapon2 = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = NomadsEffectTemplate.TacticalMissileMuzzleFx,
 }
 
+---@class DroppedMissileWeapon : DefaultProjectileWeapon
 DroppedMissileWeapon =  Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = {'/effects/emitters/antiair_muzzle_fire_02_emit.bp', },
 }
 
+---@class BombWeapon1 : DefaultProjectileWeapon
 BombWeapon1 = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = nil,
 }
 
+---@class DepthChargeBombWeapon1 : DefaultProjectileWeapon
 DepthChargeBombWeapon1 = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = NomadsEffectTemplate.DepthChargeBombMuzzleFx,
 
+    ---@param self DepthChargeBombWeapon1
+    ---@param muzzle any # Unused
+    ---@return table
     CreateProjectileAtMuzzle = function(self, muzzle)
         local proj = DefaultProjectileWeapon.CreateProjectileAtMuzzle(self, muzzle)
 
@@ -532,9 +581,12 @@ DepthChargeBombWeapon1 = Class(DefaultProjectileWeapon) {
     end,
 }
 
+---@class ConcussionBombWeapon : DefaultProjectileWeapon
 ConcussionBombWeapon = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = NomadsEffectTemplate.ConcussionBombMuzzleFx,
 
+    ---@param self ConcussionBombWeapon
+    ---@return table
     GetDamageTable = function(self)
         local damageTable = DefaultProjectileWeapon.GetDamageTable(self)
         damageTable.NumFragments = self:GetBlueprint().NumFragments or 1
@@ -543,9 +595,11 @@ ConcussionBombWeapon = Class(DefaultProjectileWeapon) {
     end,
 }
 
+---@class EnergyBombWeapon : DefaultProjectileWeapon
 EnergyBombWeapon = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = NomadsEffectTemplate.EnergyProjMuzzleFlash,
 
+    ---@param self EnergyBombWeapon
     OnCreate = function(self)
         DefaultProjectileWeapon.OnCreate(self)
         local bp = self:GetBlueprint()
@@ -555,6 +609,7 @@ EnergyBombWeapon = Class(DefaultProjectileWeapon) {
     end,
 }
 
+---@class TorpedoWeapon1 : DefaultProjectileWeapon
 TorpedoWeapon1 = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = {
         '/effects/emitters/default_muzzle_flash_01_emit.bp',
@@ -563,6 +618,7 @@ TorpedoWeapon1 = Class(DefaultProjectileWeapon) {
     },
 }
 
+---@class AntiTorpedoWeapon1 : DefaultProjectileWeapon
 AntiTorpedoWeapon1 = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = {
         '/effects/emitters/default_muzzle_flash_01_emit.bp',
@@ -571,20 +627,27 @@ AntiTorpedoWeapon1 = Class(DefaultProjectileWeapon) {
     },
 }
 
+---@class DroppedTorpedoWeapon1 : DefaultProjectileWeapon
 DroppedTorpedoWeapon1 = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = {'/effects/emitters/antiair_muzzle_fire_02_emit.bp',},
 }
 
+---@class AirToAirGun1 : DefaultProjectileWeapon
 AirToAirGun1 = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = NomadsEffectTemplate.DarkMatterAirWeaponMuzzleFlash,
 }
 
+---@class OrbitalStrikeBuoy : DefaultProjectileWeapon
 OrbitalStrikeBuoy = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = NomadsEffectTemplate.TacticalMissileMuzzleFx,
 }
 
+---@class StrategicMissileWeapon : DefaultProjectileWeapon
 StrategicMissileWeapon = Class(DefaultProjectileWeapon) {
 
+    ---@param self StrategicMissileWeapon
+    ---@param bone any 
+    ---@return Projectile
     CreateProjectileForWeapon = function(self, bone)
         local proj = DefaultProjectileWeapon.CreateProjectileForWeapon(self, bone)
         if proj and not proj:BeenDestroyed() then
@@ -619,21 +682,25 @@ StrategicMissileWeapon = Class(DefaultProjectileWeapon) {
     end,
 }
 
+---@class StrategicMissileDefenseWeapon : DefaultProjectileWeapon
 StrategicMissileDefenseWeapon = Class(DefaultProjectileWeapon) {}
 
-local NukeDamage = import('/lua/sim/NukeDamage.lua').NukeAOE
+---@class DeathNuke : BareBonesWeapon
 DeathNuke = Class(BareBonesWeapon) {
+
+    ---@param self DeathNuke
     OnFire = function(self)
     end,
 
+    ---@param self DeathNuke
     Fire = function(self)
         local bp = self:GetBlueprint()
         self.proj = self.unit:CreateProjectileAtBone(bp.ProjectileId, 0):SetCollision(false)
         self.proj.Launcher = self.unit --ensure that the projectile knows its parent unit
-        
+
         --the projectile disappears without OnImpact so we call the explosion directly instead
         self.proj:CreateSingularity(self.unit)
-        
+
         --This also means we create the damage manually just like the other ACUs do
         self.proj.InnerRing = NukeDamage()
         self.proj.InnerRing:OnCreate(bp.NukeInnerRingDamage, bp.NukeInnerRingRadius, bp.NukeInnerRingTicks, bp.NukeInnerRingTotalTime)
@@ -649,9 +716,11 @@ DeathNuke = Class(BareBonesWeapon) {
     end,
 }
 
+---@class DeathEnergyBombWeapon : BareBonesWeapon
 DeathEnergyBombWeapon = Class(BareBonesWeapon) {
     FiringMuzzleBones = {0}, -- just fire from the base bone of the unit
 
+    ---@param self DeathEnergyBombWeapon
     OnCreate = function(self)
         BareBonesWeapon.OnCreate(self)
         local bp = self:GetBlueprint()
@@ -661,9 +730,11 @@ DeathEnergyBombWeapon = Class(BareBonesWeapon) {
         self:SetWeaponEnabled(false)
     end,
 
+    ---@param self DeathEnergyBombWeapon
     OnFire = function(self)
     end,
 
+    ---@param self DeathEnergyBombWeapon
     Fire = function(self)
         local myBlueprint = self:GetBlueprint()
         local myProjectile = self.unit:CreateProjectile( myBlueprint.ProjectileId, 0, 0, 0, nil, nil, nil):SetCollision(false)
@@ -678,7 +749,7 @@ DeathEnergyBombWeapon = Class(BareBonesWeapon) {
 -- Orbital weapons
 --------------------------------------------------------------------------
 
+---@class OrbitalGun : DefaultProjectileWeapon
 OrbitalGun = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = EffectTemplate.TIFArtilleryMuzzleFlash,
 }
-

@@ -1,4 +1,3 @@
-
 Callbacks.ActivateCapacitor = function(data, units)
     for _, u in units or {} do
         if IsEntity(u) and OkayToMessWithArmy(u.Army) and u.Sync.HasCapacitorAbility then

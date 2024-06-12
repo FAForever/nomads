@@ -4,7 +4,7 @@
 --**
 --**  Summary  : Global platoon templates
 --**
---**  Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
+--**  Copyright ï¿½ 2005 Gas Powered Games, Inc.  All rights reserved.
 --****************************************************************************
 
 -- ==== Global Form platoons ==== --
@@ -103,7 +103,6 @@ PlatoonTemplate {
     Name = 'T4ExperimentalAir',
     Plan = 'ExperimentalAIHub',
     GlobalSquads = {
-        #DUNCAN - exclude novax
         { categories.AIR * categories.EXPERIMENTAL * categories.MOBILE - categories.SATELLITE, 1, 1, 'attack', 'none' },
     },
 }
@@ -112,7 +111,6 @@ PlatoonTemplate {
     Name = 'T4ExperimentalAirGroup',
     Plan = 'ExperimentalAIHub',
     GlobalSquads = {
-        #DUNCAN - exclude novax
         { categories.AIR * categories.EXPERIMENTAL * categories.MOBILE - categories.SATELLITE, 2, 3, 'attack', 'none' },
     },
 }

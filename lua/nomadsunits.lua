@@ -32,7 +32,8 @@ local CreateNomadsBuildSliceBeams = NomadsEffectUtil.CreateNomadsBuildSliceBeams
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local Unit = import('/lua/sim/Unit.lua').Unit
 
-
+---@param SuperClass any
+---@return any
 function AddNomadsBeingBuiltEffects( SuperClass )
     return Class(SuperClass) {
         StartBeingBuiltEffects = function(self, builder, layer)
@@ -49,6 +50,8 @@ function AddNomadsBeingBuiltEffects( SuperClass )
     }
 end
 
+---@param SuperClass any
+---@return any
 function NomadsSharedFactory( SuperClass )
     return Class(SuperClass) {
         -- Nomads factory build unit effects. Assumes unit collision boxes are pretty accurately sized but can be tweaked using unit blueprint values
@@ -201,17 +204,19 @@ end
 ---------------------------------------------------------------
 --  AIR UNITS
 ---------------------------------------------------------------
+---@class NAirUnit : AirUnit
 NAirUnit = Class(AirUnit) {
     BeamExhaustCruise = NomadsEffectTemplate.AirThrusterCruisingBeam,
     BeamExhaustIdle = NomadsEffectTemplate.AirThrusterIdlingBeam,
 }
 
+---@class NAirTransportUnit : AirTransport
 NAirTransportUnit = Class(AirTransport) {
     BeamExhaustCruise = NomadsEffectTemplate.AirThrusterCruisingBeam,
     BeamExhaustIdle = NomadsEffectTemplate.AirThrusterIdlingBeam,
-
 }
 
+---@class NExperimentalAirTransportUnit : NAirTransportUnit
 NExperimentalAirTransportUnit = Class(NAirTransportUnit) {
     -- placehold
 
@@ -221,6 +226,7 @@ NExperimentalAirTransportUnit = Class(NAirTransportUnit) {
 ---------------------------------------------------------------
 --  LAND UNITS
 ---------------------------------------------------------------
+---@class NLandUnit : LandUnit
 NLandUnit = Class(LandUnit) {}
 
 
@@ -228,6 +234,7 @@ NLandUnit = Class(LandUnit) {}
 --  TOGGLE WEAPON UNITS
 ---------------------------------------------------------------
 --units that have antiair/artillery weapons. use with parents.
+---@class NTogglingUnit
 NTogglingUnit = Class() {
 --[[
 --This needs to go into the child class of any unit using this to set it up for the first time.
@@ -304,11 +311,13 @@ NTogglingUnit = Class() {
 ---------------------------------------------------------------
 --  AMPHIBIOUS UNITS
 ---------------------------------------------------------------
+---@class NAmphibiousUnit : NLandUnit
 NAmphibiousUnit = Class(NLandUnit) {}
 
 ---------------------------------------------------------------
 --  HOVER LAND UNITS
 ---------------------------------------------------------------
+---@class NHoverLandUnit : HoverLandUnit
 NHoverLandUnit = Class(HoverLandUnit) {
     -- The code below for speed reduction and weapon disabling in water should be the same as the amphibious unit class, above
     OnStartBeingBuilt = function(self, builder, layer)
@@ -346,6 +355,7 @@ NHoverLandUnit = Class(HoverLandUnit) {
     end,
 }
 
+---@class NExperimentalHoverLandUnit : NHoverLandUnit
 NExperimentalHoverLandUnit = Class(NHoverLandUnit) {
     OnStopBeingBuilt = function(self, builder, layer)
         NHoverLandUnit.OnStopBeingBuilt(self, builder, layer)
@@ -406,6 +416,7 @@ NExperimentalHoverLandUnit = Class(NHoverLandUnit) {
 ---------------------------------------------------------------
 --  SEA UNITS
 ---------------------------------------------------------------
+---@class NSeaUnit : SeaUnit
 NSeaUnit = Class(SeaUnit) {
     PlayAnimationThread = function(self, anim, rate)
         -- someone made ship sink animations that run to fast. The original nomads team decided to add this line that
@@ -442,6 +453,7 @@ NSeaUnit = Class(SeaUnit) {
 ---------------------------------------------------------------
 --  WALKING COMMAND UNITS (only scu for now)
 ---------------------------------------------------------------
+---@class NCommandUnit : CommandUnit
 NCommandUnit = Class(CommandUnit) {
 
     WalkingAnimRate = 1,
@@ -489,11 +501,13 @@ NCommandUnit = Class(CommandUnit) {
 ---------------------------------------------------------------
 --  SUBMARINE UNITS
 ---------------------------------------------------------------
+---@class NSubUnit : SubUnit
 NSubUnit = Class(SubUnit) {}
 
 ---------------------------------------------------------------
 --  Construction Units
 ---------------------------------------------------------------
+---@class NConstructionUnit : ConstructionUnit
 NConstructionUnit = Class(ConstructionUnit) {
     -- TODO: Remove once related change gets released in the game patch
     OnCreate = function(self)
@@ -555,21 +569,31 @@ NConstructionUnit = Class(ConstructionUnit) {
 ---------------------------------------------------------------
 -- FACTORY UNITS
 ---------------------------------------------------------------
+---@class NConstructionUnit : ConstructionUnit
 LandFactoryUnit = AddNomadsBeingBuiltEffects(NomadsSharedFactory(LandFactoryUnit))
+
+---@class NConstructionUnit : ConstructionUnit
 NLandFactoryUnit = Class(LandFactoryUnit) {
 
 }
 
+---@class NConstructionUnit : ConstructionUnit
 AirFactoryUnit = AddNomadsBeingBuiltEffects(NomadsSharedFactory(AirFactoryUnit))
+
+---@class NConstructionUnit : ConstructionUnit
 NAirFactoryUnit = Class(AirFactoryUnit) {
 
 }
 
+---@class NConstructionUnit : ConstructionUnit
 SeaFactoryUnit = AddNomadsBeingBuiltEffects(NomadsSharedFactory(SeaFactoryUnit))
+
+---@class NConstructionUnit : ConstructionUnit
 NSeaFactoryUnit = Class(SeaFactoryUnit) {
 
 }
 
+---@class NConstructionUnit : ConstructionUnit
 NSCUFactoryUnit = Class(LandFactoryUnit) {
 
 }
@@ -577,6 +601,7 @@ NSCUFactoryUnit = Class(LandFactoryUnit) {
 ---------------------------------------------------------------
 --  UNITS IN PLANET ORBIT
 ---------------------------------------------------------------
+---@class NOrbitUnit : Unit
 NOrbitUnit = Class(Unit) {
     BeamExhaustCruise = NomadsEffectTemplate.AirThrusterCruisingBeam,
     BeamExhaustIdle = NomadsEffectTemplate.AirThrusterIdlingBeam,
@@ -609,6 +634,7 @@ NOrbitUnit = Class(Unit) {
 }
 
 --orbital command frigate, adds effects only. use with parents.
+---@class NCommandFrigateUnit
 NCommandFrigateUnit = Class() {
     -- Rotators
     SetupRotators = function(self)
@@ -734,6 +760,8 @@ NCommandFrigateUnit = Class() {
 --  AIR STAGING STRUCTURES
 ---------------------------------------------------------------
 AirStagingPlatformUnit = AddNomadsBeingBuiltEffects(AirStagingPlatformUnit)
+
+---@class NAirStagingPlatformUnit : AirStagingPlatformUnit
 NAirStagingPlatformUnit = Class(AirStagingPlatformUnit) {
 
 }
@@ -742,6 +770,8 @@ NAirStagingPlatformUnit = Class(AirStagingPlatformUnit) {
 -- ENERGY CREATION STRUCTURES
 ---------------------------------------------------------------
 EnergyCreationUnit = AddNomadsBeingBuiltEffects(EnergyCreationUnit)
+
+---@class NEnergyCreationUnit : EnergyCreationUnit
 NEnergyCreationUnit = Class(EnergyCreationUnit) {
     ActiveEffectBone = false,
     ActiveEffectTemplateName = false,
@@ -787,6 +817,8 @@ NEnergyCreationUnit = Class(EnergyCreationUnit) {
 --  MASS COLLECTION UNITS
 ---------------------------------------------------------------
 MassCollectionUnit = AddNomadsBeingBuiltEffects(MassCollectionUnit)
+
+---@class NMassCollectionUnit : MassCollectionUnit
 NMassCollectionUnit = Class(MassCollectionUnit) {
 
 }
@@ -795,6 +827,8 @@ NMassCollectionUnit = Class(MassCollectionUnit) {
 -- MASS FABRICATION STRUCTURES
 ---------------------------------------------------------------
 MassFabricationUnit = AddNomadsBeingBuiltEffects(MassFabricationUnit)
+
+---@class NMassFabricationUnit : MassFabricationUnit
 NMassFabricationUnit = Class(MassFabricationUnit) {
 
 }
@@ -803,6 +837,8 @@ NMassFabricationUnit = Class(MassFabricationUnit) {
 -- ENERGY STORAGE STRUCTURES
 ---------------------------------------------------------------
 EnergyStorageUnit = AddNomadsBeingBuiltEffects(EnergyStorageUnit)
+
+---@class NEnergyStorageUnit : EnergyStorageUnit
 NEnergyStorageUnit = Class(EnergyStorageUnit) {
 
 }
@@ -811,6 +847,8 @@ NEnergyStorageUnit = Class(EnergyStorageUnit) {
 -- MASS STORAGE STRUCTURES
 ---------------------------------------------------------------
 MassStorageUnit = AddNomadsBeingBuiltEffects(MassStorageUnit)
+
+---@class NMassStorageUnit : MassStorageUnit
 NMassStorageUnit = Class(MassStorageUnit) {
 
 }
@@ -819,6 +857,8 @@ NMassStorageUnit = Class(MassStorageUnit) {
 --  COUNTER INTEL STRUCTURES
 ---------------------------------------------------------------
 RadarJammerUnit = AddNomadsBeingBuiltEffects(RadarJammerUnit)
+
+---@class NRadarJammerUnit : RadarJammerUnit
 NRadarJammerUnit = Class(RadarJammerUnit) {
 
 }
@@ -827,6 +867,8 @@ NRadarJammerUnit = Class(RadarJammerUnit) {
 --  INTEL STRUCTURES
 ---------------------------------------------------------------
 RadarUnit = AddNomadsBeingBuiltEffects(RadarUnit)
+
+---@class NRadarUnit : RadarUnit
 NRadarUnit = Class(RadarUnit) {
 
     IntelBoostFxBone = 0, -- bone used for overcharge and overcharge recovery effects. Also for charging effects if that bone isn't set (see next line)
@@ -938,6 +980,7 @@ NRadarUnit = Class(RadarUnit) {
     end,
 }
 
+---@class NSonarUnit : NRadarUnit
 NSonarUnit = Class(NRadarUnit) {
     IntelType = 'Sonar',
 }
@@ -946,6 +989,8 @@ NSonarUnit = Class(NRadarUnit) {
 --  SHIELD STRUCTURES
 ---------------------------------------------------------------
 ShieldStructureUnit = AddNomadsBeingBuiltEffects(ShieldStructureUnit)
+
+---@class NShieldStructureUnit : ShieldStructureUnit
 NShieldStructureUnit = Class(ShieldStructureUnit) {
     RotationSpeed = 10,
 
@@ -990,6 +1035,8 @@ NShieldStructureUnit = Class(ShieldStructureUnit) {
 --  STRUCTURES
 ---------------------------------------------------------------
 StructureUnit = AddNomadsBeingBuiltEffects(StructureUnit)
+
+---@class NStructureUnit : StructureUnit
 NStructureUnit = Class(StructureUnit) {
 
 }
@@ -998,6 +1045,8 @@ NStructureUnit = Class(StructureUnit) {
 --  WALL  STRUCTURES
 ---------------------------------------------------------------
 WallStructureUnit = AddNomadsBeingBuiltEffects(WallStructureUnit)
+
+---@class NWallStructureUnit : WallStructureUnit
 NWallStructureUnit = Class(WallStructureUnit) {
 
 }
@@ -1005,6 +1054,8 @@ NWallStructureUnit = Class(WallStructureUnit) {
 ---------------------------------------------------------------
 --  CIVILIAN STRUCTURES
 ---------------------------------------------------------------
+
+---@class NCivilianStructureUnit : StructureUnit
 NCivilianStructureUnit = Class(StructureUnit) {
 
 }

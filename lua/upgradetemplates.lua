@@ -168,6 +168,9 @@ StructureUpgradeTemplates =
     },
 }
 
+---@param name string
+---@param OrgTemplate table
+---@return table
 function GetUpgradeTemplates(name, OrgTemplate)
     local Factions = import('/lua/factions.lua').GetFactions()
     local r = {}

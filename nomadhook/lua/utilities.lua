@@ -1,4 +1,8 @@
 --just like GetEnemyUnitInSphere but also includes your own army
+---@param position number
+---@param radius number
+---@param unitCats string
+---@return table
 function GetAllUnitsInSphere(position, radius, unitCats)
     -- New function
     local x1 = position.x - radius
@@ -24,6 +28,11 @@ function GetAllUnitsInSphere(position, radius, unitCats)
     return RadEntities
 end
 
+---@param position number
+---@param radius number
+---@param army Army
+---@param unitCats string
+---@return table
 function GetOwnUnitsInSphere(position, radius, army, unitCats)
     if not army then return end
     -- New function
@@ -52,6 +61,12 @@ end
 
 -- Made by [e]Exotic_Retard for Equilibrium balance mod
 -- Quite similar in use to get GetTrueEnemyUnitsInSphere, but is more suitable for range finding applications due to terrain heights
+---@param unit Unit
+---@param position vector
+---@param radius number
+---@param height number
+---@param unitCats string
+---@return nil|table
 function GetTrueEnemyUnitsInCylinder(unit, position, radius, height, unitCats)
     local x1 = position.x - radius
     local y1 = position.y - radius
@@ -86,6 +101,9 @@ function GetTrueEnemyUnitsInCylinder(unit, position, radius, height, unitCats)
     return RadEntities
 end
 
+---@param entity1 number
+---@param entity2 number
+---@return nil
 function Get2DDistanceBetweenTwoEntities(entity1, entity2)
     local pos1 = entity1:GetPosition()
     local pos2 = entity2:GetPosition()
@@ -93,6 +111,9 @@ function Get2DDistanceBetweenTwoEntities(entity1, entity2)
 end
 
 --for use in projectile scripts
+---@param self any
+---@param spread number
+---@return vector
 RandomOffsetTrackingTarget = function(self, spread)
     local pos = self:GetCurrentTargetPosition()
     pos[1] = pos[1] + GetRandomFloat(-spread,spread)

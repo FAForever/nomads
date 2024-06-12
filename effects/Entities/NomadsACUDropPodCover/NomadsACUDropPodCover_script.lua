@@ -3,7 +3,7 @@ local RandomFloat = Util.GetRandomFloat
 local NullShell = import('/lua/sim/defaultprojectiles.lua').NullShell
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 
-
+---@class NomadsACUDropPodCover : NullShell
 NomadsACUDropPodCover = Class(NullShell) {
 
     FxImpactAirUnit = NomadsEffectTemplate.ACUMeteorCoverExplodeAirUnit,

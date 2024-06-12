@@ -4,7 +4,7 @@
 --**
 --**  Summary  : Global platoon templates
 --**
---**  Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
+--**  Copyright ï¿½ 2005 Gas Powered Games, Inc.  All rights reserved.
 --****************************************************************************
 
 -- ==== Global Form platoons ==== --
@@ -54,12 +54,10 @@ PlatoonTemplate {
         { categories.MOBILE * categories.LAND * categories.TECH1 * categories.BOT - categories.REPAIR + (categories.SERAPHIM * categories.SCOUT), 5, 50, 'Attack', 'none' }
     },
 }
-#DUNCAN - Added
 PlatoonTemplate {
     Name = 'GhettoMarines',
     Plan = 'GhettoAI',
     GlobalSquads = {
-        #DUNCAN - the REPAIR is to remove the mantis. Added in Selen too.
         { categories.MOBILE * categories.LAND * categories.TECH1 * categories.BOT - categories.REPAIR + (categories.SERAPHIM * categories.SCOUT), 6, 6, 'Attack', 'none' }
     },
 }

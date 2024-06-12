@@ -1,6 +1,7 @@
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local Meteor = import('/effects/Entities/Meteor/Meteor_script.lua').Meteor
 
+---@class NomadsACUDropMeteor : Meteor
 NomadsACUDropMeteor = Class(Meteor) {
     ImpactLandFx = NomadsEffectTemplate.ACUMeteorLandImpact,
     ImpactSeabedFx = NomadsEffectTemplate.ACUMeteorSeabedImpact,

@@ -4,6 +4,7 @@ local NullShell = import('/lua/sim/defaultprojectiles.lua').NullShell
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local Entity = import('/lua/sim/Entity.lua').Entity
 
+---@class Meteor : NullShell
 Meteor = Class(NullShell) {
     InitialHeight = 300,
 
@@ -19,11 +20,15 @@ Meteor = Class(NullShell) {
 
     DecalLifetime = 240,
 
+    ---@param self Meteor
     OnCreate = function(self)
         NullShell.OnCreate(self)
         self.TrailFxBag = TrashBag()
     end,
 
+    ---@param self Meteor
+    ---@param ImpactPos Vector3
+    ---@param Time number
     Start = function(self, ImpactPos, Time)
         self:SetAudio()
         self:SetPosAndVelocity(ImpactPos, Time)
@@ -31,6 +36,7 @@ Meteor = Class(NullShell) {
         self:MonitorDescent(ImpactPos)
     end,
 
+    ---@param self Meteor
     SetAudio = function(self)
         -- using a seperate entity for the sound fx cause the functionality seems to not work on projectiles
         local bp = self:GetBlueprint()
@@ -42,6 +48,9 @@ Meteor = Class(NullShell) {
         end
     end,
 
+    ---@param self Meteor
+    ---@param ImpactPos Vector3
+    ---@param Time number
     SetPosAndVelocity = function(self, ImpactPos, Time)
         local dirVector
         local x,y,z

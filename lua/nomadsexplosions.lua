@@ -1,10 +1,21 @@
 local RandomFloat = import('/lua/utilities.lua').GetRandomFloat
 
 --TODO:Remove this?
+---@param obj Entity
+---@param bone any
+---@param army number
+---@param scale number
+---@param duration number
+---@param textureflash string
+---@param rampflash string
 function CreateFlashCustom( obj, bone, army, scale, duration, textureflash, rampflash )
     CreateLightParticle( obj, bone, army, scale, duration, textureflash, rampflash )
 end
 
+---@param self Unit
+---@param pos Vector3
+---@param army number
+---@param targetType string
 function CreateImpactMedium(self, pos, army, targetType)
     if targetType == 'Terrain' then
         DamageArea(self, pos, self.DamageData.DamageRadius * 1.2, 1, 'Force', true)
@@ -23,6 +34,10 @@ function CreateImpactMedium(self, pos, army, targetType)
     end
 end
 
+---@param self Unit
+---@param pos Vector3
+---@param army number
+---@param targetType string
 function CreateArtilleryImpactLarge(self, pos, army, targetType)
     DamageArea(self, pos, self.DamageData.DamageRadius * 3, 1, 'Force', true)
 
@@ -35,6 +50,13 @@ function CreateArtilleryImpactLarge(self, pos, army, targetType)
     end
 end
 
+---@param pos Vector3
+---@param army number
+---@param blueprint any
+---@param SizeMin number
+---@param SizeMax number
+---@param LifeMin number
+---@param LifeMax number
 function CreateScorchMarkDecal(pos, army, blueprint, SizeMin, SizeMax, LifeMin, LifeMax)
     local rotation = RandomFloat(0,2*math.pi)
     local size = RandomFloat(SizeMin or 13, SizeMax or 16)
