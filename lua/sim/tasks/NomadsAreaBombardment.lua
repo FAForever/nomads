@@ -2,6 +2,7 @@ local ScriptTask = import('/lua/sim/ScriptTask.lua').ScriptTask
 local TASKSTATUS = import('/lua/sim/ScriptTask.lua').TASKSTATUS
 local AIRESULT = import('/lua/sim/ScriptTask.lua').AIRESULT
 
+---@class NomadsAraBombardment : ScriptTask
 NomadsAreaBombardment = Class(ScriptTask) {
 
     StartTask = function(self)

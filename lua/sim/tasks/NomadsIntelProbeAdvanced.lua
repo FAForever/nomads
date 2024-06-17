@@ -1,7 +1,8 @@
 local ScriptTask = import('/lua/sim/ScriptTask.lua').ScriptTask
 local TASKSTATUS = import('/lua/sim/ScriptTask.lua').TASKSTATUS
 local AIRESULT = import('/lua/sim/ScriptTask.lua').AIRESULT
-
+#
+---@class NomadsIntelProbeAdvanced : ScriptTask
 NomadsIntelProbeAdvanced = Class(ScriptTask) {
 
     StartTask = function(self)
