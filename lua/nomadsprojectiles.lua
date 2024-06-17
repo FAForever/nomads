@@ -1870,6 +1870,7 @@ ArcingTacticalMissile = Class(TacticalMissile) {
 -- Also as of 2023-03-10 the nuke explosion has double effects - still mostly works though and its definitely an improvement over the situation of nothing working.
 -----------------------------
 
+---@class SingularityProjectile : NullShell
 SingularityProjectile = Class(NullShell) {
     NukeProjBp = '/effects/Entities/NBlackhole/NBlackhole_proj.bp',
 
@@ -1917,6 +1918,8 @@ SingularityProjectile = Class(NullShell) {
 
 --a most unholy mergination of various classes but it all works! and has a linecount of approximately 0 as a result
 --StrategicMissile = Class(SingularityProjectile, NukeProjectile, SingleBeamProjectile) {
+
+---@class StrategicMissile : NukeProjectile
 StrategicMissile = Class(NukeProjectile) {
     InitialEffects = NomadsEffectTemplate.NukeMissileInitialEffects,
     LaunchEffects = NomadsEffectTemplate.NukeMissileLaunchEffects,
@@ -1987,6 +1990,7 @@ StrategicMissile = Class(NukeProjectile) {
 -- ROCKETS       (UNGUIDED, PROPELED)
 -- -----------------------------------------------------------------------------------------------------
 
+---@class Rocker1 : SingleCompositeEmitterProjectile
 Rocket1 = Class(SingleCompositeEmitterProjectile) {
     BeamName = NomadsEffectTemplate.RocketBeam,
 
@@ -2004,6 +2008,7 @@ Rocket1 = Class(SingleCompositeEmitterProjectile) {
     PolyTrail = NomadsEffectTemplate.RocketPolyTrail,
 }
 
+---@class Rocker2 : SingleCompositeEmitterProjectile
 Rocket2 = Class(SingleCompositeEmitterProjectile) {
     BeamName = NomadsEffectTemplate.RocketBeam2,
 
@@ -2021,6 +2026,7 @@ Rocket2 = Class(SingleCompositeEmitterProjectile) {
     PolyTrail = NomadsEffectTemplate.RocketPolyTrail2,
 }
 
+---@class Rocker3 : SingleCompositeEmitterProjectile
 Rocket3 = Class(SingleCompositeEmitterProjectile) {
     BeamName = NomadsEffectTemplate.RocketBeam3,
 
@@ -2044,6 +2050,7 @@ Rocket3 = Class(SingleCompositeEmitterProjectile) {
     PolyTrail = NomadsEffectTemplate.RocketPolyTrail3,
 }
 
+---@class Rocker4 : SingleCompositeEmitterProjectile
 Rocket4 = Class(SingleCompositeEmitterProjectile) {
     BeamName = NomadsEffectTemplate.RocketBeam4,
 
@@ -2061,6 +2068,7 @@ Rocket4 = Class(SingleCompositeEmitterProjectile) {
     PolyTrail = NomadsEffectTemplate.RocketPolyTrail4,
 }
 
+---@class Rocker5 : SingleCompositeEmitterProjectile
 Rocket5 = Class(SingleCompositeEmitterProjectile) {
     BeamName = NomadsEffectTemplate.RocketBeam5,
 
@@ -2082,6 +2090,7 @@ Rocket5 = Class(SingleCompositeEmitterProjectile) {
 -- Bombs and alike (dropped from aircraft)
 -- -----------------------------------------------------------------------------------------------------
 
+---@class ConventionalBomb : SinglePolyTrailProjectile
 ConventionalBomb = Class(SinglePolyTrailProjectile) {
     FxImpactAirUnit = NomadsEffectTemplate.ConventionalBombHitAirUnit1,
     FxImpactLand = NomadsEffectTemplate.ConventionalBombHitLand1,
@@ -2097,6 +2106,7 @@ ConventionalBomb = Class(SinglePolyTrailProjectile) {
     PolyTrail = NomadsEffectTemplate.ConventionalBombPolyTrail,
 }
 
+---@class ConcussionBomb : SinglePolyTrailProjectile
 ConcussionBomb = Class(SinglePolyTrailProjectile) {
     FxImpactTrajectoryAligned = false,
 
@@ -2131,6 +2141,7 @@ ConcussionBomb = Class(SinglePolyTrailProjectile) {
     end,
 }
 
+---@class EnergyBomb : SinglePolyTrailProjectile
 EnergyBomb = Class(SinglePolyTrailProjectile) {
     FxImpactAirUnit = NomadsEffectTemplate.EnergyProjHitAirUnit2,
     FxImpactLand = NomadsEffectTemplate.EnergyProjHitLand2,
@@ -2172,6 +2183,7 @@ EnergyBomb = Class(SinglePolyTrailProjectile) {
     end,
 }
 
+---@class Buoy1 : SinglePolyTrailProjectile
 Buoy1 = Class(SinglePolyTrailProjectile) {
 
     FxImpactAirUnit = NomadsEffectTemplate.BuoyHitAirUnit1,
@@ -2210,6 +2222,7 @@ Buoy1 = Class(SinglePolyTrailProjectile) {
 }
 
 -- anti air missile flares
+---@class Flare1 : SinglePolyTrailProjectile
 Flare1 = Class(SinglePolyTrailProjectile) {
 
     FxImpactAirUnit = NomadsEffectTemplate.FlareHitAirUnit1,
@@ -2247,6 +2260,7 @@ Flare1 = Class(SinglePolyTrailProjectile) {
 -- Anti navy projectiles (under water)
 --------------------------------------------------------------------------
 
+---@class Torpedo1 : OnWaterEntryEmitterProjectile
 Torpedo1 = Class(OnWaterEntryEmitterProjectile) {
     -- Can be dropped from aircraft
 
@@ -2311,6 +2325,7 @@ Torpedo1 = Class(OnWaterEntryEmitterProjectile) {
     end,
 }
 
+---@class UnderwaterRailGunProj : RailGunProj
 UnderwaterRailGunProj = Class(RailGunProj) {
     FxImpactAirUnit = NomadsEffectTemplate.UnderWaterRailgunHitAirUnit1,
     FxImpactLand = NomadsEffectTemplate.UnderWaterRailgunHitLand1,
@@ -2326,6 +2341,7 @@ UnderwaterRailGunProj = Class(RailGunProj) {
     PolyTrail = NomadsEffectTemplate.UnderWaterRailgunPolyTrail,
 }
 
+---@class DepthChargeBomb : OnWaterEntryEmitterProjectile
 DepthChargeBomb = Class(OnWaterEntryEmitterProjectile) {
     FxImpactTrajectoryAligned = false,
 
@@ -2489,7 +2505,9 @@ DepthChargeBomb = Class(OnWaterEntryEmitterProjectile) {
 -- Orbital weapons
 --------------------------------------------------------------------------
 
-OrbitalEnergyProj = Class(SinglePolyTrailProjectile) {   -- big energy projectile dropped from high above the target
+---@class OrbitalEnergyProj : SinglePolyTrailProjectile
+OrbitalEnergyProj = Class(SinglePolyTrailProjectile) {   
+    -- big energy projectile dropped from high above the target
 
     FxImpactAirUnit = NomadsEffectTemplate.EnergyProjHitAirUnit2,
     FxImpactLand = NomadsEffectTemplate.EnergyProjHitLand2,
