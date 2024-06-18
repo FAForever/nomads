@@ -1,47 +1,43 @@
--- T2 Land Factory Support
-
-UnitBlueprint {
+UnitBlueprint{
+    Description = "<LOC ZNB9501_desc>Land Factory",
     AI = {
-        TargetBones = {
-            'INB0201',
-        },
+        TargetBones = { "INB0201" },
     },
     Audio = {
-        Construct = Sound { Bank = 'NomadsBuildings', Cue = 'FactoryStartUnitProduction', LodCutoff = 'UnitMove_LodCutoff', },
-        ConstructLoop = Sound { Bank = 'NomadsBuildings', Cue = 'FactoryLoopUnitProduction', LodCutoff = 'UnitMove_LodCutoff', },
-        DeathExplosion = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff', },
-        Destroyed = Sound { Bank = 'NomadsDestroy', Cue = 'Destroy_Lrg_Structure', LodCutoff = 'UnitMove_LodCutoff', },
-        DoneBeingBuilt = Sound { Bank = 'NomadsBuildings', Cue = 'LandFactoryActivate', LodCutoff = 'UnitMove_LodCutoff', },
-        UISelection = Sound { Bank = 'NomadsInterface', Cue = 'Nomads_Select_Factory', LodCutoff = 'UnitMove_LodCutoff', },
+        Construct      = Sound { Bank = 'NomadsBuildings', Cue = 'FactoryStartUnitProduction', LodCutoff = 'UnitMove_LodCutoff' },
+        ConstructLoop  = Sound { Bank = 'NomadsBuildings', Cue = 'FactoryLoopUnitProduction',  LodCutoff = 'UnitMove_LodCutoff' },
+        DeathExplosion = Sound { Bank = 'UELDestroy',      Cue = 'UEB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed      = Sound { Bank = 'NomadsDestroy',   Cue = 'Destroy_Lrg_Structure',      LodCutoff = 'UnitMove_LodCutoff' },
+        DoneBeingBuilt = Sound { Bank = 'NomadsBuildings', Cue = 'LandFactoryActivate',        LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection    = Sound { Bank = 'NomadsInterface', Cue = 'Nomads_Select_Factory',      LodCutoff = 'UnitMove_LodCutoff' },
     },
-    BuildIconSortPriority = 71, --
+    BuildIconSortPriority = 71,
     Categories = {
-        'BUILTBYTIER1FACTORY',
-        'BUILTBYTIER2COMMANDER', --
-        'BUILTBYTIER2ENGINEER', --
-        'BUILTBYTIER3COMMANDER', --
-        'BUILTBYTIER3ENGINEER', --
-        'CONSTRUCTION',
-        'CONSTRUCTIONSORTDOWN',
-        'DRAGBUILD',
-        'FACTORY',
-        'LAND',
-        'NOMADS',
-        'RALLYPOINT',
-        'RECLAIMABLE',
-        'SELECTABLE',
-        'SHOWQUEUE',
-        'SIZE16',
-        'SORTCONSTRUCTION',
-        'STRUCTURE',
-        'SUPPORTFACTORY',
-        'TECH2',
-        'VISIBLETORECON',
+        "BUILTBYTIER1FACTORY",
+        "BUILTBYTIER2COMMANDER",
+        "BUILTBYTIER2ENGINEER",
+        "BUILTBYTIER3COMMANDER",
+        "BUILTBYTIER3ENGINEER",
+        "CONSTRUCTION",
+        "CONSTRUCTIONSORTDOWN",
+        "DRAGBUILD",
+        "FACTORY",
+        "LAND",
+        "NOMADS",
+        "RALLYPOINT",
+        "RECLAIMABLE",
+        "SELECTABLE",
+        "SHOWQUEUE",
+        "SIZE16",
+        "SORTCONSTRUCTION",
+        "STRUCTURE",
+        "SUPPORTFACTORY",
+        "TECH2",
+        "VISIBLETORECON",
     },
-    CollisionOffsetZ = 0.2,
     Defense = {
         AirThreatLevel = 0,
-        ArmorType = 'Structure',
+        ArmorType = "Structure",
         EconomyThreatLevel = 11,
         Health = 2750,
         MaxHealth = 2750,
@@ -51,37 +47,22 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
     },
-    Description = '<LOC ZNB9501_desc>Land Factory', --
     Display = {
-        Abilities = {
-            '<LOC ability_upgradable>Upgradeable',
-        },
-        AnimationUpgrade = '/units/ZNB9501/ZNB9501_AUpgrade.sca',
+        Abilities = { "<LOC ability_upgradable>Upgradeable" },
+        AnimationUpgrade = "/units/ZNB9501/ZNB9501_AUpgrade.sca",
         BlinkingLights = {
-            {
-                BLBone = 0,
-                BLOffsetX = -1.28,
-                BLOffsetY = 0.9,
-                BLOffsetZ = 1.4,
-                BLScale = 1.5,
-            },
-            {
-                BLBone = 0,
-                BLOffsetX = 1.28,
-                BLOffsetY = 0.9,
-                BLOffsetZ = 1.4,
-                BLScale = 1.5,
-            },
+            { BLBone = 0,     BLOffsetX = -1.28, BLOffsetY = 0.9,   BLOffsetZ = 1.4,   BLScale = 1.5 },
+            { BLBone = 0,     BLOffsetX = 1.28,  BLOffsetY = 0.9,   BLOffsetZ = 1.4,   BLScale = 1.5 },
         },
         BlinkingLightsFx = {
-            Green = '/effects/emitters/light_green_03_emit.bp',
-            Red = '/effects/emitters/light_red_03_emit.bp',
-            Yellow = '/effects/emitters/light_yellow_02_emit.bp',
+            Green = "/effects/emitters/light_green_03_emit.bp",
+            Red = "/effects/emitters/light_red_03_emit.bp",
+            Yellow = "/effects/emitters/light_yellow_02_emit.bp",
         },
-        BuildAttachBone = 'Attachpoint',
+        BuildAttachBone = "Attachpoint",
         BuildEffect = {
             Factory = {
-                BuildFieldOffset = 0, --0.2,
+                BuildFieldOffset = 0,
                 BuildFieldReversed = true,
             },
         },
@@ -89,27 +70,25 @@ UnitBlueprint {
             IconFadeInZoom = 130,
             LODs = {
                 {
-                    AlbedoName = '/units/ZNB9501/ZNB9501_Albedo.dds',
                     LODCutoff = 500,
-                    MeshName = '/units/ZNB9501/ZNB9501_Lod0.scm',
-                    NormalsName = '/units/ZNB9501/ZNB9501_NormalsTS.dds',
-                    ShaderName = 'NomadsUnit',
-                    SpecularName = '/units/ZNB9501/ZNB9501_SpecTeam.dds',
+                    ShaderName = "NomadsUnit",
+                    MeshName = "/units/ZNB9501/ZNB9501_Lod0.scm",
+                    AlbedoName = "/units/ZNB9501/ZNB9501_Albedo.dds",
+                    NormalsName = "/units/ZNB9501/ZNB9501_NormalsTS.dds",
+                    SpecularName = "/units/ZNB9501/ZNB9501_SpecTeam.dds",
                 },
             },
         },
-        PlaceholderMeshName = 'UXB0006',
+        PlaceholderMeshName = "UXB0006",
         SpawnRandomRotation = false,
         Tarmacs = {
             {
-                Albedo = 'Tarmacs/Tar12x_nomads_01_albedo',
+                Albedo = "Tarmacs/Tar12x_nomads_01_albedo",
                 DeathLifetime = 300,
                 FadeOut = 150,
                 Length = 12.8,
-                Normal = 'Tarmacs/Tar12x_nomads_01_normals',
-                Orientations = {
-                    0,
-                },
+                Normal = "Tarmacs/Tar12x_nomads_01_normals",
+                Orientations = { 0 },
                 RemoveWhenDead = false,
                 Width = 12.8,
             },
@@ -120,17 +99,15 @@ UnitBlueprint {
         BuildCostEnergy = 4800,
         BuildCostMass = 580,
         BuildRate = 40,
-        BuildTime = 1600, --
+        BuildTime = 1600,
         BuildableCategory = {
-            'BUILTBYTIER2FACTORY NOMADS MOBILE CONSTRUCTION',
-            'BUILTBYTIER2SUPPORTFACTORY NOMADS STRUCTURE LAND',
-            'BUILTBYTIER2FACTORY NOMADS MOBILE LAND',
-            'FIELDENGINEER NOMADS MOBILE LAND',
+            "BUILTBYTIER2FACTORY NOMADS MOBILE CONSTRUCTION",
+            "BUILTBYTIER2SUPPORTFACTORY NOMADS STRUCTURE LAND",
+            "BUILTBYTIER2FACTORY NOMADS MOBILE LAND",
+            "FIELDENGINEER NOMADS MOBILE LAND",
         },
-    DifferentialUpgradeCostCalculation = true, --
-        RebuildBonusIds = { --
-            'znb9501', --
-        }, --
+        DifferentialUpgradeCostCalculation = true,
+        RebuildBonusIds = { "znb9501" },
         StorageEnergy = 0,
         StorageMass = 160,
     },
@@ -139,17 +116,17 @@ UnitBlueprint {
         SizeZ = 5,
     },
     General = {
+        BuildBones = {
+            BuildEffectBones = {
+                "muzzle.001",
+                "muzzle.002",
+            },
+        },
         BuildEffectScaleX = 0.01,
         BuildEffectScaleY = 0.5,
         BuildEffectScaleZ = 0.4,
-        BuildBones = {
-            BuildEffectBones = {
-                'muzzle.001',
-                'muzzle.002',
-            },
-        },
-        Category = 'Factory',
-        Classification = 'RULEUC_Factory',
+        Category = "Factory",
+        Classification = "RULEUC_Factory",
         CommandCaps = {
             RULEUCC_Attack = false,
             RULEUCC_CallTransport = false,
@@ -166,19 +143,17 @@ UnitBlueprint {
             RULEUCC_Transport = false,
         },
         ConstructionBar = true,
-        FactionName = 'Nomads',
-        Icon = 'land',
+        FactionName = "Nomads",
+        Icon = "land",
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
+        TechLevel = "RULEUTL_Advanced",
         UnitWeight = 1,
-        UpgradesFrom = 'xnb0101',
-        UpgradesFromBase = 'xnb0101', --
-        UpgradesTo = 'znb9601',
+        UpgradesFrom = "xnb0101",
+        UpgradesFromBase = "xnb0101",
+        UpgradesTo = "znb9601",
     },
-    Intel = { VisionRadius = 20, },
-    Interface = {
-        HelpText = '<LOC ZNB9501_help>Land Factory', --
-    },
+    Intel = { VisionRadius = 20 },
+    Interface = { HelpText = "<LOC ZNB9501_help>Land Factory" },
     LifeBarHeight = 0.075,
     LifeBarOffset = 2.5,
     LifeBarSize = 4.5,
@@ -196,74 +171,22 @@ UnitBlueprint {
         FlattenSkirt = true,
         MaxSteerForce = 0,
         MinSpeedPercent = 0,
-        MotionType = 'RULEUMT_None',
+        MotionType = "RULEUMT_None",
         RaisedPlatforms = {
-            -- Platform 1
-            -- TopLeft Offset From Center
-            -1.875, ---1.5,
-            -- x
-            -2.5, ---2,
-            -- z
-            0.8125, --0.65,
-            -- height
-            -- TopRight Offset From Center
-            1.875, --1.5,
-            -- x
-            -2.5, ---2,
-            -- z
-            0.8125, --0.65,
-            -- height
-            -- BottomLeft Offset From Center
-            -1.875, ---1.5,
-            -- x
-            2.5, --2,
-            -- z
-            0.8125, --0.65,
-            -- height
-            -- BottomRight Offset From Center
-            1.875, --1.5,
-            -- x
-            2.5, --2,
-            -- z
-            0.8125, --0.65,
-            -- height
-            -- Platform 2
-            -- TopLeft Offset From Center
-            -1.875, ---1.5,
-            -- x
-            2.5, --2,
-            -- z
-            0.8125, --0.65,
-            -- height
-            -- TopRight Offset From Center
-            1.875, --1.5,
-            -- x
-            2.5, --2,
-            -- z
-            0.8125, --0.65,
-            -- height
-            -- BottomLeft Offset From Center
-            1.875, ---1.5,
-            -- x
-            4.375, --3.5,
-            -- z
-            0,
-            -- height
-            -- BottomRight Offset From Center
-            1.875, --1.5,
-            -- x
-            4.375, --3.5,
-            -- z
-            0,
-            -- height
+            --X,     Z,     height -- Offsets from center
+
+            -1.875, -2.5,  0.8125,   --Top left
+            1.875, -2.5,  0.8125,   --Top right
+            -1.875, 2.5,   0.8125,   --Bottom left
+            1.875, 2.5,   0.8125,   --Bottom right
+
+            -1.875, 2.5,   0.8125,   --Top left
+            1.875, 2.5,   0.8125,   --Top right
+            1.875, 4.375, 0,       --Bottom left
+            1.875, 4.375, 0,       --Bottom right
         },
         RollOffPoints = {
-            {
-                UnitSpin = 0,
-                X = 0,
-                Y = 0,
-                Z = 3,
-            },
+            { UnitSpin = 0,     X = 0,     Y = 0,     Z = 3 },
         },
         SkirtOffsetX = -1.5,
         SkirtOffsetZ = -1.5,
@@ -274,14 +197,15 @@ UnitBlueprint {
     SelectionSizeX = 4,
     SelectionSizeZ = 4.15,
     SelectionThickness = 0.3,
+    CollisionOffsetZ = 0.2,
     SizeX = 5.25,
     SizeY = 1.75,
     SizeZ = 6,
-    StrategicIconName = 'icon_factory2_land',
+    StrategicIconName = "icon_factory2_land",
     StrategicIconSortPriority = 215,
-    UpgradeDesc = '<LOC ueb0201_upgradedesc>Upgrading to Tech 3 Land Factory',
+    UpgradeDesc = "<LOC ueb0201_upgradedesc>Upgrading to Tech 3 Land Factory",
     Wreckage = {
-        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        Blueprint = "/props/DefaultWreckage/DefaultWreckage_prop.bp",
         EnergyMult = 0,
         HealthMult = 0.9,
         MassMult = 0.9,

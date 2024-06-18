@@ -1,6 +1,5 @@
--- T1 air scout
-
-UnitBlueprint {
+UnitBlueprint{
+    Description = "<LOC XNA0101_desc>Air Scout",
     Air = {
         AutoLandTime = 1,
         BankFactor = 2,
@@ -25,37 +24,37 @@ UnitBlueprint {
         Winged = true,
     },
     Audio = {
-        AirUnitWaterImpact = Sound { Bank = 'Explosions', Cue = 'Expl_Water_Lrg_01', LodCutoff = 'UnitMove_LodCutoff', },
-        AmbientMove = Sound { Bank = 'UEA', Cue = 'UEA0101_Move_Loop', LodCutoff = 'UnitMove_LodCutoff', },
-        Destroyed = Sound { Bank = 'UEADestroy', Cue = 'UEA_Destroy_Med', LodCutoff = 'UnitMove_LodCutoff', },
-        Killed = Sound { Bank = 'UEADestroy', Cue = 'UEA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff', },
-        Landing = Sound { Bank = 'UEA', Cue = 'UEA0101_Move_Land', LodCutoff = 'UnitMove_LodCutoff', },
-        Refueling = Sound { Bank = 'UEA', Cue = 'UEA_Repair_Refuel', LodCutoff = 'UnitMove_LodCutoff', },
-        StartMove = Sound { Bank = 'UEA', Cue = 'UEA0101_Move_Start', LodCutoff = 'UnitMove_LodCutoff', },
-        StopMove = Sound { Bank = 'UEA', Cue = 'UEA0101_Move_Stop', LodCutoff = 'UnitMove_LodCutoff', },
-        UISelection = Sound { Bank = 'NomadsInterface', Cue = 'Nomads_Select_Air', LodCutoff = 'UnitMove_LodCutoff', },
+        AirUnitWaterImpact = Sound { Bank = 'Explosions',      Cue = 'Expl_Water_Lrg_01',      LodCutoff = 'UnitMove_LodCutoff' },
+        AmbientMove        = Sound { Bank = 'UEA',             Cue = 'UEA0101_Move_Loop',      LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed          = Sound { Bank = 'UEADestroy',      Cue = 'UEA_Destroy_Med',        LodCutoff = 'UnitMove_LodCutoff' },
+        Killed             = Sound { Bank = 'UEADestroy',      Cue = 'UEA_Destroy_Air_Killed', LodCutoff = 'UnitMove_LodCutoff' },
+        Landing            = Sound { Bank = 'UEA',             Cue = 'UEA0101_Move_Land',      LodCutoff = 'UnitMove_LodCutoff' },
+        Refueling          = Sound { Bank = 'UEA',             Cue = 'UEA_Repair_Refuel',      LodCutoff = 'UnitMove_LodCutoff' },
+        StartMove          = Sound { Bank = 'UEA',             Cue = 'UEA0101_Move_Start',     LodCutoff = 'UnitMove_LodCutoff' },
+        StopMove           = Sound { Bank = 'UEA',             Cue = 'UEA0101_Move_Stop',      LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection        = Sound { Bank = 'NomadsInterface', Cue = 'Nomads_Select_Air',      LodCutoff = 'UnitMove_LodCutoff' },
     },
     BuildIconSortPriority = 20,
     Categories = {
-        'AIR',
-        'BUILTBYTIER1FACTORY',
-        'BUILTBYTIER2FACTORY',
-        'BUILTBYTIER3FACTORY',
-        'HIGHALTAIR',
-        'INTELLIGENCE',
-        'MOBILE',
-        'NOMADS',
-        'OVERLAYRADAR',
-        'OVERLAYSONAR',
-        'RECLAIMABLE',
-        'SCOUT',
-        'SELECTABLE',
-        'TECH1',
-        'VISIBLETORECON',
+        "AIR",
+        "BUILTBYTIER1FACTORY",
+        "BUILTBYTIER2FACTORY",
+        "BUILTBYTIER3FACTORY",
+        "HIGHALTAIR",
+        "INTELLIGENCE",
+        "MOBILE",
+        "NOMADS",
+        "OVERLAYRADAR",
+        "OVERLAYSONAR",
+        "RECLAIMABLE",
+        "SCOUT",
+        "SELECTABLE",
+        "TECH1",
+        "VISIBLETORECON",
     },
     Defense = {
         AirThreatLevel = 0.1,
-        ArmorType = 'Light',
+        ArmorType = "Light",
         EconomyThreatLevel = 0,
         Health = 30,
         MaxHealth = 30,
@@ -63,13 +62,12 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
     },
-    Description = '<LOC XNA0101_desc>Air Scout',
     Display = {
         Abilities = {
-            '<LOC ability_radar>Radar',
-            '<LOC ability_sonar>Sonar',
+            "<LOC ability_radar>Radar",
+            "<LOC ability_sonar>Sonar",
         },
-        AnimationLand = '/units/XNA0101/XNA0101_Unpack01.sca',
+        AnimationLand = "/units/XNA0101/XNA0101_Unpack01.sca",
         BuildEffect = {
             ExtendsFront = 0.1,
             ExtendsRear = -0.02,
@@ -78,20 +76,16 @@ UnitBlueprint {
             AirLand = {
                 Effects = {
                     {
-                        Bones = {
-                            'XNA0101',
-                        },
-                        Type = 'Landing01',
+                        Bones = { "XNA0101" },
+                        Type = "Landing01",
                     },
                 },
             },
             LandAir = {
                 Effects = {
                     {
-                        Bones = {
-                            'XNA0101',
-                        },
-                        Type = 'TakeOff01',
+                        Bones = { "XNA0101" },
+                        Type = "TakeOff01",
                     },
                 },
             },
@@ -101,7 +95,7 @@ UnitBlueprint {
             LODs = {
                 {
                     LODCutoff = 215,
-                    ShaderName = 'NomadsUnit',
+                    ShaderName = "NomadsUnit",
                 },
             },
         },
@@ -109,23 +103,14 @@ UnitBlueprint {
             Air = {
                 Contrails = {
                     Bones = {
-                        'TrailL',
-                        'TrailR',
+                        "TrailL",
+                        "TrailR",
                     },
                     ZOffset = 0,
                 },
             },
-            --TODO: create new beam exhaust effects that are the right size + style
-            -- BeamExhaust = {
-                -- Bones = {
-                   -- 'EngineExhaustL',
-                   -- 'EngineExhaustR',
-                -- },
-                -- Cruise = true,
-                -- Idle = true,
-            -- },
         },
-        PlaceholderMeshName = 'UXA0010',
+        PlaceholderMeshName = "UXA0010",
         SpawnRandomRotation = false,
         UniformScale = 0.512,
     },
@@ -140,8 +125,8 @@ UnitBlueprint {
         SizeZ = 1,
     },
     General = {
-        Category = 'Utility',
-        Classification = 'RULEUC_MilitaryAircraft',
+        Category = "Utility",
+        Classification = "RULEUC_MilitaryAircraft",
         CommandCaps = {
             RULEUCC_Attack = false,
             RULEUCC_CallTransport = true,
@@ -157,10 +142,10 @@ UnitBlueprint {
             RULEUCC_Stop = true,
             RULEUCC_Transport = false,
         },
-        FactionName = 'Nomads',
-        Icon = 'air',
-        TechLevel = 'RULEUTL_Basic',
-        UnitName = '<LOC XNA0101_name>Peeper',
+        FactionName = "Nomads",
+        Icon = "air",
+        TechLevel = "RULEUTL_Basic",
+        UnitName = "<LOC XNA0101_name>Peeper",
         UnitWeight = 1,
     },
     Intel = {
@@ -168,9 +153,7 @@ UnitBlueprint {
         SonarRadius = 30,
         VisionRadius = 42,
     },
-    Interface = {
-        HelpText = '<LOC XNA0101_help>Air Scout',
-    },
+    Interface = { HelpText = "<LOC XNA0101_help>Air Scout" },
     LifeBarHeight = 0.075,
     LifeBarOffset = 0.25,
     LifeBarSize = 0.5,
@@ -193,7 +176,7 @@ UnitBlueprint {
         MeshExtentsY = 0.35,
         MeshExtentsZ = 1,
         MinSpeedPercent = 0.85,
-        MotionType = 'RULEUMT_Air',
+        MotionType = "RULEUMT_Air",
         TurnRadius = 100,
         TurnRate = 100,
     },
@@ -204,7 +187,7 @@ UnitBlueprint {
     SizeX = 0.55,
     SizeY = 0.15,
     SizeZ = 0.8,
-    StrategicIconName = 'icon_fighter1_intel',
+    StrategicIconName = "icon_fighter1_intel",
     StrategicIconSortPriority = 75,
     Transport = {
         AirClass = true,
@@ -216,16 +199,16 @@ UnitBlueprint {
             Damage = 10,
             DamageFriendly = true,
             DamageRadius = 1,
-            DamageType = 'Normal',
-            DisplayName = 'Air Crash',
+            DamageType = "Normal",
+            DisplayName = "Air Crash",
             DummyWeapon = true,
             FiringTolerance = 2,
-            Label = 'DeathImpact',
-            WeaponCategory = 'Death',
+            Label = "DeathImpact",
+            WeaponCategory = "Death",
         },
     },
     Wreckage = {
-        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        Blueprint = "/props/DefaultWreckage/DefaultWreckage_prop.bp",
         EnergyMult = 0,
         HealthMult = 0.9,
         MassMult = 0.9,
