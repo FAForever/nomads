@@ -1,45 +1,44 @@
--- T2 Air Factory HQ
-
-UnitBlueprint {
+UnitBlueprint{
+    Description = "<LOC XNB0202faf_desc>Air Factory HQ",
     AI = {
         TargetBones = {
-            'Target01',
-            'Target02',
-            'Target03',
-            'INB0202',
+            "Target01",
+            "Target02",
+            "Target03",
+            "INB0202",
         },
     },
     Audio = {
-        Construct = Sound { Bank = 'NomadsBuildings', Cue = 'FactoryStartUnitProduction', LodCutoff = 'UnitMove_LodCutoff', },
-        ConstructLoop = Sound { Bank = 'NomadsBuildings', Cue = 'FactoryLoopUnitProduction', LodCutoff = 'UnitMove_LodCutoff', },
-        DeathExplosion = Sound { Bank = 'NomadsDestroy', Cue = 'Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff', },
-        Destroyed = Sound { Bank = 'NomadsDestroy', Cue = 'Destroy_Lrg_Structure', LodCutoff = 'UnitMove_LodCutoff', },
-        DoneBeingBuilt = Sound { Bank = 'NomadsBuildings', Cue = 'AirFactoryActivate', LodCutoff = 'UnitMove_LodCutoff', },
-        UISelection = Sound { Bank = 'NomadsInterface', Cue = 'Nomads_Select_Factory', LodCutoff = 'UnitMove_LodCutoff', },
+        Construct      = Sound { Bank = 'NomadsBuildings', Cue = 'FactoryStartUnitProduction', LodCutoff = 'UnitMove_LodCutoff' },
+        ConstructLoop  = Sound { Bank = 'NomadsBuildings', Cue = 'FactoryLoopUnitProduction',  LodCutoff = 'UnitMove_LodCutoff' },
+        DeathExplosion = Sound { Bank = 'NomadsDestroy',   Cue = 'Destroy_Lrg_PreDestroy',     LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed      = Sound { Bank = 'NomadsDestroy',   Cue = 'Destroy_Lrg_Structure',      LodCutoff = 'UnitMove_LodCutoff' },
+        DoneBeingBuilt = Sound { Bank = 'NomadsBuildings', Cue = 'AirFactoryActivate',         LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection    = Sound { Bank = 'NomadsInterface', Cue = 'Nomads_Select_Factory',      LodCutoff = 'UnitMove_LodCutoff' },
     },
     BuildIconSortPriority = 60,
     Categories = {
-        'AIR',
-        'BUILTBYTIER1FACTORY',
-        'CONSTRUCTION',
-        'CONSTRUCTIONSORTDOWN',
-        'DRAGBUILD',
-        'FACTORY',
-        'NOMADS',
-        'TECH2',
-        'RALLYPOINT',
-        'RECLAIMABLE',
-        'RESEARCH',
-        'SELECTABLE',
-        'SHOWQUEUE',
-        'SIZE16',
-        'SORTCONSTRUCTION',
-        'STRUCTURE',
-        'VISIBLETORECON',
+        "AIR",
+        "BUILTBYTIER1FACTORY",
+        "CONSTRUCTION",
+        "CONSTRUCTIONSORTDOWN",
+        "DRAGBUILD",
+        "FACTORY",
+        "NOMADS",
+        "RALLYPOINT",
+        "RECLAIMABLE",
+        "RESEARCH",
+        "SELECTABLE",
+        "SHOWQUEUE",
+        "SIZE16",
+        "SORTCONSTRUCTION",
+        "STRUCTURE",
+        "TECH2",
+        "VISIBLETORECON",
     },
     Defense = {
         AirThreatLevel = 0,
-        ArmorType = 'Structure',
+        ArmorType = "Structure",
         EconomyThreatLevel = 16,
         Health = 5500,
         MaxHealth = 5500,
@@ -49,59 +48,37 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
     },
-    Description = '<LOC XNB0202faf_desc>Air Factory HQ',
     Display = {
-        Abilities = {
-            '<LOC ability_upgradable>Upgradeable',
-        },
-        AnimationFinishBuildLand = '/units/XNB0202/XNB0202_alift.sca',
-        AnimationUpgrade = '/units/XNB0202/XNB0202_aupgrade.sca',
-        --BlinkingLights = {
-        --    {
-        --        BLBone = 'Tower04',
-        --        BLOffsetX = 0.25,
-        --        BLOffsetY = 0.07,
-        --        BLOffsetZ = 0.6,
-        --        BLScale = 2,
-        --    },
-        --},
-        --BlinkingLightsFx = {
-        --    Green = '/effects/emitters/light_green_03_emit.bp',
-        --    Red = '/effects/emitters/light_red_03_emit.bp',
-        --    Yellow = '/effects/emitters/light_yellow_02_emit.bp',
-        --},
-        BuildAttachBone = 'Attachpoint',
+        Abilities = { "<LOC ability_upgradable>Upgradeable" },
+        AnimationFinishBuildLand = "/units/XNB0202/XNB0202_alift.sca",
+        AnimationUpgrade = "/units/XNB0202/XNB0202_aupgrade.sca",
+        BuildAttachBone = "Attachpoint",
         BuildEffect = {
-            Factory = {
---                BuildFieldCorrection = 0.2,
---                BuildFieldReversed = true,
-            },
+            Factory = {},
         },
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
                 {
-                AlbedoName = '/units/XNB0202/XNB0202_albedo.dds',
-                LODCutoff = 500,
-                MeshName = '/units/XNB0202/XNB0202_lod0.scm',
-                NormalsName = '/units/XNB0202/XNB0202_NormalsTS.dds',
-                Scrolling = true,
-                ShaderName = 'NomadsUnit',
-                SpecularName = '/units/XNB0202/XNB0202_SpecTeam.dds',
+                    LODCutoff = 500,
+                    Scrolling = true,
+                    ShaderName = "NomadsUnit",
+                    MeshName = "/units/XNB0202/XNB0202_lod0.scm",
+                    AlbedoName = "/units/XNB0202/XNB0202_albedo.dds",
+                    NormalsName = "/units/XNB0202/XNB0202_NormalsTS.dds",
+                    SpecularName = "/units/XNB0202/XNB0202_SpecTeam.dds",
                 },
             },
         },
         SpawnRandomRotation = true,
         Tarmacs = {
             {
-                Albedo = 'Tarmacs/Tar12x_nomads_01_albedo',
+                Albedo = "Tarmacs/Tar12x_nomads_01_albedo",
                 DeathLifetime = 300,
                 FadeOut = 150,
                 Length = 12.8,
-                Normal = 'Tarmacs/Tar12x_nomads_01_normals',
-                Orientations = {
-                    0,
-                },
+                Normal = "Tarmacs/Tar12x_nomads_01_normals",
+                Orientations = { 0 },
                 RemoveWhenDead = false,
                 Width = 12.8,
             },
@@ -113,14 +90,14 @@ UnitBlueprint {
         BuildCostMass = 920,
         BuildRate = 40,
         BuildTime = 2000,
-        DifferentialUpgradeCostCalculation = true,
         BuildableCategory = {
-            'BUILTBYTIER2FACTORY NOMADS MOBILE CONSTRUCTION',
-            'BUILTBYTIER2FACTORY NOMADS STRUCTURE AIR',
-            'BUILTBYTIER2FACTORY NOMADS MOBILE AIR',
-            'TRANSPORTBUILTBYTIER2FACTORY NOMADS MOBILE AIR',
-            'FIELDENGINEER NOMADS MOBILE LAND',
+            "BUILTBYTIER2FACTORY NOMADS MOBILE CONSTRUCTION",
+            "BUILTBYTIER2FACTORY NOMADS STRUCTURE AIR",
+            "BUILTBYTIER2FACTORY NOMADS MOBILE AIR",
+            "TRANSPORTBUILTBYTIER2FACTORY NOMADS MOBILE AIR",
+            "FIELDENGINEER NOMADS MOBILE LAND",
         },
+        DifferentialUpgradeCostCalculation = true,
         StorageEnergy = 0,
         StorageMass = 160,
     },
@@ -129,19 +106,19 @@ UnitBlueprint {
         SizeZ = 5,
     },
     General = {
+        BuildBones = {
+            BuildEffectBones = {
+                "muzzle.001",
+                "muzzle.002",
+                "muzzle.003",
+                "muzzle.004",
+            },
+        },
         BuildEffectScaleX = 0.01,
         BuildEffectScaleY = 0.5,
         BuildEffectScaleZ = 0.3,
-        BuildBones = {
-            BuildEffectBones = {
-                'muzzle.001',
-                'muzzle.002',
-                'muzzle.003',
-                'muzzle.004',
-            },
-        },
-        Category = 'Factory',
-        Classification = 'RULEUC_Factory',
+        Category = "Factory",
+        Classification = "RULEUC_Factory",
         CommandCaps = {
             RULEUCC_Attack = false,
             RULEUCC_CallTransport = false,
@@ -158,19 +135,17 @@ UnitBlueprint {
             RULEUCC_Transport = false,
         },
         ConstructionBar = true,
-        FactionName = 'Nomads',
-        Icon = 'air',
+        FactionName = "Nomads",
+        Icon = "air",
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
+        TechLevel = "RULEUTL_Advanced",
         UnitWeight = 1,
-        UpgradesFrom = 'xnb0102',
-        UpgradesFromBase = 'xnb0102',
-        UpgradesTo = 'xnb0302',
+        UpgradesFrom = "xnb0102",
+        UpgradesFromBase = "xnb0102",
+        UpgradesTo = "xnb0302",
     },
-    Intel = { VisionRadius = 20, },
-    Interface = {
-        HelpText = '<LOC XNB0202faf_help>Air Factory HQ',
-    },
+    Intel = { VisionRadius = 20 },
+    Interface = { HelpText = "<LOC XNB0202faf_help>Air Factory HQ" },
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.65,
     LifeBarSize = 4.5,
@@ -188,108 +163,28 @@ UnitBlueprint {
         FlattenSkirt = true,
         MaxSteerForce = 0,
         MinSpeedPercent = 0,
-        MotionType = 'RULEUMT_None',
+        MotionType = "RULEUMT_None",
         RaisedPlatforms = {
-            -- Platform 1
-            -- TopLeft Offset From Center
-            -2.1, ---1.6,
-            -- x
-            -2.625, ---2,
-            -- z
-            0.23625, --0.18,
-            -- height
-            -- TopRight Offset From Center
-            2,
-            -- x
-            -2.625, ---2,
-            -- z
-            0.23625, --0.18,
-            -- height
-            -- BottomLeft Offset From Center
-            -2.1, ---1.6,
-            -- x
-            2.1, --1.6,
-            -- z
-            0.23625, --0.18,
-            -- height
-            -- BottomRight Offset From Center
-            2.625, --2,
-            -- x
-            2.1, --1.6,
-            -- z
-            0.23625, --0.18,
-            -- height
-            -- Platform 2
-            -- TopLeft Offset From Center
-            2.296875, ---1.75,
-            -- x
-            -2.625, ---2,
-            -- z
-            0,
-            -- height
-            -- TopRight Offset From Center
-            -2.1, ---1.6,
-            -- x
-            -2.625, ---2,
-            -- z
-            0.23625, --0.18,
-            -- height
-            -- BottomLeft Offset From Center
-            -2.296875, ---1.75,
-            -- x
-            2.1, --1.6,
-            -- z
-            0,
-            -- height
-            -- BottomRight Offset From Center
-            -2.1, ---1.6,
-            -- x
-            2.1, --1.6,
-            -- z
-            0.23625, --0.18,
-            -- height
-            -- Platform 3
-            -- TopLeft Offset From Center
-            -2.625, ---2,
-            -- x
-            2.1, --1.6,
-            -- z
-            0.23625, --0.18,
-            -- height
-            -- TopRight Offset From Center
-            2.625, --2,
-            -- x
-            2.1, --1.6,
-            -- z
-            0.23625, --0.18,
-            -- height
-            -- BottomLeft Offset From Center
-            -2.625, ---2,
-            -- x
-            2.296875, --1.75,
-            -- z
-            0,
-            -- height
-            -- BottomRight Offset From Center
-            2.625, --2,
-            -- x
-            2.296875, --1.75,
-            -- z
-            0,
+            --X,     Z,     height -- Offsets from center
+
+            -2.1,  -2.625, 0.23625,   --Top left
+            2,     -2.625, 0.23625,   --Top right
+            -2.1,  2.1,   0.23625,   --Bottom left
+            2.625, 2.1,   0.23625,   --Bottom right
+
+            2.296875, -2.625, 0,       --Top left
+            -2.1,  -2.625, 0.23625,   --Top right
+            -2.296875, 2.1,   0,       --Bottom left
+            -2.1,  2.1,   0.23625,   --Bottom right
+
+            -2.625, 2.1,   0.23625,   --Top left
+            2.625, 2.1,   0.23625,   --Top right
+            -2.625, 2.296875, 0,       --Bottom left
+            2.625, 2.296875, 0,       --Bottom right
         },
         RollOffPoints = {
-            {
-                UnitSpin = 0,
-                X = 0,
-                Y = 0,
-                Z = 3,
-            },
-            {
-                UnitSpin = -90,
-                X = -3,
-                Y = 0,
-                Z = 0,
-            },
+            { UnitSpin = 0,     X = 0,     Y = 0,     Z = 3 },
+            { UnitSpin = -90,   X = -3,    Y = 0,     Z = 0 },
         },
         SkirtOffsetX = -1.5,
         SkirtOffsetZ = -1.5,
@@ -300,14 +195,13 @@ UnitBlueprint {
     SelectionSizeX = 4.2,
     SelectionSizeZ = 4.07,
     SelectionThickness = 0.3,
-    -- height
     SizeX = 5.25,
     SizeY = 1.84,
     SizeZ = 5.25,
-    StrategicIconName = 'icon_factoryhq2_air',
+    StrategicIconName = "icon_factoryhq2_air",
     StrategicIconSortPriority = 215,
     Wreckage = {
-        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        Blueprint = "/props/DefaultWreckage/DefaultWreckage_prop.bp",
         EnergyMult = 0,
         HealthMult = 0.9,
         MassMult = 0.9,

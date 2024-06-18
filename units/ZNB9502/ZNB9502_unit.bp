@@ -1,49 +1,48 @@
--- T2 Air factory support
-
-UnitBlueprint {
+UnitBlueprint{
+    Description = "<LOC ZNB9502_desc>Air Factory",
     AI = {
         TargetBones = {
-            'Target01',
-            'Target02',
-            'Target03',
-            'INB0202',
+            "Target01",
+            "Target02",
+            "Target03",
+            "INB0202",
         },
     },
     Audio = {
-        Construct = Sound { Bank = 'NomadsBuildings', Cue = 'FactoryStartUnitProduction', LodCutoff = 'UnitMove_LodCutoff', },
-        ConstructLoop = Sound { Bank = 'NomadsBuildings', Cue = 'FactoryLoopUnitProduction', LodCutoff = 'UnitMove_LodCutoff', },
-        DeathExplosion = Sound { Bank = 'UELDestroy', Cue = 'UEB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff', },
-        Destroyed = Sound { Bank = 'NomadsDestroy', Cue = 'Destroy_Lrg_Structure', LodCutoff = 'UnitMove_LodCutoff', },
-        DoneBeingBuilt = Sound { Bank = 'NomadsBuildings', Cue = 'AirFactoryActivate', LodCutoff = 'UnitMove_LodCutoff', },
-        UISelection = Sound { Bank = 'NomadsInterface', Cue = 'Nomads_Select_Factory', LodCutoff = 'UnitMove_LodCutoff', },
+        Construct      = Sound { Bank = 'NomadsBuildings', Cue = 'FactoryStartUnitProduction', LodCutoff = 'UnitMove_LodCutoff' },
+        ConstructLoop  = Sound { Bank = 'NomadsBuildings', Cue = 'FactoryLoopUnitProduction',  LodCutoff = 'UnitMove_LodCutoff' },
+        DeathExplosion = Sound { Bank = 'UELDestroy',      Cue = 'UEB_Destroy_Lrg_PreDestroy', LodCutoff = 'UnitMove_LodCutoff' },
+        Destroyed      = Sound { Bank = 'NomadsDestroy',   Cue = 'Destroy_Lrg_Structure',      LodCutoff = 'UnitMove_LodCutoff' },
+        DoneBeingBuilt = Sound { Bank = 'NomadsBuildings', Cue = 'AirFactoryActivate',         LodCutoff = 'UnitMove_LodCutoff' },
+        UISelection    = Sound { Bank = 'NomadsInterface', Cue = 'Nomads_Select_Factory',      LodCutoff = 'UnitMove_LodCutoff' },
     },
-    BuildIconSortPriority = 61, --
+    BuildIconSortPriority = 61,
     Categories = {
-        'AIR',
-        'BUILTBYTIER1FACTORY',
-        'BUILTBYTIER2COMMANDER', --
-        'BUILTBYTIER2ENGINEER', --
-        'BUILTBYTIER3COMMANDER', --
-        'BUILTBYTIER3ENGINEER', --
-        'CONSTRUCTION',
-        'CONSTRUCTIONSORTDOWN',
-        'DRAGBUILD',
-        'FACTORY',
-        'NOMADS',
-        'RALLYPOINT',
-        'RECLAIMABLE',
-        'SELECTABLE',
-        'SHOWQUEUE',
-        'SIZE16',
-        'SORTCONSTRUCTION',
-        'STRUCTURE',
-        'SUPPORTFACTORY', --
-        'TECH2',
-        'VISIBLETORECON',
+        "AIR",
+        "BUILTBYTIER1FACTORY",
+        "BUILTBYTIER2COMMANDER",
+        "BUILTBYTIER2ENGINEER",
+        "BUILTBYTIER3COMMANDER",
+        "BUILTBYTIER3ENGINEER",
+        "CONSTRUCTION",
+        "CONSTRUCTIONSORTDOWN",
+        "DRAGBUILD",
+        "FACTORY",
+        "NOMADS",
+        "RALLYPOINT",
+        "RECLAIMABLE",
+        "SELECTABLE",
+        "SHOWQUEUE",
+        "SIZE16",
+        "SORTCONSTRUCTION",
+        "STRUCTURE",
+        "SUPPORTFACTORY",
+        "TECH2",
+        "VISIBLETORECON",
     },
     Defense = {
         AirThreatLevel = 0,
-        ArmorType = 'Structure',
+        ArmorType = "Structure",
         EconomyThreatLevel = 16,
         Health = 2750,
         MaxHealth = 2750,
@@ -53,38 +52,33 @@ UnitBlueprint {
         SubThreatLevel = 0,
         SurfaceThreatLevel = 0,
     },
-    Description = '<LOC ZNB9502_desc>Air Factory', --
     Display = {
-        Abilities = {
-            '<LOC ability_upgradable>Upgradeable',
-        },
-        AnimationFinishBuildLand = '/units/ZNB9502/ZNB9502_alift.sca',
-        AnimationUpgrade = '/units/ZNB9502/ZNB9502_aupgrade.sca',
-        BuildAttachBone = 'Attachpoint',
+        Abilities = { "<LOC ability_upgradable>Upgradeable" },
+        AnimationFinishBuildLand = "/units/ZNB9502/ZNB9502_alift.sca",
+        AnimationUpgrade = "/units/ZNB9502/ZNB9502_aupgrade.sca",
+        BuildAttachBone = "Attachpoint",
         Mesh = {
             IconFadeInZoom = 130,
             LODs = {
                 {
-                    AlbedoName = '/units/ZNB9502/ZNB9502_Albedo.dds',
                     LODCutoff = 500,
-                    MeshName = '/units/ZNB9502/ZNB9502_Lod0.scm',
-                    NormalsName = '/units/ZNB9502/ZNB9502_NormalsTS.dds',
-                    ShaderName = 'NomadsUnit',
-                    SpecularName = '/units/ZNB9502/ZNB9502_SpecTeam.dds',
+                    ShaderName = "NomadsUnit",
+                    MeshName = "/units/ZNB9502/ZNB9502_Lod0.scm",
+                    AlbedoName = "/units/ZNB9502/ZNB9502_Albedo.dds",
+                    NormalsName = "/units/ZNB9502/ZNB9502_NormalsTS.dds",
+                    SpecularName = "/units/ZNB9502/ZNB9502_SpecTeam.dds",
                 },
             },
         },
         SpawnRandomRotation = true,
         Tarmacs = {
             {
-                Albedo = 'Tarmacs/Tar12x_nomads_01_albedo',
+                Albedo = "Tarmacs/Tar12x_nomads_01_albedo",
                 DeathLifetime = 300,
                 FadeOut = 150,
                 Length = 12.8,
-                Normal = 'Tarmacs/Tar12x_nomads_01_normals',
-                Orientations = {
-                    0,
-                },
+                Normal = "Tarmacs/Tar12x_nomads_01_normals",
+                Orientations = { 0 },
                 RemoveWhenDead = false,
                 Width = 12.8,
             },
@@ -95,18 +89,16 @@ UnitBlueprint {
         BuildCostEnergy = 8000,
         BuildCostMass = 510,
         BuildRate = 40,
-        BuildTime = 1300, --
+        BuildTime = 1300,
         BuildableCategory = {
-            'BUILTBYTIER2FACTORY NOMADS MOBILE CONSTRUCTION',
-            'BUILTBYTIER2SUPPORTFACTORY NOMADS STRUCTURE AIR',
-            'BUILTBYTIER2FACTORY NOMADS MOBILE AIR',
-            'TRANSPORTBUILTBYTIER2FACTORY NOMADS MOBILE AIR',
-            'FIELDENGINEER NOMADS MOBILE LAND',
+            "BUILTBYTIER2FACTORY NOMADS MOBILE CONSTRUCTION",
+            "BUILTBYTIER2SUPPORTFACTORY NOMADS STRUCTURE AIR",
+            "BUILTBYTIER2FACTORY NOMADS MOBILE AIR",
+            "TRANSPORTBUILTBYTIER2FACTORY NOMADS MOBILE AIR",
+            "FIELDENGINEER NOMADS MOBILE LAND",
         },
-    DifferentialUpgradeCostCalculation = true, --
-        RebuildBonusIds = { --
-            'znb9502', --
-        }, --
+        DifferentialUpgradeCostCalculation = true,
+        RebuildBonusIds = { "znb9502" },
         StorageEnergy = 0,
         StorageMass = 160,
     },
@@ -115,19 +107,19 @@ UnitBlueprint {
         SizeZ = 5,
     },
     General = {
+        BuildBones = {
+            BuildEffectBones = {
+                "muzzle.001",
+                "muzzle.002",
+                "muzzle.003",
+                "muzzle.004",
+            },
+        },
         BuildEffectScaleX = 0.01,
         BuildEffectScaleY = 0.5,
         BuildEffectScaleZ = 0.3,
-        BuildBones = {
-            BuildEffectBones = {
-                'muzzle.001',
-                'muzzle.002',
-                'muzzle.003',
-                'muzzle.004',
-            },
-        },
-        Category = 'Factory',
-        Classification = 'RULEUC_Factory',
+        Category = "Factory",
+        Classification = "RULEUC_Factory",
         CommandCaps = {
             RULEUCC_Attack = false,
             RULEUCC_CallTransport = false,
@@ -144,19 +136,17 @@ UnitBlueprint {
             RULEUCC_Transport = false,
         },
         ConstructionBar = true,
-        FactionName = 'Nomads',
-        Icon = 'air',
+        FactionName = "Nomads",
+        Icon = "air",
         SelectionPriority = 5,
-        TechLevel = 'RULEUTL_Advanced',
+        TechLevel = "RULEUTL_Advanced",
         UnitWeight = 1,
-        UpgradesFrom = 'xnb0102',
-        UpgradesFromBase = 'xnb0102', --
-        UpgradesTo = 'znb9602', --
+        UpgradesFrom = "xnb0102",
+        UpgradesFromBase = "xnb0102",
+        UpgradesTo = "znb9602",
     },
-    Intel = { VisionRadius = 20, },
-    Interface = {
-        HelpText = '<LOC ZNB9502_help>Air Factory', --
-    },
+    Intel = { VisionRadius = 20 },
+    Interface = { HelpText = "<LOC ZNB9502_help>Air Factory" },
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.65,
     LifeBarSize = 4.5,
@@ -174,108 +164,28 @@ UnitBlueprint {
         FlattenSkirt = true,
         MaxSteerForce = 0,
         MinSpeedPercent = 0,
-        MotionType = 'RULEUMT_None',
+        MotionType = "RULEUMT_None",
         RaisedPlatforms = {
-            -- Platform 1
-            -- TopLeft Offset From Center
-            -2.1, ---1.6,
-            -- x
-            -2.625, ---2,
-            -- z
-            0.23625, --0.18,
-            -- height
-            -- TopRight Offset From Center
-            2,
-            -- x
-            -2.625, ---2,
-            -- z
-            0.23625, --0.18,
-            -- height
-            -- BottomLeft Offset From Center
-            -2.1, ---1.6,
-            -- x
-            2.1, --1.6,
-            -- z
-            0.23625, --0.18,
-            -- height
-            -- BottomRight Offset From Center
-            2.625, --2,
-            -- x
-            2.1, --1.6,
-            -- z
-            0.23625, --0.18,
-            -- height
-            -- Platform 2
-            -- TopLeft Offset From Center
-            2.296875, ---1.75,
-            -- x
-            -2.625, ---2,
-            -- z
-            0,
-            -- height
-            -- TopRight Offset From Center
-            -2.1, ---1.6,
-            -- x
-            -2.625, ---2,
-            -- z
-            0.23625, --0.18,
-            -- height
-            -- BottomLeft Offset From Center
-            -2.296875, ---1.75,
-            -- x
-            2.1, --1.6,
-            -- z
-            0,
-            -- height
-            -- BottomRight Offset From Center
-            -2.1, ---1.6,
-            -- x
-            2.1, --1.6,
-            -- z
-            0.23625, --0.18,
-            -- height
-            -- Platform 3
-            -- TopLeft Offset From Center
-            -2.625, ---2,
-            -- x
-            2.1, --1.6,
-            -- z
-            0.23625, --0.18,
-            -- height
-            -- TopRight Offset From Center
-            2.625, --2,
-            -- x
-            2.1, --1.6,
-            -- z
-            0.23625, --0.18,
-            -- height
-            -- BottomLeft Offset From Center
-            -2.625, ---2,
-            -- x
-            2.296875, --1.75,
-            -- z
-            0,
-            -- height
-            -- BottomRight Offset From Center
-            2.625, --2,
-            -- x
-            2.296875, --1.75,
-            -- z
-            0,
+            --X,     Z,     height -- Offsets from center
+
+            -2.1,  -2.625, 0.23625,   --Top left
+            2,     -2.625, 0.23625,   --Top right
+            -2.1,  2.1,   0.23625,   --Bottom left
+            2.625, 2.1,   0.23625,   --Bottom right
+
+            2.296875, -2.625, 0,       --Top left
+            -2.1,  -2.625, 0.23625,   --Top right
+            -2.296875, 2.1,   0,       --Bottom left
+            -2.1,  2.1,   0.23625,   --Bottom right
+
+            -2.625, 2.1,   0.23625,   --Top left
+            2.625, 2.1,   0.23625,   --Top right
+            -2.625, 2.296875, 0,       --Bottom left
+            2.625, 2.296875, 0,       --Bottom right
         },
         RollOffPoints = {
-            {
-                UnitSpin = 0,
-                X = 0,
-                Y = 0,
-                Z = 3,
-            },
-            {
-                UnitSpin = -90,
-                X = -3,
-                Y = 0,
-                Z = 0,
-            },
+            { UnitSpin = 0,     X = 0,     Y = 0,     Z = 3 },
+            { UnitSpin = -90,   X = -3,    Y = 0,     Z = 0 },
         },
         SkirtOffsetX = -1.5,
         SkirtOffsetZ = -1.5,
@@ -286,14 +196,13 @@ UnitBlueprint {
     SelectionSizeX = 4.2,
     SelectionSizeZ = 4.07,
     SelectionThickness = 0.3,
-    -- height
     SizeX = 5.25,
     SizeY = 1.84,
     SizeZ = 5.25,
-    StrategicIconName = 'icon_factory2_air',
+    StrategicIconName = "icon_factory2_air",
     StrategicIconSortPriority = 215,
     Wreckage = {
-        Blueprint = '/props/DefaultWreckage/DefaultWreckage_prop.bp',
+        Blueprint = "/props/DefaultWreckage/DefaultWreckage_prop.bp",
         EnergyMult = 0,
         HealthMult = 0.9,
         MassMult = 0.9,
