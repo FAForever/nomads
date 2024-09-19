@@ -1,36 +1,41 @@
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local Unit = import('/lua/sim/Unit.lua').Unit
 
+---@class XNA0001 : Unit
 XNA0001 = Class(Unit) {
 
     CoverLaunchFx = NomadsEffectTemplate.ACUMeteorCoverLaunch,
     CoverOpenFx = NomadsEffectTemplate.ACUMeteorCoverOpen,
 
+    ---@param self XNA0001
     OnCreate = function(self)
+        local bp = self.Blueprint
+
         Unit.OnCreate(self)
 
-        self.EventCallbacks = table.merged(self.EventCallbacks, {
-            openup = {},
-        })
+        self.EventCallbacks = table.merged(self.EventCallbacks, {openup = {},})
 
-        if self:GetBlueprint().Display.AnimationOpen then
+        if bp.Display.AnimationOpen then
             self.OpenAnimManip = CreateAnimator(self)
             self.Trash:Add(self.OpenAnimManip)
-            self.OpenAnimManip:PlayAnim(self:GetBlueprint().Display.AnimationOpen, false):SetRate(0)
+            self.OpenAnimManip:PlayAnim(bp.Display.AnimationOpen, false):SetRate(0)
             self:OpenUp()
         else
             self:DelayedDestroy()
         end
     end,
 
+    ---@param self XNA0001
+    ---@param fn any
     AddOpenUpCallback = function(self, fn)
         -- fn -> function( <xna0001 instance>, <Opening anim state: opening|opened|expired>)
         self:AddUnitCallback(fn, 'openup')
     end,
 
+    ---@param self XNA0001
     OpenUp = function(self)
         local fn = function(self)
-            local bp = self:GetBlueprint()
+            local bp = self.Blueprint
 
             WaitTicks(10)
 
@@ -65,6 +70,7 @@ XNA0001 = Class(Unit) {
         self:ForkThread(fn)
     end,
 
+    ---@param self XNA0001
     IsUnderWater = function(self)
         -- since we're actually an air unit and we use trickery to appear under water a simple  call to GetCurrentLayer()
         -- always returns 'Air'. So using a workaround to determine if we're under water or not.
@@ -72,6 +78,7 @@ XNA0001 = Class(Unit) {
         return (y < GetSurfaceHeight(x, z))
     end,
 
+    ---@param self XNA0001
     PlayCoverOpenFx = function(self)
         local emitters, emit = {}
         for k, v in self.CoverOpenFx do
@@ -81,6 +88,9 @@ XNA0001 = Class(Unit) {
         return emitters
     end,
 
+    ---@param self XNA0001
+    ---@param CoverEnt Entity
+    ---@return table
     PlayCoverLaunchFx = function(self, CoverEnt)
         local emitters, emit = {}
         for k, v in self.CoverLaunchFx do
@@ -90,6 +100,7 @@ XNA0001 = Class(Unit) {
         return emitters
     end,
 
+    ---@param self XNA0001
     DelayedDestroy = function(self)
         local fn = function(self)
             WaitSeconds(5)
@@ -98,5 +109,4 @@ XNA0001 = Class(Unit) {
         self:ForkThread(fn)
     end,
 }
-
 TypeClass = XNA0001
