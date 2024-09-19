@@ -1,25 +1,25 @@
--- Nomads SACU
-
+local Buff = import('/lua/sim/Buff.lua')
+local EffectUtil = import('/lua/EffectUtilities.lua')
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local NomadsEffectUtil = import('/lua/nomadseffectutilities.lua')
-local Utilities = import('/lua/utilities.lua')
-local EffectUtil = import('/lua/EffectUtilities.lua')
-local Buff = import('/lua/sim/Buff.lua')
-local AddRapidRepair = import('/lua/nomadsutils.lua').AddRapidRepair
-local AddRapidRepairToWeapon = import('/lua/nomadsutils.lua').AddRapidRepairToWeapon
-local AddAkimbo = import('/lua/nomadsutils.lua').AddAkimbo
-
+local NUtil = import('/lua/nomadsutils.lua')
 local NCommandUnit = import('/lua/nomadsunits.lua').NCommandUnit
+local NWeapons = import('/lua/nomadsweapons.lua')
 
-local APCannon1 = import('/lua/nomadsweapons.lua').APCannon1
-local UnderwaterRailgunWeapon1 = import('/lua/nomadsweapons.lua').UnderwaterRailgunWeapon1
-local KineticCannon1 = import('/lua/nomadsweapons.lua').KineticCannon1
-local DeathEnergyBombWeapon = import('/lua/nomadsweapons.lua').DeathEnergyBombWeapon
-local EMPGun = import('/lua/nomadsweapons.lua').EMPGun
+local AddRapidRepair = NUtil.AddRapidRepair
+local AddRapidRepairToWeapon = NUtil.AddRapidRepairToWeapon
+local AddAkimbo = NUtil.AddAkimbo
+
+local APCannon1 = NWeapons.APCannon1
+local UnderwaterRailgunWeapon1 = NWeapons.UnderwaterRailgunWeapon1
+local KineticCannon1 = NWeapons.KineticCannon1
+local DeathEnergyBombWeapon = NWeapons.DeathEnergyBombWeapon
+local EMPGun = NWeapons.EMPGun
 
 NCommandUnit = AddAkimbo(AddRapidRepair(NCommandUnit))
 
-
+--- Nomand SACU
+---@class XNL0301 : NCommandUnit
 XNL0301 = Class(NCommandUnit) {
 
     Weapons = {

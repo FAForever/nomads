@@ -1,32 +1,30 @@
--- Nomads ACU
-
-local Entity = import('/lua/sim/Entity.lua').Entity
 local Buff = import('/lua/sim/Buff.lua')
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 local Utilities = import('/lua/utilities.lua')
 local NomadsEffectUtil = import('/lua/nomadseffectutilities.lua')
-
 local NUtils = import('/lua/nomadsutils.lua')
 local Utils = import('/lua/utilities.lua')
+local NWeapons = import('/lua/nomadsweapons.lua')
+
 local CreateOrbitalUnit = NUtils.CreateOrbitalUnit
 local AddRapidRepair = NUtils.AddRapidRepair
 local AddRapidRepairToWeapon = NUtils.AddRapidRepairToWeapon
 local AddCapacitorAbility = NUtils.AddCapacitorAbility
 local AddCapacitorAbilityToWeapon = NUtils.AddCapacitorAbilityToWeapon
 
-local NWeapons = import('/lua/nomadsweapons.lua')
+local NIFTargetFinderWeapon = NWeapons.NIFTargetFinderWeapon
 local APCannon1 = NWeapons.APCannon1
 local APCannon1_Overcharge = NWeapons.APCannon1_Overcharge
 local DeathNuke = NWeapons.DeathNuke
-local NIFTargetFinderWeapon = import('/lua/nomadsweapons.lua').NIFTargetFinderWeapon
 
 APCannon1 = AddCapacitorAbilityToWeapon(APCannon1)
 APCannon1_Overcharge = AddCapacitorAbilityToWeapon(APCannon1_Overcharge)
-
 ACUUnit = AddCapacitorAbility(AddRapidRepair(import('/lua/defaultunits.lua').ACUUnit))
---ACUUnit = AddCapacitorAbility(import('/lua/defaultunits.lua').ACUUnit)
 
+--- Nomads ACU
+---@class XNL0001 : ACUUnit
 XNL0001 = Class(ACUUnit) {
+    CapFxBones = { 'CapacitorL', 'CapacitorR', },
 
     Weapons = {
         MainGun = Class(AddRapidRepairToWeapon(APCannon1)) {
@@ -76,22 +74,19 @@ XNL0001 = Class(ACUUnit) {
         TargetFinder = Class(NIFTargetFinderWeapon) {},
     },
 
+    ---@param self XNL0001
     __init = function(self)
         ACUUnit.__init(self, 'MainGun')
     end,
 
-    -- =====================================================================================================================
-    -- CREATION AND FIRST SECONDS OF GAMEPLAY
-
-    CapFxBones = { 'CapacitorL', 'CapacitorR', },
-    
-
-
+    ---@param self XNL0001
     OnCreate = function(self)
+        local bp = self.Blueprint
+
         ACUUnit.OnCreate(self)
         --if the acu is spawned in, find an orbital unit that works.
         self:GetOrbitalUnit()
-        
+
         self.NukeEntity = 1 --leave a value for the death explosion entity to use later.
 
         --create capacitor sliders:
@@ -103,7 +98,6 @@ XNL0001 = Class(ACUUnit) {
             slider:SetSpeed(1)
         end
 
-        local bp = self:GetBlueprint()
 
         -- TODO: Remove once related change gets released in the game patch
         self.BuildEffectBones = bp.General.BuildBones.BuildEffectBones
@@ -141,7 +135,7 @@ XNL0001 = Class(ACUUnit) {
         self.RapidRepairBonusArmR = 0 --one for each upgrade slot, letting us easily track upgrade changes.
         self.RapidRepairBonusBack = 0
         
-        self.Sync.Abilities = self:GetBlueprint().Abilities
+        self.Sync.Abilities = bp.Abilities
         self.Sync.HasCapacitorAbility = false
 
         self.MassProduction = bp.Economy.ProductionPerSecondMass
@@ -153,6 +147,9 @@ XNL0001 = Class(ACUUnit) {
         
     end,
 
+    ---@param self XNL0001
+    ---@param builder Unit
+    ---@param layer string
     OnStopBeingBuilt = function(self, builder, layer)
         ACUUnit.OnStopBeingBuilt(self, builder, layer)
         self:SetWeaponEnabledByLabel('MainGun', true)
@@ -160,36 +157,37 @@ XNL0001 = Class(ACUUnit) {
         self:ForkThread(self.GiveInitialResources)
         self:ForkThread(self.HeadRotationThread)
         self.AllowHeadRotation = true
-        --self:ForkThread(self.DoMeteorAnim) --should only be used for testing out the drop animation
     end,
-    
+
+    ---@param self XNL0001
     GetOrbitalUnit = function(self)
         if self.OrbitalUnit then return end
-        
+
         --if the acu is spawned in, find an orbital unit that works and isnt already assigned to anything
         local units = Utils.GetOwnUnitsInSphere(self:GetPosition(), 500, self.Army, categories.xno0001)
         local availableUnit = false
-        
+
         for _,unit in units do
             if not unit.AssignedUnit then 
                 availableUnit = unit
                 break
             end
         end
-        
+
         if availableUnit then
             self.OrbitalUnit = availableUnit
         else
             self.OrbitalUnit = CreateOrbitalUnit(self)
         end
-        
+
         --assign ourselves to the orbital unit so that other units dont try to grab it
         self.OrbitalUnit.AssignedUnit = self
     end,
 
-    -- =====================================================================================================================
-    -- UNIT DEATH
-
+    ---@param self XNL0001
+    ---@param instigator Unit
+    ---@param type string
+    ---@param overkillRatio number
     OnKilled = function(self, instigator, type, overkillRatio)
         self:SetOrbitalBombardEnabled(false)
         self:SetIntelProbe(false)
@@ -197,24 +195,31 @@ XNL0001 = Class(ACUUnit) {
         ACUUnit.OnKilled(self, instigator, type, overkillRatio)
     end,
 
+    ---@param self number
+    ---@param unitBeingBuilt number
+    ---@param order string # Unused
     CreateBuildEffects = function(self, unitBeingBuilt, order)
         NomadsEffectUtil.CreateNomadsBuildSliceBeams(self, unitBeingBuilt, self.BuildEffectBones, self.BuildEffectsBag)
     end,
 
+    ---@param self XNL0001
+    ---@param target Unit
     CreateReclaimEffects = function(self, target)
         NomadsEffectUtil.PlayNomadsReclaimEffects(self, target, self.BuildEffectBones, self.ReclaimEffectsBag)
     end,
 
+    ---@param self XNL0001
+    ---@param target Unit
     CreateReclaimEndEffects = function(self, target)
         NomadsEffectUtil.PlayNomadsReclaimEndEffects(self, target, self.ReclaimEffectsBag)
     end,
 
-    -- =====================================================================================================================
-    -- GENERIC
-
+    ---@param self XNL0001
+    ---@param new any
+    ---@param old any
     OnMotionHorzEventChange = function( self, new, old )
         if old == 'Stopped' and self.UseRunWalkAnim then
-            local bp = self:GetBlueprint()
+            local bp = self.Blueprint
             if bp.Display.AnimationRun then
                 if not self.Animator then
                     self.Animator = CreateAnimator(self, true)
@@ -229,8 +234,8 @@ XNL0001 = Class(ACUUnit) {
         end
     end,
 
-
     -- Adjust position of the capacitor sliders to match the charge.
+    ---@param self XNL0001
     UpdateCapacitorFraction = function(self)
         ACUUnit.UpdateCapacitorFraction(self)
         for number,slider in self.CapSliders do
@@ -239,11 +244,7 @@ XNL0001 = Class(ACUUnit) {
         end
     end,
 
-    -- =====================================================================================================================
-    -- EFFECTS AND ANIMATIONS
-
-    -------- INITIAL ANIM --------
-
+    ---@param self XNL0001
     DoMeteorAnim = function(self)  -- part of initial dropship animation
         if not self.OrbitalUnit then
             self.OrbitalUnit = CreateOrbitalUnit(self)
@@ -285,6 +286,7 @@ XNL0001 = Class(ACUUnit) {
         self:SetBlockCommandQueue(false)
     end,
 
+    ---@param self XNL0001
     PlayCommanderWarpInEffect = function(self)  -- part of initial dropship animation
         self:SetUnSelectable(true)
         self:SetBusy(true)
@@ -293,10 +295,11 @@ XNL0001 = Class(ACUUnit) {
         self:ForkThread(self.DoMeteorAnim)
     end,
 
+    ---@param self XNL0001
     HeadRotationThread = function(self)
         -- keeps the head pointed at the current target (position)
         local nav = self:GetNavigator()
-        local maxRot = self:GetBlueprint().Display.MovementEffects.HeadRotationMax or 10
+        local maxRot = self.Blueprint.Display.MovementEffects.HeadRotationMax or 10
         local wep = self:GetWeaponByLabel('MainGun')
         local GoalAngle = 0
         local target, torsoDir, torsoX, torsoY, torsoZ, MyPos
@@ -339,6 +342,9 @@ XNL0001 = Class(ACUUnit) {
         end
     end,
 
+    ---@param self XNL0001
+    ---@param add any
+    ---@param bone string
     AddEnhancementEmitterToBone = function(self, add, bone)
 
         -- destroy effect, if any
@@ -355,14 +361,16 @@ XNL0001 = Class(ACUUnit) {
         end
     end,
 
+    ---@param self XNL0001
+    ---@param new any
+    ---@param old any
     UpdateMovementEffectsOnMotionEventChange = function( self, new, old )
         self.HeadRotationEnabled = self.AllowHeadRotation
         ACUUnit.UpdateMovementEffectsOnMotionEventChange( self, new, old )
     end,
 
-    -- =====================================================================================================================
-    -- ORBITAL ENHANCEMENTS
-
+    ---@param self XNL0001
+    ---@param targetPositions number
     OrbitalStrikeTargets = function(self, targetPositions)
         -- TODO:Make the acu actually have ammo. Also check if removing ammo for every shot is sane, or if it should be per function call
         local heavyBombardment = self:HasEnhancement( 'OrbitalBombardmentHeavy' )
@@ -378,7 +386,9 @@ XNL0001 = Class(ACUUnit) {
             end
         end
     end,
-    
+
+    ---@param self XNL0001
+    ---@param condition any
     SetOrbitalBombardEnabled = function(self, condition)
         local brain = self:GetAIBrain()
         brain:SetUnitSpecialAbility(self, 'NomadsAreaBombardment', {Enabled = (true == condition)})
@@ -390,8 +400,10 @@ XNL0001 = Class(ACUUnit) {
             end
         end
     end,
-    
+
     --accepts false or nil to remove, but sending false is preferred, more clear code that way
+    ---@param self XNL0001
+    ---@param condition any
     SetIntelProbe = function(self, condition)
         local brain = self:GetAIBrain()
         brain:SetUnitSpecialAbility(self, 'NomadsIntelProbeAdvanced', {Enabled = ('IntelProbeAdv' == condition)})
@@ -403,6 +415,10 @@ XNL0001 = Class(ACUUnit) {
         end
     end,
 
+    ---@param self XNL0001
+    ---@param location number
+    ---@param probeType string
+    ---@param data any
     RequestProbe = function(self, location, probeType, data)
         if self.OrbitalUnit then
             if not self.IntelProbeEntity or self.IntelProbeEntity:BeenDestroyed() then
@@ -416,7 +432,9 @@ XNL0001 = Class(ACUUnit) {
             WARN('WARN:Nomads: tried to launch intel probe without orbital unit, aborting.')
         end
     end,
-    
+
+    ---@param self XNL0001
+    ---@param duration number
     ProbeCooldownThread = function(self, duration)
         self:SetSpecialAbilityAvailability('NomadsIntelProbe', 0)
         self:SetSpecialAbilityAvailability('NomadsIntelProbeAdvanced', 0)
@@ -431,26 +449,14 @@ XNL0001 = Class(ACUUnit) {
         self:SetSpecialAbilityAvailability('NomadsIntelProbeAdvanced', 1)
     end,
 
-    -- =====================================================================================================================
-    -- RAPID REPAIR
-    
-    --The repair has a delay which is reset by taking damage and by firing certain weapons.
-    
-    --[[
-    the RR thread ticks down until the timer reaches 0
-    
-    when the timer reaches 0 the repair starts, which applies the buff.
-    
-    The buff is calculated on the fly and applied
-    
-    when rapid repair is interrupted, the timer is reset and the buff is removed.
-    
-    
-    --]]
-    
-    --This custom timer function allows us to reset or partially delay the timer without killing the thread
+    --- Rapid Repair
+    --- The repair has a delay which is reset by taking damage and by firing certain weapons.
+    --- This custom timer function allows us to reset or partially delay the timer without killing the thread
+    --- - The RR thread ticks down until the timer reaches 0 when the timer reaches 0 the repair starts, which applies the buff.
+    --- - The buff is calculated on the fly and applied when rapid repair is interrupted, the timer is reset and the buff is removed.
+    ---@param self XNL0001
     StartRapidRepair = function(self)
-        local bp = self:GetBlueprint()
+        local bp = self.Blueprint
         --calculate the total bonus - each upgrade slot can have its own bonus added.
         self.RapidRepairBonus = bp.Defense.RapidRepairBonus + self.RapidRepairBonusArmL + self.RapidRepairBonusArmR + self.RapidRepairBonusBack
         
@@ -466,14 +472,7 @@ XNL0001 = Class(ACUUnit) {
         self.RapidRepairFxBag:Destroy()
     end,
 
-    -- =====================================================================================================================
-    -- ENHANCEMENTS
-    
-    
-    
-    
     --General note: Nomads ACU has capacitor, which uses buffs. So acu upgrades must use buffs so they stack with capacitor correctly.
-
     --a much more sensible way of doing enhancements, and more moddable too!
     --change the behaviours here and dont touch the CreateEnhancement table.
     --call with: self.EnhancementBehaviours[enh](self, bp)
@@ -874,10 +873,12 @@ XNL0001 = Class(ACUUnit) {
         Generic = function(self, bp)
         end,
     },
-    
+
+    ---@param self XNL0001
+    ---@param enh string
     CreateEnhancement = function(self, enh)
         ACUUnit.CreateEnhancement(self, enh)
-        local bp = self:GetBlueprint().Enhancements[enh]
+        local bp = self.Blueprint.Enhancements[enh]
         if not bp then return end
 
         if self.EnhancementBehaviours[enh] then
@@ -886,7 +887,9 @@ XNL0001 = Class(ACUUnit) {
             WARN('Nomads: Enhancement '..repr(enh)..' has no script support.')
         end
     end,
-    
+
+    ---@param self XNL0001
+    ---@param bit number
     OnScriptBitSet = function(self, bit)
         if bit == 4 then -- Production toggle
             self:SetProductionPerSecondMass(self.RASMassProductionLow)
@@ -896,6 +899,8 @@ XNL0001 = Class(ACUUnit) {
         end
     end,
 
+    ---@param self XNL0001
+    ---@param bit number
     OnScriptBitClear = function(self, bit)
         if bit == 4 then -- Production toggle
             self:SetProductionPerSecondMass(self.RASMassProductionHigh)
@@ -904,7 +909,10 @@ XNL0001 = Class(ACUUnit) {
             ACUUnit.OnScriptBitClear(self, bit)
         end
     end,
-
 }
-
 TypeClass = XNL0001
+
+--#region Backwards Compatibility
+local Entity = import('/lua/sim/Entity.lua').Entity
+--ACUUnit = AddCapacitorAbility(import('/lua/defaultunits.lua').ACUUnit)
+--#endregion

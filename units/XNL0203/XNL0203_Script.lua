@@ -1,13 +1,12 @@
--- T2 fast attack tank
-
 local NHoverLandUnit = import('/lua/nomadsunits.lua').NHoverLandUnit
 local DarkMatterWeapon1 = import('/lua/nomadsweapons.lua').DarkMatterWeapon1
-local SlowHover = import('/lua/defaultunits.lua').SlowHoverLandUnit
+local SlowHoverLandUnit = import('/lua/defaultunits.lua').SlowHoverLandUnit
 
-XNL0203 = Class(NHoverLandUnit, SlowHover) {
+--- Tech 2 Fast Attack Tank
+---@class XNL0203 : NHoverLandUnit, SlowHoverLandUnit
+XNL0203 = Class(NHoverLandUnit, SlowHoverLandUnit) {
     Weapons = {
         MainGun = Class(DarkMatterWeapon1) {},
     },
 }
-
 TypeClass = XNL0203

@@ -1,12 +1,12 @@
--- T2 mobile missile launcher
-
 local NAmphibiousUnit = import('/lua/nomadsunits.lua').NAmphibiousUnit
 local TacticalMissileWeapon1 = import('/lua/nomadsweapons.lua').TacticalMissileWeapon1
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local EffectUtilities = import('/lua/EffectUtilities.lua')
-local SlowHover = import('/lua/defaultunits.lua').SlowHoverLandUnit
+local SlowHoverLandUnit = import('/lua/defaultunits.lua').SlowHoverLandUnit
 
-XNL0111 = Class(NAmphibiousUnit, SlowHover) {
+--- Tech 2 Mobile Missile Launcher
+---@class XNL0111 : NAmphibiousUnit, SlowHoverLandUnit
+XNL0111 = Class(NAmphibiousUnit, SlowHoverLandUnit) {
     Weapons = {
         MainGun = Class(TacticalMissileWeapon1) {
 
@@ -23,6 +23,7 @@ XNL0111 = Class(NAmphibiousUnit, SlowHover) {
         },
     },
 
+    ---@param self XNL0111
     OnCreate = function(self)
         NAmphibiousUnit.OnCreate(self)
         --save the modifier for max radius so we dont have to go into the blueprint every time.
@@ -31,7 +32,10 @@ XNL0111 = Class(NAmphibiousUnit, SlowHover) {
         self.MissileMaxRadiusWater = bp.MaxRadiusUnderWater
         self.MissileMaxRadius = bp.MaxRadius
     end,
-    
+
+    ---@param self XNL0111
+    ---@param new any
+    ---@param old any
     OnLayerChange = function(self, new, old)
         NAmphibiousUnit.OnLayerChange(self, new, old)
         --change the range of the missiles when underwater, needs a catch because if spawned in it can call this before fully initialized
@@ -45,7 +49,5 @@ XNL0111 = Class(NAmphibiousUnit, SlowHover) {
         end
         
     end,
-
 }
-
 TypeClass = XNL0111

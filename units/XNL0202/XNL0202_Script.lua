@@ -1,10 +1,9 @@
--- T2 tank Brute
-
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local NLandUnit = import('/lua/nomadsunits.lua').NLandUnit
 local ParticleBlaster1 = import('/lua/nomadsweapons.lua').ParticleBlaster1
 
-
+--- Tech 2 Tank
+---@class XNL0202 : NLandUnit
 XNL0202 = Class(NLandUnit) {
     Weapons = {
         MainGun = Class(ParticleBlaster1) {},
@@ -16,6 +15,7 @@ XNL0202 = Class(NLandUnit) {
     HideRocketLauncher = true,
     HideSensors = false,
 
+    ---@param self XNL0202
     OnCreate = function(self)
         NLandUnit.OnCreate(self)
         if self.HideBarrel1 then self:HideBone('Barrel1', true) end
@@ -25,11 +25,15 @@ XNL0202 = Class(NLandUnit) {
         if self.HideSensors then self:HideBone('Sensors', true) end
     end,
 
+    ---@param self XNL0202
+    ---@param builder Unit
+    ---@param layer string
     OnStopBeingBuilt = function(self, builder, layer)
         NLandUnit.OnStopBeingBuilt(self, builder, layer)
         if not self.HideSensors then self:CreateSensorEmitter() end
     end,
 
+    ---@param self XNL0202
     CreateSensorEmitter = function(self)
         local emit
         for k, v in NomadsEffectTemplate.AntennaeLights1 do
@@ -38,5 +42,4 @@ XNL0202 = Class(NLandUnit) {
         end
     end,
 }
-
 TypeClass = XNL0202
