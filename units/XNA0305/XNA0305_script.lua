@@ -1,10 +1,10 @@
--- T3 gunship
-
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local NAirUnit = import('/lua/nomadsunits.lua').NAirUnit
 local PlasmaCannon = import('/lua/nomadsweapons.lua').PlasmaCannon
 local RocketWeapon1 = import('/lua/nomadsweapons.lua').RocketWeapon1
 
+--- Tech 3 Gunship
+---@class XNA0305 : NAirUnit
 XNA0305 = Class(NAirUnit) {
 
     Weapons = {
@@ -16,17 +16,22 @@ XNA0305 = Class(NAirUnit) {
     BeamHoverExhaustCruise = NomadsEffectTemplate.AirThrusterLargeCruisingBeam,
     BeamHoverExhaustIdle = NomadsEffectTemplate.AirThrusterLargeIdlingBeam,
 
+    ---@param self XNA0305
     OnCreate = function(self)
         NAirUnit.OnCreate(self)
         self.HoverEmitterEffectTrashBag = TrashBag()
         self:HideBone('Radar_Spinny', true)
     end,
 
+    ---@param self XNA0305
     OnDestroy = function(self)
         self:DestroyHoverEmitterEffects()
         NAirUnit.OnDestroy(self)
     end,
 
+    ---@param self XNA0305
+    ---@param new any
+    ---@param old any
     OnMotionVertEventChange = function( self, new, old )
         NAirUnit.OnMotionVertEventChange( self, new, old )
         self:UpdateHoverEmitter(new, old)
@@ -42,6 +47,11 @@ XNA0305 = Class(NAirUnit) {
         end
     end,
 
+    ---@param self XNA0305
+    ---@param enable boolean
+    ---@param delay number
+    ---@param groundWeapons boolean
+    ---@param airWeapons boolean
     EnableWeapons = function(self, enable, delay, groundWeapons, airWeapons)
 
         if self.DisableWeaponsThread then
@@ -65,6 +75,9 @@ XNA0305 = Class(NAirUnit) {
         self.DisableWeaponsThread = self:ForkThread( (enable == true), delay, groundWeapons, airWeapons )
     end,
 
+    ---@param self XNA0305
+    ---@param new any
+    ---@param old any # Unused
     UpdateHoverEmitter = function(self, new, old)
         if new == 'Down' then
             self:DestroyHoverEmitterEffects()
@@ -77,6 +90,8 @@ XNA0305 = Class(NAirUnit) {
         end
     end,
 
+    ---@param self XNA0305
+    ---@param large any
     PlayHoverEmitterEffects = function(self, large)
         local beam
         if large then
@@ -88,9 +103,9 @@ XNA0305 = Class(NAirUnit) {
         self.Trash:Add(beam)
     end,
 
+    ---@param self XNA0305
     DestroyHoverEmitterEffects = function(self)
         self.HoverEmitterEffectTrashBag:Destroy()
     end,
 }
-
 TypeClass = XNA0305

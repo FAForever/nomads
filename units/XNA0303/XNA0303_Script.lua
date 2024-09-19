@@ -1,8 +1,8 @@
--- T3 ASF
-
 local NAirUnit = import('/lua/nomadsunits.lua').NAirUnit
 local AirToAirGun1 = import('/lua/nomadsweapons.lua').AirToAirGun1
 
+--- Tech 2 ASF
+---@class XNA0303 : NAirUnit
 XNA0303 = Class(NAirUnit) {
     Weapons = {
         MainGun = Class(AirToAirGun1) {
@@ -18,13 +18,13 @@ XNA0303 = Class(NAirUnit) {
         },
     },
 
+    ---@param self XNA0303
     OnCreate = function(self)
         NAirUnit.OnCreate(self)
-        local bp = self:GetBlueprint()
+        local bp = self.Blueprint
         self.animator = CreateAnimator(self)
         self.Trash:Add(self.animator)
         self.animator:PlayAnim(bp.Display.AnimationOpen, false):SetRate(0)
     end,
 }
-
 TypeClass = XNA0303
