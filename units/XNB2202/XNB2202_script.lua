@@ -1,8 +1,8 @@
--- T2 AA gun
-
 local NStructureUnit = import('/lua/nomadsunits.lua').NStructureUnit
 local ParticleBlaster1 = import('/lua/nomadsweapons.lua').ParticleBlaster1
 
+--- Tech 2 Anit-Air Gun
+---@class XNB2202 : NStructureUnit
 XNB2202 = Class(NStructureUnit) {
 
     Weapons = {
@@ -37,6 +37,7 @@ XNB2202 = Class(NStructureUnit) {
         },
     },
 
+    ---@param self XNB2202
     OnCreate = function(self)
         NStructureUnit.OnCreate(self)
 
@@ -52,6 +53,8 @@ XNB2202 = Class(NStructureUnit) {
         end
     end,
 
+    ---@param self XNB2202
+    ---@param go boolean
     GoSpinners = function(self, go)
         -- makes the spinners rotate or stop
         go = (go == true)
@@ -67,6 +70,4 @@ XNB2202 = Class(NStructureUnit) {
         self.Spinning = go
     end,
 }
-
-
 TypeClass = XNB2202

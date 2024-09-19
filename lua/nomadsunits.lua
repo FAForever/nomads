@@ -569,31 +569,22 @@ NConstructionUnit = Class(ConstructionUnit) {
 ---------------------------------------------------------------
 -- FACTORY UNITS
 ---------------------------------------------------------------
----@class NConstructionUnit : ConstructionUnit
 LandFactoryUnit = AddNomadsBeingBuiltEffects(NomadsSharedFactory(LandFactoryUnit))
 
----@class NConstructionUnit : ConstructionUnit
-NLandFactoryUnit = Class(LandFactoryUnit) {
+---@class NLandFactoryUnit : LandFactoryUnit
+NLandFactoryUnit = Class(LandFactoryUnit) {}
 
-}
-
----@class NConstructionUnit : ConstructionUnit
 AirFactoryUnit = AddNomadsBeingBuiltEffects(NomadsSharedFactory(AirFactoryUnit))
 
----@class NConstructionUnit : ConstructionUnit
-NAirFactoryUnit = Class(AirFactoryUnit) {
+---@class NAirFactoryUnit : AirFactoryUnit
+NAirFactoryUnit = Class(AirFactoryUnit) {}
 
-}
-
----@class NConstructionUnit : ConstructionUnit
 SeaFactoryUnit = AddNomadsBeingBuiltEffects(NomadsSharedFactory(SeaFactoryUnit))
 
----@class NConstructionUnit : ConstructionUnit
-NSeaFactoryUnit = Class(SeaFactoryUnit) {
+---@class NSeaFactoryUnit : SeaFactoryUnit
+NSeaFactoryUnit = Class(SeaFactoryUnit) {}
 
-}
-
----@class NConstructionUnit : ConstructionUnit
+---@class NSCUFactoryUnit : LandFactoryUnit
 NSCUFactoryUnit = Class(LandFactoryUnit) {
 
 }
