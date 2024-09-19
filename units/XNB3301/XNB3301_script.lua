@@ -1,8 +1,8 @@
--- T3 radar
-
 local NRadarUnit = import('/lua/nomadsunits.lua').NRadarUnit
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 
+--- Tech 3 Radar
+---@class XNB3301 : NRadarUnit
 XNB3301 = Class(NRadarUnit) {
 
     IntelBoostFxBone = 'blinlight.003',
@@ -14,6 +14,8 @@ XNB3301 = Class(NRadarUnit) {
     OverchargeChargingFx = NomadsEffectTemplate.T3RadarOverchargeCharging,
     OverchargeExplosionFx = NomadsEffectTemplate.T3RadarOverchargeExplosion,
 
+
+    ---@param self XNB3301
     OnCreate = function(self)
         NRadarUnit.OnCreate(self)
 
@@ -27,6 +29,9 @@ XNB3301 = Class(NRadarUnit) {
         self.OmniRadiusDefault = bp.Intel.OmniRadius
     end,
 
+    ---@param self XNB3301
+    ---@param builder Unit
+    ---@param layer string
     OnStopBeingBuilt = function(self, builder, layer)
         NRadarUnit.OnStopBeingBuilt(self, builder, layer)
 
@@ -35,6 +40,7 @@ XNB3301 = Class(NRadarUnit) {
         self:ForkThread( self.RotatorThread )
     end,
 
+    ---@param self XNB3301
     RotatorThread = function(self)
         local goal = 0
         while not self:BeenDestroyed() and not self.Dead do
@@ -45,23 +51,27 @@ XNB3301 = Class(NRadarUnit) {
         end
     end,
 
+    ---@param self XNB3301
     OnIntelDisabled = function(self)
         NRadarUnit.OnIntelDisabled(self)
         self.Rotator:SetSpeed(1)
     end,
 
+    ---@param self XNB3301
     OnIntelEnabled = function(self)
         NRadarUnit.OnIntelEnabled(self)
         self.Rotator:SetSpeed(10)
     end,
-    
+
+    ---@param self XNB3301
     OnScriptBitClear = function(self, bit)
         NRadarUnit.OnScriptBitClear(self, bit)
         if bit == 1 then
             self:SetIntelRadius('Omni', self.OmniRadiusBoosted or 300)
         end
     end,
-    
+
+    ---@param self XNB3301
     OnScriptBitSet = function(self, bit)
         NRadarUnit.OnScriptBitSet(self, bit)
         if bit == 1 then
@@ -70,5 +80,4 @@ XNB3301 = Class(NRadarUnit) {
     end,
 
 }
-
 TypeClass = XNB3301

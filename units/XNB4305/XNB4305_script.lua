@@ -1,7 +1,7 @@
--- T3 stealth + shield generator
-
 local NShieldStructureUnit = import('/lua/nomadsunits.lua').NShieldStructureUnit
 
+--- Tech 3 Shield & Stealth Field Generator
+---@class XNB4305 : NShieldStructureUnit
 XNB4305 = Class(NShieldStructureUnit) {
     ShieldEffects = {
         '/effects/Entities/Shield05/Shield05d_emit.bp',
@@ -19,6 +19,7 @@ XNB4305 = Class(NShieldStructureUnit) {
 
     RotationSpeed = 100,
 
+    ---@param self XNB4305
     OnCreate = function(self)
         NShieldStructureUnit.OnCreate(self)
         self.UpgrAnim = CreateAnimator(self):PlayAnim('/units/XNB4301/XNB4301_UpgradeToT3Stlth.sca')
@@ -27,7 +28,7 @@ XNB4305 = Class(NShieldStructureUnit) {
         self.ShieldEffectsBag = {}
     end,
 
-
+    ---@param self XNB4305
     OnShieldEnabled = function(self)
         NShieldStructureUnit.OnShieldEnabled(self)
         if self.ShieldEffectsBag then
@@ -41,6 +42,7 @@ XNB4305 = Class(NShieldStructureUnit) {
         end
     end,
 
+    ---@param self XNB4305
     OnShieldDisabled = function(self)
         NShieldStructureUnit.OnShieldDisabled(self)
         if self.ShieldEffectsBag then

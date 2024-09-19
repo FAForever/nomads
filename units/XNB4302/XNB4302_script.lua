@@ -1,11 +1,10 @@
--- T3 SMD
-
 -- TODO: make this a normal anti-nuke. Currently the game errors out on the weapon which does not exist
-
 local NStructureUnit = import('/lua/nomadsunits.lua').NStructureUnit
 local StrategicMissileDefenseWeapon = import('/lua/nomadsweapons.lua').StrategicMissileDefenseWeapon
 local nukeFiredOnGotTarget = false
 
+--- Tech 3 Strategic Missile Defence (SMD)
+---@class XNB4302 : NStructureUnit
 XNB4302 = Class(NStructureUnit) {
 
     Weapons = {
@@ -41,5 +40,4 @@ XNB4302 = Class(NStructureUnit) {
         },
     },
 }
-
 TypeClass = XNB4302

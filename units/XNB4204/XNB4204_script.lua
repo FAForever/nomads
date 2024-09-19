@@ -1,11 +1,11 @@
--- TMD
-
 local AddLights = import('/lua/nomadsutils.lua').AddLights
 local NStructureUnit = import('/lua/nomadsunits.lua').NStructureUnit
 local NAMFlakWeapon = import('/lua/nomadsweapons.lua').NAMFlakWeapon
 
 NStructureUnit = AddLights(NStructureUnit)
 
+--- Tech 2 Tactical Missle Defence
+---@class XNB4204 : NStructureUnit
 XNB4204 = Class(NStructureUnit) {
     Weapons = {
         Turret01 = Class(NAMFlakWeapon) {
@@ -18,5 +18,4 @@ XNB4204 = Class(NStructureUnit) {
         { 'Light1', }, { 'Light2', }, { 'Light3', }, { 'Light4', }, { 'Light5', }, { 'Light6', },
     },
 }
-
 TypeClass = XNB4204
