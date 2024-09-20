@@ -165,18 +165,16 @@ XNA0104 = Class(NAirTransportUnit) {
                 self:DestroyThrusterBurnEffects()
             end
         end
-        self:ForkThread(fn, delay)
+        self.Trash:Add(ForkThread(fn, delay,self))
     end,
 
     ---@param self XNA0104
     ---@param DoUnfold boolean
     Fold = function(self, DoUnfold)
         if not self.Dead then
-
             -- makes the unit compact or not, depending on current cargo and some other parameters. Also adjusts hitbox accordingly.
             local FoldState = self:GetFoldState()
             local ShouldFold = ( table.getsize(self:GetCargo()) <= 0 )
-            --LOG('*DEBUG: state = '..repr(FoldState)..' should fold = '..repr(ShouldFold)..' DoUnfold = '..repr(DoUnfold))
 
             if (FoldState == 'folded' or FoldState == 'folding') and (not ShouldFold or DoUnfold) then
                 --LOG('*DEBUG: unfolding')
@@ -192,14 +190,13 @@ XNA0104 = Class(NAirTransportUnit) {
                 self:SetCollisionShape( 'Box', bp.CollisionOffsetX or 0, (bp.CollisionOffsetY + (bp.SizeYContracted*1.0)) or 0, bp.CollisionOffsetZ or 0, bp.SizeXContracted * scale, bp.SizeYContracted * scale, bp.SizeZContracted * scale )
                 self.UnfoldAnim:SetRate(-0.5)
             end
-
         end
     end,
 
+    -- returning folded state based on animation state and direction
     ---@param self XNA0104
     ---@return FoldState
     GetFoldState = function(self)
-        -- returning folded state based on animation state and direction
         if self.UnfoldAnim then
             if self.UnfoldAnim:GetAnimationFraction() <= 0 then return 'folded'
             elseif self.UnfoldAnim:GetAnimationFraction() >= 1 then return 'unfolded'

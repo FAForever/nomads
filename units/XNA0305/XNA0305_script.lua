@@ -37,13 +37,7 @@ XNA0305 = Class(NAirUnit) {
         self:UpdateHoverEmitter(new, old)
 
         if new == 'Up' and old == 'Bottom' then
-            self:EnableWeapons( 0.5, true, true )
-        end
-
-        if new == 'Top' then
-
-        elseif new == 'Down' then
-
+            self:EnableWeapons(self, true , 0.5, true, true )
         end
     end,
 
@@ -53,26 +47,12 @@ XNA0305 = Class(NAirUnit) {
     ---@param groundWeapons boolean
     ---@param airWeapons boolean
     EnableWeapons = function(self, enable, delay, groundWeapons, airWeapons)
-
         if self.DisableWeaponsThread then
             KillThread( self.DisableWeaponsThread )
             self.DisableWeaponsThread = nil
         end
 
-        local fn = function(self, disable, delay, groundWeapons, airWeapons)
-            if delay and delay > 0 then
-                WaitSeconds( delay )
-            end
-            if groundWeapons or true then
-                self:SetWeaponEnabledByLabel( 'CannonLeft', enable or true )
-                self:SetWeaponEnabledByLabel( 'CannonRight', enable or true )
-            end
-            if airWeapons or true then
-                self:SetWeaponEnabledByLabel( 'AAMissile', enable or true )
-            end
-            self.DisableWeaponsThread = nil
-        end
-        self.DisableWeaponsThread = self:ForkThread( (enable == true), delay, groundWeapons, airWeapons )
+        self.DisableWeaponsThread = self.Trash:Add(ForkThread( (enable == true), delay, groundWeapons, airWeapons,self ))
     end,
 
     ---@param self XNA0305
@@ -94,10 +74,11 @@ XNA0305 = Class(NAirUnit) {
     ---@param large boolean
     PlayHoverEmitterEffects = function(self, large)
         local beam
+        local army = self.Army
         if large then
-            beam = CreateBeamEmitterOnEntity(self, 'Hover_Emitter', self.Army, self.BeamHoverExhaustCruise )
+            beam = CreateBeamEmitterOnEntity(self, 'Hover_Emitter', army, self.BeamHoverExhaustCruise )
         else
-            beam = CreateBeamEmitterOnEntity(self, 'Hover_Emitter', self.Army, self.BeamHoverExhaustIdle )
+            beam = CreateBeamEmitterOnEntity(self, 'Hover_Emitter', army, self.BeamHoverExhaustIdle )
         end
         self.HoverEmitterEffectTrashBag:Add(beam)
         self.Trash:Add(beam)

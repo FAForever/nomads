@@ -34,7 +34,7 @@ XNA0105 = Class(NAirUnit) {
     OnStopBeingBuilt = function(self, builder, layer)
         NAirUnit.OnStopBeingBuilt(self, builder, layer)
         self.BarrelAnim:SetRate(-0.5)
-        self:ForkThread(self.WatchBarrelAnim, 0.65)
+        self.Trash:Add(ForkThread(self.WatchBarrelAnim, 0.65, self))
     end,
 
     ---@param self XNA0105
@@ -95,5 +95,4 @@ XNA0105 = Class(NAirUnit) {
         self.HoverEmitterEffectTrashBag:Destroy()
     end,
 }
-
 TypeClass = XNA0105
