@@ -1,15 +1,14 @@
--- T2 railgun boat
-
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local AddNavalLights = import('/lua/nomadsutils.lua').AddNavalLights
 local NSeaUnit = import('/lua/nomadsunits.lua').NSeaUnit
 local UnderwaterRailgunWeapon1 = import('/lua/nomadsweapons.lua').UnderwaterRailgunWeapon1
 local EMPGun = import('/lua/nomadsweapons.lua').EMPGun
-local Utilities = import('/lua/utilities.lua')
 
 NSeaUnit = AddNavalLights(NSeaUnit)
 
-xns0102 = Class(NSeaUnit) {
+--- Tech 2 Railgun
+---@class XNS0102 : NSeaUnit
+XNS0102 = Class(NSeaUnit) {
     Weapons = {
         MainGun = Class(UnderwaterRailgunWeapon1) {},
         RearGun = Class(UnderwaterRailgunWeapon1) {},
@@ -30,28 +29,37 @@ xns0102 = Class(NSeaUnit) {
     LightBone_Left = 'Antennae_2',
     LightBone_Right = 'Antennae_1',
     SmokeEmitterBones = { 'Reactor_Smoke', },
-    
 
+    ---@param self XNS0102
     OnCreate = function(self)
         NSeaUnit.OnCreate(self)
         self.SmokeEmitters = TrashBag()
     end,
 
+    ---@param self XNS0102
     DestroyAllDamageEffects = function(self)
         self:DestroyMovementSmokeEffects()
         NSeaUnit.DestroyAllDamageEffects(self)
     end,
 
-    OnKilled = function(self, instigator, type, overkillRatio)
+    ---@param self XNS0102
+    ---@param instigator Unit
+    ---@param damageType DamageType
+    ---@param overkillRatio number
+    OnKilled = function(self, instigator, damageType, overkillRatio)
         self:DestroyMovementSmokeEffects()
-        NSeaUnit.OnKilled(self, instigator, type, overkillRatio)
+        NSeaUnit.OnKilled(self, instigator, damageType, overkillRatio)
     end,
 
+    ---@param self XNS0102
     OnDestroy = function(self)
         self:DestroyMovementSmokeEffects()
         NSeaUnit.OnDestroy(self)
     end,
 
+    ---@param self XNS0102
+    ---@param new VerticalMovementState
+    ---@param old VerticalMovementState
     OnMotionHorzEventChange = function( self, new, old )
         NSeaUnit.OnMotionHorzEventChange( self, new, old )
 
@@ -64,12 +72,14 @@ xns0102 = Class(NSeaUnit) {
         end
     end,
 
-    PlayMovementSmokeEffects = function(self, type)
+    ---@param self XNS0102
+    ---@param damageType DamageType
+    PlayMovementSmokeEffects = function(self, damageType)
         local EffectTable, emit
 
-        if type == 'Stopping' then
+        if damageType == 'Stopping' then
             EffectTable = NomadsEffectTemplate.RailgunBoat_Stopping_Smoke
-        elseif type == 'Stopped' then
+        elseif damageType == 'Stopped' then
             EffectTable = NomadsEffectTemplate.RailgunBoat_Stopped_Smoke
         else
             EffectTable = NomadsEffectTemplate.RailgunBoat_Moving_Smoke
@@ -84,9 +94,9 @@ xns0102 = Class(NSeaUnit) {
         end
     end,
 
+    ---@param self XNS0102
     DestroyMovementSmokeEffects = function(self)
         self.SmokeEmitters:Destroy()
     end,
 }
-
-TypeClass = xns0102
+TypeClass = XNS0102

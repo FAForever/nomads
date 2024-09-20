@@ -1,6 +1,3 @@
--- T3 strategic sub
-
-local Buff = import('/lua/sim/buff.lua')
 local AddNavalLights = import('/lua/nomadsutils.lua').AddNavalLights
 local NSubUnit = import('/lua/nomadsunits.lua').NSubUnit
 local TorpedoWeapon1 = import('/lua/nomadsweapons.lua').TorpedoWeapon1
@@ -8,6 +5,8 @@ local TacticalMissileWeapon1 = import('/lua/nomadsweapons.lua').TacticalMissileW
 
 NSubUnit = AddNavalLights(NSubUnit)
 
+--- Tech 3 Strategic Submarine
+---@class XNS0304 : NSubUnit
 XNS0304 = Class(NSubUnit) {
     Weapons = {
         MissileLauncher1 = Class(TacticalMissileWeapon1) {},
@@ -17,7 +16,8 @@ XNS0304 = Class(NSubUnit) {
     DeathThreadDestructionWaitTime = 2,
     LightBone_Left = 'Light1',
     LightBone_Right = 'Light2',
-	
+
+    ---@param self XNS0304
     OnCreate = function(self)
         NSubUnit.OnCreate(self)
         -- save weapon ranges to toggle them when under or over water
@@ -25,7 +25,10 @@ XNS0304 = Class(NSubUnit) {
         self.MaxRadiusMissilesUnderWater = wbp.MaxRadiusUnderWater
         self.MaxRadiusMissilesOverWater = wbp.MaxRadius
     end,
-	
+
+    ---@param self XNS0304
+    ---@param new VerticalMovementState
+    ---@param old VerticalMovementState
     OnLayerChange = function(self, new, old)
         NSubUnit.OnLayerChange(self, new, old)
         local wep = self:GetWeaponByLabel('MissileLauncher1')
@@ -37,6 +40,4 @@ XNS0304 = Class(NSubUnit) {
         end
     end,
 }
-
 TypeClass = XNS0304
-

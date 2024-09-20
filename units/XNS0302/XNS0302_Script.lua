@@ -1,16 +1,18 @@
--- T3 Battleship
-
-local AddNavalLights = import('/lua/nomadsutils.lua').AddNavalLights
+local NUtils = import('/lua/nomadsutils.lua')
+local NWep = import('/lua/nomadsweapons.lua')
 local NSeaUnit = import('/lua/nomadsunits.lua').NSeaUnit
-local AAGun = import('/lua/nomadsweapons.lua').AAGun
-local PlasmaCannon = import('/lua/nomadsweapons.lua').PlasmaCannon
-local EMPGun = import('/lua/nomadsweapons.lua').EMPGun
-local RocketWeapon1 = import('/lua/nomadsweapons.lua').RocketWeapon1
-local AddRapidRepair = import('/lua/nomadsutils.lua').AddRapidRepair
-local AddRapidRepairToWeapon = import('/lua/nomadsutils.lua').AddRapidRepairToWeapon
+
+local EMPGun = NWep.EMPGun
+local PlasmaCannon = NWep.PlasmaCannon
+local RocketWeapon1 = NWep.RocketWeapon1
+local AddNavalLights = NUtils.AddNavalLights
+local AddRapidRepair = NUtils.AddRapidRepair
+local AddRapidRepairToWeapon = NUtils.AddRapidRepairToWeapon
 
 NSeaUnit = AddNavalLights(AddRapidRepair(NSeaUnit))
 
+--- Tech 3 Battleship
+---@class XNS0302 : NSeaUnit
 XNS0302 = Class(NSeaUnit) {
     Weapons = {
         MainTurret1 = Class(AddRapidRepairToWeapon(PlasmaCannon)) {},
@@ -53,6 +55,7 @@ XNS0302 = Class(NSeaUnit) {
     LightBone_Right = 'AntennaRight3',
     HideTMD = true,
 
+    ---@param self XNS0302
     OnCreate = function(self)
         NSeaUnit.OnCreate(self)
 
@@ -69,6 +72,8 @@ XNS0302 = Class(NSeaUnit) {
         if self.HideTMD then self:HideBone('TMD', true) end
     end,
 
+    ---@param self XNS0302
+    ---@param revolver any
     RotateAAturretRevolver = function(self, revolver)
         local angle = self.AATurretRotators[revolver]:GetCurrentAngle()
         if revolver == 1 then
@@ -79,5 +84,4 @@ XNS0302 = Class(NSeaUnit) {
         self.AATurretRotators[revolver]:SetGoal(angle)
     end,
 }
-
 TypeClass = XNS0302

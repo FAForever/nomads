@@ -1,9 +1,9 @@
--- T1 frigate
-
 local NSeaUnit = import('/lua/nomadsunits.lua').NSeaUnit
 local NDFRotatingAutocannonWeapon = import('/lua/nomadsweapons.lua').NDFRotatingAutocannonWeapon
 local NAMFlakWeapon = import('/lua/nomadsweapons.lua').NAMFlakWeapon
 
+--- Tech 1 Frigate
+---@class XNS0103 : NSeaUnit
 XNS0103 = Class(NSeaUnit) {
     Weapons = {
         MainGun = Class(NDFRotatingAutocannonWeapon) {
@@ -15,5 +15,4 @@ XNS0103 = Class(NSeaUnit) {
         },
     },
 }
-
 TypeClass = XNS0103

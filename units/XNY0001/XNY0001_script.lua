@@ -1,9 +1,9 @@
--- Nomads intel probe deployed
-
 local NStructureUnit = import('/lua/nomadsunits.lua').NStructureUnit
 
+--- Nomads Intel Probe
+---@class XNY0001 : NStructureUnit
 XNY0001 = Class(NStructureUnit) {
-    
+
     IntelData = {
         IntelProbe = {
             Radar = 70,
@@ -29,13 +29,19 @@ XNY0001 = Class(NStructureUnit) {
         },
     },
 
-    OnKilled = function(self, instigator, type, overkillRatio)
+    ---@param self XNY0001
+    ---@param instigator Unit
+    ---@param damageType DamageType
+    ---@param overkillRatio number
+    OnKilled = function(self, instigator, damageType, overkillRatio)
         if self.Projectile and not self.Projectile:BeenDestroyed() then
             self.Projectile:Destroy()
         end
-        NStructureUnit.OnKilled(self, instigator, type, overkillRatio)
+        NStructureUnit.OnKilled(self, instigator, damageType, overkillRatio)
     end,
-    
+
+    ---@param self XNY0001
+    ---@param probeType string
     SetIntel = function(self, probeType)
         if not self.IntelAllowed then return end
         local intelType = probeType or self.probeType or 'IntelProbe'
@@ -55,13 +61,15 @@ XNY0001 = Class(NStructureUnit) {
             end
         end
     end,
-    
+
+    ---@param self XNY0001
     LifetimeThread = function(self)
         local duration = self.Lifetime or 30
         WaitSeconds(duration)
         self:Destroy()
     end,
 
+    ---@param self XNY0001
     PointAntennaStraightUp = function(self)
         WaitSeconds(0.2)
 
@@ -74,6 +82,4 @@ XNY0001 = Class(NStructureUnit) {
         end
     end,
 }
-
 TypeClass = XNY0001
-
