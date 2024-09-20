@@ -4,7 +4,7 @@ local AddRapidRepair = import('/lua/nomadsutils.lua').AddRapidRepair
 
 NEnergyCreationUnit = AddRapidRepair(NEnergyCreationUnit)
 
---- Tech 1 Hydrocarbon
+--- Tech 1 Hydrocarbon Power Plant
 ---@class XNB1102 : NEnergyCreationUnit
 XNB1102 = Class(NEnergyCreationUnit) {
 
@@ -16,30 +16,21 @@ XNB1102 = Class(NEnergyCreationUnit) {
     DestructionPartsChassisToss = { 0 },
 
     ---@param self XNB1102
-    ---@return table
     PlayActiveEffects = function(self)
-        -- adding additional effects on top of the regular active effects
-
-        local effectTemplate = NomadsEffectTemplate.T1HydroPowerPlantSurface2
-        local bones = { 'exhaust.002', 'exhaust.003', 'exhaust.004', 'exhaust.005', }
-
-        -- different effects when we're under water
-        if self:GetCurrentLayer() == 'Seabed' then
-            self.ActiveEffectTemplateName = 'T1HydroPowerPlantSubmerged1'
-            effectTemplate = NomadsEffectTemplate.T1HydroPowerPlantSubmerged2
-        end
-
-        -- create the emitters
-        local emit
-        for k, v in effectTemplate do
-            for _, bone in bones do
-                emit = CreateAttachedEmitter(self, bone, self.Army, v)
+        -- emitter
+        if self.ActiveEffectTemplateName and self.ActiveEffectBone then
+            for k, v in NomadsEffectTemplate[ self.ActiveEffectTemplateName ] do
+                local emit = CreateAttachedEmitter(self, self.ActiveEffectBone, self.Army, v)
                 self.ActiveEffectsBag:Add( emit )
                 self.Trash:Add( emit )
             end
         end
 
-        return NEnergyCreationUnit.PlayActiveEffects(self)
+        -- Sound
+        local bp = self.Blueprint
+        if bp and bp.Audio and bp.Audio.Activate then
+            self:PlaySound( bp.Activate )
+        end
     end,
 }
 TypeClass = XNB1102

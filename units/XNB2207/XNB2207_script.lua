@@ -4,7 +4,7 @@ local UnderwaterRailgunWeapon1 = import('/lua/nomadsweapons.lua').UnderwaterRail
 
 NStructureUnit = AddLights(NStructureUnit)
 
---- Tech 2 Under-Water Railgun
+--- Tech 2 Underwater Railgun
 ---@class XNB2207 : NStructureUnit
 XNB2207 = Class(NStructureUnit) {
     Weapons = {

@@ -4,7 +4,7 @@ local NAMFlakWeapon = import('/lua/nomadsweapons.lua').NAMFlakWeapon
 
 NStructureUnit = AddLights(NStructureUnit)
 
---- Tech 2 Tactical Missle Defence
+--- Tech 2 Tactical Missle Defense
 ---@class XNB4204 : NStructureUnit
 XNB4204 = Class(NStructureUnit) {
     Weapons = {

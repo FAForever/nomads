@@ -29,16 +29,16 @@ XNB0304 = Class(NSCUFactoryUnit) {
 
     ---@param self XNB0304
     ---@param instigator Unit
-    ---@param type string
+    ---@param damageType DamageType
     ---@param overkillRatio number
-    OnKilled = function(self, instigator, type, overkillRatio)
+    OnKilled = function(self, instigator, damageType, overkillRatio)
         self:DestroyTractorBeamFx()
-        NSCUFactoryUnit.OnKilled(self, instigator, type, overkillRatio)
+        NSCUFactoryUnit.OnKilled(self, instigator, damageType, overkillRatio)
     end,
 
     ---@param self XNB0304
     ---@param builder Unit
-    ---@param layer string
+    ---@param layer Layer
     OnStopBeingBuilt = function(self, builder, layer)
         -- self being build
         NSCUFactoryUnit.OnStopBeingBuilt(self, builder, layer)

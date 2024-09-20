@@ -9,7 +9,7 @@ XNB4202 = Class(NShieldStructureUnit) {
 
     ---@param self XNB4202
     ---@param builder Unit
-    ---@param layer string
+    ---@param layer Layer
     OnStopBeingBuilt = function(self,builder,layer)
         NShieldStructureUnit.OnStopBeingBuilt(self,builder,layer)
         self.ShieldEffectsBag = {}

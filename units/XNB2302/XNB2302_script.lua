@@ -16,21 +16,17 @@ XNB2302 = Class(NStructureUnit) {
 
     ---@param self XNB2302
     ---@param instigator Unit
-    ---@param type string
+    ---@param damageType DamageType  
     ---@param overkillRatio number
-    OnKilled = function(self, instigator, type, overkillRatio)
-        NStructureUnit.OnKilled(self, instigator, type, overkillRatio)
+    OnKilled = function(self, instigator, damageType, overkillRatio)
+        NStructureUnit.OnKilled(self, instigator, damageType, overkillRatio)
     end,
 
     ---@param self XNB2302
     ---@param builder Unit
-    ---@param layer string
+    ---@param layer Layer
     OnStopBeingBuilt = function(self, builder, layer)
         NStructureUnit.OnStopBeingBuilt(self, builder, layer)
     end,
 }
 TypeClass = XNB2302
-
---#region Backwards Compatibility
-local NUtils = import('/lua/nomadsutils.lua')
---#endregion

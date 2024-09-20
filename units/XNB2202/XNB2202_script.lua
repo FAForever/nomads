@@ -1,7 +1,7 @@
 local NStructureUnit = import('/lua/nomadsunits.lua').NStructureUnit
 local ParticleBlaster1 = import('/lua/nomadsweapons.lua').ParticleBlaster1
 
---- Tech 2 Anit-Air Gun
+--- Tech 2 Anti-Air Gun
 ---@class XNB2202 : NStructureUnit
 XNB2202 = Class(NStructureUnit) {
 

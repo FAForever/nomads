@@ -2,7 +2,7 @@ local NStructureUnit = import('/lua/nomadsunits.lua').NStructureUnit
 local StrategicMissileWeapon = import('/lua/nomadsweapons.lua').StrategicMissileWeapon
 local TacticalMissileWeapon1 = import('/lua/nomadsweapons.lua').TacticalMissileWeapon1
 
---- Tech 3 Strategic Launcher (Nuke Launcher)
+--- Tech 3 Strategic Missile Launcher
 ---@class XNB2305 : NStructureUnit
 XNB2305 = Class(NStructureUnit) {
     Weapons = {

@@ -30,7 +30,7 @@ XNB1302 = Class(NMassCollectionUnit) {
 
     ---@param self XNB1302
     ---@param builder Unit
-    ---@param layer string
+    ---@param layer Layer
     OnStopBeingBuilt = function(self, builder, layer)
         NMassCollectionUnit.OnStopBeingBuilt(self, builder, layer)
 

@@ -11,8 +11,3 @@ XNB2101 = Class(NStructureUnit) {
     },
 }
 TypeClass = XNB2101
-
---#region Backwards Compatibility
-local EffectUtils = import('/lua/effectutilities.lua')
-local Effects = import('/lua/effecttemplates.lua')
---#endregion

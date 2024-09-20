@@ -8,7 +8,7 @@ NMassCollectionUnit = AddRapidRepair(NMassCollectionUnit)
 XNB1103 = Class(NMassCollectionUnit) {
 
     ---@param self XNB1103
-    ---@param unitBeingBuilt boolean
+    ---@param unitBeingBuilt Unit
     ---@param order string
     OnStartBuild = function(self, unitBeingBuilt, order)
         NMassCollectionUnit.OnStartBuild(self, unitBeingBuilt, order)

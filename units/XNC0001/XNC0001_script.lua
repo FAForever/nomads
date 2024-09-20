@@ -1,7 +1,7 @@
 local NCivilianStructureUnit = import('/lua/nomadsunits.lua').NCivilianStructureUnit
 local NCommandFrigateUnit = import('/lua/nomadsunits.lua').NCommandFrigateUnit
 
---- Civilian
+--- Orbital Support Frigate
 --- The surface support vehicle that's in orbit
 ---@class XNC0001 : NCivilianStructureUnit, NCommandFrigateUnit
 XNC0001 = Class(NCivilianStructureUnit, NCommandFrigateUnit) {

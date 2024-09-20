@@ -2,7 +2,7 @@ local NStructureUnit = import('/lua/nomadsunits.lua').NStructureUnit
 local TacticalMissileWeapon1 = import('/lua/nomadsweapons.lua').TacticalMissileWeapon2
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 
---- Tech 2 TML
+--- Tech 2 Tactical Missile Launcher  
 ---@class XNB2208 : NStructureUnit
 XNB2208 = Class(NStructureUnit) {
     Weapons = {
@@ -13,7 +13,7 @@ XNB2208 = Class(NStructureUnit) {
 
     ---@param self XNB2208
     ---@param builder Unit
-    ---@param layer string
+    ---@param layer Layer
     OnStartBeingBuilt = function(self, builder, layer)
         local bp = self:GetBlueprint()
         if bp.Display.AnimationPermOpenAlt then
@@ -25,7 +25,7 @@ XNB2208 = Class(NStructureUnit) {
 
     ---@param self XNB2208
     ---@param builder Unit
-    ---@param layer string
+    ---@param layer Layer
     OnStopBeingBuilt = function(self, builder, layer)
         if self.PermOpenAnimManipulator then
             self.PermOpenAnimManipulator:SetRate(1)

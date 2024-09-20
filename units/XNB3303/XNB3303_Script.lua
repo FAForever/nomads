@@ -104,7 +104,7 @@ XNB3303 = Class(NStructureUnit) {
 
     ---@param self XNB3303
     ---@param builder Unit
-    ---@param layer string
+    ---@param layer Layer
     OnStopBeingBuilt = function(self,builder,layer)
         NStructureUnit.OnStopBeingBuilt(self,builder,layer)
         local bp = self:GetBlueprint()
@@ -121,10 +121,10 @@ XNB3303 = Class(NStructureUnit) {
     end,
 
     ---@param self XNB3303
-    ---@param buffName string
-    ---@param instigator Unit
-    ---@param AOEtarget Unit
-    ---@param beforeData any
+    ---@param buffName string unused
+    ---@param instigator Unit unused
+    ---@param AOEtarget Unit unused
+    ---@param beforeData any unused
     OnAfterBeingBuffed = function( self, buffName, instigator, AOEtarget, beforeData )
         self:CalcReloadAnimParams()
     end,

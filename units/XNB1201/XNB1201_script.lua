@@ -33,7 +33,7 @@ XNB1201 = Class(NEnergyCreationUnit) {
 
     ---@param self XNB1201
     ---@param instigator Unit
-    ---@param type string
+    ---@param damageType DamageType
     ---@param overkillRatio number
     OnKilled = function(self, instigator, type, overkillRatio)
         if self.TarmacBag.CurrentBP['AlbedoKilled'] then
@@ -44,7 +44,7 @@ XNB1201 = Class(NEnergyCreationUnit) {
 
     ---@param self XNB1201
     ---@param builder Unit
-    ---@param layer string
+    ---@param layer Layer
     OnStopBeingBuilt = function(self, builder, layer)
         -- antennae lights
         for k, v in NomadsEffectTemplate.AntennaeLights1 do
@@ -70,7 +70,6 @@ XNB1201 = Class(NEnergyCreationUnit) {
     end,
 
     ---@param self XNB1201
-    ---@return any
     PlayActiveEffects = function(self)
         if self.Spinners[1] then self.Spinners[1]:SetTargetSpeed( 500 ) else LOG('XNB1201: no spinner 1') end
         if self.Spinners[2] then self.Spinners[2]:SetTargetSpeed( -500 ) else LOG('XNB1201: no spinner 2') end
@@ -91,8 +90,6 @@ XNB1201 = Class(NEnergyCreationUnit) {
         self.ActiveEffectsBag:Add( self:ForkThread( self.RandomDischarges, 'electric.011', Random(0, 30) ) )
         self.ActiveEffectsBag:Add( self:ForkThread( self.RandomDischarges, 'electric.012', Random(0, 30) ) )
         self.ActiveEffectsBag:Add( self:ForkThread( self.RandomBoneToBoneDischarges ) )
-
-        return NEnergyCreationUnit.PlayActiveEffects(self)
     end,
 
     ---@param self XNB1201
@@ -111,7 +108,7 @@ XNB1201 = Class(NEnergyCreationUnit) {
     end,
 
     ---@param self XNB1201
-    ---@param bone string
+    ---@param bone Bone
     ---@param delay number
     RandomDischarges = function(self, bone, delay)
         WaitTicks( delay )

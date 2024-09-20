@@ -13,7 +13,7 @@ XNB1301 = Class(NEnergyCreationUnit) {
 
     ---@param self XNB1301
     ---@param builder Unit
-    ---@param layer string
+    ---@param layer Layer
     OnStopBeingBuilt = function(self, builder, layer)
         -- antennae lights
         for k, v in NomadsEffectTemplate.AntennaeLights1 do

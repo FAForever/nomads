@@ -31,7 +31,7 @@ XNB3301 = Class(NRadarUnit) {
 
     ---@param self XNB3301
     ---@param builder Unit
-    ---@param layer string
+    ---@param layer Layer
     OnStopBeingBuilt = function(self, builder, layer)
         NRadarUnit.OnStopBeingBuilt(self, builder, layer)
 

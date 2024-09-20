@@ -10,7 +10,7 @@ XNB2303 = Class(NStructureUnit) {
 
     ---@param self XNB2303
     ---@param builder Unit
-    ---@param layer string
+    ---@param layer Layer
     OnStopBeingBuilt = function(self,builder,layer)
         NStructureUnit.OnStopBeingBuilt(self,builder,layer)
         local bp = self.Blueprint

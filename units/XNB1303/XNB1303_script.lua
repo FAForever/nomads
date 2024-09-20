@@ -17,7 +17,7 @@ XNB1303 = Class(NMassFabricationUnit) {
 
     ---@param self XNB1303
     ---@param builder Unit
-    ---@param layer string
+    ---@param layer Layer
     OnStopBeingBuilt = function(self, builder, layer)
         NMassFabricationUnit.OnStopBeingBuilt(self, builder, layer)
         self.Spinner:SetTargetSpeed(500)

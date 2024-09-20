@@ -3,7 +3,7 @@ local NStructureUnit = import('/lua/nomadsunits.lua').NStructureUnit
 local StrategicMissileDefenseWeapon = import('/lua/nomadsweapons.lua').StrategicMissileDefenseWeapon
 local nukeFiredOnGotTarget = false
 
---- Tech 3 Strategic Missile Defence (SMD)
+--- Tech 3 Strategic Missile Defense
 ---@class XNB4302 : NStructureUnit
 XNB4302 = Class(NStructureUnit) {
 
@@ -13,7 +13,7 @@ XNB4302 = Class(NStructureUnit) {
             IdleState = State(StrategicMissileDefenseWeapon.IdleState) {
 
                 OnGotTarget = function(self)
-                    local bp = self:GetBlueprint()
+                    local bp = self.Blueprint
                     --only say we've fired if the parent fire conditions are met
                     if (bp.WeaponUnpackLockMotion ~= true or (bp.WeaponUnpackLocksMotion == true and not self.unit:IsUnitState('Moving'))) then
                         if (bp.CountedProjectile == false) or self:CanFire() then
@@ -32,7 +32,7 @@ XNB4302 = Class(NStructureUnit) {
 
                     self:ForkThread(function()
                         self.unit:SetBusy(true)
-                        WaitSeconds(1/self.unit:GetBlueprint().Weapon[1].RateOfFire + .2)
+                        WaitSeconds(1/self.unit.Blueprint.Weapon[1].RateOfFire + .2)
                         self.unit:SetBusy(false)
                     end)
                 end,

@@ -12,13 +12,13 @@ XNB1105 = Class(NEnergyStorageUnit) {
 
     ---@param self XNB1105
     ---@param instigator Unit
-    ---@param type string
+    ---@param damageType DamageType
     ---@param overkillRatio number
-    OnKilled = function(self, instigator, type, overkillRatio)
+    OnKilled = function(self, instigator, damageType, overkillRatio)
         if self.TarmacBag.CurrentBP['AlbedoKilled'] then
             self.TarmacBag.CurrentBP.Albedo = self.TarmacBag.CurrentBP.AlbedoKilled
         end
-        NEnergyStorageUnit.OnKilled(self, instigator, type, overkillRatio)
+        NEnergyStorageUnit.OnKilled(self, instigator, damageType, overkillRatio)
     end,
 }
 
