@@ -5,6 +5,13 @@ local DummyWeapon = import('/lua/aeonweapons.lua').AAASonicPulseBatteryWeapon
 
 NAirTransportUnit = AddLights( NAirTransportUnit )
 
+---@alias FoldState
+---| "folded"
+---| "unfolded"
+---| "unfolding"
+---| "unknown"
+
+
 -- Tech 2 Air Transport
 ---@class XNA0104 : NAirTransportUnit
 XNA0104 = Class(NAirTransportUnit) {
@@ -43,7 +50,7 @@ XNA0104 = Class(NAirTransportUnit) {
 
     ---@param self XNA0104
     ---@param builder Unit
-    ---@param layer string
+    ---@param layer Layer
     OnStopBeingBuilt = function(self,builder,layer)
         NAirTransportUnit.OnStopBeingBuilt(self,builder,layer)
 
@@ -54,20 +61,20 @@ XNA0104 = Class(NAirTransportUnit) {
 
     ---@param self XNA0104
     ---@param instigator Unit
-    ---@param type string
+    ---@param damageType DamageType
     ---@param overkillRatio number
-    OnKilled = function(self, instigator, type, overkillRatio)
+    OnKilled = function(self, instigator, damageType, overkillRatio)
         if self.UnfoldAnim then
             self.UnfoldAnim:SetRate(0)
         end
         self:DestroyThrusterEffects()
-        NAirTransportUnit.OnKilled(self, instigator, type, overkillRatio)
+        NAirTransportUnit.OnKilled(self, instigator, damageType, overkillRatio)
         self:TransportDetachAllUnits(true)
     end,
 
     ---@param self XNA0104
-    ---@param new any
-    ---@param old any
+    ---@param new VerticalMovementState  
+    ---@param old VerticalMovementState  
     OnMotionVertEventChange = function( self, new, old )
         NAirTransportUnit.OnMotionVertEventChange( self, new, old )
 
@@ -190,7 +197,7 @@ XNA0104 = Class(NAirTransportUnit) {
     end,
 
     ---@param self XNA0104
-    ---@return string
+    ---@return FoldState
     GetFoldState = function(self)
         -- returning folded state based on animation state and direction
         if self.UnfoldAnim then
@@ -204,9 +211,9 @@ XNA0104 = Class(NAirTransportUnit) {
     end,
 
     ---@param self XNA0104
-    ---@return number
-    ---@return number
-    ---@return number
+    ---@return number blueprints SizeX
+    ---@return number blueprints SizeY 
+    ---@return number blueprints SizeZ
     GetUnitSizes = function(self)
         local bp = self.Blueprint
         if self:GetFoldState() == 'folded' or self:GetFoldState() == 'folding' then

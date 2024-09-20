@@ -47,9 +47,11 @@ XNA0401 = Class(NExperimentalAirTransportUnit) {
 
     ---@param self XNA0401
     ---@param builder Unit
-    ---@param layer string
+    ---@param layer Layer
     OnStopBeingBuilt = function(self, builder, layer)
         NExperimentalAirTransportUnit.OnStopBeingBuilt(self, builder, layer)
+
+        local bp = self.Blueprint
 
         -- set up the thrusting arcs for the engines
         for boneName,tiltForwards in self.EngineThrustControllerBones do
@@ -65,16 +67,16 @@ XNA0401 = Class(NExperimentalAirTransportUnit) {
         self.LandingAnimManip = CreateAnimator(self)
         self.LandingAnimManip:SetPrecedence(0)
         self.Trash:Add(self.LandingAnimManip)
-        self.LandingAnimManip:PlayAnim(self:GetBlueprint().Display.AnimationLand):SetRate(0)
-        
+        self.LandingAnimManip:PlayAnim(bp.Display.AnimationLand):SetRate(0)
+
         self.HolderArmManip = CreateAnimator(self)
         self.HolderArmManip:SetPrecedence(1)
         self.Trash:Add(self.HolderArmManip)
-        self.HolderArmManip:PlayAnim(self:GetBlueprint().Display.AnimationHolder):SetRate(0.5)
+        self.HolderArmManip:PlayAnim(bp.Display.AnimationHolder):SetRate(0.5)
     end,
 
     ---@param self XNA0401
-    ---@param attachBone boolean
+    ---@param attachBone Bone
     ---@param unit Unit
     OnTransportAttach = function(self, attachBone, unit)
         NExperimentalAirTransportUnit.OnTransportAttach(self, attachBone, unit)
@@ -84,7 +86,7 @@ XNA0401 = Class(NExperimentalAirTransportUnit) {
     end,
 
     ---@param self XNA0401
-    ---@param attachBone boolean
+    ---@param attachBone Bone
     ---@param unit Unit
     OnTransportDetach = function(self, attachBone, unit)
         NExperimentalAirTransportUnit.OnTransportDetach(self, attachBone, unit)
@@ -94,8 +96,8 @@ XNA0401 = Class(NExperimentalAirTransportUnit) {
     end,
 
     ---@param self XNA0401
-    ---@param new any
-    ---@param old any
+    ---@param new VerticalMovementState
+    ---@param old VerticalMovementState
     OnMotionVertEventChange = function(self, new, old)
         NExperimentalAirTransportUnit.OnMotionVertEventChange(self, new, old)
         if (new == 'Hover') then
@@ -120,11 +122,11 @@ XNA0401 = Class(NExperimentalAirTransportUnit) {
 
     ---@param self XNA0401
     ---@param instigator Unit
-    ---@param type string
+    ---@param damageType DamageType
     ---@param overkillRatio number
-    OnKilled = function(self, instigator, type, overkillRatio)
+    OnKilled = function(self, instigator, damageType, overkillRatio)
         self:ForkThread( self.CrashingThread )
-        NExperimentalAirTransportUnit.OnKilled(self, instigator, type, overkillRatio)
+        NExperimentalAirTransportUnit.OnKilled(self, instigator, damageType, overkillRatio)
     end,
 
     ---@param self XNA0401
@@ -145,7 +147,7 @@ XNA0401 = Class(NExperimentalAirTransportUnit) {
         else
             self.DeathRotator:SetTargetSpeed(700)
         end
-        
+
         -- explode and hide all engines on the side we are banking towards
         for boneNumber = 1,4 do
             local boneName = 'EngineRotator'..explosionSide..'0'..boneNumber

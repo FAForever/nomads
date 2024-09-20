@@ -30,8 +30,8 @@ XNA0305 = Class(NAirUnit) {
     end,
 
     ---@param self XNA0305
-    ---@param new any
-    ---@param old any
+    ---@param new VerticalMovementState
+    ---@param old VerticalMovementState
     OnMotionVertEventChange = function( self, new, old )
         NAirUnit.OnMotionVertEventChange( self, new, old )
         self:UpdateHoverEmitter(new, old)
@@ -76,8 +76,8 @@ XNA0305 = Class(NAirUnit) {
     end,
 
     ---@param self XNA0305
-    ---@param new any
-    ---@param old any # Unused
+    ---@param new VerticalMovementState
+    ---@param old VerticalMovementState # Unused
     UpdateHoverEmitter = function(self, new, old)
         if new == 'Down' then
             self:DestroyHoverEmitterEffects()
@@ -91,7 +91,7 @@ XNA0305 = Class(NAirUnit) {
     end,
 
     ---@param self XNA0305
-    ---@param large any
+    ---@param large boolean
     PlayHoverEmitterEffects = function(self, large)
         local beam
         if large then

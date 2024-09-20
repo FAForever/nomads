@@ -14,11 +14,11 @@ XNA0107 = Class(NAirTransportUnit) {
 
     ---@param self XNA0107
     ---@param instigator Unit
-    ---@param type string
+    ---@param damageType DamageType
     ---@param overkillRatio number
-    OnKilled = function(self, instigator, type, overkillRatio)
+    OnKilled = function(self, instigator, damageType, overkillRatio)
         self:TransportDetachAllUnits(false)
-        NAirTransportUnit.OnKilled(self, instigator, type, overkillRatio)
+        NAirTransportUnit.OnKilled(self, instigator, damageType, overkillRatio)
     end,
 }
 

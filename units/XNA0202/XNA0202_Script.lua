@@ -1,6 +1,9 @@
 local NAirUnit = import('/lua/nomadsunits.lua').NAirUnit
 local RocketWeapon1 = import('/lua/nomadsweapons.lua').RocketWeapon1
 
+---@alias Reason "GroundAttack"
+
+
 --- Tech 2 Fighter Bomber
 ---@class XNA0202 : NAirUnit
 XNA0202 = Class(NAirUnit) {
@@ -32,7 +35,7 @@ XNA0202 = Class(NAirUnit) {
     },
 
     ---@param self XNA0202
-    ---@param reason string
+    ---@param reason Reason
     ChangeSpeedFor = function(self, reason)
         if reason == 'GroundAttack' then
             self:SetBreakOffTriggerMult(2.0)

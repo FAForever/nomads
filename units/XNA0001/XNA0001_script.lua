@@ -9,11 +9,11 @@ XNA0001 = Class(Unit) {
 
     ---@param self XNA0001
     OnCreate = function(self)
-        local bp = self.Blueprint
-
         Unit.OnCreate(self)
 
-        self.EventCallbacks = table.merged(self.EventCallbacks, {openup = {},})
+        local bp = self.Blueprint
+
+        self.EventCallbacks = table.merged(self.EventCallbacks, {openup = {} })
 
         if bp.Display.AnimationOpen then
             self.OpenAnimManip = CreateAnimator(self)
@@ -26,9 +26,8 @@ XNA0001 = Class(Unit) {
     end,
 
     ---@param self XNA0001
-    ---@param fn any
+    ---@param fn fun(instance: XNA0001, animationState: "opening" | "opened" | "expired")
     AddOpenUpCallback = function(self, fn)
-        -- fn -> function( <xna0001 instance>, <Opening anim state: opening|opened|expired>)
         self:AddUnitCallback(fn, 'openup')
     end,
 
@@ -90,7 +89,7 @@ XNA0001 = Class(Unit) {
 
     ---@param self XNA0001
     ---@param CoverEnt Entity
-    ---@return table
+    ---@return moho.IEffect[]
     PlayCoverLaunchFx = function(self, CoverEnt)
         local emitters, emit = {}
         for k, v in self.CoverLaunchFx do

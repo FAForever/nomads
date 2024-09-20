@@ -8,7 +8,7 @@ XNA0101 = Class(NAirUnit) {
 
     ---@param self XNA0101
     ---@param builder Unit
-    ---@param layer string
+    ---@param layer Layer
     OnStopBeingBuilt = function(self,builder,layer)
         NAirUnit.OnStopBeingBuilt(self,builder,layer)
 
@@ -19,8 +19,8 @@ XNA0101 = Class(NAirUnit) {
     end,
 
     ---@param self XNA0101
-    ---@param new any
-    ---@param old any
+    ---@param new VerticalMovementState
+    ---@param old VerticalMovementState
     OnMotionVertEventChange = function(self, new, old)
         NAirUnit.OnMotionVertEventChange(self, new, old)
         if new == 'Down' then

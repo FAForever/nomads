@@ -30,7 +30,7 @@ XNA0105 = Class(NAirUnit) {
 
     ---@param self XNA0105
     ---@param builder Unit
-    ---@param layer string
+    ---@param layer Layer
     OnStopBeingBuilt = function(self, builder, layer)
         NAirUnit.OnStopBeingBuilt(self, builder, layer)
         self.BarrelAnim:SetRate(-0.5)
@@ -38,8 +38,8 @@ XNA0105 = Class(NAirUnit) {
     end,
 
     ---@param self XNA0105
-    ---@param new any
-    ---@param old any
+    ---@param new VerticalMovementState
+    ---@param old VerticalMovementState
     OnMotionVertEventChange = function( self, new, old )
         NAirUnit.OnMotionVertEventChange( self, new, old )
         self:UpdateHoverEmitter(new, old)
@@ -63,8 +63,8 @@ XNA0105 = Class(NAirUnit) {
     end,
 
     ---@param self XNA0105
-    ---@param new any
-    ---@param old any #Unused
+    ---@param new VerticalMovementState  
+    ---@param old VerticalMovementState  # Unused
     UpdateHoverEmitter = function(self, new, old)
         if new == 'Down' then
             self:DestroyHoverEmitterEffects()
@@ -78,7 +78,7 @@ XNA0105 = Class(NAirUnit) {
     end,
 
     ---@param self XNA0105
-    ---@param large any
+    ---@param large boolean
     PlayHoverEmitterEffects = function(self, large)
         local beam
         if large then
