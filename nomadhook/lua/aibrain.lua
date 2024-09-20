@@ -1,11 +1,7 @@
 local Factions = import('/lua/factions.lua').Factions
-local AbilityDefinition = import('/lua/abilitydefinition.lua').abilities
-local Util = import('/lua/utilities.lua')
-local RandomFloat = Util.GetRandomFloat
-
-
 local oldAIBrain = AIBrain
 
+---@class AIBrain : oldAIBrain
 AIBrain = Class(oldAIBrain) {
 
     OrbitalStrikeCallingCooldownTick = -100,
@@ -14,7 +10,7 @@ AIBrain = Class(oldAIBrain) {
     -- ================================================================================================================
     -- TASK SCRIPT SUPPORT
     -- ================================================================================================================
-    
+
     --[[
     --list of the abilities that the army brain has. parameters for each ability. If the ability is available to activate immediately.
     --example structure:
@@ -47,10 +43,11 @@ AIBrain = Class(oldAIBrain) {
     end
     
     --]]
-    
-    
-    
+
     --abilities get added, removed, changed
+    ---@param self AIBrain
+    ---@param abilityName string
+    ---@param data table
     SetSpecialAbility = function(self, abilityName, data)
         if data == 'Remove' and self.BrainSpecialAbilities[abilityName] then
             self.BrainSpecialAbilities[abilityName] = nil
@@ -68,9 +65,13 @@ AIBrain = Class(oldAIBrain) {
         
         self.QueueAbilityPanelUpdate = true
     end,
-    
+
     --units update themselves in the list when they gain, change or lose abilities
     --brain:SetUnitSpecialAbility(self, 'OrbitalBombardment', {AvailableNowUnit = 1,})
+    ---@param self AIBrain
+    ---@param unit Unit
+    ---@param abilityName string
+    ---@param data table
     SetUnitSpecialAbility = function(self, unit, abilityName, data)
         local unitId = unit.EntityId
         --replace unit argument with unitId argument?
@@ -95,8 +96,9 @@ AIBrain = Class(oldAIBrain) {
         
         self.QueueAbilityPanelUpdate = true
     end,
-    
+
     --this ensures we only update the panel at most once per tick. No need to spam this late game.
+    ---@param self AIBrain
     AbilityPanelUpdateThread = function(self)
         local army = self:GetArmyIndex()
         while not self:IsDefeated() do
@@ -108,33 +110,34 @@ AIBrain = Class(oldAIBrain) {
             end
         end
     end,
-    
+
     --units register abilities when they are built, and deregister them when they die.
     --when units are destroyed, their abilities are deregistered.
     --upgrades register and deregister special abilities for units.
     --weapons, timers and more set whether abilities can be activated immediately.
-    
+
     --when the unit list is updates, the abilities are updated too.
     --when abilities are updated, the UI gets notified.
-    
+
     --The ui is notified and arranges ability buttons on the panel as per the abilities list.
     --It adds, removes, enables, disables the ability buttons.
-    
+
     --when pressed, the ability buttons issue a run the script for that ability.
     --if a script operates on units, having units selected will cause the script to run only on the selection and not the whole army.
     --these script orders then go through many checks to make sure they work properly.
     --These scripts give any orders needed, and then notify the abilities panel.
-    
+
     --this makes sure that the abilities table matches the units, both in listed and currently available abilities.
+    ---@param self AIBrain
     CheckAbilities = function(self)
         --add any missing abilities
         --remove any unused abilities
-        
+
         --set each ability as useable if there is a unit that can use it right now.
-        
+
         --we loop through the whole queue to make sure we dont miss anything, and check for multiple things so we stuff this table here with our results.
         local AbilityUpdateQueue = {}
-        
+
         for unitID, abilityTypes in self.UnitSpecialAbilities do
             local unit = GetEntityById(unitID)
             if not unit or unit:BeenDestroyed() then
@@ -178,6 +181,9 @@ AIBrain = Class(oldAIBrain) {
     end,
 
     --returns a list of units that have an ability and are ready to use it. Used by AI
+    ---@param self AIBrain
+    ---@param AbilityName string unused
+    ---@return table
     GetUnitsWithAbility = function(self, AbilityName)
         local AbilityUnitsList = {}
         for unitID,abilityTypes in self.UnitSpecialAbilities do
@@ -190,13 +196,19 @@ AIBrain = Class(oldAIBrain) {
 
     --TODO: refactor this away, its arent used as part of the new abilities code.
     SpecialAbilities = {},
-    GetSpecialAbilityParam = function(self, type, param1, param2)
+
+    ---@param self AIBrain
+    ---@param damagetype DamageType
+    ---@param param1 any
+    ---@param param2 any
+    ---@return unknown
+    GetSpecialAbilityParam = function(self, damagetype, param1, param2)
         local r
-        if type and param1 and self.SpecialAbilities[ type ][ param1 ] then
-            if param2 and self.SpecialAbilities[ type ][ param1 ][ param2 ] then
-                r = self.SpecialAbilities[ type ][ param1 ][ param2 ]
+        if type and param1 and self.SpecialAbilities[ damagetype ][ param1 ] then
+            if param2 and self.SpecialAbilities[ damagetype ][ param1 ][ param2 ] then
+                r = self.SpecialAbilities[ damagetype ][ param1 ][ param2 ]
             else
-                r = self.SpecialAbilities[ type ][ param1 ]
+                r = self.SpecialAbilities[ damagetype ][ param1 ]
             end
         end
         return r
@@ -204,6 +216,8 @@ AIBrain = Class(oldAIBrain) {
 
     -- ================================================================================================================
 
+    ---@param self AIBrain
+    ---@param planName string
     CreateBrainShared = function(self, planName)
         self.SpecialAbilities = {}--TODO:refactor this away
         
@@ -216,6 +230,7 @@ AIBrain = Class(oldAIBrain) {
         self:LoadCustomFactions()
     end,
 
+    ---@param self AIBrain
     OnSpawnPreBuiltUnits = function(self)
         -- Spawns Nomads prebuilt units
         oldAIBrain.OnSpawnPreBuiltUnits(self)
@@ -246,6 +261,7 @@ AIBrain = Class(oldAIBrain) {
 
     -- ================================================================================================================
 
+    ---@param self AIBrain
     LoadCustomFactions = function(self)
         self.CustomFactions = {}
         for k, v in Factions do

@@ -1,3 +1,6 @@
+---@param name string
+---@param OrgTemplate template
+---@return table
 function GetBuildingTemplates(name, OrgTemplate)
     local Factions = import('/lua/factions.lua').GetFactions()
     local r = {}

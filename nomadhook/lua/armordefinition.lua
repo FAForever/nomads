@@ -1,6 +1,9 @@
 -- Adding some Nomads specific armor definitions here. This is done on the fly to make it mod friendly.
 
 -- Helper function
+---@param ArmorType string
+---@param DamageType DamageType
+---@param DmgMulti number
 local function InjectDamageMod( ArmorType, DamageType, DmgMulti )
     local armLen = string.len( ArmorType )
 
@@ -11,9 +14,7 @@ local function InjectDamageMod( ArmorType, DamageType, DmgMulti )
     end
 end
 
-
 InjectDamageMod('Experimental', 'EMPMissile', '0.5')
-
 
 -- ---------------------------
 -- Injecting the blackhole damage type to do just as much damage as the deathnuke. This goes through all armor definitions

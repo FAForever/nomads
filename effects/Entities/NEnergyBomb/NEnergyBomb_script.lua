@@ -10,20 +10,26 @@ NEnergyBomb = Class(NullShell) {
     EnergyBombSurfaceFx = NomadsEffectTemplate.EnergyBombSurface,
     EnergyBombUnderWaterFx = NomadsEffectTemplate.EnergyBombUnderWater,
 
+    ---@param self NEnergyBomb
+    ---@param data any
     PassData = function(self, data)
         if data.EnergyBombFxScale then self.FxScale = data.EnergyBombFxScale end
     end,
 
+    ---@param self NEnergyBomb
+    ---@param DamageData any
     PassDamageData = function(self, DamageData)
         NullShell.PassDamageData(self, DamageData)
         self:CreateNuclearExplosion()
     end,
 
+    ---@param self NEnergyBomb
     CreateNuclearExplosion = function(self)
         self:DoDamage( self:GetLauncher() or self, self.DamageData, nil )
         self:ForkThread(self.EffectThread)
     end,
 
+    ---@param self NEnergyBomb
     EffectThread = function(self)
         local position = self:GetPosition()
         local scale = self.FxScale or 1
@@ -74,5 +80,4 @@ NEnergyBomb = Class(NullShell) {
         self:Destroy()
     end,
 }
-
 TypeClass = NEnergyBomb

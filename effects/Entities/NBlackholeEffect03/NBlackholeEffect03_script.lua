@@ -8,6 +8,7 @@ NBlackholeEffect03 = Class(EmitterProjectile) {
 
     FxTrails = NomadsEffectTemplate.NukeBlackholeFireballTrail,
 
+    ---@param self NBlackholeEffect03
     OnCreate = function(self)
         EmitterProjectile.OnCreate(self)
         self:SetCollideSurface(true)
@@ -16,6 +17,7 @@ NBlackholeEffect03 = Class(EmitterProjectile) {
         self:ForkThread(self.EffectThread)
     end,
 
+    ---@param self NBlackholeEffect03
     EffectThread = function(self)
         local scale = RandomFloat(0.5, 1.5)
         local scaleDecStep = scale / Random(15,150)
@@ -43,10 +45,15 @@ NBlackholeEffect03 = Class(EmitterProjectile) {
         end
     end,
 
+    ---@param self NBlackholeEffect03
+    ---@param data any
     PassDamageData = function(self, data)
         self.DamageData = data
     end,
 
+    ---@param self NBlackholeEffect03
+    ---@param targetType string unused
+    ---@param targetEntity Entity unused
     OnImpact = function(self, targetType, targetEntity)
         for k, v in NomadsEffectTemplate.NukeBlackholeFireballHit do
             CreateEmitterAtEntity(self, self.Army, v )
@@ -63,5 +70,4 @@ NBlackholeEffect03 = Class(EmitterProjectile) {
         self:Destroy()
     end,
 }
-
 TypeClass = NBlackholeEffect03

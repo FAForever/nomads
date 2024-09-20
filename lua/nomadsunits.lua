@@ -217,11 +217,7 @@ NAirTransportUnit = Class(AirTransport) {
 }
 
 ---@class NExperimentalAirTransportUnit : NAirTransportUnit
-NExperimentalAirTransportUnit = Class(NAirTransportUnit) {
-    -- placehold
-
-  
-}
+NExperimentalAirTransportUnit = Class(NAirTransportUnit) {}
 
 ---------------------------------------------------------------
 --  LAND UNITS
@@ -233,21 +229,13 @@ NLandUnit = Class(LandUnit) {}
 ---------------------------------------------------------------
 --  TOGGLE WEAPON UNITS
 ---------------------------------------------------------------
---units that have antiair/artillery weapons. use with parents.
+
+--- Units that have antiair/artillery weapons. use with parents.
+--- This needs to go into the child class of any unit using this to set it up for the first time.
+--- Also make sure the weapon classes are correct.
 ---@class NTogglingUnit
 NTogglingUnit = Class() {
---[[
---This needs to go into the child class of any unit using this to set it up for the first time.
---Also make sure the weapon classes are correct.
-    OnCreate = function(self)
-        NLandUnit.OnCreate(self)
-        self:SetScriptBit('RULEUTC_SpecialToggle', true)
-        self:SetWeaponAAMode(false)
-    end,
 
-    EnableSpecialToggle = NTogglingUnit.EnableSpecialToggle, --prevent ambiguous class definition
-    DisableSpecialToggle = NTogglingUnit.DisableSpecialToggle,
---]]
     --specify how many weapons there are that need toggling - usually its just one pair.
     ToggleWeaponPairs = {{'ArtilleryGun','AAGun'},},
 
@@ -259,21 +247,26 @@ NTogglingUnit = Class() {
         'SPECIALLOWPRI',
         'ALLUNITS',
     },
-    
+
     --the toggles switch target priorities on the painter, which in turn disables and enables AA/artillery as needed
+    ---@param self NTogglingUnit
     DisableSpecialToggle = function(self)
         local weapon = self:GetWeaponByLabel('TargetPainter')
         weapon:SetWeaponPriorities(self.ArtilleryModePriorities)
         weapon:ResetTarget()
     end,
 
+    ---@param self NTogglingUnit
     EnableSpecialToggle = function(self)
         local weapon = self:GetWeaponByLabel('TargetPainter')
         local bp = weapon:GetBlueprint()
         weapon:SetWeaponPriorities(bp.TargetPriorities)
         weapon:ResetTarget()
     end,
-    
+
+    ---@param unit Unit unused
+    ---@param weapon string
+    ---@return boolean
     DetermineTargetLayer = function(unit, weapon)
         local target = weapon:GetCurrentTarget()
         local antiAirMode = false --default to false so that we can always attack land targets, such as groundfire which isnt a target
@@ -287,20 +280,20 @@ NTogglingUnit = Class() {
         end
         return antiAirMode
     end,
-    
-    
+
+    ---@param self NTogglingUnit
+    ---@param ModeEnable boolean
     SetWeaponAAMode = function(self, ModeEnable)
         if self.AAMode == ModeEnable then return end --only toggle if we arent already toggled
-        
+
         for _,TogglePair in self.ToggleWeaponPairs do
             local weaponEnable,weaponDisable = TogglePair[1], TogglePair[2]
-            
+
             if ModeEnable then --swap the weapons
                 weaponEnable,weaponDisable = weaponDisable,weaponEnable
             end
-            
+
             self:SetWeaponEnabledByLabel(weaponEnable, true)
-            
             self:SetWeaponEnabledByLabel(weaponDisable, false)
             self:GetWeaponManipulatorByLabel(weaponEnable):SetHeadingPitch(self:GetWeaponManipulatorByLabel(weaponDisable):GetHeadingPitch())
         end
@@ -320,6 +313,9 @@ NAmphibiousUnit = Class(NLandUnit) {}
 ---@class NHoverLandUnit : HoverLandUnit
 NHoverLandUnit = Class(HoverLandUnit) {
     -- The code below for speed reduction and weapon disabling in water should be the same as the amphibious unit class, above
+    ---@param self NHoverLandUnit
+    ---@param builder Unit
+    ---@param layer Layer
     OnStartBeingBuilt = function(self, builder, layer)
         HoverLandUnit.OnStartBeingBuilt(self, builder, layer)
 
@@ -331,11 +327,18 @@ NHoverLandUnit = Class(HoverLandUnit) {
         self:StopUnitAmbientSound( 'AmbientMoveLand' )
     end,
 
-    OnKilled = function(self, instigator, type, overkillRatio)
-        HoverLandUnit.OnKilled(self, instigator, type, overkillRatio)
+    ---@param self NHoverLandUnit
+    ---@param instigator Unit
+    ---@param damageType DamageType
+    ---@param overkillRatio number
+    OnKilled = function(self, instigator, damageType, overkillRatio)
+        HoverLandUnit.OnKilled(self, instigator, damageType, overkillRatio)
         self:DestroyMovementEffects()  -- remove green hover effect
     end,
 
+    ---@param self NHoverLandUnit
+    ---@param new VerticalMovementState
+    ---@param old VerticalMovementState
     OnMotionHorzEventChange = function( self, new, old )
         HoverLandUnit.OnMotionHorzEventChange( self, new, old )
 
@@ -357,11 +360,19 @@ NHoverLandUnit = Class(HoverLandUnit) {
 
 ---@class NExperimentalHoverLandUnit : NHoverLandUnit
 NExperimentalHoverLandUnit = Class(NHoverLandUnit) {
+
+    ---@param self NExperimentalHoverLandUnit
+    ---@param builder Unit
+    ---@param layer Layer
     OnStopBeingBuilt = function(self, builder, layer)
         NHoverLandUnit.OnStopBeingBuilt(self, builder, layer)
         self.DoCrushing = false
     end,
 
+    ---@param self NExperimentalHoverLandUnit
+    ---@param new VerticalMovementState
+    ---@param old VerticalMovementState
+    ---@return nil
     OnMotionHorzEventChange = function( self, new, old )
         self.DoCrushing = (new ~= 'Stopped')
         if self.DoCrushing then
@@ -375,16 +386,23 @@ NExperimentalHoverLandUnit = Class(NHoverLandUnit) {
         return NHoverLandUnit.OnMotionHorzEventChange(self, new, old)
     end,
 
+    ---@param self NExperimentalHoverLandUnit
+    ---@param attachBone Bone
+    ---@param unit Unit
     OnTransportAttach = function(self, attachBone, unit)
         NHoverLandUnit.OnTransportAttach(self, attachBone, unit)
         self.DoCrushing = false
     end,
 
+    ---@param self NExperimentalHoverLandUnit
+    ---@param attachBone Bone
+    ---@param unit Unit
     OnTransportDetach = function(self, attachBone, unit)
         NHoverLandUnit.OnTransportDetach(self, attachBone, unit)
         self.DoCrushing = false
     end,
 
+    ---@param self NExperimentalHoverLandUnit
     CrushingThread = function(self)
         -- damages the area every X interval
         local bp = self:GetBlueprint().Display.MovementEffects.Crush
@@ -407,6 +425,9 @@ NExperimentalHoverLandUnit = Class(NHoverLandUnit) {
         end
     end,
 
+    ---@param self NExperimentalHoverLandUnit
+    ---@param pos Vector2
+    ---@param bpDamage number
     DoCrushDamage = function(self, pos, bpDamage)
         -- To determine the offset in the units blueprint you can use this line:
         -- CreateUnitHPR('xnl0101', self.Army, pos[1], pos[2], pos[3], 0,0,0)
@@ -418,6 +439,10 @@ NExperimentalHoverLandUnit = Class(NHoverLandUnit) {
 ---------------------------------------------------------------
 ---@class NSeaUnit : SeaUnit
 NSeaUnit = Class(SeaUnit) {
+
+    ---@param self NSeaUnit
+    ---@param anim string
+    ---@param rate number
     PlayAnimationThread = function(self, anim, rate)
         -- someone made ship sink animations that run to fast. The original nomads team decided to add this line that
         -- can be used to alter the animation speed through the blueprint.
@@ -460,6 +485,9 @@ NCommandUnit = Class(CommandUnit) {
     IdleAnimRate = 1,
     DisabledBones = {},
 
+    ---@param self NCommandUnit
+    ---@param unitBeingBuilt Unit
+    ---@param order string
     CreateBuildEffects = function( self, unitBeingBuilt, order )
         -- If we are assisting an upgrading unit, or repairing a unit, play seperate effects
         local UpgradesFrom = unitBeingBuilt:GetBlueprint().General.UpgradesFrom
@@ -471,12 +499,16 @@ NCommandUnit = Class(CommandUnit) {
             self.BuildEffectsBag:Add( NomadsEffectUtil.CreateNomadsBuildSliceBeams( self, unitBeingBuilt, bones, self.BuildEffectsBag ) )
         end
     end,
-    
+
+    ---@param self NCommandUnit
+    ---@return unknown
     GetBuildBones = function(self) --we can then hook this to adapt build bones as needed
         local bones = self:GetBlueprint().General.BuildBones.BuildEffectBones
         return bones
     end,
 
+    ---@param self NCommandUnit
+    ---@param unitBuilding boolean
     OnStopBuild = function(self, unitBuilding)
         CommandUnit.OnStopBuild(self, unitBuilding)
         if self.BuildRotator then
@@ -488,7 +520,7 @@ NCommandUnit = Class(CommandUnit) {
     end,
 
     -- These are suspected of lagging up the game on higher speed replays so we need to test if thats true. Disabled temporarily.
-    
+
     -- CreateReclaimEffects = function( self, target )
         -- NomadsEffectUtil.PlayNomadsReclaimEffects( self, target, self:GetBlueprint().General.BuildBones.BuildEffectBones or {0,}, self.ReclaimEffectsBag )
     -- end,
@@ -510,15 +542,21 @@ NSubUnit = Class(SubUnit) {}
 ---@class NConstructionUnit : ConstructionUnit
 NConstructionUnit = Class(ConstructionUnit) {
     -- TODO: Remove once related change gets released in the game patch
+    ---@param self NConstructionUnit
     OnCreate = function(self)
         ConstructionUnit.OnCreate(self)
         self.BuildEffectBones = self:GetBlueprint().General.BuildBones.BuildEffectBones
     end,
 
+    ---@param self NConstructionUnit
+    ---@param unitBeingBuilt Unit
+    ---@param order string unused
     CreateBuildEffects = function(self, unitBeingBuilt, order)
         CreateNomadsBuildSliceBeams(self, unitBeingBuilt, self.BuildEffectBones, self.BuildEffectsBag)
     end,
 
+    ---@param self NConstructionUnit
+    ---@param unitBuilding boolean
     OnStopBuild = function(self, unitBuilding)
         ConstructionUnit.OnStopBuild(self, unitBuilding)
         if self.BuildRotator then
@@ -541,12 +579,19 @@ NConstructionUnit = Class(ConstructionUnit) {
     -- end,
 
     -- The code below for speed reduction and weapon disabling in water should be the same as the amphibious unit class, above
-    OnKilled = function(self, instigator, type, overkillRatio)
-        ConstructionUnit.OnKilled(self, instigator, type, overkillRatio)
+    ---@param self NConstructionUnit
+    ---@param instigator Unit
+    ---@param damageType DamageType
+    ---@param overkillRatio number
+    OnKilled = function(self, instigator, damageType, overkillRatio)
+        ConstructionUnit.OnKilled(self, instigator, damageType, overkillRatio)
         self:DestroyMovementEffects()  -- remove green hover effect
         self:StopBuildingEffects()  -- remove building beams
     end,
 
+    ---@param self NConstructionUnit
+    ---@param new VerticalMovementState
+    ---@param old VerticalMovementState
     OnMotionHorzEventChange = function( self, new, old )
         ConstructionUnit.OnMotionHorzEventChange( self, new, old )
 
@@ -569,34 +614,23 @@ NConstructionUnit = Class(ConstructionUnit) {
 ---------------------------------------------------------------
 -- FACTORY UNITS
 ---------------------------------------------------------------
----@class NConstructionUnit : ConstructionUnit
 LandFactoryUnit = AddNomadsBeingBuiltEffects(NomadsSharedFactory(LandFactoryUnit))
 
 ---@class NConstructionUnit : ConstructionUnit
-NLandFactoryUnit = Class(LandFactoryUnit) {
+NLandFactoryUnit = Class(LandFactoryUnit) {}
 
-}
-
----@class NConstructionUnit : ConstructionUnit
 AirFactoryUnit = AddNomadsBeingBuiltEffects(NomadsSharedFactory(AirFactoryUnit))
 
 ---@class NConstructionUnit : ConstructionUnit
-NAirFactoryUnit = Class(AirFactoryUnit) {
+NAirFactoryUnit = Class(AirFactoryUnit) {}
 
-}
-
----@class NConstructionUnit : ConstructionUnit
 SeaFactoryUnit = AddNomadsBeingBuiltEffects(NomadsSharedFactory(SeaFactoryUnit))
 
 ---@class NConstructionUnit : ConstructionUnit
-NSeaFactoryUnit = Class(SeaFactoryUnit) {
-
-}
+NSeaFactoryUnit = Class(SeaFactoryUnit) {}
 
 ---@class NConstructionUnit : ConstructionUnit
-NSCUFactoryUnit = Class(LandFactoryUnit) {
-
-}
+NSCUFactoryUnit = Class(LandFactoryUnit) {}
 
 ---------------------------------------------------------------
 --  UNITS IN PLANET ORBIT
@@ -606,6 +640,7 @@ NOrbitUnit = Class(Unit) {
     BeamExhaustCruise = NomadsEffectTemplate.AirThrusterCruisingBeam,
     BeamExhaustIdle = NomadsEffectTemplate.AirThrusterIdlingBeam,
 
+    ---@param self NOrbitUnit
     OnCreate = function(self)
         Unit.OnCreate(self)
         self:WarpIntoOrbit()
@@ -617,6 +652,7 @@ NOrbitUnit = Class(Unit) {
         end
     end,
 
+    ---@param self NOrbitUnit
     WarpIntoOrbit = function(self)
         -- warp into orbit
         local pos = self:GetPosition()
@@ -636,7 +672,25 @@ NOrbitUnit = Class(Unit) {
 --orbital command frigate, adds effects only. use with parents.
 ---@class NCommandFrigateUnit
 NCommandFrigateUnit = Class() {
+
+    -- engines
+    EngineExhaustBones = {'Engine Exhaust01', 'Engine Exhaust02', 'Engine Exhaust03', 'Engine Exhaust04', 'Engine Exhaust05', },
+    ThrusterExhaustBones = { 'ThrusterPort01', 'ThrusterPort02', 'ThrusterPort03', 'ThrusterPort04', 'ThrusterPort05', 'ThrusterPort06', },
+    EngineFireEffects = { --for when the engine is on full power
+        '/effects/emitters/nomads_orbital_frigate_thruster04_emit.bp',--smoke
+        '/effects/emitters/nomads_orbital_frigate_thruster05_emit.bp',--smoke
+        '/effects/emitters/nomads_orbital_frigate_thruster01_emit.bp',--fire
+        '/effects/emitters/nomads_orbital_frigate_thruster02_emit.bp',--fire
+    },
+    EnginePartialEffects = { --hot air effects only
+        '/effects/emitters/nomads_orbital_frigate_thruster04_emit.bp',
+    },
+    ThrusterEffects = { --hot air effects only
+        '/effects/emitters/aeon_t1eng_groundfx01_emit.bp',
+    },
+
     -- Rotators
+    ---@param self NCommandFrigateUnit
     SetupRotators = function(self)
         local bp = self:GetBlueprint().Rotators
         if not self.RotatorOuter then
@@ -657,6 +711,7 @@ NCommandFrigateUnit = Class() {
         self.RotatorInner:SetSpeed( bp.InnerSpeed )
     end,
 
+    ---@param self NCommandFrigateUnit
     StopRotators = function(self)
         if self.RotatorOuter then
             self.RotatorOuter:SetTargetSpeed( 0 )
@@ -665,7 +720,8 @@ NCommandFrigateUnit = Class() {
             self.RotatorInner:SetTargetSpeed( 0 )
         end      
     end,
-    
+
+    ---@param self NCommandFrigateUnit
     StartRotators = function(self)
         local bp = self:GetBlueprint().Rotators
         if self.RotatorOuter then
@@ -675,30 +731,17 @@ NCommandFrigateUnit = Class() {
             self.RotatorInner:SetTargetSpeed( bp.InnerSpeed )
         end
     end,
-    
-    -- engines
-    EngineExhaustBones = {'Engine Exhaust01', 'Engine Exhaust02', 'Engine Exhaust03', 'Engine Exhaust04', 'Engine Exhaust05', },
-    ThrusterExhaustBones = { 'ThrusterPort01', 'ThrusterPort02', 'ThrusterPort03', 'ThrusterPort04', 'ThrusterPort05', 'ThrusterPort06', },
-    EngineFireEffects = { --for when the engine is on full power
-        '/effects/emitters/nomads_orbital_frigate_thruster04_emit.bp',--smoke
-        '/effects/emitters/nomads_orbital_frigate_thruster05_emit.bp',--smoke
-        '/effects/emitters/nomads_orbital_frigate_thruster01_emit.bp',--fire
-        '/effects/emitters/nomads_orbital_frigate_thruster02_emit.bp',--fire
-    },
-    EnginePartialEffects = { --hot air effects only
-        '/effects/emitters/nomads_orbital_frigate_thruster04_emit.bp',
-    },
-    ThrusterEffects = { --hot air effects only
-        '/effects/emitters/aeon_t1eng_groundfx01_emit.bp',
-    },
 
+    ---@param self NCommandFrigateUnit
     StopEngines = function(self)
         self.EngineEffectsBag:Destroy()
         self:AddEffects(self.EnginePartialEffects, self.EngineExhaustBones, self.EngineEffectsBag)
         WaitSeconds(4.5)
         self.EngineEffectsBag:Destroy()
     end,
-    
+
+    ---@param self NCommandFrigateUnit
+    ---@param EnableThrusters boolean
     Landing = function(self, EnableThrusters)
         self:HideBone(0, true)
         --start rotators
@@ -712,7 +755,9 @@ NCommandFrigateUnit = Class() {
         
         self:ForkThread(self.LandingThread, EnableThrusters)
     end,
-    
+
+    ---@param self NCommandFrigateUnit
+    ---@param EnableThrusters boolean
     LandingThread = function(self, EnableThrusters)
         WaitSeconds(0.1)
         self:ShowBone(0, true)
@@ -725,6 +770,7 @@ NCommandFrigateUnit = Class() {
         self.LaunchAnim:Destroy()
     end,
 
+    ---@param self NCommandFrigateUnit
     TakeOff = function(self)
         self.LaunchAnim = CreateAnimator(self):PlayAnim('/units/xno0001/XNO0001_TakeOff01.sca')
         self.LaunchAnim:SetAnimationFraction(0)
@@ -734,7 +780,8 @@ NCommandFrigateUnit = Class() {
         
         self:ForkThread(self.TakeOffThread)
     end,
-    
+
+    ---@param self NCommandFrigateUnit
     TakeOffThread = function(self)
         WaitSeconds(0.2)
         self.ThrusterEffectsBag:Destroy()
@@ -742,6 +789,11 @@ NCommandFrigateUnit = Class() {
         self:AddEffects(self.EngineFireEffects, self.EngineExhaustBones, self.EngineEffectsBag, 0.3)
     end,
 
+    ---@param self NCommandFrigateUnit
+    ---@param effects any
+    ---@param bones Bone[]
+    ---@param bag any
+    ---@param delay number
     AddEffects = function(self, effects, bones, bag, delay)
         for _, effect in effects do
             for _, bone in bones do
@@ -762,9 +814,7 @@ NCommandFrigateUnit = Class() {
 AirStagingPlatformUnit = AddNomadsBeingBuiltEffects(AirStagingPlatformUnit)
 
 ---@class NAirStagingPlatformUnit : AirStagingPlatformUnit
-NAirStagingPlatformUnit = Class(AirStagingPlatformUnit) {
-
-}
+NAirStagingPlatformUnit = Class(AirStagingPlatformUnit) {}
 
 ---------------------------------------------------------------
 -- ENERGY CREATION STRUCTURES
@@ -776,21 +826,27 @@ NEnergyCreationUnit = Class(EnergyCreationUnit) {
     ActiveEffectBone = false,
     ActiveEffectTemplateName = false,
 
+    ---@param self NEnergyCreationUnit
     OnCreate = function(self)
         EnergyCreationUnit.OnCreate(self)
         self.ActiveEffectsBag = TrashBag()
     end,
 
+    ---@param self NEnergyCreationUnit
+    ---@param builder Unit
+    ---@param layer Layer
     OnStopBeingBuilt = function(self, builder, layer)
         EnergyCreationUnit.OnStopBeingBuilt(self, builder, layer)
         self:PlayActiveEffects()
     end,
 
+    ---@param self NEnergyCreationUnit
     OnDestroy = function(self)
         self:DestroyActiveEffects()
         EnergyCreationUnit.OnDestroy(self)
     end,
 
+    ---@param self NEnergyCreationUnit
     PlayActiveEffects = function(self)
         -- emitters
         if self.ActiveEffectTemplateName and self.ActiveEffectBone then
@@ -808,6 +864,7 @@ NEnergyCreationUnit = Class(EnergyCreationUnit) {
         end
     end,
 
+    ---@param self NEnergyCreationUnit
     DestroyActiveEffects = function(self)
         self.ActiveEffectsBag:Destroy()
     end,
@@ -819,9 +876,7 @@ NEnergyCreationUnit = Class(EnergyCreationUnit) {
 MassCollectionUnit = AddNomadsBeingBuiltEffects(MassCollectionUnit)
 
 ---@class NMassCollectionUnit : MassCollectionUnit
-NMassCollectionUnit = Class(MassCollectionUnit) {
-
-}
+NMassCollectionUnit = Class(MassCollectionUnit) {}
 
 ---------------------------------------------------------------
 -- MASS FABRICATION STRUCTURES
@@ -829,9 +884,7 @@ NMassCollectionUnit = Class(MassCollectionUnit) {
 MassFabricationUnit = AddNomadsBeingBuiltEffects(MassFabricationUnit)
 
 ---@class NMassFabricationUnit : MassFabricationUnit
-NMassFabricationUnit = Class(MassFabricationUnit) {
-
-}
+NMassFabricationUnit = Class(MassFabricationUnit) {}
 
 ---------------------------------------------------------------
 -- ENERGY STORAGE STRUCTURES
@@ -839,9 +892,7 @@ NMassFabricationUnit = Class(MassFabricationUnit) {
 EnergyStorageUnit = AddNomadsBeingBuiltEffects(EnergyStorageUnit)
 
 ---@class NEnergyStorageUnit : EnergyStorageUnit
-NEnergyStorageUnit = Class(EnergyStorageUnit) {
-
-}
+NEnergyStorageUnit = Class(EnergyStorageUnit) {}
 
 ---------------------------------------------------------------
 -- MASS STORAGE STRUCTURES
@@ -849,9 +900,7 @@ NEnergyStorageUnit = Class(EnergyStorageUnit) {
 MassStorageUnit = AddNomadsBeingBuiltEffects(MassStorageUnit)
 
 ---@class NMassStorageUnit : MassStorageUnit
-NMassStorageUnit = Class(MassStorageUnit) {
-
-}
+NMassStorageUnit = Class(MassStorageUnit) {}
 
 ---------------------------------------------------------------
 --  COUNTER INTEL STRUCTURES
@@ -859,9 +908,7 @@ NMassStorageUnit = Class(MassStorageUnit) {
 RadarJammerUnit = AddNomadsBeingBuiltEffects(RadarJammerUnit)
 
 ---@class NRadarJammerUnit : RadarJammerUnit
-NRadarJammerUnit = Class(RadarJammerUnit) {
-
-}
+NRadarJammerUnit = Class(RadarJammerUnit) {}
 
 ---------------------------------------------------------------
 --  INTEL STRUCTURES
@@ -880,20 +927,23 @@ NRadarUnit = Class(RadarUnit) {
     IntelBoostFxScale = 1,
     OverchargeExplosionFxScale = 1,
 
+    ---@param self NRadarUnit
     OnCreate = function(self)
         RadarUnit.OnCreate(self)
         self.IntelBoostEffects = TrashBag()
         self.IntelBoostExplosionEffects = TrashBag()
-        
-        local bp = self:GetBlueprint()
+
+        local bp = self.Blueprint
         self.IntelRadiusBoosted = bp.Intel[self.IntelType..'RadiusBoosted']
         self.IntelRadiusDefault = bp.Intel[self.IntelType..'Radius']
         self.EnergyDrainDefault = bp.Economy.MaintenanceConsumptionPerSecondEnergy
         self.EnergyDrainBoosted = bp.Economy.MaintenanceConsumptionPerSecondEnergyBoosted or self.EnergyDrainDefault * 2
-        
+
         self:SetScriptBit('RULEUTC_WeaponToggle', true) --this makes the toggle button look off by default
     end,
 
+    ---@param self NRadarUnit
+    ---@param bit number
     OnScriptBitClear = function(self, bit)
         RadarUnit.OnScriptBitClear(self, bit)
         if bit == 1 then
@@ -903,7 +953,9 @@ NRadarUnit = Class(RadarUnit) {
             self.IntelBoostStartThreadHandle = self:ForkThread( self.IntelBoostStartThread )
         end
     end,
-    
+
+    ---@param self NRadarUnit
+    ---@param bit number
     OnScriptBitSet = function(self, bit)
         RadarUnit.OnScriptBitSet(self, bit)
         if bit == 1 then
@@ -914,19 +966,25 @@ NRadarUnit = Class(RadarUnit) {
         end
     end,
 
-    OnKilled = function(self, instigator, type, overkillRatio)
+    ---@param self NRadarUnit
+    ---@param instigator Unit
+    ---@param damageType DamageType
+    ---@param overkillRatio number
+    OnKilled = function(self, instigator, damageType, overkillRatio)
         self.IntelBoostEffects:Destroy()
-        RadarUnit.OnKilled(self, instigator, type, overkillRatio)
+        RadarUnit.OnKilled(self, instigator, damageType, overkillRatio)
     end,
 
+    ---@param self NRadarUnit
     OnDestroy = function(self)
         self.IntelBoostEffects:Destroy()
         self.IntelBoostExplosionEffects:Destroy()
         RadarUnit.OnDestroy(self)
     end,
 
-    --self.IntelBoostStartThreadHandle = self:ForkThread( self.IntelBoostStartThread )
-    IntelBoostStartThread = function(self) --the intel is boosted immediately, this is purely visual stuff
+    --the intel is boosted immediately, this is purely visual stuff
+    ---@param self NRadarUnit
+    IntelBoostStartThread = function(self)
         self.IsIntelOvercharging = true
         if self.IntelBoostEndThreadHandle then KillThread( self.IntelBoostEndThreadHandle ) end
         self:DestroyIdleEffects()  -- remove the radar effect, the lines coming from the antennae
@@ -945,8 +1003,8 @@ NRadarUnit = Class(RadarUnit) {
         
         self:PlayIntelBoostEffects()
     end,
-    
-    --self.IntelBoostEndThreadHandle = self:ForkThread( self.IntelBoostEndThread )
+
+    ---@param self NRadarUnit
     IntelBoostEndThread = function(self)
         self.IsIntelOvercharging = false
         if self.IntelBoostStartThreadHandle then KillThread( self.IntelBoostStartThreadHandle ) end
@@ -962,6 +1020,7 @@ NRadarUnit = Class(RadarUnit) {
         self:CreateIdleEffects()
     end,
 
+    ---@param self NRadarUnit
     PlayIntelBoostEffects = function(self)
         for k, v in self.IntelBoostFx do
             local emit = CreateAttachedEmitter( self, self.IntelBoostFxBone, self.Army, v )
@@ -971,6 +1030,7 @@ NRadarUnit = Class(RadarUnit) {
         end
     end,
 
+    ---@param self NRadarUnit
     PlayIntelBoostExplosionEffects = function(self)
         for k, v in self.OverchargeExplosionFx do
             local emit = CreateEmitterAtBone( self, self.OverchargeExplosionFxBone or self.IntelBoostFxBone, self.Army, v )
@@ -994,6 +1054,9 @@ ShieldStructureUnit = AddNomadsBeingBuiltEffects(ShieldStructureUnit)
 NShieldStructureUnit = Class(ShieldStructureUnit) {
     RotationSpeed = 10,
 
+    ---@param self NShieldStructureUnit
+    ---@param builder Unit
+    ---@param layer Layer
     OnStopBeingBuilt = function(self, builder, layer)
         ShieldStructureUnit.OnStopBeingBuilt(self,builder,layer)
         local bone = self:GetBlueprint().Display.ShieldOnRotatingBone
@@ -1007,6 +1070,7 @@ NShieldStructureUnit = Class(ShieldStructureUnit) {
         end
     end,
 
+    ---@param self NShieldStructureUnit
     OnShieldEnabled = function(self)
         ShieldStructureUnit.OnShieldEnabled(self)
         if self.RotatorManip then
@@ -1015,6 +1079,7 @@ NShieldStructureUnit = Class(ShieldStructureUnit) {
         self:PlayUnitAmbientSound('ShieldActiveLoop')
     end,
 
+    ---@param self NShieldStructureUnit
     OnShieldDisabled = function(self)
         ShieldStructureUnit.OnShieldDisabled(self)
         if self.RotatorManip then
@@ -1023,6 +1088,7 @@ NShieldStructureUnit = Class(ShieldStructureUnit) {
         self:StopUnitAmbientSound('ShieldActiveLoop')
     end,
 
+    ---@param self NShieldStructureUnit
     DestroyShield = function(self)
         if self.MyShield then
             self:StopUnitAmbientSound('ShieldActiveLoop')
@@ -1037,9 +1103,7 @@ NShieldStructureUnit = Class(ShieldStructureUnit) {
 StructureUnit = AddNomadsBeingBuiltEffects(StructureUnit)
 
 ---@class NStructureUnit : StructureUnit
-NStructureUnit = Class(StructureUnit) {
-
-}
+NStructureUnit = Class(StructureUnit) {}
 
 ---------------------------------------------------------------
 --  WALL  STRUCTURES
@@ -1047,15 +1111,11 @@ NStructureUnit = Class(StructureUnit) {
 WallStructureUnit = AddNomadsBeingBuiltEffects(WallStructureUnit)
 
 ---@class NWallStructureUnit : WallStructureUnit
-NWallStructureUnit = Class(WallStructureUnit) {
-
-}
+NWallStructureUnit = Class(WallStructureUnit) {}
 
 ---------------------------------------------------------------
 --  CIVILIAN STRUCTURES
 ---------------------------------------------------------------
 
 ---@class NCivilianStructureUnit : StructureUnit
-NCivilianStructureUnit = Class(StructureUnit) {
-
-}
+NCivilianStructureUnit = Class(StructureUnit) {}

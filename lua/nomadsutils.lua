@@ -69,7 +69,7 @@ end
 ---@return Unit|false
 function FindOrbitalUnit(self, cats, range) 
     local position = self:GetPosition()
-    local unitCats = cats or categories.xno0001
+    local unitCats = cats or categories.XNO0001
     local searchRange = range or 500
     local units = Utils.GetOwnUnitsInSphere(position, searchRange, self.Army, unitCats)
     local ChosenUnit = false

@@ -4,11 +4,15 @@ local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 ---@class NBlackholeEffect02 : NullShell
 NBlackholeEffect02 = Class(NullShell) {
 
+    ---@param self NBlackholeEffect02
     OnCreate = function(self)
         NullShell.OnCreate(self)
         self:ForkThread(self.EffectThread)
     end,
 
+    ---@param self NBlackholeEffect02
+    ---@param blackhole any
+    ---@param distance Vector3
     SetTrigger = function(self, blackhole, distance)
         local fn = function(self, blackhole, distance)
             WaitTicks(1)
@@ -24,6 +28,7 @@ NBlackholeEffect02 = Class(NullShell) {
         self:ForkThread( fn, blackhole, distance )
     end,
 
+    ---@param self NBlackholeEffect02
     EffectThread = function(self)
         for k, v in NomadsEffectTemplate.NukeBlackholeDustCloud02 do
             local emit = CreateEmitterOnEntity(self, self.Army, v )
@@ -31,5 +36,4 @@ NBlackholeEffect02 = Class(NullShell) {
         end
     end,
 }
-
 TypeClass = NBlackholeEffect02

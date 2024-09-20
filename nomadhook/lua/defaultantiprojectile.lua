@@ -1,9 +1,12 @@
 do
-
 local oldMissileRedirect = MissileRedirect
-MissileRedirect = Class(MissileRedirect) {
+
+---@class MissileRedirect : oldMissileRedirect
+MissileRedirect = Class(oldMissileRedirect) {
     -- Adding a bit more functionality, mainly needed for disabling this ability when parent unit is EMPed.
 
+    ---@param self MissileRedirect
+    ---@param spec any
     OnCreate = function(self, spec)
         oldMissileRedirect.OnCreate(self, spec)
         self.RecoveryTime = spec.RecoveryTime or 0
@@ -11,6 +14,8 @@ MissileRedirect = Class(MissileRedirect) {
         self.EffectTrashBag = TrashBag()
     end,
 
+    ---@param self MissileRedirect
+    ---@param enable boolean
     SetEnabled = function(self, enable)
         if enable and not self.Enabled then
             ChangeState(self, self.RecoverState)
@@ -22,6 +27,29 @@ MissileRedirect = Class(MissileRedirect) {
             self:OnDisabled()
         end
     end,
+
+    ---@param self MissileRedirect
+    OnEnabled = function(self)
+    end,
+
+    ---@param self MissileRedirect
+    OnDisabled = function(self)
+    end,
+
+    ---@param self MissileRedirect
+    PlayRedirectFx = function(self)
+        self:DestroyRedirectFx()
+
+        for k, v in self.RedirectBeams do
+            self.EffectTrashBag:Add( AttachBeamEntityToEntity(self.EnemyProj, -1, self.Owner, self.AttachBone, self.Army, v) )
+        end
+    end,
+
+    ---@param self MissileRedirect
+    DestroyRedirectFx = function(self)
+        self.EffectTrashBag:Destroy()
+    end,
+
 
     DeactivatedState = State {
         Main = function(self)
@@ -83,25 +111,5 @@ MissileRedirect = Class(MissileRedirect) {
             return false
         end,
     },
-
-    OnEnabled = function(self)
-    end,
-
-    OnDisabled = function(self)
-    end,
-
-    PlayRedirectFx = function(self)
-        self:DestroyRedirectFx()
-
-        for k, v in self.RedirectBeams do
-            self.EffectTrashBag:Add( AttachBeamEntityToEntity(self.EnemyProj, -1, self.Owner, self.AttachBone, self.Army, v) )
-        end
-    end,
-
-    DestroyRedirectFx = function(self)
-        self.EffectTrashBag:Destroy()
-    end,
 }
-
-
 end

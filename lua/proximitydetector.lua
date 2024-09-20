@@ -79,7 +79,7 @@ ProxDetectEntity = Class(Entity) {
 
     ---@param self ProxDetectEntity
     ---@param other any
-    ---@param firingWeapon any # Unused
+    ---@param firingWeapon any Unused
     ---@return boolean
     OnCollisionCheck = function(self, other, firingWeapon)
         -- doesn't detect units!
@@ -155,4 +155,3 @@ function ProximityDetector(SuperClass)
         end,
     }
 end
-
