@@ -1,9 +1,9 @@
--- T3 orbital artillery unit (the one that floats in space)
-
 local NOrbitUnit = import('/lua/nomadsunits.lua').NOrbitUnit
 local OrbitalGun = import('/lua/nomadsweapons.lua').OrbitalGun
 
-xno2302 = Class(NOrbitUnit) {
+--- Tech 3 Orbital Artillery Unit
+---@class XNO2302 : NOrbitUnit
+XNO2302 = Class(NOrbitUnit) {
     Weapons = {
         MainGun = Class(OrbitalGun) {
             CreateProjectileAtMuzzle = function(self, muzzle)
@@ -11,24 +11,26 @@ xno2302 = Class(NOrbitUnit) {
                 if bp.Audio.FireSpecial then
                     self:PlaySound(bp.Audio.FireSpecial)
                 end
-                
+
                 --allow the projectile to transfer veterancy to its parent unit
                 local proj = OrbitalGun.CreateProjectileAtMuzzle(self, muzzle)
                 proj.Launcher = self.unit.parent or proj.Launcher
             end,
         },
     },
-    
+
+    ---@param self XNO2302
     OnCreate = function(self)
         NOrbitUnit.OnCreate(self)
     end,
-    
+
+    ---@param self XNO2302
     OnStopBeingBuilt = function(self)
     end,
-    
+
+    ---@param self XNO2302
     OnMotionHorzEventChange = function(self)
         NOrbitUnit.OnMotionHorzEventChange(self)
     end,
 }
-
-TypeClass = xno2302
+TypeClass = XNO2302

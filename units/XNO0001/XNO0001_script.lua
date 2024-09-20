@@ -1,11 +1,10 @@
--- The surface support vehicle that's in orbit
-
 local NOrbitUnit = import('/lua/nomadsunits.lua').NOrbitUnit
 local NCommandFrigateUnit = import('/lua/nomadsunits.lua').NCommandFrigateUnit
 local NIFOrbitalBombardmentWeapon = import('/lua/nomadsweapons.lua').NIFOrbitalBombardmentWeapon
 
-
-xno0001 = Class(NOrbitUnit, NCommandFrigateUnit) {
+---Orbital Support Vehicle
+---@class XNO0001 : NOrbitUnit, NCommandFrigateUnit
+XNO0001 = Class(NOrbitUnit, NCommandFrigateUnit) {
     Weapons = {
         OrbitalMissileLauncher = Class(NIFOrbitalBombardmentWeapon) {},
         OrbitalMissileLauncherHeavy = Class(NIFOrbitalBombardmentWeapon) {},
@@ -15,13 +14,23 @@ xno0001 = Class(NOrbitUnit, NCommandFrigateUnit) {
     BuildBones = { 0, },
     BuildEffectsBag = nil,
     ThrusterEffectsBag = nil,
-    
+
+    -- Orbital striking
+    -- We create a queue in case multiple units order orbital strikes, so that they all get processed.
+    -- The weapon scripts then remove their entry from the queue after firing.
+    OrbitalBombardmentQueue = {},
+
+    -- Spawning Orbital Units (not called constructing to avoid confusion)
+    -- scripted construction, so not via the engine and regular engineer methods. This is for animations really.
+    SpawningThreadHandle = nil,
+
+    ---@param self XNO0001
     OnCreate = function(self)
         self.EngineEffectsBag = TrashBag()
         self.ThrusterEffectsBag = TrashBag()
         self.BuildEffectsBag = TrashBag()
         NOrbitUnit.OnCreate(self)
-        
+
         local bp = self:GetBlueprint()
         if bp.Display.AnimationBuildArm then
             self.ConstructionArmAnimManip = CreateAnimator( self ):PlayAnim( bp.Display.AnimationBuildArm ):SetRate(0)
@@ -33,14 +42,18 @@ xno0001 = Class(NOrbitUnit, NCommandFrigateUnit) {
         self:Landing(false)
     end,
 
+    ---@param self XNO0001
+    ---@param EnableThrusters boolean
     LandingThread = function(self, EnableThrusters)
         NCommandFrigateUnit.LandingThread(self, EnableThrusters)
         self.MovementThread(self) --after landing enable following its target
     end,
 
--- =========================================================================================
--- Probes
-
+    ---@param self XNO0001
+    ---@param location number
+    ---@param probeType string
+    ---@param data any
+    ---@return nil|Unit
     LaunchProbe = function(self, location, probeType, data)
         if not location or not probeType or not data then
             WARN('Nomads: LaunchProbe missing information. Location = '..repr(location)..' Probe type = '..repr(probeType)..' data = '..repr(data))
@@ -63,19 +76,17 @@ xno0001 = Class(NOrbitUnit, NCommandFrigateUnit) {
         return probeUnit
     end,
 
--- =========================================================================================
--- Orbital striking
--- We create a queue in case multiple units order orbital strikes, so that they all get processed.
--- The weapon scripts then remove their entry from the queue after firing.
-    OrbitalBombardmentQueue = {},
-    
+    ---@param self XNO0001
+    ---@param targetPosition number
+    ---@param HeavyBombardment boolean
     OnGivenNewTarget = function(self, targetPosition, HeavyBombardment)
         table.insert(self.OrbitalBombardmentQueue,{targetPosition, HeavyBombardment})
         if not self.BombardmentThread then
             self.BombardmentThread = self:ForkThread( self.OrbitalBombardmentThread )
         end
     end,
-    
+
+    ---@param self XNO0001
     OrbitalBombardmentThread = function(self)
         while table.getn(self.OrbitalBombardmentQueue) > 0 do
             self:LaunchOrbitalStrike(self.OrbitalBombardmentQueue[1][1], self.OrbitalBombardmentQueue[1][2])
@@ -83,7 +94,10 @@ xno0001 = Class(NOrbitUnit, NCommandFrigateUnit) {
         end
         self.BombardmentThread = nil
     end,
-    
+
+    ---@param self XNO0001
+    ---@param targetPosition number
+    ---@param HeavyBombardment boolean
     LaunchOrbitalStrike = function(self, targetPosition, HeavyBombardment)
         local weaponLabel = 'OrbitalMissileLauncher'
         if HeavyBombardment then weaponLabel = 'OrbitalMissileLauncherHeavy' end
@@ -93,12 +107,11 @@ xno0001 = Class(NOrbitUnit, NCommandFrigateUnit) {
         weapon:OnFire()
     end,
 
--- =========================================================================================
--- Spawning Orbital Units (not called constructing to avoid confusion)
-
--- scripted construction, so not via the engine and regular engineer methods. This is for animations really.
-    SpawningThreadHandle = nil,
-
+    -- Spawning Orbital Units (not called constructing to avoid confusion)
+    ---@param self XNO0001
+    ---@param unitType string
+    ---@param parentUnit Unit
+    ---@param attachBone Bone
     AddToSpawnQueue = function(self, unitType, parentUnit, attachBone )
         -- puts on the build queue to create a unit of the given type. If a callback is passed it will be run when the unit is
         -- constructed.
@@ -121,6 +134,7 @@ xno0001 = Class(NOrbitUnit, NCommandFrigateUnit) {
         end
     end,
 
+    ---@param self XNO0001
     CheckSpawnQueue = function(self)
         if not self.UnitBeingBuilt and table.getn(table.keys(self.OrbitalSpawnQueue)) > 0 then
             self.UnitBeingBuilt = true --in case of multiple calls in the same tick since forkthread has a tick delay
@@ -129,6 +143,7 @@ xno0001 = Class(NOrbitUnit, NCommandFrigateUnit) {
         end
     end,
 
+    ---@param self XNO0001
     SpawnUnitInOrbit = function(self)
         --find an entry in the table. if its empty then do nothing.
         local key = table.keys(self.OrbitalSpawnQueue)[1]
@@ -186,12 +201,18 @@ xno0001 = Class(NOrbitUnit, NCommandFrigateUnit) {
         self:CheckSpawnQueue()
     end,
 
+    ---@param self XNO0001
     RollOffUnit = function(self)
         local spin, x, y, z = self:CalculateRollOffPoint()
         local units = { self.UnitBeingBuilt }
         self.MoveCommand = IssueMove(units, Vector(x, y, z))
     end,
 
+    ---@param self XNO0001
+    ---@return number
+    ---@return number
+    ---@return number
+    ---@return number
     CalculateRollOffPoint = function(self)
         local bp = self:GetBlueprint().Physics.RollOffPoints
         local px, py, pz = unpack(self:GetPosition())
@@ -206,13 +227,9 @@ xno0001 = Class(NOrbitUnit, NCommandFrigateUnit) {
         fy = bpP.Y + py
         fz = bpP.Z + pz
         return spin, fx, fy, fz
-    end,    
+    end,
 
-
-
--- =========================================================================================
--- movement behaviour
-
+    ---@param self XNO0001
     MovementThread = function(self)
         while self and not self:BeenDestroyed() do
             if self.UnitToFollow then
@@ -233,6 +250,8 @@ xno0001 = Class(NOrbitUnit, NCommandFrigateUnit) {
     end,
 
     --accepts either a unit to follow, a target location, or false to stay still
+    ---@param self XNO0001
+    ---@param Target Unit
     SetMovementTarget = function(self, Target)
         if Target and IsUnit(Target) then
             self.UnitToFollow = Target
@@ -246,6 +265,9 @@ xno0001 = Class(NOrbitUnit, NCommandFrigateUnit) {
         end
     end,
 
+    ---@param self XNO0001
+    ---@param new VerticalMovementState
+    ---@param old VerticalMovementState
     OnMotionHorzEventChange = function(self, new, old)
         if new == 'Stopped' then
             self:ForkThread(function()
@@ -263,7 +285,5 @@ xno0001 = Class(NOrbitUnit, NCommandFrigateUnit) {
 
         NOrbitUnit.OnMotionHorzEventChange(self, new, old)
     end,
-
 }
-
-TypeClass = xno0001
+TypeClass = XNO0001
