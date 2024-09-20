@@ -1,9 +1,8 @@
--- T2 EMP tank
-
 local NLandUnit = import('/lua/nomadsunits.lua').NLandUnit
 local EMPGun = import('/lua/nomadsweapons.lua').EMPGun
 
-
+--- Tech 2 EMP Tank
+---@class XNL0306 : NLandUnit
 XNL0306 = Class(NLandUnit) {
     Weapons = {
         MainGun = Class(EMPGun) {
@@ -18,5 +17,4 @@ XNL0306 = Class(NLandUnit) {
         },
     },
 }
-
 TypeClass = XNL0306

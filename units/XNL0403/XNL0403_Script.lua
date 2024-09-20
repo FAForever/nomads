@@ -1,21 +1,19 @@
--- experimental hover unit crawler
-
-local AddLights = import('/lua/nomadsutils.lua').AddLights
-local NExperimentalHoverLandUnit = import('/lua/nomadsunits.lua').NExperimentalHoverLandUnit
 local NomadsWeaponsFile = import('/lua/nomadsweapons.lua')
-local TacticalMissileWeapon1 = import('/lua/nomadsweapons.lua').TacticalMissileWeapon1
+local EffectTemplate = import('/lua/EffectTemplates.lua')
+local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
+local explosion = import('/lua/defaultexplosions.lua')
+local NExperimentalHoverLandUnit = import('/lua/nomadsunits.lua').NExperimentalHoverLandUnit
+local GetRandomInt = import('/lua/utilities.lua').GetRandomInt
+local SlowHoverLandUnit = import('/lua/defaultunits.lua').SlowHoverLandUnit
+
 local MissileWeapon1 = NomadsWeaponsFile.MissileWeapon1
 local GattlingWeapon1 = NomadsWeaponsFile.GattlingWeapon1
-local StrategicMissileWeapon = import('/lua/nomadsweapons.lua').StrategicMissileWeapon
-local ParticleBlaster1 = NomadsWeaponsFile.ParticleBlaster1
+local TacticalMissileWeapon1 = NomadsWeaponsFile.TacticalMissileWeapon1
+local StrategicMissileWeapon = NomadsWeaponsFile.StrategicMissileWeapon
 
-local explosion = import('/lua/defaultexplosions.lua')
-local EffectTemplate = import('/lua/EffectTemplates.lua')
-local GetRandomInt = import('/lua/utilities.lua').GetRandomInt
-local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
-local SlowHover = import('/lua/defaultunits.lua').SlowHoverLandUnit
-
-XNL0403 = Class(NExperimentalHoverLandUnit, SlowHover) {
+--- Experimental Hover Crawler
+---@class XNL0403 : NExperimentalHoverLandUnit, SlowHoverLandUnit
+XNL0403 = Class(NExperimentalHoverLandUnit, SlowHoverLandUnit) {
 
     Weapons = {
         MainGun = Class(TacticalMissileWeapon1) {},
@@ -53,6 +51,7 @@ XNL0403 = Class(NExperimentalHoverLandUnit, SlowHover) {
         { 'flash_R.005', 'flash_L.005', },
         { 'flash_R.006', 'flash_L.006', },
     },
+
     SmokeEmitterBones = {
         'smoke.001',
         'smoke.002',
@@ -60,28 +59,35 @@ XNL0403 = Class(NExperimentalHoverLandUnit, SlowHover) {
         'smoke.004',
     },
 
+    ---@param self XNL0403
     OnCreate = function(self)
         NExperimentalHoverLandUnit.OnCreate(self)
         self.SmokeEmitters = TrashBag()
-		self.NukeEntity = 1 
+		self.NukeEntity = 1
     end,
 
+    ---@param self XNL0403
     OnDestroy = function(self)
         self:DestroyMovementSmokeEffects()
         NExperimentalHoverLandUnit.OnDestroy(self)
     end,
 
+    ---@param self XNL0403
+    ---@param builder Unit
+    ---@param layer Layer
     OnStopBeingBuilt = function(self, builder, layer)
         NExperimentalHoverLandUnit.OnStopBeingBuilt(self, builder, layer)
         self:PlayMovementSmokeEffects('Stopped')
     end,
 
+    ---@param self XNL0403
+    ---@param transport Unit
     OnDetachedToTransport = function(self, transport)
     end,
 
-
--- EFFECTS =====================
-
+    ---@param self XNL0403
+    ---@param new VerticalMovementState
+    ---@param old VerticalMovementState
     OnMotionHorzEventChange = function( self, new, old )
         NExperimentalHoverLandUnit.OnMotionHorzEventChange( self, new, old )
 
@@ -92,7 +98,9 @@ XNL0403 = Class(NExperimentalHoverLandUnit, SlowHover) {
         end
     end,
 
-    PlayMovementSmokeEffects = function(self, type)
+    ---@param self XNL0403
+    ---@param damageType DamageType unused
+    PlayMovementSmokeEffects = function(self, damageType)
         local EffectTable, emit
 
         if type == 'Stopping' then
@@ -112,17 +120,19 @@ XNL0403 = Class(NExperimentalHoverLandUnit, SlowHover) {
         end
     end,
 
+    ---@param self XNL0403
     DestroyMovementSmokeEffects = function(self)
         self.SmokeEmitters:Destroy()
     end,
 
--- DYING =====================
-
+    --- This is a WOF event which is in here cause I like WOF! Sorry, I can't be crushed during sinking!
+    ---@param self XNL0403
+    ---@return boolean|false
     CrushDuringDescent = function(self)
-        -- This is a WOF event which is in here cause I like WOF! Sorry, I can't be crushed during sinking!
         return false
     end,
 
+    ---@param self XNL0403
     OnSeabedImpact = function( self)
         -- This is a WOF event which is in here cause I like WOF! Trigger unit death explosion
         if not self.WOF_OnSeabedImpact_Flag then
@@ -132,10 +142,12 @@ XNL0403 = Class(NExperimentalHoverLandUnit, SlowHover) {
         end
     end,
 
+    --- I'm concerned what happens if this unit dies while hover on the water surface. The unit should not leave a corpse.
+    --- If WOF is available the unit cloud/should sink to the bottom under the WOF effect.
+    ---@param self XNL0403
+    ---@param overkillRatio number
+    ---@param instigator Unit
     DeathThread = function( self, overkillRatio, instigator)
-        -- I'm concerned what happens if this unit dies while hover on the water surface. The unit should not leave a corpse.
-        -- If WOF is available the unit cloud/should sink to the bottom under the WOF effect.
-
         if self:GetCurrentLayer() ~= 'Water' then
             -- We're not on water. Just explode a leave a wreck, no problemo
             self:DeathExplosionsThread( overkillRatio, instigator, true )
@@ -151,9 +163,11 @@ XNL0403 = Class(NExperimentalHoverLandUnit, SlowHover) {
         end
     end,
 
+    ---@param self XNL0403
+    ---@param overkillRatio number
+    ---@param instigator Unit unused
+    ---@param leaveWreckage boolean
     DeathExplosionsThread = function( self, overkillRatio, instigator, leaveWreckage)
-        -- slightly inspired by the monkeylords effect
-
         self:PlayUnitSound('Killed')
 
         -- Create Initial explosion effects
@@ -206,15 +220,20 @@ XNL0403 = Class(NExperimentalHoverLandUnit, SlowHover) {
         self:Destroy()
     end,
 
+    ---@param self XNL0403
+    ---@param overkillRatio number
+    ---@param instigator Unit
     DeathExplosionsOnWaterThread = function( self, overkillRatio, instigator)
         self:DeathExplosionsThread(overkillRatio, instigator, false )
     end,
 
+    ---@param self XNL0403
+    ---@param bone Bone
+    ---@param army Army
     CreateExplosionDebris = function( self, bone, army )
         for k, v in EffectTemplate.ExplosionDebrisLrg01 do
             CreateAttachedEmitter( self, bone, army, v )
         end
     end,
 }
-
 TypeClass = XNL0403

@@ -1,9 +1,9 @@
--- t3 mobile anti air
-
 local NLandUnit = import('/lua/nomadsunits.lua').NLandUnit
 local RocketWeapon1 = import('/lua/nomadsweapons.lua').RocketWeapon1
 local Utilities = import('/lua/utilities.lua')
 
+--- Tech 3 Mobile Anti-Air
+---@class XNL0302 : NLandUnit
 XNL0302 = Class(NLandUnit) {
 
     Weapons = {
@@ -15,12 +15,15 @@ XNL0302 = Class(NLandUnit) {
         },
     },
 
+    ---@param self XNL0302
+    ---@param builder Unit
+    ---@param layer Layer
     OnStopBeingBuilt = function(self,builder,layer)
         NLandUnit.OnStopBeingBuilt(self,builder,layer)
 
         -- set up the revolver. the var 'pause' determines the time the revolver is still, between shots, in seconds
         local pause = 0.2
-        local bp = self:GetWeaponByLabel('MainGun'):GetBlueprint()
+        local bp = self:GetWeaponByLabel('MainGun').Blueprint
         self.RevolverManipSpeed = 90 / ((1 /  bp.RateOfFire) - pause)
         if bp.MuzzleSalvoSize > 1 and bp.MuzzleSalvoDelay >= 0.1 then
              self.RevolverManipSpeed = 90 /  math.max( 0.1, bp.MuzzleSalvoDelay - pause )
@@ -39,15 +42,17 @@ XNL0302 = Class(NLandUnit) {
         self:ForkThread(self.TreadManipulationThread)
     end,
 
+    ---@param self XNL0302
     RotateRevolver = function(self)
         local angle = self.RevolverManip:GetCurrentAngle() + 90
         self.RevolverManip:SetGoal( angle ):SetSpeed( self.RevolverManipSpeed )
     end,
 
+    ---@param self XNL0302
     TreadManipulationThread = function(self)
         local GoalAngle = 0
         local nav = self:GetNavigator()
-        local maxRot = self:GetBlueprint().Display.MovementEffects.WheelRotationMax or 45
+        local maxRot = self.Blueprint.Display.MovementEffects.WheelRotationMax or 45
 
         while not self.Dead do
 

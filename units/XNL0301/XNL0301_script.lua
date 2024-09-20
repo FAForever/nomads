@@ -21,35 +21,35 @@ NCommandUnit = AddAkimbo(AddRapidRepair(NCommandUnit))
 --- Nomand SACU
 ---@class XNL0301 : NCommandUnit
 XNL0301 = Class(NCommandUnit) {
+    DestructionPartsLowToss = { 'Torso', 'Head', },
 
     Weapons = {
-        SniperGun = Class(AddRapidRepairToWeapon(KineticCannon1)) {
-        },
+        RASDeathWeapon = Class(DeathEnergyBombWeapon) {},
+        SniperGun = Class(AddRapidRepairToWeapon(KineticCannon1)) {},
         Railgun = Class(AddRapidRepairToWeapon(UnderwaterRailgunWeapon1)) {},
         MainGun = Class(AddRapidRepairToWeapon(APCannon1)) {},
         EMPGun = Class(AddRapidRepairToWeapon(EMPGun)) {
-            FxMuzzleFlash = import('/lua/nomadseffecttemplate.lua').EMPGunMuzzleFlash_Tank,
+            FxMuzzleFlash = NomadsEffectTemplate.EMPGunMuzzleFlash_Tank,
             CreateProjectileAtMuzzle = function(self, muzzle)
                 local proj = EMPGun.CreateProjectileAtMuzzle(self, muzzle)
-                local data = self:GetBlueprint().DamageToShields
+                local data = self.Blueprint.DamageToShields
                 if proj and not proj:BeenDestroyed() then
                     proj:PassData(data)
                 end
             end,
         },
-        RASDeathWeapon = Class(DeathEnergyBombWeapon) {},
     },
 
+    ---@param self XNL0301
     __init = function(self)
         NCommandUnit.__init(self, 'MainGun')
     end,
-    
-    DestructionPartsLowToss = { 'Torso', 'Head', },
 
+    ---@param self XNL0301
     OnCreate = function(self)
         NCommandUnit.OnCreate(self)
 
-        local bp = self:GetBlueprint()
+        local bp = self.Blueprint
 
         -- TODO: Remove once related change gets released in the game patch
         self.BuildEffectBones = bp.General.BuildBones.BuildEffectBones
@@ -58,7 +58,7 @@ XNL0301 = Class(NCommandUnit) {
 
         self:SetCapturable(false)
         self:SetupBuildBones()
-        
+
         self.RapidRepairBonusArmL = 0 --one for each upgrade slot, letting us easily track upgrade changes.
         self.RapidRepairBonusArmR = 0
         self.RapidRepairBonusBack = 0
@@ -68,10 +68,13 @@ XNL0301 = Class(NCommandUnit) {
         self:SetWeaponEnabledByLabel( 'Railgun', false )
         self:SetWeaponEnabledByLabel( 'SniperGun', false )
         self:SetWeaponEnabledByLabel( 'EMPGun', false )
-    
-        self.Sync.Abilities = self:GetBlueprint().Abilities
+
+        self.Sync.Abilities = bp.Abilities
     end,
 
+    ---@param self XNL0301
+    ---@param builder Unit
+    ---@param layer Layer
     OnStartBeingBuilt = function(self, builder, layer)
         NCommandUnit.OnStartBeingBuilt(self, builder, layer)
 
@@ -83,6 +86,9 @@ XNL0301 = Class(NCommandUnit) {
         end
     end,
 
+    ---@param self XNL0301
+    ---@param builder Unit
+    ---@param layer Layer
     StopBeingBuiltEffects = function(self, builder, layer)
         NCommandUnit.StopBeingBuiltEffects(self, builder, layer)
 
@@ -96,9 +102,7 @@ XNL0301 = Class(NCommandUnit) {
         end
     end,
 
-    -- =====================================================================================================================
-    -- UNIT DEATH
-
+    ---@param self XNL0301
     DoDeathWeapon = function(self)
         if self:IsBeingBuilt() then return end
 
@@ -111,6 +115,8 @@ XNL0301 = Class(NCommandUnit) {
         end
     end,
 
+    ---@param self XNL0301
+    ---@param overkillRatio number
     CreateWreckage = function(self, overkillRatio)
         -- only create wreckage if death weapon allows it
         local DeathWep = self:GetDeathWeaponBP()
@@ -119,6 +125,8 @@ XNL0301 = Class(NCommandUnit) {
         end
     end,
 
+    ---@param self XNL0301
+    ---@return table
     GetDeathWeaponBP = function(self)
         -- different death weapon depending on enhancements
         local WantLabel = 'DeathWeapon'
@@ -135,14 +143,15 @@ XNL0301 = Class(NCommandUnit) {
         end
     end,
 
--- =================================================================================================================
-
-
+    ---@param self XNL0301
+    ---@param target Unit
     CreateCaptureEffects = function( self, target )
         EffectUtil.PlayCaptureEffects( self, target, self:GetBuildBones() or {0,}, self.CaptureEffectsBag )
     end,
 
     --overwrite the GetBuildBones to allow for enhancement support
+    ---@param self XNL0301
+    ---@return table
     GetBuildBones = function(self)
         local bones = table.deepcopy( self:GetBlueprint().General.BuildBones.BuildEffectBones )
         if self:HasEnhancement('EngineeringSuite') then
@@ -152,27 +161,34 @@ XNL0301 = Class(NCommandUnit) {
         return bones
     end,
 
--- =================================================================================================================
-
+    ---@param self XNL0301
+    ---@param transport Unit
+    ---@param transportBone Bone
     OnAttachedToTransport = function(self, transport, transportBone)
         -- disable head rotation. Coming of the transport, the head gets a weird rotation
         self.HeadRotationEnabled = false
         NCommandUnit.OnAttachedToTransport(self, transport, transportBone)
     end,
 
+    ---@param self XNL0301
+    ---@param transport Unit
+    ---@param transportBone Bone
     OnDetachedFromTransport = function(self, transport, transportBone)
         -- disable head rotation. Coming of the transport, the head gets a weird rotation
         self.HeadRotationEnabled = false
         NCommandUnit.OnDetachedFromTransport(self, transport, transportBone)
     end,
 
+    ---@param self XNL0301
+    ---@param new VerticalMovementState
+    ---@param old VerticalMovementState
     UpdateMovementEffectsOnMotionEventChange = function( self, new, old )
         self.HeadRotationEnabled = true
         NCommandUnit.UpdateMovementEffectsOnMotionEventChange( self, new, old )
     end,
 
--- =================================================================================================================
-
+    ---@param self XNL0301
+    ---@return boolean
     CanBeStunned = function(self)
         if self:HasEnhancement('PowerArmor') then
             return false
@@ -180,10 +196,9 @@ XNL0301 = Class(NCommandUnit) {
         return NCommandUnit.CanBeStunned(self)
     end,
 
-    -- =====================================================================================================================
     -- RAPID REPAIR
-    
     --This custom timer function allows us to reset or partially delay the timer without killing the thread
+    ---@param self XNL0301
     StartRapidRepair = function(self)
         local bp = self:GetBlueprint()
         --calculate the total bonus - each upgrade slot can have its own bonus added.
@@ -201,10 +216,7 @@ XNL0301 = Class(NCommandUnit) {
         self.RapidRepairFxBag:Destroy()
     end,
 
-    -- =====================================================================================================================
     -- ENHANCEMENTS
-
-
     --a much more sensible way of doing enhancements, and more moddable too!
     --change the behaviours here and dont touch the CreateEnhancement table.
     -- EnhancementTable = {
@@ -213,7 +225,6 @@ XNL0301 = Class(NCommandUnit) {
             -- self:SetIntelProbeEnabled( false, true )
         -- end,
     -- },
-    
     EnhancementBehaviours = {
         EMPWeapon = function(self, bp)
             self:SetWeaponEnabledByLabel( 'EMPGun', true )
@@ -379,7 +390,9 @@ XNL0301 = Class(NCommandUnit) {
         Generic = function(self, bp)
         end,
     },
-    
+
+    ---@param self XNL0301
+    ---@param enh string
     CreateEnhancement = function(self, enh)
         NCommandUnit.CreateEnhancement(self, enh)
         local bp = self:GetBlueprint().Enhancements[enh]
@@ -391,9 +404,9 @@ XNL0301 = Class(NCommandUnit) {
             WARN('Nomads: Enhancement '..repr(enh)..' has no script support.')
         end
     end,
-    
--- =================================================================================================================
 
+    ---@param self XNL0301
+    ---@param overKillRatio number unused
     CreateDestructionEffects = function( self, overKillRatio )
         -- explosions at these bones
         local bones = { 'Thigh_L', 'Thigh_R', 'Midleg_L', 'Midleg_R', 'Foreleg_L', 'Foreleg_R', }
@@ -457,5 +470,4 @@ XNL0301 = Class(NCommandUnit) {
         end
     end,
 }
-
 TypeClass = XNL0301

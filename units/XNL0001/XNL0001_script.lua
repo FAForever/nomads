@@ -130,11 +130,11 @@ XNL0001 = Class(ACUUnit) {
         -- enhancements
         self:RemoveToggleCap('RULEUTC_SpecialToggle')
         self:AddBuildRestriction( categories.NOMADS * (categories.BUILTBYTIER2COMMANDER + categories.BUILTBYTIER3COMMANDER) )
-        
+
         self.RapidRepairBonusArmL = 0 --one for each upgrade slot, letting us easily track upgrade changes.
         self.RapidRepairBonusArmR = 0 --one for each upgrade slot, letting us easily track upgrade changes.
         self.RapidRepairBonusBack = 0
-        
+
         self.Sync.Abilities = bp.Abilities
         self.Sync.HasCapacitorAbility = false
 
@@ -144,12 +144,11 @@ XNL0001 = Class(ACUUnit) {
         self.RASEnergyProductionLow = bp.Enhancements.ResourceAllocation.ProductionPerSecondEnergyLow
         self.RASMassProductionHigh = bp.Enhancements.ResourceAllocation.ProductionPerSecondMassHigh
         self.RASEnergyProductionHigh = bp.Enhancements.ResourceAllocation.ProductionPerSecondEnergyHigh
-        
     end,
 
     ---@param self XNL0001
     ---@param builder Unit
-    ---@param layer string
+    ---@param layer Layer
     OnStopBeingBuilt = function(self, builder, layer)
         ACUUnit.OnStopBeingBuilt(self, builder, layer)
         self:SetWeaponEnabledByLabel('MainGun', true)
@@ -186,13 +185,13 @@ XNL0001 = Class(ACUUnit) {
 
     ---@param self XNL0001
     ---@param instigator Unit
-    ---@param type string
+    ---@param damageType DamageType
     ---@param overkillRatio number
-    OnKilled = function(self, instigator, type, overkillRatio)
+    OnKilled = function(self, instigator, damageType, overkillRatio)
         self:SetOrbitalBombardEnabled(false)
         self:SetIntelProbe(false)
         if self.OrbitalUnit then self.OrbitalUnit.AssignedUnit = nil end
-        ACUUnit.OnKilled(self, instigator, type, overkillRatio)
+        ACUUnit.OnKilled(self, instigator, damageType, overkillRatio)
     end,
 
     ---@param self number
@@ -215,8 +214,8 @@ XNL0001 = Class(ACUUnit) {
     end,
 
     ---@param self XNL0001
-    ---@param new any
-    ---@param old any
+    ---@param new VerticalMovementState
+    ---@param old VerticalMovementState
     OnMotionHorzEventChange = function( self, new, old )
         if old == 'Stopped' and self.UseRunWalkAnim then
             local bp = self.Blueprint
@@ -344,7 +343,7 @@ XNL0001 = Class(ACUUnit) {
 
     ---@param self XNL0001
     ---@param add any
-    ---@param bone string
+    ---@param bone Bone
     AddEnhancementEmitterToBone = function(self, add, bone)
 
         -- destroy effect, if any
@@ -362,8 +361,8 @@ XNL0001 = Class(ACUUnit) {
     end,
 
     ---@param self XNL0001
-    ---@param new any
-    ---@param old any
+    ---@param new VerticalMovementState
+    ---@param old VerticalMovementState
     UpdateMovementEffectsOnMotionEventChange = function( self, new, old )
         self.HeadRotationEnabled = self.AllowHeadRotation
         ACUUnit.UpdateMovementEffectsOnMotionEventChange( self, new, old )
@@ -911,8 +910,3 @@ XNL0001 = Class(ACUUnit) {
     end,
 }
 TypeClass = XNL0001
-
---#region Backwards Compatibility
-local Entity = import('/lua/sim/Entity.lua').Entity
---ACUUnit = AddCapacitorAbility(import('/lua/defaultunits.lua').ACUUnit)
---#endregion

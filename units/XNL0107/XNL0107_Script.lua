@@ -42,8 +42,8 @@ XNL0107 = Class(NLandUnit) {
     end,
 
     ---@param self XNL0107
-    ---@param new any
-    ---@param old any
+    ---@param new VerticalMovementState
+    ---@param old VerticalMovementState
     OnMotionHorzEventChange = function( self, new, old )
         -- the engine already supports BP values ...WhileMoving but it does this when the unit is "Stopped". We want it when
         -- the unit is "Stopping" to make the first shot of the unit count already (the first shot happens before "Stopped").

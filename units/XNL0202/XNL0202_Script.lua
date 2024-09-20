@@ -27,7 +27,7 @@ XNL0202 = Class(NLandUnit) {
 
     ---@param self XNL0202
     ---@param builder Unit
-    ---@param layer string
+    ---@param layer Layer
     OnStopBeingBuilt = function(self, builder, layer)
         NLandUnit.OnStopBeingBuilt(self, builder, layer)
         if not self.HideSensors then self:CreateSensorEmitter() end

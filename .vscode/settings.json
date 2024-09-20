@@ -12,5 +12,6 @@
   "Lua.diagnostics.globals": ["moho"],
   "Lua.runtime.plugin": "${3rd}/fa/plugin.lua",
   "Lua.workspace.library": ["${3rd}/fa/library"],
-  "Lua.workspace.checkThirdParty": false
+  "Lua.workspace.checkThirdParty": false,
+  "cSpell.words": ["Nomand"]
 }

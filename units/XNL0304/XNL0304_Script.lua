@@ -1,10 +1,8 @@
--- t3 arillery
-
 local NLandUnit = import('/lua/nomadsunits.lua').NLandUnit
 local ArtilleryWeapon = import('/lua/nomadsweapons.lua').ArtilleryWeapon
-local Utilities = import('/lua/utilities.lua')
-local EffectUtil = import('/lua/EffectUtilities.lua')
 
+--- Tech 3 Mobile Artillery
+---@class XNL0304 : NLandUnit
 XNL0304 = Class(NLandUnit) {
     Weapons = {
         ArtilleryGun = Class(ArtilleryWeapon) {
@@ -18,21 +16,26 @@ XNL0304 = Class(NLandUnit) {
             end,
         },
     },
-    
+
+    ---@param self XNL0304
     OnCreate = function(self)
         NLandUnit.OnCreate(self)
     end,
-        
+
+    ---@param self XNL0304
+    ---@param new VerticalMovementState
+    ---@param old VerticalMovementState
     OnMotionHorzEventChange = function( self, new, old )
         NLandUnit.OnMotionHorzEventChange( self, new, old )
         self:UpdateWeaponAccuracy( (new ~= 'Stopped' and new ~= 'Stopping') )
     end,
 
+    ---@param self XNL0304
+    ---@param moving boolean
     UpdateWeaponAccuracy = function(self, moving)
         if not self.Dead then
             self:GetWeapon(1):SetMovingAccuracy(moving)
         end
     end,
 }
-
 TypeClass = XNL0304

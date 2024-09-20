@@ -28,14 +28,14 @@ XNL0111 = Class(NAmphibiousUnit, SlowHoverLandUnit) {
         NAmphibiousUnit.OnCreate(self)
         --save the modifier for max radius so we dont have to go into the blueprint every time.
         local wep = self:GetWeaponByLabel('MainGun')
-        local bp = wep:GetBlueprint()
+        local bp = wep.Blueprint
         self.MissileMaxRadiusWater = bp.MaxRadiusUnderWater
         self.MissileMaxRadius = bp.MaxRadius
     end,
 
     ---@param self XNL0111
-    ---@param new any
-    ---@param old any
+    ---@param new VerticalMovementState
+    ---@param old VerticalMovementState
     OnLayerChange = function(self, new, old)
         NAmphibiousUnit.OnLayerChange(self, new, old)
         --change the range of the missiles when underwater, needs a catch because if spawned in it can call this before fully initialized
@@ -47,7 +47,6 @@ XNL0111 = Class(NAmphibiousUnit, SlowHoverLandUnit) {
                 wep:ChangeMaxRadius(self.MissileMaxRadius or 45)
             end
         end
-        
     end,
 }
 TypeClass = XNL0111

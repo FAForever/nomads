@@ -10,9 +10,12 @@ local explosion = import('/lua/defaultexplosions.lua')
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 local GetRandomInt = import('/lua/utilities.lua').GetRandomInt
 local Utilities = import('/lua/utilities.lua')
-local SlowHover = import('/lua/defaultunits.lua').SlowHoverLandUnit
+local SlowHoverLandUnit = import('/lua/defaultunits.lua').SlowHoverLandUnit
 
-XNL0401 = Class(NExperimentalHoverLandUnit, SlowHover) {
+
+--- Experimental Land Bullfrog
+---@class XNL0401 : NExperimentalHoverLandUnit, SlowHoverLandUnit
+XNL0401 = Class(NExperimentalHoverLandUnit, SlowHoverLandUnit) {
 
     Weapons = {
         FrontGun = Class(AnnihilatorCannon1) {
@@ -59,6 +62,7 @@ XNL0401 = Class(NExperimentalHoverLandUnit, SlowHover) {
         AAGunRight = Class(ParticleBlaster1) {},
     },
 
+    ---@param self XNL0401
     OnCreate = function(self)
         NExperimentalHoverLandUnit.OnCreate(self)
 
@@ -81,11 +85,15 @@ XNL0401 = Class(NExperimentalHoverLandUnit, SlowHover) {
         self:ActivateGattlingRotation(false)
     end,
 
+    ---@param self XNL0401
+    ---@param builder Unit
+    ---@param layer Layer
     OnStopBeingBuilt = function(self,builder,layer)
         NExperimentalHoverLandUnit.OnStopBeingBuilt(self,builder,layer)
         self:ForkThread(self.HeadRotationThread)
     end,
 
+    ---@param self XNL0401
     CalcGattlingRotationSpeed = function(self)
         local wep = self:GetWeaponByLabel('FrontGun')
         if wep then
@@ -101,6 +109,8 @@ XNL0401 = Class(NExperimentalHoverLandUnit, SlowHover) {
         end
     end,
 
+    ---@param self XNL0401
+    ---@param activate boolean
     ActivateGattlingRotation = function(self, activate)
         self.GattlingCannonActive = (activate == true)
         local m = 0
@@ -110,6 +120,7 @@ XNL0401 = Class(NExperimentalHoverLandUnit, SlowHover) {
         self.GattlingManip:SetTargetSpeed( self.GattlingRotSpeed * m )
     end,
 
+    ---@param self XNL0401
     HeadRotationThread = function(self)
         -- keeps the head rotated to the current target position
 
@@ -169,11 +180,14 @@ XNL0401 = Class(NExperimentalHoverLandUnit, SlowHover) {
         end
     end,
 
+    ---@param self XNL0401 unused
+    ---@return boolean
     CrushDuringDescent = function(self)
         -- This is a WOF event which is in here cause I like WOF! Sorry, I can't be crushed during sinking!
         return false
     end,
 
+    ---@param self XNL0401
     OnSeabedImpact = function( self)
         -- This is a WOF event which is in here cause I like WOF! Trigger unit death explosion
         if not self.WOF_OnSeabedImpact_Flag then
@@ -183,6 +197,9 @@ XNL0401 = Class(NExperimentalHoverLandUnit, SlowHover) {
         end
     end,
 
+    ---@param self XNL0401
+    ---@param overkillRatio number
+    ---@param instigator Unit
     DeathThread = function( self, overkillRatio, instigator)
         -- I'm concerned what happens if this unit dies while hover on the water surface. The unit should not leave a corpse.
         -- If WOF is available the unit cloud/should sink to the bottom under the WOF effect.
@@ -197,6 +214,10 @@ XNL0401 = Class(NExperimentalHoverLandUnit, SlowHover) {
         end
     end,
 
+    ---@param self XNL0401
+    ---@param overkillRatio number
+    ---@param instigator Unit unused
+    ---@param leaveWreckage boolean
     DeathExplosionsThread = function( self, overkillRatio, instigator, leaveWreckage)
         -- slightly inspired by the monkeylords effect
 
@@ -251,10 +272,16 @@ XNL0401 = Class(NExperimentalHoverLandUnit, SlowHover) {
         end
     end,
 
+    ---@param self XNL0401
+    ---@param overkillRatio number
+    ---@param instigator Unit
     DeathExplosionsOnWaterThread = function( self, overkillRatio, instigator)
         self:DeathExplosionsThread(overkillRatio, instigator, false )
     end,
 
+    ---@param self XNL0401
+    ---@param bone Bone
+    ---@param army Army
     CreateExplosionDebris = function( self, bone, army )
         for k, v in EffectTemplate.ExplosionDebrisLrg01 do
             CreateAttachedEmitter( self, bone, army, v )
