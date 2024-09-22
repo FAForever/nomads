@@ -1,8 +1,7 @@
 do
-
-
 -- Injecting something to have the AI run the function GenericPlatoonBehaviors in AIBehaviors.lua each time a unit is created.
-
+---@param SuperClass any
+---@return table
 local AddNomadsModifications = function(SuperClass)
     return Class(SuperClass) {
         GetPlatoonAddBehaviors = function(self)
@@ -21,7 +20,4 @@ Builder = AddNomadsModifications(Builder)
 FactoryBuilder = AddNomadsModifications(FactoryBuilder)
 PlatoonBuilder = AddNomadsModifications(PlatoonBuilder)
 EngineerBuilder = AddNomadsModifications(EngineerBuilder)
-
-
-
 end

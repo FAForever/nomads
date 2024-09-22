@@ -1,41 +1,15 @@
-
 local oldModBlueprints = ModBlueprints
-function ModBlueprints(all_bps)
+local oldExtractAllMeshBlueprints = ExtractAllMeshBlueprints
+local oldExtractBuildMeshBlueprint = ExtractBuildMeshBlueprint
 
-    for _, bp in all_bps.Unit do
-        -- Set up units to be transported by the T4 transport. All naval units need transporting, as well as selected experimentals.
-        if bp.Transport and bp.Transport.TransportClass and not (bp.CategoriesHash.NAVALCARRIER or bp.CategoriesHash.AIRSTAGINGPLATFORM) then continue end--skip units which already have their class set explicitly
-        
-        local transClassToSet = false
-        
-        if bp.CategoriesHash.NAVAL and bp.CategoriesHash.MOBILE and not bp.CategoriesHash.EXPERIMENTAL then
-            transClassToSet = 4 --fits into AttachSpecial slot
-        end
-        
-        if transClassToSet then
-            if not bp.General then bp.General = {} end
-            if not bp.General.CommandCaps then bp.General.CommandCaps = {} end
-            bp.General.CommandCaps[ 'RULEUCC_CallTransport' ] = (transClassToSet ~= 10) --set to false if we specify class 10
 
-            if not bp.Transport then bp.Transport = {} end
-            bp.Transport[ 'CanFireFromTransport' ] = false
-            bp.Transport[ 'TransportClass' ] = transClassToSet
-        end
-
-        BlueprintLoaderUpdateProgress()
-    end
-
-    ExtractColouredBlueprints(all_bps)
-    oldModBlueprints(all_bps)
-end
-
+--- Importing files doesn't work inside blueprints.lua, so here is a function to get a properly converted list.
+--- Dont forget to update this whenever the colours get updated!
 ConvertColoursList = function()
-    -- Importing files doesnt work inside blueprints.lua, so here is a function to get a properly converted list.
-    -- Dont forget to update this whenever the colours get updated!
     local colourslist = import('/lua/GameColors.lua').GameColors.ArmyColors
     local DetermineColourIndex = import('/lua/NomadsUtils.lua').DetermineColourIndex
     local colourIndexList = {}
-    
+
     for _, colour in colourslist do
         table.insert(colourIndexList, DetermineColourIndex(colour))
     end
@@ -44,7 +18,8 @@ ConvertColoursList = function()
     return colourIndexList
 end
 
--- We duplicate beam and trail blueprints so that we are able to switch effect colours to match faction colours ingame.
+-- We duplicate beam and trail blueprints so that we are able to switch effect colours to match faction colours in game.
+---@param all_bps any
 function ExtractColouredBlueprints(all_bps)
     --first we get a list of the colour indeces, so we know how many blueprints to duplicate
     local colourIndexList = {
@@ -83,7 +58,7 @@ function ExtractColouredBlueprints(all_bps)
             end
         end
     end
-    
+
     for _, bp in all_bps.TrailEmitter do
         if bp.RecolourByArmyColour then
             --we make one duplicate for each colour, and also leave the original
@@ -103,18 +78,10 @@ function ExtractColouredBlueprints(all_bps)
 end
 
 
-
-
-
-
-
-
-
-
-
-
 --TODO:if SACUs are losing their capacitor abilities, we can just remove all this.
 --Slightly disgusting that we need to hook the whole function just to change two bits in it. Changes are commented with "Nomads" in them
+---@param bps any
+---@param all_bps any
 function HandleUnitWithBuildPresets(bps, all_bps)
 
     -- hashing sort categories for quick lookup
@@ -224,17 +191,36 @@ function HandleUnitWithBuildPresets(bps, all_bps)
     end
 end
 
-local oldExtractAllMeshBlueprints = ExtractAllMeshBlueprints
-function ExtractAllMeshBlueprints()
-    oldExtractAllMeshBlueprints()
+---@param bp any
+function ExtractStunnedMeshBlueprint(bp)
 
-    -- also extracting stunned mesh blueprints
-    for id,bp in original_blueprints.Unit do
-        ExtractStunnedMeshBlueprint(bp)
+    if not bp.Display.MeshBlueprintStunned or bp.Display.MeshBlueprintStunned == '' then
+
+        -- duplicating the default unit mesh
+        local meshid = bp.Display.MeshBlueprint
+        if not meshid then return end
+        local meshbp = original_blueprints.Mesh[meshid]
+        if not meshbp then return end
+        local StunnedMeshBp = table.deepcopy(meshbp)
+
+        -- changing shadernames
+        if StunnedMeshBp.LODs then
+            for k, lod in StunnedMeshBp.LODs do
+                -- only change shadername if there actually is a stunned shader...
+                if lod.ShaderName == 'Unit' or lod.ShaderName == 'Aeon' or lod.ShaderName == 'Insect' or lod.ShaderName == 'Seraphim' or lod.ShaderName == 'NomadsUnit' then
+                    lod.ShaderName = lod.ShaderName .. 'Stunned'
+                end
+            end
+        end
+
+        -- registering new mesh for future use
+        StunnedMeshBp.BlueprintId = meshid .. '_stunned'
+        bp.Display.MeshBlueprintStunned = StunnedMeshBp.BlueprintId
+        MeshBlueprint(StunnedMeshBp)
     end
 end
 
-local oldExtractBuildMeshBlueprint = ExtractBuildMeshBlueprint
+---@param bp any
 function ExtractBuildMeshBlueprint(bp)
     oldExtractBuildMeshBlueprint(bp)
 
@@ -266,30 +252,41 @@ function ExtractBuildMeshBlueprint(bp)
     end
 end
 
-function ExtractStunnedMeshBlueprint(bp)
+function ExtractAllMeshBlueprints()
+    oldExtractAllMeshBlueprints()
 
-    if not bp.Display.MeshBlueprintStunned or bp.Display.MeshBlueprintStunned == '' then
+    -- also extracting stunned mesh blueprints
+    for id,bp in original_blueprints.Unit do
+        ExtractStunnedMeshBlueprint(bp)
+    end
+end
 
-        -- duplicating the default unit mesh
-        local meshid = bp.Display.MeshBlueprint
-        if not meshid then return end
-        local meshbp = original_blueprints.Mesh[meshid]
-        if not meshbp then return end
-        local StunnedMeshBp = table.deepcopy(meshbp)
+---@param all_bps any
+function ModBlueprints(all_bps)
 
-        -- changing shadernames
-        if StunnedMeshBp.LODs then
-            for k, lod in StunnedMeshBp.LODs do
-                -- only change shadername if there actually is a stunned shader...
-                if lod.ShaderName == 'Unit' or lod.ShaderName == 'Aeon' or lod.ShaderName == 'Insect' or lod.ShaderName == 'Seraphim' or lod.ShaderName == 'NomadsUnit' then
-                    lod.ShaderName = lod.ShaderName .. 'Stunned'
-                end
-            end
+    for _, bp in all_bps.Unit do
+        -- Set up units to be transported by the T4 transport. All naval units need transporting, as well as selected experimentals.
+        if bp.Transport and bp.Transport.TransportClass and not (bp.CategoriesHash.NAVALCARRIER or bp.CategoriesHash.AIRSTAGINGPLATFORM) then continue end--skip units which already have their class set explicitly
+
+        local transClassToSet = false
+
+        if bp.CategoriesHash.NAVAL and bp.CategoriesHash.MOBILE and not bp.CategoriesHash.EXPERIMENTAL then
+            transClassToSet = 4 --fits into AttachSpecial slot
         end
 
-        -- registering new mesh for future use
-        StunnedMeshBp.BlueprintId = meshid .. '_stunned'
-        bp.Display.MeshBlueprintStunned = StunnedMeshBp.BlueprintId
-        MeshBlueprint(StunnedMeshBp)
+        if transClassToSet then
+            if not bp.General then bp.General = {} end
+            if not bp.General.CommandCaps then bp.General.CommandCaps = {} end
+            bp.General.CommandCaps[ 'RULEUCC_CallTransport' ] = (transClassToSet ~= 10) --set to false if we specify class 10
+
+            if not bp.Transport then bp.Transport = {} end
+            bp.Transport[ 'CanFireFromTransport' ] = false
+            bp.Transport[ 'TransportClass' ] = transClassToSet
+        end
+
+        BlueprintLoaderUpdateProgress()
     end
+
+    ExtractColouredBlueprints(all_bps)
+    oldModBlueprints(all_bps)
 end

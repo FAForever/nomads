@@ -2,8 +2,10 @@ local ScriptTask = import('/lua/sim/ScriptTask.lua').ScriptTask
 local TASKSTATUS = import('/lua/sim/ScriptTask.lua').TASKSTATUS
 local AIRESULT = import('/lua/sim/ScriptTask.lua').AIRESULT
 
+---@class TargetLocation : ScriptTask
 TargetLocation = Class(ScriptTask) {
 
+    ---@param self TargetLocation
     StartTask = function(self)
         self.ScriptIsDone = false
         if self:IfBrainAllowsRun() then
@@ -13,6 +15,7 @@ TargetLocation = Class(ScriptTask) {
         end
     end,
 
+    ---@param self TargetLocation
     ScryLocation = function(self)
         local unit = self:GetUnit()
         local locations = self.TargetLocations
@@ -29,6 +32,8 @@ TargetLocation = Class(ScriptTask) {
         self.ScriptIsDone = true
     end,
 
+    ---@param self TargetLocation
+    ---@return number
     TaskTick = function(self)
         if self.ScriptIsDone then
             return TASKSTATUS.Done
