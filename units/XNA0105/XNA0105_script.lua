@@ -63,8 +63,8 @@ XNA0105 = Class(NAirUnit) {
     end,
 
     ---@param self XNA0105
-    ---@param new VerticalMovementState  
-    ---@param old VerticalMovementState  # Unused
+    ---@param new VerticalMovementState
+    ---@param old VerticalMovementState # Unused
     UpdateHoverEmitter = function(self, new, old)
         if new == 'Down' then
             self:DestroyHoverEmitterEffects()

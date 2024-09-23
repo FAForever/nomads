@@ -73,8 +73,8 @@ XNA0104 = Class(NAirTransportUnit) {
     end,
 
     ---@param self XNA0104
-    ---@param new VerticalMovementState  
-    ---@param old VerticalMovementState  
+    ---@param new VerticalMovementState
+    ---@param old VerticalMovementState
     OnMotionVertEventChange = function( self, new, old )
         NAirTransportUnit.OnMotionVertEventChange( self, new, old )
 
@@ -165,7 +165,7 @@ XNA0104 = Class(NAirTransportUnit) {
                 self:DestroyThrusterBurnEffects()
             end
         end
-        self.Trash:Add(ForkThread(fn, delay,self))
+        self.Trash:Add(ForkThread(fn, delay, self))
     end,
 
     ---@param self XNA0104
@@ -193,7 +193,7 @@ XNA0104 = Class(NAirTransportUnit) {
         end
     end,
 
-    -- returning folded state based on animation state and direction
+    -- return folded state based on animation state and direction
     ---@param self XNA0104
     ---@return FoldState
     GetFoldState = function(self)
@@ -207,10 +207,11 @@ XNA0104 = Class(NAirTransportUnit) {
         return 'unknown'
     end,
 
+    --- Returns the unit's hitbox sizes based on its fold state
     ---@param self XNA0104
-    ---@return number blueprints SizeX
-    ---@return number blueprints SizeY 
-    ---@return number blueprints SizeZ
+    ---@return number X size
+    ---@return number Y size 
+    ---@return number Z size
     GetUnitSizes = function(self)
         local bp = self.Blueprint
         if self:GetFoldState() == 'folded' or self:GetFoldState() == 'folding' then
