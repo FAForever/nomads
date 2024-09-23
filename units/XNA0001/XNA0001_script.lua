@@ -105,7 +105,7 @@ XNA0001 = Class(Unit) {
             WaitSeconds(5)
             self:Destroy()
         end
-        self.Trash:Add(ForkThread(fn,self))
+        self.Trash:Add(ForkThread(fn, self))
     end,
 }
 TypeClass = XNA0001
