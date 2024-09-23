@@ -66,7 +66,7 @@ XNA0001 = Class(Unit) {
             self:DoUnitCallbacks('openup', 'expired')
             self:Destroy()
         end
-        self.Trash:Add(ForkThread(fn,self))
+        self.Trash:Add(ForkThread(fn, self))
     end,
 
     ---@param self XNA0001
