@@ -32,7 +32,7 @@ XNB4302 = Class(NStructureUnit) {
 
                     self:ForkThread(function()
                         self.unit:SetBusy(true)
-                        WaitSeconds(1/self.unit.Blueprint.Weapon[1].RateOfFire + .2)
+                        WaitSeconds(1 / self.Blueprint.RateOfFire + .2)
                         self.unit:SetBusy(false)
                     end)
                 end,
