@@ -21,7 +21,7 @@ XNB1202 = Class(NMassCollectionUnit) {
 
     ---@param self XNB1202
     ---@param instigator Unit
-    ---@param damageType DamageType  
+    ---@param damageType DamageType
     ---@param overkillRatio number
     OnKilled = function(self, instigator, damageType, overkillRatio)
         if self.TarmacBag.CurrentBP['AlbedoKilled'] then
