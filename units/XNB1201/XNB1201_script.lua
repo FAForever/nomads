@@ -90,6 +90,8 @@ XNB1201 = Class(NEnergyCreationUnit) {
         self.ActiveEffectsBag:Add( self:ForkThread( self.RandomDischarges, 'electric.011', Random(0, 30) ) )
         self.ActiveEffectsBag:Add( self:ForkThread( self.RandomDischarges, 'electric.012', Random(0, 30) ) )
         self.ActiveEffectsBag:Add( self:ForkThread( self.RandomBoneToBoneDischarges ) )
+
+        return NEnergyCreationUnit.PlayActiveEffects(self)
     end,
 
     ---@param self XNB1201
