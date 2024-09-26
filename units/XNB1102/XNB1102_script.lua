@@ -28,7 +28,7 @@ XNB1102 = Class(NEnergyCreationUnit) {
 
         -- Sound
         local bp = self.Blueprint
-        if bp and bp.Audio and bp.Audio.Activate then
+        if bp.Audio.Activate then
             self:PlaySound( bp.Activate )
         end
     end,
