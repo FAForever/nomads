@@ -16,7 +16,7 @@ XNB2302 = Class(NStructureUnit) {
 
     ---@param self XNB2302
     ---@param instigator Unit
-    ---@param damageType DamageType  
+    ---@param damageType DamageType
     ---@param overkillRatio number
     OnKilled = function(self, instigator, damageType, overkillRatio)
         NStructureUnit.OnKilled(self, instigator, damageType, overkillRatio)
