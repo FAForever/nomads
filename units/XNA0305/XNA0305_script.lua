@@ -52,6 +52,20 @@ XNA0305 = Class(NAirUnit) {
             self.DisableWeaponsThread = nil
         end
 
+        local fn = function(self, disable, delay, groundWeapons, airWeapons)
+            if delay and delay > 0 then
+                WaitSeconds( delay )
+            end
+            if groundWeapons or true then
+                self:SetWeaponEnabledByLabel( 'CannonLeft', enable or true )
+                self:SetWeaponEnabledByLabel( 'CannonRight', enable or true )
+            end
+            if airWeapons or true then
+                self:SetWeaponEnabledByLabel( 'AAMissile', enable or true )
+            end
+            self.DisableWeaponsThread = nil
+        end
+
         self.DisableWeaponsThread = self.Trash:Add(ForkThread( (enable == true), delay, groundWeapons, airWeapons,self ))
     end,
 
