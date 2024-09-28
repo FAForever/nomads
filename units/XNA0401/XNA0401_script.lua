@@ -1,5 +1,3 @@
--- Experimental transport
-
 local Explosion = import('/lua/defaultexplosions.lua')
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local NExperimentalAirTransportUnit = import('/lua/nomadsunits.lua').NExperimentalAirTransportUnit
@@ -9,7 +7,13 @@ local AddRapidRepair = import('/lua/nomadsutils.lua').AddRapidRepair
 
 NExperimentalAirTransportUnit = AddRapidRepair(NExperimentalAirTransportUnit)
 
+--- Experimental Air Transport
+---@class XNA0401 : NExperimentalAirTransportUnit
 XNA0401 = Class(NExperimentalAirTransportUnit) {
+
+    BeamExhaustCruise = '/effects/emitters/transport_thruster_beam_01_emit.bp',
+    BeamExhaustIdle = '/effects/emitters/transport_thruster_beam_02_emit.bp',
+
 
     Weapons = {
         ChainGun01 = Class(DarkMatterWeapon1) {},
@@ -20,15 +24,16 @@ XNA0401 = Class(NExperimentalAirTransportUnit) {
         SAM02 = Class(MissileWeapon1) {},
     },
 
-    DestroyNoFallRandomChance = 1.1,  -- don't blow up in air when killed
-    
-    --engine bones that tilt side to side, and forwards/backwards
+    -- don't blow up in air when killed
+    DestroyNoFallRandomChance = 1.1,
+
+    -- engine bones that tilt side to side, and forwards/backwards
     EngineThrustControllerBones = {
         EngineArmRotatorLeft02 = false,
         EngineArmRotatorLeft01 = false,
         EngineArmRotatorRight01 = false,
         EngineArmRotatorRight02 = false,
-        
+
         --the actual engines
         EngineRotatorRight01 = true,
         EngineRotatorRight02 = true,
@@ -40,8 +45,13 @@ XNA0401 = Class(NExperimentalAirTransportUnit) {
         EngineRotatorLeft04 = true
     },
 
+    ---@param self XNA0401
+    ---@param builder Unit
+    ---@param layer Layer
     OnStopBeingBuilt = function(self, builder, layer)
         NExperimentalAirTransportUnit.OnStopBeingBuilt(self, builder, layer)
+
+        local bp = self.Blueprint
 
         -- set up the thrusting arcs for the engines
         for boneName,tiltForwards in self.EngineThrustControllerBones do
@@ -57,14 +67,17 @@ XNA0401 = Class(NExperimentalAirTransportUnit) {
         self.LandingAnimManip = CreateAnimator(self)
         self.LandingAnimManip:SetPrecedence(0)
         self.Trash:Add(self.LandingAnimManip)
-        self.LandingAnimManip:PlayAnim(self:GetBlueprint().Display.AnimationLand):SetRate(0)
-        
+        self.LandingAnimManip:PlayAnim(bp.Display.AnimationLand):SetRate(0)
+
         self.HolderArmManip = CreateAnimator(self)
         self.HolderArmManip:SetPrecedence(1)
         self.Trash:Add(self.HolderArmManip)
-        self.HolderArmManip:PlayAnim(self:GetBlueprint().Display.AnimationHolder):SetRate(0.5)
+        self.HolderArmManip:PlayAnim(bp.Display.AnimationHolder):SetRate(0.5)
     end,
-    
+
+    ---@param self XNA0401
+    ---@param attachBone Bone
+    ---@param unit Unit
     OnTransportAttach = function(self, attachBone, unit)
         NExperimentalAirTransportUnit.OnTransportAttach(self, attachBone, unit)
         if EntityCategoryContains(categories.NAVAL + categories.EXPERIMENTAL, unit) and self.HolderArmManip then
@@ -72,13 +85,19 @@ XNA0401 = Class(NExperimentalAirTransportUnit) {
         end
     end,
 
+    ---@param self XNA0401
+    ---@param attachBone Bone
+    ---@param unit Unit
     OnTransportDetach = function(self, attachBone, unit)
         NExperimentalAirTransportUnit.OnTransportDetach(self, attachBone, unit)
         if EntityCategoryContains(categories.NAVAL + categories.EXPERIMENTAL, unit) and self.HolderArmManip then
             self.HolderArmManip:SetRate(0.5)
         end
     end,
-    
+
+    ---@param self XNA0401
+    ---@param new VerticalMovementState
+    ---@param old VerticalMovementState
     OnMotionVertEventChange = function(self, new, old)
         NExperimentalAirTransportUnit.OnMotionVertEventChange(self, new, old)
         if (new == 'Hover') then
@@ -87,10 +106,6 @@ XNA0401 = Class(NExperimentalAirTransportUnit) {
             self.LandingAnimManip:SetRate(-1)
         end
     end,
-    
-    BeamExhaustCruise = '/effects/emitters/transport_thruster_beam_01_emit.bp',
-    BeamExhaustIdle = '/effects/emitters/transport_thruster_beam_02_emit.bp',
-
 
     --TODO: redo the crashing thread so its just as awesome but also makes sense with the new model:
     --[[
@@ -105,11 +120,16 @@ XNA0401 = Class(NExperimentalAirTransportUnit) {
     3. add parts falling from the transport, and engines being displaced, ect. as the transport crashes
     --]]
 
-    OnKilled = function(self, instigator, type, overkillRatio)
+    ---@param self XNA0401
+    ---@param instigator Unit
+    ---@param damageType DamageType
+    ---@param overkillRatio number
+    OnKilled = function(self, instigator, damageType, overkillRatio)
         self:ForkThread( self.CrashingThread )
-        NExperimentalAirTransportUnit.OnKilled(self, instigator, type, overkillRatio)
+        NExperimentalAirTransportUnit.OnKilled(self, instigator, damageType, overkillRatio)
     end,
-    
+
+    ---@param self XNA0401
     CrashingThread = function(self)
         local explosionSide = {'Left', 'Right'}
         explosionSide = explosionSide[Random( 1, 2 )]
@@ -127,7 +147,7 @@ XNA0401 = Class(NExperimentalAirTransportUnit) {
         else
             self.DeathRotator:SetTargetSpeed(700)
         end
-        
+
         -- explode and hide all engines on the side we are banking towards
         for boneNumber = 1,4 do
             local boneName = 'EngineRotator'..explosionSide..'0'..boneNumber
@@ -146,8 +166,13 @@ XNA0401 = Class(NExperimentalAirTransportUnit) {
         self.detector:Enable()
     end,
 
+    ---@param self XNA0401
+    ---@param bone string
+    ---@param x number
+    ---@param y number
+    ---@param z number
     OnAnimTerrainCollision = function(self, bone, x, y, z)
-        local bp = self:GetBlueprint()
+        local bp = self.Blueprint
 
         -- do damage
         for k, wep in bp.Weapon do
@@ -161,10 +186,13 @@ XNA0401 = Class(NExperimentalAirTransportUnit) {
         Explosion.CreateDefaultHitExplosionAtBone( self, bone, 2 )
     end,
 
+    ---@param self XNA0401
+    ---@param with Unit
+    ---@param other any
     OnImpact = function(self, with, other)
         -- plays when the unit is killed. All effects should have a lifetime cause we won't remove them via scripting; this unit is dead in a moment.
 
-        local bp = self:GetBlueprint()
+        local bp = self.Blueprint
         local pos = self:GetPosition()
         local emit
 
@@ -190,5 +218,4 @@ XNA0401 = Class(NExperimentalAirTransportUnit) {
         NExperimentalAirTransportUnit.OnImpact(self, with, other)
     end,
 }
-
 TypeClass = XNA0401
