@@ -1,11 +1,9 @@
--- T1 gunship
-
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
---local NAirTransportUnit = import('/lua/nomadsunits.lua').NAirTransportUnit
 local DarkMatterWeapon1 = import('/lua/nomadsweapons.lua').DarkMatterWeapon1
 local NAirUnit = import('/lua/nomadsunits.lua').NAirUnit
 
-
+--- Tech 1 Gunship
+---@class XNA0105 : NAirUnit
 XNA0105 = Class(NAirUnit) {
     Weapons = {
         Gun1 = Class(DarkMatterWeapon1) {},
@@ -15,6 +13,7 @@ XNA0105 = Class(NAirUnit) {
     BeamHoverExhaustCruise = NomadsEffectTemplate.AirThrusterLargeCruisingBeam,
     BeamHoverExhaustIdle = NomadsEffectTemplate.AirThrusterLargeIdlingBeam,
 
+    ---@param self XNA0105
     OnCreate = function(self)
         NAirUnit.OnCreate(self)
         self.HoverEmitterEffectTrashBag = TrashBag()
@@ -23,28 +22,36 @@ XNA0105 = Class(NAirUnit) {
         self.Trash:Add(self.BarrelAnim)
     end,
 
+    ---@param self XNA0105
     OnDestroy = function(self)
         self:DestroyHoverEmitterEffects()
         NAirUnit.OnDestroy(self)
     end,
 
+    ---@param self XNA0105
+    ---@param builder Unit
+    ---@param layer Layer
     OnStopBeingBuilt = function(self, builder, layer)
         NAirUnit.OnStopBeingBuilt(self, builder, layer)
         self.BarrelAnim:SetRate(-0.5)
-        self:ForkThread(self.WatchBarrelAnim, 0.65)
+        self.Trash:Add(ForkThread(self.WatchBarrelAnim, 0.65, self))
     end,
 
+    ---@param self XNA0105
+    ---@param new VerticalMovementState
+    ---@param old VerticalMovementState
     OnMotionVertEventChange = function( self, new, old )
         NAirUnit.OnMotionVertEventChange( self, new, old )
         self:UpdateHoverEmitter(new, old)
     end,
 
+    ---@param self XNA0105
+    ---@param fraction number
     WatchBarrelAnim = function(self, fraction)
         while self and not self.Dead and self.BarrelAnim do
             local r = self.BarrelAnim:GetRate()
             local f = self.BarrelAnim:GetAnimationFraction()
             if r == 0 then
-                --LOG('xna0105: Not watching barrel anim because animation rate is 0')
                 return
             elseif (r > 0 and f >= fraction) or (r < 0 and f <= fraction) then
                 self.BarrelAnim:SetRate(0)
@@ -55,6 +62,9 @@ XNA0105 = Class(NAirUnit) {
         end
     end,
 
+    ---@param self XNA0105
+    ---@param new VerticalMovementState
+    ---@param old VerticalMovementState # Unused
     UpdateHoverEmitter = function(self, new, old)
         if new == 'Down' then
             self:DestroyHoverEmitterEffects()
@@ -67,6 +77,8 @@ XNA0105 = Class(NAirUnit) {
         end
     end,
 
+    ---@param self XNA0105
+    ---@param large boolean
     PlayHoverEmitterEffects = function(self, large)
         local beam
         if large then
@@ -78,9 +90,9 @@ XNA0105 = Class(NAirUnit) {
         self.Trash:Add(beam)
     end,
 
+    ---@param self XNA0105
     DestroyHoverEmitterEffects = function(self)
         self.HoverEmitterEffectTrashBag:Destroy()
     end,
 }
-
 TypeClass = XNA0105

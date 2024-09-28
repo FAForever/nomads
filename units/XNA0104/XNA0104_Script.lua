@@ -1,5 +1,3 @@
--- T2 transport
-
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local AddLights = import('/lua/nomadsutils.lua').AddLights
 local NAirTransportUnit = import('/lua/nomadsunits.lua').NAirTransportUnit
@@ -7,11 +5,16 @@ local DummyWeapon = import('/lua/aeonweapons.lua').AAASonicPulseBatteryWeapon
 
 NAirTransportUnit = AddLights( NAirTransportUnit )
 
-XNA0104 = Class(NAirTransportUnit) {
-    Weapons = {
-        GuidanceSystem = Class(DummyWeapon) {},
-    },
+---@alias FoldState
+---| "folded"
+---| "unfolded"
+---| "unfolding"
+---| "unknown"
 
+
+-- Tech 2 Air Transport
+---@class XNA0104 : NAirTransportUnit
+XNA0104 = Class(NAirTransportUnit) {
     DestructionTicks = 250,
 
     -- bones that can be hidden: Antenna01, Antenna02, Flare01, Flare02, Flare03, Flare04, Flare05, Flare06, RocketLauncherArm
@@ -19,6 +22,11 @@ XNA0104 = Class(NAirTransportUnit) {
     ThrusterBurnBones = { 'Engine1', 'Engine2', },
     RocketLauncherBone = 'RocketLauncherArm',
 
+    Weapons = {
+        GuidanceSystem = Class(DummyWeapon) {},
+    },
+
+    ---@param self XNA0104
     OnCreate = function(self)
         NAirTransportUnit.OnCreate(self)
 
@@ -33,12 +41,16 @@ XNA0104 = Class(NAirTransportUnit) {
 
     end,
 
+    ---@param self XNA0104
     OnDestroy = function(self)
         self:DestroyThrusterEffects()
         self:DestroyThrusterBurnEffects()
         NAirTransportUnit.OnDestroy(self)
     end,
 
+    ---@param self XNA0104
+    ---@param builder Unit
+    ---@param layer Layer
     OnStopBeingBuilt = function(self,builder,layer)
         NAirTransportUnit.OnStopBeingBuilt(self,builder,layer)
 
@@ -47,15 +59,22 @@ XNA0104 = Class(NAirTransportUnit) {
         self:Fold(true)
     end,
 
-    OnKilled = function(self, instigator, type, overkillRatio)
+    ---@param self XNA0104
+    ---@param instigator Unit
+    ---@param damageType DamageType
+    ---@param overkillRatio number
+    OnKilled = function(self, instigator, damageType, overkillRatio)
         if self.UnfoldAnim then
             self.UnfoldAnim:SetRate(0)
         end
         self:DestroyThrusterEffects()
-        NAirTransportUnit.OnKilled(self, instigator, type, overkillRatio)
+        NAirTransportUnit.OnKilled(self, instigator, damageType, overkillRatio)
         self:TransportDetachAllUnits(true)
     end,
 
+    ---@param self XNA0104
+    ---@param new VerticalMovementState
+    ---@param old VerticalMovementState
     OnMotionVertEventChange = function( self, new, old )
         NAirTransportUnit.OnMotionVertEventChange( self, new, old )
 
@@ -86,17 +105,14 @@ XNA0104 = Class(NAirTransportUnit) {
             end
 
         elseif new == 'Bottom' then  -- when the transport lands on the surface (happens when the unit it's loading is destroyed just before it can be attached)
---            if old ~= 'Hover' and old ~= 'Down' then
                 self:DestroyThrusterEffects()
                 self:DestroyThrusterBurnEffects()
                 self:PlayThrusterBurnEffects()
                 self:DelayDestroyThrusterBurnEffects(2)
---            end
         end
     end,
 
-    -- =============================================
-
+    ---@param self XNA0104
     PlayThrusterEffects = function(self)
         -- normal thruster effects, probably on all the time
 
@@ -112,10 +128,13 @@ XNA0104 = Class(NAirTransportUnit) {
         end
     end,
 
+    ---@param self XNA0104
     DestroyThrusterEffects = function(self)
         self.ThrusterEffectsBag:Destroy()
     end,
 
+
+    ---@param self XNA0104
     PlayThrusterBurnEffects = function(self)
 
         if self:GetFractionComplete() < 1 then return end
@@ -130,11 +149,14 @@ XNA0104 = Class(NAirTransportUnit) {
         end
     end,
 
+    ---@param self XNA0104
     DestroyThrusterBurnEffects = function(self)
         -- stop thruster burn
         self.ThrusterBurnEffectsBag:Destroy()
     end,
 
+    ---@param self XNA0104
+    ---@param delay number
     DelayDestroyThrusterBurnEffects = function(self, delay)
         -- stop thruster burn after x seconds
         local fn = function(self, delay)
@@ -143,39 +165,38 @@ XNA0104 = Class(NAirTransportUnit) {
                 self:DestroyThrusterBurnEffects()
             end
         end
-        self:ForkThread(fn, delay)
+        self.Trash:Add(ForkThread(fn, delay, self))
     end,
 
-    -- =============================================
-
+    ---@param self XNA0104
+    ---@param DoUnfold boolean
     Fold = function(self, DoUnfold)
         if not self.Dead then
-
             -- makes the unit compact or not, depending on current cargo and some other parameters. Also adjusts hitbox accordingly.
             local FoldState = self:GetFoldState()
             local ShouldFold = ( table.getsize(self:GetCargo()) <= 0 )
-            --LOG('*DEBUG: state = '..repr(FoldState)..' should fold = '..repr(ShouldFold)..' DoUnfold = '..repr(DoUnfold))
 
             if (FoldState == 'folded' or FoldState == 'folding') and (not ShouldFold or DoUnfold) then
                 --LOG('*DEBUG: unfolding')
-                local bp = self:GetBlueprint()
+                local bp = self.Blueprint
                 local scale = bp.Display.UniformScale or 1
                 self:SetCollisionShape( 'Box', bp.CollisionOffsetX or 0, (bp.CollisionOffsetY + (bp.SizeY*1.0)) or 0, bp.CollisionOffsetZ or 0, bp.SizeX * scale, bp.SizeY * scale, bp.SizeZ * scale )
                 self.UnfoldAnim:SetRate(0.5)
 
             elseif (FoldState == 'unfolded' or FoldState == 'unfolding') and ShouldFold then
                 --LOG('*DEBUG: folding')
-                local bp = self:GetBlueprint()
+                local bp = self.Blueprint
                 local scale = bp.Display.UniformScale or 1
                 self:SetCollisionShape( 'Box', bp.CollisionOffsetX or 0, (bp.CollisionOffsetY + (bp.SizeYContracted*1.0)) or 0, bp.CollisionOffsetZ or 0, bp.SizeXContracted * scale, bp.SizeYContracted * scale, bp.SizeZContracted * scale )
                 self.UnfoldAnim:SetRate(-0.5)
             end
-
         end
     end,
 
+    -- return folded state based on animation state and direction
+    ---@param self XNA0104
+    ---@return FoldState
     GetFoldState = function(self)
-        -- returning folded state based on animation state and direction
         if self.UnfoldAnim then
             if self.UnfoldAnim:GetAnimationFraction() <= 0 then return 'folded'
             elseif self.UnfoldAnim:GetAnimationFraction() >= 1 then return 'unfolded'
@@ -186,13 +207,17 @@ XNA0104 = Class(NAirTransportUnit) {
         return 'unknown'
     end,
 
+    --- Returns the unit's hitbox sizes based on its fold state
+    ---@param self XNA0104
+    ---@return number X size
+    ---@return number Y size 
+    ---@return number Z size
     GetUnitSizes = function(self)
-        local bp = self:GetBlueprint()
+        local bp = self.Blueprint
         if self:GetFoldState() == 'folded' or self:GetFoldState() == 'folding' then
             return bp.SizeXContracted, bp.SizeYContracted, bp.SizeZContracted
         end
         return bp.SizeX, bp.SizeY, bp.SizeZ
     end,
 }
-
 TypeClass = XNA0104
