@@ -1,8 +1,11 @@
--- fighter bomber
-
 local NAirUnit = import('/lua/nomadsunits.lua').NAirUnit
 local RocketWeapon1 = import('/lua/nomadsweapons.lua').RocketWeapon1
 
+---@alias Reason "GroundAttack"
+
+
+--- Tech 2 Fighter Bomber
+---@class XNA0202 : NAirUnit
 XNA0202 = Class(NAirUnit) {
     Weapons = {
 	    AGRockets = Class(RocketWeapon1) {
@@ -13,7 +16,7 @@ XNA0202 = Class(NAirUnit) {
                     RocketWeapon1.IdleState.OnGotTarget(self)
                 end,
             },
-			
+
             DestroyRecoilManips = function(self)
                 RocketWeapon1.DestroyRecoilManips(self)
             end,
@@ -30,7 +33,9 @@ XNA0202 = Class(NAirUnit) {
         },
         AARockets = Class(RocketWeapon1) {},
     },
-	
+
+    ---@param self XNA0202
+    ---@param reason Reason
     ChangeSpeedFor = function(self, reason)
         if reason == 'GroundAttack' then
             self:SetBreakOffTriggerMult(2.0)
@@ -43,11 +48,10 @@ XNA0202 = Class(NAirUnit) {
         end
     end,
 
+    ---@param self XNA0202
     OnCreate = function(self)
         NAirUnit.OnCreate(self)
         self.Rack2Manip = CreateSlaver(self, 'barrel.002', 'barrel.001')
     end,
-
 }
-
 TypeClass = XNA0202

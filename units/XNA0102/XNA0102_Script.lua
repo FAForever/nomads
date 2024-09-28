@@ -1,8 +1,8 @@
--- T1 interceptor
-
 local NAirUnit = import('/lua/nomadsunits.lua').NAirUnit
 local AirToAirGun1 = import('/lua/nomadsweapons.lua').AirToAirGun1
 
+--- Tech 1 Interceptor
+---@class XNA0102 : NAirUnit
 XNA0102 = Class(NAirUnit) {
     Weapons = {
         MainGun = Class(AirToAirGun1) {},
