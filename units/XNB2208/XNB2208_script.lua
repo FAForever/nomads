@@ -1,9 +1,9 @@
--- T2 TML
-
 local NStructureUnit = import('/lua/nomadsunits.lua').NStructureUnit
 local TacticalMissileWeapon1 = import('/lua/nomadsweapons.lua').TacticalMissileWeapon2
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 
+--- Tech 2 Tactical Missile Launcher  
+---@class XNB2208 : NStructureUnit
 XNB2208 = Class(NStructureUnit) {
     Weapons = {
         CruiseMissile = Class(TacticalMissileWeapon1) {
@@ -11,6 +11,9 @@ XNB2208 = Class(NStructureUnit) {
         },
     },
 
+    ---@param self XNB2208
+    ---@param builder Unit
+    ---@param layer Layer
     OnStartBeingBuilt = function(self, builder, layer)
         local bp = self:GetBlueprint()
         if bp.Display.AnimationPermOpenAlt then
@@ -20,6 +23,9 @@ XNB2208 = Class(NStructureUnit) {
         NStructureUnit.OnStartBeingBuilt(self, builder, layer)
     end,
 
+    ---@param self XNB2208
+    ---@param builder Unit
+    ---@param layer Layer
     OnStopBeingBuilt = function(self, builder, layer)
         if self.PermOpenAnimManipulator then
             self.PermOpenAnimManipulator:SetRate(1)
@@ -27,5 +33,4 @@ XNB2208 = Class(NStructureUnit) {
         NStructureUnit.OnStopBeingBuilt(self, builder, layer)
     end,
 }
-
 TypeClass = XNB2208

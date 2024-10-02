@@ -1,10 +1,8 @@
--- T1 point defense
-
 local NStructureUnit = import('/lua/nomadsunits.lua').NStructureUnit
 local NDFRotatingAutocannonWeapon = import('/lua/nomadsweapons.lua').NDFRotatingAutocannonWeapon
-local EffectUtils = import('/lua/effectutilities.lua')
-local Effects = import('/lua/effecttemplates.lua')
 
+--- Tech 1 Point Defence
+---@class XNB2101 : NStructureUnit
 XNB2101 = Class(NStructureUnit) {
     Weapons = {
         MainGun = Class(NDFRotatingAutocannonWeapon) {
@@ -12,5 +10,4 @@ XNB2101 = Class(NStructureUnit) {
         },
     },
 }
-
 TypeClass = XNB2101

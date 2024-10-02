@@ -1,10 +1,9 @@
--- T3 rocket artillery
-
 local Entity = import('/lua/sim/Entity.lua').Entity
 local NStructureUnit = import('/lua/nomadsunits.lua').NStructureUnit
 local TacticalMissileWeapon1 = import('/lua/nomadsweapons.lua').TacticalMissileWeapon1
 
-
+--- Tech 3 Rocket Artillery
+---@class XNB3303 : NStructureUnit
 XNB3303 = Class(NStructureUnit) {
     Weapons = {
         MainGun = Class(TacticalMissileWeapon1) {
@@ -68,6 +67,7 @@ XNB3303 = Class(NStructureUnit) {
     ReloadWaitTime = 0.5,
     RotatePreDelay = 0.5,
 
+    ---@param self XNB3303
     OnCreate = function(self)
         NStructureUnit.OnCreate(self)
 
@@ -102,6 +102,9 @@ XNB3303 = Class(NStructureUnit) {
         self:CalcReloadAnimParams()
     end,
 
+    ---@param self XNB3303
+    ---@param builder Unit
+    ---@param layer Layer
     OnStopBeingBuilt = function(self,builder,layer)
         NStructureUnit.OnStopBeingBuilt(self,builder,layer)
         local bp = self:GetBlueprint()
@@ -117,10 +120,18 @@ XNB3303 = Class(NStructureUnit) {
         self:ForkThread( fn )
     end,
 
+    ---@param self XNB3303
+    ---@param buffName string unused
+    ---@param instigator Unit unused
+    ---@param AOEtarget Unit unused
+    ---@param beforeData any unused
     OnAfterBeingBuffed = function( self, buffName, instigator, AOEtarget, beforeData )
         self:CalcReloadAnimParams()
     end,
 
+    ---@param self XNB3303
+    ---@param AtBone string
+    ---@param show boolean
     DoShowMissile = function(self, AtBone, show)
         -- hide and show bone would be nice here but the missile entity doesn't have these functions. So instead I'm just putting them
         -- under the surface.
@@ -135,6 +146,7 @@ XNB3303 = Class(NStructureUnit) {
         end
     end,
 
+    ---@param self XNB3303
     DoRotateAnim = function(self)
         -- rotate rack
         if self.RotatePreDelay > 0 then
@@ -144,6 +156,7 @@ XNB3303 = Class(NStructureUnit) {
         WaitFor( self.RotateManip )
     end,
 
+    ---@param self XNB3303
     DoReloadAnim = function(self)
 
 -- note: sometimes when the model is exported from blender the missile bones are reversed and the unit is firing into the ground
@@ -208,6 +221,7 @@ XNB3303 = Class(NStructureUnit) {
         self.RotateManip:SetGoal( 180 )
     end,
 
+    ---@param self XNB3303
     CalcReloadAnimParams = function(self)
 
         local wep = self:GetWeaponByLabel('MainGun')
@@ -245,5 +259,4 @@ XNB3303 = Class(NStructureUnit) {
         -- before the bar is filled.
     end,
 }
-
 TypeClass = XNB3303

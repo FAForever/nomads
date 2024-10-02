@@ -615,22 +615,21 @@ NConstructionUnit = Class(ConstructionUnit) {
 -- FACTORY UNITS
 ---------------------------------------------------------------
 LandFactoryUnit = AddNomadsBeingBuiltEffects(NomadsSharedFactory(LandFactoryUnit))
-
----@class NConstructionUnit : ConstructionUnit
-NLandFactoryUnit = Class(LandFactoryUnit) {}
-
 AirFactoryUnit = AddNomadsBeingBuiltEffects(NomadsSharedFactory(AirFactoryUnit))
-
----@class NConstructionUnit : ConstructionUnit
-NAirFactoryUnit = Class(AirFactoryUnit) {}
-
 SeaFactoryUnit = AddNomadsBeingBuiltEffects(NomadsSharedFactory(SeaFactoryUnit))
 
----@class NConstructionUnit : ConstructionUnit
+---@class NLandFactoryUnit : LandFactoryUnit
+NLandFactoryUnit = Class(LandFactoryUnit) {}
+
+---@class NAirFactoryUnit : AirFactoryUnit
+NAirFactoryUnit = Class(AirFactoryUnit) {}
+
+---@class NSeaFactoryUnit : SeaFactoryUnit
 NSeaFactoryUnit = Class(SeaFactoryUnit) {}
 
----@class NConstructionUnit : ConstructionUnit
+---@class NSCUFactoryUnit : LandFactoryUnit
 NSCUFactoryUnit = Class(LandFactoryUnit) {}
+
 
 ---------------------------------------------------------------
 --  UNITS IN PLANET ORBIT

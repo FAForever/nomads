@@ -1,13 +1,14 @@
--- T2 pgen
-
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local NEnergyCreationUnit = import('/lua/nomadsunits.lua').NEnergyCreationUnit
 local AddRapidRepair = import('/lua/nomadsutils.lua').AddRapidRepair
 
 NEnergyCreationUnit = AddRapidRepair(NEnergyCreationUnit)
 
+--- Tech 2 Power Generator
+---@class XNB1201 : NEnergyCreationUnit
 XNB1201 = Class(NEnergyCreationUnit) {
 
+    ---@param self XNB1201
     OnCreate = function(self)
         NEnergyCreationUnit.OnCreate(self)
 
@@ -30,6 +31,10 @@ XNB1201 = Class(NEnergyCreationUnit) {
         self.Trash:Add( self.Rotators[3] )
     end,
 
+    ---@param self XNB1201
+    ---@param instigator Unit
+    ---@param damageType DamageType
+    ---@param overkillRatio number
     OnKilled = function(self, instigator, type, overkillRatio)
         if self.TarmacBag.CurrentBP['AlbedoKilled'] then
             self.TarmacBag.CurrentBP.Albedo = self.TarmacBag.CurrentBP.AlbedoKilled
@@ -37,6 +42,9 @@ XNB1201 = Class(NEnergyCreationUnit) {
         NEnergyCreationUnit.OnKilled(self, instigator, type, overkillRatio)
     end,
 
+    ---@param self XNB1201
+    ---@param builder Unit
+    ---@param layer Layer
     OnStopBeingBuilt = function(self, builder, layer)
         -- antennae lights
         for k, v in NomadsEffectTemplate.AntennaeLights1 do
@@ -61,6 +69,7 @@ XNB1201 = Class(NEnergyCreationUnit) {
         NEnergyCreationUnit.OnStopBeingBuilt( self, builder, layer )
     end,
 
+    ---@param self XNB1201
     PlayActiveEffects = function(self)
         if self.Spinners[1] then self.Spinners[1]:SetTargetSpeed( 500 ) else LOG('XNB1201: no spinner 1') end
         if self.Spinners[2] then self.Spinners[2]:SetTargetSpeed( -500 ) else LOG('XNB1201: no spinner 2') end
@@ -85,6 +94,7 @@ XNB1201 = Class(NEnergyCreationUnit) {
         return NEnergyCreationUnit.PlayActiveEffects(self)
     end,
 
+    ---@param self XNB1201
     DestroyActiveEffects = function(self)
         if self.Spinners then
             for k, spinner in self.Spinners do
@@ -99,6 +109,9 @@ XNB1201 = Class(NEnergyCreationUnit) {
         self.ActiveEffectsBag:Destroy()
     end,
 
+    ---@param self XNB1201
+    ---@param bone Bone
+    ---@param delay number
     RandomDischarges = function(self, bone, delay)
         WaitTicks( delay )
         local emit
@@ -109,6 +122,7 @@ XNB1201 = Class(NEnergyCreationUnit) {
         end
     end,
 
+    ---@param self XNB1201
     RandomBoneToBoneDischarges = function(self)
         -- creates a discharge at a random interval between a set of 2 bones randomly chosen from the list below
 
@@ -145,5 +159,4 @@ XNB1201 = Class(NEnergyCreationUnit) {
         end
     end,
 }
-
 TypeClass = XNB1201
