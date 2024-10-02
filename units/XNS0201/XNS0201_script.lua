@@ -1,5 +1,3 @@
--- T2 destroyer
-
 local AddNavalLights = import('/lua/nomadsutils.lua').AddNavalLights
 local NSeaUnit = import('/lua/nomadsunits.lua').NSeaUnit
 local EnergyCannon1 = import('/lua/nomadsweapons.lua').EnergyCannon1
@@ -7,8 +5,14 @@ local TorpedoWeapon1 = import('/lua/nomadsweapons.lua').TorpedoWeapon1
 
 NSeaUnit = AddNavalLights(NSeaUnit)
 
-
+--- Tech 2 Destroyer
+---@class XNS0201 : NSeaUnit
 XNS0201 = Class(NSeaUnit) {
+
+    DestructionTicks = 200,
+    LightBone_Left = 'Antenna.001',
+    LightBone_Right = 'Antenna.002',
+
     Weapons = {
         FrontTurret = Class(EnergyCannon1) {},
         RearTurret = Class(EnergyCannon1) {},
@@ -27,20 +31,23 @@ XNS0201 = Class(NSeaUnit) {
         },
     },
 
-    DestructionTicks = 200,
-    LightBone_Left = 'Antenna.001',
-    LightBone_Right = 'Antenna.002',
-
+    ---@param self XNS0201
     OnCreate = function(self)
         NSeaUnit.OnCreate(self)
         self:HideBone('DCTYaw', true)
     end,
 
+    ---@param self XNS0201
+    ---@param builder Unit
+    ---@param layer Layer
     OnStopBeingBuilt = function(self, builder, layer)
         NSeaUnit.OnStopBeingBuilt(self, builder, layer)
         self:SetupMiniRailguns()
     end,
 
+    ---@param self XNS0201
+    ---@param new VerticalMovementState
+    ---@param old VerticalMovementState
     OnMotionHorzEventChange = function( self, new, old )
         NSeaUnit.OnMotionHorzEventChange( self, new, old )
         if old == 'Stopped' then
@@ -48,6 +55,7 @@ XNS0201 = Class(NSeaUnit) {
         end
     end,
 
+    ---@param self XNS0201
     SetupMiniRailguns = function(self)
         local bp = self:GetBlueprint()
         if bp.Display.MiniRailgunsExtend then
@@ -65,6 +73,7 @@ XNS0201 = Class(NSeaUnit) {
         end
     end,
 
+    ---@param self XNS0201
     ExtendMiniRailguns = function(self)
         if self.RailgunsDoExtend and not self.RailgunsExtended then
             local length = 0.5
@@ -74,6 +83,7 @@ XNS0201 = Class(NSeaUnit) {
         end
     end,
 
+    ---@param self XNS0201
     ContractMiniRailguns = function(self)
         if self.RailgunsDoExtend and self.RailgunsExtended then
             self.RailgunExt['Left']:SetGoal(0, 0, 0)
@@ -82,5 +92,4 @@ XNS0201 = Class(NSeaUnit) {
         end
     end,
 }
-
 TypeClass = XNS0201

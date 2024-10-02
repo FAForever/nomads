@@ -1,11 +1,11 @@
--- carrier
-
 local NSeaUnit = import('/lua/nomadsunits.lua').NSeaUnit
 local AircraftCarrier = import('/lua/defaultunits.lua').AircraftCarrier
 local EMPGun = import('/lua/nomadsweapons.lua').EMPGun
 local NAMFlakWeapon = import('/lua/nomadsweapons.lua').NAMFlakWeapon
 local ExternalFactoryComponent = import("/lua/defaultcomponents.lua").ExternalFactoryComponent
 
+--- Tech 3 Aircraft Carrier
+---@class XNS0303 : NSeaUnit, AircraftCarrier, ExternalFactoryComponent
 XNS0303 = Class(NSeaUnit, AircraftCarrier, ExternalFactoryComponent) {
 
     FactoryAttachBone = 'Pad2',
@@ -70,9 +70,9 @@ XNS0303 = Class(NSeaUnit, AircraftCarrier, ExternalFactoryComponent) {
                                 'Pad3_1', 'Pad3_2', 'Pad3_3', 'Pad3_4', 'Pad3_5', 'Pad3_6',
                                 'AAGun1', 'AAGun2', 'AAGun3', 'AAGun4', 'TMD1', 'TMD2',
     },
---    LightBone_Left = 'Light_03',
---    LightBone_Right = 'Light_02',
 
+    ---@param self XNS0303
+    ---@param unit Unit
     OnCreate = function(self, unit)
         NSeaUnit.OnCreate(self, unit)
 
@@ -85,21 +85,29 @@ XNS0303 = Class(NSeaUnit, AircraftCarrier, ExternalFactoryComponent) {
             n = n + 1
         end
     end,
-    
-    
+
+    ---@param self XNS0303
+    ---@param AircraftCarrier boolean
     DisableIntelOfCargo = function (self, AircraftCarrier)
     end,
 
+    ---@param self XNS0303
+    ---@param builder Unit
+    ---@param layer Layer
     OnStopBeingBuilt = function(self, builder, layer)
         AircraftCarrier.OnStopBeingBuilt(self, builder, layer)
         ExternalFactoryComponent.OnStopBeingBuilt(self, builder, layer)
         ChangeState(self, self.IdleState)
     end,
 
+    ---@param self XNS0303
+    ---@param unit Unit
     OnUnitAddedToStorage = function(self, unit)
         NSeaUnit.OnUnitAddedToStorage(self, unit)
     end,
 
+    ---@param self XNS0303
+    ---@param unit Unit
     OnUnitRemovedFromStorage = function(self, unit)
         NSeaUnit.OnUnitRemovedFromStorage(self, unit)
 
@@ -107,6 +115,7 @@ XNS0303 = Class(NSeaUnit, AircraftCarrier, ExternalFactoryComponent) {
         self:AutoClose()
     end,
 
+    ---@param self XNS0303
     AutoClose = function(self)
         if self.AutoCloseThreadHandle then
             KillThread(self.AutoCloseThreadHandle)
@@ -120,6 +129,8 @@ XNS0303 = Class(NSeaUnit, AircraftCarrier, ExternalFactoryComponent) {
         self.AutoCloseThreadHandle = self:ForkThread( fn, 2 )
     end,
 
+    ---@param self XNS0303
+    ---@param open boolean
     PlayAllOpenAnims = function(self, open)
         for k, v in self.OpenAnimManips do
             if open then
@@ -130,16 +141,24 @@ XNS0303 = Class(NSeaUnit, AircraftCarrier, ExternalFactoryComponent) {
         end
     end,
 
+    ---@param self XNS0303
     OnFailedToBuild = function(self)
         NSeaUnit.OnFailedToBuild(self)
         ChangeState(self, self.IdleState)
     end,
 
-    OnKilled = function(self, instigator, type, overkillRatio)
-        AircraftCarrier.OnKilled(self, instigator, type, overkillRatio)
-        ExternalFactoryComponent.OnKilled(self, instigator, type, overkillRatio)
+    ---@param self XNS0303
+    ---@param instigator Unit
+    ---@param damageType DamageType
+    ---@param overkillRatio number
+    OnKilled = function(self, instigator, damageType, overkillRatio)
+        AircraftCarrier.OnKilled(self, instigator, damageType, overkillRatio)
+        ExternalFactoryComponent.OnKilled(self, instigator, damageType, overkillRatio)
     end,
-    
+
+    ---@param self XNS0303
+    ---@param new VerticalMovementState
+    ---@param old VerticalMovementState
     OnLayerChange = function(self, new, old)
         AircraftCarrier.OnLayerChange(self, new, old)
     end,
@@ -193,5 +212,4 @@ XNS0303 = Class(NSeaUnit, AircraftCarrier, ExternalFactoryComponent) {
         end,
     },
 }
-
 TypeClass = XNS0303
