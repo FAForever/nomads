@@ -1,5 +1,8 @@
 -- TODO: go through this
 
+---@param unit Unit
+---@param adjacentUnit Unit
+---@param AdjacencyBeamsBag TrashBag
 function CreateAdjacencyBeams( unit, adjacentUnit, AdjacencyBeamsBag )
 
     local info = {
@@ -9,8 +12,8 @@ function CreateAdjacencyBeams( unit, adjacentUnit, AdjacencyBeamsBag )
 
     table.insert(AdjacencyBeamsBag, info)
 
-    local uBp = unit:GetBlueprint()
-    local aBp = adjacentUnit:GetBlueprint()
+    local uBp = unit.Blueprint
+    local aBp = adjacentUnit.Blueprint
     local faction = uBp.General.FactionName
 
     -- Determine which effects we will be using
@@ -52,11 +55,8 @@ function CreateAdjacencyBeams( unit, adjacentUnit, AdjacencyBeamsBag )
 
 
     elseif faction == 'Nomads' then
---        nodeMesh = '/effects/entities/uefadjacencynode/uefadjacencynode_mesh'
         nodeMesh = '/effects/Entities/NomadsAdjacencyNode/NmdAdjacencyNode_mesh'
         beamEffect = '/effects/emitters/nomads_adjacency_beam.bp'
-
-
     elseif faction == 'Seraphim' then
         nodeMesh = '/effects/entities/seraphimadjacencynode/seraphimadjacencynode_mesh'
         table.insert( emitterNodeEffects, EffectTemplate.SAdjacencyAmbient01 )

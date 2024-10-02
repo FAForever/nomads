@@ -14,6 +14,10 @@ NomadsACUDropMeteor = Class(Meteor) {
 
     DecalLifetime = 600,
 
+    ---@param self NomadsACUDropMeteor
+    ---@param position Vector3
+    ---@param InWater boolean
+    ---@param scale number
     ImpactEffects = function(self, position, InWater, scale)
         Meteor.ImpactEffects(self, position, InWater, scale)
 
@@ -30,5 +34,4 @@ NomadsACUDropMeteor = Class(Meteor) {
         Warp(droppod, Vector(x,y,z))
     end,
 }
-
 TypeClass = NomadsACUDropMeteor

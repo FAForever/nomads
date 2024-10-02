@@ -1,10 +1,11 @@
 local ScriptTask = import('/lua/sim/ScriptTask.lua').ScriptTask
 local TASKSTATUS = import('/lua/sim/ScriptTask.lua').TASKSTATUS
 local AIRESULT = import('/lua/sim/ScriptTask.lua').AIRESULT
-#
+
 ---@class NomadsIntelProbeAdvanced : ScriptTask
 NomadsIntelProbeAdvanced = Class(ScriptTask) {
 
+    ---@param self NomadsIntelProbeAdvanced
     StartTask = function(self)
         if self:IfBrainAllowsRun() then
             self:IntelProbe()
@@ -13,6 +14,7 @@ NomadsIntelProbeAdvanced = Class(ScriptTask) {
         end
     end,
 
+    ---@param self NomadsIntelProbeAdvanced
     IntelProbe = function(self)
         local brain = self:GetAIBrain()
         local data = {
@@ -32,7 +34,9 @@ NomadsIntelProbeAdvanced = Class(ScriptTask) {
             self:SetAIResult(AIRESULT.Fail)
         end
     end,
-    
+
+    ---@param self NomadsIntelProbeAdvanced
+    ---@return number
     TaskTick = function(self)
         if self.IntelProbeProjectile and not self.IntelProbeProjectile:BeenDestroyed() then
             return TASKSTATUS.Wait

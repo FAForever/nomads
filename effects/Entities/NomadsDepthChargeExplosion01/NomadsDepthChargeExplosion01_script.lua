@@ -1,7 +1,10 @@
 local Entity = import('/lua/sim/Entity.lua').Entity
 
+---@class NomadsDepthChargeExplosion01 : Entity
 NomadsDepthChargeExplosion01 = Class(Entity) {
 
+    ---@param self NomadsDepthChargeExplosion01
+    ---@param spec any
     OnCreate = function(self, spec)
         Entity.OnCreate(self, spec)
 
@@ -13,11 +16,13 @@ NomadsDepthChargeExplosion01 = Class(Entity) {
         self:CreateEffects()
     end,
 
+    ---@param self NomadsDepthChargeExplosion01
     OnDestroy = function(self)
         self.Trash:Destroy()
         Entity.OnDestroy(self)
     end,
 
+    ---@param self NomadsDepthChargeExplosion01
     CreateEffects = function(self)
         local fn = function(self)
             local lifetime = 1
@@ -38,6 +43,10 @@ NomadsDepthChargeExplosion01 = Class(Entity) {
         self:ForkThread(fn)
     end,
 
+    ---@param self NomadsDepthChargeExplosion01
+    ---@param fn any
+    ---@param ... unknown
+    ---@return thread
     ForkThread = function(self, fn, ...)
         if fn then
             local thread = ForkThread(fn, self, unpack(arg))

@@ -19,6 +19,7 @@ NomadsACUDropPodCover = Class(NullShell) {
 
     InitialHeight = 300,
 
+    ---@param self NomadsACUDropPodCover
     Launch = function(self)
         local fn = function(self)
 
@@ -43,6 +44,9 @@ NomadsACUDropPodCover = Class(NullShell) {
         self:ForkThread(fn)
     end,
 
+    ---@param self NomadsACUDropPodCover
+    ---@param targetType string
+    ---@param targetEntity Entity
     OnImpact = function(self, targetType, targetEntity)
         -- need to use the correct impact type to play the right sound
         if targetType == 'Terrain' and self:IsUnderWater() then
@@ -61,10 +65,11 @@ NomadsACUDropPodCover = Class(NullShell) {
         end    
     end,
 
+    ---@param self NomadsACUDropPodCover
+    ---@return boolean
     IsUnderWater = function(self)
         local x,y,z = unpack(self:GetPosition())
         return (y < GetSurfaceHeight(x, z))
     end,
 }
-
 TypeClass = NomadsACUDropPodCover

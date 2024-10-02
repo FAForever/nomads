@@ -20,6 +20,7 @@ NBlackhole = Class(NullShell) {
     RadiationBeamThickness = NomadsEffectTemplate.NukeBlackholeRadiationBeamThickness,
     logo = false,
 
+    ---@param self NBlackhole
     OnCreate = function(self)
         NullShell.OnCreate(self)
         self.UnitsBeingSuckedIn = {}
@@ -34,10 +35,12 @@ NBlackhole = Class(NullShell) {
             pos[2] = self.surfaceY + 4
             Warp( self, pos )
         end
-        
+
         self:ForkThread(self.EffectThread, 5)
     end,
 
+    ---@param self NBlackhole
+    ---@param parent Unit
     SetParent = function(self, parent)
         self.parent = parent
 
@@ -52,10 +55,14 @@ NBlackhole = Class(NullShell) {
     end,
 
     -- unit callbacks
+    ---@param self NBlackhole
+    ---@param unit Unit
     OnUnitBeingSuckedIn = function(self, unit)
         table.insert( self.UnitsBeingSuckedIn, unit )
     end,
 
+    ---@param self NBlackhole
+    ---@param prop Prop
     OnPropBeingSuckedIn = function(self, prop)
         table.insert( self.PropsBeingSuckedIn, prop )
 
@@ -68,6 +75,9 @@ NBlackhole = Class(NullShell) {
         self.WreckageResources['t'] = self.WreckageResources['t'] + t
     end,
 
+    ---@param self NBlackhole
+    ---@param unit Unit
+    ---@param unitOverkillRatio number
     OnUnitSuckedIn = function(self, unit, unitOverkillRatio)
         table.removeByValue( self.UnitsBeingSuckedIn, unit )
 
@@ -84,8 +94,10 @@ NBlackhole = Class(NullShell) {
             self.WreckageResources['t'] = self.WreckageResources['t'] + t
         end
     end,
-    
+
     -- wreckages
+    ---@param self NBlackhole
+    ---@return nil
     CreateWreckage = function(self)
         local wreckBp = '/effects/Entities/NBlackholeLeftover/NBlackholeLeftover_prop.bp'
         local wreckScale = 1
@@ -108,6 +120,9 @@ NBlackhole = Class(NullShell) {
         return prop
     end,
 
+    ---@param self NBlackhole
+    ---@param prop Prop
+    ---@param resources number
     SetWreckageProperties = function(self, prop, resources)
         prop:SetMaxReclaimValues( 1, 1, resources['m'], resources['e'] )
         prop:SetReclaimValues( 1, 1, resources['m'], resources['e'] )
@@ -116,8 +131,10 @@ NBlackhole = Class(NullShell) {
         prop:SetMaxHealth( resources['h'] )
         prop:SetHealth( self, resources['h'] )
     end,
-    
+
     -- Sounds and camera effects
+    ---@param self NBlackhole
+    ---@param lifetime number
     EffectThread = function(self, lifetime)
 		local lifetime = lifetime or 5
         local bag = TrashBag()
@@ -181,6 +198,7 @@ NBlackhole = Class(NullShell) {
         self:Destroy()
     end,
 
+    ---@param self NBlackhole
     OnDestroy = function(self)
         -- notify units being sucked in that the black hole is gone
         for _, unit in self.UnitsBeingSuckedIn do
@@ -197,6 +215,10 @@ NBlackhole = Class(NullShell) {
     end,
 
     -- Sounds and camera effects
+    ---@param self NBlackhole
+    ---@param bag TrashBag
+    ---@param lifetime number
+    ---@return unknown
     Camera = function(self, bag, lifetime)
         -- creates a camera so the effect is visible through the fog
         local pos = self:GetPosition()
@@ -216,6 +238,8 @@ NBlackhole = Class(NullShell) {
         return cam
     end,
 
+    ---@param self NBlackhole
+    ---@param name string
     PlayBlackholeSound = function(self, name)
         local snd = Sound( {
             Bank = 'NomadsDestroy',
@@ -225,6 +249,8 @@ NBlackhole = Class(NullShell) {
         --LOG('PlayBlackholeSound = '..repr(name))
     end,
 
+    ---@param self NBlackhole
+    ---@param name string
     PlayBlackholeAmbientSound = function(self, name)
         if not self.AmbientSounds then
             self.AmbientSounds = {}
@@ -243,6 +269,8 @@ NBlackhole = Class(NullShell) {
         --LOG('PlayBlackholeAmbientSound = '..repr(name))
     end,
 
+    ---@param self NBlackhole
+    ---@param name string
     StopBlackholeAmbientSound = function(self, name)
         if not self.AmbientSounds[name] then return end
         self.AmbientSounds[name]:SetAmbientSound(nil, nil)
@@ -252,6 +280,9 @@ NBlackhole = Class(NullShell) {
     end,
 
     -- explosion effects
+    ---@param self NBlackhole
+    ---@param bag TrashBag
+    ---@param lifetime number
     CoreEffects = function(self, bag, lifetime)
         -- short flash
         self:ShakeCamera( 55, 2.5, 0, lifetime or 0.5 )
@@ -282,6 +313,9 @@ NBlackhole = Class(NullShell) {
         end
     end,
 
+    ---@param self NBlackhole
+    ---@param bag TrashBag
+    ---@param lifetime number
     RadiationJetEffects = function(self, bag, lifetime)
         local lt = RandomFloat(0.9, 0.98) * lifetime * 10
         local steps = math.floor(lt / 2)
@@ -312,6 +346,9 @@ NBlackhole = Class(NullShell) {
         end
     end,
 
+    ---@param self NBlackhole
+    ---@param bag TrashBag
+    ---@param lifetime number unused
     DisposableCoreEffects = function(self, bag, lifetime)
         for _, v in self.GenericFx do
             local emit = CreateEmitterOnEntity(self, self.Army, v ):ScaleEmitter( self.NukeBlackHoleFxScale or 1 )
@@ -320,6 +357,9 @@ NBlackhole = Class(NullShell) {
         end
     end,
 
+    ---@param self NBlackhole
+    ---@param bag TrashBag
+    ---@param lifetime number unused
     CloudsThread = function(self, bag, lifetime)
         -- creates the grey clouds moving in the hole
         local projBp = '/effects/entities/NBlackholeEffect01/NBlackholeEffect01_proj.bp'
@@ -352,6 +392,9 @@ NBlackhole = Class(NullShell) {
         end
     end,
 
+    ---@param self NBlackhole
+    ---@param bag TrashBag
+    ---@param lifetime number unused
     CloudsThread2 = function(self, bag, lifetime)
         -- creates the white clouds moving in the hole
         local projBp = '/effects/entities/NBlackholeEffect02/NBlackholeEffect02_proj.bp'
@@ -384,6 +427,9 @@ NBlackhole = Class(NullShell) {
         end
     end,
 
+    ---@param self NBlackhole
+    ---@param bag TrashBag
+    ---@param lifetime number unused
     LightningThread = function(self, bag, lifetime)
         -- Creates a random lightning
         local beamBps = { NomadsEffectTemplate.NukeBlackholeEnergyBeam1, NomadsEffectTemplate.NukeBlackholeEnergyBeam2, NomadsEffectTemplate.NukeBlackholeEnergyBeam3, }
@@ -454,6 +500,9 @@ NBlackhole = Class(NullShell) {
         end
     end,
 
+    ---@param self NBlackhole
+    ---@param bag TrashBag
+    ---@param lifetime number
     PropThread = function(self, bag, lifetime)
         -- creates effects at props that look like parts of it are sucked in the black hole.
         -- Using entities oriented towards the blackhole. If the emitter emits particles along the Z axis they'll go towards the black hole.
@@ -491,6 +540,9 @@ NBlackhole = Class(NullShell) {
     end,
 
     -- dissipation effects
+    ---@param self NBlackhole
+    ---@param bag TrashBag
+    ---@param lifetime number
     DissipateEffects = function(self, bag, lifetime)
         -- notify units and props being sucked in that the black hole is gone
         for k, unit in self.UnitsBeingSuckedIn do
@@ -555,6 +607,10 @@ NBlackhole = Class(NullShell) {
     end,
 
     -- final aftermath explosion effects
+    ---@param self NBlackhole
+    ---@param bag TrashBag
+    ---@param lifetime number unused
+    ---@param wreck boolean unused
     AftermathExplosion = function(self, bag, lifetime, wreck)
         -- creates a flash and shockwave
         -- warp to surface position for the aftermath
@@ -575,6 +631,10 @@ NBlackhole = Class(NullShell) {
         end
     end,
 
+    ---@param self NBlackhole
+    ---@param bag TrashBag
+    ---@param lifetime number unused
+    ---@param wreck boolean unused
     AftermathFireBalls = function(self, bag, lifetime, wreck)
         -- TODO: add more particles, this can be much more dramatic
         -- creates fireballs in the air flying outwards in a nice arc
@@ -613,6 +673,10 @@ NBlackhole = Class(NullShell) {
         end
     end,
 
+    ---@param self NBlackhole
+    ---@param bag TrashBag
+    ---@param lifetime number
+    ---@param wreck boolean
     AftermathFireArmsRandom = function(self, bag, lifetime, wreck)
         -- creates several fires in a line outward from the black hole area
         if wreck ~= nil then
@@ -676,5 +740,4 @@ NBlackhole = Class(NullShell) {
         end
     end,
 }
-
 TypeClass = NBlackhole

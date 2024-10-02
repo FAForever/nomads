@@ -111,7 +111,7 @@ function CreateNomadsBuildSliceBeams(builder, unitBeingBuilt, BuildEffectBones, 
 end
 
 ---@param unitBeingBuilt number
----@param builder any #Unused
+---@param builder any Unused
 ---@param OnBeingBuiltEffectsBag TrashBag
 function CreateBuildCubeThread(unitBeingBuilt, builder, OnBeingBuiltEffectsBag)
     unitBeingBuilt:ShowBone(0, true)

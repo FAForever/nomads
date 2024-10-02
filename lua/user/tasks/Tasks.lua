@@ -4,6 +4,11 @@ local AbilityDefinition = import('/lua/abilitydefinition.lua').abilities
 local GetWorldViews = import('/lua/ui/game/worldview.lua').GetWorldViews
 --local CM = import('/lua/ui/game/commandmode.lua')
 
+---@param TaskName string
+---@param ReticulePositions Vector2
+---@param Units Unit
+---@param UnitIds string unused
+---@return table
 function MapReticulesToUnitIdsScript( TaskName, ReticulePositions, Units, UnitIds )
     -- Maps units to reticule positions so each unit can be given the most optimal position to fire its ability on. This is quite complex
     -- because we want to use the nearest unit for each reticule and also we consider the number of reticules the unit can handle at the
@@ -67,19 +72,20 @@ end
 -- --------------------------------------------------
 
 AbilityUnits = {}
-ArmyUnitAbilitiesTable = {}
---[[
-ArmyUnitAbilitiesTable = {
-    1 = { --Army ID
-        12 = {--UnitID
-            OrbitalBombardment = { --Ability
-                AvailableNowUnit = true,
-            },
-        },
-    },
-}
 
---]]
+--- ```lua
+--- ArmyUnitAbilitiesTable = {
+---    1 = { --Army ID
+---        12 = {--UnitID
+---            OrbitalBombardment = { --Ability
+---                AvailableNowUnit = true,
+---            },
+---        },
+---    },
+---}
+ArmyUnitAbilitiesTable = {}
+
+---@param unitAbilitiesTable table
 UpdateArmyUnitsTable = function(unitAbilitiesTable)
     local army = GetFocusArmy()
     ArmyUnitAbilitiesTable[army] = unitAbilitiesTable
@@ -89,20 +95,27 @@ UpdateArmyUnitsTable = function(unitAbilitiesTable)
     end
 end
 
+---@param abilityName string
+---@param selectFilter string
+---@return string[]
 GetAvailableAbilityUnits = function(abilityName, selectFilter)
     local army = GetFocusArmy()
     local unitsList = GetAbilityUnitsFromTable(ArmyUnitAbilitiesTable[army], abilityName, true)
     if selectFilter then
         return DoUnitSelectedFilter(abilityName, unitsList)
     end
-    
+
     return unitsList
 end
 
 --filters out units with abilities from a table.
+---@param abilityTable table
+---@param abilityName string
+---@param AvailableNowOnly boolean
+---@return table
 GetAbilityUnitsFromTable = function(abilityTable, abilityName, AvailableNowOnly)
     if not AbilityDefinition[ abilityName ] then return false end
-    
+
     local unitsTable = {}
     for unitID, abilityTypes in abilityTable do
         if abilityTypes[abilityName] and (not (abilityTypes[abilityName]['Enabled'] == false)) and (not AvailableNowOnly or abilityTypes[abilityName]['AvailableNowUnit'] > 0) then
@@ -114,6 +127,9 @@ end
 
 -- internal - GetAvailableAbilityUnits
 -- filter out units that are not selected. uses Command data. Alternatively could use GetSelectedUnitIds from abilities.lua. not sure whats better.
+---@param abilityName string unused
+---@param unitIds string
+---@return string[]
 DoUnitSelectedFilter = function(abilityName, unitIds)
     local mode = import('/lua/ui/game/commandmode.lua').GetCommandMode() --TODO:after fixing this entire file move the import somewhere sane
     if unitIds and mode[1] == 'order' and mode[2].TaskName and AbilityDefinition[ mode[2].TaskName ] and mode[2].Behaviour.UseSelected and table.getn(mode[2].SelectedUnits) > 0 then
@@ -123,6 +139,10 @@ DoUnitSelectedFilter = function(abilityName, unitIds)
 end
 
 -- internal - MapReticulesToUnitIdsScript
+---@param abilityName string
+---@param unit Unit
+---@param pos Vector3
+---@return boolean
 UnitCanFireAtPos = function(abilityName, unit, pos)
     local MaxRadius = -1
     local MinRadius = -1
@@ -143,6 +163,8 @@ UnitCanFireAtPos = function(abilityName, unit, pos)
 end
 
 -- internal - VerifyScriptCommand
+---@param units Unit
+---@param army Army
 UnitsAreInArmy = function(units, army)
     local ua
     for _, unit in units do
@@ -155,6 +177,8 @@ UnitsAreInArmy = function(units, army)
 end
 
 --userscriptcommand.lua
+---@param data table
+---@return table
 function VerifyScriptCommand(data)
 -- TODO: cooldown check to see if ability is allowed to be used
     local TaskName = data.TaskName
@@ -169,6 +193,9 @@ function VerifyScriptCommand(data)
 end
 
 -- internal - VerifyScriptCommand
+---@param data table
+---@param RangeCheckUnits boolean
+---@return boolean
 LocationIsOk = function(data, RangeCheckUnits)
     -- almost same script as in worldview.lua
     local InRange, RangeLimited = true, false

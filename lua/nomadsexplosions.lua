@@ -2,7 +2,7 @@ local RandomFloat = import('/lua/utilities.lua').GetRandomFloat
 
 --TODO:Remove this?
 ---@param obj Entity
----@param bone any
+---@param bone Bone
 ---@param army number
 ---@param scale number
 ---@param duration number
@@ -52,7 +52,7 @@ end
 
 ---@param pos Vector3
 ---@param army number
----@param blueprint any
+---@param blueprint string
 ---@param SizeMin number
 ---@param SizeMax number
 ---@param LifeMin number

@@ -8,16 +8,11 @@ local EffectTemplate = import('/lua/EffectTemplates.lua')
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local NukeDamage = import('/lua/sim/NukeDamage.lua').NukeAOE
 
-local RandomFloat = import('/lua/utilities.lua').GetRandomFloat
-
-
---When adding weapon classes, follow the FAF naming conventions - NIFOrbitalBombardmentWeapon
-
 --------------------------------------------------------------------------
 -- Projectile Weapons
 --------------------------------------------------------------------------
 
---- # Autocannons
+--- Autocannons
 ---@class NDFRotatingAutocannonWeapon :DefaultProjectileWeapon
 NDFRotatingAutocannonWeapon = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = {
@@ -74,7 +69,7 @@ NIFOrbitalBombardmentWeapon = Class(DefaultProjectileWeapon) {
 
     --allow setting the launcher to a unit other than the weapons owner, so any veterancy is passed to it instead.
     ---@param self NIFOrbitalBomardmentWeapon
-    ---@param bone any
+    ---@param bone Bone
     CreateProjectileForWeapon = function(self, bone)
         local proj = DefaultProjectileWeapon.CreateProjectileForWeapon(self, bone)
         proj.Launcher = self.unit.AssignedUnit or proj.Launcher
@@ -86,7 +81,7 @@ NIFTargetFinderWeapon = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = {},
 
     ---@param self NIFTargetFinderWeapon
-    ---@param muzzle any # Unused
+    ---@param muzzle any Unused
     CreateProjectileAtMuzzle = function(self, muzzle)
         local target = self:GetCurrentTargetPos()
         self.unit:OrbitalStrikeTargets({target})
@@ -200,7 +195,7 @@ NAMFlakWeapon = Class(DefaultProjectileWeapon) {
 
     -- This entirely overrides the default, since we need to ensure that the tmd never misses.
     ---@param self NAMFlakWeapon
-    ---@param muzzle any # Unused
+    ---@param muzzle any Unused
     CreateProjectileAtMuzzle = function(self, muzzle)
         local targetEntity = self:GetCurrentTarget()
         if not targetEntity.GetPosition then return end --if the target is already dead then act as if we havent fired
@@ -278,7 +273,7 @@ NAMFlakWeapon = Class(DefaultProjectileWeapon) {
     },
 
     ---@param self NAMFlakWeapon
-    ---@param TMD any # Unused
+    ---@param TMD any Unused
     PlayTAEffects = function(self, TMD)
         if not self.PlayingTAEffects then
             local emit
@@ -383,7 +378,7 @@ EnergyCannon1 = Class(DefaultProjectileWeapon) {
     ---@param self EnergyCannon1
     OnCreate = function(self)
         DefaultProjectileWeapon.OnCreate(self)
-        local bp = self:GetBlueprint()
+        local bp = self.Blueprint
         if not bp.DoTPulses or not bp.DoTTime then
             WARN('EnergyCannon1: unit '..repr(self.unit.UnitId)..' does not have correct DoT values in blueprint!')
         end
@@ -403,7 +398,7 @@ GattlingWeapon1 = Class(DefaultProjectileWeapon) {
     OnCreate = function(self)
         DefaultProjectileWeapon.OnCreate(self)
 
-        local bp = self:GetBlueprint()
+        local bp = self.Blueprint
         self.Rotates = (bp.GattlingBarrelBone ~= nil)
         if self.Rotates then
             if not bp.GattlingBarrelBone then
@@ -507,11 +502,11 @@ TacticalMissileWeapon1 = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = NomadsEffectTemplate.TacticalMissileMuzzleFx,
 
     ---@param self TacticalMissileWeapon1
-    ---@param muzzle any # Unused
+    ---@param muzzle any Unused
     CreateProjectileAtMuzzle = function(self, muzzle)
         local proj = DefaultProjectileWeapon.CreateProjectileAtMuzzle(self, muzzle)
 
-        local bp = self:GetBlueprint()
+        local bp = self.Blueprint
         local data = {}
         if bp.TrackTargetDelay then data.TrackTargetDelay = bp.TrackTargetDelay end
         if bp.TrackTargetProjectileVelocity then data.TrackTargetProjectileVelocity = bp.TrackTargetProjectileVelocity end
@@ -547,7 +542,7 @@ DepthChargeBombWeapon1 = Class(DefaultProjectileWeapon) {
     FxMuzzleFlash = NomadsEffectTemplate.DepthChargeBombMuzzleFx,
 
     ---@param self DepthChargeBombWeapon1
-    ---@param muzzle any # Unused
+    ---@param muzzle any Unused
     ---@return table
     CreateProjectileAtMuzzle = function(self, muzzle)
         local proj = DefaultProjectileWeapon.CreateProjectileAtMuzzle(self, muzzle)
@@ -602,7 +597,7 @@ EnergyBombWeapon = Class(DefaultProjectileWeapon) {
     ---@param self EnergyBombWeapon
     OnCreate = function(self)
         DefaultProjectileWeapon.OnCreate(self)
-        local bp = self:GetBlueprint()
+        local bp = self.Blueprint
         if not bp.DoTPulses or not bp.DoTTime then
             WARN('EnergyCannon1: unit '..repr(self.unit.UnitId)..' does not have correct DoT values in blueprint!')
         end
@@ -646,12 +641,12 @@ OrbitalStrikeBuoy = Class(DefaultProjectileWeapon) {
 StrategicMissileWeapon = Class(DefaultProjectileWeapon) {
 
     ---@param self StrategicMissileWeapon
-    ---@param bone any 
+    ---@param bone Bone 
     ---@return Projectile
     CreateProjectileForWeapon = function(self, bone)
         local proj = DefaultProjectileWeapon.CreateProjectileForWeapon(self, bone)
         if proj and not proj:BeenDestroyed() then
-            local bp = self:GetBlueprint()
+            local bp = self.Blueprint
             if bp.NukeOuterRingDamage and bp.NukeOuterRingRadius and bp.NukeOuterRingTicks and bp.NukeOuterRingTotalTime and
                                 bp.NukeInnerRingDamage and bp.NukeInnerRingRadius and bp.NukeInnerRingTicks and bp.NukeInnerRingTotalTime then
                 local data = {
@@ -694,7 +689,7 @@ DeathNuke = Class(BareBonesWeapon) {
 
     ---@param self DeathNuke
     Fire = function(self)
-        local bp = self:GetBlueprint()
+        local bp = self.Blueprint
         self.proj = self.unit:CreateProjectileAtBone(bp.ProjectileId, 0):SetCollision(false)
         self.proj.Launcher = self.unit --ensure that the projectile knows its parent unit
 
@@ -723,7 +718,7 @@ DeathEnergyBombWeapon = Class(BareBonesWeapon) {
     ---@param self DeathEnergyBombWeapon
     OnCreate = function(self)
         BareBonesWeapon.OnCreate(self)
-        local bp = self:GetBlueprint()
+        local bp = self.Blueprint
         self.Data = {
             EnergyBombFxScale = bp.EnergyBombFxScale or 1,
         }
@@ -736,12 +731,12 @@ DeathEnergyBombWeapon = Class(BareBonesWeapon) {
 
     ---@param self DeathEnergyBombWeapon
     Fire = function(self)
-        local myBlueprint = self:GetBlueprint()
-        local myProjectile = self.unit:CreateProjectile( myBlueprint.ProjectileId, 0, 0, 0, nil, nil, nil):SetCollision(false)
+        local bp = self.Blueprint
+        local proj = self.unit:CreateProjectile( bp.ProjectileId, 0, 0, 0, nil, nil, nil):SetCollision(false)
         if self.Data then
-            myProjectile:PassData(self.Data)
+            proj:PassData(self.Data)
         end
-        myProjectile:PassDamageData(self:GetDamageTable())
+        proj:PassDamageData(self:GetDamageTable())
     end,
 }
 
