@@ -1,16 +1,19 @@
--- T3 pgen
-
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local NEnergyCreationUnit = import('/lua/nomadsunits.lua').NEnergyCreationUnit
 local AddRapidRepair = import('/lua/nomadsutils.lua').AddRapidRepair
 
 NEnergyCreationUnit = AddRapidRepair(NEnergyCreationUnit)
 
+--- Tech 3 Power Generator
+---@class XNB1301 : NEnergyCreationUnit
 XNB1301 = Class(NEnergyCreationUnit) {
 
     ActiveEffectBone = 'effects',
     ActiveEffectTemplateName = 'T3PGAmbient',
 
+    ---@param self XNB1301
+    ---@param builder Unit
+    ---@param layer Layer
     OnStopBeingBuilt = function(self, builder, layer)
         -- antennae lights
         for k, v in NomadsEffectTemplate.AntennaeLights1 do
@@ -29,5 +32,4 @@ XNB1301 = Class(NEnergyCreationUnit) {
         NEnergyCreationUnit.OnStopBeingBuilt( self, builder, layer )
     end,
 }
-
 TypeClass = XNB1301
