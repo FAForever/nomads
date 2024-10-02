@@ -1,13 +1,11 @@
--- civilian vehicle
-
 local AddLights = import('/lua/nomadsutils.lua').AddLights
 local NLandUnit = import('/lua/nomadsunits.lua').NLandUnit
 
 NLandUnit = AddLights(NLandUnit)
 
-XNC0001 = Class(NLandUnit) {
---    KickupBones = {'Kickup_R','Kickup_L'},
+--- Civilian Vehicle
+---@class XNC0003 : NLandUnit
+XNC0003 = Class(NLandUnit) {
     LightBones = { {'Antenna',}, },
 }
-
 TypeClass = XNC0003

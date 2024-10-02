@@ -1,11 +1,11 @@
--- hydro power plant
-
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local NEnergyCreationUnit = import('/lua/nomadsunits.lua').NEnergyCreationUnit
 local AddRapidRepair = import('/lua/nomadsutils.lua').AddRapidRepair
 
 NEnergyCreationUnit = AddRapidRepair(NEnergyCreationUnit)
 
+--- Tech 1 Hydrocarbon Power Plant
+---@class XNB1102 : NEnergyCreationUnit
 XNB1102 = Class(NEnergyCreationUnit) {
 
     ActiveEffectBone = 'exhaust.001',
@@ -15,6 +15,7 @@ XNB1102 = Class(NEnergyCreationUnit) {
     DestructionPartsLowToss = {'exhaust.001', 'exhaust.002', 'exhaust.003', 'exhaust.004', 'exhaust.005', },
     DestructionPartsChassisToss = { 0 },
 
+    ---@param self XNB1102
     PlayActiveEffects = function(self)
         -- adding additional effects on top of the regular active effects
 
@@ -40,5 +41,4 @@ XNB1102 = Class(NEnergyCreationUnit) {
         return NEnergyCreationUnit.PlayActiveEffects(self)
     end,
 }
-
 TypeClass = XNB1102

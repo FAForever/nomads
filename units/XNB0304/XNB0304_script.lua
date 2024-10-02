@@ -1,5 +1,3 @@
--- T3 SCU factory
-
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local AddLights = import('/lua/nomadsutils.lua').AddLights
 local Entity = import('/lua/sim/Entity.lua').Entity
@@ -7,11 +5,14 @@ local NSCUFactoryUnit = import('/lua/nomadsunits.lua').NSCUFactoryUnit
 
 NSCUFactoryUnit = AddLights(NSCUFactoryUnit)
 
+--- Tech 3 Quantum Gate
+---@class XNB0304 : NSCUFactoryUnit
 XNB0304 = Class(NSCUFactoryUnit) {
 
     LightBones = { { 'Light1', 'Light3', 'Light5', 'Light2', 'Light4', 'Light6', }, },
     SliderBone = 'BuildArm1',
 
+    ---@param self XNB0304
     OnCreate = function(self)
         NSCUFactoryUnit.OnCreate(self)
         self.TractorSlider = CreateSlider(self, 'TractorFocus', 0, 0, 0, -1, true)
@@ -20,26 +21,37 @@ XNB0304 = Class(NSCUFactoryUnit) {
         self.TractorBeamBag = TrashBag()
     end,
 
+    ---@param self XNB0304
     OnDestroy = function(self)
         self:DestroyTractorBeamFx()
         NSCUFactoryUnit.OnDestroy(self)
     end,
 
-    OnKilled = function(self, instigator, type, overkillRatio)
+    ---@param self XNB0304
+    ---@param instigator Unit
+    ---@param damageType DamageType
+    ---@param overkillRatio number
+    OnKilled = function(self, instigator, damageType, overkillRatio)
         self:DestroyTractorBeamFx()
-        NSCUFactoryUnit.OnKilled(self, instigator, type, overkillRatio)
+        NSCUFactoryUnit.OnKilled(self, instigator, damageType, overkillRatio)
     end,
 
+    ---@param self XNB0304
+    ---@param builder Unit
+    ---@param layer Layer
     OnStopBeingBuilt = function(self, builder, layer)
         -- self being build
         NSCUFactoryUnit.OnStopBeingBuilt(self, builder, layer)
     end,
 
+    ---@param self XNB0304
+    ---@param unitBeingBuilt boolean
+    ---@param order string
     OnStartBuild = function(self, unitBeingBuilt, order)
         -- start building a unit
         NSCUFactoryUnit.OnStartBuild(self, unitBeingBuilt, order)
 
-        local ubp = unitBeingBuilt:GetBlueprint()
+        local ubp = unitBeingBuilt.Blueprint
         if unitBeingBuilt and ubp.Display.BuildEffect.PartArrivesByDropshipBone then
             if self.PartArrivesByDropshipThreadHandle then
                 KillThread( self.PartArrivesByDropshipThreadHandle )
@@ -48,17 +60,23 @@ XNB0304 = Class(NSCUFactoryUnit) {
         end
     end,
 
+    ---@param self XNB0304
+    ---@param unitBeingBuilt boolean
     OnStopBuild = function(self, unitBeingBuilt)
         -- stop building a unit
         NSCUFactoryUnit.OnStopBuild(self, unitBeingBuilt)
     end,
 
+    ---@param self XNB0304
     OnFailedToBuild = function(self)
         -- failed to build because the user cancelled construction or the factory was destroyed
         NSCUFactoryUnit.OnFailedToBuild(self)
         self:DestroyPartArrivesByDropshipThread()
     end,
 
+    ---@param self XNB0304
+    ---@param unitBeingBuilt boolean
+    ---@param order string
     FinishBuildThread = function(self, unitBeingBuilt, order )
         self:SetBusy(true)
         self:SetBlockCommandQueue(true)
@@ -71,13 +89,15 @@ XNB0304 = Class(NSCUFactoryUnit) {
         NSCUFactoryUnit.FinishBuildThread( self, unitBeingBuilt, order )
     end,
 
+    ---@param self XNB0304
+    ---@param unitBeingBuilt boolean
     PartArrivesByDropshipThread = function(self, unitBeingBuilt)
 
         -- The bones that are supposed to arrive by dropship are hidden and a lookalike is created that shows these hidden bones. Bones can't
         -- be hidden on the lookalike so a seperate model has to be created that is exactly the same as the hidden bones on the unit.
         -- 2 models that appear to be one, it's all trickery and deceit!
 
-        local ubp = unitBeingBuilt:GetBlueprint()
+        local ubp = unitBeingBuilt.Blueprint
         local ubbBone = ubp.Display.BuildEffect.PartArrivesByDropshipBone
         local pos = self:GetPosition('TractorFocus')
 
@@ -104,7 +124,7 @@ XNB0304 = Class(NSCUFactoryUnit) {
 
             WaitTicks(1)
 
-            -- checking current progress to determine the current state ---------------------------
+            -- checking current progress to determine the current state 
 
             ok = (self and not self.Dead and unitBeingBuilt and not unitBeingBuilt.Dead)
             if not ok then
@@ -117,8 +137,7 @@ XNB0304 = Class(NSCUFactoryUnit) {
                 self.PABD_progress = 1
             end
 
-            -- handling that state ----------------------------------------------------------------
-
+            -- handling that state 
             -- Not using elseif on purpuse, in case the progress goes from 0 to 9 in 1 tick we still need to do all intermediate states
 
             if self.PABD_progress == prevProg then
@@ -173,8 +192,8 @@ XNB0304 = Class(NSCUFactoryUnit) {
         end
     end,
 
+    ---@param self XNB0304
     DestroyPartArrivesByDropshipThread = function(self)
-        -- TODO: head explode effect?
         if self.PartArrivesByDropshipThreadHandle then
             KillThread( self.PartArrivesByDropshipThreadHandle )
         end
@@ -183,6 +202,7 @@ XNB0304 = Class(NSCUFactoryUnit) {
         self.PABD_progress = 99
     end,
 
+    ---@param self XNB0304
     CreateTractorBeamFx = function(self)
         self.TractorBeamBag:Add( AttachBeamEntityToEntity(self, 'Tractor1', self, 'TractorFocus', self.Army, NomadsEffectTemplate.SCUFactoryBeam) )
         self.TractorBeamBag:Add( AttachBeamEntityToEntity(self, 'Tractor2', self, 'TractorFocus', self.Army, NomadsEffectTemplate.SCUFactoryBeam) )
@@ -200,6 +220,7 @@ XNB0304 = Class(NSCUFactoryUnit) {
         end
     end,
 
+    ---@param self XNB0304
     DestroyTractorBeamFx = function(self)
         self.TractorBeamBag:Destroy()
     end,
