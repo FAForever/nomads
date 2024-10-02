@@ -1,8 +1,8 @@
--- T1 sonar
-
 local NSonarUnit = import('/lua/nomadsunits.lua').NSonarUnit
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 
+--- Tech 1 Sonar
+---@class XNB3102 : NSonarUnit
 XNB3102 = Class(NSonarUnit) {
 
     IntelBoostFxBone = 0,
@@ -14,5 +14,4 @@ XNB3102 = Class(NSonarUnit) {
     OverchargeChargingFx = NomadsEffectTemplate.T1SonarOverchargeCharging,
     OverchargeExplosionFx = NomadsEffectTemplate.T1SonarOverchargeExplosion,
 }
-
 TypeClass = XNB3102
