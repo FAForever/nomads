@@ -1,10 +1,17 @@
--- T1 tank destroyer
-
 local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local NLandUnit = import('/lua/nomadsunits.lua').NLandUnit
 local KineticCannon1 = import('/lua/nomadsweapons.lua').KineticCannon1
 
+-- Upvalue for Perfomance
+local WaitSeconds = WaitSeconds
+local CreateEmitterAtBone = CreateEmitterAtBone
+local TrashBagAdd = TrashBag.Add
+
+--- Tech 1 Tank Destroyer
+---@class XNL0107 : NLandUnit
 XNL0107 = Class(NLandUnit) {
+    ExhaustAnimDelay = 0.2,
+
     Weapons = {
         MainGun = Class(KineticCannon1) {
             OnWeaponFired = function(self)
@@ -13,7 +20,7 @@ XNL0107 = Class(NLandUnit) {
             end,
 
             SetMovingAccuracy = function(self, bool)
-                local bp = self:GetBlueprint()
+                local bp = self.Blueprint
                 if bool then
                     --LOG('Setting accuracy to moving')
                     self:SetFiringRandomness( bp.FiringRandomnessWhileMoving or (math.max(0, bp.FiringRandomness) * 4) )
@@ -27,18 +34,21 @@ XNL0107 = Class(NLandUnit) {
         },
     },
 
-    ExhaustAnimDelay = 0.2,
-
+    ---@param self XNL0107
     OnCreate = function(self)
         NLandUnit.OnCreate(self)
         self.WeaponFiredEffectsBag = TrashBag()
     end,
 
+    ---@param self XNL0107
     OnDestroy = function(self)
         self.WeaponFiredEffectsBag:Destroy()
         NLandUnit.OnDestroy(self)
     end,
 
+    ---@param self XNL0107
+    ---@param new HorizontalMovementState
+    ---@param old HorizontalMovementState
     OnMotionHorzEventChange = function( self, new, old )
         -- the engine already supports BP values ...WhileMoving but it does this when the unit is "Stopped". We want it when
         -- the unit is "Stopping" to make the first shot of the unit count already (the first shot happens before "Stopped").
@@ -47,20 +57,25 @@ XNL0107 = Class(NLandUnit) {
         self:UpdateWeaponAccuracy( (new ~= 'Stopped' and new ~= 'Stopping') )
     end,
 
+    ---@param self XNL0107
+    ---@param moving boolean
     UpdateWeaponAccuracy = function(self, moving)
         if not self.Dead then
-            self:GetWeapon(1):SetMovingAccuracy(moving)
+            self.WeaponInstances[1]:SetMovingAccuracy(moving)
         end
     end,
 
+    ---@param self XNL0107
     PlayWeaponFiredEffects = function(self)
         local fn = function(self)
             WaitSeconds( self.ExhaustAnimDelay or 1 )
             local emit
-            for k, v in NomadsEffectTemplate.TankBusterWeaponFired do
-                emit = CreateEmitterAtBone(self, 'Exhaust', self.Army, v)
+            for _, v in NomadsEffectTemplate.TankBusterWeaponFired do
+                local army = self.Army
+                local trash = self.Trash
+                emit = CreateEmitterAtBone(self, 'Exhaust', army, v)
                 self.WeaponFiredEffectsBag:Add(emit)
-                self.Trash:Add(emit)
+                TrashBagAdd(trash,(emit))
             end
         end
         self.WeaponFiredEffectsBag:Add( self:ForkThread(fn) )

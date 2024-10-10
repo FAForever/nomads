@@ -5,21 +5,27 @@ local PlasmaCannon = import('/lua/nomadsweapons.lua').PlasmaCannon
 local AnnihilatorCannon1 = import('/lua/nomadsweapons.lua').AnnihilatorCannon1
 local ParticleBlaster1 = import('/lua/nomadsweapons.lua').ParticleBlaster1
 local KineticCannon1 = import('/lua/nomadsweapons.lua').KineticCannon1
-local EffectUtils = import('/lua/effectutilities.lua')
 local explosion = import('/lua/defaultexplosions.lua')
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 local GetRandomInt = import('/lua/utilities.lua').GetRandomInt
 local Utilities = import('/lua/utilities.lua')
-local SlowHover = import('/lua/defaultunits.lua').SlowHoverLandUnit
+local SlowHoverLandUnit = import('/lua/defaultunits.lua').SlowHoverLandUnit
 
-XNL0401 = Class(NExperimentalHoverLandUnit, SlowHover) {
+-- Upvalue for Performance
+local CreateRotator = CreateRotator
+local TrashBagAdd = TrashBag.Add
+local CreateAttachedEmitter = CreateAttachedEmitter
+
+--- Experimental Land Bullfrog
+---@class XNL0401 : NExperimentalHoverLandUnit, SlowHoverLandUnit
+XNL0401 = Class(NExperimentalHoverLandUnit, SlowHoverLandUnit) {
 
     Weapons = {
         FrontGun = Class(AnnihilatorCannon1) {
 
             OnCreate = function(self)
                 AnnihilatorCannon1.OnCreate(self)
-                self.CurrentROF = self:GetBlueprint().RateOfFire or 1
+                self.CurrentROF = self.Blueprint.RateOfFire or 1
             end,
 
             PlayFxWeaponUnpackSequence = function(self)
@@ -59,6 +65,7 @@ XNL0401 = Class(NExperimentalHoverLandUnit, SlowHover) {
         AAGunRight = Class(ParticleBlaster1) {},
     },
 
+    ---@param self XNL0401
     OnCreate = function(self)
         NExperimentalHoverLandUnit.OnCreate(self)
 
@@ -67,25 +74,30 @@ XNL0401 = Class(NExperimentalHoverLandUnit, SlowHover) {
         -- direction rotators
         self.AllowHeadRotation = true
         local bone = self:GetWeaponByLabel('FrontGun'):GetBlueprint().TurretBoneYaw or 'FrontTurret_Yaw'
+        local trash = self.Trash
 
         self.GattlingManip = CreateRotator(self, 'FrontTurret_Barrels', 'z', nil, self.GattlingRotSpeed, self.GattlingRotSpeed * 10, self.GattlingRotSpeed)
         self.HeadRotManip = CreateRotator(self, bone, 'y', nil):SetCurrentAngle(0)
         self.LeftJetManip = CreateRotator(self, 'Jet_LeftRear', 'y', nil):SetCurrentAngle(0)
         self.RightJetManip = CreateRotator(self, 'Jet_RightRear', 'y', nil):SetCurrentAngle(0)
 
-        self.Trash:Add(self.GattlingManip)
-        self.Trash:Add(self.HeadRotManip)
-        self.Trash:Add(self.LeftJetManip)
-        self.Trash:Add(self.RightJetManip)
+        TrashBagAdd(trash,(self.GattlingManip))
+        TrashBagAdd(trash,(self.HeadRotManip))
+        TrashBagAdd(trash,(self.LeftJetManip))
+        TrashBagAdd(trash,(self.RightJetManip))
 
         self:ActivateGattlingRotation(false)
     end,
 
+    ---@param self XNL0401
+    ---@param builder Unit
+    ---@param layer Layer
     OnStopBeingBuilt = function(self,builder,layer)
         NExperimentalHoverLandUnit.OnStopBeingBuilt(self,builder,layer)
         self:ForkThread(self.HeadRotationThread)
     end,
 
+    ---@param self XNL0401
     CalcGattlingRotationSpeed = function(self)
         local wep = self:GetWeaponByLabel('FrontGun')
         if wep then
@@ -101,6 +113,8 @@ XNL0401 = Class(NExperimentalHoverLandUnit, SlowHover) {
         end
     end,
 
+    ---@param self XNL0401
+    ---@param activate boolean
     ActivateGattlingRotation = function(self, activate)
         self.GattlingCannonActive = (activate == true)
         local m = 0
@@ -110,15 +124,16 @@ XNL0401 = Class(NExperimentalHoverLandUnit, SlowHover) {
         self.GattlingManip:SetTargetSpeed( self.GattlingRotSpeed * m )
     end,
 
+    ---@param self XNL0401
     HeadRotationThread = function(self)
         -- keeps the head rotated to the current target position
 
         local nav = self:GetNavigator()
         local wep = self:GetWeaponByLabel('FrontGun')
-        local maxRotHead = wep:GetBlueprint().TurretYawRange or 30
-        local rotSpeedHead = wep:GetBlueprint().TurretYawSpeed or 50
+        local maxRotHead = wep.Blueprint.TurretYawRange or 30
+        local rotSpeedHead = wep.Blueprint.TurretYawSpeed or 50
         local maxRotJet = 10
-        local rotSpeedJet = self:GetBlueprint().Display.MovementEffects.JetRotationMax or 60
+        local rotSpeedJet = self.Blueprint.Display.MovementEffects.JetRotationMax or 60
         local angle, headAngle, jetAngle = 0, 0, 0
         local target, targetPos, pos, navTar
 
@@ -169,12 +184,15 @@ XNL0401 = Class(NExperimentalHoverLandUnit, SlowHover) {
         end
     end,
 
+    ---@param self XNL0401 unused
+    ---@return boolean
     CrushDuringDescent = function(self)
         -- This is a WOF event which is in here cause I like WOF! Sorry, I can't be crushed during sinking!
         return false
     end,
 
-    OnSeabedImpact = function( self)
+    ---@param self XNL0401
+    OnSeabedImpact = function(self)
         -- This is a WOF event which is in here cause I like WOF! Trigger unit death explosion
         if not self.WOF_OnSeabedImpact_Flag then
             self.WOF_OnSeabedImpact_Flag = true
@@ -183,6 +201,9 @@ XNL0401 = Class(NExperimentalHoverLandUnit, SlowHover) {
         end
     end,
 
+    ---@param self XNL0401
+    ---@param overkillRatio number
+    ---@param instigator Unit
     DeathThread = function( self, overkillRatio, instigator)
         -- I'm concerned what happens if this unit dies while hover on the water surface. The unit should not leave a corpse.
         -- If WOF is available the unit cloud/should sink to the bottom under the WOF effect.
@@ -197,20 +218,26 @@ XNL0401 = Class(NExperimentalHoverLandUnit, SlowHover) {
         end
     end,
 
+    ---@param self XNL0401
+    ---@param overkillRatio number
+    ---@param instigator Unit # unused
+    ---@param leaveWreckage boolean
     DeathExplosionsThread = function( self, overkillRatio, instigator, leaveWreckage)
+        local army = self.Army
+
         -- slightly inspired by the monkeylords effect
 
         self:PlayUnitSound('Killed')
 
         -- Create Initial explosion effects
-        explosion.CreateFlash( self, 0, 2, self.Army )
-        CreateAttachedEmitter(self, 0, self.Army, '/effects/emitters/destruction_explosion_concussion_ring_03_emit.bp'):ScaleEmitter(0.5)
-        CreateAttachedEmitter(self, 0, self.Army, '/effects/emitters/explosion_fire_sparks_02_emit.bp')
-        CreateAttachedEmitter(self, 0, self.Army, '/effects/emitters/distortion_ring_01_emit.bp'):ScaleEmitter(0.5)
+        explosion.CreateFlash( self, 0, 2, army )
+        CreateAttachedEmitter(self, 0, army, '/effects/emitters/destruction_explosion_concussion_ring_03_emit.bp'):ScaleEmitter(0.5)
+        CreateAttachedEmitter(self, 0, army, '/effects/emitters/explosion_fire_sparks_02_emit.bp')
+        CreateAttachedEmitter(self, 0, army, '/effects/emitters/distortion_ring_01_emit.bp'):ScaleEmitter(0.5)
         self:ShakeCamera(50, 5, 0, 1)
 
-        self:CreateExplosionDebris( 0, self.Army )
-        self:CreateExplosionDebris( 0, self.Army )
+        self:CreateExplosionDebris( 0, army )
+        self:CreateExplosionDebris( 0, army )
 
         -- damage ring to push trees
         local x, y, z = unpack(self:GetPosition())
@@ -234,12 +261,12 @@ XNL0401 = Class(NExperimentalHoverLandUnit, SlowHover) {
         end
 
         -- final explosion
-        explosion.CreateFlash( self, 0, 3, self.Army )
+        explosion.CreateFlash( self, 0, 3, army )
         self:ShakeCamera(3, 2, 0, 0.15)
         self:PlayUnitSound('Destroyed')
 
-        self:CreateExplosionDebris( 0, self.Army )
-        self:CreateExplosionDebris( 0, self.Army )
+        self:CreateExplosionDebris( 0, army )
+        self:CreateExplosionDebris( 0, army )
 
         -- Finish up force ring to push trees
         DamageRing(self, {x,y,z}, 0.1, 3, 1, 'Force', true)
@@ -251,12 +278,18 @@ XNL0401 = Class(NExperimentalHoverLandUnit, SlowHover) {
         end
     end,
 
+    ---@param self XNL0401
+    ---@param overkillRatio number
+    ---@param instigator Unit
     DeathExplosionsOnWaterThread = function( self, overkillRatio, instigator)
         self:DeathExplosionsThread(overkillRatio, instigator, false )
     end,
 
+    ---@param self XNL0401
+    ---@param bone Bone
+    ---@param army Army
     CreateExplosionDebris = function( self, bone, army )
-        for k, v in EffectTemplate.ExplosionDebrisLrg01 do
+        for _, v in EffectTemplate.ExplosionDebrisLrg01 do
             CreateAttachedEmitter( self, bone, army, v )
         end
     end,
