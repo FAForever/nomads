@@ -3,7 +3,7 @@ local NTogglingUnit = import('/lua/nomadsunits.lua').NTogglingUnit
 local RocketWeapon1 = import('/lua/nomadsweapons.lua').RocketWeapon1
 local TargetingLaser = import('/lua/kirvesweapons.lua').TargetingLaserInvisible
 
---- Tech 1 Mobile Anit-Air / Artillery
+--- Tech 1 Mobile Anti-Air/Artillery
 ---@class XNL0103 : NLandUnit, NTogglingUnit
 XNL0103 = Class(NLandUnit, NTogglingUnit) {
     EnableSpecialToggle = NTogglingUnit.EnableSpecialToggle,
@@ -12,7 +12,9 @@ XNL0103 = Class(NLandUnit, NTogglingUnit) {
     Weapons = {
         TargetPainter = Class(TargetingLaser) {
             OnWeaponFired = function(self)
-                self.unit:SetWeaponAAMode(self.unit:DetermineTargetLayer(self))
+                local unit = self.unit
+
+                unit:SetWeaponAAMode(unit:DetermineTargetLayer(self))
                 TargetingLaser.OnWeaponFired(self)
             end,
         },

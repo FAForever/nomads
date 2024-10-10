@@ -9,7 +9,7 @@ XNL0306 = Class(NLandUnit) {
             FxMuzzleFlash = import('/lua/nomadseffecttemplate.lua').EMPGunMuzzleFlash_Tank,
             CreateProjectileAtMuzzle = function(self, muzzle)
                 local proj = EMPGun.CreateProjectileAtMuzzle(self, muzzle)
-                local data = self:GetBlueprint().DamageToShields
+                local data = self.Blueprint.DamageToShields
                 if proj and not proj:BeenDestroyed() then
                     proj:PassData(data)
                 end

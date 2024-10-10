@@ -9,7 +9,7 @@ local AddRapidRepairToWeapon = NUtils.AddRapidRepairToWeapon
 
 NLandUnit = AddRapidRepair(NLandUnit)
 
---- Tech 3 Tank
+--- Tech 3 Hover Tank  
 ---@class XNL0303 : NLandUnit
 XNL0303 = Class(NLandUnit) {
     Weapons = {

@@ -2,6 +2,9 @@ local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local NLandUnit = import('/lua/nomadsunits.lua').NLandUnit
 local ParticleBlaster1 = import('/lua/nomadsweapons.lua').ParticleBlaster1
 
+-- Upvalue for Perfomance
+local CreateAttachedEmitter = CreateAttachedEmitter
+
 --- Tech 2 Tank
 ---@class XNL0202 : NLandUnit
 XNL0202 = Class(NLandUnit) {
@@ -36,7 +39,7 @@ XNL0202 = Class(NLandUnit) {
     ---@param self XNL0202
     CreateSensorEmitter = function(self)
         local emit
-        for k, v in NomadsEffectTemplate.AntennaeLights1 do
+        for _, v in NomadsEffectTemplate.AntennaeLights1 do
             emit = CreateAttachedEmitter(self, 'Sensors', self.Army, v)
             self.Trash:Add(emit)
         end

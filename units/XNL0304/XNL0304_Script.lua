@@ -7,7 +7,7 @@ XNL0304 = Class(NLandUnit) {
     Weapons = {
         ArtilleryGun = Class(ArtilleryWeapon) {
             SetMovingAccuracy = function(self, bool)
-                local bp = self:GetBlueprint()
+                local bp = self.Blueprint
                 if bool then
                     self:SetFiringRandomness( bp.FiringRandomnessWhileMoving or (math.max(0, bp.FiringRandomness) * 4) )
                 else
@@ -34,7 +34,7 @@ XNL0304 = Class(NLandUnit) {
     ---@param moving boolean
     UpdateWeaponAccuracy = function(self, moving)
         if not self.Dead then
-            self:GetWeapon(1):SetMovingAccuracy(moving)
+            self.WeaponInstances[1]:SetMovingAccuracy(moving)
         end
     end,
 }

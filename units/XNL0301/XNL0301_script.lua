@@ -18,7 +18,14 @@ local EMPGun = NWeapons.EMPGun
 
 NCommandUnit = AddAkimbo(AddRapidRepair(NCommandUnit))
 
---- Nomand SACU
+-- Upvalue for Perfomance
+local CreateAnimator = CreateAnimator
+local ForkThread = ForkThread
+local TrashBagAdd = TrashBag.Add
+local TableInsert = table.insert
+
+
+--- Nomad SACU
 ---@class XNL0301 : NCommandUnit
 XNL0301 = Class(NCommandUnit) {
     DestructionPartsLowToss = { 'Torso', 'Head', },
@@ -78,7 +85,7 @@ XNL0301 = Class(NCommandUnit) {
     OnStartBeingBuilt = function(self, builder, layer)
         NCommandUnit.OnStartBeingBuilt(self, builder, layer)
 
-        local bp = self:GetBlueprint()
+        local bp = self.Blueprint
         if bp.Display.AnimationAlert then
             self.AlertAnimManip = CreateAnimator(self):PlayAnim(bp.Display.AnimationAlert):SetRate(0)
             self.AlertAnimManip:SetAnimationFraction(0)
@@ -93,7 +100,7 @@ XNL0301 = Class(NCommandUnit) {
         NCommandUnit.StopBeingBuiltEffects(self, builder, layer)
 
         if self:HasEnhancement('PowerArmor') then
-            local bp = self:GetBlueprint().Enhancements['PowerArmor']
+            local bp = self.Blueprint.Enhancements['PowerArmor']
             self:SetMesh( bp.Mesh, true)
         end
         if self.AlertAnimManip then
@@ -104,6 +111,8 @@ XNL0301 = Class(NCommandUnit) {
 
     ---@param self XNL0301
     DoDeathWeapon = function(self)
+        local trash = self.Trash
+
         if self:IsBeingBuilt() then return end
 
         local DeathWep = self:GetDeathWeaponBP()
@@ -111,7 +120,7 @@ XNL0301 = Class(NCommandUnit) {
             self:SetWeaponEnabledByLabel(DeathWep.Label, true)
             self:GetWeaponByLabel(DeathWep.Label):Fire()
         else
-            self:ForkThread(self.DeathWeaponDamageThread, DeathWep.DamageRadius, DeathWep.Damage, DeathWep.DamageType, DeathWep.DamageFriendly)
+            TrashBagAdd(trash,ForkThread(self.DeathWeaponDamageThread, DeathWep.DamageRadius, DeathWep.Damage, DeathWep.DamageType, DeathWep.DamageFriendly,self))
         end
     end,
 
@@ -119,8 +128,8 @@ XNL0301 = Class(NCommandUnit) {
     ---@param overkillRatio number
     CreateWreckage = function(self, overkillRatio)
         -- only create wreckage if death weapon allows it
-        local DeathWep = self:GetDeathWeaponBP()
-        if not DeathWep.NoWreckage then
+        local weaponBp = self:GetDeathWeaponBP()
+        if not weaponBp.NoWreckage then
             NCommandUnit.CreateWreckage(self, overkillRatio)
         end
     end,
@@ -130,7 +139,7 @@ XNL0301 = Class(NCommandUnit) {
     GetDeathWeaponBP = function(self)
         -- different death weapon depending on enhancements
         local WantLabel = 'DeathWeapon'
-        local bp = self:GetBlueprint()
+        local bp = self.Blueprint
 
         if self:HasEnhancement('ResourceAllocation') then
             WantLabel = bp.Enhancements.ResourceAllocation.NewDeathWeapon or WantLabel
@@ -151,12 +160,12 @@ XNL0301 = Class(NCommandUnit) {
 
     --overwrite the GetBuildBones to allow for enhancement support
     ---@param self XNL0301
-    ---@return table
+    ---@return Bone[]
     GetBuildBones = function(self)
-        local bones = table.deepcopy( self:GetBlueprint().General.BuildBones.BuildEffectBones )
+        local bones = table.deepcopy( self.Blueprint.General.BuildBones.BuildEffectBones )
         if self:HasEnhancement('EngineeringSuite') then
-            table.insert( bones, 'Engi_R_Muzzle.001')
-            table.insert( bones, 'Engi_R_Muzzle.002')
+            TableInsert( bones, 'Engi_R_Muzzle.001')
+            TableInsert( bones, 'Engi_R_Muzzle.002')
         end
         return bones
     end,
@@ -200,7 +209,7 @@ XNL0301 = Class(NCommandUnit) {
     --This custom timer function allows us to reset or partially delay the timer without killing the thread
     ---@param self XNL0301
     StartRapidRepair = function(self)
-        local bp = self:GetBlueprint()
+        local bp = self.Blueprint
         --calculate the total bonus - each upgrade slot can have its own bonus added.
         self.RapidRepairBonus = bp.Defense.RapidRepairBonus + self.RapidRepairBonusArmL + self.RapidRepairBonusArmR + self.RapidRepairBonusBack
         
@@ -229,7 +238,7 @@ XNL0301 = Class(NCommandUnit) {
         EMPWeapon = function(self, bp)
             self:SetWeaponEnabledByLabel( 'EMPGun', true )
         end,
-        
+
         EMPWeaponRemove = function(self, bp)
             self:SetWeaponEnabledByLabel( 'EMPGun', false )
         end,
@@ -244,7 +253,7 @@ XNL0301 = Class(NCommandUnit) {
                     Duration = -1,
                     Affects = {
                         BuildRate = {
-                            Add =  bp.NewBuildRate - self:GetBlueprint().Economy.BuildRate,
+                            Add =  bp.NewBuildRate - self.Blueprint.Economy.BuildRate,
                             Mult = 1,
                         },
                     },
@@ -274,13 +283,13 @@ XNL0301 = Class(NCommandUnit) {
         end,
         
         ResourceAllocation = function(self, bp)
-            local bpEcon = self:GetBlueprint().Economy
-            self:SetProductionPerSecondEnergy(bp.ProductionPerSecondEnergy + bpEcon.ProductionPerSecondEnergy or 0)
-            self:SetProductionPerSecondMass(bp.ProductionPerSecondMass + bpEcon.ProductionPerSecondMass or 0)
+            local bpEcon = self.Blueprint.Economy
+            self:SetProductionPerSecondEnergy((bp.ProductionPerSecondEnergy + bpEcon.ProductionPerSecondEnergy) or 0)
+            self:SetProductionPerSecondMass((bp.ProductionPerSecondMass + bpEcon.ProductionPerSecondMass) or 0)
         end,
         
         ResourceAllocationRemove = function(self, bp)
-            local bpEcon = self:GetBlueprint().Economy
+            local bpEcon = self.Blueprint.Economy
             self:SetProductionPerSecondEnergy(bpEcon.ProductionPerSecondEnergy or 0)
             self:SetProductionPerSecondMass(bpEcon.ProductionPerSecondMass or 0)
         end,
@@ -357,7 +366,7 @@ XNL0301 = Class(NCommandUnit) {
         PowerArmorRemove = function(self, bp)
             self.RapidRepairBonusBack = 0
             self:StartRapidRepairCooldown(0) --update the repair bonus buff - this way doesnt disrupt the repair state
-            local ubp = self:GetBlueprint()
+            local ubp = self.Blueprint
             if bp.Mesh then
                 self:SetMesh( ubp.Display.MeshBlueprint, true) --this doesnt actually work --TODO:fix it
             end
@@ -382,9 +391,11 @@ XNL0301 = Class(NCommandUnit) {
         GunUpgradeRemove = function(self, bp)
             local wep = self:GetWeaponByLabel('MainGun')
             local wep2 = self:GetWeaponByLabel('EMPGun')
-            wep:ChangeRateOfFire(self:GetBlueprint().Weapon[3].RateOfFire or 1)
-            wep:ChangeMaxRadius(self:GetBlueprint().Weapon[3].MaxRadius or 25)
-            wep2:ChangeMaxRadius(self:GetBlueprint().Weapon[3].MaxRadius or 25)
+            local bp = self.Blueprint
+
+            wep:ChangeRateOfFire(bp.Weapon[3].RateOfFire or 1)
+            wep:ChangeMaxRadius(bp.Weapon[3].MaxRadius or 25)
+            wep2:ChangeMaxRadius(bp.Weapon[3].MaxRadius or 25)
         end,
         
         Generic = function(self, bp)
@@ -395,9 +406,9 @@ XNL0301 = Class(NCommandUnit) {
     ---@param enh string
     CreateEnhancement = function(self, enh)
         NCommandUnit.CreateEnhancement(self, enh)
-        local bp = self:GetBlueprint().Enhancements[enh]
+        local bp = self.Blueprint.Enhancements[enh]
         if not bp then return end
-        
+
         if self.EnhancementBehaviours[enh] then
             self.EnhancementBehaviours[enh](self, bp)
         else
@@ -414,7 +425,7 @@ XNL0301 = Class(NCommandUnit) {
         local hideBones = { 'Head', 'Pauldron_L', 'Pauldron_R', }
 
         -- check all enhancements to find bones we can use for effects
-        local bp = self:GetBlueprint()
+        local bp = self.Blueprint
         for name, enh in bp.Enhancements do
             if self:HasEnhancement(name) and enh.ShowBones then
                 hideBones = table.cat(hideBones, enh.ShowBones)
@@ -433,12 +444,12 @@ XNL0301 = Class(NCommandUnit) {
         -- base effect
         local emitters = {}
         local emit, rs, k
-        for k, v in TemplReg do
+        for _, v in TemplReg do
             emit = CreateEmitterAtBone(self, 'Torso', self.Army, v)
-            table.insert(emitters, emit)
+            TableInsert(emitters, emit)
         end
 
-        -- small epxlosions
+        -- small explosions
         local sx, sy, sz = self:GetUnitSizes()
         local vol = sx * sy * sz
         local numHideBones = table.getn(hideBones)

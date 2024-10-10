@@ -11,7 +11,12 @@ local GattlingWeapon1 = NomadsWeaponsFile.GattlingWeapon1
 local TacticalMissileWeapon1 = NomadsWeaponsFile.TacticalMissileWeapon1
 local StrategicMissileWeapon = NomadsWeaponsFile.StrategicMissileWeapon
 
---- Experimental Hover Crawler
+-- upvalue for perfomance
+local CreateAttachedEmitter = CreateAttachedEmitter
+local TrashBagAdd = TrashBag.Add
+
+
+--- Experimental Hover Missile Tank  
 ---@class XNL0403 : NExperimentalHoverLandUnit, SlowHoverLandUnit
 XNL0403 = Class(NExperimentalHoverLandUnit, SlowHoverLandUnit) {
 
@@ -21,7 +26,7 @@ XNL0403 = Class(NExperimentalHoverLandUnit, SlowHoverLandUnit) {
 
             OnCreate = function(self)
                 StrategicMissileWeapon.OnCreate(self)
-                self.CurrentROF = self:GetBlueprint().RateOfFire or 1
+                self.CurrentROF = self.Blueprint.RateOfFire or 1
             end,
 
             OnWeaponFired = function(self)
@@ -86,8 +91,8 @@ XNL0403 = Class(NExperimentalHoverLandUnit, SlowHoverLandUnit) {
     end,
 
     ---@param self XNL0403
-    ---@param new VerticalMovementState
-    ---@param old VerticalMovementState
+    ---@param new HorizontalMovementState  
+    ---@param old HorizontalMovementState  
     OnMotionHorzEventChange = function( self, new, old )
         NExperimentalHoverLandUnit.OnMotionHorzEventChange( self, new, old )
 
@@ -99,9 +104,10 @@ XNL0403 = Class(NExperimentalHoverLandUnit, SlowHoverLandUnit) {
     end,
 
     ---@param self XNL0403
-    ---@param damageType DamageType unused
-    PlayMovementSmokeEffects = function(self, damageType)
+    ---@param type HorizontalMovementState
+    PlayMovementSmokeEffects = function(self, type)
         local EffectTable, emit
+        local trash = self.Trash
 
         if type == 'Stopping' then
             EffectTable = NomadsEffectTemplate.HoverEffect_Stopping_Smoke
@@ -112,10 +118,10 @@ XNL0403 = Class(NExperimentalHoverLandUnit, SlowHoverLandUnit) {
         end
 
         for _, bone in self.SmokeEmitterBones do
-            for k, v in EffectTable do
+            for _, v in EffectTable do
                 emit = CreateAttachedEmitter( self, bone, self.Army, v )
                 self.SmokeEmitters:Add( emit )
-                self.Trash:Add( emit )
+                TrashBagAdd(trash,( emit ))
             end
         end
     end,
@@ -127,7 +133,7 @@ XNL0403 = Class(NExperimentalHoverLandUnit, SlowHoverLandUnit) {
 
     --- This is a WOF event which is in here cause I like WOF! Sorry, I can't be crushed during sinking!
     ---@param self XNL0403
-    ---@return boolean|false
+    ---@return false
     CrushDuringDescent = function(self)
         return false
     end,
@@ -165,20 +171,23 @@ XNL0403 = Class(NExperimentalHoverLandUnit, SlowHoverLandUnit) {
 
     ---@param self XNL0403
     ---@param overkillRatio number
-    ---@param instigator Unit unused
+    ---@param instigator Unit # unused
     ---@param leaveWreckage boolean
     DeathExplosionsThread = function( self, overkillRatio, instigator, leaveWreckage)
+        local army = self.Army
+        
         self:PlayUnitSound('Killed')
 
+
         -- Create Initial explosion effects
-        explosion.CreateFlash( self, 'TML.003', 2, self.Army )
-        CreateAttachedEmitter(self, 0, self.Army, '/effects/emitters/destruction_explosion_concussion_ring_03_emit.bp'):ScaleEmitter(0.5)
-        CreateAttachedEmitter(self, 0, self.Army, '/effects/emitters/explosion_fire_sparks_02_emit.bp')
-        CreateAttachedEmitter(self, 0, self.Army, '/effects/emitters/distortion_ring_01_emit.bp'):ScaleEmitter(0.5)
+        explosion.CreateFlash( self, 'TML.003', 2, army )
+        CreateAttachedEmitter(self, 0, army, '/effects/emitters/destruction_explosion_concussion_ring_03_emit.bp'):ScaleEmitter(0.5)
+        CreateAttachedEmitter(self, 0, army, '/effects/emitters/explosion_fire_sparks_02_emit.bp')
+        CreateAttachedEmitter(self, 0, army, '/effects/emitters/distortion_ring_01_emit.bp'):ScaleEmitter(0.5)
         self:ShakeCamera(50, 5, 0, 1)
 
-        self:CreateExplosionDebris( 0, self.Army )
-        self:CreateExplosionDebris( 0, self.Army )
+        self:CreateExplosionDebris( 0, army )
+        self:CreateExplosionDebris( 0, army )
 
         -- damage ring to push trees
         local x, y, z = unpack(self:GetPosition())
@@ -197,17 +206,17 @@ XNL0403 = Class(NExperimentalHoverLandUnit, SlowHoverLandUnit) {
         for i=Random(1,3), 8 do
             local bone = Random( 0, numBones )
             explosion.CreateDefaultHitExplosionAtBone( self, bone, GetRandomInt( 1.0, 4.0) )
-            self:CreateExplosionDebris( bone, self.Army )
+            self:CreateExplosionDebris( bone, army )
             WaitTicks( 13 - i - Random(0, 3) )
         end
 
         -- final explosion
-        explosion.CreateFlash( self, 0, 3, self.Army )
+        explosion.CreateFlash( self, 0, 3, army )
         self:ShakeCamera(3, 2, 0, 0.15)
         self:PlayUnitSound('Destroyed')
 
-        self:CreateExplosionDebris( 0, self.Army )
-        self:CreateExplosionDebris( 0, self.Army )
+        self:CreateExplosionDebris( 0, army )
+        self:CreateExplosionDebris( 0, army )
 
         -- Finish up force ring to push trees
         DamageRing(self, {x,y,z}, 0.1, 3, 1, 'Force', true)
@@ -231,7 +240,7 @@ XNL0403 = Class(NExperimentalHoverLandUnit, SlowHoverLandUnit) {
     ---@param bone Bone
     ---@param army Army
     CreateExplosionDebris = function( self, bone, army )
-        for k, v in EffectTemplate.ExplosionDebrisLrg01 do
+        for _, v in EffectTemplate.ExplosionDebrisLrg01 do
             CreateAttachedEmitter( self, bone, army, v )
         end
     end,

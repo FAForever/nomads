@@ -2,6 +2,17 @@ local NLandUnit = import('/lua/nomadsunits.lua').NLandUnit
 local RocketWeapon1 = import('/lua/nomadsweapons.lua').RocketWeapon1
 local Utilities = import('/lua/utilities.lua')
 
+-- Upvalue for Perfomance
+local CreateRotator = CreateRotator
+local WaitSeconds = WaitSeconds
+local TrashBagAdd = TrashBag.Add
+local MathMax = math.max
+local MathMin = math.min
+local MathAtan2 = math.atan2
+
+
+
+
 --- Tech 3 Mobile Anti-Air
 ---@class XNL0302 : NLandUnit
 XNL0302 = Class(NLandUnit) {
@@ -23,10 +34,12 @@ XNL0302 = Class(NLandUnit) {
 
         -- set up the revolver. the var 'pause' determines the time the revolver is still, between shots, in seconds
         local pause = 0.2
-        local bp = self:GetWeaponByLabel('MainGun').Blueprint
-        self.RevolverManipSpeed = 90 / ((1 /  bp.RateOfFire) - pause)
-        if bp.MuzzleSalvoSize > 1 and bp.MuzzleSalvoDelay >= 0.1 then
-             self.RevolverManipSpeed = 90 /  math.max( 0.1, bp.MuzzleSalvoDelay - pause )
+        local weaponBp = self:GetWeaponByLabel('MainGun').Blueprint
+        local trash = self.Trash
+
+        self.RevolverManipSpeed = 90 / ((1 /  weaponBp.RateOfFire) - pause)
+        if weaponBp.MuzzleSalvoSize > 1 and weaponBp.MuzzleSalvoDelay >= 0.1 then
+             self.RevolverManipSpeed = 90 /  math.max( 0.1, weaponBp.MuzzleSalvoDelay - pause )
         end
         self.RevolverManip = CreateRotator(self, 'Revolver', 'z', 0)
 
@@ -35,10 +48,10 @@ XNL0302 = Class(NLandUnit) {
         self.TreadBlock02 = CreateRotator(self, 'Wheel_RF', 'y', nil):SetCurrentAngle(0)
         self.TreadBlock03 = CreateRotator(self, 'Wheel_LB', 'y', nil):SetCurrentAngle(0)
         self.TreadBlock04 = CreateRotator(self, 'Wheel_RB', 'y', nil):SetCurrentAngle(0)
-        self.Trash:Add(self.TreadBlock01)
-        self.Trash:Add(self.TreadBlock02)
-        self.Trash:Add(self.TreadBlock03)
-        self.Trash:Add(self.TreadBlock04)
+        TrashBagAdd(trash,(self.TreadBlock02))
+        TrashBagAdd(trash,(self.TreadBlock03))
+        TrashBagAdd(trash,(self.TreadBlock01))
+        TrashBagAdd(trash,(self.TreadBlock04))
         self:ForkThread(self.TreadManipulationThread)
     end,
 
@@ -62,7 +75,7 @@ XNL0302 = Class(NLandUnit) {
             target.x = target.x - MyPos.x
             target.z = target.z - MyPos.z
             target = Utilities.NormalizeVector(target)
-            GoalAngle = ( math.atan2( target.x, target.z ) - self:GetHeading() ) * 180 / math.pi
+            GoalAngle = ( MathAtan2( target.x, target.z ) - self:GetHeading() ) * 180 / math.pi
 
             -- sometimes the angle is more than 180 degrees which makes the wheels rotate in the wrong direction.
             -- subtracting or adding 360 works.
@@ -73,7 +86,7 @@ XNL0302 = Class(NLandUnit) {
             end
 
             -- limit rotation to 50 degrees
-            GoalAngle = math.max( -maxRot, math.min( GoalAngle, maxRot ) )
+            GoalAngle = MathMax( -maxRot, MathMin( GoalAngle, maxRot ) )
 
             self.TreadBlock01:SetSpeed(100)
             self.TreadBlock02:SetSpeed(100)

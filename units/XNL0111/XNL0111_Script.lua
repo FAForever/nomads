@@ -4,6 +4,9 @@ local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local EffectUtilities = import('/lua/EffectUtilities.lua')
 local SlowHoverLandUnit = import('/lua/defaultunits.lua').SlowHoverLandUnit
 
+-- Upvalue for Perfomance
+local TrashBagAdd = TrashBag.Add
+
 --- Tech 2 Mobile Missile Launcher
 ---@class XNL0111 : NAmphibiousUnit, SlowHoverLandUnit
 XNL0111 = Class(NAmphibiousUnit, SlowHoverLandUnit) {
@@ -28,9 +31,9 @@ XNL0111 = Class(NAmphibiousUnit, SlowHoverLandUnit) {
         NAmphibiousUnit.OnCreate(self)
         --save the modifier for max radius so we dont have to go into the blueprint every time.
         local wep = self:GetWeaponByLabel('MainGun')
-        local bp = wep.Blueprint
-        self.MissileMaxRadiusWater = bp.MaxRadiusUnderWater
-        self.MissileMaxRadius = bp.MaxRadius
+        local weaponBp = wep.Blueprint
+        self.MissileMaxRadiusWater = weaponBp.MaxRadiusUnderWater
+        self.MissileMaxRadius = weaponBp.MaxRadius
     end,
 
     ---@param self XNL0111

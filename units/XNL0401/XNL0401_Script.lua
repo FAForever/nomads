@@ -5,13 +5,16 @@ local PlasmaCannon = import('/lua/nomadsweapons.lua').PlasmaCannon
 local AnnihilatorCannon1 = import('/lua/nomadsweapons.lua').AnnihilatorCannon1
 local ParticleBlaster1 = import('/lua/nomadsweapons.lua').ParticleBlaster1
 local KineticCannon1 = import('/lua/nomadsweapons.lua').KineticCannon1
-local EffectUtils = import('/lua/effectutilities.lua')
 local explosion = import('/lua/defaultexplosions.lua')
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 local GetRandomInt = import('/lua/utilities.lua').GetRandomInt
 local Utilities = import('/lua/utilities.lua')
 local SlowHoverLandUnit = import('/lua/defaultunits.lua').SlowHoverLandUnit
 
+-- Upvalue for Performance
+local CreateRotator = CreateRotator
+local TrashBagAdd = TrashBag.Add
+local CreateAttachedEmitter = CreateAttachedEmitter
 
 --- Experimental Land Bullfrog
 ---@class XNL0401 : NExperimentalHoverLandUnit, SlowHoverLandUnit
@@ -22,7 +25,7 @@ XNL0401 = Class(NExperimentalHoverLandUnit, SlowHoverLandUnit) {
 
             OnCreate = function(self)
                 AnnihilatorCannon1.OnCreate(self)
-                self.CurrentROF = self:GetBlueprint().RateOfFire or 1
+                self.CurrentROF = self.Blueprint.RateOfFire or 1
             end,
 
             PlayFxWeaponUnpackSequence = function(self)
@@ -71,16 +74,17 @@ XNL0401 = Class(NExperimentalHoverLandUnit, SlowHoverLandUnit) {
         -- direction rotators
         self.AllowHeadRotation = true
         local bone = self:GetWeaponByLabel('FrontGun'):GetBlueprint().TurretBoneYaw or 'FrontTurret_Yaw'
+        local trash = self.Trash
 
         self.GattlingManip = CreateRotator(self, 'FrontTurret_Barrels', 'z', nil, self.GattlingRotSpeed, self.GattlingRotSpeed * 10, self.GattlingRotSpeed)
         self.HeadRotManip = CreateRotator(self, bone, 'y', nil):SetCurrentAngle(0)
         self.LeftJetManip = CreateRotator(self, 'Jet_LeftRear', 'y', nil):SetCurrentAngle(0)
         self.RightJetManip = CreateRotator(self, 'Jet_RightRear', 'y', nil):SetCurrentAngle(0)
 
-        self.Trash:Add(self.GattlingManip)
-        self.Trash:Add(self.HeadRotManip)
-        self.Trash:Add(self.LeftJetManip)
-        self.Trash:Add(self.RightJetManip)
+        TrashBagAdd(trash,(self.GattlingManip))
+        TrashBagAdd(trash,(self.HeadRotManip))
+        TrashBagAdd(trash,(self.LeftJetManip))
+        TrashBagAdd(trash,(self.RightJetManip))
 
         self:ActivateGattlingRotation(false)
     end,
@@ -126,10 +130,10 @@ XNL0401 = Class(NExperimentalHoverLandUnit, SlowHoverLandUnit) {
 
         local nav = self:GetNavigator()
         local wep = self:GetWeaponByLabel('FrontGun')
-        local maxRotHead = wep:GetBlueprint().TurretYawRange or 30
-        local rotSpeedHead = wep:GetBlueprint().TurretYawSpeed or 50
+        local maxRotHead = wep.Blueprint.TurretYawRange or 30
+        local rotSpeedHead = wep.Blueprint.TurretYawSpeed or 50
         local maxRotJet = 10
-        local rotSpeedJet = self:GetBlueprint().Display.MovementEffects.JetRotationMax or 60
+        local rotSpeedJet = self.Blueprint.Display.MovementEffects.JetRotationMax or 60
         local angle, headAngle, jetAngle = 0, 0, 0
         local target, targetPos, pos, navTar
 
@@ -188,7 +192,7 @@ XNL0401 = Class(NExperimentalHoverLandUnit, SlowHoverLandUnit) {
     end,
 
     ---@param self XNL0401
-    OnSeabedImpact = function( self)
+    OnSeabedImpact = function(self)
         -- This is a WOF event which is in here cause I like WOF! Trigger unit death explosion
         if not self.WOF_OnSeabedImpact_Flag then
             self.WOF_OnSeabedImpact_Flag = true
@@ -216,22 +220,24 @@ XNL0401 = Class(NExperimentalHoverLandUnit, SlowHoverLandUnit) {
 
     ---@param self XNL0401
     ---@param overkillRatio number
-    ---@param instigator Unit unused
+    ---@param instigator Unit # unused
     ---@param leaveWreckage boolean
     DeathExplosionsThread = function( self, overkillRatio, instigator, leaveWreckage)
+        local army = self.Army
+
         -- slightly inspired by the monkeylords effect
 
         self:PlayUnitSound('Killed')
 
         -- Create Initial explosion effects
-        explosion.CreateFlash( self, 0, 2, self.Army )
-        CreateAttachedEmitter(self, 0, self.Army, '/effects/emitters/destruction_explosion_concussion_ring_03_emit.bp'):ScaleEmitter(0.5)
-        CreateAttachedEmitter(self, 0, self.Army, '/effects/emitters/explosion_fire_sparks_02_emit.bp')
-        CreateAttachedEmitter(self, 0, self.Army, '/effects/emitters/distortion_ring_01_emit.bp'):ScaleEmitter(0.5)
+        explosion.CreateFlash( self, 0, 2, army )
+        CreateAttachedEmitter(self, 0, army, '/effects/emitters/destruction_explosion_concussion_ring_03_emit.bp'):ScaleEmitter(0.5)
+        CreateAttachedEmitter(self, 0, army, '/effects/emitters/explosion_fire_sparks_02_emit.bp')
+        CreateAttachedEmitter(self, 0, army, '/effects/emitters/distortion_ring_01_emit.bp'):ScaleEmitter(0.5)
         self:ShakeCamera(50, 5, 0, 1)
 
-        self:CreateExplosionDebris( 0, self.Army )
-        self:CreateExplosionDebris( 0, self.Army )
+        self:CreateExplosionDebris( 0, army )
+        self:CreateExplosionDebris( 0, army )
 
         -- damage ring to push trees
         local x, y, z = unpack(self:GetPosition())
@@ -255,12 +261,12 @@ XNL0401 = Class(NExperimentalHoverLandUnit, SlowHoverLandUnit) {
         end
 
         -- final explosion
-        explosion.CreateFlash( self, 0, 3, self.Army )
+        explosion.CreateFlash( self, 0, 3, army )
         self:ShakeCamera(3, 2, 0, 0.15)
         self:PlayUnitSound('Destroyed')
 
-        self:CreateExplosionDebris( 0, self.Army )
-        self:CreateExplosionDebris( 0, self.Army )
+        self:CreateExplosionDebris( 0, army )
+        self:CreateExplosionDebris( 0, army )
 
         -- Finish up force ring to push trees
         DamageRing(self, {x,y,z}, 0.1, 3, 1, 'Force', true)
@@ -283,7 +289,7 @@ XNL0401 = Class(NExperimentalHoverLandUnit, SlowHoverLandUnit) {
     ---@param bone Bone
     ---@param army Army
     CreateExplosionDebris = function( self, bone, army )
-        for k, v in EffectTemplate.ExplosionDebrisLrg01 do
+        for _, v in EffectTemplate.ExplosionDebrisLrg01 do
             CreateAttachedEmitter( self, bone, army, v )
         end
     end,
