@@ -1,9 +1,8 @@
--- T2 field engineer
-
-local NomadsEffectTemplate = import('/lua/nomadseffecttemplate.lua')
 local NConstructionUnit = import('/lua/nomadsunits.lua').NConstructionUnit
 local NAMFlakWeapon = import('/lua/nomadsweapons.lua').NAMFlakWeapon
 
+--- Tech 2 Field Engineer
+---@class XNL0209 : NConstructionUnit
 XNL0209 = Class(NConstructionUnit) {
     Weapons = {
         MainGun = Class(NAMFlakWeapon) {
@@ -12,5 +11,5 @@ XNL0209 = Class(NConstructionUnit) {
         },
     },
 }
-
 TypeClass = XNL0209
+
