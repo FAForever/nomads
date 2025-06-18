@@ -137,7 +137,7 @@ UnitBlueprint{
         VisionRadius = 32,
         WaterVisionRadius = 55,
     },
-    Interface = { HelpText = "<LOC XNS0205_help>Uses two railguns under water to attack ships and submarines. Also carries a tactical missile defense turret." },
+    Interface = { HelpText = "<LOC XNS0205_help>Uses two railguns under water to attack ships and submarines." },
     LifeBarHeight = 0.075,
     LifeBarOffset = 2.45,
     LifeBarSize = 1.75,
@@ -198,7 +198,7 @@ UnitBlueprint{
                     Duration = 8,
                     Radius = 4,
                     TargetAllow = "TECH1",
-                    TargetDisallow = "UNSTUNABLE,TECH2,TECH3,EXPERIMENTAL,COMMAND,SHIELD,WALL",
+                    TargetDisallow = "UNTARGETABLE,UNSTUNABLE,TECH2,TECH3,EXPERIMENTAL,COMMAND,SHIELD,WALL,STRUCTURE",
                 },
                 {
                     Add = {
@@ -210,7 +210,7 @@ UnitBlueprint{
                     Duration = 4,
                     Radius = 4,
                     TargetAllow = "TECH2,SHIELD",
-                    TargetDisallow = "UNSTUNABLE,TECH1,TECH3,EXPERIMENTAL,COMMAND,WALL",
+                    TargetDisallow = "UNTARGETABLE,UNSTUNABLE,TECH1,TECH3,EXPERIMENTAL,COMMAND,WALL,STRUCTURE",
                 },
                 {
                     Add = {
@@ -222,7 +222,7 @@ UnitBlueprint{
                     Duration = 2,
                     Radius = 4,
                     TargetAllow = "TECH3",
-                    TargetDisallow = "UNSTUNABLE,TECH1,TECH2,EXPERIMENTAL,COMMAND,WALL",
+                    TargetDisallow = "UNTARGETABLE,UNSTUNABLE,TECH1,TECH2,EXPERIMENTAL,COMMAND,WALL,STRUCTURE",
                 },
             },
             CollideFriendly = false,
