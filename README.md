@@ -62,7 +62,7 @@ Congratulations, you now have everything you need to start contributing! Do chec
 View our [Technical docs](docs/index.md) inside the `docs` directory of this repo.
 
 #### Run the game from the Nomads lua code
-You should have a local copy of the code _- both FAForever/fa and Nomads-Project/nomads -_ on your computer.
+You should have a local copy of the code _- both FAForever/fa and FAForever/nomads -_ on your computer.
 Now you'll want to set up your test environment, i.e. running the game based on your local copies.
 
 1. If you haven't already set up `FAForever/fa` development environment, do so , since you will need `init_local_development.lua` to be set up. ([setup guide](https://github.com/FAForever/fa/blob/develop/setup/setup-english.md))
@@ -145,7 +145,7 @@ WARNING: attempt to retrieve annotation from unknown technique NomadsUnit
 WARNING: c:\work\rts\main\code\src\libs\gpggal\EffectD3D9.cpp(89) invalid effect technique requested: NomadsUnit
 ```
 Try to run the `shader_cleaner.bat` file to fix it.
-You can find this file inside your local copy of **Nomads-Project/nomads**.
+You can find this file inside your local copy of **FAForever/nomads**.
 
 Implementing Nomads in FAF (update the current version)
 ----------------------------------------
