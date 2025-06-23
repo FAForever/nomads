@@ -10,7 +10,8 @@
   "Lua.telemetry.enable": false,
   "Lua.workspace.checkThirdParty": false,
   "Lua.runtime.path": ["/?"],
-  "Lua.runtime.plugin": ".vscode/fa-plugin.lua",
+  "Lua.runtime.plugin": "${3rd}/fa/plugin.lua",
+  "Lua.workspace.library": ["${3rd}/fa/library", "../fa/"],
   "Lua.workspace.ignoreDir": [".vscode", "loc", "*.bp"],
   "[lua]": {
     "editor.wordBasedSuggestions": "off"
