@@ -1,5 +1,5 @@
 UnitBlueprint{
-    Description = "<LOC XNS0205_desc>Anti-Submersible Boat",
+    Description = "<LOC xns0205_desc>Anti-Submersible Boat",
     AI = { AttackAngle = 30 },
     Audio = {
         AmbientMove = Sound { Bank = 'XES',             Cue = 'XES0102_Move_Loop',   LodCutoff = 'UnitMove_LodCutoff' },
@@ -129,7 +129,7 @@ UnitBlueprint{
         FactionName = "Nomads",
         Icon = "sea",
         TechLevel = "RULEUTL_Advanced",
-        UnitName = "<LOC XNS0205_name>Whaler",
+        UnitName = "<LOC xns0205_name>Whaler",
         UnitWeight = 1,
     },
     Intel = {
@@ -137,7 +137,7 @@ UnitBlueprint{
         VisionRadius = 32,
         WaterVisionRadius = 55,
     },
-    Interface = { HelpText = "<LOC XNS0205_help>Uses two railguns under water to attack ships and submarines. Also carries a tactical missile defense turret." },
+    Interface = { HelpText = "<LOC xns0205_help>Uses two railguns under water to attack ships and submarines. Also carries a tactical missile defense turret." },
     LifeBarHeight = 0.075,
     LifeBarOffset = 2.45,
     LifeBarSize = 1.75,
