@@ -67,7 +67,7 @@ UnitBlueprint{
         "VISIBLETORECON",
     },
     Defense = {
-        AirThreatLevel = 0.33,
+        AirThreatLevel = 5,
         ArmorType = "Light",
         EconomyThreatLevel = 0,
         Health = 275,
@@ -194,6 +194,8 @@ UnitBlueprint{
             LAYER_Water = false,
         },
         Elevation = 14,
+        FuelRechargeRate = 5,
+        FuelUseTime = 300,
         GroundCollisionOffset = 1.2,
         MaxSpeed = 0.5,
         MeshExtentsX = 1,
