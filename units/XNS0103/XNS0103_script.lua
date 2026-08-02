@@ -2,7 +2,7 @@
 
 local NSeaUnit = import('/lua/nomadsunits.lua').NSeaUnit
 local NDFRotatingAutocannonWeapon = import('/lua/nomadsweapons.lua').NDFRotatingAutocannonWeapon
-local NAMFlakWeapon = import('/lua/nomadsweapons.lua').NAMFlakWeapon
+local NAMFlakWeapon = import("/lua/terranweapons.lua").TAMPhalanxWeapon
 
 XNS0103 = Class(NSeaUnit) {
     Weapons = {
@@ -11,7 +11,6 @@ XNS0103 = Class(NSeaUnit) {
         },
         TMD01 = Class(NAMFlakWeapon) {
             TMDEffectBones = {'TMD_Targeter01','TMD_Targeter02',},
-            SalvoReloadTime = 1.4, --Change this to the correct amount for the weapon.
         },
     },
 }
