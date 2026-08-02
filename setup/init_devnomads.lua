@@ -1,92 +1,29 @@
---Rename these paths to where you placed the repositories for FAF and nomads
---you need to use double slashes \\ in the path for it to work. look at the example paths first before overwriting
-dev_path = 'G:\\GITS\\fa'
-dev_pathnomads = 'G:\\GITS\\nomads'
+--Rename this path to where you placed the repositories for  nomads
+dev_pathnomads = 'your-nomads-repository-location'
 
+-- **Make sure you also have the file "init_local_development.lua" set up**
 
+-- Start, do original init development file, which does multiple things:
+-- - Adds the base game files to `path`.
+-- - Adds the map/mod vault files to `path`.
+-- - Clears the shader cache.
+dofile(InitFileDir .. '\\init_local_development.lua')
 
--- this imports a path file that is written by Forged Alliance Forever right before it starts the game.
-dofile(InitFileDir .. '\\..\\fa_path.lua')
-path = {}
-local function mount_dir(dir, mountpoint)
-    table.insert(path, { dir = dir, mountpoint = mountpoint } )
-end
+-- Add our own hook to the list. Used to make our files overwrite existing files to ensure flawless operation.
+table.insert(hook, '/nomadhook')
+table.insert(hook, '/sounds')
 
-local function clear_cache()
-    local dir = SHGetFolderPath('LOCAL_APPDATA') .. 'Gas Powered Games\\Supreme Commander Forged Alliance\\cache\\'
-    LOG('Clearing cached shader files in: ' .. dir)
-    for _,file in io.dir(dir .. '**') do
-        if string.find(file, 'mesh') or string.find(file, 'particle') then
-            os.remove(dir .. file)
-        end
-    end
-end
+-- Now add our files to the path table. This is a bit tricky cause we need our files to be first in the list or
+-- we'll get all kinds of issues (simplest check: is there a weird icon in the campaign manager window? If yes then
+-- there are issues).
+table.insert(path, 1, {
+    dir = dev_pathnomads,
+    mountpoint = '/'
+})
+table.insert(path, 2, {
+    dir = dev_pathnomads .. '\\movies',
+    mountpoint = '/'
+})
 
-local function mount_contents(dir, mountpoint)
-    LOG('checking ' .. dir)
-    for _,entry in io.dir(dir .. '\\*') do
-        if entry != '.' and entry != '..' then
-            local mp = string.lower(entry)
-            mp = string.gsub(mp, '[.]scd$', '')
-            mp = string.gsub(mp, '[.]zip$', '')
-            mount_dir(dir .. '\\' .. entry, mountpoint .. '/' .. mp)
-        end
-    end
-end
-
-function mount_mod_sounds(MODFOLDER)
-    -- searching for mods inside the modfolder
-    for _,mod in io.dir( MODFOLDER..'\\*.*') do
-        -- do we have a true directory ?
-        if mod != '.' and mod != '..' then
-            -- searching for sounds inside mod folder
-            for _,folder in io.dir(MODFOLDER..'\\'..mod..'\\*.*') do
-                -- if we found a folder named sounds then mount it
-                if folder == 'sounds' then
-                    LOG('Found mod sounds in: '..mod)
-                    mount_dir(MODFOLDER..'\\'..mod..'\\sounds', '/sounds')
-                    break
-                end
-            end
-        end
-    end
-end
-
--- Clear the shader
-clear_cache()
-
--- This section mounts sounds from the mods directory to allow mods to add custom sounds to the game
-mount_mod_sounds(SHGetFolderPath('PERSONAL') .. 'My Games\\Gas Powered Games\\Supreme Commander Forged Alliance\\mods')
-mount_mod_sounds(InitFileDir .. '\\..\\user\\My Games\\Gas Powered Games\\Supreme Commander Forged Alliance\\mods')
-
--- these are the classic supcom directories. They don't work with accents or other foreign characters in usernames
-mount_contents(SHGetFolderPath('PERSONAL') .. 'My Games\\Gas Powered Games\\Supreme Commander Forged Alliance\\mods', '/mods')
-mount_contents(SHGetFolderPath('PERSONAL') .. 'My Games\\Gas Powered Games\\Supreme Commander Forged Alliance\\maps', '/maps')
--- these are the local FAF directories. The My Games ones are only there for people with usernames that don't work in the upper ones.
-mount_contents(InitFileDir .. '\\..\\user\\My Games\\Gas Powered Games\\Supreme Commander Forged Alliance\\mods', '/mods')
-mount_contents(InitFileDir .. '\\..\\user\\My Games\\Gas Powered Games\\Supreme Commander Forged Alliance\\maps', '/maps')
-mount_dir(InitFileDir .. '\\..\\gamedata\\advanced strategic icons.nxt', '/') --load strategic icons on top of nomads
-mount_dir(dev_pathnomads, '/')
-mount_dir(dev_path, '/')
-mount_dir(dev_pathnomads .. '\\movies', '/')
--- these are using the newly generated path from the dofile() statement at the beginning of this script
-mount_dir(fa_path .. '\\gamedata\\*.scd', '/')
-mount_dir(fa_path, '/')
-
---load preferences into the game as well, letting us have much more control over their contents. This also includes cache and similar.
-mount_dir(SHGetFolderPath('LOCAL_APPDATA') .. 'Gas Powered Games\\Supreme Commander Forged Alliance', '/preferences')
-
-hook = {
-    '/schook',
-    '/nomadhook',
-    '/sounds',
-}
-protocols = {
-    'http',
-    'https',
-    'mailto',
-    'ventrilo',
-    'teamspeak',
-    'daap',
-    'im',
-}
+-- Inserting into the global path table directly breaks the original init file's `MountDirectory` function,
+-- but as that function operates only locally in that file, and it is now inaccessible, this should be fine.

@@ -62,19 +62,18 @@ Congratulations, you now have everything you need to start contributing! Do chec
 View our [Technical docs](docs/index.md) inside the `docs` directory of this repo.
 
 #### Run the game from the Nomads lua code
-You should have a local copy of the code _- both FAForever/fa and Nomads-Project/nomads -_ on your computer.
+You should have a local copy of the code _- both FAForever/fa and FAForever/nomads -_ on your computer.
 Now you'll want to set up your test environment, i.e. running the game based on your local copies.
 
-1. Inside of the nomads repository is an `init_devnomads.lua` file that you need to **copy** inside ```C:\ProgramData\FAForever\bin\```
-2. You will need to open the file and edit the file paths to match the locations of where you put the local copies of the code. The lines are at the start of the file, so you can't miss them.
+1. If you haven't already set up `FAForever/fa` development environment, do so , since you will need `init_local_development.lua` to be set up. ([setup guide](https://github.com/FAForever/fa/blob/develop/setup/setup-english.md))
+2. Inside of the nomads repository is an `init_devnomads.lua` file that you need to **copy** inside ```C:\ProgramData\FAForever\bin\```
+3. You will need to open the file and edit the file path to match the location of where you put the local copy of the code. The line is at the start of the file, so you can't miss it.
    - *( Make sure you don't edit the original file, to avoid problems later )*
-   - Make sure you pay attention to the double slashes in the file paths, and put them into the paths or they will not work!
-   - `dev_path = 'E:\\GITS\\fa'` corresponds to the path to the FA repository
-   - `dev_pathnomads = 'E:\\GITS\\nomads'` corresponds to the path to the Nomads repository
+   - `dev_pathnomads = 'E:/GITS/nomads'` corresponds to the path to the Nomads repository
 
-3. Inside the same folder, ```C:\ProgramData\FAForever\bin\```, you'll find `ForgedAlliance.exe`
-4. Make a shortcut for it either by right clicking on the file and putting it in an easily accessable place or right clicking in the folder you want the shortcut to be in and making a new shortcut there. *(For example your desktop)*
-5. Go into its properties (right click) and change the target:
+4. Inside the same folder, ```C:\ProgramData\FAForever\bin\```, you'll find `ForgedAlliance.exe`
+5. Make a shortcut for it either by right clicking on the file and putting it in an easily accessable place or right clicking in the folder you want the shortcut to be in and making a new shortcut there. *(For example your desktop)*
+6. Go into its properties (right click) and change the target:
 ```
 C:\ProgramData\FAForever\bin\ForgedAlliance.exe /init init_devnomads.lua /EnableDiskWatch /showlog /log C:\ProgramData\FAForever\logs\dev.log
 ```
@@ -146,7 +145,7 @@ WARNING: attempt to retrieve annotation from unknown technique NomadsUnit
 WARNING: c:\work\rts\main\code\src\libs\gpggal\EffectD3D9.cpp(89) invalid effect technique requested: NomadsUnit
 ```
 Try to run the `shader_cleaner.bat` file to fix it.
-You can find this file inside your local copy of **Nomads-Project/nomads**.
+You can find this file inside your local copy of **FAForever/nomads**.
 
 Implementing Nomads in FAF (update the current version)
 ----------------------------------------
