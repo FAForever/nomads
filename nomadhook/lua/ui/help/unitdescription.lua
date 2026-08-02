@@ -193,11 +193,12 @@ Description = table.merged( Description, {
 
     -- NOMADS SEA UNITS
     ['xns0203'] = "<LOC xns0203_help>Attack Submarine",
+    ['xns0102'] = "<LOC xns0102_help>Artillery Boat",
     ['xns0103'] = "<LOC xns0103_help>Frigate",
 
     ['xns0201'] = "<LOC xns0201_help>Destroyer",
     ['xns0202'] = "<LOC xns0202_help>Cruiser",
-    ['xns0102'] = "<LOC xns0102_help>Torpedo Boat",
+    ['xns0205'] = "<LOC xns0205_help>EMP Ship",
 
     ['xns0301'] = "<LOC xns0301_help>Battleship",
     ['xns0304'] = "<LOC xns0304_help>Heavy Attack Submarine",

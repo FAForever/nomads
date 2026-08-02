@@ -1,5 +1,5 @@
 UnitBlueprint{
-    Description = "<LOC XNS0102_desc>Artillery Boat",
+    Description = "<LOC xns0102_desc>Artillery Boat",
     Audio = {
         AmbientMove = Sound { Bank = 'UES',             Cue = 'UES0103_Move_Loop',   LodCutoff = 'UnitMove_LodCutoff' },
         Killed      = Sound { Bank = 'UESDestroy',      Cue = 'UES0103_Destroy',     LodCutoff = 'UnitMove_LodCutoff' },
@@ -126,11 +126,11 @@ UnitBlueprint{
         FactionName = "Nomads",
         Icon = "sea",
         TechLevel = "RULEUTL_Basic",
-        UnitName = "<LOC XNS0102_name>Defender Class",
+        UnitName = "<LOC xns0102_name>Defender Class",
         UnitWeight = 1,
     },
     Intel = { VisionRadius = 32 },
-    Interface = { HelpText = "<LOC XNS0102_help>Artillery Boat" },
+    Interface = { HelpText = "<LOC xns0102_help>Artillery Boat" },
     LifeBarHeight = 0.075,
     LifeBarOffset = 1.7,
     LifeBarSize = 1.25,
