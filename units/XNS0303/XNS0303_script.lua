@@ -162,6 +162,7 @@ XNS0303 = Class(NSeaUnit, AircraftCarrier, ExternalFactoryComponent) {
         Main = function(self)
             self:SetBusy(true)
             self:DetachAll( self.BuildAttachBone )
+            self.UnitBeingBuilt:AttachTo( self, self.BuildAttachBone )
             self.UnitBeingBuilt:HideBone( 0, true )
             self.UnitDoneBeingBuilt = false
         end,
@@ -169,27 +170,6 @@ XNS0303 = Class(NSeaUnit, AircraftCarrier, ExternalFactoryComponent) {
         OnStopBuild = function(self, unitBeingBuilt)
             NSeaUnit.OnStopBuild(self, unitBeingBuilt)
             ExternalFactoryComponent.OnStopBuildWithStorage(self, unitBeingBuilt)
-            ChangeState(self, self.FinishedBuildingState)
-        end,
-    },
-
-    FinishedBuildingState = State {
-        Main = function(self)
-            self:SetBusy(true)
-            self.UnitBeingBuilt:DetachFrom(true)
-            self:DetachAll(self.BuildAttachBone)
-            if self:TransportHasAvailableStorage() then
-                self:AddUnitToStorage( self.UnitBeingBuilt )
-            else
-                local worldPos = self:CalculateWorldPositionFromRelative( {0, 0, -20} )
-                Warp( self.UnitBeingBuilt, self:GetPosition( self.BuildAttachBone ), self.UnitBeingBuilt:GetOrientation() )
-                IssueMoveOffFactory( { self.UnitBeingBuilt, }, worldPos )
-                self.UnitBeingBuilt:ShowBone( 0, true )
-            end
-
-            self:SetBusy(false)
-            self:RequestRefreshUI()
-            ChangeState(self, self.IdleState)
         end,
     },
 }
