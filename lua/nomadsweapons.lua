@@ -149,7 +149,11 @@ NDFPlasmaBeamWeapon = Class(DefaultBeamWeapon) {
     SetOnTransport = function(self, transportstate)--true when on transport
         DefaultBeamWeapon.SetOnTransport(self, transportstate)
         self:SetWeaponEnabled(false)
-        self:ForkThread( self.TransportAnimationThread, transportstate)
+        -- run one swap at a time, so a second transport event can't reset an unpack in progress
+        if self.TransportAnimThread then
+            KillThread(self.TransportAnimThread)
+        end
+        self.TransportAnimThread = self:ForkThread( self.TransportAnimationThread, transportstate)
     end,
 
     ---@param self NDFPlasmaBeamWeapon
@@ -162,14 +166,28 @@ NDFPlasmaBeamWeapon = Class(DefaultBeamWeapon) {
         if self.UnpackAnimator:GetAnimationFraction() > 0 then
             self.UnpackAnimator:SetRate(-bp.WeaponUnpackAnimationRate)
             WaitFor(self.UnpackAnimator)
+            if self.unit.Dead then
+                return
+            end
         end
         if transportstate then
             self.UnpackAnimator:PlayAnim(bp.WeaponUnpackAnimationTransported):SetRate(0)
         else
             self.UnpackAnimator:PlayAnim(bp.WeaponUnpackAnimation):SetRate(0)
         end
+        -- the swapped animation starts packed, so the weapon state has to match it,
+        -- otherwise a weapon that was firing skips its unpack sequence
+        self.WeaponPackState = 'Packed'
+        self.CurrentlyUnpacking = false
+        ChangeState(self, self.IdleState)
         self:SetWeaponEnabled(true)
-        self:ResetTarget()
+        -- a target that never left range is not reported again, so start the unpack directly
+        if self:WeaponHasTarget() then
+            self:OnGotTarget()
+        else
+            self:ResetTarget()
+        end
+        self.TransportAnimThread = nil
     end,
 
     ---@param self NDFPlasmaBeamWeapon
